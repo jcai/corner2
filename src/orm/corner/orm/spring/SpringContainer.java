@@ -29,7 +29,7 @@ public class SpringContainer {
 	private static Object obj=new Object();
 	private static SpringContainer instance;
 	private static final Log log = LogFactory.getLog(SpringContainer.class);
-	private static final String DEFAULT_CONFIG_FILES="classpath:/config/application-*.xml";
+	private static final String DEFAULT_CONFIG_FILES="classpath:/config/spring/application-*.xml";
 	private ClassPathXmlApplicationContext applicationContext;
 	
 	private SpringContainer(){
