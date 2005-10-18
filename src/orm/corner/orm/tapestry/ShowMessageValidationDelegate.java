@@ -1,4 +1,4 @@
-package corner.tapestry;
+package corner.orm.tapestry;
 
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
