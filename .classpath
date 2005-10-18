@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/etc"/>
 	<classpathentry kind="src" path="src/orm"/>
 	<classpathentry kind="src" path="src/util"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -22,5 +23,7 @@
 	<classpathentry kind="lib" path="lib/ognl-2.6.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/corner-lib/spring/spring.jar"/>
+	<classpathentry kind="lib" path="/corner-lib/spring/springmodules-sandbox.jar"/>
+	<classpathentry kind="lib" path="/corner-lib/lucene/lucene-1.4.3.jar"/>
 	<classpathentry kind="output" path=".classes"/>
 </classpath>
