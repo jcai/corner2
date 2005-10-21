@@ -6,14 +6,22 @@ import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.FieldTracking;
 import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.ValidationDelegate;
-
+/**
+ * 能够显示错误消息的ValidationDelegate.
+ * 
+ * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
+ * @version	$Revision$
+ * @since	2005-10-21
+ */
 public class ShowMessageValidationDelegate extends ValidationDelegate {
+
+	
+	private static final long serialVersionUID = 8758959678347504102L;
 
 	/**
 	 * 
+	 * @see org.apache.tapestry.valid.IValidationDelegate#writePrefix(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle, org.apache.tapestry.form.IFormComponent, org.apache.tapestry.valid.IValidator)
 	 */
-	private static final long serialVersionUID = 8758959678347504102L;
-
 	@Override
 	public void writePrefix(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component,
             IValidator validator) {
