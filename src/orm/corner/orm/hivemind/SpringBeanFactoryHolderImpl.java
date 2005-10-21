@@ -15,7 +15,10 @@ import corner.orm.spring.SpringContainer;
 public class SpringBeanFactoryHolderImpl extends
 		org.apache.hivemind.lib.impl.SpringBeanFactoryHolderImpl implements
 		RegistryShutdownListener {
-
+	/**
+	 * 得到Spring的BeanFactory
+	 * @see org.apache.hivemind.lib.SpringBeanFactorySource#getBeanFactory()
+	 */
 	 public BeanFactory getBeanFactory() {
 		    if (super.getBeanFactory() == null) {
                     super.setBeanFactory(SpringContainer.getInstance().getApplicationContext());
@@ -23,7 +26,10 @@ public class SpringBeanFactoryHolderImpl extends
             
             return super.getBeanFactory();
     }
-
+	 /**
+	  * 当关闭Hivemind容器时,关闭Spring容器.
+	  * @see org.apache.hivemind.events.RegistryShutdownListener#registryDidShutdown()
+	  */
     public void registryDidShutdown() {
            ((ConfigurableApplicationContext) super.getBeanFactory()).close();
     }
