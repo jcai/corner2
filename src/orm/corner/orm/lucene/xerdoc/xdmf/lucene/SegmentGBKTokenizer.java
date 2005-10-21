@@ -10,12 +10,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.Tokenizer;
-
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * @author Jia Mi
@@ -34,13 +35,15 @@ public class SegmentGBKTokenizer extends Tokenizer {
 
 	private String tokenType = "";
 
+	private int offset = 0;
+
 	private List tokenList = null;
 
 	private DictionaryFactory dictionaryFactory;
 
 	public SegmentGBKTokenizer(Reader reader, DictionaryFactory factory) {
 		this.input = reader;
-		this.dictionaryFactory=factory;
+		this.dictionaryFactory = factory;
 	}
 
 	/*
@@ -57,6 +60,8 @@ public class SegmentGBKTokenizer extends Tokenizer {
 
 		Token token = (Token) tokenList.get(0);
 		tokenList.remove(0);
+		
+		//System.out.println("token ["+token.toString()+"]");
 		return token;
 	}
 
@@ -64,11 +69,14 @@ public class SegmentGBKTokenizer extends Tokenizer {
 		List tokenCache = new ArrayList();
 		String tokenType = "";
 		StringBuffer wordBuffer = new StringBuffer();
-
+		
+		int start = offset;
 		while (true) {
+
 			if (bufferIndex >= dataLen) {
 				dataLen = input.read(ioBuffer);
 				bufferIndex = 0;
+
 			}
 
 			if (dataLen == -1) {
@@ -79,6 +87,8 @@ public class SegmentGBKTokenizer extends Tokenizer {
 			}
 
 			char ch = ioBuffer[bufferIndex++];
+			offset++;
+
 			Character.UnicodeBlock ub = Character.UnicodeBlock.of(ch);
 			if ((ub == Character.UnicodeBlock.BASIC_LATIN)
 					|| (ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS)) {
@@ -92,8 +102,9 @@ public class SegmentGBKTokenizer extends Tokenizer {
 				if (Character.isLetter(ch)
 						|| ((ch == '_') || (ch == '+') || (ch == '#'))) {
 					if (tokenType.equals("NLS") && wordBuffer.length() > 0) {
-						Token token = new Token(wordBuffer.toString(), 0,
-								wordBuffer.length(), tokenType);
+						Token token = new Token(wordBuffer.toString(), start,
+								offset, tokenType);
+						
 						tokenCache.add(token);
 						wordBuffer.delete(0, wordBuffer.length());
 					}
@@ -104,8 +115,9 @@ public class SegmentGBKTokenizer extends Tokenizer {
 						continue;
 
 					if (tokenType.equals("NLS") && wordBuffer.length() > 0) {
-						Token token = new Token(wordBuffer.toString(), 0,
-								wordBuffer.length(), tokenType);
+						Token token = new Token(wordBuffer.toString(), start,
+								offset, tokenType);
+						
 						tokenCache.add(token);
 						wordBuffer.delete(0, wordBuffer.length());
 					} else {
@@ -116,8 +128,9 @@ public class SegmentGBKTokenizer extends Tokenizer {
 					if (wordBuffer.length() == 0)
 						continue;
 					else {
-						Token token = new Token(wordBuffer.toString(), 0,
-								wordBuffer.length(), tokenType);
+						Token token = new Token(wordBuffer.toString(), start,
+								offset, tokenType);
+						
 						tokenCache.add(token);
 						wordBuffer.delete(0, wordBuffer.length());
 						break;
@@ -127,8 +140,9 @@ public class SegmentGBKTokenizer extends Tokenizer {
 				// NLS Character:
 				if (Character.isLetter(ch)) {
 					if (tokenType.equals("NON_NLS") && wordBuffer.length() > 0) {
-						Token token = new Token(wordBuffer.toString(), 0,
-								wordBuffer.length(), tokenType);
+						Token token = new Token(wordBuffer.toString(), start,
+								offset, tokenType);
+						
 						tokenCache.add(token);
 						wordBuffer.delete(0, wordBuffer.length());
 					}
@@ -136,8 +150,9 @@ public class SegmentGBKTokenizer extends Tokenizer {
 					wordBuffer.append(ch);
 				} else {
 					if (wordBuffer.length() > 0) {
-						Token token = new Token(wordBuffer.toString(), 0,
-								wordBuffer.length(), tokenType);
+						Token token = new Token(wordBuffer.toString(),
+								bufferIndex - wordBuffer.length() + 1,
+								bufferIndex, tokenType);
 						tokenCache.add(token);
 						wordBuffer.delete(0, wordBuffer.length());
 					}
@@ -150,36 +165,54 @@ public class SegmentGBKTokenizer extends Tokenizer {
 			tokenCache.add(token);
 			wordBuffer.delete(0, wordBuffer.length());
 		}
-        
-        tokenList = new ArrayList();
-        for(int i = 0; i < tokenCache.size(); ++i){
-        	Token token = (Token)tokenCache.get(i);
-            if(token.type().equals("NLS")){
-                String content = token.termText();
-                AbstractDictionary dic = dictionaryFactory.getDictionary("Normal");
-                WordIdentifier identifier = new ChunkWordIdentifier(dic);
-                String[] words = identifier.identifyWord(content);
-                
-                for(int j = 0; j < words.length; ++j)
-                    tokenList.add(new Token(words[j], 0, words[j].length(), token.type()));
-            } else {
-            	tokenList.add(token);
-            }
-        }
+
+		tokenList = new ArrayList();
+		
+		for (int i = 0; i < tokenCache.size(); ++i) {
+			Token token = (Token) tokenCache.get(i);
+			if (token.type().equals("NLS")) {
+				
+				start=token.startOffset();
+				if(start==0){
+					System.err.println("ERROR: start==0 ["+token+"]");
+				}
+				
+				String content = token.termText();
+				AbstractDictionary dic = dictionaryFactory
+						.getDictionary("Normal");
+				WordIdentifier identifier = new ChunkWordIdentifier(dic);
+				String[] words = identifier.identifyWord(content);
+
+				for (int j = 0; j < words.length; ++j){
+					
+					tokenList.add(new Token(words[j],start,start+ words[j].length(),
+							token.type()));
+					start+=words[j].length();
+				}
+			} else {
+				tokenList.add(token);
+			}
+		}
 	}
 
-	/*public static void main(String[] args) throws Exception {
-		BufferedReader reader = new BufferedReader(new FileReader(
-				"D:\\WintersBase\\ProjectEnv\\testfile\\testcase.txt"));
-		SegmentGBKTokenizer tokenizer = new SegmentGBKTokenizer(reader);
+	public static void main(String[] args) throws Exception {
+		StringReader reader = new StringReader("研究生在研究,研究生命起源,我是一命研究生.!");
+		DictionaryFactory dictionaryFactory = new DictionaryFactory();
+		dictionaryFactory.setDictionariesLocation(new ClassPathResource(
+				"/corner/orm/lucene/xerdoc/dictionary",SegmentGBKTokenizer.class));
+		dictionaryFactory.afterPropertiesSet();
+
+		SegmentGBKTokenizer tokenizer = new SegmentGBKTokenizer(reader,
+				dictionaryFactory);
 
 		Token token;
-        int i = 0;
-		while((token = tokenizer.next()) != null){
-			System.out.print(token.termText() + " / ");
-            ++i;
-            if(i % 5 == 0)
-                System.out.println("");
+		int i = 0;
+		while ((token = tokenizer.next()) != null) {
+//			System.out.print(token.termText() + "["+token.startOffset()+","+token.endOffset()+"] / ");
+//			++i;
+//			if (i % 5 == 0)
+//				System.out.println("");
 		}
-	}*/
+	}
+
 }

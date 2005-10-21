@@ -12,16 +12,34 @@
 
 package corner.orm.lucene;
 
-import org.springmodules.lucene.index.support.LuceneIndexSupport;
+import java.io.IOException;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.document.Document;
+
+import corner.orm.lucene.cd.WebLuceneHighlighter;
 
 /**
- * 对Lucne的索引支持.
- * <P>兼容了SpringModules中的Lucene部分.
  * 
+ * 提供高亮支持的Extractor.
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-10-21
  */
-public class IndexAccessor extends LuceneIndexSupport {
-	
+public interface HighlighterHitExtractor {
+	/**
+	 * 对Lucene的每个Hit进行处理.
+	 * @param id hit的ID号.
+	 * @param doc Lucene文档.
+	 * @param score 得分.
+	 * @param highlighter 高亮类.
+	 * @param analyzier 分析器.
+	 * @return 处理的结果.
+	 * @throws IOException 假如发生错误.
+	 */
+
+	public abstract Object mapHit(int id, Document doc, float score,
+			WebLuceneHighlighter highlighter, Analyzer analyzier)
+			throws IOException;
+
 }
