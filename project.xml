@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <pomVersion>0.1</pomVersion>
+    <pomVersion>3</pomVersion>
     <artifactId>corner</artifactId>
     <name>corner</name>
     <groupId>corner</groupId>
