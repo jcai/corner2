@@ -27,6 +27,7 @@ import org.springmodules.lucene.search.core.SearcherCallback;
 import org.springmodules.lucene.search.support.LuceneSearchSupport;
 
 import corner.orm.lucene.cd.WebLuceneHighlighter;
+import corner.util.PaginationBean;
 
 /**
  * 对基于Lucene的Search的支持.
@@ -41,13 +42,11 @@ public class SearchAccessor extends LuceneSearchSupport {
 	 * 对索引库进行搜索.
 	 * @param queryCreator Query创建器.
 	 * @param extractor hit的Extractor
-	 * @param start 开是位置.
-	 * @param offset 偏移量
+	 * @param pb 控制记录的bean.
 	 * @return 搜索结果列表.
 	 */
 	public List search(final QueryCreator queryCreator,
-			final HighlighterHitExtractor extractor, final int start,
-			final int offset) {
+			final HighlighterHitExtractor extractor,final PaginationBean pb) {
 		return (List) this.getTemplate().search(new SearcherCallback() {
 			public Object doWithSearcher(Searcher searcher) throws IOException,
 					ParseException {
@@ -60,18 +59,30 @@ public class SearchAccessor extends LuceneSearchSupport {
 				WebLuceneHighlighter highlighter=new WebLuceneHighlighter((ArrayList) tokens);
 				
 				Hits hits = searcher.search(query);
-				return extractHits(hits, extractor, start, offset, highlighter);
+				pb.setRowCount(hits.length());
+				return extractHits(hits, extractor,pb.getFirst(),pb.getPageSize(), highlighter);
 			}
 		});
 	}
+	/**
+	 * 得到搜索的结果记录数.
+	 * @param qc query创建器.
+	 * @return 匹配结果的记录数.
+	 */
+	public int getSearchCount(final QueryCreator qc){
+		return ((Integer) this.getTemplate().search(new SearcherCallback(){
+			public Object doWithSearcher(Searcher searcher) throws IOException, ParseException {
+				return new Integer(searcher.search(qc.createQuery(getAnalyzer())).length());
+			}})).intValue();
+	}
 
+	@SuppressWarnings("unchecked")
 	private List extractHits(Hits hits, HighlighterHitExtractor extractor,
 			int start, int offSize, WebLuceneHighlighter h) throws IOException {
-		//System.out.println("search result [" + hits.length() + "] start ["
-		//		+ start + "] offset [" + offSize + "]");
+		
 		List list = new ArrayList();
 		int length = hits.length();
-		list.add(length);
+		
 		if (start > length) {
 			start = length - offSize;
 		}
@@ -79,11 +90,9 @@ public class SearchAccessor extends LuceneSearchSupport {
 			start = 0;
 		}
 		for (int i = start; i < start + offSize && i < length; i++) {
-			// //System.out.println("=================start======================");
 			list.add(extractor.mapHit(i, hits.doc(i), hits.score(i), h, this
 					.getAnalyzer()));
-			// //System.out.println("=================end======================");
-
+			
 		}
 		return list;
 	}
