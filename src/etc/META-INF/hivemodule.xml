@@ -1,4 +1,4 @@
-<module id="corner.orm" version="4.0.0">
+<module id="corner.orm" version="1.0.0">
 	<implementation
 		service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
 		<invoke-factory>
