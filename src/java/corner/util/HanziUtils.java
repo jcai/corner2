@@ -21,13 +21,16 @@ package corner.util;
  * @since 2005-10-26
  */
 public class HanziUtils {
+	/**Unicode中汉字开始点**/
 	private static final int HANZI_UNICODE_START=19968;
+	/**Unicode中汉字的结束点**/
 	private static final int HANZI_UNICODE_END=40869;
 	/**
 	 * 得到汉字拼音的首子母组合.
 	 * eg:
 	 *  参数值为"中华人民共和国"
 	 *  返回:"zhrmghg"
+	 *  
 	 * @param hanzi 需要处理的汉字,如果包含有非汉字母,则返回子母本身.
 	 * @return 返回的汉字拼音首子母组合.
 	 */
