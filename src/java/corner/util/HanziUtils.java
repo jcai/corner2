@@ -20,7 +20,7 @@ package corner.util;
  * @version $Revision$
  * @since 2005-10-26
  */
-public class HanziUtils {
+public final class HanziUtils {
 	/**Unicode中汉字开始点**/
 	private static final int HANZI_UNICODE_START=19968;
 	/**Unicode中汉字的结束点**/
