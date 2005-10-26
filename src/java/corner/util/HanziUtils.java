@@ -47,7 +47,7 @@ public class HanziUtils {
 		}
 		return result.toString();
 	}
-	/**定义的汉字拼音的首子母组合.**/
+	/**定义的Unicode中的汉字对应拼音的首子母.**/
 	 private static String strChineseFirstPY =
 		 "ydyqsxmwzssxjbymgcczqpssqbycdscdqldylybssjgyzzjjfkcclzdhwdwzjljpfyynwjjtmyhzwzhflzppqhgscyyynjqyxxgj"
 		 + "hhsdsjnkktmomlcrxypsnqseccqzggllyjlmyzzsecykyyhqwjssggyxyzyjwwkdjhychmyxjtlxjyqbyxzldwrdjrwysrldzjpc"
