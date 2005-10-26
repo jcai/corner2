@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import corner.util.Pager;
+import corner.util.PaginationBean;
 
 /**
  * 支持O/R Mapping的相关的操作.
@@ -50,7 +50,7 @@ public interface ObjectRelativeUtils {
      * @throws DataAccessException 假如发生数据库操作错误.
      * @see Pager
      */
-    public List find(String query,Pager pager) throws DataAccessException;
+    public List find(String query,PaginationBean pager) throws DataAccessException;
     /**
      * 通过给定的第一条记录和抓取的记录数来获取一个分段数据.
      * @param query 查询语句.

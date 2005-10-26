@@ -26,7 +26,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.HibernateObjectRetrievalFailureException;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
-import corner.util.Pager;
+import corner.util.PaginationBean;
 
 /**
  * hibernate的O/R Mapping的实�?
@@ -102,9 +102,9 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String,
 	 *      org.cnjug.weed.entity.Pager)
 	 */
-	public List find(final String query, final Pager pager)
+	public List find(final String query, final PaginationBean pager)
 			throws DataAccessException {
-		return find(query, pager.getPosition(), pager.getMaxResults());
+		return find(query, pager.getFirst(), pager.getPageSize());
 
 	}
 
