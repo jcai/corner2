@@ -134,6 +134,20 @@ public class BeanUtils {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+	 * 实例化一个类.
+	 * @param clazz 类的名称.
+	 * @return 实例化的类.
+	 */
+	public static <T> T instantiateClass(Class<T> clazz) {
+		try {
+			return clazz.newInstance();
+		} catch (InstantiationException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		} 
+	}
 
 }
 

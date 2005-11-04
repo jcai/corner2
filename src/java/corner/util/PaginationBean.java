@@ -27,7 +27,7 @@ public class PaginationBean {
 	/** 每页显示记录数,通常默认为{@link #DEFAULT_PAGE_SIZE}**/
 	private int pageSize=10;
 	/**得到总的记录数**/
-	private int rowCount;
+	private int rowCount=-1;
 	/**
 	 * @return Returns the first.
 	 */
