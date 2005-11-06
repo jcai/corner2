@@ -16,11 +16,28 @@ import java.io.Serializable;
 
 import org.apache.tapestry.IPage;
 
+/**
+ * 
+ * 基本的实体操作接口。
+ * @author Jun Tsai
+ * @since 0.1
+ * @param <T> 实体类
+ */
 public interface EntityPage<T> extends IPage {
-	/** 实体* */
+	/**
+	 * 得到实体。
+	 * @return 实体。
+	 */
 	public abstract T getEntity();
-
+	/***
+	 * 设定实体。
+	 * @param entity 实体。
+	 */
 	public abstract void setEntity(T entity);
 
+	/**
+	 * 根据实体的主键，得到一个实体，并设定实体。
+	 * @param key 主键值
+	 */
 	public abstract void loadEntity(Serializable key);
 }
