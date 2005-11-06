@@ -128,7 +128,12 @@ public abstract class EntityListPage<T> extends BasePage implements
 					column, flag);
 		}
 	}
-
+	
+	/**
+	 * µÃµ½TableµÄsource¡£
+	 * @return
+	 * @see IBasicTableeModel
+	 */
 	public abstract IBasicTableModel getSource() ;
 	public abstract void setSource(IBasicTableModel btm);
 
