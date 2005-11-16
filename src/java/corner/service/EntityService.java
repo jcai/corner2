@@ -28,11 +28,11 @@ import corner.util.PaginationBean;
  * @version	$Revision$
  * @since	2005-11-2
  */
-public class BaseService {
+public class EntityService {
 	/**
 	 * Logger for this class
 	 */
-	private static final Log logger = LogFactory.getLog(BaseService.class);
+	private static final Log logger = LogFactory.getLog(EntityService.class);
 
 	protected ObjectRelativeUtils oru;
 	public void setObjectRelativeUtils(ObjectRelativeUtils oru){

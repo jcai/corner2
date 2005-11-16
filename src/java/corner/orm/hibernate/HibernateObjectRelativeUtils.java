@@ -55,11 +55,11 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T load(Class<T> refClass, Serializable key) {
-		try {
+		//try {
 			return (T) getHibernateTemplate().load(refClass, key);
-		} catch (HibernateObjectRetrievalFailureException horfe) {
-			return null;
-		}
+		//} catch (HibernateObjectRetrievalFailureException horfe) {
+		//	return null;
+		//}
 
 	}
 

@@ -33,7 +33,7 @@ import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.html.BasePage;
 
 import corner.orm.tapestry.ReflectPrimaryKeyConverter;
-import corner.service.BaseService;
+import corner.service.EntityService;
 import corner.util.PaginationBean;
 
 /**
@@ -85,8 +85,8 @@ public abstract class EntityListPage<T> extends BasePage implements
 		return pkc;
 	}
 
-	@InjectObject("spring:baseService")
-	public abstract BaseService getBaseService();
+	@InjectObject("spring:entityService")
+	public abstract EntityService getBaseService();
 
 	/**得到实体的行数.**/
 	protected int getEntityRowCount() {

@@ -21,7 +21,7 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 
-import corner.service.BaseService;
+import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 /**
@@ -53,8 +53,8 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 		this.setEntity(getBaseService().loadEntity(clazz,key));
 	}
 
-	@InjectObject("spring:baseService")
-	public abstract BaseService getBaseService();
+	@InjectObject("spring:entityService")
+	public abstract EntityService getBaseService();
 
 	/**
 	 * 得到需要显示list列表的页.
