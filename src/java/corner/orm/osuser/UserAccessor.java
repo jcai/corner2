@@ -29,7 +29,7 @@ public interface UserAccessor {
 	public abstract User addUser(String username, String password,
 			String email, String fullname, String groups[]);
 
-	@SuppressWarnings("unchecked")
+	
 	public abstract <T> List<User> getUsers();
 
 	public abstract User getUser(String name);
