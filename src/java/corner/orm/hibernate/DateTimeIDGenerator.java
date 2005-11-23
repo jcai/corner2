@@ -62,8 +62,8 @@ public class DateTimeIDGenerator implements IdentifierGenerator, Configurable {
 	/* get now time formatted*/
 	private String getNowTimeFormatted() {
 		Calendar rightNow = Calendar.getInstance();
-		DateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String currentTime = format.format(rightNow.getTime());
+		DateFormat formator = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String currentTime = formator.format(rightNow.getTime());
 		if (currentTime.equals(upTime)) {
 			try {
 				Thread.sleep(1);
