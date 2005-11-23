@@ -127,10 +127,13 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#delete(java.lang.String)
 	 */
-	public int delete(String query) throws DataAccessException {
-		 //getHibernateTemplate().deleteAll().delete(query);
-		//TDODO: delete a query
-		 return 0;
+	public int delete(final String query) throws DataAccessException {
+		return ((Integer) getHibernateTemplate().execute(new HibernateCallback(){
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				return new Integer(session.createQuery(query).executeUpdate());
+			}})).intValue();
+		
+		 
 	}
 
 }
