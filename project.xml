@@ -161,7 +161,7 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>hibernate</groupId>
+            <groupId>hibernate3</groupId>
             <artifactId>hibernate</artifactId>
             <version>3.0.5</version>
             <type>jar</type>
