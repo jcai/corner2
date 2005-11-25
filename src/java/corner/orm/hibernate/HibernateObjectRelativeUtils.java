@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -130,6 +131,28 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 			return new ArrayList();
 		}
 	}
+	/**
+	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String, int,
+	 *      int)
+	 */
+	public List find(final String query,final Object param, final int first, final int maxResults)
+			throws DataAccessException {
+		try {
+			return getHibernateTemplate().executeFind(new HibernateCallback() {
+
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query q = session.createQuery(query);
+					q.setParameter(0,param);
+					q.setFirstResult(first);
+					q.setMaxResults(maxResults);
+					return q.list();
+				}
+			});
+		} catch (HibernateObjectRetrievalFailureException horfe) {
+			return new ArrayList();
+		}
+	}
 
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#count(java.lang.String)
@@ -150,4 +173,6 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	public int delete(String query) throws DataAccessException {
 		return getHibernateTemplate().delete(query);
 	}
+	
+	
 }

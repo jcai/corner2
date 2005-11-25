@@ -110,6 +110,28 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 			return new ArrayList();
 		}
 	}
+	/**
+	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String, int,
+	 *      int)
+	 */
+	public List find(final String query, final Object param,final int first, final int maxResults)
+			throws DataAccessException {
+		try {
+			return getHibernateTemplate().executeFind(new HibernateCallback() {
+
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query q = session.createQuery(query);
+					q.setParameter(0,param);
+					q.setFirstResult(first);
+					q.setMaxResults(maxResults);
+					return q.list();
+				}
+			});
+		} catch (HibernateObjectRetrievalFailureException horfe) {
+			return new ArrayList();
+		}
+	}
 
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#count(java.lang.String)
@@ -131,6 +153,17 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		return ((Integer) getHibernateTemplate().execute(new HibernateCallback(){
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				return new Integer(session.createQuery(query).executeUpdate());
+			}})).intValue();
+		
+		 
+	}
+	/**
+	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#delete(java.lang.String)
+	 */
+	public int delete(final String query,final Object param) throws DataAccessException {
+		return ((Integer) getHibernateTemplate().execute(new HibernateCallback(){
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				return new Integer(session.createQuery(query).setParameter(0,param).executeUpdate());
 			}})).intValue();
 		
 		 

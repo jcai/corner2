@@ -45,6 +45,10 @@ public class EntityService {
 	public<T> Serializable saveEntity(T entity){
 		return oru.save(entity);
 	}
+	public <T> void saveOrUpdateEntity(T entity){
+		oru.saveOrUpdate(entity);
+	}
+	
 	public <T> void updateEntity(T entity){
 		oru.update(entity);
 	}

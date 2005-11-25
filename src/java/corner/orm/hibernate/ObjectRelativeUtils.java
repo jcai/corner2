@@ -61,6 +61,17 @@ public interface ObjectRelativeUtils {
      */
     public List find(String query,int first,int maxResults) throws DataAccessException;
     /**
+     * 通过给定的第一条记录和抓取的记录数来获取一个分段数据.
+     * @param query 查询语句.
+     * @param param 参数
+     * @param first 第一条记录.
+     * 
+     * @param maxResults 抓取的记录数.
+     * @return 分段的记录集.
+     * @throws DataAccessException 假如发生数据库操作错误.
+     */
+    public List find(String query,Object parame,int first,int maxResults) throws DataAccessException;
+    /**
      * 查询来获得记录的书目,假定此查询语句为一个获得记录集数目的语句.
      * @param query 查询语句,此语句一定是一个获得记录集数目的语句.
      * @return 记录集的数目.
@@ -68,6 +79,14 @@ public interface ObjectRelativeUtils {
      */
     public int count(String query) throws DataAccessException;
     
+    /**
+     * 通过一个语句来实现删除.
+     * @param query 删除的语句.
+     * @return 删除的数量.
+     * @throws DataAccessException 假如发生数据库操作错误.
+     */
+    public int delete(String query) throws DataAccessException;
+  
 
     /*-------------------------------------------------------------------------
      * 对单一实体的搜索操作,他不同于load方法,主要是提供对各种属性的搜索操作.		   
@@ -158,12 +177,6 @@ public interface ObjectRelativeUtils {
      * @throws DataAccessException 假如发生数据库操作错误.
      */
     public <T> void delete(T obj) throws DataAccessException;
-    /**
-     * 通过一个语句来实现删除.
-     * @param query 删除的语句.
-     * @return 删除的数量.
-     * @throws DataAccessException 假如发生数据库操作错误.
-     */
-    public int delete(String query) throws DataAccessException;
+   
     
 }
