@@ -38,6 +38,9 @@ public class EntityService {
 	public void setObjectRelativeUtils(ObjectRelativeUtils oru){
 		this.oru=oru;
 	}
+	public ObjectRelativeUtils getObjectRelativeUtils(){
+		return oru;
+	}
 	
 	public<T> Serializable saveEntity(T entity){
 		return oru.save(entity);
