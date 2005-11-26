@@ -16,7 +16,7 @@
         <connection>scm:svn:http://10.1.7.110/svn/corner/trunk/corner</connection>
         <developerConnection>scm:svn:http://10.1.7.110/svn/corner/trunk/corner</developerConnection>
         <url>http://10.1.7.110/projects/corner/browser</url>
-    </repository>
+    </repository> 
     <mailingLists>
         <mailingList>
             <name>${pom.name} Dev List</name>
