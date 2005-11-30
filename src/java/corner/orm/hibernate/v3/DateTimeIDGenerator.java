@@ -13,13 +13,8 @@
 package corner.orm.hibernate.v3;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.SessionImplementor;
@@ -42,8 +37,6 @@ import corner.orm.hibernate.AbstractDateTimeIDGenerator;
 public class DateTimeIDGenerator extends AbstractDateTimeIDGenerator implements IdentifierGenerator, Configurable {
 	private String prefix;
 	private static final String PREFIX="prefix";
-
-	private static final Log log = LogFactory.getLog(DateTimeIDGenerator.class);
 
 	/**
 	 * @see net.sf.hibernate.id.IdentifierGenerator#generate(net.sf.hibernate.engine.SessionImplementor,

@@ -14,9 +14,6 @@ package corner.orm.hibernate;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Properties;
 
 import net.sf.hibernate.HibernateException;
@@ -26,9 +23,6 @@ import net.sf.hibernate.id.Configurable;
 import net.sf.hibernate.id.IdentifierGenerator;
 import net.sf.hibernate.type.Type;
 import net.sf.hibernate.util.PropertiesHelper;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 一个根据时间来自动生成主键的类。
@@ -44,8 +38,6 @@ public class DateTimeIDGenerator extends AbstractDateTimeIDGenerator implements 
 
 	private String prefix;
 	private static final String PREFIX="prefix";
-
-	private static final Log log = LogFactory.getLog(DateTimeIDGenerator.class);
 
 	/**
 	 * @see net.sf.hibernate.id.IdentifierGenerator#generate(net.sf.hibernate.engine.SessionImplementor,
