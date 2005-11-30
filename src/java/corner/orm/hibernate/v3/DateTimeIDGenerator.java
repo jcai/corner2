@@ -28,6 +28,8 @@ import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.type.Type;
 import org.hibernate.util.PropertiesHelper;
 
+import corner.orm.hibernate.AbstractDateTimeIDGenerator;
+
 /**
  * 一个根据时间来自动生成主键的类。
  * 生成的ID为:prefix+yyyyMMddHHmmssSSS.
@@ -37,9 +39,7 @@ import org.hibernate.util.PropertiesHelper;
  * @since 2005-3-3
  */
 
-public class DateTimeIDGenerator implements IdentifierGenerator, Configurable {
-	String upTime = null;
-
+public class DateTimeIDGenerator extends AbstractDateTimeIDGenerator implements IdentifierGenerator, Configurable {
 	private String prefix;
 	private static final String PREFIX="prefix";
 
@@ -51,27 +51,13 @@ public class DateTimeIDGenerator implements IdentifierGenerator, Configurable {
 	 */
 	public Serializable generate(SessionImplementor session, Object obj)
 			throws  HibernateException {
-		upTime = getNowTimeFormatted();
+		String tempTime = getNowTimeFormatted();
 		if(this.prefix!=null){
-			upTime=prefix+upTime;
+			tempTime=prefix+tempTime;
 		}
-		return upTime;
+		return tempTime;
 	}
-	/* get now time formatted*/
-	private String getNowTimeFormatted() {
-		Calendar rightNow = Calendar.getInstance();
-		DateFormat formator = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String currentTime = formator.format(rightNow.getTime());
-		if (currentTime.equals(upTime)) {
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				log.error(e.getMessage(), e);
-			}
-			currentTime = getNowTimeFormatted();
-		}
-		return currentTime;
-	}
+	
 
 	public void configure(Type type, Properties params, Dialect dialect) {
 		this.prefix = PropertiesHelper.getString(PREFIX, params, "");
