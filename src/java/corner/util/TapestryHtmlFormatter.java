@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class TapestryHtmlFormatter {
 //	如果有其它的tag,如select,直接加到checkbox后面就可
 	 private static final Pattern pattern = Pattern.compile(
-	   "<(form|input|textarea|checkbox|select|button|option|)([^<>]*)(name=\"?([^<>\\s\"]+)\"?)([^<>]*)>",
+	   "<(form|input|textarea|checkbox|select|button|option|)([^<>]*)(name=\"?([^<>\\s\"]+)\"?)([jwcid=\"?([^<>\\s\"]+)\"?]?+)([^<>]*)>",
 	   Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
 	 
 	 public static  StringBuffer format(InputStream io) throws IOException{
@@ -51,10 +51,14 @@ public class TapestryHtmlFormatter {
 		     while ((matcher.find())) {    
 		         String s1 = matcher.group(1);
 		         String s2 = matcher.group(2);
+		         //name
 		         String s3 = matcher.group(3);
 		         String name = matcher.group(4);
-		         String s5 = matcher.group(5);
-		         String value = String.format("<%s%s%s%s%s>",s1,s2,s3,s5," jwcid=\""+name+"Field\"");
+		         //jwcid
+		         String s7 = matcher.group(5);
+		         String value="";
+		         value= String.format("<%s%s%s%s%s>",s1,s2,s3," jwcid=\""+name+"Field\"",s7); 
+		          
 		         matcher.appendReplacement(buf, value);
 		     }
 		     
