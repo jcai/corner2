@@ -54,10 +54,11 @@ public class TapestryHtmlFormatter {
 		         //name
 		         String s3 = matcher.group(3);
 		         String name = matcher.group(4);
-		         //jwcid
+		         
+		         
 		         String s7 = matcher.group(5);
-		         String value="";
-		         value= String.format("<%s%s%s%s%s>",s1,s2,s3," jwcid=\""+name+"Field\"",s7); 
+		         
+		         String value= String.format("<%s%s%s%s%s>",s1,s2,s3," jwcid=\""+name+"Field\"",s7); 
 		          
 		         matcher.appendReplacement(buf, value);
 		     }
