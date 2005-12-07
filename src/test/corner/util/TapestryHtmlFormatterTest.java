@@ -28,6 +28,9 @@ public class TapestryHtmlFormatterTest extends TestCase {
 		byte [] content=src.getBytes();
 		ByteArrayInputStream in=new ByteArrayInputStream(content);
 		StringBuffer sb=TapestryHtmlFormatter.format(in);
+		System.out.println("'"+expectStr+"'");
+		System.out.println("'"+sb.toString()+"'");
+				
 		assertEquals(expectStr,sb.toString());
 		
 	}
@@ -35,11 +38,12 @@ public class TapestryHtmlFormatterTest extends TestCase {
 	 * Test method for 'corner.util.TapestryHtmlFormatter.format(InputStream)'
 	 */
 	public void testCorrectFormat() throws IOException {
-		String src="<input name=\"test\" jwcid=\"asdfField\"/>";
-		String expectStr="<input name=\"test\" jwcid=\"testField\"/>";
+		String src="<input name=\"test\" jwcid=\"asdfField\" type=\"text\" />";
+		String expectStr="<input name=\"test\" jwcid=\"testField\" type=\"text\" />";
 		byte [] content=src.getBytes();
 		ByteArrayInputStream in=new ByteArrayInputStream(content);
-		StringBuffer sb=TapestryHtmlFormatter.format(in);
+		StringBuffer sb=TapestryHtmlFormatter.format(in);	
+		System.out.println(sb.toString());
 		assertEquals(expectStr,sb.toString());
 	}
 
