@@ -24,11 +24,11 @@ public class TapestryHtmlFormatterTest extends TestCase {
 	 */
 	public void testFormat() throws IOException {
 		String src="<input name=\"test\"/>";
-		String dest="<input name=\"test\" jwcid=\"testField\"/>";
+		String expectStr="<input name=\"test\" jwcid=\"testField\"/>";
 		byte [] content=src.getBytes();
 		ByteArrayInputStream in=new ByteArrayInputStream(content);
 		StringBuffer sb=TapestryHtmlFormatter.format(in);
-		assertEquals(dest,sb.toString());
+		assertEquals(expectStr,sb.toString());
 		
 	}
 	/*
@@ -36,11 +36,11 @@ public class TapestryHtmlFormatterTest extends TestCase {
 	 */
 	public void testCorrectFormat() throws IOException {
 		String src="<input name=\"test\" jwcid=\"asdfField\"/>";
-		String dest="<input name=\"test\" jwcid=\"testField\"/>";
+		String expectStr="<input name=\"test\" jwcid=\"testField\"/>";
 		byte [] content=src.getBytes();
 		ByteArrayInputStream in=new ByteArrayInputStream(content);
 		StringBuffer sb=TapestryHtmlFormatter.format(in);
-		assertEquals(dest,sb.toString());
+		assertEquals(expectStr,sb.toString());
 	}
 
 }
