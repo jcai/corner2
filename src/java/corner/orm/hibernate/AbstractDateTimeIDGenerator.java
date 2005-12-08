@@ -38,7 +38,8 @@ public abstract class AbstractDateTimeIDGenerator {
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				log.error(e.getMessage(), e);
+				throw new RuntimeException(e);
+				//log.error(e.getMessage(), e);
 			}
 			currentTime = getNowTimeFormatted();
 		}
