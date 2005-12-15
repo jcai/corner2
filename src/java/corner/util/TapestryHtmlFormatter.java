@@ -55,14 +55,14 @@ public class TapestryHtmlFormatter {
 
 		StringBuffer buf = new StringBuffer();
 		while ((matcher.find())) {
-			String ms = matcher.group();			
 			String value = null;
 			String s1 = matcher.group(1).trim();
 			String s2 = matcher.group(2).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");
 			String s3 = matcher.group(3).trim();
-			String name = matcher.group(4).trim();
+			String name =lowerFirstLetter(matcher.group(4).trim());
+			
 			String s5 = matcher.group(5).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");;
-			value = String.format("<%s%s %s %s%s>", s1, s2, s3, "jwcid=\""
+			value = String.format("<%s %s %s %s %s>", s1, s2, s3, "jwcid=\""
 					+ name + "Field\"", s5);
 			matcher.appendReplacement(buf, value);
 		}
@@ -70,5 +70,11 @@ public class TapestryHtmlFormatter {
 		matcher.appendTail(buf);
 		return buf;
 	}
+	 public static String lowerFirstLetter(String data)
+	    {
+	        String firstLetter = data.substring(0, 1).toLowerCase();
+	        String restLetters = data.substring(1);
+	        return firstLetter + restLetters;
+	    }
 
 }
