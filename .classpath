@@ -23,9 +23,9 @@
 	<classpathentry kind="var" path="MAVEN_REPO/ognl/jars/ognl-2.6.7.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hivemind/jars/hivemind-1.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hivemind/jars/hivemind-lib-1.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-4.0-beta-13.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-annotations-4.0-beta-13.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-contrib-4.0-beta-13.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-4.0-rc-2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-annotations-4.0-rc-2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-contrib-4.0-rc-2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-mock-1.2.5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hibernate3/jars/hibernate-3.0.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
