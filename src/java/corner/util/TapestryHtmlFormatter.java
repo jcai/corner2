@@ -59,11 +59,18 @@ public class TapestryHtmlFormatter {
 			String s1 = matcher.group(1).trim();
 			String s2 = matcher.group(2).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");
 			String s3 = matcher.group(3).trim();
-			String name =lowerFirstLetter(matcher.group(4).trim());
+			String name =matcher.group(4).trim();
+			String jwcid="jwcid=\"";
+				
+			if("form".equalsIgnoreCase(s1)){
+				jwcid+=name+"Form";
+			}else{
+				jwcid+=lowerFirstLetter(name)+"Field";
+			}
+			jwcid+="\"";
 			
 			String s5 = matcher.group(5).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");;
-			value = String.format("<%s %s %s %s %s>", s1, s2, s3, "jwcid=\""
-					+ name + "Field\"", s5);
+			value = String.format("<%s %s %s %s %s>", s1, s2, s3, jwcid, s5);
 			matcher.appendReplacement(buf, value);
 		}
 

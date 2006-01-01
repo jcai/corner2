@@ -12,7 +12,11 @@
 
 package corner.util;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import junit.framework.TestCase;
@@ -45,6 +49,17 @@ public class TapestryHtmlFormatterTest extends TestCase {
 		StringBuffer sb=TapestryHtmlFormatter.format(in);	
 		System.out.println(sb.toString());
 		assertEquals(expectStr,sb.toString());
+	}
+	public void testCreateFile() throws IOException{
+		FileInputStream fi=new FileInputStream(new File("/home/jcai/workspace/poison-system/context/back/MiPhyChemCharacte.html"));
+		StringBuffer sb=TapestryHtmlFormatter.format(fi);
+		
+		try {
+	        BufferedWriter out = new BufferedWriter(new FileWriter("outfilename.html"));
+	        out.write(sb.toString());
+	        out.close();
+	    } catch (IOException e) {
+	    }
 	}
 
 }

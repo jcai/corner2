@@ -116,12 +116,20 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 
 	protected void saveOrUpdateEntity() 
 	{
+		Serializable keyValue=(Serializable) BeanUtils.getProperty(getEntity(), keyName);
+		if(keyValue != null && (getBaseService().loadEntity(clazz,keyValue)!=null)){
 		
-		if (BeanUtils.getProperty(getEntity(), keyName) == null) {
-			getBaseService().saveEntity(getEntity());
-		} else {
 			getBaseService().updateEntity(getEntity());
+		}else{
+			getBaseService().saveEntity(getEntity());
 		}
+		
+	//	getBaseService().saveOrUpdateEntity(getEntity());
+		/*if (BeanUtils.getProperty(getEntity(), keyName) == null) {
+			
+		} else {
+			
+		}*/
 	}
 
 }
