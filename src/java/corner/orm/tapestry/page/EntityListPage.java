@@ -93,7 +93,7 @@ public abstract class EntityListPage<T> extends BasePage implements
 		return getBaseService().count(clazz);
 	}
 	/**得到当前的页的数据**/
-	protected Iterator<T> getCurrentPageRows(int nFirst, int nPageSize,
+	protected Iterator<? extends T> getCurrentPageRows(int nFirst, int nPageSize,
 			ITableColumn column, boolean sort) {
 		PaginationBean pb = getPaginationBean();
 		pb.setFirst(nFirst);

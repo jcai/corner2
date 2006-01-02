@@ -23,17 +23,17 @@ import org.apache.tapestry.IPage;
  * @since 0.1
  * @param <T> 实体类
  */
-public interface EntityPage<T> extends IPage {
+public interface EntityPage<T  extends Object> extends IPage {
 	/**
 	 * 得到实体。
 	 * @return 实体。
 	 */
-	public abstract T getEntity();
+	public  abstract <E extends T> E  getEntity();
 	/***
 	 * 设定实体。
 	 * @param entity 实体。
 	 */
-	public abstract void setEntity(T entity);
+	public abstract <E extends T> void  setEntity(E entity);
 
 	/**
 	 * 根据实体的主键，得到一个实体，并设定实体。
