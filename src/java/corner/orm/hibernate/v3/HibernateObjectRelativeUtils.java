@@ -1,11 +1,15 @@
 package corner.orm.hibernate.v3;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.dao.DataAccessException;
@@ -17,6 +21,11 @@ import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.util.PaginationBean;
 
 public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements ObjectRelativeUtils {
+	/**
+	 * Logger for this class
+	 */
+	private static final Log logger = LogFactory
+			.getLog(HibernateObjectRelativeUtils.class);
 
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String)
@@ -38,6 +47,15 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		try {
 			return (T) getHibernateTemplate().load(refClass, key);
 		} catch (HibernateObjectRetrievalFailureException horfe) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("fail to load object ["+horfe.getMessage()+"]"); //$NON-NLS-1$
+			}
+
+			return null;
+		}catch(ObjectNotFoundException onf){
+			if (logger.isDebugEnabled()) {
+				logger.debug("fail to load object ["+onf.getMessage()+"]"); //$NON-NLS-1$
+			}
 			return null;
 		}
 
