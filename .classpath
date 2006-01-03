@@ -7,7 +7,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/acegisecurity/jars/acegi-security-0.8.3.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/javax.servlet/jars/servlet-api-2.3.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-1.2.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-1.2.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar"/>
@@ -27,6 +27,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-annotations-4.0-rc-3.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-contrib-4.0-rc-3.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-mock-1.2.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/hibernate3/jars/hibernate-3.0.5.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/hibernate3/jars/hibernate-3.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
