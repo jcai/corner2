@@ -139,13 +139,13 @@
         <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry</artifactId>
-            <version>4.0-rc-2</version>
+            <version>4.0-rc-3</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry-contrib</artifactId>
-            <version>4.0-rc-2</version>
+            <version>4.0-rc-3</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -157,7 +157,7 @@
         <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry-annotations</artifactId>
-            <version>4.0-rc-2</version>
+            <version>4.0-rc-3</version>
             <type>jar</type>
         </dependency>
         <dependency>
