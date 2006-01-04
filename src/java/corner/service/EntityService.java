@@ -12,11 +12,11 @@
 
 package corner.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.Serializable;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.util.PaginationBean;
@@ -72,6 +72,12 @@ public class EntityService {
 		for(T entity:ts){
 			oru.delete(entity);
 		}
+	}
+	public <T> void deleteEntityById(Class<T> name,Serializable keyValue) {
+		T t=this.loadEntity(name,keyValue);
+		oru.delete(t);
+		
+		
 	}
 	
 }

@@ -70,7 +70,7 @@ public class TapestryHtmlFormatter {
 			jwcid+="\"";
 			
 			String s5 = matcher.group(5).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");;
-			value = String.format("<%s %s %s %s %s>", s1, s2, s3, jwcid, s5);
+			value = String.format("<%s %s %s %s %s>", s1, jwcid,s2, s3,s5);
 			matcher.appendReplacement(buf, value);
 		}
 

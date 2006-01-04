@@ -20,19 +20,23 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
+import org.hibernate.Hibernate;
+import org.hibernate.ObjectNotFoundException;
 
 import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 /**
  * 基本的Entity表单页.
- * <P>提供了针对单一实体的操作,譬如C/U/D操作.
+ * <P>
+ * 提供了针对单一实体的操作,譬如C/U/D操作.
  * 
- * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision$
- * @since	2005-11-4
+ * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
+ * @version $Revision$
+ * @since 2005-11-4
  */
-public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T>{
+public abstract class EntityFormPage<T> extends BasePage implements
+		EntityPage<T> {
 	/**
 	 * Logger for this class
 	 */
@@ -41,16 +45,29 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 	private Class<T> clazz;
 
 	private String keyName;
-	
+
 	public EntityFormPage(Class<T> clazz, String keyName) {
 		this.clazz = clazz;
 		this.keyName = keyName;
 	}
+
 	/**
 	 * @see corner.orm.tapestry.page.EntityPage#loadEntity(java.io.Serializable)
 	 */
 	public void loadEntity(Serializable key) {
-		this.setEntity(getBaseService().loadEntity(clazz,key));
+		T tmpObj = (T) getBaseService().loadEntity(this.getEntity().getClass(),
+				key);
+		if (tmpObj != null) {
+			try {
+				Hibernate.initialize(tmpObj);
+				this.setEntity(tmpObj);
+			} catch (ObjectNotFoundException onf) {
+				// do nothing
+
+			}
+
+		}
+
 	}
 
 	@InjectObject("spring:entityService")
@@ -58,6 +75,7 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 
 	/**
 	 * 得到需要显示list列表的页.
+	 * 
 	 * @return
 	 */
 	public abstract IPage getListEntityPage();
@@ -78,7 +96,8 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 	/**
 	 * 确定当前页.
 	 * 
-	 * @param cycle         页面请求.
+	 * @param cycle
+	 *            页面请求.
 	 * @return 转向的页面.
 	 */
 	public IPage okayEntity(IRequestCycle cycle) {
@@ -90,12 +109,12 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 
 		return getListEntityPage();
 	}
-	
 
 	/**
 	 * 应用当前页.
 	 * 
-	 * @param cycle         页面请求.
+	 * @param cycle
+	 *            页面请求.
 	 */
 	public void applyEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -103,33 +122,22 @@ public abstract class EntityFormPage<T> extends BasePage implements EntityPage<T
 		}
 		saveOrUpdateEntity();
 	}
-	
+
 	/**
 	 * 删除实体.
+	 * 
 	 * @param cycle
 	 * @return 转向的list页面.
 	 */
-	public IPage deleteEntity(IRequestCycle cycle){
+	public IPage deleteEntity(IRequestCycle cycle) {
 		getBaseService().deleteEntities(getEntity());
 		return getListEntityPage();
 	}
 
-	protected void saveOrUpdateEntity() 
-	{
-		Serializable keyValue=(Serializable) BeanUtils.getProperty(getEntity(), keyName);
-		if(keyValue != null && (getBaseService().loadEntity(clazz,keyValue)!=null)){
-		
-			getBaseService().updateEntity(getEntity());
-		}else{
-			getBaseService().saveEntity(getEntity());
-		}
-		
-	//	getBaseService().saveOrUpdateEntity(getEntity());
-		/*if (BeanUtils.getProperty(getEntity(), keyName) == null) {
-			
-		} else {
-			
-		}*/
+	protected void saveOrUpdateEntity() {
+
+		getBaseService().saveOrUpdateEntity(getEntity());
+
 	}
 
 }
