@@ -50,7 +50,7 @@ public class TapestryHtmlFormatterTest extends TestCase {
 //		System.out.println(sb.toString());
 //		assertEquals(expectStr,sb.toString());
 //	}
-	public void testCreateFile() throws IOException{
+	/*public void testCreateFile() throws IOException{
 		FileInputStream fi=new FileInputStream(new File("E:\\dev-projects\\poisoning\\poison-system\\context\\back\\MiFirstAidMeasure.html"));
 		StringBuffer sb=TapestryHtmlFormatter.format(fi);
 		
@@ -60,6 +60,6 @@ public class TapestryHtmlFormatterTest extends TestCase {
 	        out.close();
 	    } catch (IOException e) {
 	    }
-	}
+	}*/
 
 }
