@@ -34,7 +34,7 @@ public class TapestryHtmlFormatter {
 	private static final Pattern jwcidPattern = Pattern.compile(".*(jwcid\\s*=\\s*\"?.*\"?).*");
 	
 	private static final Pattern pattern = Pattern.compile(
-			   "<(form|input|textarea|checkbox|select|button|option|)([^<>]*)(name=\"?([^<>\\s\"]+)\"?)([^<>]*)>",
+			   "<(form|input|textarea|checkbox|select|button|option)([^<>]*)(name=\"?([^<>\\s\"]+)\"?)([^<>]*)>",
 			   Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
 			 
 
@@ -69,7 +69,7 @@ public class TapestryHtmlFormatter {
 			}
 			jwcid+="\"";
 			
-			String s5 = matcher.group(5).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");;
+			String s5 = matcher.group(5).trim().replaceAll("jwcid=\"?[^\\s]*\"?","");
 			value = String.format("<%s %s %s %s %s>", s1, jwcid,s2, s3,s5);
 			matcher.appendReplacement(buf, value);
 		}

@@ -105,6 +105,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		return find(query, pager.getFirst(), pager.getPageSize());
 
 	}
+	
 
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String, int,

@@ -49,23 +49,14 @@ public abstract class EntityListPage<T> extends BasePage implements
 	 * Logger for this class
 	 */
 	private static final Log logger = LogFactory.getLog(EntityListPage.class);
-
-	/** primary key converter* */
-	private ReflectPrimaryKeyConverter<T> pkc;
 	
-	/** 进行操作实体的类**/
-	private Class<T> clazz;
-	public EntityListPage(Class<T> clazz, String key) {
-		this.clazz = clazz;
-		this.pkc = new ReflectPrimaryKeyConverter<T>(clazz, key);
-		
-	}
-	
+	public abstract String getKeyName();
+	public abstract void setKeyName(String keyName);
 	/**
 	 * @see corner.orm.tapestry.page.EntityPage#loadEntity(java.io.Serializable)
 	 */
 	public void loadEntity(Serializable key) {
-		this.setEntity(getBaseService().loadEntity(clazz,key));
+		this.setEntity((T)getBaseService().loadEntity(getEntity().getClass(),key));
 	}
 
 	
@@ -82,7 +73,7 @@ public abstract class EntityListPage<T> extends BasePage implements
 
 	/**得到对主键的Converter**/
 	public IPrimaryKeyConverter getConverter() {
-		return pkc;
+		return new ReflectPrimaryKeyConverter<T>((Class<T>)getEntity().getClass(), getKeyName());
 	}
 
 	@InjectObject("spring:entityService")
@@ -90,7 +81,7 @@ public abstract class EntityListPage<T> extends BasePage implements
 
 	/**得到实体的行数.**/
 	protected int getEntityRowCount() {
-		return getBaseService().count(clazz);
+		return getBaseService().count(getEntity().getClass());
 	}
 	/**得到当前的页的数据**/
 	protected Iterator<? extends T> getCurrentPageRows(int nFirst, int nPageSize,
@@ -98,7 +89,7 @@ public abstract class EntityListPage<T> extends BasePage implements
 		PaginationBean pb = getPaginationBean();
 		pb.setFirst(nFirst);
 		pb.setPageSize(nPageSize);
-		return getBaseService().find(clazz, pb).iterator();
+		return getBaseService().find((Class<T>)getEntity().getClass(), pb).iterator();
 
 	}
 

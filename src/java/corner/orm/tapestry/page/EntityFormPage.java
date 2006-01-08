@@ -24,7 +24,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.ObjectNotFoundException;
 
 import corner.service.EntityService;
-import corner.util.BeanUtils;
 
 /**
  * 基本的Entity表单页.
@@ -41,15 +40,6 @@ public abstract class EntityFormPage<T> extends BasePage implements
 	 * Logger for this class
 	 */
 	private static final Log logger = LogFactory.getLog(EntityFormPage.class);
-
-	private Class<T> clazz;
-
-	private String keyName;
-
-	public EntityFormPage(Class<T> clazz, String keyName) {
-		this.clazz = clazz;
-		this.keyName = keyName;
-	}
 
 	/**
 	 * @see corner.orm.tapestry.page.EntityPage#loadEntity(java.io.Serializable)
