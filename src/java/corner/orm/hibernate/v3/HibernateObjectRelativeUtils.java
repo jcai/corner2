@@ -44,20 +44,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T load(Class<T> refClass, Serializable key) {
-		try {
-			return (T) getHibernateTemplate().load(refClass, key);
-		} catch (HibernateObjectRetrievalFailureException horfe) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("fail to load object ["+horfe.getMessage()+"]"); //$NON-NLS-1$
-			}
-
-			return null;
-		}catch(ObjectNotFoundException onf){
-			if (logger.isDebugEnabled()) {
-				logger.debug("fail to load object ["+onf.getMessage()+"]"); //$NON-NLS-1$
-			}
-			return null;
-		}
+		return (T) this.getHibernateTemplate().get(refClass,key);
 
 	}
 

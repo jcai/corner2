@@ -17,8 +17,10 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.ObjectNotFoundException;
 
 import corner.orm.hibernate.ObjectRelativeUtils;
+import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.util.PaginationBean;
 
 /**
@@ -71,6 +73,7 @@ public class EntityService {
 		
 		for(T entity:ts){
 			try{
+				
 				oru.delete(entity);
 			}catch(Exception e){
 				logger.warn(e.getMessage());
@@ -79,15 +82,10 @@ public class EntityService {
 		}
 	}
 	public <T> void deleteEntityById(Class<T> name,Serializable keyValue) {
-		T t=this.loadEntity(name,keyValue);
-		try{
-			oru.delete(t);
-		}catch(Exception e){
-				logger.warn(e.getMessage());
-				//donoting
-		}
-		
-		
+			T tmp=this.loadEntity(name,keyValue);
+			if(tmp!=null){
+				this.deleteEntities(tmp);
+			}
 	}
 	
 }
