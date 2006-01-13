@@ -70,12 +70,22 @@ public class EntityService {
 		}
 		
 		for(T entity:ts){
-			oru.delete(entity);
+			try{
+				oru.delete(entity);
+			}catch(Exception e){
+				logger.warn(e.getMessage());
+				//donoting
+			}
 		}
 	}
 	public <T> void deleteEntityById(Class<T> name,Serializable keyValue) {
 		T t=this.loadEntity(name,keyValue);
-		oru.delete(t);
+		try{
+			oru.delete(t);
+		}catch(Exception e){
+				logger.warn(e.getMessage());
+				//donoting
+		}
 		
 		
 	}
