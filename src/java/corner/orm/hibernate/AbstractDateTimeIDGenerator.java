@@ -30,7 +30,7 @@ public abstract class AbstractDateTimeIDGenerator {
 	private static final Log log=LogFactory.getLog(AbstractDateTimeIDGenerator.class);
 	protected String upTime = null;
 	/* get now time formatted*/
-	protected String getNowTimeFormatted() {
+	protected synchronized String getNowTimeFormatted() {
 		Calendar rightNow = Calendar.getInstance();
 		DateFormat formator = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String currentTime = formator.format(rightNow.getTime());

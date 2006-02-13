@@ -42,7 +42,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String)
 	 */
-	public List find(String query) throws DataAccessException {
+	public List find(String query) throws DataAccessException {		
 		try {
 			return getHibernateTemplate().find(query);
 		} catch (HibernateObjectRetrievalFailureException horfe) {
@@ -170,7 +170,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	/**
 	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#delete(java.lang.String)
 	 */
-	public int delete(String query) throws DataAccessException {
+	public int delete(String query) throws DataAccessException {		
 		return getHibernateTemplate().delete(query);
 	}
 	

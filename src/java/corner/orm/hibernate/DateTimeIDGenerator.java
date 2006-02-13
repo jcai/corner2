@@ -38,6 +38,10 @@ public class DateTimeIDGenerator extends AbstractDateTimeIDGenerator implements 
 
 	private String prefix;
 	private static final String PREFIX="prefix";
+	
+	public DateTimeIDGenerator(){
+		System.err.println("new DateTimeIDGenerator");
+	}
 
 	/**
 	 * @see net.sf.hibernate.id.IdentifierGenerator#generate(net.sf.hibernate.engine.SessionImplementor,
