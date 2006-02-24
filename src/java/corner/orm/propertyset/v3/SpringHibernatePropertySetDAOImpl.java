@@ -71,7 +71,7 @@ public class SpringHibernatePropertySetDAOImpl extends HibernateDaoSupport imple
                 throws HibernateException
             {
             	try{
-            		return session.load(PropertySetItemImpl.class, new PropertySetItemImpl(entityName, entityId.longValue(), key));
+            		return session.get(PropertySetItemImpl.class, new PropertySetItemImpl(entityName, entityId.longValue(), key));
             	}catch(HibernateException he){
             		return null;
             	}

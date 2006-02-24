@@ -26,8 +26,7 @@ public class SpringHibernateUserDAOImpl extends HibernateDaoSupport implements
 
 	public HibernateUser findUserByUsername(String username) {
 		HibernateUser user = null;
-		List ret = getHibernateTemplate().findByNamedQuery(
-				HibernateQueries.USER_BY_USERNAME, username);
+		List ret = getHibernateTemplate().find(HibernateQueries.USER_BY_USERNAME, username);
 
 		if (ret.size() > 0) {
 			user = (HibernateUser) ret.get(0);

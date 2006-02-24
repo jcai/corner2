@@ -28,7 +28,7 @@ public class SpringHibernateGroupDAOImpl extends HibernateDaoSupport implements
 
 	public HibernateGroup findGroupByGroupname(String groupname) {
 		HibernateGroup group = null;
-		List ret = getHibernateTemplate().findByNamedQuery(HibernateQueries.GROUP_BY_GROUPNAME, groupname);
+		List ret = getHibernateTemplate().find(HibernateQueries.GROUP_BY_GROUPNAME, groupname);
 
 		if (ret.size() > 0) {
 			group = (HibernateGroup) ret.get(0);
