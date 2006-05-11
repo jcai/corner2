@@ -1,4 +1,5 @@
-#Wed Oct 26 17:21:22 CST 2005
+#Thu May 11 10:22:11 CST 2006
 eclipse.preferences.version=1
 encoding//src/java/corner/orm/hibernate/HibernateObjectRelativeUtils.java=UTF-8
 encoding//src/java/corner/orm/hibernate/ObjectRelativeUtils.java=UTF-8
+encoding//src/java/corner/orm/tapestry/page/AbstractEntityPage.java=UTF-8

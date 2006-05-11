@@ -15,11 +15,13 @@ package corner.service;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import corner.orm.hibernate.ObjectRelativeUtils;
+import corner.util.PaginationBean;
 
 /**
  * 
@@ -96,6 +98,7 @@ public class EntityService {
 	 * @param clazz 实体类.
 	 * @param keyValue 主健值.
 	 * @return 实体,如果未找到,返回null.
+	 * @since 2.0
 	 */
 	public <T> T getEntity(Class<T> clazz, Serializable keyValue) {
 		return oru.get(clazz, keyValue);
@@ -169,4 +172,14 @@ public class EntityService {
 		
 		
 	}
+	/**
+	 * 通过给定的类以及分页用的bean来得到list。
+	 * @param <T> 需要查找的类。
+	 * @param clazz 类。
+	 * @param pb 分页的bean。
+	 * @return 列表.
+	 */
+	public <T> List<T> find(Class<T> clazz, PaginationBean pb) { 
+		return oru.find("from " + clazz.getName(), pb); 
+	} 
 }

@@ -51,4 +51,13 @@ public interface EntityPage<T  > extends IPage {
 	 */
 	@InjectObject("spring:entityService")
 	public abstract EntityService getEntityService();
+	/**
+	 * 得到EntityService.将在2.1中删除。使用 {@link #getEntityService()}
+	 * <p>提供基本的操作.
+	 * @return entityService 实体服务类
+	 * @deprecated
+	 */
+	@InjectObject("spring:entityService")
+	public abstract EntityService getBaseService();
+	
 }
