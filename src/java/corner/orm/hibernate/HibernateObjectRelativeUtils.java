@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Query;
 import net.sf.hibernate.Session;
@@ -40,7 +39,7 @@ import corner.util.PaginationBean;
 public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		ObjectRelativeUtils {
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String)
+	 * @see corner.orm.ObjectRelativeUtils#find(java.lang.String)
 	 */
 	public List find(String query) throws DataAccessException {		
 		try {
@@ -51,7 +50,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#load(java.lang.Class,
+	 * @see corner.orm.ObjectRelativeUtils#load(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
 	@SuppressWarnings("unchecked")
@@ -63,45 +62,54 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		//}
 
 	}
+	@SuppressWarnings("unchecked")
+	public <T> T get(Class<T> refClass, Serializable key) {
+		//try {
+			return (T) getHibernateTemplate().get(refClass, key);
+		//} catch (HibernateObjectRetrievalFailureException horfe) {
+		//	return null;
+		//}
+
+	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#save(java.lang.Object)
+	 * @see corner.orm.ObjectRelativeUtils#save(java.lang.Object)
 	 */
 	public <T> Serializable save(T obj) throws DataAccessException {
 		return getHibernateTemplate().save(obj);
 	}
 	/**
 	 * 
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#save(java.lang.Object, java.io.Serializable)
+	 * @see corner.orm.ObjectRelativeUtils#save(java.lang.Object, java.io.Serializable)
 	 */
 	public <T> void save(T obj,Serializable id) throws DataAccessException{
 		getHibernateTemplate().save(obj,id);
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#saveOrUpdate(java.lang.Object)
+	 * @see corner.orm.ObjectRelativeUtils#saveOrUpdate(java.lang.Object)
 	 */
 	public <T> void saveOrUpdate(T obj) throws DataAccessException {
 		getHibernateTemplate().saveOrUpdate(obj);
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#update(java.lang.Object)
+	 * @see corner.orm.ObjectRelativeUtils#update(java.lang.Object)
 	 */
 	public <T>void update(T obj) throws DataAccessException {
 		getHibernateTemplate().update(obj);
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#delete(java.lang.Object)
+	 * @see corner.orm.ObjectRelativeUtils#delete(java.lang.Object)
 	 */
 	public<T> void delete(T obj) throws DataAccessException {
 		getHibernateTemplate().delete(obj);
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String,
-	 *      org.cnjug.weed.entity.Pager)
+	 * @see corner.orm.ObjectRelativeUtils#find(java.lang.String,
+	 *      corner.entity.Pager)
 	 */
 	public List find(final String query, final PaginationBean pager)
 			throws DataAccessException {
@@ -110,7 +118,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String, int,
+	 * @see corner.orm.ObjectRelativeUtils#find(java.lang.String, int,
 	 *      int)
 	 */
 	public List find(final String query, final int first, final int maxResults)
@@ -132,7 +140,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		}
 	}
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#find(java.lang.String, int,
+	 * @see corner.orm.ObjectRelativeUtils#find(java.lang.String, int,
 	 *      int)
 	 */
 	public List find(final String query,final Object param, final int first, final int maxResults)
@@ -155,7 +163,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	}
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#count(java.lang.String)
+	 * @see corner.orm.ObjectRelativeUtils#count(java.lang.String)
 	 */
 	public int count(String query) throws DataAccessException {
 		List list = getHibernateTemplate().find(query);
@@ -168,7 +176,7 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 	
 
 	/**
-	 * @see org.cnjug.weed.orm.ObjectRelativeUtils#delete(java.lang.String)
+	 * @see corner.orm.ObjectRelativeUtils#delete(java.lang.String)
 	 */
 	public int delete(String query) throws DataAccessException {		
 		return getHibernateTemplate().delete(query);

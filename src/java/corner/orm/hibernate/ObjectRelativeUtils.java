@@ -146,6 +146,14 @@ public interface ObjectRelativeUtils {
      */
     public <T> T load(Class<T> refClass, Serializable key) throws DataAccessException;
     /**
+     * 装载一个实例化的类.
+     * @param 	refClass	实例化类.
+     * @param 	key 		主键.
+     * @return 实例化的实例.
+     * @throws DataAccessException 假如发生数据库操作错误.
+     */
+    public <T> T get(Class<T> refClass, Serializable key) throws DataAccessException;
+    /**
      * 保存一个实体.
      * @param obj 需要保存的实例.
      * @return 主键值.

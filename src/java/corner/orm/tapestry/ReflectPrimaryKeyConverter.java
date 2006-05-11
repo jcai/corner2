@@ -25,7 +25,7 @@ import corner.util.BeanUtils;
  * @version	$Revision$
  * @since	2005-11-4
  */
-public class ReflectPrimaryKeyConverter<T> implements IPrimaryKeyConverter {
+public class ReflectPrimaryKeyConverter<T extends Object> implements IPrimaryKeyConverter {
 	/**
 	 * Logger for this class
 	 */
@@ -33,12 +33,13 @@ public class ReflectPrimaryKeyConverter<T> implements IPrimaryKeyConverter {
 			.getLog(ReflectPrimaryKeyConverter.class);
 	
 	private String idStr;
-	private Class<T> c;
+	private Class<? extends Object> c;
 
-	public ReflectPrimaryKeyConverter(Class<T> c,String idStr){
+	public ReflectPrimaryKeyConverter(Class<? extends Object> c,String idStr){
 		this.idStr=idStr;
 		this.c=c;
 	}
+	
 	/**
 	 * 根据object来得到对应的主建值.
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getPrimaryKey(java.lang.Object)

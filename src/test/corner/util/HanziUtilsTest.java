@@ -17,12 +17,6 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
-/**
- * ≤‚ ‘∫∫”Ô∆¥“ÙºÏÀ˜
- * @author Jun Tsai
- * @since 2006-2-28
- *
- */
 public class HanziUtilsTest extends TestCase {
 	public void testLoadHanzi() throws IOException{
 		String s=HanziUtils.getPinyin("asdf");

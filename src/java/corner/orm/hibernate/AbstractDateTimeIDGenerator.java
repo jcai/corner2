@@ -16,9 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 抽象的DateTimeGenerator对象.
  * 
@@ -27,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
  * @since	2005-11-30
  */
 public abstract class AbstractDateTimeIDGenerator {
-	private static final Log log=LogFactory.getLog(AbstractDateTimeIDGenerator.class);
 	protected String upTime = null;
 	/* get now time formatted*/
 	protected synchronized String getNowTimeFormatted() {

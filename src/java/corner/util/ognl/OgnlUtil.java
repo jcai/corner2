@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Utility class that provides common access to the Ognl APIs for
  * setting and getting properties from objects (usually Actions).
- *
+ * 针对ognl的特别处理
  * @author $Author: jcai $
  * @version $Revision: 44 $
  */
@@ -208,7 +208,7 @@ public class OgnlUtil {
 			} catch (OgnlException e) {
 				// ignore, this is OK
 			}
-		}
+		} 
 	}
 	
 
