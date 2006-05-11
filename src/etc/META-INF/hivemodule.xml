@@ -1,12 +1,25 @@
 <module id="corner.orm" version="1.0.0">
-	<implementation
-		service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
+	<implementation service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
 		<invoke-factory>
 			<construct autowire-services="false"
 				class="corner.orm.hivemind.SpringBeanFactoryHolderImpl">
-				<event-listener
-					service-id="hivemind.ShutdownCoordinator" />
+				<event-listener service-id="hivemind.ShutdownCoordinator"/>
 			</construct>
 		</invoke-factory>
 	</implementation>
+	
+	<service-point id="HibernateAdapter"
+		interface="org.apache.tapestry.util.io.SqueezeAdaptor">
+		<invoke-factory>
+			<construct class="corner.orm.tapestry.HibernateAdapter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<contribution configuration-id="tapestry.data.SqueezeAdaptors">
+		<adaptor object="service:HibernateAdapter"/>
+	</contribution>
+	
 </module>
