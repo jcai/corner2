@@ -44,50 +44,54 @@ import corner.util.PaginationBean;
 /**
  * 针对单一实体操作的Page类。
  * 
- * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision$
- * @since	2005-11-3
+ * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
+ * @version $Revision$
+ * @since 2005-11-3
  */
-public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
-		PageBeginRenderListener,PageDetachListener,PageAttachListener {
+public abstract class EntityListPage<T > extends AbstractEntityPage<T> implements
+		PageBeginRenderListener, PageDetachListener, PageAttachListener {
 	/**
 	 * Logger for this class
 	 */
 	private static final Log logger = LogFactory.getLog(EntityListPage.class);
+
 	/**
 	 * 查询的实体.
+	 * 
 	 * @return 查询实体.
 	 */
 	public abstract T getQueryEntity();
+
 	public abstract void setQueryEntity(T obj);
-	
-	
+
 	protected void appendCriteria(Criteria criteria) {
-		if(this.getQueryEntity()!=null)
-			criteria.add(Example.create(getQueryEntity()).enableLike().ignoreCase());
+		if (this.getQueryEntity() != null)
+			criteria.add(Example.create(getQueryEntity()).enableLike()
+					.ignoreCase());
 	}
-	
+
 	public abstract String getKeyName();
+
 	public abstract void setKeyName(String keyName);
-	
-	
-	/**记载选中的list**/
+
+	/** 记载选中的list* */
 	@InitialValue("new java.util.ArrayList()")
 	public abstract List<T> getSelectedEntities();
+
 	public abstract void setSelectedEntities(List<T> list);
 
-	/**用于分页的bean**/
+	/** 用于分页的bean* */
 	@Persist("client")
 	@InitialValue("new corner.util.PaginationBean()")
 	public abstract PaginationBean getPaginationBean();
+
 	public abstract void setPaginationbean(PaginationBean pb);
 
-	/**得到对主键的Converter**/
+	/** 得到对主键的Converter* */
 	public IPrimaryKeyConverter getConverter() {
-		return new ReflectPrimaryKeyConverter<T >(getEntity().getClass(), getKeyName());
+		return new ReflectPrimaryKeyConverter<T>(getEntity().getClass(),
+				getKeyName());
 	}
-
-	
 
 	/** 得到实体的行数.* */
 	protected int getEntityRowCount() {
@@ -97,11 +101,11 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						Criteria criteria=session.createCriteria(getEntity().getClass())
-								.setProjection(Projections.rowCount());
+						Criteria criteria = session.createCriteria(
+								getEntity().getClass()).setProjection(
+								Projections.rowCount());
 						appendCriteria(criteria);
 						return criteria.list();
-						
 
 					}
 				}).iterator().next()).intValue();
@@ -119,10 +123,9 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
 
-						Criteria criteria = session.createCriteria(
-								getEntity().getClass());
+						Criteria criteria = session.createCriteria(getEntity()
+								.getClass());
 						appendCriteria(criteria);
-						
 
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
@@ -160,13 +163,15 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 					column, flag);
 		}
 	}
-	
+
 	/**
 	 * 得到Table的source。
+	 * 
 	 * @return
 	 * @see IBasicTableeModel
 	 */
-	public abstract IBasicTableModel getSource() ;
+	public abstract IBasicTableModel getSource();
+
 	public abstract void setSource(IBasicTableModel btm);
 
 	public boolean getCheckboxSelected() {
@@ -175,85 +180,110 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 
 	public void setCheckboxSelected(boolean bSelected) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("setCheckboxSelected(boolean) bSelected ["+bSelected+"]"); //$NON-NLS-1$
+			logger
+					.debug("setCheckboxSelected(boolean) bSelected [" + bSelected + "]"); //$NON-NLS-1$
 		}
 
-		if (bSelected){
+		if (bSelected) {
 			this.getSelectedEntities().add(getEntity());
 
 			if (logger.isDebugEnabled()) {
-				logger.debug("get SelectedEntities size ["+getSelectedEntities().size()+"]"); //$NON-NLS-1$
+				logger
+						.debug("get SelectedEntities size [" + getSelectedEntities().size() + "]"); //$NON-NLS-1$
 			}
 		}
 	}
-	
-	
+
 	/*-------------------------------------------------------------------------
-     * 对实体的页面操作的响应.
-     * ------------------------------------------------------------------------
-     */
+	 * 对实体的页面操作的响应.
+	 * ------------------------------------------------------------------------
+	 */
 	/**
 	 * 批量删除实体.
 	 */
 	public void deleteEntities(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("deleteNodes(IRequestCycle),getSelectedEntities size ["+getSelectedEntities().size()+"]"); //$NON-NLS-1$
+			logger
+					.debug("deleteNodes(IRequestCycle),getSelectedEntities size [" + getSelectedEntities().size() + "]"); //$NON-NLS-1$
 		}
-		
+
 		getEntityService().deleteEntities(this.getSelectedEntities().toArray());
 		this.getPaginationBean().setRowCount(this.getEntityRowCount());
 	}
+
 	/**
 	 * 选择某一个实体.
-	 * @param key 主健值.
+	 * 
+	 * @param key
+	 *            主健值.
 	 * @return 页面.
 	 */
 	public IPage selectEntity(Serializable key) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("selectEntity(String) - start"); //$NON-NLS-1$
 		}
-		EntityPage<T> page=getEntityFormPage();
+		EntityPage<T> page = getEntityFormPage();
 		page.loadEntity(key);
-		
+
 		return page;
 	}
+
 	/**
 	 * 转到增加实体的页面.
+	 * 
 	 * @return 增加实体页面.
+	 * 
 	 */
-	public IPage go2AddEntityForm(){
+	public IPage go2AddEntityForm() {
 		return this.getEntityFormPage();
 	}
+
 	@SuppressWarnings("unchecked")
-	public EntityPage<T> getEntityFormPage(){
-			return (EntityPage<T>) this.getRequestCycle().getPage(this.getPageName().substring(0,this.getPageName().lastIndexOf("List"))+"Form");
+	public EntityPage<T> getEntityFormPage() {
+		return (EntityPage<T>) this.getRequestCycle().getPage(
+				this.getPageName().substring(0,
+						this.getPageName().lastIndexOf("List"))
+						+ "Form");
 	}
-	public IPage go2EditEntityForm(Serializable key){
-		EntityPage<T> page= this.getEntityFormPage();
+
+	/**
+	 * 编辑实体.
+	 * @param key
+	 * @return
+	 * @deprecated 用 {@link #doEditEntityAction(T)}代替.
+	 */
+	public IPage go2EditEntityForm(Serializable key) {
+		EntityPage<T> page = this.getEntityFormPage();
 		page.loadEntity(key);
 		return page;
 	}
-	public void deleteEntityAction(Serializable key){
-		getEntityService().deleteEntityById(getEntity().getClass(),key);
+
+	/**
+	 * 删除实体操作.
+	 * @param key
+	 * @deprecated 将在 2.1中删除,用 {@link #doDeleteEntityAction(T)}代替.
+	 */
+	public void deleteEntityAction(Serializable key) {
+		getEntityService().deleteEntityById(getEntity().getClass(), key);
 	}
-	
-	//查询实体.
-	public void queryEntity(){
-		
+
+	// 查询实体.
+	public void queryEntity() {
+
 	}
 
 	/**
 	 * @see org.apache.tapestry.event.PageDetachListener#pageDetached(org.apache.tapestry.event.PageEvent)
 	 */
 	public void pageDetached(PageEvent event) {
-		
+
 	}
 
 	/**
 	 * @see org.apache.tapestry.event.PageBeginRenderListener#pageBeginRender(org.apache.tapestry.event.PageEvent)
 	 */
 	public void pageBeginRender(PageEvent event) {
-		if(!event.getRequestCycle().isRewinding()){
+		if (!event.getRequestCycle().isRewinding()) {
 			getPaginationBean().setRowCount(getEntityRowCount());
 		}
 	}
@@ -262,10 +292,40 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 	 * @see org.apache.tapestry.event.PageAttachListener#pageAttached(org.apache.tapestry.event.PageEvent)
 	 */
 	public void pageAttached(PageEvent event) {
-		if(this.getSource()==null){
+		if (this.getSource() == null) {
 			setSource(new BasicTableModelProxy());
-			
+
 		}
 	}
+	//-------------------since 2.0 
+	/**
+	 * 删除一个实体。 
+	 * @param entity 实体对象。
+	 * @return 返回页面.
+	 * @since 2.0
+	 */
+	public IPage doDeleteEntityAction(T entity) { // 删除操作
+		this.getEntityService().deleteEntities(entity);
+		return this;
+	}
+	/**
+	 * 编辑实体操作.
+	 * @param entity 实体.
+	 * @return 返回编辑页面.
+	 * @since 2.0
+	 */
 
+	public IPage doEditEntityAction(T entity) { // 编辑操作
+		EntityPage<T> page = this.getEntityFormPage();
+		page.setEntity(entity);
+		return page;
+	}
+	/**
+	 * 新增尸体操作.
+	 * @return 新增实体操作的页面.
+	 */
+	public IPage doNewEntityAction(){ //新增加操作.
+		return this.getEntityFormPage();
+	}
+	
 }

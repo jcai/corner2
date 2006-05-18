@@ -28,92 +28,120 @@ import org.apache.tapestry.IRequestCycle;
  * @version $Revision$
  * @since 2005-11-4
  */
-public abstract class EntityFormPage<T> extends AbstractEntityPage<T>{
+public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	/**
 	 * Logger for this class
 	 */
 	private static final Log logger = LogFactory.getLog(EntityFormPage.class);
+
 	/**
 	 * 得到需要显示list列表的页.
 	 * 
 	 * @return
 	 */
-	public  IPage getListEntityPage(){
-		if(this.getRelativePage()!=null){
-			EntityFormPage page = (EntityFormPage) getRequestCycle().getPage(this.getRelativePage());
+	public IPage getListEntityPage() {
+		if (this.getRelativePage() != null) {
+			EntityFormPage page = (EntityFormPage) getRequestCycle().getPage(
+					this.getRelativePage());
 			page.loadEntity(this.getRelativeId());
 			return page;
-		}else{
-			return this.getRequestCycle().getPage(this.getPageName().substring(0,this.getPageName().lastIndexOf("Form"))+"List");
+		} else {
+			return this.getRequestCycle().getPage(
+					this.getPageName().substring(0,
+							this.getPageName().lastIndexOf("Form"))
+							+ "List");
 		}
 	}
 
-	//对关联页面的处理
+	// 对关联页面的处理
 	/**
 	 * 增加相关联实体的页面.
 	 */
-	public IPage go2AddRelativeEntityPage(String entityFormPage){
-		//build form page
-		entityFormPage=buildRelativePageName(entityFormPage);
-		
-		EntityFormPage page=(EntityFormPage) this.getRequestCycle().getPage(entityFormPage);
+	public IPage go2AddRelativeEntityPage(String entityFormPage) {
+		// build form page
+		entityFormPage = buildRelativePageName(entityFormPage);
+
+		EntityFormPage page = (EntityFormPage) this.getRequestCycle().getPage(
+				entityFormPage);
 		constructParentPageInfo(page);
-		
+
 		return page;
 	}
+
 	/**
 	 * 删除关联的实体.
-	 * @param clazzName 关联实体类名.
-	 * @param key 主键值.
+	 * 
+	 * @param clazzName
+	 *            关联实体类名.
+	 * @param key
+	 *            主键值.
 	 */
-	public void deleteRelativeEntityAction(String clazzName,Serializable key){
-		this.getEntityService().deleteEntityById(clazzName,key);
+	public void deleteRelativeEntityAction(String clazzName, Serializable key) {
+		this.getEntityService().deleteEntityById(clazzName, key);
 		this.loadEntity(this.getKey());
 	}
+
 	/**
 	 * 转向编辑关联实体的页面.
-	 * @param entityFormPage 关联的实体页面.
-	 * @param key 主健值.
+	 * 
+	 * @param entityFormPage
+	 *            关联的实体页面.
+	 * @param key
+	 *            主健值.
 	 * @return 编辑页面.
 	 */
-	public IPage go2EditRelativeEntityPage(String entityFormPage,Serializable key){
-		entityFormPage=buildRelativePageName(entityFormPage);
-		
-		EntityFormPage page=(EntityFormPage) this.getRequestCycle().getPage(entityFormPage);
+	public IPage go2EditRelativeEntityPage(String entityFormPage,
+			Serializable key) {
+		entityFormPage = buildRelativePageName(entityFormPage);
+
+		EntityFormPage page = (EntityFormPage) this.getRequestCycle().getPage(
+				entityFormPage);
 		constructParentPageInfo(page);
-		
+
 		page.loadEntity(key);
 		return page;
 	}
-	public IPage go2ListEntityPage(){
-		return this.getRequestCycle().getPage(this.getPageName().substring(0,this.getPageName().lastIndexOf("Form"))+"List");
+
+	public IPage go2ListEntityPage() {
+		return this.getRequestCycle().getPage(
+				this.getPageName().substring(0,
+						this.getPageName().lastIndexOf("Form"))
+						+ "List");
 	}
+
 	/**
 	 * 构建父页面的一些信息.
-	 * @param page 关联页面.
+	 * 
+	 * @param page
+	 *            关联页面.
 	 */
-	private void constructParentPageInfo(EntityFormPage page){
+	private void constructParentPageInfo(EntityFormPage page) {
 		page.setRelativePage(this.getPageName());
 		page.setRelativeId(this.getKey());
 		page.setRelativeClassName(this.getEntity().getClass().getName());
 	}
+
 	/**
 	 * 得到关联的页面名称.
-	 * @param entityFormPage 关联页.
+	 * 
+	 * @param entityFormPage
+	 *            关联页.
 	 * @return
 	 */
-	private String buildRelativePageName(String entityFormPage){
-		if(entityFormPage.indexOf("/") == -1){
-			entityFormPage=getPageName().substring(0,getPageName().lastIndexOf("/")+1)+entityFormPage;
+	private String buildRelativePageName(String entityFormPage) {
+		if (entityFormPage.indexOf("/") == -1) {
+			entityFormPage = getPageName().substring(0,
+					getPageName().lastIndexOf("/") + 1)
+					+ entityFormPage;
 		}
 		return entityFormPage;
 	}
-	
-	
+
 	/**
 	 * 退出当前页面的编辑.
 	 * 
 	 * @return 转向的页面.
+	 * @deprecated 将在2.1中删除.请使用 {@link #doCancleEntityAction()}
 	 */
 	public IPage cancleEntity() {
 		if (logger.isDebugEnabled()) {
@@ -129,6 +157,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T>{
 	 * @param cycle
 	 *            页面请求.
 	 * @return 转向的页面.
+	 * @deprecated 将在2.1中删除.
 	 */
 	public IPage okayEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -145,6 +174,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T>{
 	 * 
 	 * @param cycle
 	 *            页面请求.
+	 * @deprecated 将在2.1中删除.            
 	 */
 	public void applyEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -158,9 +188,33 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T>{
 	 * 
 	 * @param cycle
 	 * @return 转向的list页面.
+	 * @deprecated 将在2.1中删除.
 	 */
 	public IPage deleteEntity(IRequestCycle cycle) {
 		getEntityService().deleteEntities(getEntity());
 		return getListEntityPage();
 	}
+
+	/**
+	 * 保存实体操作.
+	 * 
+	 * @param entity
+	 *            待保存实体.
+	 * @return 保存后的返回页面.
+	 * @since 2.0
+	 */
+	public IPage doSaveEntityAction(T entity) { // 保存操作。
+		saveOrUpdateEntity();
+		return getListEntityPage();
+	}
+	/**
+	 * 取消对一个实体的编辑或者新增。
+	 *  
+	 * @return 取消后返回的页面。
+	 * ＠since 2.0
+	 */
+	public IPage doCancleEntityAction(){
+		return this.getListEntityPage();
+	}
+	
 }
