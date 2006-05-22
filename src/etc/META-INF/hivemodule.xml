@@ -1,4 +1,5 @@
 <module id="corner.orm" version="1.0.0">
+	<!-- for spring integration -->
 	<implementation service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
 		<invoke-factory>
 			<construct autowire-services="false"
@@ -7,7 +8,7 @@
 			</construct>
 		</invoke-factory>
 	</implementation>
-	
+	<!-- for hibernate data squeeze adaptor -->
 	<service-point id="HibernateAdapter"
 		interface="org.apache.tapestry.util.io.SqueezeAdaptor">
 		<invoke-factory>
