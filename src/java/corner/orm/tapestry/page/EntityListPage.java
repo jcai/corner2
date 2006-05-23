@@ -323,6 +323,7 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 	/**
 	 * 新增尸体操作.
 	 * @return 新增实体操作的页面.
+	 * @since 2.0
 	 */
 	public IPage doNewEntityAction(){ //新增加操作.
 		return this.getEntityFormPage();
