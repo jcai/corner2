@@ -64,17 +64,18 @@ public class HibernateAdapter implements SqueezeAdaptor {
 						try {
 							return session.getIdentifier(data);
 						} catch (HibernateException hex) {
-							// ok then the entity was loaded with a different
-							// session
-							// it is too risky to try to attach it, it may
-							// already be loaded
-							try {
-								Object copy = session.merge(data);
-								return session.getIdentifier(copy);
-							} catch (Exception hex1) {
-								return null;
-							}
+//							// ok then the entity was loaded with a different
+//							// session
+//							// it is too risky to try to attach it, it may
+//							// already be loaded
+//							try {
+//								Object copy = session.merge(data);
+//								return session.getIdentifier(copy);
+//							} catch (Exception hex1) {
+//								return null;
+//							}
 						}
+						return null;
 					}
 				});
 
