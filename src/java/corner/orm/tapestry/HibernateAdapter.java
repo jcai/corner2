@@ -24,6 +24,8 @@ import corner.util.BeanUtils;
 public class HibernateAdapter implements SqueezeAdaptor {
 	/** 序列化的前缀 **/
 	public static final String PREFIX = "C";
+	/** 类增强的标记**/
+	private static final String CGLIB_FLAG="$$";
 	/** 实体服务类. **/
 	private EntityService entityService;
 
@@ -49,6 +51,11 @@ public class HibernateAdapter implements SqueezeAdaptor {
 	 */
 	public String squeeze(DataSqueezer squeezer, final Object data) {
 		String name = data.getClass().getCanonicalName();
+		int pos=name.indexOf(CGLIB_FLAG);
+		if(pos>-1){
+			name=name.substring(0,pos);
+		}
+	
 		Serializable id = (Serializable) ((HibernateObjectRelativeUtils) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
