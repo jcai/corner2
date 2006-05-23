@@ -232,7 +232,7 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 	 * 转到增加实体的页面.
 	 * 
 	 * @return 增加实体页面.
-	 * 
+	 * @deprecated 将在2.1 中删除，请使用 {@link #doNewEntityAction()}
 	 */
 	public IPage go2AddEntityForm() {
 		return this.getEntityFormPage();
