@@ -34,6 +34,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
@@ -48,7 +49,7 @@ import corner.util.PaginationBean;
  * @version $Revision$
  * @since 2005-11-3
  */
-public abstract class EntityListPage<T > extends AbstractEntityPage<T> implements
+public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 		PageBeginRenderListener, PageDetachListener, PageAttachListener {
 	/**
 	 * Logger for this class
@@ -115,7 +116,7 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 	/** 得到当前的页的数据* */
 	@SuppressWarnings("unchecked")
 	protected Iterator<? extends Object> getCurrentPageRows(final int nFirst,
-			final int nPageSize, ITableColumn column, boolean sort) {
+			final int nPageSize, final ITableColumn column, final boolean sort) {
 		return ((HibernateObjectRelativeUtils) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(
 				new HibernateCallback() {
@@ -129,6 +130,12 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
+						if (column != null) {
+
+							criteria.addOrder(sort ? Order.asc(column
+									.getColumnName()) : Order.desc(column
+									.getColumnName()));
+						}
 
 						return criteria.list();
 
@@ -248,6 +255,7 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 
 	/**
 	 * 编辑实体.
+	 * 
 	 * @param key
 	 * @return
 	 * @deprecated 用 {@link #doEditEntityAction(T)}代替.
@@ -260,6 +268,7 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 
 	/**
 	 * 删除实体操作.
+	 * 
 	 * @param key
 	 * @deprecated 将在 2.1中删除,用 {@link #doDeleteEntityAction(T)}代替.
 	 */
@@ -297,10 +306,13 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 
 		}
 	}
-	//-------------------since 2.0 
+
+	// -------------------since 2.0
 	/**
-	 * 删除一个实体。 
-	 * @param entity 实体对象。
+	 * 删除一个实体。
+	 * 
+	 * @param entity
+	 *            实体对象。
 	 * @return 返回页面.
 	 * @since 2.0
 	 */
@@ -308,9 +320,12 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 		this.getEntityService().deleteEntities(entity);
 		return this;
 	}
+
 	/**
 	 * 编辑实体操作.
-	 * @param entity 实体.
+	 * 
+	 * @param entity
+	 *            实体.
 	 * @return 返回编辑页面.
 	 * @since 2.0
 	 */
@@ -320,13 +335,15 @@ public abstract class EntityListPage<T > extends AbstractEntityPage<T> implement
 		page.setEntity(entity);
 		return page;
 	}
+
 	/**
 	 * 新增尸体操作.
+	 * 
 	 * @return 新增实体操作的页面.
 	 * @since 2.0
 	 */
-	public IPage doNewEntityAction(){ //新增加操作.
+	public IPage doNewEntityAction() { // 新增加操作.
 		return this.getEntityFormPage();
 	}
-	
+
 }
