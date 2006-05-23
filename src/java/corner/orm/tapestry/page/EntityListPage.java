@@ -38,6 +38,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import corner.orm.hibernate.expression.ExpressionExample;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.ReflectPrimaryKeyConverter;
 import corner.util.PaginationBean;
@@ -67,7 +68,7 @@ public abstract class EntityListPage<T> extends AbstractEntityPage<T> implements
 
 	protected void appendCriteria(Criteria criteria) {
 		if (this.getQueryEntity() != null)
-			criteria.add(Example.create(getQueryEntity()).enableLike()
+			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike()
 					.ignoreCase());
 	}
 
