@@ -2,8 +2,8 @@
 // file :       Crypter.java
 // project:     corner-utils
 //
-// last change: date:       $Date: 2005-07-01 13:35:31 +0800 $
-//              by:         $Author: jcai $
+// last change: date:       $Date$
+//              by:         $Author$
 //              revision:   $Revision: 131 $
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net

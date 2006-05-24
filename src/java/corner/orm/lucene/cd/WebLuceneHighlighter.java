@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: WebLuceneHighlighter.java,v 1.5 2004/10/30 09:23:26 lhelper Exp $
+ * $Id$
  */
 
 package corner.orm.lucene.cd;

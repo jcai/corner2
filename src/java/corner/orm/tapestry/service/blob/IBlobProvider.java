@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision$
+//           	revision:   $Revision: 825 $
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -18,7 +18,7 @@ import corner.service.EntityService;
  * 提供一个blob图像来源.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision$
+ * @version	$Revision: 825 $
  * @since	2006-1-19
  */
 public interface IBlobProvider {

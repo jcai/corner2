@@ -2,8 +2,8 @@
 //file :        BeanUtils.java
 //project:      corner-utils
 //
-//last change:	date:       $Date: 2005-06-15 16:52:07 +0800 (Wed, 15 Jun 2005) $
-//           	by:         $Author: jcai $
+//last change:	date:       $Date$
+//           	by:         $Author$
 //           	revision:   $Revision: 35 $
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net

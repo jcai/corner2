@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: HighlightAnalyzer.java,v 1.2 2004/05/29 20:24:33 chedong Exp $
+ * $Id$
  */
 
 package corner.orm.lucene.cd;

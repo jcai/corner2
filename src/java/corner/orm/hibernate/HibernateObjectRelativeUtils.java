@@ -1,9 +1,9 @@
 //==============================================================================
-//file :       $Id: HibernateObjectRelativeUtils.java,v 1.7 2005/05/13 10:04:50 acai Exp $
+//file :       $Id$
 //project:     weed
 //
-//last change:	date:       $Date: 2005/05/13 10:04:50 $
-//           	by:         $Author: acai $
+//last change:	date:       $Date$
+//           	by:         $Author$
 //           	revision:   $Revision: 1.7 $
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group(http://cnjug.dev.java.net).

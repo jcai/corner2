@@ -2,8 +2,8 @@
 // file :       SimitriKeyGenerator.java
 // project:     corner-utils
 //
-// last change: date:       $Date: 2005-06-15 17:08:39 +0800 $
-//              by:         $Author: jcai $
+// last change: date:       $Date$
+//              by:         $Author$
 //              revision:   $Revision: 39 $
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net

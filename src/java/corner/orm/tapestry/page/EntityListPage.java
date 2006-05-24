@@ -47,7 +47,7 @@ import corner.util.PaginationBean;
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-3
- * @deprecated 将在2.1中删除，请使用 {@link corner.orm.tapestry.PoListPage}代替。
+ * @deprecated 将在2.1中删除，请使用 {@link corner.orm.tapestry.page.PoListPage}代替。
  */
 public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implements
 		PageBeginRenderListener, PageDetachListener, PageAttachListener {
