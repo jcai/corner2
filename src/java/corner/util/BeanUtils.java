@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision: 35 $
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -21,7 +21,7 @@ import corner.util.ognl.OgnlUtil;
 /**
  * 设定bean的常用函数，主要采用了Ognl。
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version $Revision: 35 $
+ * @version $Revision$
  */
 public class BeanUtils {
 	static {

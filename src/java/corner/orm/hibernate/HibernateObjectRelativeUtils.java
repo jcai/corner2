@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision: 1.7 $
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group(http://cnjug.dev.java.net).
 //license:	Apache License(http://www.apache.org/licenses/LICENSE-2.0)
@@ -32,7 +32,7 @@ import corner.util.PaginationBean;
  * hibernate的O/R Mapping的实�?
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai </a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  * @since 2004-12-31
  */
 

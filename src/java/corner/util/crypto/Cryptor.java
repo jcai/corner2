@@ -4,7 +4,7 @@
 //
 // last change: date:       $Date$
 //              by:         $Author$
-//              revision:   $Revision: 131 $
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * 对文件加密.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version $Revision: 131 $
+ * @version $Revision$
  */
 public class Cryptor {
 	private static final Log log = LogFactory.getLog(Cryptor.class);

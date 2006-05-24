@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision: 1.5 $
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group(http://cnjug.dev.java.net).
 //license:	Apache License(http://www.apache.org/licenses/LICENSE-2.0)
@@ -25,7 +25,7 @@ import corner.util.PaginationBean;
  * 所有的O/R Mapping操作都要实现该接口，该接口提供了通用的操作。
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai </a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  * @since 2004-12-31
  */
 

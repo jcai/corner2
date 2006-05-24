@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision: 825 $
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -18,7 +18,7 @@ package corner.model;
  *  TODO 调整blob数据从byte数组到IO流.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision: 825 $
+ * @version	$Revision$
  * @since	2006-1-20
  */
 public class AbstractBlobModel {

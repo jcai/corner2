@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
  * setting and getting properties from objects (usually Actions).
  * 针对ognl的特别处理
  * @author $Author$
- * @version $Revision: 44 $
+ * @version $Revision$
  */
 public class OgnlUtil {
 	//~ Static fields/initializers /////////////////////////////////////////////

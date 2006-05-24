@@ -4,7 +4,7 @@
 //
 // last change: date:       $Date$
 //              by:         $Author$
-//              revision:   $Revision: 39 $
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -22,7 +22,7 @@ import javax.crypto.SecretKey;
 /**
  * 加密算法的key产生器.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version $Revision: 39 $
+ * @version $Revision$
  */
 public class CryptoKeyGenerator {
 	/**

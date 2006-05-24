@@ -12,7 +12,7 @@ import corner.util.BeanUtils;
  * 用以装载blob数据.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision: 825 $
+ * @version	$Revision$
  * @since	2006-1-20
  */
 public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implements IBlobProvider {

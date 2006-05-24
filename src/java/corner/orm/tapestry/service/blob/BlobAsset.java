@@ -4,7 +4,7 @@
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
-//           	revision:   $Revision: 825 $
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -32,7 +32,7 @@ import org.apache.tapestry.engine.ILink;
  * <li>tableKey 表的主键值,{@link BlobService#LOB_PROVIDER_CLAZZS};
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version	$Revision: 825 $
+ * @version	$Revision$
  * @since	2006-1-20
  * @seee org.apache.tapestry.IAsset
  */
