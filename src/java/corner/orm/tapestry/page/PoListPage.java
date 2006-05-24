@@ -5,7 +5,7 @@ import org.hibernate.criterion.DetachedCriteria;
 
 import corner.orm.hibernate.IPersistent;
 import corner.orm.hibernate.expression.ExpressionExample;
-import corner.orm.tapestry.table.IPersistentQueryCallback;
+import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.orm.tapestry.table.PersistentBasicTableModel;
 
 /**
@@ -14,9 +14,9 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @version $Revison$
  * @since 2006-5-23
  */
-public abstract class PoListPage extends AbstractEntityListPage<IPersistent> implements IPersistentQueryCallback  {
+public abstract class PoListPage extends AbstractEntityListPage<IPersistent> implements IPersistentQueriable  {
 	/**
-	 * @see corner.orm.tapestry.table.IPersistentQueryCallback#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
 	 */
 	public void appendDetachedCriteria(DetachedCriteria criteria) {
 		if (this.getQueryEntity() != null)
@@ -25,12 +25,16 @@ public abstract class PoListPage extends AbstractEntityListPage<IPersistent> imp
 	}
 
 	/**
-	 * @see corner.orm.tapestry.table.IPersistentQueryCallback#createDetachedCriteria()
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#createDetachedCriteria()
 	 */
 	public DetachedCriteria createDetachedCriteria() {
 		
 		return DetachedCriteria.forClass(this.getEntity().getClass());
 	}
+	/**
+	 * 得到列表的source
+	 * @return table model
+	 */
 	public IBasicTableModel getSource(){
 		return new PersistentBasicTableModel(this.getEntityService(),this);
 	}

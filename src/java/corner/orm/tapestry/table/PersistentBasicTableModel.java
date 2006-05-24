@@ -26,18 +26,27 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 	// 实体服务类
 	private EntityService entityService;
 
-	private IPersistentQueryCallback callback;
-
+	private IPersistentQueriable callback;
+	/** 对行的数目进行了缓存**/
 	private int rows = -1;
-
+	
+	/**
+	 * 根据EntityService还有一个可查询的回掉类来构造一个table model.
+	 * @param entityService 实体服务类.
+	 * @param callback 查询回掉类.
+	 */
 	public PersistentBasicTableModel(EntityService entityService,
-			IPersistentQueryCallback callback) {
+			IPersistentQueriable callback) {
 		Assert.notNull(callback);
 		Assert.notNull(entityService);
 		this.entityService = entityService;
 		this.callback = callback;
 	}
 
+	/**
+	 * 
+	 * @see org.apache.tapestry.contrib.table.model.IBasicTableModel#getRowCount()
+	 */
 	public int getRowCount() {
 		if (rows == -1) {
 			DetachedCriteria criteria = this.callback.createDetachedCriteria();
@@ -51,7 +60,10 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 		return rows;
 		
 	}
-
+	/**
+	 * 
+	 * @see org.apache.tapestry.contrib.table.model.IBasicTableModel#getCurrentPageRows(int, int, org.apache.tapestry.contrib.table.model.ITableColumn, boolean)
+	 */
 	public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
 			final ITableColumn column, final boolean sort) {
 		DetachedCriteria criteria = this.callback.createDetachedCriteria();
