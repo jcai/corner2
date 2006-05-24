@@ -15,7 +15,6 @@ package corner.orm.tapestry.page;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,6 +47,7 @@ import corner.util.PaginationBean;
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-3
+ * @deprecated 将在2.1中删除，请使用 {@link corner.orm.tapestry.PoListPage}代替。
  */
 public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implements
 		PageBeginRenderListener, PageDetachListener, PageAttachListener {
@@ -68,11 +68,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	public abstract void setKeyName(String keyName);
 
-	/** 记载选中的list* */
-	@InitialValue("new java.util.ArrayList()")
-	public abstract List<T> getSelectedEntities();
-
-	public abstract void setSelectedEntities(List<T> list);
+	
 
 	/** 用于分页的bean* */
 	@Persist("client")
@@ -174,25 +170,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	public abstract void setSource(IBasicTableModel btm);
 
-	public boolean getCheckboxSelected() {
-		return false;
-	}
-
-	public void setCheckboxSelected(boolean bSelected) {
-		if (logger.isDebugEnabled()) {
-			logger
-					.debug("setCheckboxSelected(boolean) bSelected [" + bSelected + "]"); //$NON-NLS-1$
-		}
-
-		if (bSelected) {
-			this.getSelectedEntities().add(getEntity());
-
-			if (logger.isDebugEnabled()) {
-				logger
-						.debug("get SelectedEntities size [" + getSelectedEntities().size() + "]"); //$NON-NLS-1$
-			}
-		}
-	}
+	
 
 	/*-------------------------------------------------------------------------
 	 * 对实体的页面操作的响应.
@@ -200,6 +178,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	 */
 	/**
 	 * 批量删除实体.
+	 * @deprecated 将在2.1中删除，请使用 {@link AbstractEntityListPage#doDeleteEntitiesAction()}
 	 */
 	public void deleteEntities(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -217,6 +196,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	 * @param key
 	 *            主健值.
 	 * @return 页面.
+	 * @deprecated 将在2.1中删除 ,请使用 {@link AbstractEntityListPage#doDeleteEntityAction(T)}
 	 */
 	public IPage selectEntity(Serializable key) {
 		if (logger.isDebugEnabled()) {
@@ -264,6 +244,9 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	}
 
 	// 查询实体.
+	/**
+	 * @deprecated 将在 2.1中删除，请使用 {@link AbstractEntityListPage#doQueryEntityAction()}
+	 */
 	public void queryEntity() {
 
 	}

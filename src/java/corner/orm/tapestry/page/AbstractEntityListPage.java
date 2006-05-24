@@ -3,7 +3,10 @@
  */
 package corner.orm.tapestry.page;
 
+import java.util.List;
+
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.InitialValue;
 
 /**
  * @author Jun Tsai
@@ -25,6 +28,21 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 				this.getPageName().substring(0,
 						this.getPageName().lastIndexOf("List"))
 						+ "Form");
+	}
+	/** 记载选中的list* */
+	@InitialValue("new java.util.ArrayList()")
+	public abstract List<T> getSelectedEntities();
+	public abstract void setSelectedEntities(List<T> list);
+	
+	
+	public boolean getCheckboxSelected() {
+		return this.getSelectedEntities().contains(getEntity());
+	}
+
+	public void setCheckboxSelected(boolean bSelected) {
+		if (bSelected) {
+			this.getSelectedEntities().add(getEntity());
+		}
 	}
 //	 -------------------since 2.0
 	/**
@@ -63,6 +81,23 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	 */
 	public IPage doNewEntityAction() { // 新增加操作.
 		return this.getEntityFormPage();
+	}
+	/**
+	 * 提供一组的checkbox供选择.
+	 * 批量删除实体.
+	 * 
+	 * @return 当前页.
+	 */
+	public IPage doDeleteEntitiesAction(){
+		this.getEntityService().deleteEntities(this.getSelectedEntities());
+		return this;
+	}
+	/**
+	 * 响应查询的操作.
+	 * @return 当前页
+	 */
+	public IPage doQueryEntityAction(){
+		return this;
 	}
 
 }
