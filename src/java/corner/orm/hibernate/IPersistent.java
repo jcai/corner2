@@ -1,7 +1,7 @@
 package corner.orm.hibernate;
 
 /**
- * 所有的实体均实现该接口.主要用来统一定义和序列化.
+ * 鎵�鏈夌殑瀹炰綋鍧囧疄鐜拌鎺ュ彛.涓昏鐢ㄦ潵缁熶竴瀹氫箟鍜屽簭鍒楀寲.
  * @author jun
  * @see corner.orm.tapestry.HibernateAdapter
  */

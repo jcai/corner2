@@ -28,7 +28,7 @@ import com.opensymphony.util.TextUtils;
 
 /**
  * 
- * Ìá¹©¶ÔosuserµÄ²Ù×÷¡£
+ * æä¾›å¯¹osuserçš„æ“ä½œã€‚
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-9-12

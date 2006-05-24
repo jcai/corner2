@@ -26,8 +26,8 @@ import corner.util.PaginationBean;
 /**
  * 
  * Entity Service.
- * <p>Ìá¹©ÁË¶ÔÊµÌåµÄ»ù±¾²Ù×÷.
- * Æ©Èç:Ôö¼Ó,É¾³ı,ĞŞ¸ÄµÈ.
+ * <p>æä¾›äº†å¯¹å®ä½“çš„åŸºæœ¬æ“ä½œ.
+ * è­¬å¦‚:å¢åŠ ,åˆ é™¤,ä¿®æ”¹ç­‰.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-2
@@ -38,66 +38,66 @@ public class EntityService {
 	 */
 	private static final Log logger = LogFactory.getLog(EntityService.class);
 
-	/**¶ÔÏó¹ØÏµutils**/
+	/**å¯¹è±¡å…³ç³»utils**/
 	protected ObjectRelativeUtils oru;
 
 	/**
-	 * Éè¶¨O/R MµÄutilÀà.
-	 * @param oru O/R MµÄutilÀà.
+	 * è®¾å®šO/R Mçš„utilç±».
+	 * @param oru O/R Mçš„utilç±».
 	 */
 	public void setObjectRelativeUtils(ObjectRelativeUtils oru) {
 		this.oru = oru;
 	}
 	/**
-	 * µÃµ½ O/R MµÄutilÀà.
-	 * @return O/R MµÄutilÀà.
+	 * å¾—åˆ° O/R Mçš„utilç±».
+	 * @return O/R Mçš„utilç±».
 	 */
 	public ObjectRelativeUtils getObjectRelativeUtils() {
 		return oru;
 	}
 	
 	/**
-	 * ±£´æÒ»¸öÊµÌå
-	 * @param <T> ÊµÌå
-	 * @param entity ´ı±£´æµÄÊµÌå
-	 * @return ±£´æºóµÄÊµÌå.
+	 * ä¿å­˜ä¸€ä¸ªå®ä½“
+	 * @param <T> å®ä½“
+	 * @param entity å¾…ä¿å­˜çš„å®ä½“
+	 * @return ä¿å­˜åçš„å®ä½“.
 	 */
 	public <T> Serializable saveEntity(T entity) {
 		return oru.save(entity);
 	}
 	/**
-	 * ±£´æ»òÕß¸üĞÂÊµÌå.
-	 * @param <T> ÊµÌå.
-	 * @param entity ´ı±£´æ»ò¸üĞÂÊµÌå.
+	 * ä¿å­˜æˆ–è€…æ›´æ–°å®ä½“.
+	 * @param <T> å®ä½“.
+	 * @param entity å¾…ä¿å­˜æˆ–æ›´æ–°å®ä½“.
 	 */
 	public <T> void saveOrUpdateEntity(T entity) {
 		oru.saveOrUpdate(entity);
 	}
 	/**
-	 * ¸üĞÂÒ»¸öÊµÌå.
-	 * @param <T> ÊµÌå.
-	 * @param entity ´ı¸üĞÂµÄÊµÌå.
+	 * æ›´æ–°ä¸€ä¸ªå®ä½“.
+	 * @param <T> å®ä½“.
+	 * @param entity å¾…æ›´æ–°çš„å®ä½“.
 	 */
 	public <T> void updateEntity(T entity) {
 		oru.update(entity);
 	}
 	
 	/**
-	 * ×°ÔØÒ»¸öÊµÌå.
-	 * @param <T> ÊµÌå.
-	 * @param clazz ×°ÔØÊµÌåµÄÀà.
-	 * @param keyValue Ö÷½¡Öµ.
-	 * @return ³Ö¾Ã»¯µÄÊµÌå.
+	 * è£…è½½ä¸€ä¸ªå®ä½“.
+	 * @param <T> å®ä½“.
+	 * @param clazz è£…è½½å®ä½“çš„ç±».
+	 * @param keyValue ä¸»å¥å€¼.
+	 * @return æŒä¹…åŒ–çš„å®ä½“.
 	 */
 	public <T> T loadEntity(Class<T> clazz, Serializable keyValue) {
 		return oru.load(clazz, keyValue);
 	}
 	/**
-	 * ²éÑ¯Ò»¸öÊµÌå.
-	 * @param <T> ÊµÌå
-	 * @param clazz ÊµÌåÀà.
-	 * @param keyValue Ö÷½¡Öµ.
-	 * @return ÊµÌå,Èç¹ûÎ´ÕÒµ½,·µ»Ønull.
+	 * æŸ¥è¯¢ä¸€ä¸ªå®ä½“.
+	 * @param <T> å®ä½“
+	 * @param clazz å®ä½“ç±».
+	 * @param keyValue ä¸»å¥å€¼.
+	 * @return å®ä½“,å¦‚æœæœªæ‰¾åˆ°,è¿”å›null.
 	 * @since 2.0
 	 */
 	public <T> T getEntity(Class<T> clazz, Serializable keyValue) {
@@ -106,9 +106,9 @@ public class EntityService {
 	
 	
 	/**
-	 * ÅúÁ¿É¾³ıÊµÌå.
-	 * @param <T> ÊµÌå.
-	 * @param ts ÊµÌåÊı×é.
+	 * æ‰¹é‡åˆ é™¤å®ä½“.
+	 * @param <T> å®ä½“.
+	 * @param ts å®ä½“æ•°ç»„.
 	 */
 	public <T> void deleteEntities(T... ts) {
 		if (logger.isDebugEnabled()) {
@@ -127,10 +127,10 @@ public class EntityService {
 		}
 	}
 	/**
-	 * Í¨¹ı¸ø¶¨µÄÊµÌåIDÀ´É¾³ıÊµÌå.
-	 * @param <T> ÊµÌå. 
-	 * @param clazz ´ıÉ¾³ıµÄÊµÌå.
-	 * @param keyValue Ö÷¼üÖµ.
+	 * é€šè¿‡ç»™å®šçš„å®ä½“IDæ¥åˆ é™¤å®ä½“.
+	 * @param <T> å®ä½“. 
+	 * @param clazz å¾…åˆ é™¤çš„å®ä½“.
+	 * @param keyValue ä¸»é”®å€¼.
 	 */
 	public <T> void deleteEntityById(Class<T> clazz,Serializable keyValue) {
 		T entity=this.getEntity(clazz,keyValue);
@@ -139,9 +139,9 @@ public class EntityService {
 		}
 	}
 	/**
-	 * Í¨¹ı¸ø¶¨µÄÀàµÄÃû³ÆºÍÖ÷¼üÖµÀ´É¾³ıÊµÌå.
-	 * @param clazzName ÀàÃû.
-	 * @param key Ö÷¼üÖµ.
+	 * é€šè¿‡ç»™å®šçš„ç±»çš„åç§°å’Œä¸»é”®å€¼æ¥åˆ é™¤å®ä½“.
+	 * @param clazzName ç±»å.
+	 * @param key ä¸»é”®å€¼.
 	 */
 	@SuppressWarnings("unchecked")
 	public void deleteEntityById(String clazzName, Serializable key) {
@@ -154,10 +154,10 @@ public class EntityService {
 		
 	}
 	/**
-	 * Í¨¹ı¸ø¶¨µÄÀàµÄÃû³ÆºÍÖ÷¼üÖµÀ´µÃµ½ÊµÌå.
-	 * @param clazzname ÊµÌåÀàµÄÃû³Æ.
-	 * @param key Ö÷¼üÖµ.
-	 * @return ÊµÌå,µ±¸ø¶¨µÄÀàÎ´·¢ÏÖÊ±,·µ»Ønull.
+	 * é€šè¿‡ç»™å®šçš„ç±»çš„åç§°å’Œä¸»é”®å€¼æ¥å¾—åˆ°å®ä½“.
+	 * @param clazzname å®ä½“ç±»çš„åç§°.
+	 * @param key ä¸»é”®å€¼.
+	 * @return å®ä½“,å½“ç»™å®šçš„ç±»æœªå‘ç°æ—¶,è¿”å›null.
 	 */
 	public Object getEntity(String clazzname, Serializable key) {
 		Class clazz;
@@ -173,11 +173,11 @@ public class EntityService {
 		
 	}
 	/**
-	 * Í¨¹ı¸ø¶¨µÄÀàÒÔ¼°·ÖÒ³ÓÃµÄbeanÀ´µÃµ½list¡£
-	 * @param <T> ĞèÒª²éÕÒµÄÀà¡£
-	 * @param clazz Àà¡£
-	 * @param pb ·ÖÒ³µÄbean¡£
-	 * @return ÁĞ±í.
+	 * é€šè¿‡ç»™å®šçš„ç±»ä»¥åŠåˆ†é¡µç”¨çš„beanæ¥å¾—åˆ°listã€‚
+	 * @param <T> éœ€è¦æŸ¥æ‰¾çš„ç±»ã€‚
+	 * @param clazz ç±»ã€‚
+	 * @param pb åˆ†é¡µçš„beanã€‚
+	 * @return åˆ—è¡¨.
 	 */
 	public <T> List<T> find(Class<T> clazz, PaginationBean pb) { 
 		return oru.find("from " + clazz.getName(), pb); 

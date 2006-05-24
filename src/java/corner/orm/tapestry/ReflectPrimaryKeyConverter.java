@@ -19,7 +19,7 @@ import org.apache.tapestry.components.IPrimaryKeyConverter;
 import corner.util.BeanUtils;
 
 /**
- * ¸ù¾İÖ÷¼üÖµÀ´½øĞĞ¶ÔObject½øĞĞ×ª»».
+ * æ ¹æ®ä¸»é”®å€¼æ¥è¿›è¡Œå¯¹Objectè¿›è¡Œè½¬æ¢.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -41,7 +41,7 @@ public class ReflectPrimaryKeyConverter<T extends Object> implements IPrimaryKey
 	}
 	
 	/**
-	 * ¸ù¾İobjectÀ´µÃµ½¶ÔÓ¦µÄÖ÷½¨Öµ.
+	 * æ ¹æ®objectæ¥å¾—åˆ°å¯¹åº”çš„ä¸»å»ºå€¼.
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getPrimaryKey(java.lang.Object)
 	 */
 	public Object getPrimaryKey(Object obj) {
@@ -51,7 +51,7 @@ public class ReflectPrimaryKeyConverter<T extends Object> implements IPrimaryKey
 		return BeanUtils.getProperty(obj,idStr);
 	}
 	/**
-	 * ¸ù¾İÖ÷¼üÖµÀ´µÃµ½¶ÔÓ¦µÄObject.
+	 * æ ¹æ®ä¸»é”®å€¼æ¥å¾—åˆ°å¯¹åº”çš„Object.
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getValue(java.lang.Object)
 	 */
 	public Object getValue(Object id) {

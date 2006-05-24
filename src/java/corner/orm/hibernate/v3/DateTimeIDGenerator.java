@@ -26,8 +26,8 @@ import org.hibernate.util.PropertiesHelper;
 import corner.orm.hibernate.AbstractDateTimeIDGenerator;
 
 /**
- * Ò»¸ö¸ù¾İÊ±¼äÀ´×Ô¶¯Éú³ÉÖ÷¼üµÄÀà¡£
- * Éú³ÉµÄIDÎª:prefix+yyyyMMddHHmmssSSS.
+ * ä¸€ä¸ªæ ¹æ®æ—¶é—´æ¥è‡ªåŠ¨ç”Ÿæˆä¸»é”®çš„ç±»ã€‚
+ * ç”Ÿæˆçš„IDä¸º:prefix+yyyyMMddHHmmssSSS.
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$

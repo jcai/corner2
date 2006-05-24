@@ -1,27 +1,27 @@
 package corner.model;
 
 /**
- * ³éÏóµÄ´úÂë±í¡£
+ * æŠ½è±¡çš„ä»£ç è¡¨ã€‚
  * @author Jun Tsai
  * @version $Revison$
  * @since 2006-4-18
  */
 public abstract class AbstractMarkCodeModel {
 	/**
-	 * code£¬±£´æÔÚÊı¾İ¿âÖĞÎªÊı×ÖÀàĞÍ,Æ©Èç:2345¡£
+	 * codeï¼Œä¿å­˜åœ¨æ•°æ®åº“ä¸­ä¸ºæ•°å­—ç±»å‹,è­¬å¦‚:2345ã€‚
 	 * @hibernate.property column="MARK_Code" length="20"
 	 * 
 	 */
 	private String code=null;
 	/**
-	 * Æ´Òô£¬¹©²éÑ¯Ê¹ÓÃ£¬±£´æÔÚÊı¾İ¿âÖĞÎª×ÖÄ¸ÀàĞÍ£¬Æ©Èç abcdj¡£
+	 * æ‹¼éŸ³ï¼Œä¾›æŸ¥è¯¢ä½¿ç”¨ï¼Œä¿å­˜åœ¨æ•°æ®åº“ä¸­ä¸ºå­—æ¯ç±»å‹ï¼Œè­¬å¦‚ abcdjã€‚
 	 * @hibernate.property column="MARK_PINYIN" length="20"
 	 * 
 	 */
 	private String pinyin;
 	/**
 	 * 
-	 * ÏîÄ¿£¬¹©²éÑ¯Ê¹ÓÃ£¬±£´æÔÚÊı¾İ¿âÖĞÎªºº×ÓÀàĞÍ£¬Æ©Èç ÎÒÃÇ¡£
+	 * é¡¹ç›®ï¼Œä¾›æŸ¥è¯¢ä½¿ç”¨ï¼Œä¿å­˜åœ¨æ•°æ®åº“ä¸­ä¸ºæ±‰å­ç±»å‹ï¼Œè­¬å¦‚ æˆ‘ä»¬ã€‚
 	 * @hibernate.property column="MARK_ITEM" length="20"
 	 * 
 	 */

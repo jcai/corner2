@@ -18,7 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Õë¶ÔSpringµÄ°ü×°¡£
+ * é’ˆå¯¹Springçš„åŒ…è£…ã€‚
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-9-9
@@ -29,7 +29,7 @@ public class SpringContainer {
 	private static Object obj=new Object();
 	private static SpringContainer instance;
 	private static final Log log = LogFactory.getLog(SpringContainer.class);
-	/** Ä¬ÈÏÇé¿öÏÂ,SpringÅäÖÃÂ·¾¶.**/
+	/** é»˜è®¤æƒ…å†µä¸‹,Springé…ç½®è·¯å¾„.**/
 	public static final String DEFAULT_CONFIG_FILES="classpath:/config/spring/application-*.xml";
 	private ClassPathXmlApplicationContext applicationContext;
 	
@@ -50,9 +50,9 @@ public class SpringContainer {
 		
 	}
 	/**
-	 * µÃµ½Ä¬ÈÏµÄÈİÆ÷Àà.
-	 * <p>Ä¬ÈÏÇé¿öÏÂ,ÔÚclasspath:/config/spring/application-*.xmlÏÂÃæ²éÕÒÎÄ¼ş.
-	 * @return SpringÈİÆ÷.
+	 * å¾—åˆ°é»˜è®¤çš„å®¹å™¨ç±».
+	 * <p>é»˜è®¤æƒ…å†µä¸‹,åœ¨classpath:/config/spring/application-*.xmlä¸‹é¢æŸ¥æ‰¾æ–‡ä»¶.
+	 * @return Springå®¹å™¨.
 	 */
 	public static SpringContainer getInstance(){
 		if(instance==null){
@@ -70,9 +70,9 @@ public class SpringContainer {
 		
 	}
 	/**
-	 * ¸ù¾İ¸ø¶¨µÄÅäÖÃÎÄ¼şÀ´Éú³ÉÈİÆ÷..
-	 * @param config ÅäÖÃÎÄ¼ş.
-	 * @return ÊµÀı»¯µÄSpringÈİÆ÷.
+	 * æ ¹æ®ç»™å®šçš„é…ç½®æ–‡ä»¶æ¥ç”Ÿæˆå®¹å™¨..
+	 * @param config é…ç½®æ–‡ä»¶.
+	 * @return å®ä¾‹åŒ–çš„Springå®¹å™¨.
 	 */
 	public static SpringContainer getInstance(String ... config){
 		if(instance==null){
@@ -91,8 +91,8 @@ public class SpringContainer {
 		
 	}
 	/**
-	 * µÃµ½SpringµÄApplicationContext¡£
-	 * @return springµÄcontext¡£
+	 * å¾—åˆ°Springçš„ApplicationContextã€‚
+	 * @return springçš„contextã€‚
 	 */
 	public ApplicationContext getApplicationContext(){
 		return this.applicationContext;

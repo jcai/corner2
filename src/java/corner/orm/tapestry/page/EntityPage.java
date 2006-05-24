@@ -21,40 +21,40 @@ import corner.service.EntityService;
 
 /**
  * 
- * »ù±¾µÄÊµÌå²Ù×÷½Ó¿Ú¡£
+ * åŸºæœ¬çš„å®ä½“æ“ä½œæ¥å£ã€‚
  * @author Jun Tsai
  * @since 0.1
- * @param <T> ÊµÌåÀà
+ * @param <T> å®ä½“ç±»
  */
 public interface EntityPage<T  > extends IPage {
 	/**
-	 * µÃµ½ÊµÌå¡£
-	 * @return ÊµÌå¡£
+	 * å¾—åˆ°å®ä½“ã€‚
+	 * @return å®ä½“ã€‚
 	 */
 	public  abstract <E extends T> E  getEntity();
 	/***
-	 * Éè¶¨ÊµÌå¡£
-	 * @param entity ÊµÌå¡£
+	 * è®¾å®šå®ä½“ã€‚
+	 * @param entity å®ä½“ã€‚
 	 */
 	public abstract <E extends T> void  setEntity(E entity);
 
 	/**
-	 * ¸ù¾İÊµÌåµÄÖ÷¼ü£¬µÃµ½Ò»¸öÊµÌå£¬²¢Éè¶¨ÊµÌå¡£
-	 * @param key Ö÷¼üÖµ
+	 * æ ¹æ®å®ä½“çš„ä¸»é”®ï¼Œå¾—åˆ°ä¸€ä¸ªå®ä½“ï¼Œå¹¶è®¾å®šå®ä½“ã€‚
+	 * @param key ä¸»é”®å€¼
 	 */
 	public abstract void loadEntity(Serializable key);
 	/**
-	 * µÃµ½EntityService.
-	 * <p>Ìá¹©»ù±¾µÄ²Ù×÷.
-	 * @return entityService ÊµÌå·şÎñÀà
+	 * å¾—åˆ°EntityService.
+	 * <p>æä¾›åŸºæœ¬çš„æ“ä½œ.
+	 * @return entityService å®ä½“æœåŠ¡ç±»
 	 * @since 2.0
 	 */
 	@InjectObject("spring:entityService")
 	public abstract EntityService getEntityService();
 	/**
-	 * µÃµ½EntityService.½«ÔÚ2.1ÖĞÉ¾³ı¡£Ê¹ÓÃ {@link #getEntityService()}
-	 * <p>Ìá¹©»ù±¾µÄ²Ù×÷.
-	 * @return entityService ÊµÌå·şÎñÀà
+	 * å¾—åˆ°EntityService.å°†åœ¨2.1ä¸­åˆ é™¤ã€‚ä½¿ç”¨ {@link #getEntityService()}
+	 * <p>æä¾›åŸºæœ¬çš„æ“ä½œ.
+	 * @return entityService å®ä½“æœåŠ¡ç±»
 	 * @deprecated
 	 */
 	@InjectObject("spring:entityService")

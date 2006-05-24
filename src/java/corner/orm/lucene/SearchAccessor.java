@@ -30,7 +30,7 @@ import corner.orm.lucene.cd.WebLuceneHighlighter;
 import corner.util.PaginationBean;
 
 /**
- * ¶Ô»ùÓÚLuceneµÄSearchµÄÖ§³Ö.
+ * å¯¹åŸºäºLuceneçš„Searchçš„æ”¯æŒ.
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
@@ -39,11 +39,11 @@ import corner.util.PaginationBean;
 public class SearchAccessor extends LuceneSearchSupport {
 	
 	/**
-	 * ¶ÔË÷Òı¿â½øĞĞËÑË÷.
-	 * @param queryCreator Query´´½¨Æ÷.
-	 * @param extractor hitµÄExtractor
-	 * @param pb ¿ØÖÆ¼ÇÂ¼µÄbean.
-	 * @return ËÑË÷½á¹ûÁĞ±í.
+	 * å¯¹ç´¢å¼•åº“è¿›è¡Œæœç´¢.
+	 * @param queryCreator Queryåˆ›å»ºå™¨.
+	 * @param extractor hitçš„Extractor
+	 * @param pb æ§åˆ¶è®°å½•çš„bean.
+	 * @return æœç´¢ç»“æœåˆ—è¡¨.
 	 */
 	public List search(final QueryCreator queryCreator,
 			final HighlighterHitExtractor extractor,final PaginationBean pb) {
@@ -65,9 +65,9 @@ public class SearchAccessor extends LuceneSearchSupport {
 		});
 	}
 	/**
-	 * µÃµ½ËÑË÷µÄ½á¹û¼ÇÂ¼Êı.
-	 * @param qc query´´½¨Æ÷.
-	 * @return Æ¥Åä½á¹ûµÄ¼ÇÂ¼Êı.
+	 * å¾—åˆ°æœç´¢çš„ç»“æœè®°å½•æ•°.
+	 * @param qc queryåˆ›å»ºå™¨.
+	 * @return åŒ¹é…ç»“æœçš„è®°å½•æ•°.
 	 */
 	public int getSearchCount(final QueryCreator qc){
 		return ((Integer) this.getTemplate().search(new SearcherCallback(){

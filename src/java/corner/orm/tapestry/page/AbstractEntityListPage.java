@@ -15,9 +15,9 @@ import org.apache.tapestry.annotations.InitialValue;
  */
 public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	/**
-	 * ²éÑ¯µÄÊµÌå.
+	 * æŸ¥è¯¢çš„å®ä½“.
 	 * 
-	 * @return ²éÑ¯ÊµÌå.
+	 * @return æŸ¥è¯¢å®ä½“.
 	 */
 	public abstract T getQueryEntity();
 
@@ -29,7 +29,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 						this.getPageName().lastIndexOf("List"))
 						+ "Form");
 	}
-	/** ¼ÇÔØÑ¡ÖĞµÄlist* */
+	/** è®°è½½é€‰ä¸­çš„list* */
 	@InitialValue("new java.util.ArrayList()")
 	public abstract List<T> getSelectedEntities();
 	public abstract void setSelectedEntities(List<T> list);
@@ -46,55 +46,55 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	}
 //	 -------------------since 2.0
 	/**
-	 * É¾³ıÒ»¸öÊµÌå¡£
+	 * åˆ é™¤ä¸€ä¸ªå®ä½“ã€‚
 	 * 
 	 * @param entity
-	 *            ÊµÌå¶ÔÏó¡£
-	 * @return ·µ»ØÒ³Ãæ.
+	 *            å®ä½“å¯¹è±¡ã€‚
+	 * @return è¿”å›é¡µé¢.
 	 * @since 2.0
 	 */
-	public IPage doDeleteEntityAction(T entity) { // É¾³ı²Ù×÷
+	public IPage doDeleteEntityAction(T entity) { // åˆ é™¤æ“ä½œ
 		this.getEntityService().deleteEntities(entity);
 		return this;
 	}
 
 	/**
-	 * ±à¼­ÊµÌå²Ù×÷.
+	 * ç¼–è¾‘å®ä½“æ“ä½œ.
 	 * 
 	 * @param entity
-	 *            ÊµÌå.
-	 * @return ·µ»Ø±à¼­Ò³Ãæ.
+	 *            å®ä½“.
+	 * @return è¿”å›ç¼–è¾‘é¡µé¢.
 	 * @since 2.0
 	 */
 
-	public IPage doEditEntityAction(T entity) { // ±à¼­²Ù×÷
+	public IPage doEditEntityAction(T entity) { // ç¼–è¾‘æ“ä½œ
 		EntityPage<T> page = this.getEntityFormPage();
 		page.setEntity(entity);
 		return page;
 	}
 
 	/**
-	 * ĞÂÔöÊ¬Ìå²Ù×÷.
+	 * æ–°å¢å°¸ä½“æ“ä½œ.
 	 * 
-	 * @return ĞÂÔöÊµÌå²Ù×÷µÄÒ³Ãæ.
+	 * @return æ–°å¢å®ä½“æ“ä½œçš„é¡µé¢.
 	 * @since 2.0
 	 */
-	public IPage doNewEntityAction() { // ĞÂÔö¼Ó²Ù×÷.
+	public IPage doNewEntityAction() { // æ–°å¢åŠ æ“ä½œ.
 		return this.getEntityFormPage();
 	}
 	/**
-	 * Ìá¹©Ò»×éµÄcheckbox¹©Ñ¡Ôñ.
-	 * ÅúÁ¿É¾³ıÊµÌå.
+	 * æä¾›ä¸€ç»„çš„checkboxä¾›é€‰æ‹©.
+	 * æ‰¹é‡åˆ é™¤å®ä½“.
 	 * 
-	 * @return µ±Ç°Ò³.
+	 * @return å½“å‰é¡µ.
 	 */
 	public IPage doDeleteEntitiesAction(){
 		this.getEntityService().deleteEntities(this.getSelectedEntities());
 		return this;
 	}
 	/**
-	 * ÏìÓ¦²éÑ¯µÄ²Ù×÷.
-	 * @return µ±Ç°Ò³
+	 * å“åº”æŸ¥è¯¢çš„æ“ä½œ.
+	 * @return å½“å‰é¡µ
 	 */
 	public IPage doQueryEntityAction(){
 		return this;

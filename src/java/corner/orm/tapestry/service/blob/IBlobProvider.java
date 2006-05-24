@@ -15,7 +15,7 @@ package corner.orm.tapestry.service.blob;
 import corner.service.EntityService;
 
 /**
- * Ìá¹©Ò»¸öblobÍ¼ÏñÀ´Ô´.
+ * æä¾›ä¸€ä¸ªblobå›¾åƒæ¥æº.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -23,24 +23,24 @@ import corner.service.EntityService;
  */
 public interface IBlobProvider {
 	/**
-	 * ·µ»Øblob¶ÔÏóÎª×Ö½ÚÊı×é.
-	 * @return ×Ö½ÚÊı×é.
+	 * è¿”å›blobå¯¹è±¡ä¸ºå­—èŠ‚æ•°ç»„.
+	 * @return å­—èŠ‚æ•°ç»„.
 	 */
 	public byte[] getBlobAsBytes();
 	/**
-	 * blobµÄÀàĞÍ,Í¨³£ÓÃÀ´ÔÚwebÉÏµÄÏÔÊ¾.
-	 * @return blobµÄÀàĞÍ.
+	 * blobçš„ç±»å‹,é€šå¸¸ç”¨æ¥åœ¨webä¸Šçš„æ˜¾ç¤º.
+	 * @return blobçš„ç±»å‹.
 	 */
 	public String getContentType();
 	/**
-	 * blobµÄÖ÷¼üÖµ.
-	 * @param tableKey Ö÷¼üÖµ.
+	 * blobçš„ä¸»é”®å€¼.
+	 * @param tableKey ä¸»é”®å€¼.
 	 */
 	public void setKeyValue(String tableKey);
 	/**
-	 * ÉèÖÃÊµÌå·şÎñ.
+	 * è®¾ç½®å®ä½“æœåŠ¡.
 	 * 
-	 * @param entityService ÊµÌå·şÎñ.
+	 * @param entityService å®ä½“æœåŠ¡.
 	 */
 	public void setEntityService(EntityService entityService);
 }

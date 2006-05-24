@@ -82,7 +82,7 @@ public class SimpleGBKTokenizer extends Tokenizer {
                 // NLS Character:
                 if (Character.isLetter(ch)) {
 
-                    // Xerdoc��
+                    // Xerdoc锟斤拷
                     // ^
                     if (tokenType == "NON_NLS") {
                         --bufferIndex;

@@ -25,7 +25,7 @@ import corner.orm.hibernate.expression.grammer.QueryExpressionLexer;
 import corner.orm.hibernate.expression.grammer.QueryExpressionParser;
 
 /**
- * º¬ÓĞ±í´ïÊ½µÄ²éÑ¯½âÎöÆ÷.
+ * å«æœ‰è¡¨è¾¾å¼çš„æŸ¥è¯¢è§£æå™¨.
  * 
  * @author jun
  * 
@@ -60,7 +60,7 @@ public class ExpressionExample extends Example {
 	private boolean isIgnoreCaseEnabled;
 
 	//private static final String STRING_EXPRESSION_PATTERN = "\\s+(AND|OR)\\s+([\u4e00-\u9fa5\\w]+)";
-	//¼ÇÂ¼²ğ·ÖÖ®ºóµÄÖµ¼¯ºÏ.
+	//è®°å½•æ‹†åˆ†ä¹‹åçš„å€¼é›†åˆ.
 	private Map<String,Set<String>> values=new HashMap<String,Set<String>>();
 	/**
 	 * 

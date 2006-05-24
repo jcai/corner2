@@ -19,7 +19,7 @@ import corner.util.ognl.OgnlUtil;
 
 
 /**
- * Éè¶¨beanµÄ³£ÓÃº¯Êı£¬Ö÷Òª²ÉÓÃÁËOgnl¡£
+ * è®¾å®šbeançš„å¸¸ç”¨å‡½æ•°ï¼Œä¸»è¦é‡‡ç”¨äº†Ognlã€‚
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision: 35 $
  */
@@ -40,10 +40,10 @@ public class BeanUtils {
 
 	}
 	/**
-	 * Éè¶¨ÊôĞÔ
+	 * è®¾å®šå±æ€§
 	 * @param bean bean
-	 * @param pro ÊôĞÔÃû³Æ
-	 * @param value Öµ
+	 * @param pro å±æ€§åç§°
+	 * @param value å€¼
 	 */
 	public static void setProperty(Object bean, String pro, Object value) {
 		OgnlUtil.setProperty(bean, pro, value);
@@ -63,10 +63,10 @@ public class BeanUtils {
 	}
 
 	/**
-	 * µÄ°ÂbeanµÄÊôĞÔÖµ¡£
+	 * çš„å¥¥beançš„å±æ€§å€¼ã€‚
 	 * @param bean bean.
-	 * @param pro ÊôĞÔµÄÃû³Æ.
-	 * @return ÊôĞÔÖµ.
+	 * @param pro å±æ€§çš„åç§°.
+	 * @return å±æ€§å€¼.
 	 */
 	public static Object getProperty(Object bean, String pro) {
 
@@ -80,9 +80,9 @@ public class BeanUtils {
 	}
 
 	/**
-	 * ¸´ÖÆÒ»¸öorigµÄÊôĞÔµ½destÖĞ.
-	 * @param dest ĞèÒª¸³ÖµµÄbean.
-	 * @param orig Ô­Ê¼bean.
+	 * å¤åˆ¶ä¸€ä¸ªorigçš„å±æ€§åˆ°destä¸­.
+	 * @param dest éœ€è¦èµ‹å€¼çš„bean.
+	 * @param orig åŸå§‹bean.
 	 */
 	public static void setProperties(Object dest, Object orig) {
 		OgnlUtil.copy(orig, dest, null);
@@ -99,9 +99,9 @@ public class BeanUtils {
 	
 
 	/**
-	 * ´ÓmapÖĞµÃµ½Öµ½øĞĞ¸³Öµ¸øbean.
-	 * @param bean ĞèÒª¸³ÖµµÄbean.
-	 * @param map °üº¬ÖµµÄmap.
+	 * ä»mapä¸­å¾—åˆ°å€¼è¿›è¡Œèµ‹å€¼ç»™bean.
+	 * @param bean éœ€è¦èµ‹å€¼çš„bean.
+	 * @param map åŒ…å«å€¼çš„map.
 	 */
 	public static void setProperties(Object bean, Map map) {
 
@@ -119,9 +119,9 @@ public class BeanUtils {
 	}
 
 	/**
-	 * ÊµÀı»¯Ò»¸öÀà.
-	 * @param clazz ÀàµÄÃû³Æ.
-	 * @return ÊµÀı»¯µÄÀà.
+	 * å®ä¾‹åŒ–ä¸€ä¸ªç±».
+	 * @param clazz ç±»çš„åç§°.
+	 * @return å®ä¾‹åŒ–çš„ç±».
 	 */
 	public static Object instantiateClass(String clazz) {
 		try {
@@ -135,9 +135,9 @@ public class BeanUtils {
 		}
 	}
 	/**
-	 * ÊµÀı»¯Ò»¸öÀà.
-	 * @param clazz ÀàµÄÃû³Æ.
-	 * @return ÊµÀı»¯µÄÀà.
+	 * å®ä¾‹åŒ–ä¸€ä¸ªç±».
+	 * @param clazz ç±»çš„åç§°.
+	 * @return å®ä¾‹åŒ–çš„ç±».
 	 */
 	public static <T> T instantiateClass(Class<T> clazz) {
 		try {

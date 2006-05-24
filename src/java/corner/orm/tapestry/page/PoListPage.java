@@ -9,7 +9,7 @@ import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.orm.tapestry.table.PersistentBasicTableModel;
 
 /**
- * ³éÏóµÄ¶ÔËùÓĞÊµÌåµÄ²Ù×÷¡£
+ * æŠ½è±¡çš„å¯¹æ‰€æœ‰å®ä½“çš„æ“ä½œã€‚
  * @author Jun Tsai
  * @version $Revison$
  * @since 2006-5-23
@@ -32,7 +32,7 @@ public abstract class PoListPage extends AbstractEntityListPage<IPersistent> imp
 		return DetachedCriteria.forClass(this.getEntity().getClass());
 	}
 	/**
-	 * µÃµ½ÁĞ±íµÄsource
+	 * å¾—åˆ°åˆ—è¡¨çš„source
 	 * @return table model
 	 */
 	public IBasicTableModel getSource(){

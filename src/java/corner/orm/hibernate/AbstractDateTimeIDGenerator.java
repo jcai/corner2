@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * 抽象的DateTimeGenerator对象.
+ * 鎶借薄鐨凞ateTimeGenerator瀵硅薄.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

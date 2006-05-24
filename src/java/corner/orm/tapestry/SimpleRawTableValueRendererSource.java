@@ -20,7 +20,7 @@ import org.apache.tapestry.contrib.table.model.ITableRendererSource;
 import org.apache.tapestry.contrib.table.model.simple.SimpleTableColumn;
 import org.apache.tapestry.valid.RenderString;
 /**
- * 可以显示raw书局的TableValueRenderer.
+ * 鍙互鏄剧ずraw涔﹀眬鐨凾ableValueRenderer.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

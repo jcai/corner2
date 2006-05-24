@@ -20,29 +20,29 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
- * ¼ÓÃÜËã·¨µÄkey²úÉúÆ÷.
+ * åŠ å¯†ç®—æ³•çš„keyäº§ç”Ÿå™¨.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision: 39 $
  */
 public class CryptoKeyGenerator {
 	/**
-	 * ²úÉú¼ÓÃÜµÄkey.
-	 * @param algorithm Ëã·¨Ãû³Æ.
-	 * @param fileName ¼ÓÃÜ²úÉúÎÄ¼şµÄÃû³Æ.
+	 * äº§ç”ŸåŠ å¯†çš„key.
+	 * @param algorithm ç®—æ³•åç§°.
+	 * @param fileName åŠ å¯†äº§ç”Ÿæ–‡ä»¶çš„åç§°.
 	 */
 	public static void generateKey(String algorithm, String fileName) {
 		SecretKey key = null;
 
 		try {
 
-			//	  Ö¸¶¨Ëã·¨,ÕâÀïÎªDES;Èç¹ûÏëÓÃBlowfishËã·¨,ÔòÓÃ getInstance("Blowfish")
-			//	  BouncyCastle»ù±¾ÉÏÖ§³ÖËùÓĞÍ¨ÓÃ±ê×¼Ëã·¨
+			//	  æŒ‡å®šç®—æ³•,è¿™é‡Œä¸ºDES;å¦‚æœæƒ³ç”¨Blowfishç®—æ³•,åˆ™ç”¨ getInstance("Blowfish")
+			//	  BouncyCastleåŸºæœ¬ä¸Šæ”¯æŒæ‰€æœ‰é€šç”¨æ ‡å‡†ç®—æ³•
 			KeyGenerator keygen = KeyGenerator.getInstance(algorithm);
-			//	  Ö¸¶¨ÃÜÔ¿³¤¶È,³¤¶ÈÔ½¸ß,¼ÓÃÜÇ¿¶ÈÔ½´ó
+			//	  æŒ‡å®šå¯†é’¥é•¿åº¦,é•¿åº¦è¶Šé«˜,åŠ å¯†å¼ºåº¦è¶Šå¤§
 			keygen.init(56);
-			//	  ²úÉúÃÜÔ¿
+			//	  äº§ç”Ÿå¯†é’¥
 			key = keygen.generateKey();
-			//	  ¹¹ÔìÊä³öÎÄ¼ş,ÕâÀïµÄÄ¿Â¼ÊÇ¶¯Ì¬µÄ,¸ù¾İÓÃ»§Ãû³ÆÀ´¹¹ÔìÄ¿Â¼
+			//	  æ„é€ è¾“å‡ºæ–‡ä»¶,è¿™é‡Œçš„ç›®å½•æ˜¯åŠ¨æ€çš„,æ ¹æ®ç”¨æˆ·åç§°æ¥æ„é€ ç›®å½•
 			ObjectOutputStream keyFile =
 				new ObjectOutputStream(new FileOutputStream(fileName));
 			keyFile.writeObject(key);

@@ -34,17 +34,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * ¶ÔÎÄ¼ş¼ÓÃÜ.
+ * å¯¹æ–‡ä»¶åŠ å¯†.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision: 131 $
  */
 public class Cryptor {
 	private static final Log log = LogFactory.getLog(Cryptor.class);
 	/**
-	 * ¼ÓÃÜĞ´ÈëÎÄ¼şµÄIOÁ÷,¶ÔIOÁ÷½øĞĞÁË¼ÓÃÜ´¦Àí,Ê¹Æä²úÉú¼ÓÃÜÎÄ¼ş.
-	 * @param outFileName Êä³öµÄÎÄ¼şÃû³Æ. 
-	 * @param keyFile ÃÜÔ¿µÄÎÄ¼şÃû³Æ.
-	 * @return ¼ÓÃÜºóµÄÊä³öÁ÷.
+	 * åŠ å¯†å†™å…¥æ–‡ä»¶çš„IOæµ,å¯¹IOæµè¿›è¡Œäº†åŠ å¯†å¤„ç†,ä½¿å…¶äº§ç”ŸåŠ å¯†æ–‡ä»¶.
+	 * @param outFileName è¾“å‡ºçš„æ–‡ä»¶åç§°. 
+	 * @param keyFile å¯†é’¥çš„æ–‡ä»¶åç§°.
+	 * @return åŠ å¯†åçš„è¾“å‡ºæµ.
 	 */
 	public static OutputStream encryptFileIO(
 		String outFileName,
@@ -58,7 +58,7 @@ public class Cryptor {
 		}
 		SecretKey key = null;
 
-		//´ÓÃÜÔ¿ÎÄ¼ş¶ÁÈ¡ÃÜÔ¿
+		//ä»å¯†é’¥æ–‡ä»¶è¯»å–å¯†é’¥
 		ObjectInputStream keyis;
 		try {
 			keyis = new ObjectInputStream(new FileInputStream(keyFile));
@@ -75,13 +75,13 @@ public class Cryptor {
 			throw new RuntimeException(e);
 		}
 
-		//ÓÃkey²úÉúCipher
+		//ç”¨keyäº§ç”ŸCipher
 		Cipher cipher = null;
-		//¼ÓÃÜÒªÓÃCipherÀ´ÊµÏÖ
+		//åŠ å¯†è¦ç”¨Cipheræ¥å®ç°
 
 		try {
 			cipher = Cipher.getInstance("DES");
-			//ÉèÖÃ¼ÓÃÜÄ£Ê½
+			//è®¾ç½®åŠ å¯†æ¨¡å¼
 
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 		} catch (NoSuchAlgorithmException e) {
@@ -92,9 +92,9 @@ public class Cryptor {
 			throw new RuntimeException(e);
 		}
 
-		//´Ó¶Ô»°¿òÖĞÈ¡µÃÒª¼ÓÃÜµÄÎÄ¼ş
+		//ä»å¯¹è¯æ¡†ä¸­å–å¾—è¦åŠ å¯†çš„æ–‡ä»¶
 
-		//¶ÁÈë²¢¼ÓÃÜÎÄ¼ş
+		//è¯»å…¥å¹¶åŠ å¯†æ–‡ä»¶
 		CipherOutputStream out = null;
 		try {
 			out =
@@ -109,10 +109,10 @@ public class Cryptor {
 
 	}
 	/**
-	 * ½âÃÜ¶ÁÈ¡ÎÄ¼şµÄIOÁ÷.¶ÔIOÁ÷½øĞĞ½âÃÜ,Ê¹Æä¶Áµ½ÕæÕıµÄÎÄ¼ş.
-	 * @param inputFileName ĞèÒª¶ÁÈ¡µÄÎÄ¼şÃû³Æ.
-	 * @param keyFile ÃÜÔ¿ÎÄ¼şµÄÃû³Æ.
-	 * @return ½âÃÜºóµÄIOÁ÷.
+	 * è§£å¯†è¯»å–æ–‡ä»¶çš„IOæµ.å¯¹IOæµè¿›è¡Œè§£å¯†,ä½¿å…¶è¯»åˆ°çœŸæ­£çš„æ–‡ä»¶.
+	 * @param inputFileName éœ€è¦è¯»å–çš„æ–‡ä»¶åç§°.
+	 * @param keyFile å¯†é’¥æ–‡ä»¶çš„åç§°.
+	 * @return è§£å¯†åçš„IOæµ.
 	 */
 	public static InputStream dencryptFileIO(
 		String inputFileName,
@@ -140,13 +140,13 @@ public class Cryptor {
 			throw new RuntimeException(e);
 		}
 
-		//ÓÃkey²úÉúCipher
+		//ç”¨keyäº§ç”ŸCipher
 		Cipher cipher = null;
 
 		try {
-			//ÉèÖÃËã·¨,Ó¦¸ÃÓë¼ÓÃÜÊ±µÄÉèÖÃÒ»Ñù
+			//è®¾ç½®ç®—æ³•,åº”è¯¥ä¸åŠ å¯†æ—¶çš„è®¾ç½®ä¸€æ ·
 			cipher = Cipher.getInstance("DES");
-			// ÉèÖÃ½âÃÜÄ£Ê½
+			// è®¾ç½®è§£å¯†æ¨¡å¼
 			cipher.init(Cipher.DECRYPT_MODE, key);
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
@@ -160,7 +160,7 @@ public class Cryptor {
 
 		try {
 
-			//ÊäÈëÁ÷
+			//è¾“å…¥æµ
 			CipherInputStream in =
 				new CipherInputStream(
 					new BufferedInputStream(new FileInputStream(file)),

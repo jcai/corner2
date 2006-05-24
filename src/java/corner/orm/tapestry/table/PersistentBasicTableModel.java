@@ -16,24 +16,24 @@ import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 
 /**
- * »ùÓÚIPersistentµÄµÄtableÄ£ĞÍ¡£
+ * åŸºäºIPersistentçš„çš„tableæ¨¡å‹ã€‚
  * 
  * @author Jun Tsai
  * @version $Revison$
  * @since 2006-5-24
  */
 public class PersistentBasicTableModel implements IBasicTableModel {
-	// ÊµÌå·şÎñÀà
+	// å®ä½“æœåŠ¡ç±»
 	private EntityService entityService;
 
 	private IPersistentQueriable callback;
-	/** ¶ÔĞĞµÄÊıÄ¿½øĞĞÁË»º´æ**/
+	/** å¯¹è¡Œçš„æ•°ç›®è¿›è¡Œäº†ç¼“å­˜**/
 	private int rows = -1;
 	
 	/**
-	 * ¸ù¾İEntityService»¹ÓĞÒ»¸ö¿É²éÑ¯µÄ»ØµôÀàÀ´¹¹ÔìÒ»¸ötable model.
-	 * @param entityService ÊµÌå·şÎñÀà.
-	 * @param callback ²éÑ¯»ØµôÀà.
+	 * æ ¹æ®EntityServiceè¿˜æœ‰ä¸€ä¸ªå¯æŸ¥è¯¢çš„å›æ‰ç±»æ¥æ„é€ ä¸€ä¸ªtable model.
+	 * @param entityService å®ä½“æœåŠ¡ç±».
+	 * @param callback æŸ¥è¯¢å›æ‰ç±».
 	 */
 	public PersistentBasicTableModel(EntityService entityService,
 			IPersistentQueriable callback) {

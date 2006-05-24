@@ -20,7 +20,7 @@ import corner.util.BeanUtils;
 
 /**
  * 
- * »ù±¾µÄ¸ù¾İbeanµÄÊôĞÔÀ´µÃµ½Öµ.
+ * åŸºæœ¬çš„æ ¹æ®beançš„å±æ€§æ¥å¾—åˆ°å€¼.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-4
@@ -32,8 +32,8 @@ public class BeanPropertyTableColumn extends SimpleTableColumn {
 	 */
 	private static final long serialVersionUID = 6905390842282898107L;
 	/**
-	 * ÓĞÁĞµÄÃû³ÆÀ´¹¹Ôì.
-	 * @param strColumnName ÁĞµÄÃû³Æ.
+	 * æœ‰åˆ—çš„åç§°æ¥æ„é€ .
+	 * @param strColumnName åˆ—çš„åç§°.
 	 */
 	public BeanPropertyTableColumn(String strColumnName) {
 		super(strColumnName, strColumnName);

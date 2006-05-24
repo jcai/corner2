@@ -14,25 +14,25 @@ package corner.util;
 
 
 /**
- * Õë¶Ôºº×Öµ½Æ´ÒôµÄ´¦Àí³ÌĞò
+ * é’ˆå¯¹æ±‰å­—åˆ°æ‹¼éŸ³çš„å¤„ç†ç¨‹åº
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-10-26
  */
 public final class HanziUtils {
-	/**UnicodeÖĞºº×Ö¿ªÊ¼µã**/
+	/**Unicodeä¸­æ±‰å­—å¼€å§‹ç‚¹**/
 	private static final int HANZI_UNICODE_START=19968;
-	/**UnicodeÖĞºº×ÖµÄ½áÊøµã**/
+	/**Unicodeä¸­æ±‰å­—çš„ç»“æŸç‚¹**/
 	private static final int HANZI_UNICODE_END=40869;
 	/**
-	 * µÃµ½ºº×ÖÆ´ÒôµÄÊ××ÓÄ¸×éºÏ.
+	 * å¾—åˆ°æ±‰å­—æ‹¼éŸ³çš„é¦–å­æ¯ç»„åˆ.
 	 * eg:
-	 *  ²ÎÊıÖµÎª"ÖĞ»ªÈËÃñ¹²ºÍ¹ú"
-	 *  ·µ»Ø:"zhrmghg"
+	 *  å‚æ•°å€¼ä¸º"ä¸­åäººæ°‘å…±å’Œå›½"
+	 *  è¿”å›:"zhrmghg"
 	 *  
-	 * @param hanzi ĞèÒª´¦ÀíµÄºº×Ö,Èç¹û°üº¬ÓĞ·Çºº×ÖÄ¸,Ôò·µ»Ø×ÓÄ¸±¾Éí.
-	 * @return ·µ»ØµÄºº×ÖÆ´ÒôÊ××ÓÄ¸×éºÏ.
+	 * @param hanzi éœ€è¦å¤„ç†çš„æ±‰å­—,å¦‚æœåŒ…å«æœ‰éæ±‰å­—æ¯,åˆ™è¿”å›å­æ¯æœ¬èº«.
+	 * @return è¿”å›çš„æ±‰å­—æ‹¼éŸ³é¦–å­æ¯ç»„åˆ.
 	 */
 	public static String getPinyin(String hanzi){
 		StringBuffer hanziBuffer=new StringBuffer(hanzi);
@@ -47,7 +47,7 @@ public final class HanziUtils {
 		}
 		return result.toString();
 	}
-	/**¶¨ÒåµÄUnicodeÖĞµÄºº×Ö¶ÔÓ¦Æ´ÒôµÄÊ××ÓÄ¸.**/
+	/**å®šä¹‰çš„Unicodeä¸­çš„æ±‰å­—å¯¹åº”æ‹¼éŸ³çš„é¦–å­æ¯.**/
 	 private static String strChineseFirstPY =
 		 "ydyqsxmwzssxjbymgcczqpssqbycdscdqldylybssjgyzzjjfkcclzdhwdwzjljpfyynwjjtmyhzwzhflzppqhgscyyynjqyxxgj"
 		 + "hhsdsjnkktmomlcrxypsnqseccqzggllyjlmyzzsecykyyhqwjssggyxyzyjwwkdjhychmyxjtlxjyqbyxzldwrdjrwysrldzjpc"

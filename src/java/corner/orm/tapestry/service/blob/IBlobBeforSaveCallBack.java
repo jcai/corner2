@@ -15,16 +15,16 @@ package corner.orm.tapestry.service.blob;
 import corner.model.AbstractBlobModel;
 
 /**
- * Õë¶Ôblob¶ÔÏóÔÚ±£´æÇ°µÄ²Ù×÷»Øµ÷½Ó¿Ú.
- * <p>Ìá¹©ÔÚ±£´æblob¶ÔÏóÖ®Ç°µÄµ÷ÓÃ.
+ * é’ˆå¯¹blobå¯¹è±¡åœ¨ä¿å­˜å‰çš„æ“ä½œå›è°ƒæ¥å£.
+ * <p>æä¾›åœ¨ä¿å­˜blobå¯¹è±¡ä¹‹å‰çš„è°ƒç”¨.
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2006-2-6
  */
 public interface IBlobBeforSaveCallBack<T  extends AbstractBlobModel> {
 	/**
-	 * ÔÚblob±£´æÖ®Ç°µÄ²Ù×÷.
-	 * @param blob blob¶ÔÏó.
+	 * åœ¨blobä¿å­˜ä¹‹å‰çš„æ“ä½œ.
+	 * @param blob blobå¯¹è±¡.
 	 */
 	public void doBeforeSaveBlob(T blob);
 

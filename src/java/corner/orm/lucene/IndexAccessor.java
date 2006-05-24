@@ -15,8 +15,8 @@ package corner.orm.lucene;
 import org.springmodules.lucene.index.support.LuceneIndexSupport;
 
 /**
- * ¶ÔLucneµÄË÷ÒıÖ§³Ö.
- * <P>¼æÈİÁËSpringModulesÖĞµÄLucene²¿·Ö.
+ * å¯¹Lucneçš„ç´¢å¼•æ”¯æŒ.
+ * <P>å…¼å®¹äº†SpringModulesä¸­çš„Luceneéƒ¨åˆ†.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

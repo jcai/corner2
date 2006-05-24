@@ -6,7 +6,7 @@ package corner.orm.tapestry.page;
 import corner.orm.hibernate.IPersistent;
 
 /**
- * ¶ÔÊµÌåµÄ±íµ¥²Ù×÷¡£
+ * å¯¹å®ä½“çš„è¡¨å•æ“ä½œã€‚
  * @author Jun Tsai
  * @version $Revison$
  * @since 2006-5-23

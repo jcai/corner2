@@ -17,8 +17,8 @@ import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.util.PaginationBean;
 
 /**
- * Õë¶Ôhibernate3.0µÄÖ÷¼üÉú³É²ßÂÔ.
- * <p>Éú³ÉÊ±¼ä¸ñÊ½µÄÖ÷¼üÖµ.Æ©Èç:20050203120312
+ * é’ˆå¯¹hibernate3.0çš„ä¸»é”®ç”Ÿæˆç­–ç•¥.
+ * <p>ç”Ÿæˆæ—¶é—´æ ¼å¼çš„ä¸»é”®å€¼.è­¬å¦‚:20050203120312
  * @author Jun Tsai
  *
  */

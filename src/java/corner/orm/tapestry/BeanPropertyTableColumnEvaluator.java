@@ -19,8 +19,8 @@ import corner.util.BeanUtils;
 
 /**
  * 
- * ¸ù¾İbeanµÄÊôĞÔÀ´¶ÔÖµ½øĞĞ»ñÈ¡.
- * <P>²ÉÓÃµÄÊÇBeanUtils.
+ * æ ¹æ®beançš„å±æ€§æ¥å¯¹å€¼è¿›è¡Œè·å–.
+ * <P>é‡‡ç”¨çš„æ˜¯BeanUtils.
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-11-4

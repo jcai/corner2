@@ -20,9 +20,9 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 
 /**
- * »ù±¾µÄEntity±íµ¥Ò³.
+ * åŸºæœ¬çš„Entityè¡¨å•é¡µ.
  * <P>
- * Ìá¹©ÁËÕë¶Ôµ¥Ò»ÊµÌåµÄ²Ù×÷,Æ©ÈçC/U/D²Ù×÷.
+ * æä¾›äº†é’ˆå¯¹å•ä¸€å®ä½“çš„æ“ä½œ,è­¬å¦‚C/U/Dæ“ä½œ.
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
@@ -35,7 +35,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	private static final Log logger = LogFactory.getLog(EntityFormPage.class);
 
 	/**
-	 * µÃµ½ĞèÒªÏÔÊ¾listÁĞ±íµÄÒ³.
+	 * å¾—åˆ°éœ€è¦æ˜¾ç¤ºliståˆ—è¡¨çš„é¡µ.
 	 * 
 	 * @return
 	 */
@@ -53,9 +53,9 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 		}
 	}
 
-	// ¶Ô¹ØÁªÒ³ÃæµÄ´¦Àí
+	// å¯¹å…³è”é¡µé¢çš„å¤„ç†
 	/**
-	 * Ôö¼ÓÏà¹ØÁªÊµÌåµÄÒ³Ãæ.
+	 * å¢åŠ ç›¸å…³è”å®ä½“çš„é¡µé¢.
 	 */
 	public IPage go2AddRelativeEntityPage(String entityFormPage) {
 		// build form page
@@ -69,12 +69,12 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * É¾³ı¹ØÁªµÄÊµÌå.
+	 * åˆ é™¤å…³è”çš„å®ä½“.
 	 * 
 	 * @param clazzName
-	 *            ¹ØÁªÊµÌåÀàÃû.
+	 *            å…³è”å®ä½“ç±»å.
 	 * @param key
-	 *            Ö÷¼üÖµ.
+	 *            ä¸»é”®å€¼.
 	 */
 	public void deleteRelativeEntityAction(String clazzName, Serializable key) {
 		this.getEntityService().deleteEntityById(clazzName, key);
@@ -82,13 +82,13 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * ×ªÏò±à¼­¹ØÁªÊµÌåµÄÒ³Ãæ.
+	 * è½¬å‘ç¼–è¾‘å…³è”å®ä½“çš„é¡µé¢.
 	 * 
 	 * @param entityFormPage
-	 *            ¹ØÁªµÄÊµÌåÒ³Ãæ.
+	 *            å…³è”çš„å®ä½“é¡µé¢.
 	 * @param key
-	 *            Ö÷½¡Öµ.
-	 * @return ±à¼­Ò³Ãæ.
+	 *            ä¸»å¥å€¼.
+	 * @return ç¼–è¾‘é¡µé¢.
 	 */
 	public IPage go2EditRelativeEntityPage(String entityFormPage,
 			Serializable key) {
@@ -110,10 +110,10 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * ¹¹½¨¸¸Ò³ÃæµÄÒ»Ğ©ĞÅÏ¢.
+	 * æ„å»ºçˆ¶é¡µé¢çš„ä¸€äº›ä¿¡æ¯.
 	 * 
 	 * @param page
-	 *            ¹ØÁªÒ³Ãæ.
+	 *            å…³è”é¡µé¢.
 	 */
 	private void constructParentPageInfo(EntityFormPage page) {
 		page.setRelativePage(this.getPageName());
@@ -122,10 +122,10 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * µÃµ½¹ØÁªµÄÒ³ÃæÃû³Æ.
+	 * å¾—åˆ°å…³è”çš„é¡µé¢åç§°.
 	 * 
 	 * @param entityFormPage
-	 *            ¹ØÁªÒ³.
+	 *            å…³è”é¡µ.
 	 * @return
 	 */
 	private String buildRelativePageName(String entityFormPage) {
@@ -138,10 +138,10 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * ÍË³öµ±Ç°Ò³ÃæµÄ±à¼­.
+	 * é€€å‡ºå½“å‰é¡µé¢çš„ç¼–è¾‘.
 	 * 
-	 * @return ×ªÏòµÄÒ³Ãæ.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı.ÇëÊ¹ÓÃ {@link #doCancleEntityAction()}
+	 * @return è½¬å‘çš„é¡µé¢.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤.è¯·ä½¿ç”¨ {@link #doCancleEntityAction()}
 	 */
 	public IPage cancleEntity() {
 		if (logger.isDebugEnabled()) {
@@ -152,12 +152,12 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * È·¶¨µ±Ç°Ò³.
+	 * ç¡®å®šå½“å‰é¡µ.
 	 * 
 	 * @param cycle
-	 *            Ò³ÃæÇëÇó.
-	 * @return ×ªÏòµÄÒ³Ãæ.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı.
+	 *            é¡µé¢è¯·æ±‚.
+	 * @return è½¬å‘çš„é¡µé¢.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤.
 	 */
 	public IPage okayEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -170,11 +170,11 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * Ó¦ÓÃµ±Ç°Ò³.
+	 * åº”ç”¨å½“å‰é¡µ.
 	 * 
 	 * @param cycle
-	 *            Ò³ÃæÇëÇó.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı.            
+	 *            é¡µé¢è¯·æ±‚.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤.            
 	 */
 	public void applyEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -184,11 +184,11 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * É¾³ıÊµÌå.
+	 * åˆ é™¤å®ä½“.
 	 * 
 	 * @param cycle
-	 * @return ×ªÏòµÄlistÒ³Ãæ.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı.
+	 * @return è½¬å‘çš„listé¡µé¢.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤.
 	 */
 	public IPage deleteEntity(IRequestCycle cycle) {
 		getEntityService().deleteEntities(getEntity());
@@ -196,22 +196,22 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	}
 
 	/**
-	 * ±£´æÊµÌå²Ù×÷.
+	 * ä¿å­˜å®ä½“æ“ä½œ.
 	 * 
 	 * @param entity
-	 *            ´ı±£´æÊµÌå.
-	 * @return ±£´æºóµÄ·µ»ØÒ³Ãæ.
+	 *            å¾…ä¿å­˜å®ä½“.
+	 * @return ä¿å­˜åçš„è¿”å›é¡µé¢.
 	 * @since 2.0
 	 */
-	public IPage doSaveEntityAction(T entity) { // ±£´æ²Ù×÷¡£
+	public IPage doSaveEntityAction(T entity) { // ä¿å­˜æ“ä½œã€‚
 		saveOrUpdateEntity();
 		return getListEntityPage();
 	}
 	/**
-	 * È¡Ïû¶ÔÒ»¸öÊµÌåµÄ±à¼­»òÕßĞÂÔö¡£
+	 * å–æ¶ˆå¯¹ä¸€ä¸ªå®ä½“çš„ç¼–è¾‘æˆ–è€…æ–°å¢ã€‚
 	 *  
-	 * @return È¡Ïûºó·µ»ØµÄÒ³Ãæ¡£
-	 * £Àsince 2.0
+	 * @return å–æ¶ˆåè¿”å›çš„é¡µé¢ã€‚
+	 * ï¼ since 2.0
 	 */
 	public IPage doCancleEntityAction(){
 		return this.getListEntityPage();

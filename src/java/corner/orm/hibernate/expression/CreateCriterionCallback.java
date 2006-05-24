@@ -1,17 +1,17 @@
 package corner.orm.hibernate.expression;
 
 /**
- * ÓÃÓÚÓï·¨·ÖÎöÆ÷µÄ»Øµ÷.
- * <p>Ìá¹©ÁË·ÖÎöÓÃ»§ÊäÈëµÄ²éÑ¯×Ö·û´®.Æ©Èç: asdf or asdf and fda µÈ.
+ * ç”¨äºè¯­æ³•åˆ†æå™¨çš„å›è°ƒ.
+ * <p>æä¾›äº†åˆ†æç”¨æˆ·è¾“å…¥çš„æŸ¥è¯¢å­—ç¬¦ä¸².è­¬å¦‚: asdf or asdf and fda ç­‰.
  * 
  * @author Jun Tsai
  *
  */
 public interface CreateCriterionCallback {
 	/**
-	 * ´´½¨hibernateµÄCriterion,¸ù¾İ¸ø¶¨µÄ±í´ïÊ½ÒÔ¼°¶ÔÓ¦µÄÖµ.
-	 * @param expression ±í´ïÊ½·ûºÅ,Æ©Èç: or and µÈ.
-	 * @param value ¶ÔÓ¦µÄÖµ.
+	 * åˆ›å»ºhibernateçš„Criterion,æ ¹æ®ç»™å®šçš„è¡¨è¾¾å¼ä»¥åŠå¯¹åº”çš„å€¼.
+	 * @param expression è¡¨è¾¾å¼ç¬¦å·,è­¬å¦‚: or and ç­‰.
+	 * @param value å¯¹åº”çš„å€¼.
 	 */
 	public void doCreateCriterion(String expression,String value);
 }

@@ -7,7 +7,7 @@ import org.apache.tapestry.valid.FieldTracking;
 import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.ValidationDelegate;
 /**
- * 能够显示错误消息的ValidationDelegate.
+ * 鑳藉鏄剧ず閿欒娑堟伅鐨刅alidationDelegate.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

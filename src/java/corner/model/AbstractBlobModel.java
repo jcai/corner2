@@ -13,9 +13,9 @@
 package corner.model;
 
 /**
- * ³éÏóµÄblobÄ£ĞÍ,ËùÓĞµÄblobÄ£ĞÍ±ØĞë¼Ì³Ğ´ËÀà.
- * <p>´ËÀàÌá¹©ÁËblobÁ½¸ö±ØĞëµÄ¶«Î÷,Ò»¸öÊı¾İ,Ò»¸öÎªÀàĞÍ.
- *  TODO µ÷ÕûblobÊı¾İ´ÓbyteÊı×éµ½IOÁ÷.
+ * æŠ½è±¡çš„blobæ¨¡å‹,æ‰€æœ‰çš„blobæ¨¡å‹å¿…é¡»ç»§æ‰¿æ­¤ç±».
+ * <p>æ­¤ç±»æä¾›äº†blobä¸¤ä¸ªå¿…é¡»çš„ä¸œè¥¿,ä¸€ä¸ªæ•°æ®,ä¸€ä¸ªä¸ºç±»å‹.
+ *  TODO è°ƒæ•´blobæ•°æ®ä»byteæ•°ç»„åˆ°IOæµ.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -24,14 +24,14 @@ package corner.model;
 public class AbstractBlobModel {
 
 	/**
-	 * blobÊı¾İ.
+	 * blobæ•°æ®.
 	 * @hibernate.property column="BlobData" length="2147483647"
 	 *                     type="org.springframework.orm.hibernate3.support.BlobByteArrayType"
 	 * 
 	 */
 	private byte[] blobData;
 	/**
-	 * blobÊı¾İµÄÀàĞÍ,´ËÀàĞÍÓÃÀ´webÒ³ÃæµÄÏÔÊ¾,¿ÉÄÜµÄ½á¹ûÎª:image/jpeg,image/gif,application/pdf µÈ.
+	 * blobæ•°æ®çš„ç±»å‹,æ­¤ç±»å‹ç”¨æ¥webé¡µé¢çš„æ˜¾ç¤º,å¯èƒ½çš„ç»“æœä¸º:image/jpeg,image/gif,application/pdf ç­‰.
 	 * @hibernate.property column="ContentType" length="30"
 	 */
 	private String contentType;

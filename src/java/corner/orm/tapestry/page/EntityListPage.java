@@ -42,12 +42,12 @@ import corner.orm.tapestry.ReflectPrimaryKeyConverter;
 import corner.util.PaginationBean;
 
 /**
- * Õë¶Ôµ¥Ò»ÊµÌå²Ù×÷µÄPageÀà¡£
+ * é’ˆå¯¹å•ä¸€å®ä½“æ“ä½œçš„Pageç±»ã€‚
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-3
- * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı£¬ÇëÊ¹ÓÃ {@link corner.orm.tapestry.PoListPage}´úÌæ¡£
+ * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤ï¼Œè¯·ä½¿ç”¨ {@link corner.orm.tapestry.PoListPage}ä»£æ›¿ã€‚
  */
 public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implements
 		PageBeginRenderListener, PageDetachListener, PageAttachListener {
@@ -70,20 +70,20 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	
 
-	/** ÓÃÓÚ·ÖÒ³µÄbean* */
+	/** ç”¨äºåˆ†é¡µçš„bean* */
 	@Persist("client")
 	@InitialValue("new corner.util.PaginationBean()")
 	public abstract PaginationBean getPaginationBean();
 
 	public abstract void setPaginationbean(PaginationBean pb);
 
-	/** µÃµ½¶ÔÖ÷¼üµÄConverter* */
+	/** å¾—åˆ°å¯¹ä¸»é”®çš„Converter* */
 	public IPrimaryKeyConverter getConverter() {
 		return new ReflectPrimaryKeyConverter<T>(getEntity().getClass(),
 				getKeyName());
 	}
 
-	/** µÃµ½ÊµÌåµÄĞĞÊı.* */
+	/** å¾—åˆ°å®ä½“çš„è¡Œæ•°.* */
 	protected int getEntityRowCount() {
 		return ((Integer) ((HibernateObjectRelativeUtils) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(
@@ -102,7 +102,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	}
 
-	/** µÃµ½µ±Ç°µÄÒ³µÄÊı¾İ* */
+	/** å¾—åˆ°å½“å‰çš„é¡µçš„æ•°æ®* */
 	@SuppressWarnings("unchecked")
 	protected Iterator<? extends Object> getCurrentPageRows(final int nFirst,
 			final int nPageSize, final ITableColumn column, final boolean sort) {
@@ -161,7 +161,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	}
 
 	/**
-	 * µÃµ½TableµÄsource¡£
+	 * å¾—åˆ°Tableçš„sourceã€‚
 	 * 
 	 * @return
 	 * @see IBasicTableeModel
@@ -173,12 +173,12 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	
 
 	/*-------------------------------------------------------------------------
-	 * ¶ÔÊµÌåµÄÒ³Ãæ²Ù×÷µÄÏìÓ¦.
+	 * å¯¹å®ä½“çš„é¡µé¢æ“ä½œçš„å“åº”.
 	 * ------------------------------------------------------------------------
 	 */
 	/**
-	 * ÅúÁ¿É¾³ıÊµÌå.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı£¬ÇëÊ¹ÓÃ {@link AbstractEntityListPage#doDeleteEntitiesAction()}
+	 * æ‰¹é‡åˆ é™¤å®ä½“.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤ï¼Œè¯·ä½¿ç”¨ {@link AbstractEntityListPage#doDeleteEntitiesAction()}
 	 */
 	public void deleteEntities(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -191,12 +191,12 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	}
 
 	/**
-	 * Ñ¡ÔñÄ³Ò»¸öÊµÌå.
+	 * é€‰æ‹©æŸä¸€ä¸ªå®ä½“.
 	 * 
 	 * @param key
-	 *            Ö÷½¡Öµ.
-	 * @return Ò³Ãæ.
-	 * @deprecated ½«ÔÚ2.1ÖĞÉ¾³ı ,ÇëÊ¹ÓÃ {@link AbstractEntityListPage#doDeleteEntityAction(T)}
+	 *            ä¸»å¥å€¼.
+	 * @return é¡µé¢.
+	 * @deprecated å°†åœ¨2.1ä¸­åˆ é™¤ ,è¯·ä½¿ç”¨ {@link AbstractEntityListPage#doDeleteEntityAction(T)}
 	 */
 	public IPage selectEntity(Serializable key) {
 		if (logger.isDebugEnabled()) {
@@ -209,10 +209,10 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	}
 
 	/**
-	 * ×ªµ½Ôö¼ÓÊµÌåµÄÒ³Ãæ.
+	 * è½¬åˆ°å¢åŠ å®ä½“çš„é¡µé¢.
 	 * 
-	 * @return Ôö¼ÓÊµÌåÒ³Ãæ.
-	 * @deprecated ½«ÔÚ2.1 ÖĞÉ¾³ı£¬ÇëÊ¹ÓÃ {@link #doNewEntityAction()}
+	 * @return å¢åŠ å®ä½“é¡µé¢.
+	 * @deprecated å°†åœ¨2.1 ä¸­åˆ é™¤ï¼Œè¯·ä½¿ç”¨ {@link #doNewEntityAction()}
 	 */
 	public IPage go2AddEntityForm() {
 		return this.getEntityFormPage();
@@ -221,11 +221,11 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	
 
 	/**
-	 * ±à¼­ÊµÌå.
+	 * ç¼–è¾‘å®ä½“.
 	 * 
 	 * @param key
 	 * @return
-	 * @deprecated ÓÃ {@link #doEditEntityAction(T)}´úÌæ.
+	 * @deprecated ç”¨ {@link #doEditEntityAction(T)}ä»£æ›¿.
 	 */
 	public IPage go2EditEntityForm(Serializable key) {
 		EntityPage<T> page = this.getEntityFormPage();
@@ -234,18 +234,18 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	}
 
 	/**
-	 * É¾³ıÊµÌå²Ù×÷.
+	 * åˆ é™¤å®ä½“æ“ä½œ.
 	 * 
 	 * @param key
-	 * @deprecated ½«ÔÚ 2.1ÖĞÉ¾³ı,ÓÃ {@link #doDeleteEntityAction(T)}´úÌæ.
+	 * @deprecated å°†åœ¨ 2.1ä¸­åˆ é™¤,ç”¨ {@link #doDeleteEntityAction(T)}ä»£æ›¿.
 	 */
 	public void deleteEntityAction(Serializable key) {
 		getEntityService().deleteEntityById(getEntity().getClass(), key);
 	}
 
-	// ²éÑ¯ÊµÌå.
+	// æŸ¥è¯¢å®ä½“.
 	/**
-	 * @deprecated ½«ÔÚ 2.1ÖĞÉ¾³ı£¬ÇëÊ¹ÓÃ {@link AbstractEntityListPage#doQueryEntityAction()}
+	 * @deprecated å°†åœ¨ 2.1ä¸­åˆ é™¤ï¼Œè¯·ä½¿ç”¨ {@link AbstractEntityListPage#doQueryEntityAction()}
 	 */
 	public void queryEntity() {
 

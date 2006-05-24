@@ -21,7 +21,7 @@ public class HanziUtilsTest extends TestCase {
 	public void testLoadHanzi() throws IOException{
 		String s=HanziUtils.getPinyin("asdf");
 		assertEquals("asdf",s);
-		s=HanziUtils.getPinyin("ÖĞ»ªÈËÃñ¹²ºÍ¹ú");
+		s=HanziUtils.getPinyin("ä¸­åäººæ°‘å…±å’Œå›½");
 		assertEquals("zhrmghg",s);
 		
 		

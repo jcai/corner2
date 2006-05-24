@@ -12,16 +12,16 @@
 package corner.util;
 
 /**
- * ×ª»»±íµÄÒ»Ğ©³£ÓÃº¯Êı.
+ * è½¬æ¢è¡¨çš„ä¸€äº›å¸¸ç”¨å‡½æ•°.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision: 35 $
  */
 public class EntityConverter {
 	/**
-	 * ×ª»»±íµÄÃû³Æ.
-	 * @param name ĞèÒª×ª»»µÄÖµ.
-	 * @param wimpyCaps ÊÇ·ñĞèÒªÊ××ÖÄ¸´óĞ´,Èç¹ûÎªfalse,Ê××ÖÄ¸´óĞ´,·ñÔòĞ¡Ğ´.
-	 * @return ×ª»»ºóµÄ½á¹û.
+	 * è½¬æ¢è¡¨çš„åç§°.
+	 * @param name éœ€è¦è½¬æ¢çš„å€¼.
+	 * @param wimpyCaps æ˜¯å¦éœ€è¦é¦–å­—æ¯å¤§å†™,å¦‚æœä¸ºfalse,é¦–å­—æ¯å¤§å†™,å¦åˆ™å°å†™.
+	 * @return è½¬æ¢åçš„ç»“æœ.
 	 */
 	public static String convertName(String name, boolean wimpyCaps) {
 		StringBuffer buffer = new StringBuffer(name.length());

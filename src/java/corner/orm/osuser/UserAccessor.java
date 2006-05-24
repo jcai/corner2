@@ -18,7 +18,7 @@ import com.opensymphony.user.Group;
 import com.opensymphony.user.User;
 
 /**
- * ÓÃ»§²Ù×÷½Ó¿Ú¡£
+ * ç”¨æˆ·æ“ä½œæ¥å£ã€‚
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

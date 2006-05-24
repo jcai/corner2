@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import corner.orm.spring.SpringContainer;
 /**
  * 
- * °ÑSpring°ü×°ºóÌá¹©¸øHivemindµÄ·şÎñ¡£
+ * æŠŠSpringåŒ…è£…åæä¾›ç»™Hivemindçš„æœåŠ¡ã€‚
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-9-9
@@ -16,7 +16,7 @@ public class SpringBeanFactoryHolderImpl extends
 		org.apache.hivemind.lib.impl.SpringBeanFactoryHolderImpl implements
 		RegistryShutdownListener {
 	/**
-	 * µÃµ½SpringµÄBeanFactory
+	 * å¾—åˆ°Springçš„BeanFactory
 	 * @see org.apache.hivemind.lib.SpringBeanFactorySource#getBeanFactory()
 	 */
 	 public BeanFactory getBeanFactory() {
@@ -27,7 +27,7 @@ public class SpringBeanFactoryHolderImpl extends
             return super.getBeanFactory();
     }
 	 /**
-	  * µ±¹Ø±ÕHivemindÈİÆ÷Ê±,¹Ø±ÕSpringÈİÆ÷.
+	  * å½“å…³é—­Hivemindå®¹å™¨æ—¶,å…³é—­Springå®¹å™¨.
 	  * @see org.apache.hivemind.events.RegistryShutdownListener#registryDidShutdown()
 	  */
     public void registryDidShutdown() {

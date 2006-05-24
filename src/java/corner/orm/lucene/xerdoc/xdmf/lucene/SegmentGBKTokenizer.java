@@ -196,7 +196,7 @@ public class SegmentGBKTokenizer extends Tokenizer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		StringReader reader = new StringReader("研究生在研究,研究生命起源,我是一命研究生.!");
+		StringReader reader = new StringReader("鐮旂┒鐢熷湪鐮旂┒,鐮旂┒鐢熷懡璧锋簮,鎴戞槸涓�鍛界爺绌剁敓.!");
 		DictionaryFactory dictionaryFactory = new DictionaryFactory();
 		dictionaryFactory.setDictionariesLocation(new ClassPathResource(
 				"/corner/orm/lucene/xerdoc/dictionary",SegmentGBKTokenizer.class));

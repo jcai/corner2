@@ -6,7 +6,7 @@ import org.apache.tapestry.components.ILinkComponent;
 import org.apache.tapestry.link.ILinkRenderer;
 
 /**
- * 扩展tapestry的renderer,供JavaScript中产生URL.
+ * 鎵╁睍tapestry鐨剅enderer,渚汮avaScript涓骇鐢烾RL.
  * 
  * @author Jun Tsai
  * @version $Revison$

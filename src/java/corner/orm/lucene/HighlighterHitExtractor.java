@@ -21,21 +21,21 @@ import corner.orm.lucene.cd.WebLuceneHighlighter;
 
 /**
  * 
- * Ìá¹©¸ßÁÁÖ§³ÖµÄExtractor.
+ * æä¾›é«˜äº®æ”¯æŒçš„Extractor.
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-10-21
  */
 public interface HighlighterHitExtractor {
 	/**
-	 * ¶ÔLuceneµÄÃ¿¸öHit½øĞĞ´¦Àí.
-	 * @param id hitµÄIDºÅ.
-	 * @param doc LuceneÎÄµµ.
-	 * @param score µÃ·Ö.
-	 * @param highlighter ¸ßÁÁÀà.
-	 * @param analyzier ·ÖÎöÆ÷.
-	 * @return ´¦ÀíµÄ½á¹û.
-	 * @throws IOException ¼ÙÈç·¢Éú´íÎó.
+	 * å¯¹Luceneçš„æ¯ä¸ªHitè¿›è¡Œå¤„ç†.
+	 * @param id hitçš„IDå·.
+	 * @param doc Luceneæ–‡æ¡£.
+	 * @param score å¾—åˆ†.
+	 * @param highlighter é«˜äº®ç±».
+	 * @param analyzier åˆ†æå™¨.
+	 * @return å¤„ç†çš„ç»“æœ.
+	 * @throws IOException å‡å¦‚å‘ç”Ÿé”™è¯¯.
 	 */
 
 	public abstract Object mapHit(int id, Document doc, float score,

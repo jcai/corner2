@@ -19,7 +19,7 @@ import corner.orm.propertyset.SpringHibernatePropertySetConfigurationProvider;
 import corner.orm.spring.SpringContainer;
 
 /**
- * Ìá¹©¶ÔosuserµÄÅäÖÃÖ§³Ö.
+ * æä¾›å¯¹osuserçš„é…ç½®æ”¯æŒ.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

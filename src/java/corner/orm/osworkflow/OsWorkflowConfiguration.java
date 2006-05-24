@@ -6,7 +6,7 @@ import com.opensymphony.workflow.StoreException;
 import com.opensymphony.workflow.spi.WorkflowStore;
 
 /**
- * ¶ÔosworkflowµÄÅäÖÃÖ§³Ö¡£
+ * å¯¹osworkflowçš„é…ç½®æ”¯æŒã€‚
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

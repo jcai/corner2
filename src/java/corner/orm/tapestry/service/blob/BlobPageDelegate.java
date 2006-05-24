@@ -24,7 +24,7 @@ import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 /**
- * Õë¶Ôblob×Ö¶ÎµÄ´¦ÀíµÄÎ¯ÅÉÀà.
+ * é’ˆå¯¹blobå­—æ®µçš„å¤„ç†çš„å§”æ´¾ç±».
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -38,11 +38,11 @@ public class BlobPageDelegate <T extends AbstractBlobModel>{
 	private Class<T> clazz;
 
 	/**
-	 * ¹¹ÔìÒ»¸öÎ¯ÅÉÀà¶ÔÏó.
-	 * @param clazz Àà.
-	 * @param uploadFile ÉÏ´«ÎÄ¼ş¶ÔÏó.
-	 * @param keyValue Ö÷¼üµÄÖµ.
-	 * @param service ÊµÌå·şÎñ.
+	 * æ„é€ ä¸€ä¸ªå§”æ´¾ç±»å¯¹è±¡.
+	 * @param clazz ç±».
+	 * @param uploadFile ä¸Šä¼ æ–‡ä»¶å¯¹è±¡.
+	 * @param keyValue ä¸»é”®çš„å€¼.
+	 * @param service å®ä½“æœåŠ¡.
 	 * @see EntityService
 	 */
 	public BlobPageDelegate(Class<T> clazz,IUploadFile uploadFile, String keyValue,EntityService service) {
@@ -52,30 +52,30 @@ public class BlobPageDelegate <T extends AbstractBlobModel>{
 		this.service=service;
 	}
 	/**
-	 * ±£´æblob¶ÔÏó.
-	 * @param callback »Øµ÷º¯Êı.
+	 * ä¿å­˜blobå¯¹è±¡.
+	 * @param callback å›è°ƒå‡½æ•°.
 	 * @see org.springframework.orm.hibernate3.support.BlobByteArrayType
 	 * 
 	 */
 	public void save(IBlobBeforSaveCallBack<T> callback) {
-		//Èç¹ûÉÏ´«Îª¿Õ.
+		//å¦‚æœä¸Šä¼ ä¸ºç©º.
 		if(uploadFile==null){
-			if(keyValue!=null) //Ö÷¼üÓĞÖµ,Ôò½øĞĞÉ¾³ı.
+			if(keyValue!=null) //ä¸»é”®æœ‰å€¼,åˆ™è¿›è¡Œåˆ é™¤.
 				service.deleteEntityById(clazz,keyValue);
 			return;
 		}
-		//ÉêÃ÷blob¶ÔÏó.
+		//ç”³æ˜blobå¯¹è±¡.
 		T blob = null;
-		//Èç¹ûÖ÷¼üµÄÖµ²»Îª¿Õ,ÔòÏÈ´Ó±íÖĞÌáÈ¡Êı¾İ.
+		//å¦‚æœä¸»é”®çš„å€¼ä¸ä¸ºç©º,åˆ™å…ˆä»è¡¨ä¸­æå–æ•°æ®.
 		if(keyValue!=null){
 			blob=service.getEntity(clazz,keyValue);
 		}
-		//Èç¹û±íÖĞÎŞÊı¾İ,ÔòÊÇĞÂÔöµÄÒ»¸ö¶ÔÏó.
+		//å¦‚æœè¡¨ä¸­æ— æ•°æ®,åˆ™æ˜¯æ–°å¢çš„ä¸€ä¸ªå¯¹è±¡.
 		if(blob == null){
 			blob=BeanUtils.instantiateClass(clazz);
 		}
 		
-		//Éè¶¨blobµÄ×Ö½ÚÊı×éÖµ.
+		//è®¾å®šblobçš„å­—èŠ‚æ•°ç»„å€¼.
 		try {
 			blob.setBlobData(FileCopyUtils
 					.copyToByteArray(uploadFile.getStream()));
@@ -84,19 +84,19 @@ public class BlobPageDelegate <T extends AbstractBlobModel>{
 			return;
 		}
 		
-		//Éè¶¨contentÀàĞÍ.
+		//è®¾å®šcontentç±»å‹.
 		blob.setContentType(this.uploadFile.getContentType());
 		
-		//Ö´ĞĞ»Øµ÷º¯Êı,½øĞĞ¶îÍâÊı¾İµÄ²Ù×÷.
+		//æ‰§è¡Œå›è°ƒå‡½æ•°,è¿›è¡Œé¢å¤–æ•°æ®çš„æ“ä½œ.
 		if(callback!=null){
 			callback.doBeforeSaveBlob(blob);
 		}
 		
-		//±£´æ²Ù×÷.
+		//ä¿å­˜æ“ä½œ.
 		this.service.saveOrUpdateEntity(blob);
 	}
 	/**
-	 * ±£´æblob.
+	 * ä¿å­˜blob.
 	 * @see #save(IBlobBeforSaveCallBack)
 	 */
 	public void save() {

@@ -7,9 +7,9 @@ import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 /**
- * ³éÏóµÄblobÌá¹©¶ÔÏó.
- * <p>Ìá¹©ÁËblobµÄ¶ÁÈ¡²Ù×÷.{@link #getBlobAsBytes() »ñÈ¡blob×Ö½Ú}{@link #getContentType() ×Ö½ÚÁ÷ÀàĞÍ}
- * ÓÃÒÔ×°ÔØblobÊı¾İ.
+ * æŠ½è±¡çš„blobæä¾›å¯¹è±¡.
+ * <p>æä¾›äº†blobçš„è¯»å–æ“ä½œ.{@link #getBlobAsBytes() è·å–blobå­—èŠ‚}{@link #getContentType() å­—èŠ‚æµç±»å‹}
+ * ç”¨ä»¥è£…è½½blobæ•°æ®.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -17,20 +17,20 @@ import corner.util.BeanUtils;
  */
 public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implements IBlobProvider {
 	
-	/**blobÊı¾İÄ£ĞÍ¶ÔÏó**/
+	/**blobæ•°æ®æ¨¡å‹å¯¹è±¡**/
 	private T blobData;
-	/**ÊµÌå·şÎñ**/
+	/**å®ä½“æœåŠ¡**/
 	private EntityService service;
-	/**ÊµÌå¶ÔÏóµÄÖ÷¼üÖµ**/
+	/**å®ä½“å¯¹è±¡çš„ä¸»é”®å€¼**/
 	private Serializable blobId;
 	/**
-	 * µÃµ½blob¶ÔÏóµÄÀà.
-	 * @return blobÄ£ĞÍ¶ÔÏóµÄÀà.
+	 * å¾—åˆ°blobå¯¹è±¡çš„ç±».
+	 * @return blobæ¨¡å‹å¯¹è±¡çš„ç±».
 	 */
 	protected abstract Class<T> getBlobDataClass();
 	
 	/**
-	 * Éè¶¨blobÄ£ĞÍµÄÖ÷¼üÖµ.
+	 * è®¾å®šblobæ¨¡å‹çš„ä¸»é”®å€¼.
 	 * @see corner.orm.tapestry.service.blob.IBlobProvider#setKeyValue(java.lang.String)
 	 */
 	public void setKeyValue(String tableKey) {
@@ -38,7 +38,7 @@ public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implemen
 
 	}
 	/**
-	 * Éè¶¨µ¥Ì¬ÊµÌåService.
+	 * è®¾å®šå•æ€å®ä½“Service.
 	 * @see corner.orm.tapestry.service.blob.IBlobProvider#setEntityService(corner.service.EntityService)
 	 */
 	public void setEntityService(
@@ -46,15 +46,15 @@ public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implemen
 		this.service=entityService;
 	}
 	/**
-	 * µÃµ½blobÄ£ĞÍ¶ÔÏó.
-	 * @return blobÄ£ĞÍ¶ÔÏó.
+	 * å¾—åˆ°blobæ¨¡å‹å¯¹è±¡.
+	 * @return blobæ¨¡å‹å¯¹è±¡.
 	 */
 	private T getBlobObject(){
 		loadData();
 		return blobData;
 	}
 	/**
-	 * °ÑblobÊı¾İ×÷Îª×Ö½ÚÊı×é¶Á³ö.
+	 * æŠŠblobæ•°æ®ä½œä¸ºå­—èŠ‚æ•°ç»„è¯»å‡º.
 	 * @see corner.orm.tapestry.service.blob.IBlobProvider#getBlobAsBytes()
 	 */
 	public byte[] getBlobAsBytes() {
@@ -62,14 +62,14 @@ public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implemen
 		
 	}
 	/**
-	 * µÃµ½blobÊı¾İµÄÀàĞÍ,ÓÃÒÔÏÔÊ¾blobÊı¾İ.
+	 * å¾—åˆ°blobæ•°æ®çš„ç±»å‹,ç”¨ä»¥æ˜¾ç¤ºblobæ•°æ®.
 	 * @see corner.orm.tapestry.service.blob.IBlobProvider#getContentType()
 	 */
 	public String getContentType() {
 		return this.getBlobObject().getContentType();
 	}
 	/**
-	 * ×°ÔØblob¶ÔÏóµÄÊı¾İ.
+	 * è£…è½½blobå¯¹è±¡çš„æ•°æ®.
 	 *
 	 */
 	private void loadData() {

@@ -32,9 +32,9 @@ import corner.util.BeanUtils;
 
 /**
  * 
- * À©Õ¹tapestryµÄEngineService,Ìá¹©ÁË¶ÔblobµÄ´¦Àí.
+ * æ‰©å±•tapestryçš„EngineService,æä¾›äº†å¯¹blobçš„å¤„ç†.
  * <p>
- * Ìá¹©ÁË¶ÔblobµÄÏÔÊ¾·şÎñ.
+ * æä¾›äº†å¯¹blobçš„æ˜¾ç¤ºæœåŠ¡.
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$

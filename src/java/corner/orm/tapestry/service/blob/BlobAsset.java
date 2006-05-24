@@ -25,11 +25,11 @@ import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 
 /**
- * Ìá¹©ÁËblobµÄAssetÓÃÒÔÏÔÊ¾blobµÄÖµ.
- * <p>ÏÔÊ¾Ò»¸öblobµÄÍ¼Æ¬¿ÉÒÔÊ¹ÓÃ 
- * ĞèÒªÌá¹©ÁËÁ½¸ö²ÎÊı:
- * <li>tableType ±íµÄÀàĞÍ,¼û{@link poison.pageservice.BlobService#LOB_PROVIDER_CLAZZS}
- * <li>tableKey ±íµÄÖ÷¼üÖµ,{@link BlobService#LOB_PROVIDER_CLAZZS};
+ * æä¾›äº†blobçš„Assetç”¨ä»¥æ˜¾ç¤ºblobçš„å€¼.
+ * <p>æ˜¾ç¤ºä¸€ä¸ªblobçš„å›¾ç‰‡å¯ä»¥ä½¿ç”¨ 
+ * éœ€è¦æä¾›äº†ä¸¤ä¸ªå‚æ•°:
+ * <li>tableType è¡¨çš„ç±»å‹,è§{@link poison.pageservice.BlobService#LOB_PROVIDER_CLAZZS}
+ * <li>tableKey è¡¨çš„ä¸»é”®å€¼,{@link BlobService#LOB_PROVIDER_CLAZZS};
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
@@ -43,10 +43,10 @@ public class BlobAsset extends AbstractAsset {
 	private List parameters = new ArrayList();
 
 	/**
-	 * ¹¹ÔìÒ»¸öAsset
-	 * @param cycle ¿Í»§ÇëÇó.
-	 * @param tableType ±íµÄÀàĞÍ
-	 * @param key ±íµÄÖ÷¼ü
+	 * æ„é€ ä¸€ä¸ªAsset
+	 * @param cycle å®¢æˆ·è¯·æ±‚.
+	 * @param tableType è¡¨çš„ç±»å‹
+	 * @param key è¡¨çš„ä¸»é”®
 	 */
 	public BlobAsset(IRequestCycle cycle, String tableType, Serializable key) {
 		super(null, null);
@@ -60,7 +60,7 @@ public class BlobAsset extends AbstractAsset {
 
 	}
 	/**
-	 * ¹¹½¨URL.
+	 * æ„å»ºURL.
 	 * @see org.apache.tapestry.IAsset#buildURL()
 	 */
 	public String buildURL() {

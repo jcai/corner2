@@ -13,20 +13,20 @@
 package corner.util;
 
 /**
- * ÓÃÓÚ·ÖÒ³µÄbean.
+ * ç”¨äºåˆ†é¡µçš„bean.
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2005-10-25
  */
 public class PaginationBean {
-	/***Ä¬ÈÏµÄÃ¿Ò³¼ÇÂ¼Êı*/
+	/***é»˜è®¤çš„æ¯é¡µè®°å½•æ•°*/
 	public static final int DEFAULT_PAGE_SIZE=10;
-	/** ¿ªÊ¼µÄ¼ÇÂ¼Êı,´Ó0¿ªÊ¼ **/
+	/** å¼€å§‹çš„è®°å½•æ•°,ä»0å¼€å§‹ **/
 	private int first;
-	/** Ã¿Ò³ÏÔÊ¾¼ÇÂ¼Êı,Í¨³£Ä¬ÈÏÎª{@link #DEFAULT_PAGE_SIZE}**/
+	/** æ¯é¡µæ˜¾ç¤ºè®°å½•æ•°,é€šå¸¸é»˜è®¤ä¸º{@link #DEFAULT_PAGE_SIZE}**/
 	private int pageSize=10;
-	/**µÃµ½×ÜµÄ¼ÇÂ¼Êı**/
+	/**å¾—åˆ°æ€»çš„è®°å½•æ•°**/
 	private int rowCount=-1;
 	/**
 	 * @return Returns the first.

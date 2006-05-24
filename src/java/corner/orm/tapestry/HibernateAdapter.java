@@ -14,19 +14,19 @@ import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 /**
- * ¶ÔhibernateµÄÀà½øĞĞĞòÁĞ»¯.
- * <p>Ìá¹©¶ÔËùÓĞµÄhibernateµÄbean½øĞĞĞòÁĞ»¯¹¦ÄÜ.
- * ×¢ÒâhibernateµÄmodelÀà±ØĞëÊµÏÖ IPersistent½Ó¿Ú.
+ * å¯¹hibernateçš„ç±»è¿›è¡Œåºåˆ—åŒ–.
+ * <p>æä¾›å¯¹æ‰€æœ‰çš„hibernateçš„beanè¿›è¡Œåºåˆ—åŒ–åŠŸèƒ½.
+ * æ³¨æ„hibernateçš„modelç±»å¿…é¡»å®ç° IPersistentæ¥å£.
  * 
  * @author jun
  * @see IPersistent
  */
 public class HibernateAdapter implements SqueezeAdaptor {
-	/** ĞòÁĞ»¯µÄÇ°×º **/
+	/** åºåˆ—åŒ–çš„å‰ç¼€ **/
 	public static final String PREFIX = "C";
-	/** ÀàÔöÇ¿µÄ±ê¼Ç**/
+	/** ç±»å¢å¼ºçš„æ ‡è®°**/
 	private static final String CGLIB_FLAG="$$";
-	/** ÊµÌå·şÎñÀà. **/
+	/** å®ä½“æœåŠ¡ç±». **/
 	private EntityService entityService;
 
 	public EntityService getEntityService() {
@@ -47,7 +47,7 @@ public class HibernateAdapter implements SqueezeAdaptor {
 	}
 
 	/**
-	 * µÃµ½ĞòÁĞ»¯µÄ×Ö·û´®.
+	 * å¾—åˆ°åºåˆ—åŒ–çš„å­—ç¬¦ä¸².
 	 */
 	public String squeeze(DataSqueezer squeezer, final Object data) {
 		String name = data.getClass().getCanonicalName();
@@ -88,8 +88,8 @@ public class HibernateAdapter implements SqueezeAdaptor {
 	}
 
 	/**
-	 * ·´ĞòÁĞ»¯
-	 * Èç¹û²»ÄÜ´Ó¿âÖĞ·´ĞòÁĞ»¯¸Ã¶ÔÏó,Ôò·µ»ØÒ»¸öĞÂ½¨ÊµÀı.
+	 * ååºåˆ—åŒ–
+	 * å¦‚æœä¸èƒ½ä»åº“ä¸­ååºåˆ—åŒ–è¯¥å¯¹è±¡,åˆ™è¿”å›ä¸€ä¸ªæ–°å»ºå®ä¾‹.
 	 */
 	@SuppressWarnings("unchecked")
 	public Object unsqueeze(DataSqueezer squeezer, String string) {

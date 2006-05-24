@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Utility class that provides common access to the Ognl APIs for
  * setting and getting properties from objects (usually Actions).
- * Õë¶ÔognlµÄÌØ±ğ´¦Àí
+ * é’ˆå¯¹ognlçš„ç‰¹åˆ«å¤„ç†
  * @author $Author: jcai $
  * @version $Revision: 44 $
  */
@@ -121,10 +121,10 @@ public class OgnlUtil {
 		setProperty(name, value, o, context, false);
 	}
 	/**
-	 * Éè¶¨beanµÄÊôĞÔ.
-	 * @param bean ĞèÒªÉè¶¨µÄbean
-	 * @param pro ÊôĞÔÃû³Æ
-	 * @param value Éè¶¨µÄÖµ.
+	 * è®¾å®šbeançš„å±æ€§.
+	 * @param bean éœ€è¦è®¾å®šçš„bean
+	 * @param pro å±æ€§åç§°
+	 * @param value è®¾å®šçš„å€¼.
 	 * @author Jun Tsai
 	 */
 	public static void setProperty(Object bean, String pro, Object value) {

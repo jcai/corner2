@@ -21,7 +21,7 @@ import org.springframework.context.ApplicationContext;
 import corner.orm.spring.SpringContainer;
 
 /**
- * ¶ÔAcegiµÄ°ü×°£¬¸²¸ÇgetContext·½·¨£¬´Ó¶ø´ÓSpringContainerÖÐµÃµ½ÉÏÏÂÎÄ¡£
+ * å¯¹Acegiçš„åŒ…è£…ï¼Œè¦†ç›–getContextæ–¹æ³•ï¼Œä»Žè€Œä»ŽSpringContainerä¸­å¾—åˆ°ä¸Šä¸‹æ–‡ã€‚
  * 
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$

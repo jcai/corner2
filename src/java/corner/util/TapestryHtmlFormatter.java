@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * @since 2005-12-7
  */
 public class TapestryHtmlFormatter {
-	// 如果有其它的tag,如select,直接加到checkbox后面就可
+	// 濡傛灉鏈夊叾瀹冪殑tag,濡俿elect,鐩存帴鍔犲埌checkbox鍚庨潰灏卞彲
 
 	
 	private static final Pattern jwcidPattern = Pattern.compile(".*(jwcid\\s*=\\s*\"?.*\"?).*");

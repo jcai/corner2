@@ -6,19 +6,19 @@ package corner.orm.tapestry.table;
 import org.hibernate.criterion.DetachedCriteria;
 
 /**
- * Õë¶Ôhibernate²éÑ¯Ìá¹©µÄ½Ó¿Ú·şÎñ¡£
+ * é’ˆå¯¹hibernateæŸ¥è¯¢æä¾›çš„æ¥å£æœåŠ¡ã€‚
  * @author Jun Tsai
  * @version $Revison$
  * @since 2006-5-24
  */
 public interface IPersistentQueriable {
 	/**
-	 * ´´½¨Ò»¸öofflineµÄCirteria
+	 * åˆ›å»ºä¸€ä¸ªofflineçš„Cirteria
 	 * @return criteria detached
 	 */
 	public DetachedCriteria createDetachedCriteria();
 	/**
-	 * ¶Ô²éÑ¯½øĞĞÒ»¸öĞÔ»¯µÄÉèÖÃ¡£
+	 * å¯¹æŸ¥è¯¢è¿›è¡Œä¸€ä¸ªæ€§åŒ–çš„è®¾ç½®ã€‚
 	 * @param criteria
 	 */
 	public void appendDetachedCriteria(DetachedCriteria criteria);

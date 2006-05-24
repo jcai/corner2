@@ -22,10 +22,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Ìá¹©¶ÔosworkflowµÄcallerÖ§³Ö.
+ * æä¾›å¯¹osworkflowçš„calleræ”¯æŒ.
  * <p>
- * ÒòÎªÃ¿¸öworkflow¿ªÊ¼µÄÊ±ºòĞèÒªÖ¸¶¨caller,²ÉÓÃ´ËinterceptorÖ®ºó¿ÉÒÔ¶Ô°ó¶¨µÄthreadlocalµÄ
- * workflow¶Ôcaller½øĞĞ°ó¶¨¡£
+ * å› ä¸ºæ¯ä¸ªworkflowå¼€å§‹çš„æ—¶å€™éœ€è¦æŒ‡å®šcaller,é‡‡ç”¨æ­¤interceptorä¹‹åå¯ä»¥å¯¹ç»‘å®šçš„threadlocalçš„
+ * workflowå¯¹callerè¿›è¡Œç»‘å®šã€‚
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
@@ -35,7 +35,7 @@ public class AcegiWorkflowInterceptor implements MethodInterceptor {
 	private static final Log log = LogFactory
 		.getLog(AcegiWorkflowInterceptor.class);
 	/**
-	 * Éè¶¨workflowµÄcaller.
+	 * è®¾å®šworkflowçš„caller.
 	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
 	 */
 	public Object invoke(MethodInvocation mi) throws Throwable {
