@@ -15,14 +15,6 @@ import org.apache.tapestry.annotations.InitialValue;
  * @since 2006-5-24
  */
 public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
-	/**
-	 * 查询的实体.
-	 * 
-	 * @return 查询实体.
-	 */
-	public abstract T getQueryEntity();
-
-	public abstract void setQueryEntity(T obj);
 	@SuppressWarnings("unchecked")
 	public EntityPage<T> getEntityFormPage() {
 		return (EntityPage<T>) this.getRequestCycle().getPage(
@@ -30,6 +22,25 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 						this.getPageName().lastIndexOf("List"))
 						+ "Form");
 	}
+	//------ 查询部分
+	/**
+	 * 查询的实体.
+	 * 
+	 * @return 查询实体.
+	 */
+	public abstract T getQueryEntity();
+	public abstract void setQueryEntity(T obj);
+	
+	/**
+	 * 响应查询的操作.
+	 * @return 当前页
+	 * @since 2.0
+	 */
+	public IPage doQueryEntityAction(){
+		return this;
+	}
+	
+	//------ 处理含有checkbox的列表。
 	/** 记载选中的list* */
 	@InitialValue("new java.util.ArrayList()")
 	public abstract List<T> getSelectedEntities();
@@ -45,6 +56,18 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 			this.getSelectedEntities().add(getEntity());
 		}
 	}
+	/**
+	 * 提供一组的checkbox供选择.
+	 * 批量删除实体.
+	 * 
+	 * @return 当前页.
+	 * @since 2.0
+	 */
+	public IPage doDeleteEntitiesAction(){
+		this.getEntityService().deleteEntities(this.getSelectedEntities());
+		return this;
+	}
+	
 //	 -------------------since 2.0
 	/**
 	 * 删除一个实体。
@@ -83,22 +106,6 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	public IPage doNewEntityAction() { // 新增加操作.
 		return this.getEntityFormPage();
 	}
-	/**
-	 * 提供一组的checkbox供选择.
-	 * 批量删除实体.
-	 * 
-	 * @return 当前页.
-	 */
-	public IPage doDeleteEntitiesAction(){
-		this.getEntityService().deleteEntities(this.getSelectedEntities());
-		return this;
-	}
-	/**
-	 * 响应查询的操作.
-	 * @return 当前页
-	 */
-	public IPage doQueryEntityAction(){
-		return this;
-	}
+	
 
 }
