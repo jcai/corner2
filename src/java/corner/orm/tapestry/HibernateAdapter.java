@@ -108,9 +108,11 @@ public class HibernateAdapter implements SqueezeAdaptor {
 		}
 
 		try {
+			if(id != null){
 			Object obj = this.getEntityService().loadEntity(c, id);
-			if (obj != null)
-				return obj;
+				if (obj != null)
+					return obj;
+			}
 		} catch (Throwable t) {
 			// Handle error
 		}
