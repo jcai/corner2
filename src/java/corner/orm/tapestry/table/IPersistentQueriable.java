@@ -8,7 +8,7 @@ import org.hibernate.criterion.DetachedCriteria;
 /**
  * 针对hibernate查询提供的接口服务。
  * @author Jun Tsai
- * @version $Revison$
+ * @version $Revision$
  * @since 2006-5-24
  */
 public interface IPersistentQueriable {

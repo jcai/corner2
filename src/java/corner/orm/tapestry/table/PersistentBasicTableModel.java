@@ -19,7 +19,7 @@ import corner.service.EntityService;
  * 基于IPersistent的的table模型。
  * 
  * @author Jun Tsai
- * @version $Revison$
+ * @version $Revision$
  * @since 2006-5-24
  */
 public class PersistentBasicTableModel implements IBasicTableModel {

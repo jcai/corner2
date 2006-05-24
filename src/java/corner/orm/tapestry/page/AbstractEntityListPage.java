@@ -11,7 +11,7 @@ import org.apache.tapestry.annotations.InitialValue;
 /**
  * 抽象的基础页页面。
  * @author Jun Tsai
- * @version $Revison$
+ * @version $Revision$
  * @since 2006-5-24
  */
 public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {

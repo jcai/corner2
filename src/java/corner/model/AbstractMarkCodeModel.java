@@ -3,7 +3,7 @@ package corner.model;
 /**
  * 抽象的代码表。
  * @author Jun Tsai
- * @version $Revison$
+ * @version $Revision$
  * @since 2006-4-18
  */
 public abstract class AbstractMarkCodeModel {
