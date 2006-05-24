@@ -9,7 +9,7 @@ import org.apache.tapestry.link.ILinkRenderer;
  * 扩展tapestry的renderer,供JavaScript中产生URL.
  * 
  * @author Jun Tsai
- * @version $Revison$
+ * @version $Revision$
  * @since 2006-4-18
  */
 public class RawURLLinkRenderer implements ILinkRenderer {
