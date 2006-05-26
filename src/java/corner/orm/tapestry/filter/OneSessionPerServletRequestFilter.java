@@ -63,7 +63,7 @@ public class OneSessionPerServletRequestFilter implements
 				try {
 					servicer.service(request, response);
 					if (!txStat.isRollbackOnly()) {
-						log.info("Committing transaction...");
+						log.debug("Committing transaction...");
 						transactionManager.commit(txStat);
 					} else {
 						log

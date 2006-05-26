@@ -23,7 +23,7 @@ import org.apache.tapestry.IRequestCycle;
  * 基本的Entity表单页.
  * <P>
  * 提供了针对单一实体的操作,譬如C/U/D操作.
- * 
+ *
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-4
@@ -36,7 +36,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 得到需要显示list列表的页.
-	 * 
+	 *
 	 * @return
 	 */
 	public IPage getListEntityPage() {
@@ -70,7 +70,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 删除关联的实体.
-	 * 
+	 *
 	 * @param clazzName
 	 *            关联实体类名.
 	 * @param key
@@ -83,7 +83,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 转向编辑关联实体的页面.
-	 * 
+	 *
 	 * @param entityFormPage
 	 *            关联的实体页面.
 	 * @param key
@@ -111,7 +111,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 构建父页面的一些信息.
-	 * 
+	 *
 	 * @param page
 	 *            关联页面.
 	 */
@@ -123,7 +123,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 得到关联的页面名称.
-	 * 
+	 *
 	 * @param entityFormPage
 	 *            关联页.
 	 * @return
@@ -139,7 +139,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 退出当前页面的编辑.
-	 * 
+	 *
 	 * @return 转向的页面.
 	 * @deprecated 将在2.1中删除.请使用 {@link #doCancleEntityAction()}
 	 */
@@ -153,7 +153,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 确定当前页.
-	 * 
+	 *
 	 * @param cycle
 	 *            页面请求.
 	 * @return 转向的页面.
@@ -171,10 +171,10 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 应用当前页.
-	 * 
+	 *
 	 * @param cycle
 	 *            页面请求.
-	 * @deprecated 将在2.1中删除.            
+	 * @deprecated 将在2.1中删除.
 	 */
 	public void applyEntity(IRequestCycle cycle) {
 		if (logger.isDebugEnabled()) {
@@ -185,7 +185,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 删除实体.
-	 * 
+	 *
 	 * @param cycle
 	 * @return 转向的list页面.
 	 * @deprecated 将在2.1中删除.
@@ -197,24 +197,23 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 保存实体操作.
-	 * 
-	 * @param entity
-	 *            待保存实体.
+	 *
+	 *
 	 * @return 保存后的返回页面.
 	 * @since 2.0
 	 */
-	public IPage doSaveEntityAction(T entity) { // 保存操作。
+	public IPage doSaveEntityAction() { // 保存操作。
 		saveOrUpdateEntity();
 		return getListEntityPage();
 	}
 	/**
 	 * 取消对一个实体的编辑或者新增。
-	 *  
+	 *
 	 * @return 取消后返回的页面。
 	 * ＠since 2.0
 	 */
 	public IPage doCancleEntityAction(){
 		return this.getListEntityPage();
 	}
-	
+
 }

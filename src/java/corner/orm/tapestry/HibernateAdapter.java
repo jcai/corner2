@@ -17,7 +17,7 @@ import corner.util.BeanUtils;
  * 对hibernate的类进行序列化.
  * <p>提供对所有的hibernate的bean进行序列化功能.
  * 注意hibernate的model类必须实现 IPersistent接口.
- * 
+ *
  * @author jun
  * @see IPersistent
  */
@@ -55,7 +55,7 @@ public class HibernateAdapter implements SqueezeAdaptor {
 		if(pos>-1){
 			name=name.substring(0,pos);
 		}
-	
+
 		Serializable id = (Serializable) ((HibernateObjectRelativeUtils) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {

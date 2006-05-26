@@ -1,6 +1,8 @@
 package corner.orm.tapestry.page;
 
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
+import org.apache.tapestry.event.PageBeginRenderListener;
+import org.apache.tapestry.event.PageEvent;
 import org.hibernate.criterion.DetachedCriteria;
 
 import corner.orm.hibernate.IPersistent;
@@ -14,7 +16,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @version $Revision$
  * @since 2006-5-23
  */
-public abstract class PoListPage extends AbstractEntityListPage<IPersistent> implements IPersistentQueriable  {
+public abstract class PoListPage extends AbstractEntityListPage<Object> implements IPersistentQueriable,PageBeginRenderListener  {
 	/**
 	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
 	 */
@@ -28,14 +30,24 @@ public abstract class PoListPage extends AbstractEntityListPage<IPersistent> imp
 	 * @see corner.orm.tapestry.table.IPersistentQueriable#createDetachedCriteria()
 	 */
 	public DetachedCriteria createDetachedCriteria() {
-		
+
 		return DetachedCriteria.forClass(this.getEntity().getClass());
 	}
 	/**
 	 * 得到列表的source
 	 * @return table model
 	 */
-	public IBasicTableModel getSource(){
-		return new PersistentBasicTableModel(this.getEntityService(),this);
-	}
+	public abstract IBasicTableModel getSource();
+	public abstract void setSource(IBasicTableModel model);
+
+	public void pageBeginRender(PageEvent event)
+    {
+
+        if (getSource() == null)
+        {
+            this.setSource(new PersistentBasicTableModel(this.getEntityService(),this));
+        }
+    }
+
+
 }

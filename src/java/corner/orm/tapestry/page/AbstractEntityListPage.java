@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package corner.orm.tapestry.page;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InitialValue;
+import org.apache.tapestry.annotations.Persist;
 
 /**
  * 抽象的基础页页面。
@@ -25,12 +26,12 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	//------ 查询部分
 	/**
 	 * 查询的实体.
-	 * 
+	 *
 	 * @return 查询实体.
 	 */
 	public abstract T getQueryEntity();
 	public abstract void setQueryEntity(T obj);
-	
+
 	/**
 	 * 响应查询的操作.
 	 * @return 当前页
@@ -39,14 +40,14 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	public IPage doQueryEntityAction(){
 		return this;
 	}
-	
+
 	//------ 处理含有checkbox的列表。
 	/** 记载选中的list* */
 	@InitialValue("new java.util.ArrayList()")
 	public abstract List<T> getSelectedEntities();
 	public abstract void setSelectedEntities(List<T> list);
-	
-	
+
+
 	public boolean getCheckboxSelected() {
 		return this.getSelectedEntities().contains(getEntity());
 	}
@@ -59,7 +60,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	/**
 	 * 提供一组的checkbox供选择.
 	 * 批量删除实体.
-	 * 
+	 *
 	 * @return 当前页.
 	 * @since 2.0
 	 */
@@ -67,11 +68,11 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 		this.getEntityService().deleteEntities(this.getSelectedEntities());
 		return this;
 	}
-	
+
 //	 -------------------since 2.0
 	/**
 	 * 删除一个实体。
-	 * 
+	 *
 	 * @param entity
 	 *            实体对象。
 	 * @return 返回页面.
@@ -84,7 +85,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 编辑实体操作.
-	 * 
+	 *
 	 * @param entity
 	 *            实体.
 	 * @return 返回编辑页面.
@@ -99,13 +100,13 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 
 	/**
 	 * 新增尸体操作.
-	 * 
+	 *
 	 * @return 新增实体操作的页面.
 	 * @since 2.0
 	 */
 	public IPage doNewEntityAction() { // 新增加操作.
 		return this.getEntityFormPage();
 	}
-	
+
 
 }
