@@ -37,17 +37,12 @@ public abstract class PoListPage extends AbstractEntityListPage<Object> implemen
 	 * 得到列表的source
 	 * @return table model
 	 */
-	public abstract IBasicTableModel getSource();
-	public abstract void setSource(IBasicTableModel model);
+	public  IBasicTableModel getSource(){
+		return new PersistentBasicTableModel(this.getEntityService(),this);
+	}
 
-	public void pageBeginRender(PageEvent event)
-    {
 
-        if (getSource() == null)
-        {
-            this.setSource(new PersistentBasicTableModel(this.getEntityService(),this));
-        }
-    }
+
 
 
 }
