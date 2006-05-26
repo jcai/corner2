@@ -16,7 +16,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @version $Revision$
  * @since 2006-5-23
  */
-public abstract class PoListPage extends AbstractEntityListPage<Object> implements IPersistentQueriable,PageBeginRenderListener  {
+public abstract class PoListPage extends AbstractEntityListPage<Object> implements IPersistentQueriable  {
 	/**
 	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
 	 */
