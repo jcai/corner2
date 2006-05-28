@@ -29,6 +29,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	 *
 	 * @return 查询实体.
 	 */
+	
 	public abstract T getQueryEntity();
 	public abstract void setQueryEntity(T obj);
 
@@ -38,6 +39,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	 * @since 2.0
 	 */
 	public IPage doQueryEntityAction(){
+		this.setQueryEntity(this.getQueryEntity()); //纠正tapestry不能够记录实例化的属性。
 		return this;
 	}
 

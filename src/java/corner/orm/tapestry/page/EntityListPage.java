@@ -248,7 +248,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	 * @deprecated 将在 2.1中删除，请使用 {@link AbstractEntityListPage#doQueryEntityAction()}
 	 */
 	public void queryEntity() {
-
+		this.setQueryEntity(this.getQueryEntity());
 	}
 
 	/**
