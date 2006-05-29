@@ -212,7 +212,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	 * @return 取消后返回的页面。
 	 * ＠since 2.0
 	 */
-	public IPage doCancleEntityAction(){
+	public IPage doCancelEntityAction(){
 		return this.getListEntityPage();
 	}
 

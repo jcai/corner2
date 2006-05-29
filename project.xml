@@ -184,6 +184,12 @@
             <version>1.2.6</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>maven</groupId>
+            <artifactId>maven-antlr-plugin</artifactId>
+            <version>1.2.1</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
