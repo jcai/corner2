@@ -23,8 +23,6 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 
 	private EntityService entityService;
 
-
-
 	public String squeeze(final Object object, final DataSqueezer next) {
 		if (isPersistent(object)) {
 			return (String) ((HibernateObjectRelativeUtils) this.entityService
@@ -48,7 +46,10 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 	}
 
 	private boolean isPersistent(final Object entity) {
-	return	 ((Boolean) ((HibernateObjectRelativeUtils) this.entityService
+		if (entity == null) {
+			return false;
+		}
+		return ((Boolean) ((HibernateObjectRelativeUtils) this.entityService
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
 
@@ -72,8 +73,6 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 		return entity.getClass();
 	}
 
-
-
 	public Object unsqueeze(String string, DataSqueezer next) {
 		if (string.startsWith(PREFIX)) {
 			string = string.substring(PREFIX.length());
@@ -88,7 +87,7 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 
 			Serializable id = (Serializable) next.unsqueeze(split[1]);
 
-			return this.entityService.loadEntity(c,id);
+			return this.entityService.loadEntity(c, id);
 		} else {
 			return next.unsqueeze(string);
 		}
