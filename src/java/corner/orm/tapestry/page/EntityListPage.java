@@ -43,7 +43,7 @@ import corner.util.PaginationBean;
 
 /**
  * 针对单一实体操作的Page类。
- * 
+ *
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-3
@@ -68,7 +68,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	public abstract void setKeyName(String keyName);
 
-	
+
 
 	/** 用于分页的bean* */
 	@Persist("client")
@@ -162,7 +162,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	/**
 	 * 得到Table的source。
-	 * 
+	 *
 	 * @return
 	 * @see IBasicTableeModel
 	 */
@@ -170,7 +170,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	public abstract void setSource(IBasicTableModel btm);
 
-	
+
 
 	/*-------------------------------------------------------------------------
 	 * 对实体的页面操作的响应.
@@ -192,7 +192,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	/**
 	 * 选择某一个实体.
-	 * 
+	 *
 	 * @param key
 	 *            主健值.
 	 * @return 页面.
@@ -210,7 +210,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	/**
 	 * 转到增加实体的页面.
-	 * 
+	 *
 	 * @return 增加实体页面.
 	 * @deprecated 将在2.1 中删除，请使用 {@link #doNewEntityAction()}
 	 */
@@ -218,11 +218,11 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 		return this.getEntityFormPage();
 	}
 
-	
+
 
 	/**
 	 * 编辑实体.
-	 * 
+	 *
 	 * @param key
 	 * @return
 	 * @deprecated 用 {@link #doEditEntityAction(T)}代替.
@@ -235,7 +235,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 	/**
 	 * 删除实体操作.
-	 * 
+	 *
 	 * @param key
 	 * @deprecated 将在 2.1中删除,用 {@link #doDeleteEntityAction(T)}代替.
 	 */
@@ -247,8 +247,9 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 	/**
 	 * @deprecated 将在 2.1中删除，请使用 {@link AbstractEntityListPage#doQueryEntityAction()}
 	 */
-	public void queryEntity() {
+	public IPage queryEntity() {
 		this.setQueryEntity(this.getQueryEntity());
+		return this;
 	}
 
 	/**
@@ -277,5 +278,5 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 		}
 	}
 
-	
+
 }
