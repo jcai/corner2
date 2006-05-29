@@ -13,27 +13,17 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 
-public class HibernateSqueezerFilter implements DataSqueezerFilter {
+public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 	// ----------------------------------------------------------------------------------------------------------------------
 	// Fields
 	// ----------------------------------------------------------------------------------------------------------------------
 	private static final String DELIMITER = "::";
 
-	private static final String PREFIX = "HIBRN8:";
+	private static final String PREFIX = "HB:";
 
 	private EntityService entityService;
 
-	// ----------------------------------------------------------------------------------------------------------------------
-	// DataSqueezerFilter Implementation
-	// ----------------------------------------------------------------------------------------------------------------------
 
-	public String[] squeeze(Object[] objects, DataSqueezer next) {
-		final String[] squeezed = new String[objects.length];
-		for (int i = 0; i < squeezed.length; i++) {
-			squeezed[i] = squeeze(objects[i], next);
-		}
-		return squeezed;
-	}
 
 	public String squeeze(final Object object, final DataSqueezer next) {
 		if (isPersistent(object)) {
@@ -82,13 +72,7 @@ public class HibernateSqueezerFilter implements DataSqueezerFilter {
 		return entity.getClass();
 	}
 
-	public Object[] unsqueeze(String[] strings, DataSqueezer next) {
-		final Object[] unsqueezed = new Object[strings.length];
-		for (int i = 0; i < unsqueezed.length; i++) {
-			unsqueezed[i] = unsqueeze(strings[i], next);
-		}
-		return unsqueezed;
-	}
+
 
 	public Object unsqueeze(String string, DataSqueezer next) {
 		if (string.startsWith(PREFIX)) {
