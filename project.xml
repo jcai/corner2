@@ -13,9 +13,9 @@
     <package>corner</package>
     <logo>/images/logo.gif</logo>
     <repository>
-        <connection>scm:svn:http://10.1.7.110/svn/corner/trunk/corner</connection>
-        <developerConnection>scm:svn:http://10.1.7.110/svn/corner/trunk/corner</developerConnection>
-        <url>http://10.1.7.110/projects/corner/browser</url>
+        <connection>scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
+        <developerConnection>scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</developerConnection>
+        <url>http://dev.bjmaxinfo.com/projects/corner/browser</url>
     </repository>
     <mailingLists>
         <mailingList>
