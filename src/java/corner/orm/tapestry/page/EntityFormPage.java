@@ -38,6 +38,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	 * 得到需要显示list列表的页.
 	 *
 	 * @return
+	 * @deprecated 将在2.1中删除，请使用 {@link #getEntityListPage()}
 	 */
 	public IPage getListEntityPage() {
 		if (this.getRelativePage() != null) {
@@ -51,6 +52,17 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 							this.getPageName().lastIndexOf("Form"))
 							+ "List");
 		}
+	}
+	/**
+	 * 得到回显的列表页面。
+	 * @return 列表页。
+	 * @since 2.0.1
+	 */
+	protected IPage getEntityListPage(){
+		return this.getRequestCycle().getPage(
+				this.getPageName().substring(0,
+						this.getPageName().lastIndexOf("Form"))
+						+ "List");
 	}
 
 	// 对关联页面的处理
@@ -204,16 +216,16 @@ public abstract class EntityFormPage<T> extends AbstractEntityPage<T> {
 	 */
 	public IPage doSaveEntityAction() { // 保存操作。
 		saveOrUpdateEntity();
-		return getListEntityPage();
+		return getEntityListPage();
 	}
 	/**
 	 * 取消对一个实体的编辑或者新增。
 	 *
 	 * @return 取消后返回的页面。
-	 * ＠since 2.0
+	 * @since 2.0
 	 */
 	public IPage doCancelEntityAction(){
-		return this.getListEntityPage();
+		return this.getEntityListPage();
 	}
 
 }
