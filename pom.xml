@@ -135,6 +135,11 @@
 			<name>ibiblio</name>
 			<url>http://www.ibiblio.org/maven2</url>
 		</repository>
+		<repository>
+			<id>bjmaxinfo</id>
+			<name>maxinfo</name>
+			<url>http://dev.bjmaxinfo.com/mvn</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
