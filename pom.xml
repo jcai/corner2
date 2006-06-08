@@ -136,8 +136,8 @@
 			<url>http://www.ibiblio.org/maven2</url>
 		</repository>
 		<repository>
-			<id>bjmaxinfo</id>
-			<name>maxinfo</name>
+			<id>maxinfo</id>
+			<name>bjmaxinfo</name>
 			<url>http://dev.bjmaxinfo.com/mvn</url>
 		</repository>
 	</repositories>
@@ -229,11 +229,11 @@
 	</dependencies>
 	<distributionManagement>
 		<repository>
-            <id>bjmaxinfo-repo</id>
+            <id>maxinfo</id>
             <url>scp://dev.bjmaxinfo.com/opt/mvn</url>
         </repository>
 		<site>
-			<id>dev.bjmaxinfo.com</id>
+			<id>maxinfo</id>
 			<url>scp://dev.bjmaxinfo.com/opt/sites/corner-sandbox</url>
 			<name>jcai</name>
 		</site>
