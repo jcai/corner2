@@ -8,7 +8,7 @@ import corner.orm.spring.SpringContainer;
 public class CornerOpenSessionInViewFilter extends OpenSessionInViewFilter {
 	@Override
 	protected SessionFactory lookupSessionFactory() {
-		
+
 		return (SessionFactory) SpringContainer.getInstance().getApplicationContext().getBean("sessionFactory");
-	}
+
 }
