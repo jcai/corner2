@@ -10,5 +10,5 @@ public class CornerOpenSessionInViewFilter extends OpenSessionInViewFilter {
 	protected SessionFactory lookupSessionFactory() {
 
 		return (SessionFactory) SpringContainer.getInstance().getApplicationContext().getBean("sessionFactory");
-
+	}
 }
