@@ -21,7 +21,7 @@
 		<notifiers>
 			<notifier>
 				<type>jabber</type>
-				<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com</address>
+				<address>jcai@bjmaxinfo.com</address>
 				<configuration>
 					<from-address>maven@bjmaxinfo.com</from-address>
 					<from-password>maven</from-password>
