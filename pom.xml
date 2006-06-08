@@ -21,14 +21,14 @@
 		<notifiers>
 			<notifier>
 				<type>jabber</type>
-				<address>jcai@bjmaxinfo.com</address>
-				<configuration>
-					<from-address>maven@bjmaxinfo.com</from-address>
-					<from-password>maven</from-password>
-					<host>bjmaxinfo.com</host>
-					<port>5222</port>
-					<sslConnection>false</sslConnection>
 
+				<configuration>
+				        <from-address>maven</from-address>
+				        <from-password>maven</from-password>
+						<host>dev.bjmaxinfo.com</host>
+				        <port>5222</port>
+				        <sslConnection>false</sslConnection>
+						<address>jcai@bjmaxinfo.com</address>
 				</configuration>
 				<sendOnError>true</sendOnError>
 				<sendOnFailure>true</sendOnFailure>
