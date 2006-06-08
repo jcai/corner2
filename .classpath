@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/java"/>
-	<classpathentry kind="src" path="src/test"/>
-	<classpathentry kind="src" path="src/etc"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/antlr"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry excluding="**" output="src/main/resources" kind="src" path="src/main/resources"/>
+	<classpathentry excluding="**" output="src/test/resources" kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/acegisecurity/jars/acegi-security-0.8.3.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/javax.servlet/jars/servlet-api-2.3.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-1.2.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springmodules/jars/springmodules-dev-20050907.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/lucene/jars/lucene-analyzers-1.9-rc1-dev.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/lucene/jars/lucene-core-1.9-rc1-dev.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/lucene/jars/lucene-highlighter-1.9-rc1-dev.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springmodules/jars/springmodules-sandbox.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/ognl/jars/ognl-2.6.7.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/hivemind/jars/hivemind-1.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/hivemind/jars/hivemind-lib-1.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-mock-1.2.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/hibernate3/jars/hibernate-3.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/opensymphony/jars/oscore-2.2.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/opensymphony/jars/osuser-1.0-dev-24Feb06.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/opensymphony/jars/osworkflow-2.8.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/opensymphony/jars/propertyset-1.4.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/opensymphony/jars/propertyset-hibernate-1.4.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/springframework/jars/spring-mock-1.2.6.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-4.0.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-annotations-4.0.1.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/tapestry/jars/tapestry-contrib-4.0.1.jar"/>
-	<classpathentry sourcepath="ANTLR_HOME/antlrsrc.zip" kind="var" path="ANTLR_HOME/antlr.jar"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,0 +1,91 @@
+<module id="corner.orm" version="1.0.0">
+	<!-- for spring integration -->
+	<implementation service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
+		<invoke-factory>
+			<construct autowire-services="false"
+				class="corner.orm.hivemind.SpringBeanFactoryHolderImpl">
+				<event-listener service-id="hivemind.ShutdownCoordinator"/>
+			</construct>
+		</invoke-factory>
+	</implementation>
+	<!-- for hibernate data squeeze adaptor -->
+	<!-- <service-point id="HibernateAdapter"
+		interface="org.apache.tapestry.util.io.SqueezeAdaptor">
+		<invoke-factory>
+			<construct class="corner.orm.tapestry.HibernateAdapter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+
+	<contribution configuration-id="tapestry.data.SqueezeAdaptors">
+		<adaptor object="service:HibernateAdapter"/>
+	</contribution> -->
+
+	<!-- for open seesion one per quest -->
+
+    <service-point id="CornerOneSessionPerQuestFilter" interface="org.apache.tapestry.services.WebRequestServicerFilter">
+        <invoke-factory>
+            <construct class="corner.orm.tapestry.filter.OneSessionPerServletRequestFilter">
+                <set property="transactionPerRequest" value="${corner.transaction-per-request}"/>
+                <set-object property="sessionFactory"
+					value="spring:sessionFactory"/>
+                <set-object property="transactionManager"
+					value="spring:transactionManager"/>
+            </construct>
+        </invoke-factory>
+    </service-point>
+
+    <contribution configuration-id="hivemind.FactoryDefaults">
+        <default symbol="corner.transaction-per-request" value="true"/>
+    </contribution>
+
+    <contribution configuration-id="tapestry.request.WebRequestServicerPipeline">
+        <filter name="CornerOneSessionPerQuestFilter" object="service:CornerOneSessionPerQuestFilter"/>
+    </contribution>
+
+
+	    <!--
+    ====================================================================================================================
+    Custom "squeezer" for hibernate-managed entities (turns squeezer service into a pipeline)
+    ====================================================================================================================
+    -->
+    <service-point id="DataSqueezerTerminator"
+                   visibility="private"
+                   interface="org.apache.tapestry.services.DataSqueezer">
+        <invoke-factory>
+            <construct class="org.apache.tapestry.util.io.DataSqueezerImpl">
+                <set-configuration property="squeezeAdaptors"
+                                   configuration-id="tapestry.data.SqueezeAdaptors"/>
+            </construct>
+        </invoke-factory>
+    </service-point>
+
+    <implementation service-id="tapestry.data.DataSqueezer">
+        <invoke-factory service-id="hivemind.lib.PipelineFactory">
+            <create-pipeline filter-interface="corner.orm.tapestry.data.DataSqueezerFilter"
+                             configuration-id="DataSqueezerFilters"
+                             terminator="service:DataSqueezerTerminator"/>
+        </invoke-factory>
+    </implementation>
+
+    <service-point id="HibernateSqueezerFilter" interface="corner.orm.tapestry.data.DataSqueezerFilter">
+        <invoke-factory>
+			<construct
+				class="corner.orm.tapestry.data.HibernateSqueezerFilter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+        </invoke-factory>
+    </service-point>
+
+    <configuration-point id="DataSqueezerFilters" schema-id="hivemind.lib.Pipeline">
+        Allows you to plug in your own custom data squeezers in front of the default Tapestry
+        data squeezer.
+    </configuration-point>
+
+    <contribution configuration-id="DataSqueezerFilters">
+        <filter name="HibernateSqueezerFilter" object="service:HibernateSqueezerFilter" />
+    </contribution>
+</module>
