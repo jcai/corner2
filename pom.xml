@@ -28,7 +28,7 @@
 						<host>dev.bjmaxinfo.com</host>
 				        <port>5222</port>
 				        <sslConnection>false</sslConnection>
-						<address>jcai@bjmaxinfo.com</address>
+						<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com</address>
 				</configuration>
 				<sendOnError>true</sendOnError>
 				<sendOnFailure>true</sendOnFailure>
