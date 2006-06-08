@@ -130,13 +130,9 @@
 		</plugins>
 	</reporting>
 	<repositories>
+
 		<repository>
-			<id>ibiblio</id>
-			<name>ibiblio</name>
-			<url>http://www.ibiblio.org/maven2</url>
-		</repository>
-		<repository>
-			<id>maxinfo</id>
+			<id>central</id>
 			<name>bjmaxinfo</name>
 			<url>http://dev.bjmaxinfo.com/mvn</url>
 		</repository>
