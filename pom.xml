@@ -234,7 +234,7 @@
         </repository>
 		<site>
 			<id>maxinfo</id>
-			<url>scp://dev.bjmaxinfo.com/opt/sites/corner-sandbox</url>
+			<url>scp://dev.bjmaxinfo.com/opt/sites/corner</url>
 			<name>jcai</name>
 		</site>
 	</distributionManagement>
