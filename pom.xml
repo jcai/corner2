@@ -5,7 +5,7 @@
 	<groupId>com.bjmaxinfo.corner</groupId>
 	<artifactId>corner</artifactId>
 	<name>corner</name>
-	<version>2.0.1</version>
+	<version>2.0.2</version>
 	<description>Provides some core function</description>
 	<inceptionYear>2006</inceptionYear>
 	<organization>
