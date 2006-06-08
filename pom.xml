@@ -235,6 +235,7 @@
 		<site>
 			<id>dev.bjmaxinfo.com</id>
 			<url>scp://dev.bjmaxinfo.com/opt/sites/corner-sandbox</url>
+			<name>jcai</name>
 		</site>
 	</distributionManagement>
 </project>
