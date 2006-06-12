@@ -6,6 +6,7 @@
 	<artifactId>corner</artifactId>
 	<name>corner</name>
 	<version>2.0.2</version>
+    <packaging>jar</packaging>
 	<description>Provides some core function</description>
 	<inceptionYear>2006</inceptionYear>
 	<organization>
@@ -239,7 +240,7 @@
 	<distributionManagement>
 		<repository>
             <id>maxinfo</id>
-            <url>scp://dev.bjmaxinfo.com/opt/mvn</url>
+            <url>scp://dev.bjmaxinfo.com/opt/maven2</url>
         </repository>
 		<site>
 			<id>maxinfo</id>
