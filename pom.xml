@@ -129,12 +129,25 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maxinfo</id>
+			<name>bjmaxifo</name>
+			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 	<repositories>
-
 		<repository>
-			<id>central</id>
+			<id>maxinfo</id>
 			<name>bjmaxinfo</name>
-			<url>http://dev.bjmaxinfo.com/mvn</url>
+			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
+
 		</repository>
 	</repositories>
 	<dependencies>
