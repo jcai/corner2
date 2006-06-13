@@ -6,7 +6,7 @@
 	<artifactId>corner</artifactId>
 	<name>corner</name>
 	<version>2.0.2</version>
-    <packaging>jar</packaging>
+	<packaging>jar</packaging>
 	<description>Provides some core function</description>
 	<inceptionYear>2006</inceptionYear>
 	<organization>
@@ -22,14 +22,14 @@
 		<notifiers>
 			<notifier>
 				<type>jabber</type>
-
+				
 				<configuration>
-				        <from-address>maven</from-address>
-				        <from-password>maven</from-password>
-						<host>dev.bjmaxinfo.com</host>
-				        <port>5222</port>
-				        <sslConnection>false</sslConnection>
-						<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com</address>
+					<from-address>maven</from-address>
+					<from-password>maven</from-password>
+					<host>dev.bjmaxinfo.com</host>
+					<port>5222</port>
+					<sslConnection>false</sslConnection>
+					<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com</address>
 				</configuration>
 				<sendOnError>true</sendOnError>
 				<sendOnFailure>true</sendOnFailure>
@@ -63,7 +63,7 @@
 			scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
 		<url> http://dev.bjmaxinfo.com/projects/corner/browser/trunk/corner</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -75,7 +75,7 @@
 					<target>1.5</target>
 					<encoding>utf-8</encoding>
 					<showWarnings>false</showWarnings>
-
+					
 					<compilerVersion>1.5</compilerVersion>
 					<verbose>true</verbose>
 				</configuration>
@@ -97,16 +97,47 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- This should cause the assembly:assembly goal to be triggered
+				to create a source distro whenever we package the jar file. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<descriptorId>src</descriptorId>
+						</configuration>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Here, we want to package a source jar so that it can eventually be
+				packaged into the remote repository with the binary jar. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -148,7 +179,7 @@
 			<id>maxinfo</id>
 			<name>bjmaxinfo</name>
 			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
-
+			
 		</repository>
 	</repositories>
 	<dependencies>
@@ -239,9 +270,9 @@
 	</dependencies>
 	<distributionManagement>
 		<repository>
-            <id>maxinfo</id>
-            <url>scp://dev.bjmaxinfo.com/opt/maven2</url>
-        </repository>
+			<id>maxinfo</id>
+			<url>scp://dev.bjmaxinfo.com/opt/maven2</url>
+		</repository>
 		<site>
 			<id>maxinfo</id>
 			<url>scp://dev.bjmaxinfo.com/opt/sites/corner</url>
