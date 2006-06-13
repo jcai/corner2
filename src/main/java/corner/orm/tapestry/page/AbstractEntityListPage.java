@@ -8,6 +8,12 @@ import java.util.List;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.annotations.Persist;
+import org.apache.tapestry.contrib.table.model.IBasicTableModel;
+import org.hibernate.criterion.DetachedCriteria;
+
+import corner.orm.hibernate.expression.ExpressionExample;
+import corner.orm.tapestry.table.IPersistentQueriable;
+import corner.orm.tapestry.table.PersistentBasicTableModel;
 
 /**
  * 抽象的基础页页面。
@@ -15,7 +21,7 @@ import org.apache.tapestry.annotations.Persist;
  * @version $Revision$
  * @since 2006-5-24
  */
-public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
+public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IPersistentQueriable {
 	@SuppressWarnings("unchecked")
 	public EntityPage<T> getEntityFormPage() {
 		return (EntityPage<T>) this.getRequestCycle().getPage(
@@ -29,7 +35,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	 *
 	 * @return 查询实体.
 	 */
-	
+
 	public abstract T getQueryEntity();
 	public abstract void setQueryEntity(T obj);
 
@@ -108,6 +114,29 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> {
 	 */
 	public IPage doNewEntityAction() { // 新增加操作.
 		return this.getEntityFormPage();
+	}
+	/**
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
+	 */
+	public void appendDetachedCriteria(DetachedCriteria criteria) {
+		if (this.getQueryEntity() != null)
+			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike()
+					.ignoreCase());
+	}
+
+	/**
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#createDetachedCriteria()
+	 */
+	public DetachedCriteria createDetachedCriteria() {
+
+		return DetachedCriteria.forClass(this.getEntity().getClass());
+	}
+	/**
+	 * 得到列表的source
+	 * @return table model
+	 */
+	public  IBasicTableModel getSource(){
+		return new PersistentBasicTableModel(this.getEntityService(),this);
 	}
 
 
