@@ -16,16 +16,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.antlr.eclipse.core.warningcleanerbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.antlr.eclipse.core.smapbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
 			<triggers>full,incremental,</triggers>
 			<arguments>
@@ -35,11 +25,21 @@
 				</dictionary>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.antlr.eclipse.core.warningcleanerbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.antlr.eclipse.core.smapbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.antlr.eclipse.core.antlrnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
-		<nature>org.antlr.eclipse.core.antlrnature</nature>
 		<nature>org.mevenide.ui.mavennature</nature>
 		<nature>com.omondo.uml.std.Nature</nature>
 	</natures>
