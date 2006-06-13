@@ -5,7 +5,7 @@
 	<groupId>com.bjmaxinfo.corner</groupId>
 	<artifactId>corner</artifactId>
 	<name>corner</name>
-	<version>2.0.2</version>
+	<version>2.0.3</version>
 	<packaging>jar</packaging>
 	<description>Provides some core function</description>
 	<inceptionYear>2006</inceptionYear>
@@ -22,7 +22,7 @@
 		<notifiers>
 			<notifier>
 				<type>jabber</type>
-				
+
 				<configuration>
 					<from-address>maven</from-address>
 					<from-password>maven</from-password>
@@ -63,7 +63,7 @@
 			scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
 		<url> http://dev.bjmaxinfo.com/projects/corner/browser/trunk/corner</url>
 	</scm>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -75,7 +75,7 @@
 					<target>1.5</target>
 					<encoding>utf-8</encoding>
 					<showWarnings>false</showWarnings>
-					
+
 					<compilerVersion>1.5</compilerVersion>
 					<verbose>true</verbose>
 				</configuration>
@@ -179,7 +179,7 @@
 			<id>maxinfo</id>
 			<name>bjmaxinfo</name>
 			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
-			
+
 		</repository>
 	</repositories>
 	<dependencies>
