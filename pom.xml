@@ -13,13 +13,13 @@
 	<version>2.0.3</version>
 	<packaging>jar</packaging>
 	<description>Provides some core function</description>
-
+	
 	<scm>
 		<connection>
 			scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
 		<url> http://dev.bjmaxinfo.com/projects/corner/browser/trunk/corner</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -32,7 +32,33 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>bjmaxifo</name>
+			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			
+		</pluginRepository>
+	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>bjmaxinfo</name>
+			<url>http://dev.bjmaxinfo.com/maven2/repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
