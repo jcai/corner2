@@ -29,6 +29,13 @@
 					<grammars>
 						/corner/orm/hibernate/expression/grammer/query-expression.g</grammars>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
