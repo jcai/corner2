@@ -58,7 +58,7 @@ public abstract class EntityListPage<T> extends AbstractEntityListPage<T> implem
 
 
 
-	protected void appendCriteria(Criteria criteria) {
+	public void appendCriteria(Criteria criteria) {
 		if (this.getQueryEntity() != null)
 			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike()
 					.ignoreCase());

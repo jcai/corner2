@@ -9,6 +9,8 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 
 import corner.orm.hibernate.expression.ExpressionExample;
@@ -116,20 +118,20 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 		return this.getEntityFormPage();
 	}
 	/**
-	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendDetachedCriteria(org.hibernate.criterion.DetachedCriteria)
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendCriteria(Criteria)
 	 */
-	public void appendDetachedCriteria(DetachedCriteria criteria) {
+	public void appendCriteria(Criteria criteria) {
 		if (this.getQueryEntity() != null)
 			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike()
 					.ignoreCase());
 	}
 
 	/**
-	 * @see corner.orm.tapestry.table.IPersistentQueriable#createDetachedCriteria()
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#createCriteria(Session)
 	 */
-	public DetachedCriteria createDetachedCriteria() {
+	public Criteria createCriteria(Session session) {
 
-		return DetachedCriteria.forClass(this.getEntity().getClass());
+		return session.createCriteria(this.getEntity().getClass());
 	}
 	/**
 	 * 得到列表的source

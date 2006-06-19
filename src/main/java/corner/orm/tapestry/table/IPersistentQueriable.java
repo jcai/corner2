@@ -1,9 +1,10 @@
 /**
- * 
+ *
  */
 package corner.orm.tapestry.table;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 
-import org.hibernate.criterion.DetachedCriteria;
 
 /**
  * 针对hibernate查询提供的接口服务。
@@ -16,10 +17,10 @@ public interface IPersistentQueriable {
 	 * 创建一个offline的Cirteria
 	 * @return criteria detached
 	 */
-	public DetachedCriteria createDetachedCriteria();
+	public Criteria createCriteria(Session session);
 	/**
 	 * 对查询进行一个性化的设置。
 	 * @param criteria
 	 */
-	public void appendDetachedCriteria(DetachedCriteria criteria);
+	public void appendCriteria(Criteria criteria);
 }
