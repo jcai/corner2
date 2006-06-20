@@ -18,12 +18,13 @@ import java.text.SimpleDateFormat;
 import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.html.BasePage;
 
+import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.page.EntityPage;
 import corner.util.BeanUtils;
 
 /**
  * 抽象的实体页.
- * 
+ *
  * @author jcai
  * @version $Revision$
  * @since 2006-3-5
@@ -35,8 +36,8 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 
 	/**
 	 * 得到主键值
-	 * 
-	 * @return 主键值. 
+	 *
+	 * @return 主键值.
 	 */
 	@Persist("client:page")
 	public abstract Serializable getKey();
@@ -48,7 +49,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 
 	/**
 	 * 得到关联的主键Id值.
-	 * 
+	 *
 	 * @return 关联的主键值
 	 */
 	@Persist("client:page")
@@ -71,7 +72,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	public abstract void setRelativePage(String page);
 
 	/**
-	 * 
+	 *
 	 * 关联类名称.
 	 * @param clazzName 关联的类名.
 	 */
@@ -126,5 +127,14 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	public Format getDateFormat(String formatStr)
 	{
 	    return new SimpleDateFormat(formatStr);
+	}
+
+	/**
+	 *
+	 * 对hibernate进行flush操作。
+	 * @since 2.0.3
+	 */
+	protected void flushHibernate(){
+		((HibernateObjectRelativeUtils) this.getEntityService().getObjectRelativeUtils()).getHibernateTemplate().flush();
 	}
 }
