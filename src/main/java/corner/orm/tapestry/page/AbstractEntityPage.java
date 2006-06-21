@@ -15,8 +15,10 @@ import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.html.BasePage;
+import org.apache.tapestry.services.DataSqueezer;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.page.EntityPage;
@@ -137,4 +139,12 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	protected void flushHibernate(){
 		((HibernateObjectRelativeUtils) this.getEntityService().getObjectRelativeUtils()).getHibernateTemplate().flush();
 	}
+	/**
+	 * 得到tapestry的datasqueezer。
+	 * @return datasqueezer
+	 * @since 2.0.3
+	 */
+	@InjectObject("service:tapestry.data.DataSqueezer")
+	public abstract DataSqueezer getDataSqueezer();
+
 }

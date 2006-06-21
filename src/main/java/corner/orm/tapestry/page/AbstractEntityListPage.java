@@ -136,7 +136,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	 * @return table model
 	 */
 	public  IBasicTableModel getSource(){
-		return new PersistentBasicTableModel(this.getEntityService(),this);
+		return new PersistentBasicTableModel(this.getEntityService(),this,this.getRequestCycle().isRewinding());
 	}
 
 
