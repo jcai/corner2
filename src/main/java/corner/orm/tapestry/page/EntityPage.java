@@ -41,6 +41,7 @@ public interface EntityPage<T  > extends IPage {
 	/**
 	 * 根据实体的主键，得到一个实体，并设定实体。
 	 * @param key 主键值
+	 * @deprecated 将在2.1中删除
 	 */
 	public abstract void loadEntity(Serializable key);
 	/**

@@ -3,7 +3,6 @@
  */
 package corner.orm.tapestry.page;
 
-import corner.orm.hibernate.IPersistent;
 
 /**
  * 对实体的表单操作。

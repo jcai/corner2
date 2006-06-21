@@ -27,6 +27,8 @@ import org.apache.tapestry.IRequestCycle;
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version $Revision$
  * @since 2005-11-4
+ * @deprecated 将在2.1中删除，请使用 {@link corner.orm.tapestry.page.AbstractEntityFormPage}
+ * @see corner.orm.tapestry.page.AbstractEntityFormPage
  */
 public abstract class EntityFormPage<T> extends AbstractEntityFormPage<T> {
 	/**

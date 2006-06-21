@@ -21,8 +21,6 @@ import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
-import corner.orm.tapestry.page.EntityPage;
-import corner.util.BeanUtils;
 
 /**
  * 抽象的实体页.
@@ -40,18 +38,20 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * 得到主键值
 	 *
 	 * @return 主键值.
+	 * @deprecated 将在2.1中删除
 	 */
 	@Persist("client:page")
 	public abstract Serializable getKey();
 	/**
 	 * 设定主键值.
 	 * @param keyValue 主键值.
+	 * @deprecated 将在2.1中删除
 	 */
 	public abstract void setKey(Serializable keyValue);
 
 	/**
 	 * 得到关联的主键Id值.
-	 *
+	 * @deprecated 将在2.1中删除
 	 * @return 关联的主键值
 	 */
 	@Persist("client:page")
@@ -59,17 +59,20 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	/**
 	 * 设定关联对象的主键值
 	 * @param relativeId 关联对象的主键值.
+	 * @deprecated 将在2.1中删除
 	 */
 	public abstract void setRelativeId(Serializable relativeId);
 
 	/**
 	 * 得到关联的页面.
+	 * @deprecated 将在2.1中删除
 	 */
 	@Persist("client:page")
 	public abstract String getRelativePage();
 	/**
 	 * 设定关联的页面.
 	 * @param page 关联页
+	 * @deprecated 将在2.1中删除
 	 */
 	public abstract void setRelativePage(String page);
 
@@ -77,12 +80,21 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 *
 	 * 关联类名称.
 	 * @param clazzName 关联的类名.
+	 * @deprecated 将在2.1中删除
 	 */
 	@Persist("client:page")
 	public abstract void setRelativeClassName(
 			String clazzName);
+	/**
+	 * @deprecated 将在2.1中删除
+	 * @return
+	 */
 	public abstract String getRelativeClassName();
 
+	/**
+	 * @deprecated 将在2.1中删除
+	 * @see corner.orm.tapestry.page.EntityPage#loadEntity(java.io.Serializable)
+	 */
 	@SuppressWarnings("unchecked")
 	public void loadEntity(Serializable key) {
 		T tmpObj = getEntityService().getEntity(
@@ -97,16 +109,21 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * 目的提供对关联对象的操作.
 	 */
 	protected void saveOrUpdateEntity() {
-		if(this.getRelativeClassName()!=null&&this.getRelativeId()!=null){
+		/*if(this.getRelativeClassName()!=null&&this.getRelativeId()!=null){
 			//得到关联的对象实例.
 			Object obj=this.getEntityService().getEntity(this.getRelativeClassName(),this.getRelativeId());
 			//设定关联的对象属性.
 			BeanUtils.setProperty(this.getEntity(),this.getClazzNameAsPropertyName(this.getRelativeClassName()),obj);
-		}
+		}*/
 		//save or update
 		getEntityService().saveOrUpdateEntity(getEntity());
 
 	}
+	/**
+	 * @deprecated 将在2.1中删除
+	 * @param clazzName
+	 * @return
+	 */
 	private String getClazzNameAsPropertyName(String clazzName) {
 		clazzName=clazzName.substring(clazzName.lastIndexOf(".")+1);
 		return Character.toLowerCase(clazzName.charAt(0))+clazzName.substring(1);

@@ -1,9 +1,7 @@
 package corner.orm.tapestry.page.relative;
 
 import org.apache.tapestry.IPage;
-import org.apache.tapestry.components.IPrimaryKeyConverter;
 
-import corner.orm.tapestry.HibernateConverter;
 import corner.orm.tapestry.page.AbstractEntityListPage;
 
 /**
