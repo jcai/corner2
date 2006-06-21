@@ -7,11 +7,9 @@ import java.util.List;
 
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InitialValue;
-import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
 
 import corner.orm.hibernate.expression.ExpressionExample;
 import corner.orm.tapestry.table.IPersistentQueriable;

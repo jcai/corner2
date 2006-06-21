@@ -15,16 +15,23 @@ package corner.service;
 
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.EntityMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.metadata.ClassMetadata;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 import corner.orm.hibernate.ObjectRelativeUtils;
+import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.util.PaginationBean;
 
 /**
- * 
+ *
  * Entity Service.
  * <p>提供了对实体的基本操作.
  * 譬如:增加,删除,修改等.
@@ -55,7 +62,7 @@ public class EntityService {
 	public ObjectRelativeUtils getObjectRelativeUtils() {
 		return oru;
 	}
-	
+
 	/**
 	 * 保存一个实体
 	 * @param <T> 实体
@@ -81,7 +88,7 @@ public class EntityService {
 	public <T> void updateEntity(T entity) {
 		oru.update(entity);
 	}
-	
+
 	/**
 	 * 装载一个实体.
 	 * @param <T> 实体.
@@ -103,8 +110,8 @@ public class EntityService {
 	public <T> T getEntity(Class<T> clazz, Serializable keyValue) {
 		return oru.get(clazz, keyValue);
 	}
-	
-	
+
+
 	/**
 	 * 批量删除实体.
 	 * @param <T> 实体.
@@ -118,7 +125,7 @@ public class EntityService {
 
 		for (T entity : ts) {
 			try{
-				
+
 				oru.delete(entity);
 			}catch(Exception e){
 				logger.warn(e.getMessage());
@@ -128,7 +135,7 @@ public class EntityService {
 	}
 	/**
 	 * 通过给定的实体ID来删除实体.
-	 * @param <T> 实体. 
+	 * @param <T> 实体.
 	 * @param clazz 待删除的实体.
 	 * @param keyValue 主键值.
 	 */
@@ -149,9 +156,9 @@ public class EntityService {
 			Class clazz=Class.forName(clazzName);
 			this.deleteEntityById(clazz,key);
 		} catch (ClassNotFoundException e) {
-			//do noting 
+			//do noting
 		}
-		
+
 	}
 	/**
 	 * 通过给定的类的名称和主键值来得到实体.
@@ -169,8 +176,8 @@ public class EntityService {
 			logger.warn(e.getMessage());
 			return null;
 		}
-		
-		
+
+
 	}
 	/**
 	 * 通过给定的类以及分页用的bean来得到list。
@@ -179,7 +186,61 @@ public class EntityService {
 	 * @param pb 分页的bean。
 	 * @return 列表.
 	 */
-	public <T> List<T> find(Class<T> clazz, PaginationBean pb) { 
-		return oru.find("from " + clazz.getName(), pb); 
-	} 
+	public <T> List<T> find(Class<T> clazz, PaginationBean pb) {
+		return oru.find("from " + clazz.getName(), pb);
+	}
+	/**
+	 * 判断一个实体是否是persist状态。
+	 * @param entity 待处理的实体。
+	 * @return 是否持久化。
+	 * @since 2.0.3
+	 */
+	public boolean isPersistent(final Object entity) {
+		if (entity == null) {
+			return false;
+		}
+		return ((Boolean) ((HibernateObjectRelativeUtils) getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						final ClassMetadata classMetadata = session
+								.getSessionFactory().getClassMetadata(
+										getEntityClass(entity));
+						return classMetadata != null
+								&& classMetadata.getIdentifier(entity,
+										EntityMode.POJO) != null;
+
+					}
+				})).booleanValue();
+	}
+	/**
+	 * 得到持久化类的名称。
+	 * @param entity 待处理的持久化类。
+	 * @return 持久化类的名称。
+	 * @since 2.0.3
+	 */
+	public Class getEntityClass(Object entity) {
+		if (entity.getClass().getName().contains("CGLIB")) {
+			return entity.getClass().getSuperclass();
+		}
+		return entity.getClass();
+	}
+	/**
+	 * 得到一个持久化类的主建值。
+	 * @param object 持久化实例。
+	 * @return 主建值。
+	 * @since 2.0.3
+	 */
+	public Serializable getIdentifier(final Object object){
+		return (Serializable) ((HibernateObjectRelativeUtils) getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						return 	session.getIdentifier(object);
+
+					}
+				});
+
+	}
 }
