@@ -1,4 +1,4 @@
-package corner.test.model;
+package corner.demo.model;
 
 /**
  * 抽象的model

@@ -1,4 +1,4 @@
-package corner.test.model.many2many;
+package corner.demo.model.many2many;
 
 import java.sql.SQLException;
 
@@ -9,6 +9,8 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import corner.demo.model.many2many.A;
+import corner.demo.model.many2many.B;
 import corner.test.AbstractTestCase;
 
 /**

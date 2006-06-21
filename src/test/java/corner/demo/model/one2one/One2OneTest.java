@@ -1,8 +1,10 @@
-package corner.test.model.one2one;
+package corner.demo.model.one2one;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import corner.demo.model.one2one.A;
+import corner.demo.model.one2one.B;
 import corner.test.AbstractTestCase;
 
 /**

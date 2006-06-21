@@ -8,43 +8,37 @@
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
 
-package corner.test.model.one2many;
+package corner.demo.model.one2one;
 
-import java.util.Set;
-
-import corner.test.model.AbstractModel;
+import corner.demo.model.AbstractModel;
 
 /**
  * @author jcai
  * @version $Revision$
  * @since 0.5.2
- * @hibernate.class table="one2manyA"
+ * @hibernate.class table="one2oneA"
  * @hibernate.cache usage="read-write"
  * @hibernate.mapping auto-import="false"
  */
-public class A extends AbstractModel{
+public class A extends AbstractModel {
 
 	/**
-	 * A和B的一对多关联
-	 *
-	 * @hibernate.set cascade="none"  lazy="true"
-	 * @hibernate.key column="A"
-	 * @hibernate.one-to-many class="corner.test.model.one2many.B"
+	 * 和B的一对一关联。
+	 * @hibernate.one-to-one
 	 */
-	private Set<B> bs;
+	private B b;
 
 	/**
-	 * @return Returns the bs.
+	 * @return Returns the b.
 	 */
-	public Set<B> getBs() {
-		return bs;
+	public B getB() {
+		return b;
 	}
 
 	/**
-	 * @param bs The bs to set.
+	 * @param b The b to set.
 	 */
-	public void setBs(Set<B> bs) {
-		this.bs = bs;
+	public void setB(B b) {
+		this.b = b;
 	}
-
 }

@@ -1,8 +1,8 @@
-package corner.test.model.many2many;
+package corner.demo.model.many2many;
 
 import java.util.Set;
 
-import corner.test.model.AbstractModel;
+import corner.demo.model.AbstractModel;
 
 /**
  * many to many 的实验类
@@ -19,7 +19,7 @@ public class B extends AbstractModel{
 	 * 和A对象之间的many-2-many的关联
 	 * @hibernate.set cascade="none" table="AB" lazy="true"
 	 * @hibernate.key column="B"
-	 * @hibernate.many-to-many class="corner.test.model.many2many.A" column="A"
+	 * @hibernate.many-to-many class="corner.demo.model.many2many.A" column="A"
 	 */
 	private Set<A> as;
 

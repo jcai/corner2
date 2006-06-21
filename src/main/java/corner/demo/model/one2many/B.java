@@ -1,6 +1,6 @@
-package corner.test.model.one2many;
+package corner.demo.model.one2many;
 
-import corner.test.model.AbstractModel;
+import corner.demo.model.AbstractModel;
 
 /**
  *

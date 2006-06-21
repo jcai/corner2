@@ -8,9 +8,9 @@
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
 
-package corner.test.model.one2one;
+package corner.demo.model.one2one;
 
-import corner.test.model.AbstractModel;
+import corner.demo.model.AbstractModel;
 
 /**
  * @author jcai
