@@ -31,10 +31,7 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 	 * @return many端的form表单页面。
 	 */
 	protected abstract AbstractManyEntityFormPage<T,E> getManyEntityFormPage();
-	/** 得到对主键的Converter* */
-	public IPrimaryKeyConverter getConverter() {
-		return new HibernateConverter(this.getDataSqueezer());
-	}
+
 
 	/**
 	 * 新增加关系的操作。
