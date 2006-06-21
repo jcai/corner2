@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="corner.sandbox.page.UserFormPage">
+<property initial-value="new corner.sandbox.model.User()" name="entity" />
+<property initial-value="new corner.sandbox.model.Blog()" name="blogEntity" />
+<bean name="delegate" class="corner.orm.tapestry.ShowMessageValidationDelegate" />
+
+<component id="UserForm" type="Form">
+	<binding name="delegate" value="ognl:beans.delegate" />
+     <binding name="clientValidationEnabled" value="ognl:true"/>
+    <binding name="success" value="listener:doSaveEntityAction" />
+    <binding name="cancel" value="listener:doCancelEntityAction"/>
+</component>
+
+<component id="UserField" type="Hidden">
+	<binding name="value" value="ognl:entity" />
+</component>
+
+<component id="userNameField" type="TextField">
+    <binding name="displayName" value="message:userNameField" />
+	<binding name="value" value="ognl:entity.userName" />
+    <binding name="validators" value="validators:required,maxLength=5" />
+</component>
+
+<component id="userPassField" type="TextField">
+    <binding name="displayName" value="message:userPassField" />
+	<binding name="value" value="ognl:entity.userPass" />
+    <binding name="hidden" value="ognl:true" />
+    <binding name="validators" value="validators:required,maxLength=5"/>
+</component>
+
+<component id="userContentField" type="TextField">
+    <binding name="displayName" value="message:userContentField" />
+	<binding name="value" value="ognl:entity.userContent"/>
+    <binding name="validators" value="validators:required,maxLength=500"/>
+</component>
+</page-specification>

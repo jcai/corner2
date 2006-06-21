@@ -1,0 +1,44 @@
+<span jwcid="@SandBoxBorder" title="literal:User List">
+	<form jwcid="UserQueryForm">
+		<input type="hidden" jwcid="UserField" />
+		<table width="800" border="1">
+		  <tr>
+			<th scope="col" align="center"><span key="userNameField" /></th>
+			<th scope="col" align="center"><input type="text" jwcid="userNameField" /></th>
+		  </tr>
+		  <tr>
+			<th scope="row"><span key="userPassField" /></th>
+			<td align="center"><input type="text" jwcid="userPassField" /></td>
+		  </tr>
+		  <tr>
+			<th scope="row" align="center"><span key="userContentField" /></th>
+			<td align="center"><input type="text" jwcid="userContentField" /></td>
+		  </tr>
+		  <tr>
+			<th scope="row" colspan="2" align="center"><input type="submit"></th>
+		  </tr>
+		</table>
+	</form>
+
+	<div jwcid="@contrib:TableView" columns="userId,userName,userPass,userContent,!edit,!delete" element="div" persist="client" source="ognl:source" pageSize="5">
+		<table width="200" border="1">
+		  <tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		  </tr>
+		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" volatile="true">
+			<th scope="row" align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doAddBlogActioin"><span jwcid="@Insert" value="ognl:entity.userId" /></a></th>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userName" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userPass" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userContent" /></td>
+			<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doEditEntityAction"><span key="edit" /></a></td>
+			<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doDeleteEntityAction"><span key="delete" /></a></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><a href="UserList.html" jwcid="@DirectLink" listener="listener:doNewEntityAction"><span key="add"/></a></td>
+		  </tr>
+		</table>
+	</div>
+</span>

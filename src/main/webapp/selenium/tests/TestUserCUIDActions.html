@@ -1,0 +1,618 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TestUserCUIDActions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TestUserCUIDActions</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/app</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=User实体操作</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>user1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>user1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>用户姓名的内容不能超过5字符。</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>user2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>user2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=修改</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>user3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>user3</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>456</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>456</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>1%</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>1% or 4% </td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>1%</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>1% or 4%</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>234</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>234</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>345</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>345</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户编号</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户编号</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户编号</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户编号</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户姓名</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户姓名</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户密码</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=用户密码</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='取消']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=添加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>132</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='提交']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=修改</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserForm.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='取消']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>UserList.html</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

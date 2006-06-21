@@ -1,0 +1,50 @@
+<span jwcid="@SandBoxBorder" title="literal:User Form">
+<form jwcid="UserForm">
+<input jwcid="UserField" type="hidden"/>
+<table width="800" border="1" align="center">
+  <tr>
+    <th><span key="userNameField" /></th>
+    <td><input type="text" jwcid="userNameField" size="20"/></td>
+  </tr>
+  <tr>
+    <th><span key="userPassField" /></th>
+    <td><input type="text" jwcid="userPassField"/></td>
+  </tr>
+  <tr>
+    <th><span key="userContentField"/></th>
+    <td><input type="text" jwcid="userContentField"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+		<input jwcid="@Any" type="submit" value="message:button.Okay" />&nbsp;&nbsp;
+		<input jwcid="@Any" type="button" value="message:button.Cancel" onClick="javascript:this.form.events.cancel()" />
+	</td>
+  </tr>
+</table>
+</form>
+<span jwcid="@If" condition="ognl:entity.userId">
+	<span jwcid="@If" condition="ognl:entity.catalogs">
+		<table width="800" align="center" border="1">
+			<tr>
+				<td colspan="4"><span key="relatived" /></td>
+			</tr>
+			<tr>
+				<td><span key="catalogId" /></td>
+				<td><span key="catalogName" /></td>
+				<td><span key="catalogStyle" /></td>
+			</tr>
+			<tr jwcid="@For" source="ognl:entity.catalogs" element="tr" value="ognl:catalogEntity">
+				<!--<td><span jwcid="RelativeUserField"/></td>-->
+				<td><span jwcid="@Insert" value="ognl:catalogEntity.catalogId" /></td>
+				<td><span jwcid="@Insert" value="ognl:catalogEntity.catalogName" /></td>
+				<td><span jwcid="@Insert" value="ognl:catalogEntity.catalogStyle" /></td>
+			</tr>
+		</table>
+	</span>
+</span>
+<table align="center" width="800" border="1">
+	<tr>
+		<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doNewUserCatalogAction"><span key="CreateCatalogUserRelative" /></a></td>
+	</tr>
+</table>
+</span>

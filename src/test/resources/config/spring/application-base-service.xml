@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+  - Application context definition for Corner Project.
+	-->
+<beans>
+	
+	<!--
+		- base transaction proxy 
+	-->
+	<!--<bean id="baseTransactionProxy" 
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" 
+		abstract="true">
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+		<property name="preInterceptors">
+			<list> 
+				<idref bean="securityInterceptor"/>
+			</list>
+		</property>
+	</bean>
+	-->
+	<!-- transaction interceptor -->
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+    	<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="transactionAttributes">
+			<props> 
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="index*">PROPAGATION_REQUIRED</prop>
+				<!--<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>-->
+			</props>
+		</property>
+	</bean>
+	<!-- security Interceptor -->	
+	<!-- <bean id="securityInterceptor"
+		class="net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+		<property name="authenticationManager">
+			<ref bean="authenticationManager"/>
+		</property>
+		<property name="accessDecisionManager">
+			<ref bean="httpRequestAccessDecisionManager"/> 
+		</property>
+		<property name="objectDefinitionSource">
+			<value>posioning.login.TestService.test=ROLE_PERSONNEL_ADMIN</value>
+		</property>
+		
+	</bean> -->
+	<!-- base service object -->
+	<bean id="baseServiceObject" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+      <property name="interceptorNames">
+         <list>
+            <!--<idref local="securityInterceptor"/> -->
+            <idref bean="transactionInterceptor"/>
+         </list>
+      </property>
+   </bean>
+
+	<!--
+	  - corner's central data access object: Hibernate implementation.
+    -->
+	<bean id="objectRelativeUtils" 
+		class="corner.orm.hibernate.v3.HibernateObjectRelativeUtils">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- entity service -->
+	<bean id="entityService" parent="baseServiceObject">
+		<property name="target">
+			<bean class="corner.service.EntityService">
+				<property name="objectRelativeUtils">
+					<ref bean="objectRelativeUtils"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="corner.sandbox.page.AddressFormPage">
+    <property initial-value="new corner.sandbox.model.Address()" name="entity" />
+	<bean name="delegate" class="corner.orm.tapestry.ShowMessageValidationDelegate" />
+	<component id="addressFormField" type="Form">
+		<binding name="delegate" value="ognl:beans.delegate" />
+        <binding name="ClientValidationEnable" value="ognl:true" />
+        <binding name="success" value="listener:doSaveEntityAction" />
+        <binding name="cancel" value="listener:doCancelEntityAction" />
+	</component>
+
+    <component id="addressCountryField" type="TextField">
+    	<binding name="value" value="ognl:entity.country" />
+    </component>
+
+    <component id="addressStateField" type="TextField">
+    	<binding name="value" value="ognl:entity.state" />
+    </component>
+
+    <component id="addressField" type="Hidden">
+		<binding name="value" value="ognl:entity.addressId" />
+    </component>
+
+    <component id="userField" type="Hidden">
+		<binding name="value" value="user" />
+    </component>
+</page-specification>

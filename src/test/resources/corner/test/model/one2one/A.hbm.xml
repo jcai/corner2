@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false">
+  <class table="one2oneA" name="corner.test.model.one2one.A">
+    <cache usage="read-write"/>
+    <id name="id">
+      <generator class="uuid"/>
+    </id>
+    <one-to-one name="b"/>
+    <property name="name"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TestCUD</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TestCUD</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/app</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Add Entity</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogTitleField</td>
+	<td>Ghostbb</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogContentField</td>
+	<td>Password</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>博客标题的内容不能超过5字符。</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogTitleField</td>
+	<td>Ghost</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogContentField</td>
+	<td>Passw</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Ghost</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Passw</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home Page</td>
+	<td></td>
+</tr>
+
+<tr>
+	<td>assertTextPresent</td>
+	<td>Ghost</td>
+	<td></td>
+</tr>
+
+<tr>
+	<td>clickAndWait</td>
+	<td>link=编辑</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Add Entity</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogTitleField</td>
+	<td>Thisa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>blogContentField</td>
+	<td>asihT</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Thisa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>asihT</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>Thisa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>asihT</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

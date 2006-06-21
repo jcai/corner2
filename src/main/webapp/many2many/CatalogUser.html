@@ -1,0 +1,25 @@
+<span jwcid="@SandBoxBorder" title="literal:Catalog User List">
+	<form jwcid="CatalogUserForm">
+		<input type="hidden" jwcid="CatalogField" />
+	<div jwcid="@contrib:TableView" columns="!checkbox,userId,userName,userPass,userContent" element="div" persist="client" source="ognl:source" pageSize="5">
+		<table width="200" border="1">
+		  <tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		  </tr>
+		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" volatile="true">
+		  	<th align="center"><input jwcid="@Checkbox" value="ognl:checkboxSelected" /></th>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userId" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userName" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userPass" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.userContent" /></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><input type="submit" value="submit"></td>
+		  </tr>
+		</table>
+	</div>
+	</form>
+</span>

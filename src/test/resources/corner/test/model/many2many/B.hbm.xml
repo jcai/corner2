@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false">
+  <class table="many2manyB" name="corner.test.model.many2many.B">
+    <cache usage="read-write"/>
+    <id name="id">
+      <generator class="uuid"/>
+    </id>
+    <set table="AB" lazy="true" cascade="none" name="as">
+      <key column="B"/>
+      <many-to-many column="A" class="corner.test.model.many2many.A"/>
+    </set>
+    <property name="name"/>
+  </class>
+</hibernate-mapping>

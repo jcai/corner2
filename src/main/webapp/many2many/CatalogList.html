@@ -1,0 +1,24 @@
+<span jwcid="@SandBoxBorder" title="literal:Catalog List">
+	<div jwcid="@contrib:TableView" element="div" columns="catalogId,catalogName,catalogStyle,!edit,!delete" source="ognl:source" persist="client" pageSize="5">
+		<table width="800" align="center" border="1">
+			<tr>
+				<span jwcid="@contrib:TableColumns" element="th"/>
+			</tr>
+			<tr jwcid="@contrib:TableRows" element="tr" row="ognl:entity">
+				<td align="center"><span jwcid="@Insert" value="ognl:entity.catalogId" /></td>
+				<td align="center"><span jwcid="@Insert" value="ognl:entity.catalogName" /></td>
+				<td align="center"><span jwcid="@Insert" value="ognl:entity.catalogStyle" /></td>
+				<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doEditEntityAction"><span key="edit" /></a></td>
+				<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doDeleteEntityAction"><span key="delete" /></a></td>
+			</tr>
+			<tr>
+				<td colspan="5" align="center"><span jwcid="@contrib:TablePages"/></td>
+			</tr>
+		</table>
+	</div>
+	<table align="center" border="1" width="800">
+		<tr>
+			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doNewEntityAction"><span key="add" /></a>&nbsp&nbsp<a href="#" jwcid="@DirectLink" listener="listener:doBackHomeAction"><span key="Home" /></a></td>
+		</tr>
+	</table>
+</span>
