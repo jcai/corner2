@@ -2,12 +2,14 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false">
-  <class table="one2oneA" name="corner.test.model.one2one.A">
+  <class table="one2oneB" name="corner.demo.model.one2one.B">
     <cache usage="read-write"/>
     <id name="id">
-      <generator class="uuid"/>
+      <generator class="foreign">
+        <param name="property">a</param>
+      </generator>
     </id>
-    <one-to-one name="b"/>
+    <one-to-one name="a" constrained="true"/>
     <property name="name"/>
   </class>
 </hibernate-mapping>

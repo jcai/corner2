@@ -2,14 +2,14 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false">
-  <class table="one2manyA" name="corner.test.model.one2many.A">
+  <class table="many2manyA" name="corner.demo.model.many2many.A">
     <cache usage="read-write"/>
     <id name="id">
       <generator class="uuid"/>
     </id>
-    <set lazy="true" cascade="none" name="bs">
+    <set table="AB" lazy="true" cascade="none" name="bs">
       <key column="A"/>
-      <one-to-many class="corner.test.model.one2many.B"/>
+      <many-to-many column="B" class="corner.demo.model.many2many.B"/>
     </set>
     <property name="name"/>
   </class>
