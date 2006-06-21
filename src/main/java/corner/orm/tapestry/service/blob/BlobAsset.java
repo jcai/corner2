@@ -26,15 +26,15 @@ import org.apache.tapestry.engine.ILink;
 
 /**
  * 提供了blob的Asset用以显示blob的值.
- * <p>显示一个blob的图片可以使用 
+ * <p>显示一个blob的图片可以使用
  * 需要提供了两个参数:
  * <li>tableType 表的类型,见{@link poison.pageservice.BlobService#LOB_PROVIDER_CLAZZS}
  * <li>tableKey 表的主键值,{@link BlobService#LOB_PROVIDER_CLAZZS};
- * 
+ *
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2006-1-20
- * @seee org.apache.tapestry.IAsset
+ * @see org.apache.tapestry.IAsset
  */
 public class BlobAsset extends AbstractAsset {
 
