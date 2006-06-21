@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import corner.demo.model.many2many.A;
-import corner.demo.model.many2many.B;
 import corner.test.AbstractTestCase;
 
 /**
@@ -22,7 +20,7 @@ import corner.test.AbstractTestCase;
  * </p>
  * <p>同时在many-to-many的时候cascade对关系的维护没有任何实际的意义。
  * @author jcai
- * @version $Revision$
+ * @version $Revision:1196 $
  * @since 0.5.2
  *
  *

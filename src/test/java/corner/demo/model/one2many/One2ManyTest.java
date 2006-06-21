@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import corner.demo.model.one2many.A;
-import corner.demo.model.one2many.B;
 import corner.test.AbstractTestCase;
 
 /**
@@ -18,7 +16,7 @@ import corner.test.AbstractTestCase;
  * <p>one-to-many通常的关系维护是通过many的那一段来进行维护。
  * 为本例中的testB方法所示。
  * @author jcai
- * @version $Revision$
+ * @version $Revision:1196 $
  * @since 0.5.2
  */
 public class One2ManyTest extends AbstractTestCase {
