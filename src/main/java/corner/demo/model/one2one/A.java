@@ -1,9 +1,9 @@
 //==============================================================================
 //file :        A.java
 //
-//last change:	date:       $Date$
-//           	by:         $Author$
-//           	revision:   $Revision$
+//last change:	date:       $Date:2006-06-21 06:18:45Z $
+//           	by:         $Author:jcai $
+//           	revision:   $Revision:1196 $
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
@@ -14,7 +14,7 @@ import corner.demo.model.AbstractModel;
 
 /**
  * @author jcai
- * @version $Revision$
+ * @version $Revision:1196 $
  * @since 0.5.2
  * @hibernate.class table="one2oneA"
  * @hibernate.cache usage="read-write"
@@ -22,6 +22,10 @@ import corner.demo.model.AbstractModel;
  */
 public class A extends AbstractModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1825262741332301653L;
 	/**
 	 * 和B的一对一关联。
 	 * @hibernate.one-to-one

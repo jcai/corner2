@@ -16,6 +16,10 @@ import corner.demo.model.AbstractModel;
 public class B extends AbstractModel{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8263113784790334820L;
+	/**
 	 * 和A对象之间的many-2-many的关联
 	 * @hibernate.set cascade="none" table="AB" lazy="true"
 	 * @hibernate.key column="B"

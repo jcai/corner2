@@ -1,12 +1,18 @@
 package corner.demo.model;
 
+import java.io.Serializable;
+
 /**
  * 抽象的model
  * @author jcai
  * @version $Revision:1162 $
  * @since 0.5.2
  */
-public class AbstractModel {
+public class AbstractModel implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -8461175277991575498L;
 	/**
 	 * @hibernate.id generator-class="uuid"
 	 *
