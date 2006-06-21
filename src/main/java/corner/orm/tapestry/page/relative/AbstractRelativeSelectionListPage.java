@@ -36,7 +36,7 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 	 * @return 增加关系后的页面。
 	 */
 	public IPage doNewRelativeAction(){
-		this.getEntityService().saveEntity(this.getRootedObject());
+//		this.getEntityService().saveEntity(this.getRootedObject());
 		this.flushHibernate();
 		this.getManyEntityFormPage().setEntity(this.getRootedObject());
 		return this.getManyEntityFormPage();
