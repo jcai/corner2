@@ -22,6 +22,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @author Jun Tsai
  * @version $Revision$
  * @since 2006-5-24
+ * @param <T> 当前操作的实体对象.
  */
 public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IPersistentQueriable {
 	@SuppressWarnings("unchecked")

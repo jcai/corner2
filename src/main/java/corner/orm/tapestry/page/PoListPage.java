@@ -9,8 +9,4 @@ package corner.orm.tapestry.page;
  */
 public abstract class PoListPage extends AbstractEntityListPage<Object> {
 
-
-
-
-
 }

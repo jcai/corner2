@@ -21,9 +21,11 @@ import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
  * <p>此form页面的T为当前操作的实体，E为关联实体。
  * @author jcai
  * @version $Revision$
+ * @param <T> 当前操作的实体对象。
+ * @param <E> 关联的对象。
  * @since 2.0.3
  */
-public abstract class AbstractManyEntityFormPage<T,E> extends AbstractEntityFormPage<T>  {
+public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFormPage<T>  {
 
 	/**
 	 * 得到关联对象。

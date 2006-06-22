@@ -23,11 +23,12 @@ import org.apache.tapestry.services.DataSqueezer;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 
 /**
- * 抽象的实体页.
- *
+ * 抽象的实体类.
+ * <p>实现了抽象实体基本的方法。
  * @author jcai
  * @version $Revision$
  * @since 2006-3-5
+ * @param <T> 当前抽象的实体。
  */
 public abstract class AbstractEntityPage<T> extends BasePage implements
 		EntityPage<T> {
@@ -119,15 +120,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 		getEntityService().saveOrUpdateEntity(getEntity());
 
 	}
-	/**
-	 * @deprecated 将在2.1中删除
-	 * @param clazzName
-	 * @return
-	 */
-	private String getClazzNameAsPropertyName(String clazzName) {
-		clazzName=clazzName.substring(clazzName.lastIndexOf(".")+1);
-		return Character.toLowerCase(clazzName.charAt(0))+clazzName.substring(1);
-	}
+
 	/**
 	 * 得到日期格式化对象.
 	 * @return 日期格式化对象.

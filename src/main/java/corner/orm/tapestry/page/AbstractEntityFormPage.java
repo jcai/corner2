@@ -7,6 +7,7 @@ import org.apache.tapestry.IPage;
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.2
+ * @param <T> 当前操作的实体对象.
  */
 public abstract class AbstractEntityFormPage<T> extends AbstractEntityPage<T>{
 	/**
