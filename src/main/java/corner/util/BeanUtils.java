@@ -30,10 +30,10 @@ public class BeanUtils {
 		System.setProperty("bean.provider", "ognl");
 
 		//only form apache beanutils
-		//		Converter igConverter = new IntegerConverter(null); 
+		//		Converter igConverter = new IntegerConverter(null);
 		//		ConvertUtils.register(igConverter, Integer.TYPE); // Native type
 		//		ConvertUtils.register(igConverter, Integer.class);
-		//		
+		//
 		//		Converter dateConverter= new DateConverter();
 		//		ConvertUtils.register(dateConverter,Timestamp.class);
 		//		ConvertUtils.register(dateConverter, Date.class);
@@ -71,7 +71,7 @@ public class BeanUtils {
 	public static Object getProperty(Object bean, String pro) {
 
 				try {
-					return org.apache.commons.beanutils.BeanUtils.getProperty(
+					return org.apache.commons.beanutils.PropertyUtils.getProperty(
 						bean,
 						pro);
 				} catch (Exception e) {
@@ -96,7 +96,7 @@ public class BeanUtils {
 		//		}
 	}
 
-	
+
 
 	/**
 	 * 从map中得到值进行赋值给bean.
@@ -105,7 +105,7 @@ public class BeanUtils {
 	 */
 	public static void setProperties(Object bean, Map map) {
 
-		
+
 		OgnlUtil.setProperties(map, bean);
 
 		//		com.opensymphony.util.BeanUtils.setValues(bean, map, null);
@@ -146,7 +146,7 @@ public class BeanUtils {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
-		} 
+		}
 	}
 
 }
