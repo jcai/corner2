@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.apache.tapestry.IPage;
 
 import corner.util.BeanUtils;
+import corner.util.EntityConverter;
 
 /**
  * 提供了通过反射来作操作多对象。
@@ -35,11 +36,10 @@ public abstract class ReflectMultiManyEntityFormPage extends
 	 */
 	public IPage doNewRelativeAction(Object obj, String name) {
 
-		String thisPageName = this.getPageName();
+
 		StringBuffer sb = new StringBuffer();
-		sb.append(thisPageName.substring(0, thisPageName.lastIndexOf("/")));
-		sb.append("/");
-		sb.append(this.getShortClassName(obj) + name);
+		sb.append(getCurrentPagePath());
+		sb.append(EntityConverter.getShortClassName(obj) + name);
 		AbstractRelativeSelectionListPage<Object, Object> page = (AbstractRelativeSelectionListPage<Object, Object>) this
 				.getRequestCycle().getPage(sb.toString());
 
@@ -50,7 +50,7 @@ public abstract class ReflectMultiManyEntityFormPage extends
 	@SuppressWarnings("unchecked")
 	protected void deleteRelationship(Object t, Object e) {
 		// 得到属性的名称，譬如：groups,users 注意后面的复数s。
-		String name = this.getShortClassName(t);
+		String name = EntityConverter.getShortClassName(t);
 
 		StringBuffer sb = new StringBuffer();
 		sb.append(Character.toLowerCase(name.charAt(0)));
@@ -63,10 +63,5 @@ public abstract class ReflectMultiManyEntityFormPage extends
 		this.getEntityService().saveOrUpdateEntity(e);
 	}
 
-	private String getShortClassName(Object obj) {
-		String name = this.getEntityService().getEntityClass(obj).getName();
 
-		name = name.substring(name.lastIndexOf(".") + 1);
-		return name;
-	}
 }
