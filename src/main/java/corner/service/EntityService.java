@@ -220,7 +220,7 @@ public class EntityService {
 	 * @return 持久化类的名称。
 	 * @since 2.0.3
 	 */
-	public Class getEntityClass(Object entity) {
+	public static Class getEntityClass(Object entity) {
 		if (entity.getClass().getName().contains("CGLIB")) {
 			return entity.getClass().getSuperclass();
 		}
