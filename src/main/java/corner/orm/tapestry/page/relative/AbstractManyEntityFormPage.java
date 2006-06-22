@@ -14,8 +14,7 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 import corner.orm.tapestry.page.AbstractEntityFormPage;
-import corner.orm.tapestry.table.IPersistentQueriable;
-import corner.orm.tapestry.table.PersistentBasicTableModel;
+import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
 
 /**
  * 抽象的many的页面的form页。
@@ -24,7 +23,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @version $Revision$
  * @since 2.0.3
  */
-public abstract class AbstractManyEntityFormPage<T,E> extends AbstractEntityFormPage<T> implements IPersistentQueriable {
+public abstract class AbstractManyEntityFormPage<T,E> extends AbstractEntityFormPage<T>  {
 
 	/**
 	 * 得到关联对象。
@@ -37,8 +36,8 @@ public abstract class AbstractManyEntityFormPage<T,E> extends AbstractEntityForm
 	 * 得到列表的source,得到和当前实体关联的对象的列表。
 	 * @return table model
 	 */
-	public  IBasicTableModel getSource(){
-		return new PersistentBasicTableModel(this.getEntityService(),this);
+	public  IBasicTableModel getSource(String relativePropertyName){
+		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getEntity(),relativePropertyName);
 	}
 	/**
 	 * 得到供选择关联的列表，譬如：在Group端增加和User关联的关系，
