@@ -11,6 +11,8 @@
 //==============================================================================
 package corner.util;
 
+import corner.service.EntityService;
+
 /**
  * 转换表的一些常用函数.
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
@@ -39,5 +41,31 @@ public class EntityConverter {
 		}
 
 		return buffer.toString();
+	}
+	/**
+	 * 得到类的不含包名的名称。
+	 * <p>譬如 com.abc.A 将返回 A
+	 * @param obj 对象。
+	 * @return 不含包名的类名
+	 */
+	public static  String getShortClassName(Object obj) {
+		String name = EntityService.getEntityClass(obj).getName();
+
+		name = name.substring(name.lastIndexOf(".") + 1);
+		return name;
+	}
+	/**
+	 * 通过给定的类来得到类名的复数属性，譬如: com.abc.AbCd,将返回 abCds
+	 * @param rootedObject
+	 * @return 类名的复数属性。
+	 */
+	public static String getClassNameAsCollectionProperty(Object rootedObject) {
+		String name=getShortClassName(rootedObject);
+		StringBuffer sb = new StringBuffer();
+		sb.append(Character.toLowerCase(name.charAt(0)));
+		sb.append(name.substring(1));
+		sb.append("s");
+		return sb.toString();
+
 	}
 }
