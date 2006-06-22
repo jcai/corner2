@@ -12,7 +12,7 @@ package corner.orm.tapestry.page.relative;
  * @param <T> 当前操作的实体对象。
  *
  */
-public abstract class AbstractMultiManyEntityForm<T> extends AbstractManyEntityFormPage<T,Object> {
+public abstract class AbstractMultiManyEntityFormPage<T> extends AbstractManyEntityFormPage<T,Object> {
 
 
 }
