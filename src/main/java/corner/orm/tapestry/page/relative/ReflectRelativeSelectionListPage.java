@@ -51,6 +51,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * 选中时候的处理。
 	 * @see corner.orm.tapestry.page.AbstractEntityListPage#setCheckboxSelected(boolean)
 	 */
+	@SuppressWarnings("unchecked")
 	public void setCheckboxSelected(boolean select){
 		if(select){
 			if(!this.isContain()){
