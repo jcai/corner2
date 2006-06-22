@@ -52,6 +52,7 @@
 								<destdir>${basedir}/src/test/resources</destdir>
 
 							</params>
+							<addToSources>false</addToSources>
 						</config>
 
 						<config>
@@ -64,6 +65,7 @@
 								<packagereplace>tapestry</packagereplace>
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
+							<addToSources>false</addToSources>
 						</config>
 						<config>
 							<plugin>
@@ -74,6 +76,7 @@
 								<packagereplace>tapestry</packagereplace>
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
+							<addToSources>false</addToSources>
 						</config>
 						<config>
 							<plugin>
@@ -84,6 +87,7 @@
 								<packagereplace>tapestry</packagereplace>
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
+							<addToSources>false</addToSources>
 						</config>
 						<config>
 							<plugin>
@@ -94,6 +98,7 @@
 								<packagereplace>tapestry</packagereplace>
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
+							<addToSources>false</addToSources>
 						</config>
 					</configs>
 				</configuration>
