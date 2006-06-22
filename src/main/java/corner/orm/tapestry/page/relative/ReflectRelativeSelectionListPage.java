@@ -91,7 +91,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	}
 
 	/**
-	 * 得到Many的类。
+	 * 得到当前操作实体Many的页面。
 	 * @see corner.orm.tapestry.page.relative.AbstractRelativeSelectionListPage#getManyEntityFormPage()
 	 */
 	public AbstractManyEntityFormPage<Object,Object> getManyEntityFormPage(){
