@@ -19,7 +19,11 @@ public abstract class ReflectRelativeSelectionListPage extends
 
 
 
-	public String getRelativePropertyName(){
+	/**
+	 * 得到关联实体的名称，作为集合的复数。
+	 * @return
+	 */
+	private String getRelativePropertyName(){
 		if(isInverse()){
 			return EntityConverter.getClassNameAsCollectionProperty(this.getRootedObject());
 		}else{
@@ -29,17 +33,24 @@ public abstract class ReflectRelativeSelectionListPage extends
 
 	/**
 	 * 当前的本实体是否为反向控制端。
-	 * 默认为true。
+	 * 默认为false。
 	 * @return 判断当前的实体是否为反向控制端。
 	 */
-
 	public abstract boolean isInverse();
 	public abstract void setInverse(boolean inverse);
 
+	/**
+	 * 判断是否选中。
+	 * @return 是否选中
+	 */
 	public boolean isCheckboxSelected(){
 
 		return this.isContain();
 	}
+	/**
+	 * 选中时候的处理。
+	 * @see corner.orm.tapestry.page.AbstractEntityListPage#setCheckboxSelected(boolean)
+	 */
 	public void setCheckboxSelected(boolean select){
 		if(select){
 			if(!this.isContain()){
@@ -79,6 +90,10 @@ public abstract class ReflectRelativeSelectionListPage extends
 		return (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
 	}
 
+	/**
+	 * 得到Many的类。
+	 * @see corner.orm.tapestry.page.relative.AbstractRelativeSelectionListPage#getManyEntityFormPage()
+	 */
 	public AbstractManyEntityFormPage<Object,Object> getManyEntityFormPage(){
 		StringBuffer sb=new StringBuffer();
 		sb.append(getCurrentPagePath());
