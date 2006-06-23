@@ -11,7 +11,7 @@ import corner.demo.model.AbstractModel;
  * @since 0.5.2
  * @hibernate.class table="many2manyA"
  * @hibernate.cache usage="read-write"
- * @hibernate.mapping auto-import="false" schema="many2many"
+ * @hibernate.mapping auto-import="false" 
  */
 public class A extends AbstractModel{
 	/**
