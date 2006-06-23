@@ -63,6 +63,7 @@ public class HibernateClientPropertyPersistenceStrategy extends
 	}
 
 	/**
+	 * 进行对hibernate对象进行序列化。
 	 * @param dataSqueezer
 	 *            The dataSqueezer to set.
 	 */
