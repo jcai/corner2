@@ -39,6 +39,7 @@ public class HibernateClientPropertyPersistenceStrategy extends
 			return Collections.EMPTY_LIST;
 		}
 		//处理删除集合的元素的问题。
+		//TODO 考虑更好的方法。可以采用删除所有的方式。
 		Collection<PropertyChangeImpl> tmpCollection=new HashSet<PropertyChangeImpl>();
 
 		for(Iterator<PropertyChangeImpl> it=c.iterator();it.hasNext();){
