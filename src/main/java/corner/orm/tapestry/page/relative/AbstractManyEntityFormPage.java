@@ -36,6 +36,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	public abstract void setRelativeObject(E obj);
 	/**
 	 * 得到列表的source,得到和当前实体关联的对象的列表。
+	 * @param relativePropertyName 关联的属性名字，通常为复数，譬如：groups,users等。
 	 * @return table model
 	 */
 	public  IBasicTableModel getSource(String relativePropertyName){
