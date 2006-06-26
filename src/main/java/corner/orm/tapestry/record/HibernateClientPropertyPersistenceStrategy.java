@@ -6,7 +6,6 @@ package corner.orm.tapestry.record;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.apache.tapestry.record.ClientPropertyPersistenceStrategy;
 import org.apache.tapestry.record.PropertyChangeImpl;
@@ -38,21 +37,16 @@ public class HibernateClientPropertyPersistenceStrategy extends
 		if(c==null){
 			return Collections.EMPTY_LIST;
 		}
-		//处理删除集合的元素的问题。
-		//TODO 考虑更好的方法。可以采用删除所有的方式。
+		//调整集合里面元素的值，由字符串变为对象。
 		Collection<PropertyChangeImpl> tmpCollection=new HashSet<PropertyChangeImpl>();
-
-		for(Iterator<PropertyChangeImpl> it=c.iterator();it.hasNext();){
-			PropertyChangeImpl propertyChange=it.next();
+		for(PropertyChangeImpl propertyChange:c){
 			tmpCollection.add(new PropertyChangeImpl(propertyChange.getComponentPath(),
                     propertyChange.getPropertyName(),
                     this.dataSqueezer.unsqueeze((String) propertyChange.getNewValue())));
-			it.remove();
 
 		}
-		c.addAll(tmpCollection);
-		tmpCollection.clear();
-		return c;
+		c.clear();
+		return tmpCollection;
 	}
 
 	/**
