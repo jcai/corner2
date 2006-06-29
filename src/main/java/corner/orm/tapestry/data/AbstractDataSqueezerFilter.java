@@ -2,6 +2,12 @@ package corner.orm.tapestry.data;
 
 import org.apache.tapestry.services.DataSqueezer;
 
+/**
+ * 抽象的数据序列化。
+ * @author Jun Tsai
+ * @version $Revision$
+ * @since 2.0.5
+ */
 public abstract class AbstractDataSqueezerFilter implements DataSqueezerFilter
 {
     public String[] squeeze( Object[] objects, DataSqueezer next )

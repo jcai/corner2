@@ -6,6 +6,12 @@ import org.apache.tapestry.services.DataSqueezer;
 
 import corner.service.EntityService;
 
+/**
+ * 抽象的针对hiberante的序列化过滤器。
+ * @author Jun Tsai
+ * @version $Revision$
+ * @since 2.0.5
+ */
 public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 	// ----------------------------------------------------------------------------------------------------------------------
 	// Fields
@@ -16,9 +22,10 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 
 	private EntityService entityService;
 
+
 	public String squeeze(final Object object, final DataSqueezer next) {
 		if (this.entityService.isPersistent(object)) {
-			return PREFIX + entityService.getEntityClass(object).getName()
+			return PREFIX + EntityService.getEntityClass(object).getName()
 					+ DELIMITER
 					+ next.squeeze(entityService.getIdentifier(object));
 
@@ -27,6 +34,7 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object unsqueeze(String string, DataSqueezer next) {
 		if (string.startsWith(PREFIX)) {
 			string = string.substring(PREFIX.length());

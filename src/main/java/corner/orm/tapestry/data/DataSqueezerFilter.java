@@ -6,7 +6,7 @@ import org.apache.tapestry.services.DataSqueezer;
  * 重构部分代码，使其能够采用一串的datasqueezer。
  * @author Jun Tsai
  * @version $Revision$
- * @since 2006-5-29
+ * @since 2.0.5
  */
 public interface  DataSqueezerFilter {
 	String squeeze( Object object, DataSqueezer next );
