@@ -204,62 +204,74 @@
 			<groupId>lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>1.9.1</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>lucene</groupId>
 			<artifactId>lucene-analyzers</artifactId>
 			<version>1.9.1</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>lucene</groupId>
 			<artifactId>lucene-highlighter</artifactId>
 			<version>1.9.1</version>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>hibernate</groupId>
 			<artifactId>hibernate</artifactId>
 			<version>2.1.8</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>2.7.6</version>
+
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.3</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.7.0</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>springmodules</groupId>
 			<artifactId>springmodules-lucene</artifactId>
 			<version>1.0-dev-20060328110632</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
 			<version>1.2.8</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
 			<version>1.2.8</version>
+			
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
 			<version>3.1.3</version>
+			
 		</dependency>
 
 
@@ -267,11 +279,13 @@
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.0.4</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>1.8.0.1</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
