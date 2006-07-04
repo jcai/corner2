@@ -1,9 +1,9 @@
 //==============================================================================
 //file :        CornerPropertiesPersister.java
 //
-//last change:	date:       $Date: 2006-07-03 07:17:35Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 210 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
