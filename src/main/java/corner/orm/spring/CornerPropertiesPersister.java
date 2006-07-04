@@ -13,7 +13,9 @@ package corner.orm.spring;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -67,14 +69,17 @@ public class CornerPropertiesPersister extends DefaultPropertiesPersister
 	 */
 	private void importConfig(Properties props) throws IOException{
 		Enumeration propertyNames = props.propertyNames();
-
+		List<String> list=new ArrayList<String>();
+		
 		while (propertyNames.hasMoreElements()) {
 			String propertyName = (String) propertyNames.nextElement();
 			if (propertyName.startsWith("config.import")) {
-				Resource location = this.ctx.getResource(props.getProperty(propertyName));
-				loadImportConfigFile(props, location);
+				list.add(propertyName);
 			}
 
+		}
+		for(String str:list){
+			this.loadImportConfigFile(props,this.ctx.getResource(props.getProperty(str)));
 		}
 	}
 	/**
@@ -93,7 +98,7 @@ public class CornerPropertiesPersister extends DefaultPropertiesPersister
 				this.loadFromXml(props, is);
 			} else {
 
-				this.load(props, is);
+				props.load(is);
 
 			}
 		} catch (IOException ex) {
