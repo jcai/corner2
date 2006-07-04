@@ -23,7 +23,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * 得到关联实体的名称，作为集合的复数。
 	 * @return
 	 */
-	private String getRelativePropertyName(){
+	protected String getRelativePropertyName(){
 		if(isInverse()){
 			return EntityConverter.getClassNameAsCollectionProperty(this.getRootedObject());
 		}else{
