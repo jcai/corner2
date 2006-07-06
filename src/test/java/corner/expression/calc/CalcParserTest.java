@@ -11,14 +11,36 @@ import junit.framework.TestCase;
 
 public class CalcParserTest extends TestCase {
 	public void testExpr() throws RecognitionException, TokenStreamException{
-		String str="(1+2)*45";
+		expr("1+1",2);
+		expr("(10+23)*5",165);
+		expr("(0x23+3)*0x42",2508);
+		expr("(15.23+23.12)*12.2",467.87);
+		expr("2.5*3.4+2.2+(15.23+23.12)*12.2",478.57);
+
+	}
+	private void expr(String str,double expected){
 		ExprLexer lexer = new ExprLexer(new StringReader(str));
         ExprParser parser = new ExprParser(lexer);
-        parser.expr();
+        try {
+			parser.expr();
+		} catch (RecognitionException e) {
+			fail(e.getMessage());
+			fail(e.getMessage());
+		} catch (TokenStreamException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
         AST t = parser.getAST();
         System.out.println(t.toStringTree());
         ExprTreeParser treeParser = new ExprTreeParser();
-        int x = treeParser.expr(t);
-        System.out.println(x);
+        double x;
+		try {
+			x = treeParser.expr(t);
+			assertEquals(expected,x);
+		} catch (RecognitionException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+
 	}
 }
