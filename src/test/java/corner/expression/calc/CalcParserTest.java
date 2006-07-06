@@ -18,6 +18,7 @@ public class CalcParserTest extends TestCase {
 		expr("2.5*3.4+2.2+(15.23+23.12)*12.2",478.57);
 
 		expr("2/1",2);
+		expr("2*30/2",30);
 		expr("35.2/21.1+23.8+67.2",92.66824644549763);
 	}
 	/**

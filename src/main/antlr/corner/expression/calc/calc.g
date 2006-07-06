@@ -1,6 +1,12 @@
 header{
 package corner.expression.calc;
 }
+/**
+ * expression parser
+ * @author Jun Tsai
+ * @version $Revision$
+ * @since 2.0.5
+ */
 class ExprParser extends Parser;
 
 options {
@@ -23,7 +29,12 @@ mexpr
 atom:   NUM_INT|NUM_DOUBLE|NUM_LONG|NUM_FLOAT
     |   LPAREN! expr RPAREN!
     ;
-
+/**
+ *  expression lexer
+ * @author Jun Tsai
+ * @version $Revision$
+ * @since 2.0.5
+ */
 class ExprLexer extends Lexer;
 
 options {
@@ -117,7 +128,12 @@ FLOAT_SUFFIX
 	:	'f'|'d'
 	;
 
-
+/**
+ * expression tree parser
+ * @author Jun Tsai
+ * @version $Revision$
+ * @since 2.0.5
+ */
 class ExprTreeParser extends TreeParser;
 
 options {
