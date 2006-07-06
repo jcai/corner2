@@ -18,6 +18,11 @@ public class CalcParserTest extends TestCase {
 		expr("2.5*3.4+2.2+(15.23+23.12)*12.2",478.57);
 
 	}
+	/**
+	 *
+	 * @param str 欲求值的字符串。
+	 * @param expected 期望值。
+	 */
 	private void expr(String str,double expected){
 		ExprLexer lexer = new ExprLexer(new StringReader(str));
         ExprParser parser = new ExprParser(lexer);
