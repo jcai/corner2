@@ -145,7 +145,12 @@ expr returns [double r=0]
     :   #(PLUS  a=expr b=expr)  {r = a+b;}
     |   #(MINUS a=expr b=expr)  {r = a-b;}
     |   #(STAR  a=expr b=expr)  {r = a*b;}
-    |   #(DIV  a=expr b=expr)   {r = a/b;}
+    |   #(DIV  a=expr b=expr)   {
+    		if(b == 0){
+				throw new ArithmeticException("by zero!");
+    		}
+    		r = a/b;
+    		}
     |   i:NUM_INT                   {
 				String str=	i.getText();
     			if(str.startsWith("0x")){
