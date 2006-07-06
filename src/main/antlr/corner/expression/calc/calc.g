@@ -17,7 +17,7 @@ expr:   mexpr ((PLUS^|MINUS^) mexpr)*
     ;
 
 mexpr
-    :   atom (STAR^ atom)*
+    :   atom ((STAR^|DIV^) atom)*
     ;
 
 atom:   NUM_INT|NUM_DOUBLE|NUM_LONG|NUM_FLOAT
@@ -36,6 +36,8 @@ RPAREN: ')' ;
 PLUS  : '+' ;
 MINUS : '-' ;
 STAR  : '*' ;
+DIV   : '/';
+
 //INT   : ('0'..'9')+ ;
 WS    : ( ' '
         | '\r' '\n'
@@ -127,6 +129,7 @@ expr returns [double r=0]
     :   #(PLUS  a=expr b=expr)  {r = a+b;}
     |   #(MINUS a=expr b=expr)  {r = a-b;}
     |   #(STAR  a=expr b=expr)  {r = a*b;}
+    |   #(DIV  a=expr b=expr)   {r = a/b;}
     |   i:NUM_INT                   {
 				String str=	i.getText();
     			if(str.startsWith("0x")){
