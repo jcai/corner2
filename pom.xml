@@ -27,7 +27,8 @@
 				<artifactId>maven-antlr-plugin</artifactId>
 				<configuration>
 					<grammars>
-						/corner/orm/hibernate/expression/grammer/query-expression.g</grammars>
+						/corner/orm/hibernate/expression/grammer/query-expression.g,
+						/corner/expression/calc/calc.g</grammars>
 				</configuration>
 				<executions>
 					<execution>
