@@ -10,23 +10,30 @@ package corner.expression.calc;
 class ExprParser extends Parser;
 
 options {
-        buildAST=true;
+    k=2;
+	defaultErrorHandler = false;     // Don't generate parser error handlers
+	buildAST = true;
+	exportVocab =	Expr;
 }
 tokens{
 	DOT;
-	NUM_DOUBLE;
-	NUM_FLOAT;
-	NUM_LONG;
 }
+imaginaryTokenDefinitions :
+   SIGN_MINUS
+   SIGN_PLUS
+;
 
-expr:   mexpr ((PLUS^|MINUS^) mexpr)*
+expr:    mexpr ((PLUS^|MINUS^) mexpr)*
     ;
 
 mexpr
-    :   atom ((STAR^|DIV^) atom)*
+    :   signExpr ((STAR^|DIV^) atom)*
     ;
-
-atom:   NUM_INT|NUM_DOUBLE|NUM_LONG|NUM_FLOAT
+signExpr : (
+         m:MINUS^ {#m.setType(SIGN_MINUS);}
+         |	p:PLUS^  {#p.setType(SIGN_PLUS);}
+         )? atom ;
+atom:    NUM_INT|NUM_DOUBLE|NUM_LONG|NUM_FLOAT
     |   LPAREN! expr RPAREN!
     ;
 /**
@@ -38,8 +45,9 @@ atom:   NUM_INT|NUM_DOUBLE|NUM_LONG|NUM_FLOAT
 class ExprLexer extends Lexer;
 
 options {
-    k=2; // needed for newline junk
-    charVocabulary='\u0000'..'\u007F'; // allow ascii
+    k=2;
+	charVocabulary='\u0003'..'\u7FFE';
+	exportVocab =	Expr;
 }
 
 LPAREN: '(' ;
@@ -58,12 +66,18 @@ WS    : ( ' '
         {$setType(Token.SKIP);}
       ;
 
+// hexadecimal digit (again, note it's protected!)
+protected
+HEX_DIGIT
+	:	('0'..'9'|'a'..'f')
+	;
+
 //--- From the Java example grammar ---
 // a numeric literal
 NUM_INT
 	{boolean isDecimal=false; Token t=null;}
-	:   '.' {_ttype = DOT;}
-			(	('0'..'9')+ (EXPONENT)? (f1:FLOAT_SUFFIX {t=f1;})?
+	:'.' {_ttype = DOT;}
+			(	 ('0'..'9')+ (EXPONENT)? (f1:FLOAT_SUFFIX {t=f1;})?
 				{
 					if (t != null && t.getText().toUpperCase().indexOf('F')>=0)
 					{
@@ -75,7 +89,7 @@ NUM_INT
 					}
 				}
 			)?
-	|	(	'0' {isDecimal = true;} // special case for just '0'
+	|(	'0' {isDecimal = true;} // special case for just '0'
 			(	('x')
 				(											// hex
 					// the 'e'|'E' and float suffix stuff look
@@ -99,7 +113,7 @@ NUM_INT
 			|   f4:FLOAT_SUFFIX {t=f4;}
 			)
 			{
-				if (t != null && t.getText().toUpperCase() .indexOf('F') >= 0)
+				if (t != null && t.getText().toUpperCase().indexOf('F') >= 0)
 				{
 					_ttype = NUM_FLOAT;
 				}
@@ -111,11 +125,7 @@ NUM_INT
 		)?
 	;
 
-// hexadecimal digit (again, note it's protected!)
-protected
-HEX_DIGIT
-	:	('0'..'9'|'a'..'f')
-	;
+
 
 // a couple protected methods to assist in matching floating point numbers
 protected
@@ -128,6 +138,10 @@ FLOAT_SUFFIX
 	:	'f'|'d'
 	;
 
+
+
+
+
 /**
  * expression tree parser
  * @author Jun Tsai
@@ -137,7 +151,8 @@ FLOAT_SUFFIX
 class ExprTreeParser extends TreeParser;
 
 options {
-    importVocab=ExprParser;
+    importVocab=Expr;
+
 }
 
 expr returns [double r=0]
@@ -162,5 +177,7 @@ expr returns [double r=0]
     |	d:NUM_DOUBLE {r=Double.parseDouble(d.getText());}
     |	l:NUM_LONG	 {r=Long.parseLong(d.getText());}
     |	f:NUM_FLOAT	 {r=Float.parseFloat(d.getText());}
+	| 	#(SIGN_MINUS a=expr)   { r=-1*a; }
+	| 	#(SIGN_PLUS  a=expr)   { if(a<0)r=0-a; else r=a; }
     ;
 

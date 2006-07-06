@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 
 public class CalcParserTest extends TestCase {
 	public void testExpr() throws RecognitionException, TokenStreamException{
+		expr("-2000+2",-1998);
 		expr("1+1",2);
 		expr("(10+23)*5",165);
 		expr("(0x23+3)*0x42",2508);
@@ -20,6 +21,18 @@ public class CalcParserTest extends TestCase {
 		expr("2/1",2);
 		expr("2*30/2",30);
 		expr("35.2/21.1+23.8+67.2",92.66824644549763);
+
+
+		try{
+			expr("2.3/0",0);
+			fail("should throw exception!");
+		}catch(ArithmeticException ae){
+			//应该运行到此处
+		}
+
+		expr("-2+3",1);
+
+
 	}
 	/**
 	 *
@@ -32,7 +45,7 @@ public class CalcParserTest extends TestCase {
         try {
 			parser.expr();
 		} catch (RecognitionException e) {
-			fail(e.getMessage());
+			e.printStackTrace();
 			fail(e.getMessage());
 		} catch (TokenStreamException e) {
 			e.printStackTrace();
