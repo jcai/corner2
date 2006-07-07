@@ -18,7 +18,7 @@ public abstract class AbstractPersistDomain {
 	 * 保存实体。
 	 *
 	 */
-	public void Save(){
+	public void save(){
 		this.getEntityService().saveEntity(this);
 	}
 	/**
