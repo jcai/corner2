@@ -56,16 +56,24 @@ public class EntityConverter {
 	}
 	/**
 	 * 通过给定的类来得到类名的复数属性，譬如: com.abc.AbCd,将返回 abCds
-	 * @param rootedObject
+	 * @param object 待处理的对象。
 	 * @return 类名的复数属性。
 	 */
-	public static String getClassNameAsCollectionProperty(Object rootedObject) {
-		String name=getShortClassName(rootedObject);
+	public static String getClassNameAsCollectionProperty(Object object) {
+		
+		return getClassNameAsPropertyName(object)+"s";
+
+	}
+	/**
+	 * 通过对象来得到classd的名称，譬如 com.abc.Abc，返回为：abc
+	 * @param object 待处理的对象。
+	 * @return 属性名称。
+	 */
+	public static String getClassNameAsPropertyName(Object object){
+		String name=getShortClassName(object);
 		StringBuffer sb = new StringBuffer();
 		sb.append(Character.toLowerCase(name.charAt(0)));
 		sb.append(name.substring(1));
-		sb.append("s");
 		return sb.toString();
-
 	}
 }

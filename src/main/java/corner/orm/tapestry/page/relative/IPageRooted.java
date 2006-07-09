@@ -3,17 +3,23 @@
  */
 package corner.orm.tapestry.page.relative;
 
+import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.Persist;
+
+import corner.orm.tapestry.page.EntityPage;
+
 /**
  * 有关联关系的页面，通常为了记录根对象。
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
  */
-public interface IRelativePage<T> {
+public interface IPageRooted<T,E> extends IPage,EntityPage<E>{
 	/**
 	 * 得到基础的实体对象。
 	 * @return 基础的实体对象。
 	 */
+	@Persist("entity")
 	public abstract T getRootedObject();
 	/**
 	 * 设定基础的对象。

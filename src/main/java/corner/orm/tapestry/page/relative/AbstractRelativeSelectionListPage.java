@@ -14,7 +14,7 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * @param <T> 当前操作的实体。
  * @param <E> 关联的实体。
  */
-public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E> implements IRelativePage<T>{
+public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E> implements IPageRooted<T,E>{
 	
 
 	/**

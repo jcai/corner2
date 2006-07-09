@@ -14,24 +14,22 @@ import corner.orm.tapestry.page.AbstractEntityFormPage;
  * @version $Revision$
  * @since 2.0.5
  */
-public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntityFormPage<E> implements IRelativePage<T>{
+public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntityFormPage<E> implements IPageRooted<T,E>{
 
+	/**
+	 * 得到返回的根对象表单的页面。
+	 * @return 根对象的表单页面。
+	 */
 	public abstract IPage getRootFormPage();
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityFormPage#getEntityListPage()
 	 */
 	@Override
 	protected IPage getEntityListPage() {
-		return getRootFormPage();
-	}
-
-	/**
-	 * @see corner.orm.tapestry.page.AbstractEntityPage#saveOrUpdateEntity()
-	 */
-	@Override
-	protected void saveOrUpdateEntity() {
-		// TODO Auto-generated method stub
-		super.saveOrUpdateEntity();
+		AbstractEntityFormPage<T> page= (AbstractEntityFormPage<T>) getRootFormPage();
+		page.setEntity(this.getRootedObject());
+		
+		return page;
 	}
 	
 	

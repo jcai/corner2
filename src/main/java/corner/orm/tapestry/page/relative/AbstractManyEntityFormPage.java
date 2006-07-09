@@ -47,6 +47,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * 此页面应该是一个供 User 选择的列表的选择页面。
 	 * <p>适用于many-to-many的操作，仅仅适用于增加关联的关系。
 	 * @return
+	 * @deprecated 将在2.0.8中删除.
 	 */
 	protected abstract AbstractRelativeSelectionListPage<T,E> getRelativeListPage();
 
@@ -55,22 +56,42 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * <p>适用于many-to-many的操作，仅仅是增加关系。
 	 * @param obj 供操作的对象。
 	 * @return 操作后返回的页面。
+	 * @deprecated 将在2.0.8中删除,请使用#{@link #doNewRelativeEntityAction(T, String)}。
 	 */
 	public IPage doNewRelativeAction(T obj){
 		AbstractRelativeSelectionListPage<T,E> page=this.getRelativeListPage();
 		page.setRootedObject(obj);
 		return page;
 	}
-	protected abstract AbstractRelativeEntityFormPage<T,E> getRelativeEntityFormPage();
 	/**
 	 * 新增加一个关联对象的操作。
-	 * <p>适用于one-to-many的操作，不断增加了关系，同时还增加了关联对象的关系。
+	 * 
 	 * @param obj 供操作的对象。
+	 * @param pageName 转向的页面名称。
 	 * @return 操作后返回的页面。
+	 * @since 2.0.5
 	 */
-	public IPage doNewRelativeEntityAction(T obj){
-		AbstractRelativeSelectionListPage<T,E> page=this.getRelativeListPage();
+	@SuppressWarnings("unchecked")
+	public IPage doNewRelativeEntityAction(T obj,String pageName){
+		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(pageName);
 		page.setRootedObject(obj);
+		return page;
+	}
+	/**
+	 * 编辑一个关联对象的操作。
+	 * <p>适用于one-to-many的操作。
+	 * @param obj 供操作的对象。
+	 * @param e 关联的对象。
+	 * @param pageName 转向的页面名称。
+	 * @return 操作后返回的页面。
+	 * @since 2.0.5
+	 */
+	@SuppressWarnings("unchecked")
+	public IPage doEditRelativeEntityAction(T obj,E e,String pageName){
+		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(pageName);
+		page.setRootedObject(obj);
+		page.setEntity(e);
+		
 		return page;
 	}
 	
@@ -90,6 +111,17 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		this.deleteRelationship(t,e);
 		this.setEntity(t);
 		this.flushHibernate();
+		return this;
+	}
+	/**
+	 * 删除的关联对象。
+	 * <p>通常用于在one-to-many的时候删除many端的对象。
+	 * @param e 关联的对象。
+	 * @return 当前页面。
+	 */
+	public IPage doDeleteRelativeEntityAction(E e){
+		this.getEntityService().deleteEntities(e);
+		
 		return this;
 	}
 }

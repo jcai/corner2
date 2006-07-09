@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<html>
+  <head>
+    <title>test</title>
+  </head>
+  <body jwcid="@Body">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" id="name" name="name"/>
+          </td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:this.form.events.cancel();"/>
+    </form>
+    <br/>
+  </body>
+</html>

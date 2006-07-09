@@ -33,6 +33,7 @@ public abstract class ReflectMultiManyEntityFormPage extends
 	 * @param names
 	 *            名称
 	 * @return 操作后返回的页面。
+	 * @deprecated 将在2.0.8中删除，请使用#{@link AbstractManyEntityFormPage#doNewRelativeEntityAction(T, String)}
 	 */
 	public IPage doNewRelativeAction(Object obj, String name) {
 
