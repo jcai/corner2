@@ -10,6 +10,20 @@ import corner.util.EntityConverter;
 
 /**
  * 在增加关系的时候，供选择的对象。
+ * <P>此类通常用于many-to-many的时候，提供一个供选择的页面。
+ * 此类有两个重要属性，可以自定义，一个是
+ *  {@link #getRelativePropertyName()} 得到关联属性的名字 
+ *  另外一个是
+ *  {@link #isInverse()} 
+ *  判断当前的 {@link IPageRooted#getRootedObject()}是否为反相控制端。
+ *  
+ *  通常这两个是配合使用。
+ *  譬如：有A和B两个实体关系是many-to-many.
+ *  如果从A的页面来操作两者的关系。
+ *  	假如 {@link IPageRooted#getRootedObject()} 为反向控制端，
+ *  		则 {@link #getRelativePropertyName()} 返回 as
+ *      否则 返回 bs
+ *      	  
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
@@ -18,7 +32,8 @@ public abstract class ReflectRelativeSelectionListPage extends
 		AbstractRelativeSelectionListPage<Object,Object> {
 	/**
 	 * 得到关联实体的名称，作为集合的复数。
-	 * @return
+	 * <p>譬如：users,groups等。
+	 * @return 关联的额属性名称，一般为复数形式。
 	 */
 	public String getRelativePropertyName()
 	{
