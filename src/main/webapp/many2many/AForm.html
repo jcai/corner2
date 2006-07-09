@@ -21,25 +21,22 @@
       <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:this.form.events.cancel();"/>
     </form>
     <br/>
-    <table>
-      <tr>
-        <td>RelationShip for hibernate.many-to-many</td>
-        <td>
-          <a parameters="ognl:{entity,&apos;&apos;B&apos;&apos;}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a>
-        </td>
-      </tr>
-    </table>
-    <table>
-      <tr jwcid="@For" element="literal:tr" value="ognl:relativeObject" source="ognl:entity.bs">
-        <td>
-          <span jwcid="@Insert" value="ognl:relativeObject.name">name</span>
-        </td>
-        <td>
-          <a listener="listener:doDeleteRelativeAction" parameters="ognl:{entity,relativeObject}" jwcid="@DirectLink" href="#">
-            <span key="link.delete">delete</span>
-          </a>
-        </td>
-      </tr>
-    </table>
+    <div jwcid="@contrib:TableView" element="span" columns="name,!DeleteRelative"
+     source="ognl:getSource('bs')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>A-B many-to-many,A关联的B列表 <a parameters="ognl:{entity,'many2many/BSelectionList'}" listener="listener:doNewRelativeEntityAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a></legend> 
+   
+	<table width="100%" align="center" border="1">
+		<tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		</tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject}" listener="listener:doDeleteRelativeAction"><span key="doDeleteRelativeAction" /></a></td>
+		</tr>
+		
+	</table>
+    </fieldset>
+</div>
   </body>
 </html>

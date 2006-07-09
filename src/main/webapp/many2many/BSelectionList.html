@@ -1,0 +1,24 @@
+<html>
+<body jwcid="@Body">
+<form jwcid="ABForm">
+	<div jwcid="@contrib:TableView" columns="!checkbox,name" element="div"
+        persist="client" source="ognl:source" pageSize="5">
+		<table width="200" border="1" align="center">
+		  <tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		  </tr>
+		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
+		  	<th align="center"><input jwcid="@Checkbox" value="ognl:checkboxSelected" /></th>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.name" /></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><input type="submit" value="Submit"></td>
+		  </tr>
+		</table>
+	</div>
+	</form>
+</body>
+</html>

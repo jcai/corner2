@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<page-specification class="corner.orm.tapestry.page.PoFormPage">
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
   <description>corner.demo.model.many2many.B Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <property persist="entity" initial-value="new corner.demo.model.many2many.B()" name="entity"/>
