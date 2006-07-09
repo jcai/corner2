@@ -7,6 +7,7 @@ import corner.util.BeanUtils;
 import corner.util.EntityConverter;
 
 /**
+ * 通过反射来实现关联表单的页面。
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
