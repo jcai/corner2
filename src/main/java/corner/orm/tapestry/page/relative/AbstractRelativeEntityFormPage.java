@@ -16,11 +16,7 @@ import corner.orm.tapestry.page.AbstractEntityFormPage;
  */
 public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntityFormPage<E> implements IPageRooted<T,E>{
 
-	/**
-	 * 得到返回的根对象表单的页面。
-	 * @return 根对象的表单页面。
-	 */
-	public abstract IPage getRootFormPage();
+	
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityFormPage#getEntityListPage()
 	 */
@@ -28,7 +24,6 @@ public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntit
 	protected IPage getEntityListPage() {
 		AbstractEntityFormPage<T> page= (AbstractEntityFormPage<T>) getRootFormPage();
 		page.setEntity(this.getRootedObject());
-		
 		return page;
 	}
 	

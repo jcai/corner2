@@ -5,8 +5,6 @@ package corner.orm.tapestry.page.relative;
 
 import java.util.Collection;
 
-import org.apache.tapestry.IPage;
-
 import corner.util.BeanUtils;
 import corner.util.EntityConverter;
 
@@ -25,28 +23,28 @@ public abstract class ReflectMultiManyEntityFormPage extends
 
 	}
 
-	/**
-	 * 新增加一个关联关系的操作。
-	 *
-	 * @param obj
-	 *            供操作的对象。
-	 * @param names
-	 *            名称
-	 * @return 操作后返回的页面。
-	 * @deprecated 将在2.0.8中删除，请使用#{@link AbstractManyEntityFormPage#doNewRelativeEntityAction(T, String)}
-	 */
-	public IPage doNewRelativeAction(Object obj, String name) {
-
-
-		StringBuffer sb = new StringBuffer();
-		sb.append(getCurrentPagePath());
-		sb.append(EntityConverter.getShortClassName(obj) + name);
-		AbstractRelativeSelectionListPage<Object, Object> page = (AbstractRelativeSelectionListPage<Object, Object>) this
-				.getRequestCycle().getPage(sb.toString());
-
-		page.setRootedObject(obj);
-		return page;
-	}
+//	/**
+//	 * 新增加一个关联关系的操作。
+//	 *
+//	 * @param obj
+//	 *            供操作的对象。
+//	 * @param names
+//	 *            名称
+//	 * @return 操作后返回的页面。
+//	 * @deprecated 将在2.0.8中删除，请使用#{@link AbstractManyEntityFormPage#doNewRelativeEntityAction(T, String)}
+//	 */
+//	public IPage doNewRelativeAction(Object obj, String name) {
+//
+//
+//		StringBuffer sb = new StringBuffer();
+//		sb.append(getCurrentPagePath());
+//		sb.append(EntityConverter.getShortClassName(obj) + name);
+//		AbstractRelativeSelectionListPage<Object, Object> page = (AbstractRelativeSelectionListPage<Object, Object>) this
+//				.getRequestCycle().getPage(sb.toString());
+//
+//		page.setRootedObject(obj);
+//		return page;
+//	}
 
 	@SuppressWarnings("unchecked")
 	protected void deleteRelationship(Object t, Object e) {

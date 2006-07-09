@@ -56,7 +56,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * <p>适用于many-to-many的操作，仅仅是增加关系。
 	 * @param obj 供操作的对象。
 	 * @return 操作后返回的页面。
-	 * @deprecated 将在2.0.8中删除,请使用#{@link #doNewRelativeEntityAction(T, String)}。
+	 * @deprecated 将在2.0.8中删除,请使用#{@link #doNewRelativeAction(T, String)}。
 	 */
 	public IPage doNewRelativeAction(T obj){
 		AbstractRelativeSelectionListPage<T,E> page=this.getRelativeListPage();
@@ -72,7 +72,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @since 2.0.5
 	 */
 	@SuppressWarnings("unchecked")
-	public IPage doNewRelativeEntityAction(T obj,String pageName){
+	public IPage doNewRelativeAction(T obj,String pageName){
 		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(pageName);
 		page.setRootedObject(obj);
 		return page;
@@ -119,9 +119,9 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @param e 关联的对象。
 	 * @return 当前页面。
 	 */
+	@SuppressWarnings("unchecked")
 	public IPage doDeleteRelativeEntityAction(E e){
 		this.getEntityService().deleteEntities(e);
-		
 		return this;
 	}
 }

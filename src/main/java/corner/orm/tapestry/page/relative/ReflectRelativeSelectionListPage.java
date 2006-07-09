@@ -16,14 +16,12 @@ import corner.util.EntityConverter;
  */
 public abstract class ReflectRelativeSelectionListPage extends
 		AbstractRelativeSelectionListPage<Object,Object> {
-
-
-
 	/**
 	 * 得到关联实体的名称，作为集合的复数。
 	 * @return
 	 */
-	protected String getRelativePropertyName(){
+	public String getRelativePropertyName()
+	{
 		if(isInverse()){
 			return EntityConverter.getClassNameAsCollectionProperty(this.getRootedObject());
 		}else{
@@ -31,10 +29,11 @@ public abstract class ReflectRelativeSelectionListPage extends
 		}
 	}
 
+	
 	/**
 	 * 当前的本实体是否为反向控制端。
 	 * 默认为false。
-	 * @return 判断当前的实体是否为反向控制端。
+	 * @return 判断当前的根实体是否为反向控制端。
 	 */
 	public abstract boolean isInverse();
 	public abstract void setInverse(boolean inverse);
@@ -44,62 +43,43 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * @return 是否选中
 	 */
 	public boolean isCheckboxSelected(){
-
-		return this.isContain();
+		if(isInverse())
+			return this.getRelationshipCollection(this.getEntity()).contains(this.getRootedObject());
+		
+		else{
+			return this.getRelationshipCollection(this.getRootedObject()).contains(this.getEntity());	
+		}
 	}
 	/**
 	 * 选中时候的处理。
 	 * @see corner.orm.tapestry.page.AbstractEntityListPage#setCheckboxSelected(boolean)
 	 */
-	@SuppressWarnings("unchecked")
 	public void setCheckboxSelected(boolean select){
-		if(select){
-			if(!this.isContain()){
-				if(isInverse()){
-					this.getRelationshipCollection(this.getEntity()).add(this.getRootedObject());
-					this.getEntityService().saveEntity(this.getEntity());
-				}else{
-					this.getRelationshipCollection(this.getRootedObject()).add(this.getEntity());
-					this.getEntityService().saveEntity(this.getRootedObject());
-				}
-			}
-
+		if(isInverse()){
+			doSelectCheckbox(this.getEntity(),this.getRootedObject(),select);
 		}else{
-			if(this.isContain()){
-
-				if(isInverse()){
-					this.getRelationshipCollection(this.getEntity()).remove(this.getRootedObject());
-					this.getEntityService().saveEntity(this.getEntity());
-				}else{
-					this.getRelationshipCollection(this.getRootedObject()).remove(this.getEntity());
-					this.getEntityService().saveEntity(this.getRootedObject());
-				}
+			doSelectCheckbox(this.getRootedObject(),this.getEntity(),select);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	private void doSelectCheckbox(Object obj,Object objInversed,boolean select){
+		Collection c=this.getRelationshipCollection(obj);
+		if(select){
+			if(!c.contains(objInversed)){
+				c.add(objInversed);
+				this.getEntityService().saveEntity(obj);
 			}
-
-		}
-
-	}
-
-	private boolean isContain(){
-		if(isInverse())
-			return this.getRelationshipCollection(this.getEntity()).contains(this.getRootedObject());
-		else{
-			return this.getRelationshipCollection(this.getRootedObject()).contains(this.getEntity());
+		}else{
+			if(c.contains(objInversed)){
+				c.remove(objInversed);
+				this.getEntityService().saveEntity(obj);
+			}
 		}
 	}
+
+	
 	private Collection getRelationshipCollection(Object obj){
 		return (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
 	}
 
-	/**
-	 * 得到当前操作实体Many的页面。
-	 * @see corner.orm.tapestry.page.relative.AbstractRelativeSelectionListPage#getManyEntityFormPage()
-	 */
-	public AbstractManyEntityFormPage<Object,Object> getManyEntityFormPage(){
-		StringBuffer sb=new StringBuffer();
-		sb.append(getCurrentPagePath());
-		sb.append(EntityConverter.getShortClassName(this.getRootedObject()));
-		sb.append("Form");
-		return (AbstractManyEntityFormPage<Object, Object>) this.getRequestCycle().getPage(sb.toString());
-	}
 }

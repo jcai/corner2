@@ -2,6 +2,7 @@ package corner.orm.tapestry.page.relative;
 
 import org.apache.tapestry.IPage;
 
+import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.page.AbstractEntityListPage;
 
 /**
@@ -15,24 +16,16 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * @param <E> 关联的实体。
  */
 public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E> implements IPageRooted<T,E>{
-	
-
-	/**
-	 * 得到抽象many端的表单页面。
-	 * @return many端的form表单页面。
-	 */
-	protected abstract AbstractManyEntityFormPage<T,E> getManyEntityFormPage();
-
 
 	/**
 	 * 新增加关系的操作。
 	 * @return 增加关系后的页面。
 	 */
 	public IPage doNewRelativeAction(){
-//		this.getEntityService().saveEntity(this.getRootedObject());
 		this.flushHibernate();
-		this.getManyEntityFormPage().setEntity(this.getRootedObject());
-		return this.getManyEntityFormPage();
+		AbstractEntityFormPage<T> page=this.getRootFormPage();
+		page.setEntity(this.getRootedObject());
+		return page;
 	}
 
 }

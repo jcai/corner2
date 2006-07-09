@@ -6,6 +6,7 @@ package corner.orm.tapestry.page.relative;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.Persist;
 
+import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.page.EntityPage;
 
 /**
@@ -26,4 +27,12 @@ public interface IPageRooted<T,E> extends IPage,EntityPage<E>{
 	 * @param obj 关联的根对象。
 	 */
 	public abstract void setRootedObject(T obj);
+	
+	/**
+	 * 得到返回的根对象表单的页面。
+	 * @return 根对象的表单页面。
+	 */
+	public abstract AbstractEntityFormPage<T> getRootFormPage();
+	
+	
 }

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage">
-	<property initial-value="new corner.demo.model.many2many.B()" name="entity"/>
+    
+  
+    <inject property="rootFormPage" type="page" object="many2many/AForm"/>
 
-	<component id="ABForm" type="Form">
+    
+    <property initial-value="new corner.demo.model.many2many.B()" name="entity"/>
+    <component id="ABForm" type="Form">
     	<binding name="listener" value="listener:doNewRelativeAction"/>
 	</component>
 </page-specification>
