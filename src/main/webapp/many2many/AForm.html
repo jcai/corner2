@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<html>
+  <head>
+    <title>test</title>
+  </head>
+  <body jwcid="@Body">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" id="name" name="name"/>
+          </td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:this.form.events.cancel();"/>
+    </form>
+    <br/>
+    <table>
+      <tr>
+        <td>RelationShip for hibernate.many-to-many</td>
+        <td>
+          <a parameters="ognl:{entity,&apos;&apos;B&apos;&apos;}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr jwcid="@For" element="literal:tr" value="ognl:relativeObject" source="ognl:entity.bs">
+        <td>
+          <span jwcid="@Insert" value="ognl:relativeObject.name">name</span>
+        </td>
+        <td>
+          <a listener="listener:doDeleteRelativeAction" parameters="ognl:{entity,relativeObject}" jwcid="@DirectLink" href="#">
+            <span key="link.delete">delete</span>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
