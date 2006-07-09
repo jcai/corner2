@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<page-specification class="corner.orm.tapestry.page.PoListPage">
+    <property initial-value="new corner.sandbox.model.Blog()" name="entity"/>
+    <property initial-value="new corner.sandbox.model.Blog()" name="queryEntity" persist="client"/>
+
+
+    <bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate"/>
+    <component type="Form" id="BlogEntityQueryForm">
+      	<binding name="focus" value="ognl:false"/>
+        <binding name="listener" value="listener:doQueryEntityAction"/>
+        <binding name="delegate" value="ognl:beans.delegate"/>
+        <binding name="clientValidationEnabled" value="ognl:true"/>
+    </component>
+    <component type="Form" id="TestForm">
+      	<binding name="focus" value="ognl:false"/>
+        <binding name="listener" value="listener:doQueryEntityAction"/>
+        <binding name="delegate" value="ognl:beans.delegate"/>
+        <binding name="clientValidationEnabled" value="ognl:true"/>
+    </component>
+    <component type="TextField" id="blogTitleField">
+        <binding name="displayName" value="message:blogTitle"/>
+        <binding name="translator" value="translator:string"/>
+        <binding name="validators" value="validators:maxLength=100"/>
+        <binding name="value" value="ognl:queryEntity.blogTitle"/>
+    </component>
+
+    <component id="queryEntityField" type="Hidden">
+    	<binding name="value" value="queryEntity"/>
+    </component>
+</page-specification>

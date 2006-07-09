@@ -1,0 +1,514 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TestOne2OneActions</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TestOne2OneActions</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/app</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Home Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=对User和Address表的增删改查操作，User->Address:one-to-one</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>123123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userPassField</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userContentField</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>姓名的内容不能超过5字符。</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=修改</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>111</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userPassField</td>
+	<td>111</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userContentField</td>
+	<td>111</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userPassField</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userContentField</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>bbb</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userPassField</td>
+	<td>bbb</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userContentField</td>
+	<td>bbb</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>ccc</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userPassField</td>
+	<td>ccc</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userContentField</td>
+	<td>ccc</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userId</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userId</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userPass</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userPass</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userContent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=userContent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>a</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td>a%</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userNameField</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=修改</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=增加</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Address Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>addressCountryField</td>
+	<td>xxx</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>addressStateField</td>
+	<td>xxx</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=编辑</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Address Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>addressCountryField</td>
+	<td>yyy</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>addressStateField</td>
+	<td>yyy</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='保存']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=修改</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User Form - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='返回']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>User List - corner sandbox</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

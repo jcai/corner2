@@ -1,0 +1,27 @@
+<projectDescription>
+  <name>corner</name>
+  <comment>Provides some core function</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.antlr.eclipse.core.antlrbuilder</name>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.antlr.eclipse.core.warningcleanerbuilder</name>
+      <arguments/>
+    </buildCommand>
+    <buildCommand>
+      <name>org.antlr.eclipse.core.smapbuilder</name>
+      <arguments/>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.antlr.eclipse.core.antlrnature</nature>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

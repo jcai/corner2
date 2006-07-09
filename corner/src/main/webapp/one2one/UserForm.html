@@ -1,0 +1,50 @@
+<span jwcid="@SandBoxBorder" title="literal:User Form">
+<form jwcid="UserForm">
+<input jwcid="UserField" type="hidden"/>
+<table width="800" border="1" align="center">
+  <tr>
+    <th><span key="userNameField" /></th>
+    <td><input type="text" jwcid="userNameField" size="20"/></td>
+  </tr>
+  <tr>
+    <th><span key="userPassField" /></th>
+    <td><input type="text" jwcid="userPassField"/></td>
+  </tr>
+  <tr>
+    <th><span key="userContentField"/></th>
+    <td><input type="text" jwcid="userContentField"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+		<input jwcid="@Any" type="submit" value="message:button.Okay" />&nbsp;&nbsp;
+		<input jwcid="@Any" type="button" value="message:button.Cancel" onClick="javascript:this.form.events.cancel()" />
+	</td>
+  </tr>
+</table>
+<table align="center" width="800" border="1">
+  <span jwcid="@If" condition="ognl:entity.address">
+  <tr>
+  	<td align="center"><span key="addressId" /></td>
+	<td align="center"><span key="addressCountry" /></td>
+	<td align="center"><span key="addressState" /></td>
+	<td align="center"><span key="edit" /></td>
+	<td align="center"><span key="delete" /></td>
+  </tr>
+  <tr>
+  	<td align="center"><span jwcid="@Insert" value="ognl:entity.address.addressId" /></td>
+	<td align="center"><span jwcid="@Insert" value="ognl:entity.address.country" /></td>
+	<td align="center"><span jwcid="@Insert" value="ognl:entity.address.state" /></td>
+	<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doEditAddressAction"><span key="edit" /></a></td>
+	<td align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doDeleteAddressAction"><span key="delete" /></a></td>
+  </tr>
+  </span>
+  <span jwcid="@If" condition="ognl:entity.userId">
+	<span jwcid="@Conditional" condition="ognl:! entity.address">
+	  <tr>
+		<td colspan="5" align="center"><a href="#" jwcid="@DirectLink" parameters="ognl:entity" listener="listener:doNewAddressAction"><span key="add"/></a></td>
+	  </tr>
+	</span>
+  </span>
+</table>
+</form>
+</span>
