@@ -45,12 +45,14 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	/**
 	 * 得到供选择关联的列表，譬如：在Group端增加和User关联的关系，
 	 * 此页面应该是一个供 User 选择的列表的选择页面。
+	 * <p>适用于many-to-many的操作，仅仅适用于增加关联的关系。
 	 * @return
 	 */
 	protected abstract AbstractRelativeSelectionListPage<T,E> getRelativeListPage();
 
 	/**
 	 * 新增加一个关联关系的操作。
+	 * <p>适用于many-to-many的操作，仅仅是增加关系。
 	 * @param obj 供操作的对象。
 	 * @return 操作后返回的页面。
 	 */
@@ -59,6 +61,19 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		page.setRootedObject(obj);
 		return page;
 	}
+	protected abstract AbstractRelativeEntityFormPage<T,E> getRelativeEntityFormPage();
+	/**
+	 * 新增加一个关联对象的操作。
+	 * <p>适用于one-to-many的操作，不断增加了关系，同时还增加了关联对象的关系。
+	 * @param obj 供操作的对象。
+	 * @return 操作后返回的页面。
+	 */
+	public IPage doNewRelativeEntityAction(T obj){
+		AbstractRelativeSelectionListPage<T,E> page=this.getRelativeListPage();
+		page.setRootedObject(obj);
+		return page;
+	}
+	
 	/**
 	 * 删除对象之间的关联关系。
 	 * @param t 当前的实体对象。

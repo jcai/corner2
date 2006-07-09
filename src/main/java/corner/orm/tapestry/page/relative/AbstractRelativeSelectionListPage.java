@@ -14,17 +14,8 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * @param <T> 当前操作的实体。
  * @param <E> 关联的实体。
  */
-public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E>{
-	/**
-	 * 得到基础的实体对象。
-	 * @return 基础的实体对象。
-	 */
-	public abstract T getRootedObject();
-	/**
-	 * 设定基础的对象。
-	 * @param obj 关联的根对象。
-	 */
-	public abstract void setRootedObject(T obj);
+public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E> implements IRelativePage<T>{
+	
 
 	/**
 	 * 得到抽象many端的表单页面。
