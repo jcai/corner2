@@ -28,12 +28,12 @@
             <span jwcid="@Insert" value="ognl:entity.name">name</span>
           </td>
           <td>
-            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html">
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
               <span key="link.edit">Edit</span>
             </a>
           </td>
           <td>
-            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
               <span key="link.delete">Delete</span>
             </a>
           </td>
