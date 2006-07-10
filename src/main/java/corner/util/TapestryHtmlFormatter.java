@@ -21,10 +21,13 @@ import java.util.regex.Pattern;
 
 /**
  * 
- * 
+ * 对tapestry的文件进行格式化，同时自动加上一些标记。
  * @author AgileWang
+ * @author jun tsai
  * @version $Revision$
+ * 
  * @since 2005-12-7
+ * 
  */
 public class TapestryHtmlFormatter {
 	// 如果有其它的tag,如select,直接加到checkbox后面就可
