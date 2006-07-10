@@ -123,17 +123,9 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	}
 
 	/**
-	 * 重载更新. 目的提供对关联对象的操作.
+	 * 保存和更新实体。
 	 */
 	protected void saveOrUpdateEntity() {
-		/*
-		 * if(this.getRelativeClassName()!=null&&this.getRelativeId()!=null){
-		 * //得到关联的对象实例. Object
-		 * obj=this.getEntityService().getEntity(this.getRelativeClassName(),this.getRelativeId());
-		 * //设定关联的对象属性.
-		 * BeanUtils.setProperty(this.getEntity(),this.getClazzNameAsPropertyName(this.getRelativeClassName()),obj); }
-		 */
-		// save or update
 		getEntityService().saveOrUpdateEntity(getEntity());
 
 	}
