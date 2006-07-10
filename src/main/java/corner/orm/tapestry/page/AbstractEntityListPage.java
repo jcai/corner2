@@ -76,7 +76,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	 * @since 2.0
 	 */
 	public IPage doDeleteEntitiesAction(){
-		this.getEntityService().deleteEntities(this.getSelectedEntities());
+		this.getEntityService().deleteEntities(this.getSelectedEntities().toArray());
 		return this;
 	}
 
