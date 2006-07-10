@@ -13,7 +13,6 @@
 package corner.util;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import junit.framework.TestCase;
 
