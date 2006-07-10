@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<page-specification class="corner.orm.tapestry.page.relative.RelectRelativeEntityFormPage">
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
   <description>corner.demo.model.one2many.B Form Page</description>
   <!-- 设定返回的根页面 -->
   <inject property="rootFormPage" type="page" object="one2many/AForm"/>
