@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+  - Application context definition for Corner Project.
+	-->
+<beans>
+	
+	
+	<!--<bean id="nodeService" parent="baseServiceObject">
+		<property name="target">
+			<bean class="corner.lucene.test.NodeService">
+				<property name="objectRelativeUtils">
+					<ref bean="objectRelativeUtils"/>
+				</property>
+				<property name="indexAccessor">
+					<ref bean="indexAccessor"/>
+				</property>
+				<property name="searchAccessor">
+					<ref bean="searchAccessor"/>
+				</property>
+				<property name="analyzer"><ref bean="standardAnalyzer"/></property>
+			</bean>
+		</property>
+	</bean>-->
+
+	
+</beans>

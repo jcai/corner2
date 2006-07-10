@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+<!--
+  - Application context definition for Corner Project.
+	-->
+<beans>
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<bean id="cornerConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:/config.properties</value>
+		</property>
+		<property name="propertiesPersister">
+			<ref local="propertiesPersister"></ref>
+		</property>
+
+
+	</bean>
+	<bean id="propertiesPersister"
+		class="corner.orm.spring.CornerPropertiesPersister">
+	</bean>
+	<!--bean id="databaseConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>${database.config}</value>
+		</property>
+	</bean -->
+	<!-- Local DataSource that works in any environment -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>2</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>5</value>
+		</property>
+	</bean>
+	<!-- native extractor -->
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor"
+		lazy-init="true">
+	</bean>
+
+
+	<!--============ if debug database =================-->
+	<!-- <bean id="dataSource" class="com.p6spy.engine.spy.P6DriverManagerDataSource" >
+
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+
+
+	</bean> -->
+
+
+	<!-- LobHandler -->
+	<bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true">
+		<!-- <property name="nativeJdbcExtractor"><ref local="nativeJdbcExtractor"/></property> -->
+	</bean>
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+		<property name="nativeJdbcExtractor"><ref local="nativeJdbcExtractor"/></property>
+	</bean>
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource"/>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+			</props>
+		</property>
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		<property name="mappingDirectoryLocations">
+			<value>
+				${hibernate.mapping.locations}
+			</value>
+		</property>
+		<property name="lobHandler" ref="${database.lobHandler}"/>
+	</bean>
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+
+
+</beans>
