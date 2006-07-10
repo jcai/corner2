@@ -65,9 +65,8 @@ public abstract class AbstractBlobService implements IEngineService {
 		Defense.isAssignable(parameter, Object[].class, "parameter");
 
 		Object[] blobParameters = (Object[]) parameter;
-		Map parameters = new HashMap();
+		Map<String,Object> parameters = new HashMap<String,Object>();
 
-		// parameters.put(ServiceConstants.SERVICE, getName());
 		parameters.put(TABLE_TYPE_VAR, blobParameters[0]);
 		parameters.put(TABLE_KEY_VAR, blobParameters[1]);
 

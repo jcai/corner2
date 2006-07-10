@@ -194,6 +194,7 @@ public abstract class EntityFormPage<T> extends AbstractEntityFormPage<T> {
 	 * @return 转向的list页面.
 	 * @deprecated 将在2.1中删除.
 	 */
+	@SuppressWarnings("unchecked")
 	public IPage deleteEntity(IRequestCycle cycle) {
 		getEntityService().deleteEntities(getEntity());
 		return getListEntityPage();

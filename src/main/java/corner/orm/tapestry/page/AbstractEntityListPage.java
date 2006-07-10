@@ -89,6 +89,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	 * @return 返回页面.
 	 * @since 2.0
 	 */
+	@SuppressWarnings("unchecked")
 	public IPage doDeleteEntityAction(T entity) { // 删除操作
 		this.getEntityService().deleteEntities(entity);
 		return this;

@@ -166,6 +166,7 @@ public class EntityService {
 	 * @param key 主键值.
 	 * @return 实体,当给定的类未发现时,返回null.
 	 */
+	@SuppressWarnings("unchecked")
 	public Object getEntity(String clazzname, Serializable key) {
 		Class clazz;
 		try {
@@ -186,6 +187,7 @@ public class EntityService {
 	 * @param pb 分页的bean。
 	 * @return 列表.
 	 */
+	@SuppressWarnings("unchecked")
 	public <T> List<T> find(Class<T> clazz, PaginationBean pb) {
 		return oru.find("from " + clazz.getName(), pb);
 	}

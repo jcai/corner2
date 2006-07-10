@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.CharBuffer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,8 +30,6 @@ public class TapestryHtmlFormatter {
 	// 如果有其它的tag,如select,直接加到checkbox后面就可
 
 	
-	private static final Pattern jwcidPattern = Pattern.compile(".*(jwcid\\s*=\\s*\"?.*\"?).*");
-	
 	private static final Pattern pattern = Pattern.compile(
 			   "<(form|input|textarea|checkbox|select|button|option)([^<>]*)(name=\"?([^<>\\s\"]+)\"?)([^<>]*)>",
 			   Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
@@ -43,7 +40,6 @@ public class TapestryHtmlFormatter {
 		StringBuffer inputBuffer = new StringBuffer();
 
 		BufferedReader isr = new BufferedReader(new InputStreamReader(io));
-		String s = null;
 		char[] buffer = new char[1024];
 		int len = -1;
 		while ((len = isr.read(buffer)) != -1) {
