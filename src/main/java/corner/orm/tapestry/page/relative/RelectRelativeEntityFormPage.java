@@ -8,6 +8,7 @@ import corner.util.EntityConverter;
 
 /**
  * 通过反射来实现关联表单的页面。
+ * <p>适用于one-to-many时候，通过one来增加many端对象的操作。
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
