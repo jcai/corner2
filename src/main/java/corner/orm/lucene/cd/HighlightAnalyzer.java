@@ -58,6 +58,7 @@ package corner.orm.lucene.cd;
 
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -75,16 +76,8 @@ import org.apache.lucene.analysis.cjk.CJKTokenizer;
 public final class HighlightAnalyzer extends Analyzer {
     //~ Static fields/initializers ---------------------------------------------
 
-    /**
-     * An array containing some common English words that are not  usually
-     * useful for searching and some double-byte interpunctions.
-     */
-    private static String[] stopWords = null;
-
-    //~ Instance fields --------------------------------------------------------
-
     /** named word list */
-    private ArrayList wordList;
+    private List wordList;
 
     //~ Constructors -----------------------------------------------------------
 

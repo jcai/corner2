@@ -58,6 +58,8 @@ package corner.orm.lucene.cd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenFilter;
@@ -93,7 +95,7 @@ public final class HighlightFilter extends TokenFilter {
     private int currentEnd = 0;
 
     /** return words list */
-    private ArrayList wordList = new ArrayList();
+    private List wordList = new ArrayList();
 
     //~ Constructors -----------------------------------------------------------
 
@@ -116,7 +118,7 @@ public final class HighlightFilter extends TokenFilter {
      * @param in input token stream
      * @param words return word list
      */
-    public HighlightFilter(TokenStream in, ArrayList words) {
+    public HighlightFilter(TokenStream in, List words) {
         super(in);
         wordList = words;
     }
@@ -132,14 +134,15 @@ public final class HighlightFilter extends TokenFilter {
      *
      * @return ArrayList word List
      */
-    public static final ArrayList makeStopTable(String[] wordList) {
-        ArrayList stopTable = new ArrayList(wordList.length);
-
-        for (int i = 0; i < wordList.length; i++) {
-            stopTable.add(wordList[i]);
-        }
-
-        return stopTable;
+    public static final List makeStopTable(String[] wordList) {
+    	return Arrays.asList(wordList);
+//        ArrayList stopTable = new ArrayList(wordList.length);
+//
+//        for (int i = 0; i < wordList.length; i++) {
+//            stopTable.add(wordList[i]);
+//        }
+//
+//        return stopTable;
     }
 
     /**

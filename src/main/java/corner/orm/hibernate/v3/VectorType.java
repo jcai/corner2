@@ -55,6 +55,7 @@ public class VectorType implements UserType {
 	/**
 	 * @see org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
 	 */
+	@SuppressWarnings("unchecked")
 	public void nullSafeSet(PreparedStatement st, Object value, int index)
 			throws HibernateException, SQLException {
 		if(value!=null){
