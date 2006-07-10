@@ -13,7 +13,7 @@ import corner.util.EntityConverter;
  * @version $Revision$
  * @since 2.0.5
  */
-public abstract class RelectRelativeEntityFormPage extends
+public abstract class ReflectRelativeEntityFormPage extends
 		AbstractRelativeEntityFormPage<Object,Object> {
 	/**
 	 * 得到关联的对象的属性名称。
