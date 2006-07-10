@@ -38,11 +38,11 @@ public class Many2ManyTest extends AbstractTestCase {
 
 		logger.debug("插入A对象");
 		final A a1 = new A();
-		this.getEntityService().saveEntity(a1);
+		a1.save();
 
 		logger.debug("插入B对象");
 		final B b1 = new B();
-		this.getEntityService().saveEntity(b1);
+		b1.save();
 
 		logger.debug("通过A来增加A和B之间的关系");
 		((HibernateDaoSupport) this.getEntityService().getObjectRelativeUtils())
@@ -59,7 +59,7 @@ public class Many2ManyTest extends AbstractTestCase {
 				});
 
 		logger.debug("删除A，同时把A和B关联的实体进行删除！");
-		this.getEntityService().deleteEntities(a1);
+		a1.delete();
 	}
 
 	public void testB() {
@@ -89,7 +89,7 @@ public class Many2ManyTest extends AbstractTestCase {
 				});
 
 		logger.debug("删除B，同时把A和B关联的实体进行删除！");
-		this.getEntityService().deleteEntities(b1);
+		b1.delete();
 	}
 
 

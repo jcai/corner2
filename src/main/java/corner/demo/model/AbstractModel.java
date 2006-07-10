@@ -2,13 +2,15 @@ package corner.demo.model;
 
 import java.io.Serializable;
 
+import corner.model.AbstractPersistDomain;
+
 /**
  * 抽象的model
  * @author jcai
  * @version $Revision:1162 $
  * @since 0.5.2
  */
-public class AbstractModel implements Serializable {
+public class AbstractModel extends AbstractPersistDomain implements Serializable {
 	/**
 	 *
 	 */
