@@ -98,7 +98,7 @@ public class CornerPropertiesPersister extends DefaultPropertiesPersister
 				this.loadFromXml(props, is);
 			} else {
 
-				props.load(is);
+				super.load(props, is);
 
 			}
 		} catch (IOException ex) {
