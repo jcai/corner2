@@ -124,7 +124,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	 */
 	public void appendCriteria(Criteria criteria) {
 		if (this.getQueryEntity() != null)
-			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike()
+			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
 					.ignoreCase());
 	}
 
