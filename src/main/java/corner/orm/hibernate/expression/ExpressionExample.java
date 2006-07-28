@@ -177,6 +177,9 @@ public class ExpressionExample extends Example {
     	
     	if(type instanceof StringType){
     		Set<String> d=values.get(value);
+    		if(d==null){
+    			return;
+    		}
     		for(Iterator it=d.iterator();it.hasNext();){
     			super.addPropertyTypedValue(it.next(),type,list);
     		}
