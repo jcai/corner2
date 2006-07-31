@@ -15,12 +15,12 @@
     <binding value="message:name" name="displayName"/>
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
-    <binding name="validators" value="validators:required"/>
+    <binding name="validators" value="validators:required"/>    
   </component>
-    <component type="TextField" id="numField">
-    <binding value="message:name" name="displayName"/>
-    <binding value="translator:number,pattern=#.##" name="translator"/>
-    <binding value="ognl:entity.num" name="value"/>
-    <binding name="validators" value="validators:numPattern={4:2}"/>
+    <component type="TextField" id="passwordField">
+    <binding value="message:num" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.password" name="value"/>
+    
   </component>
 </page-specification>

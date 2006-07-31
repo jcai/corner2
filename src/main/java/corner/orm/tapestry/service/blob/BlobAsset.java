@@ -47,24 +47,6 @@ public class BlobAsset extends AbstractAsset {
 	 * @param cycle 客户请求.
 	 * @param tableType 表的类型
 	 * @param key 表的主键
-	 * @deprecated 将在2.1中删除。
-	 */
-	public BlobAsset(IRequestCycle cycle, String tableType, Serializable key) {
-		super(null, null);
-
-		IEngine engine = cycle.getEngine();
-
-		_blobService = engine.getService(AbstractBlobService.SERVICE_NAME);
-
-		parameters.add(tableType);
-		parameters.add(key);
-
-	}
-	/**
-	 * 构造一个Asset
-	 * @param cycle 客户请求.
-	 * @param tableType 表的类型
-	 * @param key 表的主键
 	 * @since 2.0.6 
 	 * 
 	 */

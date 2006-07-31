@@ -24,7 +24,7 @@ public class A extends AbstractModel {
 	 * @hibernate.property type="corner.orm.hibernate.v3.VectorType"
 	 */
 	private Vector<String> colors;
-	
+	private String password;
 	private double num;
 	/**
 	 * @return Returns the num.
@@ -53,5 +53,19 @@ public class A extends AbstractModel {
 	 */
 	public void setColors(Vector<String> colors) {
 		this.colors = colors;
+	}
+
+	/**
+	 * @return Returns the password.
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password The password to set.
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
