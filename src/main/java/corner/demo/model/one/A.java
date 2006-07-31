@@ -24,6 +24,21 @@ public class A extends AbstractModel {
 	 * @hibernate.property type="corner.orm.hibernate.v3.VectorType"
 	 */
 	private Vector<String> colors;
+	
+	private double num;
+	/**
+	 * @return Returns the num.
+	 */
+	public double getNum() {
+		return num;
+	}
+
+	/**
+	 * @param num The num to set.
+	 */
+	public void setNum(double num) {
+		this.num = num;
+	}
 
 	/**
 	 * @return Returns the colors.

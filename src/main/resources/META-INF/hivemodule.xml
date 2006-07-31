@@ -158,4 +158,10 @@
       </construct>
     </invoke-factory>
   </service-point>
+	
+	
+	<!--  validator -->
+	<contribution configuration-id="tapestry.form.validator.Validators">
+		<validator name="numPattern" class="corner.orm.tapestry.validator.NumPattern"/>
+	</contribution>
 </module>

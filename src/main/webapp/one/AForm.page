@@ -17,4 +17,10 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
+    <component type="TextField" id="numField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:number,pattern=#.##" name="translator"/>
+    <binding value="ognl:entity.num" name="value"/>
+    <binding name="validators" value="validators:numPattern={4:2}"/>
+  </component>
 </page-specification>
