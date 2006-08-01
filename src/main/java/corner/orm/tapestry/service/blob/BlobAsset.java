@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.tapestry.IEngine;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.asset.AbstractAsset;
 import org.apache.tapestry.engine.IEngineService;
