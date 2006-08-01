@@ -1,4 +1,15 @@
+//==============================================================================
+//file :        CornerPropertiesPersister.java
+//
+//last change:	date:       $Date: 2006-07-24 00:55:32Z $
+//           	by:         $Author: jcai $
+//           	revision:   $Revision: 1400 $
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//==============================================================================
+
 header{
+	
 package corner.expression.calc;
 }
 /**
