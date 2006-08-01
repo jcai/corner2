@@ -181,7 +181,7 @@
 	
 	<!-- for session manager -->
 	<contribution configuration-id="tapestry.state.StateObjectPersistenceManagers">
-		<manager scope="session" object="service:SessionScopeManager"/>
+		<manager scope="sessionEntity" object="service:EntitySessionScopeManager"/>
 	</contribution>
 	  <service-point id="EntitySessionScopeManager" interface="org.apache.tapestry.engine.state.StateObjectPersistenceManager">
     Manages application state objects in the session.
