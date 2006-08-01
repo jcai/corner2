@@ -14,6 +14,8 @@ import corner.orm.tapestry.page.EntityPage;
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
+ * @param T 基础的实体对象。
+ * @param E 基础对象所关联的对象。
  */
 public interface IPageRooted<T,E> extends IPage,EntityPage<E>{
 	/**
