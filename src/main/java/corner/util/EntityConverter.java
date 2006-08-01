@@ -6,7 +6,7 @@
 //              by:         $Author$
 //              revision:   $Revision$
 //------------------------------------------------------------------------------
-//copyright:	China Java Users Group http://cnjug.dev.java.net
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 package corner.util;
