@@ -1,5 +1,5 @@
 //==============================================================================
-//file :        CornerPropertiesPersister.java
+//file :        $Id$
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
