@@ -1,6 +1,6 @@
 //==============================================================================
 //file :        BeanUtils.java
-//project:      corner-utils
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$

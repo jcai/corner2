@@ -1,6 +1,6 @@
 //==============================================================================
 // file :       EntityConverter.java
-// project:     corner-utils
+// project:     corner
 //
 // last change: date:       $Date$
 //              by:         $Author$

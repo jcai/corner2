@@ -1,6 +1,6 @@
 //==============================================================================
 //file :        IBlobBeforSaveCallBack.java
-//project:      poison-system
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$

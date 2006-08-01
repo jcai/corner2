@@ -1,6 +1,6 @@
 //==============================================================================
 //file :        SpringContainer.java
-//project:      poisoning
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$

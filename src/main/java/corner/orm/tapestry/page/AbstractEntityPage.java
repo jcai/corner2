@@ -1,6 +1,6 @@
 //==============================================================================
 //file :       $Id$
-//project:     corner-example
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$

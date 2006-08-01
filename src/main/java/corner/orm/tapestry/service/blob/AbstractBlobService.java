@@ -1,6 +1,6 @@
 //==============================================================================
 //file :        BlobImageService.java
-//project:      poison-system
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$

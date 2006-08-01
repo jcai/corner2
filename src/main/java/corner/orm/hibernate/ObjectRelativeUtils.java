@@ -1,12 +1,12 @@
 //==============================================================================
 //file :       $Id$
-//project:     weed
+//project:     corner
 //
 //last change:	date:       $Date$
 //           	by:         $Author$
 //           	revision:   $Revision$
 //------------------------------------------------------------------------------
-//copyright:	China Java Users Group(http://cnjug.dev.java.net).
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //license:	Apache License(http://www.apache.org/licenses/LICENSE-2.0)
 //==============================================================================
 
