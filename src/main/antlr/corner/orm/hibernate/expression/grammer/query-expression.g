@@ -1,3 +1,12 @@
+//==============================================================================
+//file :        $Id$
+//
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision: 1444 $
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//==============================================================================
 header{
 package corner.orm.hibernate.expression.grammer;
 import java.io.StringReader;
