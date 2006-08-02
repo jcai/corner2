@@ -63,7 +63,7 @@ public class BeanUtils {
 	}
 
 	/**
-	 * 的奥bean的属性值。
+	 * 得到bean的属性值。
 	 * @param bean bean.
 	 * @param pro 属性的名称.
 	 * @return 属性值.
