@@ -111,7 +111,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	}
 
 	/**
-	 * 新增尸体操作.
+	 * 新增实体操作.
 	 *
 	 * @return 新增实体操作的页面.
 	 * @since 2.0
