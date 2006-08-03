@@ -12,8 +12,6 @@
 
 package corner.orm.tapestry.page;
 
-import java.io.Serializable;
-
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectObject;
 
@@ -38,12 +36,7 @@ public interface EntityPage<T  > extends IPage {
 	 */
 	public abstract  void  setEntity(T entity);
 
-	/**
-	 * 根据实体的主键，得到一个实体，并设定实体。
-	 * @param key 主键值
-	 * @deprecated 将在2.1中删除
-	 */
-	public abstract void loadEntity(Serializable key);
+	
 	/**
 	 * 得到EntityService.
 	 * <p>提供基本的操作.
@@ -52,13 +45,6 @@ public interface EntityPage<T  > extends IPage {
 	 */
 	@InjectObject("spring:entityService")
 	public abstract EntityService getEntityService();
-	/**
-	 * 得到EntityService.将在2.1中删除。使用 {@link #getEntityService()}
-	 * <p>提供基本的操作.
-	 * @return entityService 实体服务类
-	 * @deprecated
-	 */
-	@InjectObject("spring:entityService")
-	public abstract EntityService getBaseService();
+	
 
 }

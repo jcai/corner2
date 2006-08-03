@@ -11,12 +11,10 @@
 
 package corner.orm.tapestry.page;
 
-import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
 import org.apache.tapestry.annotations.InjectObject;
-import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
 
@@ -38,89 +36,8 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	/** 对日期类型的格式化 * */
 	private SimpleDateFormat _dateFormat;
 
-	/**
-	 * 得到主键值
-	 *
-	 * @return 主键值.
-	 * @deprecated 将在2.1中删除
-	 */
-	@Persist("client:page")
-	public abstract Serializable getKey();
 
-	/**
-	 * 设定主键值.
-	 *
-	 * @param keyValue
-	 *            主键值.
-	 * @deprecated 将在2.1中删除
-	 */
-	public abstract void setKey(Serializable keyValue);
 
-	/**
-	 * 得到关联的主键Id值.
-	 *
-	 * @deprecated 将在2.1中删除
-	 * @return 关联的主键值
-	 */
-	@Persist("client:page")
-	public abstract Serializable getRelativeId();
-
-	/**
-	 * 设定关联对象的主键值
-	 *
-	 * @param relativeId
-	 *            关联对象的主键值.
-	 * @deprecated 将在2.1中删除
-	 */
-	public abstract void setRelativeId(Serializable relativeId);
-
-	/**
-	 * 得到关联的页面.
-	 *
-	 * @deprecated 将在2.1中删除
-	 */
-	@Persist("client:page")
-	public abstract String getRelativePage();
-
-	/**
-	 * 设定关联的页面.
-	 *
-	 * @param page
-	 *            关联页
-	 * @deprecated 将在2.1中删除
-	 */
-	public abstract void setRelativePage(String page);
-
-	/**
-	 *
-	 * 关联类名称.
-	 *
-	 * @param clazzName
-	 *            关联的类名.
-	 * @deprecated 将在2.1中删除
-	 */
-	@Persist("client:page")
-	public abstract void setRelativeClassName(String clazzName);
-
-	/**
-	 * @deprecated 将在2.1中删除
-	 * @return
-	 */
-	public abstract String getRelativeClassName();
-
-	/**
-	 * @deprecated 将在2.1中删除
-	 * @see corner.orm.tapestry.page.EntityPage#loadEntity(java.io.Serializable)
-	 */
-	@SuppressWarnings("unchecked")
-	public void loadEntity(Serializable key) {
-		T tmpObj = getEntityService().getEntity(
-				(Class<T>) this.getEntity().getClass(), key);
-		if (tmpObj != null) {
-			this.setEntity(tmpObj);
-			this.setKey(key);
-		}
-	}
 
 	/**
 	 * 保存和更新实体。
