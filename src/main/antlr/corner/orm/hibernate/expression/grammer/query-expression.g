@@ -33,7 +33,8 @@ tokens{
 	private CreateCriterionCallback callback;
 	
 	public final static void main(String[] args)throws RecognitionException, TokenStreamException{
-		String str="asdf or fordsa and okay ";
+
+		String str="asdf and &okay ";
 		final QueryExpressionLexer lexer =  new QueryExpressionLexer(new StringReader(str));
         final QueryExpressionParser parser =  new QueryExpressionParser(lexer);
         parser.setCreateCriterionCallback(new CreateCriterionCallback(){
@@ -61,13 +62,29 @@ class QueryExpressionLexer extends Lexer;
 options { 
 	k=2;
 	charVocabulary='\u0000'..'\uFFFE';
-	caseSensitive = false;
+	caseSensitive = true;
 }
-WORD:('\u4e00'..'\u9fa5'|'a'..'z'|'0'..'9'|'%')+;
+protected
+LETTER
+    :   '\u0024' |
+        '\u0041'..'\u005a' |
+        '\u005f' |
+        '\u0061'..'\u007a' |
+        '\u00c0'..'\u00d6' |
+        '\u00d8'..'\u00f6' |
+        '\u00f8'..'\u00ff' |
+        '\u0100'..'\u1fff' |
+        '\u3040'..'\u318f' |
+        '\u3300'..'\u337f' |
+        '\u3400'..'\u3d2d' |
+        '\u4e00'..'\u9fff' |
+        '\uf900'..'\ufaff'
+    ;
+WORD:(LETTER|'\u0021'..'\u007e')+;
 /*BLANK:
 	'' { $setType(QueryExpressionParserTokenTypes.AND);}
 	;
-	*/
+	*/ 
 WS     : 
 
     (' '
