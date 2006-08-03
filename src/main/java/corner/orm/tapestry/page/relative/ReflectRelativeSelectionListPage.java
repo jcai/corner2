@@ -34,7 +34,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * 得到关联实体的名称，作为集合的复数。
 	 * <p>譬如：users,groups等。
 	 * 假设我们从User实体进行编辑，进入UserGroup页面，此时UserGroup页面将对应本类，对于该页面来说
-	 * User实体为:this.getRootedObject(),而Group实体为:this.getEntity(),当isInverse()为true的时候，
+	 * User实体为:this.getRootedObject(),而Group实体为:this.getEntity().当isInverse()为true的时候，
 	 * 返回"users",当isInverse()为false的时候，返回"groups",因为默认情况下isInverse()为false，因此默认返回"groups"
 	 * @return 关联的额属性名称，一般为复数形式。
 	 */
