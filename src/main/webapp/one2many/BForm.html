@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<html>
-  <head>
-    <title>test</title>
-  </head>
-  <body jwcid="@Body">
+<span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
     <form jwcid="BForm" action="BList.html">
       <table>
@@ -18,8 +12,7 @@
         </tr>
       </table>
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
-      <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:this.form.events.cancel();"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>
     <br/>
-  </body>
-</html>
+</span>

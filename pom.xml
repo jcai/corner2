@@ -175,24 +175,28 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
+		<repository>
+        <id>apache.snapshots</id>
+        <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+    </repository>
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>tapestry</groupId>
-			<artifactId>tapestry</artifactId>
-			<version>4.0.2</version>
+			<groupId>org.apache.tapestry</groupId>
+			<artifactId>tapestry-framework</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>tapestry</groupId>
+			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-annotations</artifactId>
-			<version>4.0.2</version>
+			<version>4.1.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>tapestry</groupId>
+			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-contrib</artifactId>
-			<version>4.0.2</version>
+			<version>4.1.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
