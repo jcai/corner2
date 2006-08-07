@@ -38,7 +38,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
@@ -46,7 +46,7 @@
                         <configurationFile>/src/test/resources/hibernate.cfg.xml</configurationFile>
                     </hibernate>
                 </configuration>
-            </plugin>
+            </plugin -->
 			<plugin>
 				<groupId>xdoclet</groupId>
 				<artifactId>maven2-xdoclet2-plugin</artifactId>
