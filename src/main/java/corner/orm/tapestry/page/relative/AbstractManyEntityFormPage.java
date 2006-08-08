@@ -25,8 +25,9 @@ import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
  * @param <E> 关联的对象。
  * @since 2.0.3
  */
-public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFormPage<T>  {
+public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFormPage<T>  implements IRelativeObjectOperatorSupport {
 
+	
 	/**
 	 * 得到关联对象。
 	 * 此对象用来在对关联对象循环的时候使用的临时变量。
@@ -73,9 +74,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 */
 	@SuppressWarnings("unchecked")
 	public IPage doNewRelativeAction(T obj,String pageName){
-		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(pageName);
-		page.setRootedObject(obj);
-		return page;
+		return this.getRelativeObjectOperator().doNewRelativeAction(obj, pageName);
 	}
 	/**
 	 * 编辑一个关联对象的操作。
@@ -88,11 +87,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 */
 	@SuppressWarnings("unchecked")
 	public IPage doEditRelativeEntityAction(T obj,E e,String pageName){
-		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(pageName);
-		page.setRootedObject(obj);
-		page.setEntity(e);
-		
-		return page;
+		return this.getRelativeObjectOperator().doEditRelativeEntityAction(obj, e, pageName);
 	}
 	
 	/**
@@ -123,5 +118,17 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	public IPage doDeleteRelativeEntityAction(E e){
 		this.getEntityService().deleteEntities(e);
 		return this;
+	}
+	/**
+	 * 返回到关联对象的列表页。
+	 * @param t 实体对象。
+	 * @param listPath 列表页面。
+	 * @return 列表页面。
+	 */
+	@SuppressWarnings("unchecked")
+	public IPage doViewRelativeEntityListAction(T t,String listPageName){
+		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(listPageName);
+		page.setRootedObject(t);
+		return page;
 	}
 }

@@ -2,8 +2,8 @@ package corner.orm.tapestry.page.relative;
 
 import org.apache.tapestry.IPage;
 
-import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.page.AbstractEntityListPage;
+import corner.orm.tapestry.page.EntityPage;
 
 /**
  *
@@ -23,7 +23,7 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 	 */
 	public IPage doNewRelativeAction(){
 		this.flushHibernate();
-		AbstractEntityFormPage<T> page=this.getRootFormPage();
+		EntityPage<T> page=this.getRootFormPage();
 		page.setEntity(this.getRootedObject());
 		return page;
 	}

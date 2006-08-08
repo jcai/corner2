@@ -6,6 +6,7 @@ package corner.orm.tapestry.page.relative;
 import org.apache.tapestry.IPage;
 
 import corner.orm.tapestry.page.AbstractEntityFormPage;
+import corner.orm.tapestry.page.EntityPage;
 
 /**
  * 增加关联关系对象时候用到的表单页。
@@ -20,10 +21,15 @@ public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntit
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityFormPage#getEntityListPage()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected IPage getEntityListPage() {
-		AbstractEntityFormPage<T> page= (AbstractEntityFormPage<T>) getRootFormPage();
-		page.setEntity(this.getRootedObject());
+		EntityPage<T> page= (EntityPage<T>) getRootFormPage();
+		if(page instanceof IPageRooted){
+			((IPageRooted<T,E>) page).setRootedObject(this.getRootedObject());
+		}else{
+			page.setEntity(this.getRootedObject());
+		}
 		return page;
 	}
 	

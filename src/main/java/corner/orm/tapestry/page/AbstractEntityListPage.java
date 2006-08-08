@@ -27,10 +27,17 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
 public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IPersistentQueriable {
 	@SuppressWarnings("unchecked")
 	public EntityPage<T> getEntityFormPage() {
-		return (EntityPage<T>) this.getRequestCycle().getPage(
-				this.getPageName().substring(0,
-						this.getPageName().lastIndexOf("List"))
-						+ "Form");
+		return (EntityPage<T>) this.getRequestCycle().getPage(getEntityFormPageStr());
+	}
+	/**
+	 * 得到实体表单页面的名称.
+	 * @return 实体表单页面的名称。
+	 */
+	protected String getEntityFormPageStr(){
+		return 
+		this.getPageName().substring(0,
+				this.getPageName().lastIndexOf("List"))
+				+ "Form";
 	}
 	//------ 查询部分
 	/**
