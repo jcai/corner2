@@ -195,4 +195,14 @@
       </construct>
     </invoke-factory>
   </service-point>
+	
+
+	<!-- for relative page operations -->
+	<service-point id="relativeOperator" interface="corner.orm.tapestry.page.relative.support.IRelativeObjectOperator">
+    <invoke-factory>
+		  <construct class="corner.orm.tapestry.page.relative.support.RelativeObjectOperator">
+			  <set-object property="requestCycle" value="infrastructure:requestCycle"/>
+		  </construct>
+	  </invoke-factory>
+  </service-point>  	
 </module>
