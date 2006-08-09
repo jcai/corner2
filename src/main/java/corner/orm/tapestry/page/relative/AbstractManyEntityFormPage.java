@@ -124,6 +124,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @param t 实体对象。
 	 * @param listPath 列表页面。
 	 * @return 列表页面。
+	 * @since 2.1
 	 */
 	@SuppressWarnings("unchecked")
 	public IPage doViewRelativeEntityListAction(T t,String listPageName){
@@ -131,4 +132,5 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		page.setRootedObject(t);
 		return page;
 	}
+	
 }
