@@ -43,27 +43,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	public  IBasicTableModel getSource(String relativePropertyName){
 		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getEntity(),relativePropertyName);
 	}
-	/**
-	 * 得到供选择关联的列表，譬如：在Group端增加和User关联的关系，
-	 * 此页面应该是一个供 User 选择的列表的选择页面。
-	 * <p>适用于many-to-many的操作，仅仅适用于增加关联的关系。
-	 * @return
-	 * @deprecated 将在2.0.8中删除.
-	 */
-	protected abstract AbstractRelativeSelectionListPage<T,E> getRelativeListPage();
 
-	/**
-	 * 新增加一个关联关系的操作。
-	 * <p>适用于many-to-many的操作，仅仅是增加关系。
-	 * @param obj 供操作的对象。
-	 * @return 操作后返回的页面。
-	 * @deprecated 将在2.0.8中删除,请使用#{@link #doNewRelativeAction(T, String)}。
-	 */
-	public IPage doNewRelativeAction(T obj){
-		AbstractRelativeSelectionListPage<T,E> page=this.getRelativeListPage();
-		page.setRootedObject(obj);
-		return page;
-	}
 	/**
 	 * 新增加一个关联对象的操作。
 	 * 
@@ -95,7 +75,9 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @param t 当前的实体对象。
 	 * @param e 关联的关系实体对象。
 	 */
-	protected abstract void deleteRelationship(T t,E e);
+	protected void deleteRelationship(T t,E e){
+		throw new java.lang.UnsupportedOperationException("此方法并未实现!");
+	}
 	/**
 	 * 响应删除关联关系的操作。
 	 * @param t 当前的实体对象。
@@ -131,6 +113,23 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(listPageName);
 		page.setRootedObject(t);
 		return page;
+	}
+	
+	/**
+	 * 通常操作one-to-one时候使用
+	 * @param rootObj one 主对象
+	 * @param relativeObj 从对象
+	 * @param pageName
+	 * @return 通常是在编辑rootObj(主对象)的时候进行relativeObj(从对象)操作。当relativeObj不为空的时候，
+	 * 就编辑relativeObj，当relativeObj为空的时候就新创建一个relativeObj
+	 */
+	public IPage doNewOrEditRelativeEntityAction(T rootObj,E relativeObj,String pageName){
+		if(relativeObj!=null){
+			return this.doEditRelativeEntityAction(rootObj, relativeObj, pageName);
+		}
+		else{
+			return this.doNewRelativeAction(rootObj, pageName);
+		}	
 	}
 	
 }
