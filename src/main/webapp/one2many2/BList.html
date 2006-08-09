@@ -6,7 +6,7 @@
       <a listener="listener:doReturnRootedFormAction" jwcid="@DirectLink" href="AForm.html">
 		返回
       </a>
-      
+      <a jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" parameters="ognl:{rootedObject,'one2many2/BList'}">返回B列表</a>
     </center>
     <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:getSource('bs')" persist="client">
       <table>

@@ -15,9 +15,10 @@ package corner.orm.tapestry.page.relative;
 
 /**
  * @author jcai
+ * @author Ghost
  * @version $Revision$
  * @since 2.1
  */
-public abstract class RelectRelativeEntityListPage extends
+public abstract class ReflectRelativeEntityListPage extends
 		AbstractRelativeEntityListPage<Object,Object> {
 }

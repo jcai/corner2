@@ -22,6 +22,7 @@ import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
 /**
  * 关联实体对象的列表，通常通过one端来得到关联对象的列表页。
  * @author jcai
+ * @author Ghost
  * @version $Revision$
  * @since 2.1
  */
@@ -71,5 +72,17 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 		return page;
 	}
 
+	/**
+	 * 返回到关联对象的列表页。
+	 * @param t 实体对象。
+	 * @param listPath 列表页面。
+	 * @return 列表页面。
+	 */
+	@SuppressWarnings("unchecked")
+	public IPage doViewRelativeEntityListAction(T t,String listPageName){
+		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(listPageName);
+		page.setRootedObject(t);
+		return page;
+	}
 	
 }
