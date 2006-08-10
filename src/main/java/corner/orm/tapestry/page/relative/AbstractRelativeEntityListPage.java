@@ -41,7 +41,7 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	 */
 	@Override
 	public IBasicTableModel getSource() {
-		throw new java.lang.UnsupportedOperationException("通过one端来显示列表页时候，不能够通过getSource来取得列表页，请使用 getSource(String relativePropertyName)来得到列表页数据!");
+		return super.getSource();
 	}
 
 	
