@@ -16,6 +16,8 @@ import org.hibernate.usertype.UserType;
 import org.hibernate.util.EqualsHelper;
 
 /**
+ * 
+ * 实现一个vector的数据持久华类型。
  * @author Jun Tsai
  * @version $Revision$
  * @since 2.0.5
@@ -66,7 +68,7 @@ public class VectorType implements UserType {
 				sb.append(SEGMENT);
 			}
 			if(sb.length()>0){
-				sb.setLength(sb.length()-1); //删除最后的分割符
+				sb.setLength(sb.length()-SEGMENT.length()); //删除最后的分割符
 			}
 			st.setString(index,sb.toString());
 		}else{

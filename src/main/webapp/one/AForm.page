@@ -21,6 +21,10 @@
     <binding value="message:num" name="displayName"/>
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.password" name="value"/>
-    
+  </component>
+  <component type="TextField" id="colorsField">
+    <binding value="message:colors" name="displayName"/>
+    <binding value="translator:vector" name="translator"/>
+    <binding value="ognl:entity.colors" name="value"/>
   </component>
 </page-specification>

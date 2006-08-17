@@ -204,5 +204,10 @@
 			  <set-object property="requestCycle" value="infrastructure:requestCycle"/>
 		  </construct>
 	  </invoke-factory>
-  </service-point>  	
+  </service-point> 
+	
+	<!-- for trasnlator -->
+	<contribution configuration-id="tapestry.form.translator.Translators">
+    	<bean name="vector" class="corner.orm.tapestry.translator.VectorTranslator"/>
+	</contribution>    	
 </module>
