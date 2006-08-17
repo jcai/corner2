@@ -2,8 +2,14 @@ package corner.orm.tapestry.filter;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tapestry.services.ServletRequestServicer;
+import org.apache.tapestry.services.ServletRequestServicerFilter;
 import org.apache.tapestry.services.WebRequestServicer;
 import org.apache.tapestry.services.WebRequestServicerFilter;
 import org.apache.tapestry.web.WebRequest;
@@ -21,14 +27,15 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
- *
+ * 
  * 针对hibernate的tapestry的每一个servlet一个请求。
- *
+ * 
  * 借鉴了SpringFramework的OpenSessionInViewFilter
- *
+ * 
  * @author Jun Tsai
  * @version $Revision$
  * @since 2006-5-26
+ * @see org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
  */
 public class OneSessionPerServletRequestFilter implements
 		WebRequestServicerFilter {
@@ -46,62 +53,68 @@ public class OneSessionPerServletRequestFilter implements
 
 	public void service(WebRequest request, WebResponse response,
 			WebRequestServicer servicer) throws IOException {
+//		String pathInfo=request.getPathInfo();
+		if(request.getActivationPath().startsWith("/assets")){ //过滤掉对assets内容进行open session in view
+			servicer.service(request, response);
+			return;
+		}
 		Session session = null;
 		boolean participate = false;
-		if (TransactionSynchronizationManager.hasResource(getSessionFactory())) {
-			participate = true;
-		} else {
-			session = createSession(getSessionFactory());
-			TransactionSynchronizationManager.bindResource(getSessionFactory(),
-					new SessionHolder(session));
-		}
-		try {
-			if (!participate && isTransactionPerRequest()) {
-				final TransactionStatus txStat = transactionManager
-						.getTransaction(new DefaultTransactionDefinition(
-								TransactionDefinition.PROPAGATION_REQUIRED));
-				try {
-					servicer.service(request, response);
-					if (!txStat.isRollbackOnly()) {
-						log.debug("Committing transaction...");
-						transactionManager.commit(txStat);
-					} else {
-						log
-								.debug("Transaction marked as rollback-only, initiating rollback...");
-						transactionManager.rollback(txStat);
-					}
-				} catch (IOException e) {
-					log
-							.debug(
-									"An exception occurred during request processing, rolling back transaction...",
-									e);
-					transactionManager.rollback(txStat);
-					throw e;
-				} catch (RuntimeException e) {
-					log
-							.debug(
-									"An exception occurred during request processing, rolling back transaction...",
-									e);
-					transactionManager.rollback(txStat);
-					throw e;
-				}
+
+		if (isSingleSession()) {
+			
+			// single session mode
+			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+				// Do not modify the Session: just set the participate flag.
+				participate = true;
 			} else {
-				servicer.service(request, response);
+				log
+						.debug("Opening single Hibernate Session in OpenSessionInViewFilter");
+				session = getSession(sessionFactory);
+				TransactionSynchronizationManager.bindResource(sessionFactory,
+						new SessionHolder(session));
 			}
-		} finally {
+		} else {
+			// deferred close mode
+			if (SessionFactoryUtils.isDeferredCloseActive(sessionFactory)) {
+				// Do not modify deferred close: just set the participate flag.
+				participate = true;
+			} else {
+				SessionFactoryUtils.initDeferredClose(sessionFactory);
+			}
+		}
+
+		try {
+			servicer.service(request, response);
+		}
+
+		finally {
 			if (!participate) {
-				TransactionSynchronizationManager
-						.unbindResource(getSessionFactory());
-				try {
-					closeSession(session, getSessionFactory());
-				} catch (RuntimeException ex) {
+				if (isSingleSession()) {
+					// single session mode
+					TransactionSynchronizationManager
+							.unbindResource(sessionFactory);
 					log
-							.error(
-									"Unexpected exception on closing Hibernate Session",
-									ex);
+							.debug("Closing single Hibernate Session in OpenSessionInViewFilter");
+					try {
+						closeSession(session, sessionFactory);
+					} catch (RuntimeException ex) {
+						log
+								.error(
+										"Unexpected exception on closing Hibernate Session",
+										ex);
+					}
+				} else {
+					// deferred close mode
+					SessionFactoryUtils.processDeferredClose(sessionFactory);
 				}
 			}
 		}
+	}
+
+	private boolean isSingleSession() {
+
+		return true;
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -125,21 +138,52 @@ public class OneSessionPerServletRequestFilter implements
 		this.transactionManager = transactionManager;
 	}
 
-	protected void closeSession(Session session, SessionFactory sessionFactory) {
-		log.debug("Closing Hibernate Session...");
-		SessionFactoryUtils.releaseSession(session, sessionFactory);
-	}
-
-	protected Session createSession(SessionFactory sessionFactory)
+	/**
+	 * Get a Session for the SessionFactory that this filter uses. Note that
+	 * this just applies in single session mode!
+	 * <p>
+	 * The default implementation delegates to SessionFactoryUtils' getSession
+	 * method and sets the Session's flushMode to NEVER.
+	 * <p>
+	 * Can be overridden in subclasses for creating a Session with a custom
+	 * entity interceptor or JDBC exception translator.
+	 * 
+	 * @param sessionFactory
+	 *            the SessionFactory that this filter uses
+	 * @return the Session to use
+	 * @throws DataAccessResourceFailureException
+	 *             if the Session could not be created
+	 * @see org.springframework.orm.hibernate3.SessionFactoryUtils#getSession(SessionFactory,
+	 *      boolean)
+	 * @see org.hibernate.FlushMode#NEVER
+	 */
+	protected Session getSession(SessionFactory sessionFactory)
 			throws DataAccessResourceFailureException {
-		log.debug("Creating new Hibernate Session...");
-		return createNewSession(sessionFactory);
-	}
-
-	private Session createNewSession(SessionFactory sessionFactory) {
 		Session session = SessionFactoryUtils.getSession(sessionFactory, true);
 		session.setFlushMode(FlushMode.NEVER);
 		return session;
 	}
 
+	/**
+	 * Close the given Session. Note that this just applies in single session
+	 * mode!
+	 * <p>
+	 * The default implementation delegates to SessionFactoryUtils'
+	 * releaseSession method.
+	 * <p>
+	 * Can be overridden in subclasses, e.g. for flushing the Session before
+	 * closing it. See class-level javadoc for a discussion of flush handling.
+	 * Note that you should also override getSession accordingly, to set the
+	 * flush mode to something else than NEVER.
+	 * 
+	 * @param session
+	 *            the Session used for filtering
+	 * @param sessionFactory
+	 *            the SessionFactory that this filter uses
+	 */
+	protected void closeSession(Session session, SessionFactory sessionFactory) {
+		SessionFactoryUtils.releaseSession(session, sessionFactory);
+	}
+
+	
 }
