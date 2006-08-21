@@ -14,6 +14,7 @@ package corner.orm.tapestry.page.relative;
 
 
 /**
+ * 对关联对象列表的操作。
  * @author jcai
  * @author Ghost
  * @version $Revision$
