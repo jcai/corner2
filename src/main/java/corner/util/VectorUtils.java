@@ -91,8 +91,7 @@ public final class VectorUtils {
        AST t = parser.getAST();
        
        ExprTreeParser treeParser = new ExprTreeParser();
-       double x;
-		try {
+       try {
 			return treeParser.expr(t);
 			
 		} catch (RecognitionException e) {
