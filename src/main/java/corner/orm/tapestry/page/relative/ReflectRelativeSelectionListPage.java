@@ -38,7 +38,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * 返回"users",当isInverse()为false的时候，返回"groups",因为默认情况下isInverse()为false，因此默认返回"groups"
 	 * @return 关联的额属性名称，一般为复数形式。
 	 */
-	public String getRelativePropertyName()
+	protected String getRelativePropertyName()
 	{
 		if(isInverse()){
 			return EntityConverter.getClassNameAsCollectionProperty(this.getRootedObject());
