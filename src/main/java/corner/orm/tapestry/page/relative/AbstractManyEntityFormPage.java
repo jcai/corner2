@@ -10,11 +10,14 @@
 
 package corner.orm.tapestry.page.relative;
 
+import java.util.Collection;
+
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
+import corner.util.BeanUtils;
 
 /**
  * 抽象的many的页面的form页。
@@ -74,9 +77,28 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * 删除对象之间的关联关系。
 	 * @param t 当前的实体对象。
 	 * @param e 关联的关系实体对象。
+	 * @deprecated Use {@link #deleteRelationship(T,E,String)} instead
 	 */
 	protected void deleteRelationship(T t,E e){
-		throw new java.lang.UnsupportedOperationException("此方法并未实现!");
+		deleteRelationship(t, e, null);
+	}
+	/**
+	 * 删除对象之间的关联关系。
+	 * @param t 当前的实体对象。
+	 * @param e 关联的关系实体对象。
+	 * @param relativeName 关联关系的名程
+	 */
+	@SuppressWarnings("unchecked")
+	protected void deleteRelationship(T t,E e, String relativeName){
+		if(relativeName==null){
+			throw new IllegalArgumentException("relativeName is null!");
+		}
+		Collection<Object> c = (Collection<Object>) BeanUtils.getProperty(t, relativeName);
+		if(c==null){
+			throw new IllegalStateException("从["+e+"],通过关系["+relativeName+"]得到的集合为空！");
+		}
+		c.remove(e);
+		this.getEntityService().saveOrUpdateEntity(t);
 	}
 	/**
 	 * 响应删除关联关系的操作。
@@ -85,7 +107,19 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @return 删除关联关系后的返回页面。
 	 */
 	public IPage doDeleteRelativeAction(T t,E e){
-		this.deleteRelationship(t,e);
+		this.doDeleteRelativeAction(t, e, null);
+		return this;
+	}
+	/**
+	 * 响应删除关联关系的操作。
+	 * @param t 当前的实体对象。
+	 * @param e 关联关系实体对象。
+	 * @param relativeName 关联关系的名程
+	 * @return 删除关联关系后的返回页面。
+	 * @since 2.1
+	 */
+	public IPage doDeleteRelativeAction(T t,E e,String relativeName){
+		this.deleteRelationship(t,e,relativeName);
 		this.setEntity(t);
 		this.flushHibernate();
 		return this;
