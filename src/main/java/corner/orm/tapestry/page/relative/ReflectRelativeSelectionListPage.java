@@ -9,6 +9,8 @@ import corner.util.BeanUtils;
 import corner.util.EntityConverter;
 
 /**
+ * <font color="red">适用于对many-to-many时候对另外一个many端进行选择的操作，提供一个选择的列表。</font>
+ * <p>
  * 在增加关系的时候，供选择的对象。
  * <P>此类通常用于many-to-many的时候，提供一个供选择的页面。
  * 此类有两个重要属性，可以自定义，一个是

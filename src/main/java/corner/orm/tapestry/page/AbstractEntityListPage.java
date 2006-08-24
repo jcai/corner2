@@ -24,7 +24,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @since 2006-5-24
  * @param <T> 当前操作的实体对象.
  */
-public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IPersistentQueriable {
+public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IListablePage<T>,IPersistentQueriable {
 	@SuppressWarnings("unchecked")
 	public EntityPage<T> getEntityFormPage() {
 		return (EntityPage<T>) this.getRequestCycle().getPage(getEntityFormPageStr());
@@ -40,14 +40,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 				+ "Form";
 	}
 	//------ 查询部分
-	/**
-	 * 查询的实体.
-	 *
-	 * @return 查询实体.
-	 */
-
-	public abstract T getQueryEntity();
-	public abstract void setQueryEntity(T obj);
+	
 
 	/**
 	 * 响应查询的操作.

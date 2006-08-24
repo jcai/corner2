@@ -17,11 +17,13 @@ import org.apache.tapestry.IPage;
 import corner.orm.tapestry.page.AbstractEntityListPage;
 
 /**
- * @author Ghost
- * @version $Revision$
- * @since 2.1
+ * 提供从实体列表页面直接跳转到向对应的关联页面.
  * 抽象实体列表页面
  * <p>扩展了AbstractEntityListPage类,主要提供了从实体列表页面直接跳转的ReflectRelativeEntityFormPage和ReflectRelativeEntityListPage页面的方法
+ * @author Ghost
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @version $Revision$
+ * @since 2.1
  */
 public abstract class AbstractManyEntityListPage<T> extends AbstractEntityListPage<T> implements IRelativeObjectOperatorSupport{
 

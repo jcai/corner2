@@ -7,7 +7,8 @@ import corner.util.BeanUtils;
 import corner.util.EntityConverter;
 
 /**
- * 通过反射来实现关联表单的页面。
+ * <font color="red">适用于one-to-many时候，对many端的实体操作</font>
+ * <p>通过反射来实现关联表单的页面。
  * <p>适用于one-to-many时候，通过one来增加many端对象的操作。
  * @author Jun Tsai
  * @version $Revision$

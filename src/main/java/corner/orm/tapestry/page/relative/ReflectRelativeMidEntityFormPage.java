@@ -14,14 +14,12 @@ package corner.orm.tapestry.page.relative;
 
 
 /**
- * <font color="red">适用于对one-many/many-to-many时候many端列表的操作</font>
- * <p>
- * 对关联对象列表的操作。
- * @author jcai
- * @author Ghost
+ * <font color="red">适用于中间表(many-to-many)的操作</font>
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.1
  */
-public abstract class ReflectRelativeEntityListPage extends
-		AbstractRelativeEntityListPage<Object,Object> {
-}
+public abstract class ReflectRelativeMidEntityFormPage extends
+		AbstractReflectRelativeMidEntityFormPage<Object,Object,Object> {
+
+	}

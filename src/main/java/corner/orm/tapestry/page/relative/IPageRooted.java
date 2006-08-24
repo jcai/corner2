@@ -16,7 +16,7 @@ import corner.orm.tapestry.page.EntityPage;
  * @param T 基础的实体对象。
  * @param E 基础对象所关联的对象。
  */
-public interface IPageRooted<T,E> extends IPage,EntityPage<E>{
+public interface IPageRooted<T,E> extends IPage{
 	/**
 	 * 得到基础的实体对象。
 	 * @return 基础的实体对象。
@@ -36,6 +36,10 @@ public interface IPageRooted<T,E> extends IPage,EntityPage<E>{
 	 */
 	public abstract EntityPage<T> getRootFormPage();
 	
-	
+	/**
+	 * 设定关联对象.
+	 * @param e 关联对象。
+	 */
+	public abstract void setEntity(E e);
 	
 }

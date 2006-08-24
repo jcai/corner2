@@ -87,6 +87,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @param t 当前的实体对象。
 	 * @param e 关联的关系实体对象。
 	 * @param relativeName 关联关系的名程
+	 * @since 2.1
 	 */
 	@SuppressWarnings("unchecked")
 	protected void deleteRelationship(T t,E e, String relativeName){

@@ -6,6 +6,8 @@ package corner.orm.tapestry.page.relative;
 import corner.util.EntityConverter;
 
 /**
+ * <font color="red">适用含有多个关联关系的实体操作</font>
+ * <p>
  * 提供了通过反射来作操作多对象。
  *
  * @author Jun Tsai

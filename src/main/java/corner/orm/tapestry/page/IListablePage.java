@@ -10,18 +10,28 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.orm.tapestry.page.relative;
+package corner.orm.tapestry.page;
 
+import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 /**
- * <font color="red">适用于对one-many/many-to-many时候many端列表的操作</font>
- * <p>
- * 对关联对象列表的操作。
- * @author jcai
- * @author Ghost
+ * 用于列表显示时候的操作
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.1
  */
-public abstract class ReflectRelativeEntityListPage extends
-		AbstractRelativeEntityListPage<Object,Object> {
+public interface IListablePage<T> {
+	/**
+	 * 查询的实体.
+	 *
+	 * @return 查询实体.
+	 */
+
+	public abstract T getQueryEntity();
+	public abstract void setQueryEntity(T obj);
+	/**
+	 * 得到列表的source
+	 * @return table model
+	 */
+	public  IBasicTableModel getSource();
 }
