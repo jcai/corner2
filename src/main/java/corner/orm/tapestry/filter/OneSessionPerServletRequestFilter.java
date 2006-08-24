@@ -2,14 +2,8 @@ package corner.orm.tapestry.filter;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tapestry.services.ServletRequestServicer;
-import org.apache.tapestry.services.ServletRequestServicerFilter;
 import org.apache.tapestry.services.WebRequestServicer;
 import org.apache.tapestry.services.WebRequestServicerFilter;
 import org.apache.tapestry.web.WebRequest;
@@ -21,9 +15,6 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
@@ -47,7 +38,7 @@ public class OneSessionPerServletRequestFilter implements
 
 	private boolean transactionPerRequest = true;
 
-	private PlatformTransactionManager transactionManager;
+	//private PlatformTransactionManager transactionManager;
 
 	private SessionFactory sessionFactory;
 
@@ -135,7 +126,7 @@ public class OneSessionPerServletRequestFilter implements
 
 	public void setTransactionManager(
 			PlatformTransactionManager transactionManager) {
-		this.transactionManager = transactionManager;
+		//this.transactionManager = transactionManager;
 	}
 
 	/**
