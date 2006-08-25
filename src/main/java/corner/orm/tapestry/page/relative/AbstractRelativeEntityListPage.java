@@ -41,7 +41,7 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	 */
 	@Override
 	public IBasicTableModel getSource() {
-		return super.getSource();
+		throw new IllegalStateException("在RelativeEntityListPage不能使用entityList，请使用 getSource(relativePropertyName)");
 	}
 
 	
