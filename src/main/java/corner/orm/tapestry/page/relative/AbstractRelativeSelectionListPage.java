@@ -24,6 +24,9 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 	public IPage doNewRelativeAction(){
 		this.flushHibernate();
 		EntityPage<T> page=this.getRootFormPage();
+		if(page == null){
+			throw new IllegalStateException("RootFormPage 为空！");
+		}
 		page.setEntity(this.getRootedObject());
 		return page;
 	}
