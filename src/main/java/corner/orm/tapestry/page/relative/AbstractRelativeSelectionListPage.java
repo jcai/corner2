@@ -27,7 +27,11 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 		if(page == null){
 			throw new IllegalStateException("RootFormPage 为空！");
 		}
-		page.setEntity(this.getRootedObject());
+		if(page instanceof IPageRooted){
+			((IPageRooted<T,E>) page).setRootedObject(this.getRootedObject());
+		}else{
+			page.setEntity(this.getRootedObject());
+		}
 		return page;
 	}
 

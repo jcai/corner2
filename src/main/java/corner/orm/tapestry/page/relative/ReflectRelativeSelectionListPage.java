@@ -110,7 +110,11 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * @return
 	 */
 	private Collection getRelationshipCollection(Object obj){
-		return (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
+		Collection c= (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
+		if(c==null){
+			throw new IllegalStateException("从["+obj+"] 通过属性 ["+this.getRelativePropertyName()+"] 得到的集合为空!");
+		}
+		return c;
 	}
 
 }

@@ -52,7 +52,9 @@ public abstract class AbstractReflectRelativeMidEntityFormPage<T,E,F> extends Ab
 	 * @see corner.orm.tapestry.table.IPersistentQueriable#createCriteria(Session)
 	 */
 	public Criteria createCriteria(Session session) {
-
+		if(this.getThirdObject()==null){
+			throw new IllegalStateException("many 端的实体对象为空,清定义 thirdObject！");
+		}
 		return session.createCriteria(this.getThirdObject().getClass());
 	}
 	/**
