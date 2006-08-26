@@ -16,7 +16,6 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 import corner.orm.tapestry.page.AbstractEntityListPage;
-import corner.orm.tapestry.page.EntityPage;
 import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
 
 /**
@@ -65,11 +64,20 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	/**
 	 * 从list页面返回根页面。
 	 * @return 根页面。
+	 * @deprecated Use {@link #goRootFormPage()} instead
 	 */
 	public IPage doReturnRootedFormAction(){
-		EntityPage<T> page=this.getRootFormPage();
-		page.setEntity(this.getRootedObject());
-		return page;
+		return goRootFormPage();
+	}
+
+	/**
+	 * 从list页面返回根页面。
+	 * @return 根页面。
+	 * @since 2.1
+	 * @author Jun Tsai
+	 */
+	public IPage goRootFormPage(){
+		return this.goEntityPage(this.getRootedObject(), this.getRootFormPage());
 	}
 
 	/**

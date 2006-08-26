@@ -56,5 +56,15 @@ public interface EntityPage<T  > extends IPage {
 	 */
 	public <E> EntityPage<E> goEntityPage(E e,String pageName);
 	
+	/**
+	 * 转向一个entity页面。提供页面跳转的功能.
+	 * @param <E> entity
+	 * @param e entity实例
+	 * @param page 待跳转的页面实体
+	 * @return 实体页面
+	 * @since 2.1
+	 */
+	public <E> EntityPage<E> goEntityPage(E e,EntityPage<E> page);
+	
 
 }
