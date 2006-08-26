@@ -10,6 +10,8 @@
 
 package corner.orm.tapestry.page;
 
+import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.request.IUploadFile;
 
 /**
@@ -36,6 +38,12 @@ public interface IBlobPage {
 	 * @param isEditBlob 是否编辑.
 	 */
 	public abstract void setEditBlob(boolean isEditBlob);
+	/**
+	 * 得到blob服务。
+	 * @return blob服务
+	 */
+	@InjectObject("service:corner.blob.BlobService")
+	public abstract IEngineService getBlobService();
 	
 
 }

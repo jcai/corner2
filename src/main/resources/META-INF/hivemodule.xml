@@ -210,4 +210,7 @@
 	<contribution configuration-id="tapestry.form.translator.Translators">
     	<bean name="vector" class="corner.orm.tapestry.translator.VectorTranslator"/>
 	</contribution>    	
+	
+	<sub-module descriptor="corner.blob.xml"/>
+	
 </module>

@@ -72,7 +72,8 @@ public abstract class AbstractBlobService implements IEngineService {
 
 		return _linkFactory.constructLink(this, false, parameters, false);
 	}
-	protected abstract Map<String,Class<?extends IBlobProvider>> getBlobProviderMap();
+	protected abstract Map<String,IBlobProvider> getBlobProviderMap();
+	protected abstract Map<String, Class<? extends IBlobProvider>> getBlobProviderClassesMap();
 
 	public void service(IRequestCycle cycle) throws IOException {
 		String tableType = cycle.getParameter(TABLE_TYPE_VAR);
@@ -80,23 +81,24 @@ public abstract class AbstractBlobService implements IEngineService {
 
 		try {
 
-			Class<? extends IBlobProvider> clazz = getBlobProviderMap()
-					.get(tableType);
-			if (clazz != null) {
-				IBlobProvider provider = BeanUtils.instantiateClass(clazz);
-				provider.setKeyValue(tableKey);
-				provider.setEntityService(entityService);
-				String type = provider.getContentType();
-				if (provider.getBlobAsBytes() == null || type == null) {
-					return;
-				}
-
-				OutputStream output = _response
-						.getOutputStream(new ContentType(type));
-				output.write(provider.getBlobAsBytes());
-			} else {
-
+			IBlobProvider provider = getBlobProviderMap().get(tableType);
+			if (provider == null) {
+				Class<? extends IBlobProvider>clazz=getBlobProviderClassesMap().get(tableType);
+				provider=BeanUtils.instantiateClass(clazz);
+				
 			}
+
+			provider.setKeyValue(tableKey);
+			provider.setEntityService(entityService);
+			String type = provider.getContentType();
+			if (provider.getBlobAsBytes() == null || type == null) {
+				return;
+			}
+
+			OutputStream output = _response
+					.getOutputStream(new ContentType(type));
+			output.write(provider.getBlobAsBytes());
+
 
 		}
 

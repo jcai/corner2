@@ -1,0 +1,78 @@
+<module id="corner.blob" version="1.0.0" package="corner.orm.tapestry.service.blob">
+	<configuration-point id="BlobProvider">
+	定义了对blob服务的提供者。    
+    <schema>
+      <element name="provider">
+        <attribute name="name" required="true" unique="true">
+          一个blob服务的提供者的名字。
+        </attribute>
+        <attribute name="object" required="true" translator="object">
+          一个blob服务提供者。
+        </attribute>
+        <conversion class="BlobProviderContribution">
+          <map attribute="object" property="provider"/>
+        </conversion>
+      </element>
+    </schema>
+  </configuration-point>
+	<configuration-point id="BlobModel">
+	定义了对blob服务的提供者。    
+    <schema>
+      <element name="provider">
+        <attribute name="name" required="true" unique="true">
+          一个blob服务的提供者的名字。
+        </attribute>
+        <attribute name="className" required="true" translator="string">
+          一个blob服务提供者。
+        </attribute>
+        <conversion class="NameBlobProviderContribution">
+          <map attribute="className" property="providerClassName"/>
+        </conversion>
+      </element>
+    </schema>
+  </configuration-point>
+  
+  <!-- 提供一个tapestry的服务 -->
+  <contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="BlobService" object="service:BlobService"/>
+  </contribution>
+  
+	<service-point id="BlobService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="BlobService">
+				<set-object property="exceptionReporter"
+					value="infrastructure:requestExceptionReporter"/>
+				<set-object property="response" value="infrastructure:response"/>
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+				<set-object property="entityService"
+					value="spring:entityService"/>
+				<set-configuration property="contributions" configuration-id="BlobProvider"/>
+				<set-configuration property="nameProviderContributions" configuration-id="BlobModel"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+<!-- contribution -->
+<!-- 	
+  <contribution configuration-id="BlobProvider">
+    <provider name="session" object="service:SessionPropertyPersistenceStrategy"/>
+  </contribution>
+  <contribution configuration-id="BlobModel">
+    <provider name="mi" className="org.test.test"/>
+  </contribution>
+  
+	<service-point id="Blob"
+		interface="IBlobProvider">
+		<invoke-factory>
+			<construct class="ClassNameBlobProvider">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+				<set-configuration property="contributions" configuration-id="BlobProvider"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+  
+-->
+
+</module>
