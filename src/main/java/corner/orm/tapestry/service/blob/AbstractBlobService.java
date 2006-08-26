@@ -27,9 +27,7 @@ import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
 import corner.model.IBlobModel;
-import corner.orm.tapestry.service.blob.IBlobProvider;
 import corner.service.EntityService;
-import corner.util.BeanUtils;
 
 /**
  * 
@@ -81,9 +79,10 @@ public abstract class AbstractBlobService implements IEngineService {
 		String tableKey = cycle.getParameter(TABLE_KEY_VAR);
 
 		try {
-
+			//从blob提供者map中得到provider.
 			IBlobProvider provider = getBlobProviderMap().get(tableType);
-			if (provider == null) {
+			
+			if (provider == null) { //针对blob模型的处理
 				Class<? extends IBlobModel>clazz=getBlobModelClassesMap().get(tableType);
 				provider=new BlobModelBlobProvider(clazz);
 				
