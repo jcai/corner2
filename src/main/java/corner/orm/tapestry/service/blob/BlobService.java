@@ -19,11 +19,6 @@ import java.util.Map;
 
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.engine.IEngineService;
-import org.apache.tapestry.record.PropertyPersistenceStrategyContribution;
-
-import corner.orm.tapestry.service.blob.AbstractBlobService;
-import corner.orm.tapestry.service.blob.IBlobProvider;
-import corner.util.BeanUtils;
 
 /**
  * 
@@ -65,6 +60,7 @@ public class BlobService extends AbstractBlobService{
 	public void setNameProviderContributions(List nameProviderContributions) {
 		this.nameProviderContributions = nameProviderContributions;
 	}
+	@SuppressWarnings("unchecked")
 	public void initializeService()
     {
         Iterator i = _contributions.iterator();
