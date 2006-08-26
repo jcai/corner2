@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry.request.IUploadFile;
 import org.springframework.util.FileCopyUtils;
 
-import corner.model.AbstractBlobModel;
+import corner.model.IBlobModel;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
 
@@ -30,7 +30,7 @@ import corner.util.BeanUtils;
  * @version	$Revision$
  * @since	2006-1-20
  */
-public class BlobPageDelegate <T extends AbstractBlobModel>{
+public class BlobPageDelegate <T extends IBlobModel>{
 	private static final Log log=LogFactory.getLog(BlobPageDelegate.class);
 	private IUploadFile uploadFile;
 	private String keyValue;

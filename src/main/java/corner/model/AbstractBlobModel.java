@@ -21,7 +21,7 @@ package corner.model;
  * @version	$Revision$
  * @since	2006-1-20
  */
-public class AbstractBlobModel {
+public class AbstractBlobModel implements IBlobModel {
 
 	/**
 	 * blob数据.
@@ -36,18 +36,30 @@ public class AbstractBlobModel {
 	 */
 	private String contentType;
 	
+	/**
+	 * @see corner.model.IBlobModel#getBlobData()
+	 */
 	public byte[] getBlobData() {
 		return blobData;
 	}
 
+	/**
+	 * @see corner.model.IBlobModel#setBlobData(byte[])
+	 */
 	public void setBlobData(byte[] blobData) {
 		this.blobData = blobData;
 	}
 
+	/**
+	 * @see corner.model.IBlobModel#getContentType()
+	 */
 	public String getContentType() {
 		return contentType;
 	}
 
+	/**
+	 * @see corner.model.IBlobModel#setContentType(java.lang.String)
+	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}

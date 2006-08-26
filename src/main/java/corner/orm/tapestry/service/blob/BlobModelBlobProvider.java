@@ -12,6 +12,8 @@
 
 package corner.orm.tapestry.service.blob;
 
+import corner.model.IBlobModel;
+
 
 /**
  * 通过class的名称来创建一个blob的服务提供者.
@@ -19,9 +21,12 @@ package corner.orm.tapestry.service.blob;
  * @version $Revision$
  * @since 2.1
  */
-public class ClassNameBlobProvider extends AbstractBlobProvider {
+public class BlobModelBlobProvider extends AbstractBlobProvider {
 
 	private Class clazz;
+	public BlobModelBlobProvider(Class<? extends IBlobModel> clazz) {
+		this.clazz=clazz;
+	}
 	/**
 	 * @see corner.orm.tapestry.service.blob.AbstractBlobProvider#getBlobDataClass()
 	 */
@@ -29,7 +34,5 @@ public class ClassNameBlobProvider extends AbstractBlobProvider {
 	protected Class getBlobDataClass() {
 		return clazz;
 	}
-	public void setBlobDataClass(String blobDataClass) throws ClassNotFoundException{
-		this.clazz=Class.forName(blobDataClass);
-	}
+	
 }

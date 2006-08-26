@@ -2,7 +2,7 @@ package corner.orm.tapestry.service.blob;
 
 import java.io.Serializable;
 
-import corner.model.AbstractBlobModel;
+import corner.model.IBlobModel;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
 
@@ -15,7 +15,7 @@ import corner.util.BeanUtils;
  * @version	$Revision$
  * @since	2006-1-20
  */
-public abstract class AbstractBlobProvider<T extends AbstractBlobModel> implements IBlobProvider {
+public abstract class AbstractBlobProvider<T extends IBlobModel> implements IBlobProvider {
 	
 	/**blob数据模型对象**/
 	private T blobData;

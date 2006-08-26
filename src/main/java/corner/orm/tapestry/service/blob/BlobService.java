@@ -20,6 +20,8 @@ import java.util.Map;
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.engine.IEngineService;
 
+import corner.model.IBlobModel;
+
 /**
  * 
  * 扩展tapestry的EngineService,提供了对blob的处理.
@@ -33,7 +35,7 @@ import org.apache.tapestry.engine.IEngineService;
  */
 public class BlobService extends AbstractBlobService{
 	private Map<String, IBlobProvider> LOB_PROVIDERS = new HashMap<String, IBlobProvider>();
-	private Map<String,Class<? extends IBlobProvider>> LOB_PROVIDER_CLASSES=new HashMap<String,Class<? extends IBlobProvider>>();
+	private Map<String,Class<? extends IBlobModel>> LOB_MODEL_CLASSES=new HashMap<String,Class<? extends IBlobModel>>();
 //	static {
 //		LOB_PROVIDER_CLAZZS.put("MiImageBlob", MiImageBlobProvider.class);
 //		LOB_PROVIDER_CLAZZS.put("MiDocumentBlob", MiDocumentBlobProvider.class);
@@ -46,8 +48,8 @@ public class BlobService extends AbstractBlobService{
 	protected Map<String, IBlobProvider> getBlobProviderMap(){
 		return LOB_PROVIDERS;
 	}
-	protected Map<String, Class<? extends IBlobProvider>> getBlobProviderClassesMap(){
-		return LOB_PROVIDER_CLASSES;
+	protected Map<String, Class<? extends IBlobModel>> getBlobModelClassesMap(){
+		return LOB_MODEL_CLASSES;
 	}
 //	 Set from tapestry.props.PersistenceStrategy
     private List _contributions;
@@ -84,7 +86,7 @@ public class BlobService extends AbstractBlobService{
 				throw new ApplicationRuntimeException(e);
 			}
         	
-        	LOB_PROVIDER_CLASSES.put(c.getName(),clazz);
+			LOB_MODEL_CLASSES.put(c.getName(),clazz);
         }
     }
     public void setContributions(List contributions)

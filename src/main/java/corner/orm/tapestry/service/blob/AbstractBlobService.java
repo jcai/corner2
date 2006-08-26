@@ -26,6 +26,7 @@ import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
+import corner.model.IBlobModel;
 import corner.orm.tapestry.service.blob.IBlobProvider;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
@@ -73,7 +74,7 @@ public abstract class AbstractBlobService implements IEngineService {
 		return _linkFactory.constructLink(this, false, parameters, false);
 	}
 	protected abstract Map<String,IBlobProvider> getBlobProviderMap();
-	protected abstract Map<String, Class<? extends IBlobProvider>> getBlobProviderClassesMap();
+	protected abstract Map<String, Class<? extends IBlobModel>> getBlobModelClassesMap();
 
 	public void service(IRequestCycle cycle) throws IOException {
 		String tableType = cycle.getParameter(TABLE_TYPE_VAR);
@@ -83,8 +84,10 @@ public abstract class AbstractBlobService implements IEngineService {
 
 			IBlobProvider provider = getBlobProviderMap().get(tableType);
 			if (provider == null) {
-				Class<? extends IBlobProvider>clazz=getBlobProviderClassesMap().get(tableType);
-				provider=BeanUtils.instantiateClass(clazz);
+				Class<? extends IBlobModel>clazz=getBlobModelClassesMap().get(tableType);
+				provider=new BlobModelBlobProvider(clazz);
+				
+				
 				
 			}
 
