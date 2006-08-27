@@ -1,0 +1,17 @@
+<div style="position: relative; width: 800px; height: 600px;"
+    dojoAttachPoint="matrixContainer">
+    <Textarea id="sumTextarea" cols="40" rows="20" dojoAttachPoint="sumTextarea">
+    </textarea>
+    <table dojoAttachPoint="toolBar">
+    	<tr>
+            <td><input type="button" dojoAttachPoint="addRowBtn" value="增加行" dojoAttachEvent="onClick:addRow"/></td>
+            <td><input type="button" dojoAttachPoint="addColBtn" value="增加列" dojoAttachEvent="onClick:addColumn"/></td>
+           <!-- <td><input type="button" dojoAttachEvent="onClick:sumValue" value="Value"/></td> -->
+            
+        </tr>
+    </table>
+    <table dojoAttachPoint="matrixTable">
+    </table>
+
+    
+</div>      

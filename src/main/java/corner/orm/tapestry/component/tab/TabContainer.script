@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+  
+<script>
+<input-symbol key="clientId"  class="java.lang.String" required="yes"/>
+<input-symbol key="props"  class="java.lang.String" required="yes"/>
+<input-symbol key="tabs"  class="java.lang.String" required="yes"/>
+<input-symbol key="selectedWidgetId"  class="java.lang.String" />
+
+
+<body><unique>dojo.require("dojo.widget.TabContainer");dojo.require("dojo.widget.LayoutContainer");</unique></body>
+<initialization>
+var ${clientId}Tabs=${tabs};
+var ${clientId}container=dojo.widget.createWidget("TabContainer",${props},dojo.byId("${clientId}"));
+if (!dojo.lang.isArray(${clientId}Tabs)) {
+	dojo.raise('no tabs array '+tabs);
+}
+dojo.lang.forEach(${clientId}Tabs,function(t){${clientId}container.addChild(dojo.widget.byId(t));});
+var ${clientId}selectedWidgetId="${selectedWidgetId}";
+if(${clientId}selectedWidgetId.length>0){
+	${clientId}container.selectTab(dojo.widget.byId(${clientId}selectedWidgetId));
+}
+</initialization>
+</script>
+

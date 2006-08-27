@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+  
+<script>
+<include-script resource-path="SlideMenu.js"/>
+<input-symbol key="slideMenuId"  class="java.lang.String" required="yes"/>
+<input-symbol key="menuBarId"  class="java.lang.String" required="yes"/>
+
+<input-symbol key="top"  class="java.lang.Integer" required="yes"/>
+<input-symbol key="speed"  class="java.lang.Integer" required="yes"/>
+<body>
+dojo.require("corner.menu.slide");
+</body>
+<initialization>
+var slideMenu=new corner.menu.slide('${slideMenuId}');
+slideMenu.setTop(${top});
+slideMenu.setSpeed(${speed});
+slideMenu.setMenuBarId('${menuBarId}');
+slideMenu.buildMenu();
+</initialization>
+</script>
+

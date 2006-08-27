@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE library-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+	
+<library-specification>
+
+  <meta key="org.apache.tapestry.component-class-packages" value="corner.orm.component.component"/>
+
+  
+  <component-type type="DropdownMenu" specification-path="menu/DropdownMenu.jwc"/>
+  <component-type type="SlideMenu" specification-path="menu/SlideMenu.jwc"/>
+
+  <component-type type="TabContainer" specification-path="tab/TabContainer.jwc"/>
+  <component-type type="ContentPane" specification-path="tab/ContentPane.jwc"/>
+
+  
+</library-specification>

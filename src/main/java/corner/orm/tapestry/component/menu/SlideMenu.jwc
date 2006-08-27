@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<component-specification class="corner.orm.tapestry.component.menu.SlideMenu" allow-body="yes" allow-informal-parameters="yes">
+    <inject property="script" type="script" object="SlideMenu.script"/>
+    <parameter name="slideMenuId" required="no">
+  		<description>滑动菜单的ID</description>
+	</parameter>
+
+    <parameter name="menuBarId" required="yes">
+  		<description>出现菜单条的ID</description>
+	</parameter>
+    <parameter name="top" required="no" default-value="ognl:100">
+  		<description>距离上面的位置</description>
+	</parameter>
+    <parameter name="speed" required="no" default-value="ognl:20">
+  		<description>滑动的速度</description>
+	</parameter>
+    
+	<parameter name="element" default-value="ognl:templateTag">
+        <description>
+            The element to emulate.
+        </description>
+    </parameter>
+    <parameter name="templateTag">
+        <description>
+            The tag used to add this component in a template.
+        </description>
+    </parameter>
+</component-specification>

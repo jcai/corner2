@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<component-specification class="corner.orm.tapestry.component.menu.DropdownMenu" allow-body="yes" allow-informal-parameters="yes">
+    <inject property="script" type="script" object="DropdownMenu.script"/>
+    <parameter name="popMenuDivId" required="yes">
+  		<description>pop菜单层的id</description>
+	</parameter>
+
+    <parameter name="menuId" required="no">
+  		<description>菜单的ID</description>
+	</parameter>
+    <parameter name="selected" required="no">
+  		<description>所是否选中</description>
+	</parameter>
+	<parameter name="element" default-value="ognl:templateTag">
+        <description>
+            The element to emulate.
+        </description>
+    </parameter>
+    <parameter name="templateTag">
+        <description>
+            The tag used to add this component in a template.
+        </description>
+    </parameter>
+</component-specification>

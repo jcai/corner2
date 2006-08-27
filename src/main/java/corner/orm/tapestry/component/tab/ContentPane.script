@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+  
+<script>
+<input-symbol key="clientId"  class="java.lang.String" required="yes"/>
+<input-symbol key="props"  class="java.lang.String" required="yes"/>
+<body><unique>dojo.require("dojo.widget.ContentPane");</unique></body>
+<initialization>var ${clientId}Pane=dojo.widget.createWidget("ContentPane",${props},dojo.byId("${clientId}"));</initialization>
+</script>
+
