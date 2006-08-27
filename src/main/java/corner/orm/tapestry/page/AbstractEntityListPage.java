@@ -59,7 +59,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	public abstract void setSelectedEntities(List<T> list);
 
 
-	public boolean getCheckboxSelected() {
+	public boolean isCheckboxSelected() {
 		return this.getSelectedEntities().contains(getEntity());
 	}
 

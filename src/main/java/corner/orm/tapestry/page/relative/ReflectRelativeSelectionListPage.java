@@ -57,10 +57,10 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 */
 	public abstract boolean isInverse();
 	public abstract void setInverse(boolean inverse);
-
 	/**
 	 * 判断是否选中。
 	 * @return 是否选中
+	 * @see corner.orm.tapestry.page.AbstractEntityListPage#isCheckboxSelected()
 	 */
 	public boolean isCheckboxSelected(){
 		if(isInverse())
