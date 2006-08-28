@@ -12,6 +12,7 @@
 
 package corner.orm.tapestry.page.relative;
 
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -56,6 +57,15 @@ public abstract class AbstractReflectRelativeMidEntityFormPage<T,E,F> extends Ab
 			throw new IllegalStateException("many 端的实体对象为空,清定义 thirdObject！");
 		}
 		return session.createCriteria(this.getThirdObject().getClass());
+	}
+	/**
+	 * 响应查询的操作.
+	 * @return 当前页
+	 * @since 2.0
+	 */
+	public IPage doQueryEntityAction(){
+		this.setQueryEntity(this.getQueryEntity()); //纠正tapestry不能够记录实例化的属性。
+		return this;
 	}
 	/**
 	 * 得到列表的source
