@@ -39,7 +39,11 @@ public abstract class ReflectRelativeEntityFormPage extends
 	 */
 	@Override
 	protected void saveOrUpdateEntity() {
-		BeanUtils.setProperty(getEntity(),getRelativePropertyName(),this.getRootedObject());
+		try{
+			BeanUtils.setProperty(getEntity(),getRelativePropertyName(),this.getRootedObject());
+		}catch(RuntimeException e){
+			throw new IllegalStateException("向["+getEntity()+"]通过属性["+getRelativePropertyName()+"]设定值["+this.getRootedObject()+"]赋值失败!",e);
+		}
 		super.saveOrUpdateEntity();
 		this.flushHibernate();
 	}

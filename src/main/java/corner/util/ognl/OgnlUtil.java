@@ -118,7 +118,7 @@ public class OgnlUtil {
 		Object value,
 		Object o,
 		Map context) {
-		setProperty(name, value, o, context, false);
+		setProperty(name, value, o, context, true);
 	}
 	/**
 	 * 设定bean的属性.
@@ -221,21 +221,21 @@ public class OgnlUtil {
 		try {
 			Ognl.setValue(compile(name), context, o, value);
 		} catch (OgnlException e) {
-//			Throwable reason = e.getReason();
-//			String msg =
-//				"Caught OgnlException while setting property '"
-//					+ name
-//					+ "' on type '"
-//					+ o.getClass().getName()
-//					+ "'.";
-////			Throwable exception = (reason == null) ? e : reason;
-////
-////			if (throwPropertyExceptions) {
-////				log.error(msg, exception);
-////				throw new RuntimeException(msg);
-////			} else {
-////				log.warn(msg, exception);
-////			}
+			Throwable reason = e.getReason();
+			String msg =
+				"Caught OgnlException while setting property '"
+					+ name
+					+ "' on type '"
+					+ o.getClass().getName()
+					+ "'.";
+			Throwable exception = (reason == null) ? e : reason;
+
+			if (throwPropertyExceptions) {
+				log.error(msg, exception);
+				throw new RuntimeException(msg);
+			} else {
+				log.warn(msg, exception);
+			}
 		}
 	}
 
