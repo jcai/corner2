@@ -77,7 +77,7 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	 * @author Jun Tsai
 	 */
 	public IPage goRootFormPage(){
-		return this.goEntityPage(this.getRootedObject(), this.getRootFormPage());
+		return this.goEntityPageByPage(this.getRootedObject(), this.getRootFormPage());
 	}
 
 	/**

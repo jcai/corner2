@@ -97,22 +97,24 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	@SuppressWarnings("unchecked")
 	public <E> EntityPage<E> goEntityPage(E e,String pageName){
 		EntityPage<E> page=(EntityPage<E>) this.getRequestCycle().getPage(pageName);
-		return this.goEntityPage(e, page);
+		return this.goEntityPageByPage(e, page);
 	}
+	
+	
 	/**
 	 * 提供entity页面的跳转
-	 * @see corner.orm.tapestry.page.EntityPage#goEntityPage(java.lang.Object, java.lang.String)
+	 * 
 	 * @since 2.1
+	 * @see corner.orm.tapestry.page.EntityPage#goEntityPageByPage(java.lang.Object, corner.orm.tapestry.page.EntityPage)
 	 */
-	@SuppressWarnings("unchecked")
-	public <E> EntityPage<E> goEntityPage(E e,EntityPage<E> page){
+	public <E> EntityPage<E> goEntityPageByPage(E e, EntityPage<E> page) {
 		if(page==null){
 			throw new IllegalArgumentException("待跳转的页面为空!");
 		}
 		page.setEntity(e);
 		return page;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @return
