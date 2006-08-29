@@ -61,7 +61,7 @@ public abstract class ReflectMultiManyEntityFormPage extends
 	protected void deleteRelationship(Object t, Object e, String relativeName) {
 		if(relativeName==null){
 			// 得到属性的名称，譬如：groups,users 注意后面的复数s。
-			String name = EntityConverter.getShortClassName(t);
+			String name = EntityConverter.getShortClassName(e);
 	
 			StringBuffer sb = new StringBuffer();
 			sb.append(Character.toLowerCase(name.charAt(0)));

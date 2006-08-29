@@ -96,7 +96,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		}
 		Collection<Object> c = (Collection<Object>) BeanUtils.getProperty(t, relativeName);
 		if(c==null){
-			throw new IllegalStateException("从["+e+"],通过关系["+relativeName+"]得到的集合为空！");
+			throw new IllegalStateException("从["+t+"],通过关系["+relativeName+"]得到的集合为空！");
 		}
 		c.remove(e);
 		this.getEntityService().saveOrUpdateEntity(t);
