@@ -41,6 +41,8 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 
 	private EntityService entityService;
 
+	private boolean isRewinding;
+
 	/**
 	 * @deprecated Use {@link #RelativePersistentBasicTableModel(EntityService,T,String,boolean)} instead
 	 */
@@ -60,6 +62,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 		this.rootedObj = rootedObj;
 		this.relativeProName = relativeProName;
 		this.entityService = entityService;
+		this.isRewinding=isRewinding;
 	}
 
 	private Collection getRelativeCollection() {
@@ -71,7 +74,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 	 * @see org.apache.tapestry.contrib.table.model.IBasicTableModel#getRowCount()
 	 */
 	public int getRowCount() {
-
+		if(isRewinding){
+			return rows;
+		}
 		if (rows == -1) {
 			final Collection c = this.getRelativeCollection();
 			if (c == null) {
@@ -101,6 +106,10 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 	 */
 	public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
 			final ITableColumn column, final boolean sort) {
+		if(isRewinding){
+			return null;
+		}
+		
 		final Collection c = this.getRelativeCollection();
 		if (c == null) {
 			return Collections.EMPTY_LIST.iterator();
