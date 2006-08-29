@@ -44,7 +44,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 	 * @return table model
 	 */
 	public  IBasicTableModel getSource(String relativePropertyName){
-		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getEntity(),relativePropertyName);
+		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getEntity(),relativePropertyName,this.getRequestCycle().isRewinding());
 	}
 
 	/**

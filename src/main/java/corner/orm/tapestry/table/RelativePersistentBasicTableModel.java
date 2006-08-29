@@ -41,8 +41,22 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 
 	private EntityService entityService;
 
+	/**
+	 * @deprecated Use {@link #RelativePersistentBasicTableModel(EntityService,T,String,boolean)} instead
+	 */
 	public RelativePersistentBasicTableModel(EntityService entityService,
 			T rootedObj, String relativeProName) {
+				this(entityService, rootedObj, relativeProName, false);
+	}
+	/**
+	 * 根据isRewinding来产生一个列表
+	 * @param entityService 实体服务类
+	 * @param rootedObj 根对象.
+	 * @param relativeProName 关联的属性.
+	 * @param isRewinding 是否为rewinding
+	 */
+	public RelativePersistentBasicTableModel(EntityService entityService,
+			T rootedObj, String relativeProName, boolean isRewinding) {
 		this.rootedObj = rootedObj;
 		this.relativeProName = relativeProName;
 		this.entityService = entityService;
