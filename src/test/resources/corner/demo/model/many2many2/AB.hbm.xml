@@ -4,7 +4,12 @@
 <hibernate-mapping auto-import="false">
   <class table="many2many2AB" name="corner.demo.model.many2many2.AB">
     <cache usage="read-write"/>
-    <many-to-one fetch="select" column="A" name="a" class="corner.demo.model.many2many2.A"/>
-    <many-to-one fetch="select" column="B" name="b" class="corner.demo.model.many2many2.B"/>
+    <id name="id">
+      <generator class="uuid"/>
+    </id>
+    <many-to-one fetch="select" column="AId" name="a" class="corner.demo.model.many2many2.A"/>
+    <many-to-one fetch="select" column="BId" name="b" class="corner.demo.model.many2many2.B"/>
+    <property name="message"/>
+    <property name="name"/>
   </class>
 </hibernate-mapping>

@@ -12,7 +12,7 @@
 
 package corner.demo.model.many2many2;
 
-import java.io.Serializable;
+import corner.demo.model.AbstractModel;
 
 /**
  * @author Ghost
@@ -22,7 +22,7 @@ import java.io.Serializable;
  * @hibernate.cache usage="read-write"
  * @hibernate.mapping auto-import="false" 
  */
-public class AB implements Serializable {
+public class AB extends AbstractModel{
 
 	/**
 	 * 
@@ -30,18 +30,19 @@ public class AB implements Serializable {
 	private static final long serialVersionUID = 1555102955247011594L;
 
 	/**
-	 * @hibernate.many-to-one class="corner.demo.model.many2many2.A" column="A" fetch="select"
+	 * @hibernate.many-to-one class="corner.demo.model.many2many2.A" column="AId" fetch="select"
 	 */
 	private A a;
 
 	/**
-	 * @hibernate.many-to-one class="corner.demo.model.many2many2.B" column="B" fetch="select"
+	 * @hibernate.many-to-one class="corner.demo.model.many2many2.B" column="BId" fetch="select"
 	 */
 	private B b;
 	
 	/**
 	 * 中间表中的信息
 	 * <p>用于纪录中间表中的信息</p>
+	 * @hibernate.property
 	 */
 	private String message;
 	

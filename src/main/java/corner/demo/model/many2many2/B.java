@@ -31,24 +31,22 @@ public class B extends AbstractModel {
 	 */
 	private static final long serialVersionUID = -7691586213111454181L;
 	/**
-	 * 和A对象之间的one-2-many的关联
+	 * 和AB对象之间的one-2-many的关联
 	 * @hibernate.set inverse="true" cascade="all-delete-orphan"
-	 * @hibernate.key column="B"
-	 * @hibernate.one-to-many class="corner.demo.model.many2many2.A"
+	 * @hibernate.key column="BId"
+	 * @hibernate.one-to-many class="corner.demo.model.many2many2.AB"
 	 */
-	private Set<A> as;
-
+	private Set<AB> abs;
 	/**
-	 * @return Returns the as.
+	 * @return Returns the abs.
 	 */
-	public Set<A> getAs() {
-		return as;
+	public Set<AB> getAbs() {
+		return abs;
 	}
-
 	/**
-	 * @param as The as to set.
+	 * @param abs The abs to set.
 	 */
-	public void setAs(Set<A> as) {
-		this.as = as;
+	public void setAbs(Set<AB> abs) {
+		this.abs = abs;
 	}
 }
