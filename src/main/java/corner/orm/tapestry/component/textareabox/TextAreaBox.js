@@ -70,8 +70,8 @@ dojo.widget.defineWidget(
 		},
 		//overwirte the default Html templete URL,use our Html templete instead
 		//指定自己的html模版文件
-		templatePath: dojo.uri.dojoUri("../com/tapestry/demo/components/TextAreaBox.html"),
-		templateCssPath: dojo.uri.dojoUri("../com/tapestry/demo/components/TextAreaBox.css"),
+		templatePath: dojo.uri.dojoUri("../corner/orm/tapestry/component/textareabox/TextAreaBox.html"),
+		templateCssPath: dojo.uri.dojoUri("../corner/orm/tapestry/component/textareabox/TextAreaBox.css"),
 		startSearchFromInput: function(){
 			var searchStr = this.textInputNode.value
 			if(searchStr != null && searchStr.length>0 && searchStr.search(';')>-1){
