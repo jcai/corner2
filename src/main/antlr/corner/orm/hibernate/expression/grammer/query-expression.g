@@ -28,6 +28,7 @@ options{
 tokens{
 	AND="and";
 	OR="or";
+	WAVE="~";
 }
 {
 	private CreateCriterionCallback callback;
@@ -55,7 +56,7 @@ expression:
 	t:WORD{this.callback.doCreateCriterion(" ",t.getText());} (term)* EOF;
 term:
 	{final String expression;final String value;}
-	(mA:AND {expression=mA.getText();}|mO:OR {expression=mO.getText();}) n:WORD{value=n.getText();}
+	(mA:AND {expression=mA.getText();}|mO:OR {expression=mO.getText();}|mW:WAVE {expression=mW.getText();}) n:WORD{value=n.getText();}
 	{this.callback.doCreateCriterion(expression,value);}
 	;
 class QueryExpressionLexer extends Lexer;
