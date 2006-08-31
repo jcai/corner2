@@ -7,7 +7,7 @@
   <property initial-value="new corner.demo.model.one2many.A()" name="entity"/>
   <property persist="client" initial-value="new corner.demo.model.one2many.A()" name="queryEntity"/>
   <component type="Form" id="AQueryForm">
-    <binding value="listener:queryEntity" name="listener"/>
+    <binding value="listener:doQueryEntityAction" name="listener"/>
     <binding value="ognl:beans.delegate" name="delegate"/>
   </component>
   <component type="TextField" id="nameField">

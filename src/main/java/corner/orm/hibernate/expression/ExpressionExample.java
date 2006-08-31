@@ -167,29 +167,31 @@ public class ExpressionExample extends Example {
 					buf.append(" (");
 					parser.expression();
 
-					for (String exp : exps) {
-						if (wave && set.size() == 2) {
-							Iterator it = set.iterator();
-							// >
-							crit = Restrictions.gt(propertyName, it.next());
-							appendSqlCondition(crit, criteria, cq, buf);
+					if (wave && set.size() == 2) { //对波浪号进行处理
+						Iterator it = set.iterator();
+						// >
+						crit = Restrictions.gt(propertyName, it.next());
+						appendSqlCondition(crit, criteria, cq, buf,"");
+						
+						//<
+						crit = Restrictions.lt(propertyName, it.next());
+						appendSqlCondition(crit, criteria, cq, buf);
+						
+						
+						
+					} else {
+						for (String exp : exps) {
 							
-							//<
-							crit = Restrictions.lt(propertyName, it.next());
-							appendSqlCondition(crit, criteria, cq, buf);
+								crit = isLikeEnabled ? Restrictions.like(
+										propertyName, value) : Restrictions.eq(
+										propertyName, value);
+								if (isIgnoreCaseEnabled) {
+									((SimpleExpression) crit).ignoreCase();
+								}
+								appendSqlCondition(crit, criteria, cq, buf, exp);
 							
-							
-							
-						} else {
-							crit = isLikeEnabled ? Restrictions.like(
-									propertyName, value) : Restrictions.eq(
-									propertyName, value);
-							if (isIgnoreCaseEnabled) {
-								((SimpleExpression) crit).ignoreCase();
-							}
-							appendSqlCondition(crit, criteria, cq, buf, exp);
+	
 						}
-
 					}
 
 					buf.append(" ) ");
