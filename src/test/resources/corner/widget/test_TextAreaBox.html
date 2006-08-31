@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Dojo ComboBox Widget Demo</title>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../../../main/js/corner/widget/TextAreaBox.js"></script>
+<script type="text/javascript">
+	dojo.require("corner.widget.TextAreaBox");
+	dojo.require("dojo.widget.Select");
+</script>
+</head>
+
+<body>
+	<div id="tab"></div>
+	<div id="tab1"></div>
+</body>
+		<script language="javascript">
+			var props = {dataUrl:"TextAreaBoxData.js"};
+			dojo.widget.createWidget("TextAreaBox",props,dojo.byId("tab"));
+			dojo.widget.createWidget("Select",props,dojo.byId("tab1"));
+			dojo.debug(dojo.widget.Select);
+			dojo.debug(corner.widget.TextAreaBox);			
+		</script>
+</html>
