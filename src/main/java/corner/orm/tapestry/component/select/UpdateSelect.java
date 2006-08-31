@@ -41,7 +41,7 @@ public abstract class UpdateSelect extends AbstractComponent {
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
-		getScript().execute(cycle,pageRenderSupport,new HashMap());
+		getScript().execute(this,cycle,pageRenderSupport,new HashMap());
 		
 		String element = getElement();
 
