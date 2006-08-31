@@ -27,6 +27,12 @@ import org.apache.tapestry.services.DataSqueezer;
 
 import corner.service.EntityService;
 
+/**
+ * 提供一个供用户选择实体
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @version $Revision$
+ * @since 2.1
+ */
 public abstract class UpdateSelect extends AbstractComponent {
 
 	/**
@@ -81,7 +87,7 @@ public abstract class UpdateSelect extends AbstractComponent {
             writer.attribute("onClick",sb.toString());
             
             writer.attribute("style","cursor:hand;cursor:pointer");
-//            writer.attribute("style","cursor=hand");
+
             
             renderInformalParameters(writer, cycle);
         }
