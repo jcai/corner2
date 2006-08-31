@@ -12,10 +12,9 @@ djConfig = { isDebug: true
 //-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
-<script type="text/javascript" src="../../../../main/js/corner/widget/TextAreaBox.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript">
 	dojo.require("corner.widget.TextAreaBox");
-	dojo.require("dojo.widget.Select");
 </script>
 </head>
 
@@ -27,7 +26,7 @@ djConfig = { isDebug: true
 			var props = {dataUrl:"TextAreaBoxData.js"};
 			dojo.widget.createWidget("TextAreaBox",props,dojo.byId("tab"));
 			dojo.widget.createWidget("Select",props,dojo.byId("tab1"));
-			dojo.debug(dojo.widget.Select);
-			dojo.debug(corner.widget.TextAreaBox);			
+			//dojo.debug(dojo.widget.Select);
+			//dojo.debug(corner.widget.TextAreaBox);			
 		</script>
 </html>

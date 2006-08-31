@@ -18,6 +18,7 @@
   <component-type type="TabContainer" specification-path="tab/TabContainer.jwc"/>
   <component-type type="ContentPane" specification-path="tab/ContentPane.jwc"/>
   <component-type type="UpdateSelect" specification-path="select/UpdateSelect.jwc"/>
+  <component-type type="UpdateSelect" specification-path="textareabox/TextAreaBox.jwc"/>
 
   
 </library-specification>
