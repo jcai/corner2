@@ -7,7 +7,7 @@
   
   <property name="thirdObject" initial-value="new corner.demo.model.many2many2.B()" />
   <!-- 设定返回的根页面 -->
-  <inject property="rootFormPage" type="page" object="many2many2/AForm"/>
+  <inject property="rootFormPage" type="page" object="many2many2/ABList"/>
   
   <property persist="entity" initial-value="new corner.demo.model.many2many2.AB()" name="entity"/>
   <component type="Form" id="ABForm">
