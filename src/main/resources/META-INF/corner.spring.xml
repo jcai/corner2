@@ -1,0 +1,10 @@
+<module id="corner.spring" version="1.0.0" package="corner.orm.hivemind">
+	<implementation service-id="hivemind.lib.DefaultSpringBeanFactoryHolder">
+		<invoke-factory>
+			<construct autowire-services="false"
+				class="SpringBeanFactoryHolderImpl">
+				<event-listener service-id="hivemind.ShutdownCoordinator"/>
+			</construct>
+		</invoke-factory>
+	</implementation>
+</module>

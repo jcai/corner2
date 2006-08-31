@@ -15,22 +15,18 @@
       </element>
     </schema>
   </configuration-point>
-	<configuration-point id="BlobModel">
-	定义了对blob服务的提供者。    
-    <schema>
-      <element name="model">
-        <attribute name="name" required="true" unique="true">
-          一个blob服务的提供者的名字。
-        </attribute>
-        <attribute name="className" required="true" translator="null">
-          一个blob服务提供者。
-        </attribute>
-        <conversion class="NameBlobProviderContribution">
-          <map attribute="className" property="providerClassName"/>
-        </conversion>
-      </element>
-    </schema>
-  </configuration-point>
+	<configuration-point id="BlobModel"> 定义了对blob服务的提供者。
+		<schema>
+			<element name="model">
+				<attribute name="name" required="true" unique="true">
+					一个blob服务的提供者的名字。 </attribute>
+				<attribute name="className" required="true" translator="null">
+					一个blob服务提供者。 </attribute>
+				<conversion class="NameBlobProviderContribution">
+					<map attribute="className" property="providerClassName"/>
+				</conversion>
+			</element>
+		</schema> </configuration-point>
   
   <!-- 提供一个tapestry的服务 -->
   <contribution configuration-id="tapestry.services.ApplicationServices">

@@ -1,0 +1,77 @@
+<module id="corner.persist" version="1.0.0" package="corner.orm.tapestry.record">
+	
+	<!--
+	====================================================================================================================
+	property persistence strategy
+	====================================================================================================================
+	-->
+	<contribution configuration-id="tapestry.persist.PersistenceStrategy">
+		<strategy name="entity"
+			object="service:EntityPageClientPropertyPersistenceStrategy"/>
+		<strategy name="entity:page"
+			object="service:EntityPageClientPropertyPersistenceStrategy"/>
+		<strategy name="entity:app"
+			object="service:EntityAppClientPropertyPersistenceStrategy"/>
+		
+	</contribution>
+	
+	<service-point id="EntityPageClientPropertyPersistenceStrategy"
+		interface="org.apache.tapestry.record.PropertyPersistenceStrategy">
+		Stores persistent properties on the client, as either hidden form fields, or as query
+		parameters. Persistent data for each page is stored in a seperate query parameter.
+		The service stores client-specific state internally, and so it must use the threaded
+		service model.
+		
+		<invoke-factory model="threaded">
+			<construct class="HibernateClientPropertyPersistenceStrategy">
+				<set-object property="request" value="infrastructure:request"/>
+				<set-object property="scope"
+					value="service:EntityPageClientPropertyPersistenceScope"/>
+				<set-object property="encoder"
+					value="service:tapestry.persist.PersistentPropertyDataEncoder"/>
+				<set-object property="dataSqueezer"
+					value="service:tapestry.data.DataSqueezer"/>
+			</construct>
+		</invoke-factory> </service-point>
+	<service-point id="EntityPageClientPropertyPersistenceScope"
+		interface="org.apache.tapestry.record.ClientPropertyPersistenceScope">
+		Stores client persistent properties only if the page remains the same. When a new page
+		is activated and rendered, the values for other pages are discarded.
+		
+		<invoke-factory>
+			<construct class="EntityPageClientPropertyPersistenceScope">
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+			</construct>
+		</invoke-factory> </service-point>
+	
+	<service-point id="EntityAppClientPropertyPersistenceStrategy"
+		interface="org.apache.tapestry.record.PropertyPersistenceStrategy">
+		Stores persistent properties on the client, as either hidden form fields, or as query
+		parameters. Persistent data for each page is stored in a seperate query parameter.
+		The service stores client-specific state internally, and so it must use the threaded
+		service model.
+		
+		<invoke-factory model="threaded">
+			<construct class="HibernateClientPropertyPersistenceStrategy">
+				<set-object property="request" value="infrastructure:request"/>
+				<set-object property="scope"
+					value="service:EntityAppClientPropertyPersistenceScope"/>
+				<set-object property="encoder"
+					value="service:tapestry.persist.PersistentPropertyDataEncoder"/>
+				<set-object property="dataSqueezer"
+					value="service:tapestry.data.DataSqueezer"/>
+			</construct>
+		</invoke-factory> </service-point>
+	<service-point id="EntityAppClientPropertyPersistenceScope"
+		interface="org.apache.tapestry.record.ClientPropertyPersistenceScope">
+		Stores client persistent properties only if the page remains the same. When a new page
+		is activated and rendered, the values for other pages are discarded.
+		
+		<invoke-factory>
+			<construct class="EntityPageClientPropertyPersistenceScope">
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+			</construct>
+		</invoke-factory> </service-point>
+</module>

@@ -1,0 +1,42 @@
+<module id="corner.squeezer" version="1.0.0" package="corner.orm.tapestry.data">
+	<!--
+	====================================================================================================================
+	Custom "squeezer" for hibernate-managed entities (turns squeezer service into a pipeline)
+	====================================================================================================================
+	-->
+	<service-point id="DataSqueezerTerminator" visibility="private"
+		interface="org.apache.tapestry.services.DataSqueezer">
+		<invoke-factory>
+			<construct class="org.apache.tapestry.util.io.DataSqueezerImpl">
+				<set-configuration property="squeezeAdaptors"
+					configuration-id="tapestry.data.SqueezeAdaptors"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<implementation service-id="tapestry.data.DataSqueezer">
+		<invoke-factory service-id="hivemind.lib.PipelineFactory">
+			<create-pipeline filter-interface="DataSqueezerFilter"
+				configuration-id="DataSqueezerFilters"
+				terminator="service:DataSqueezerTerminator"/>
+		</invoke-factory>
+	</implementation>
+	
+	<service-point id="HibernateSqueezerFilter" interface="DataSqueezerFilter">
+		<invoke-factory>
+			<construct class="HibernateSqueezerFilter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<configuration-point id="DataSqueezerFilters"
+		schema-id="hivemind.lib.Pipeline"> Allows you to plug in your own custom data
+		squeezers in front of the default Tapestry data squeezer. </configuration-point>
+	
+	<contribution configuration-id="DataSqueezerFilters">
+		<filter name="HibernateSqueezerFilter"
+			object="service:HibernateSqueezerFilter"/>
+	</contribution>
+</module>

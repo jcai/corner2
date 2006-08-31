@@ -26,15 +26,15 @@ import org.apache.tapestry.valid.ValidatorException;
  * @version $Revision$
  * @since 2.1
  */
-public class QuerStringDateTranslator extends AbstractTranslator{
-	public QuerStringDateTranslator()
+public class QueryStringDateTranslator extends AbstractTranslator{
+	public QueryStringDateTranslator()
     {
        
     }
 
     
 
-    public QuerStringDateTranslator(String initializer)
+    public QueryStringDateTranslator(String initializer)
     {
         PropertyUtils.configureProperties(this, initializer);
     }

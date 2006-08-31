@@ -1,0 +1,8 @@
+<module id="corner.validator" version="1.0.0"
+	package="corner.orm.tapestry.validator">
+	
+	<!--  validator -->
+	<contribution configuration-id="tapestry.form.validator.Validators">
+		<validator name="numPattern" class="NumPattern"/>
+	</contribution>
+</module>

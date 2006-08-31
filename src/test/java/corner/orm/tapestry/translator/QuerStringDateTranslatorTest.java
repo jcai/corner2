@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 public class QuerStringDateTranslatorTest extends TestCase {
 
 	public void testParseTextIFormComponentValidationMessagesString() throws ValidatorException {
-		QuerStringDateTranslator translator=new QuerStringDateTranslator();
+		QueryStringDateTranslator translator=new QueryStringDateTranslator();
 		String clientStr="20050607~20080901";
 		String result=(String) translator.parse(null,null,clientStr);
 		assertEquals("20050607 ~ 20080901",result);

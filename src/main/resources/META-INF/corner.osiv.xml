@@ -1,0 +1,22 @@
+<module id="corner.osiv" version="1.0.0" package="corner.orm.tapestry.filter">
+	<service-point id="CornerOneSessionPerQuestFilter"
+		interface="org.apache.tapestry.services.WebRequestServicerFilter">
+		<invoke-factory>
+			<construct class="OneSessionPerServletRequestFilter">
+				<set property="transactionPerRequest"
+					value="${corner.transaction-per-request}"/>
+				<set-object property="sessionFactory"
+					value="spring:sessionFactory"/>
+				<set-object property="transactionManager"
+					value="spring:transactionManager"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	<contribution configuration-id="hivemind.FactoryDefaults">
+		<default symbol="corner.transaction-per-request" value="false"/>
+	</contribution>
+	<contribution configuration-id="tapestry.request.WebRequestServicerPipeline">
+		<filter name="CornerOneSessionPerQuestFilter"
+			object="service:CornerOneSessionPerQuestFilter"/>
+	</contribution>
+</module>
