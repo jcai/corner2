@@ -8,7 +8,6 @@
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
   
 <script>
-<!-- <include-script resource-path="DropdownMenu.js"/> -->
 <input-symbol key="menuId"  class="java.lang.String" required="yes"/>
 <input-symbol key="popMenuDivId"  class="java.lang.String" required="yes"/>
 <input-symbol key="selected"  class="java.lang.Boolean" required="yes"/>

@@ -8,7 +8,6 @@
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
   
 <script>
-<!-- <include-script resource-path="SlideMenu.js"/> -->
 <input-symbol key="slideMenuId"  class="java.lang.String" required="yes"/>
 <input-symbol key="menuBarId"  class="java.lang.String" required="yes"/>
 
