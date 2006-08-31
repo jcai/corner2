@@ -10,6 +10,7 @@
 	<meta key="org.apache.tapestry.home-page" value="Home"/>
 	<library id="tacos" specification-path="/net/sf/tacos/Tacos.library"/>
 	<library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/>
+    <library id="corner" specification-path="/corner/orm/tapestry/component/corner.library"/>
 
 
 </application>

@@ -1,0 +1,47 @@
+<span jwcid="@DemoBorder">
+	<div jwcid="@contrib:TableView" columns="name" element="div"
+        persist="client:page" source="ognl:source" pageSize="5">
+		<table width="500" border="1" align="center">
+		  <tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		  </tr>
+		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:thirdObject" converter="ognl:converter">
+		  	<th align="center" jwcid="@corner:UpdateSelect" 
+				  formName="ABForm" 
+				  fields="ognl:{'nameField',thirdObject.name,'BField',thirdObject}">
+				  <span jwcid="@Insert" value="ognl:thirdObject.name" />
+			 </th>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  </tr>
+		</table>
+	</div>    
+    <form jwcid="ABForm" action="AForm.html">
+	  <input type="hidden" jwcid="BField"/>
+      <table align="center" width="500" border="1" bordercolorlight="#0000FF">
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td align="center">
+            <input jwcid="nameField" id="name" name="name"/>
+          </td>
+		  <td>
+		  	message
+		  </td>
+          <td align="center">
+            <input jwcid="messageField" id="message" name="message"/>
+          </td>
+        </tr>
+		<tr>
+		  <td colspan="4" align="center">
+			  <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+			  <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>		  
+		  </td>
+		</tr>
+      </table>
+
+    </form>
+    <br/>
+</span>

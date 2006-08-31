@@ -1,0 +1,36 @@
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" id="name" name="name"/>
+          </td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+    <div jwcid="@contrib:TableView" element="span" columns="name,message,!DeleteRelative"
+     source="ognl:getSource('abs')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>A-B many-to-many,AB为中间表，并且其中含有数据,此处跳转的ABList <a parameters="ognl:{entity,'many2many2/ABList'}" listener="listener:doViewRelativeEntityListAction" jwcid="@DirectLink" href="BForm.html">Add AB</a></legend> 
+   
+	<table width="100%" align="center" border="1">
+		<tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		</tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><span jwcid="@Insert" value="ognl:relativeObject.message" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:relativeObject" listener="listener:doDeleteRelativeEntityAction">doDeleteRelativeEntityAction</a></td>
+		</tr>
+		
+	</table>
+    </fieldset>
+</div>
+</span>
