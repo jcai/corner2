@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeMidEntityFormPage">
+  <description>corner.demo.model.many2many2.AB Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  
+  <property name="thirdObject" initial-value="new corner.demo.model.many2many2.A()" />
+  <!-- 设定返回的根页面 -->
+  <inject property="rootFormPage" type="page" object="many2many2/BForm"/>
+  
+  <property persist="entity" initial-value="new corner.demo.model.many2many2.AB()" name="entity"/>
+  <component type="Form" id="ABForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+  <component type="TextField" id="messageField">
+    <binding value="message:messageField" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.message" name="value"/>
+  </component>
+  <component id="BField" type="Hidden">
+  	<binding name="value" value="thirdObject" />    
+  </component>
+</page-specification>

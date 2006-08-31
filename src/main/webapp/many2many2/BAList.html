@@ -1,22 +1,22 @@
 <span jwcid="@DemoBorder">
-<form jwcid="BAForm">
-	<div jwcid="@contrib:TableView" columns="!checkbox,name" element="div"
-        persist="client" source="ognl:source" pageSize="5">
+	<div jwcid="@contrib:TableView" columns="name,message,!edit,!delete" element="div"
+        persist="client" source="ognl:getSource('abs')" pageSize="5">
 		<table width="200" border="1" align="center">
+		  <tr>
+			  <td colspan="4" align="right"><a href="#" jwcid="@DirectLink" listener="listener:doNewEntityAction">New</a></td>
+		  </tr>
 		  <tr>
 			<span jwcid="@contrib:TableColumns" element="th"/>
 		  </tr>
 		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
-		  	<th align="center"><input jwcid="@Checkbox" value="ognl:checkboxSelected" /></th>
-			<td align="center"><span jwcid="@Insert" value="ognl:entity.name" /></td>
+		  	<th align="center"><span jwcid="@Insert" value="ognl:entity.name" /></th>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.message" /></td>
+			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doEditEntityAction" parameters="ognl:entity">Edit</a></td>
+			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doDeleteEntityAction" parameters="ognl:entity">Delete</a></td>
 		  </tr>
 		  <tr>
 		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
 		  </tr>
-		  <tr>
-		  	<td colspan="6" align="center"><input type="submit" value="Submit"></td>
-		  </tr>
 		</table>
 	</div>
-	</form>
 </span>
