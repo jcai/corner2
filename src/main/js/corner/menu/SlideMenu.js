@@ -4,13 +4,14 @@
 
 */
 dojo.provide("corner.menu.slide");
+dojo.provide("corner.menu.SlideMenu");
 
 dojo.require("dojo.event.*");
 dojo.require("dojo.logging.*");
 dojo.require("dojo.html.extras");
 dojo.require("dojo.collections.ArrayList");
 
-corner.menu.slide=function(menuId){
+corner.menu.SlideMenu=function(menuId){
 	dojo.debug(menuId);
 	this.menu=dojo.byId(menuId);
 	if(!this.menu){

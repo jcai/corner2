@@ -8,17 +8,17 @@
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
   
 <script>
-<include-script resource-path="SlideMenu.js"/>
+<!-- <include-script resource-path="SlideMenu.js"/> -->
 <input-symbol key="slideMenuId"  class="java.lang.String" required="yes"/>
 <input-symbol key="menuBarId"  class="java.lang.String" required="yes"/>
 
 <input-symbol key="top"  class="java.lang.Integer" required="yes"/>
 <input-symbol key="speed"  class="java.lang.Integer" required="yes"/>
 <body>
-dojo.require("corner.menu.slide");
+dojo.require("corner.menu.SlideMenu");
 </body>
 <initialization>
-var slideMenu=new corner.menu.slide('${slideMenuId}');
+var slideMenu=new corner.menu.SlideMenu('${slideMenuId}');
 slideMenu.setTop(${top});
 slideMenu.setSpeed(${speed});
 slideMenu.setMenuBarId('${menuBarId}');

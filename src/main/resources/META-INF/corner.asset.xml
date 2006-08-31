@@ -1,0 +1,5 @@
+<module id="corner.asset" version="1.0.0">
+	<contribution configuration-id="tapestry.asset.UnprotectedAssets">
+	 	<unprotected-resource contains="corner/*" />
+	</contribution>
+</module>

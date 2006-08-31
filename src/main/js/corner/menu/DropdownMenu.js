@@ -4,13 +4,14 @@
 
 */
 dojo.provide("corner.menu.dropdown");
+dojo.provide("corner.menu.DropdownMenu");
 
 dojo.require("dojo.logging.*");
 
 dojo.require("dojo.collections.ArrayList");
 dojo.require("dojo.html.extras");
 dojo.require("dojo.style");
-corner.menu.dropdown={
+corner.menu.DropdownMenu={
 	//下拉菜单的层
 	menus:new dojo.collections.ArrayList(),
 	popMenuDivs:new dojo.collections.ArrayList(),
@@ -125,4 +126,4 @@ corner.menu.dropdown={
 
 }
 
-dojo.require("corner.menu.dropdown");
+
