@@ -14,7 +14,6 @@ package corner.orm.tapestry.translator;
 
 import java.util.Locale;
 
-import org.apache.hivemind.HiveMind;
 import org.apache.hivemind.util.PropertyUtils;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
