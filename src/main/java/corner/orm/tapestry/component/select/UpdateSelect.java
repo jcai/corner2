@@ -41,6 +41,10 @@ public abstract class UpdateSelect extends AbstractComponent {
      * 
      */
     public abstract IScript getScript();
+    /**
+     * 得到数据的squeezer
+     * @return
+     */
     public abstract DataSqueezer getDataSqueezer();
     @InjectObject("spring:entityService")
     public abstract EntityService getEntityService();
