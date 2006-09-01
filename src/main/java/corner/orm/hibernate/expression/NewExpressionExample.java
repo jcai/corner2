@@ -18,7 +18,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.criterion.Example;
-import org.hibernate.type.AbstractComponentType;
 import org.hibernate.type.Type;
 
 /**
