@@ -12,15 +12,10 @@
 
 package corner.demo.page.many2many2;
 
-import java.util.List;
-
 import org.apache.tapestry.dojo.form.IAutocompleteModel;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
-import corner.orm.hibernate.expression.ExpressionExample;
 import corner.orm.tapestry.page.relative.ReflectRelativeMidEntityFormPage;
+import corner.util.BeanUtils;
 
 /**
  * @author Ghost
@@ -39,26 +34,15 @@ public abstract class ABFormPage extends ReflectRelativeMidEntityFormPage {
 	 * @return
 	 */
 	public IAutocompleteModel getModel(){
-		Users users = new Users();
-		List<User> userList = users.getUsers();
-		return new DoubleSearchAutocompleteModel(userList,"id","userName","cnName");
+		return new DoubleSearchAutocompleteModel(this.getEntityService(),this,"id","name","cnName");
 	}
 	/**
-	 * @see corner.orm.tapestry.page.relative.AbstractReflectRelativeMidEntityFormPage#appendCriteria(org.hibernate.Criteria)
+	 * @see corner.orm.tapestry.page.relative.AbstractReflectRelativeMidEntityFormPage#saveOrUpdateEntity()
 	 */
 	@Override
-	public void appendCriteria(Criteria criteria) {
-		if (this.getQueryEntity() != null)
-			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
-					.ignoreCase()).add(Restrictions.eq("",""));
-	}
-	/**
-	 * @see corner.orm.tapestry.page.relative.AbstractReflectRelativeMidEntityFormPage#createCriteria(org.hibernate.Session)
-	 */
-	@Override
-	public Criteria createCriteria(Session session) {
-		// TODO Auto-generated method stub
-		return super.createCriteria(session);
+	protected void saveOrUpdateEntity() {
+		BeanUtils.setProperty(this.getEntity(),"message",this.getValue().toString());
+		super.saveOrUpdateEntity();
 	}
 	
 }

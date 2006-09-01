@@ -10,6 +10,9 @@
           <td>
             <span key="name">name</span>
           </td>
+		  <td>
+			  <span key="cnName">cnNname</span>
+		  </td>
           <td>
             <span key="link.edit">edit</span>
           </td>
@@ -20,6 +23,9 @@
         <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
           <td>
             <span jwcid="@Insert" value="ognl:entity.name">name</span>
+          </td>
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.cnName">cnName</span>
           </td>
           <td>
             <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="BForm.html">

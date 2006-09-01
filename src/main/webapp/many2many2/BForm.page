@@ -17,4 +17,9 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
+  <component type="TextField" id="cnNameField">
+    <binding value="message:cnName" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.cnName" name="value"/>
+  </component>
 </page-specification>
