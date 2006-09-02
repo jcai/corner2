@@ -35,7 +35,7 @@ public class QueryTypeWorkerTest extends TestCase {
 @QueryDefinition
 ({
 	@QueryField(propertyName="userName"),
-	@QueryField(propertyName="password",queryType=QueryDefinition.QueryType.Date),
+	@QueryField(propertyName="password",queryType=QueryDefinition.QueryType.Date)
 	
 })
 class A{

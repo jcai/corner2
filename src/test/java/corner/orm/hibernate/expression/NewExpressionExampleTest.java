@@ -111,12 +111,7 @@ public class NewExpressionExampleTest extends TestCase {
 		EasyMock.verify(criteria,criteriaQuery,factory,persister);
 	}
 	
-	@QueryDefinition
-	({
-		@QueryField(propertyName="userName"),
-		@QueryField(propertyName="password",queryType=QueryDefinition.QueryType.Date),
-		
-	})
+	@QueryDefinition({@QueryField(propertyName="userName"),@QueryField(propertyName="password",queryType=QueryDefinition.QueryType.Date)})
 	class A{
 
 	}
