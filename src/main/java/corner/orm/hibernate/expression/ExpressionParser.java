@@ -55,7 +55,7 @@ public class ExpressionParser {
 	 * @param input 待分析的值。
 	 * @return 分析完毕之后的表达式组.
 	 */
-	public static  Iterator<ExpPair> parseStringExpression(String input){
+	public static  List<ExpPair> parseStringExpression(String input){
 		
 		Matcher matcher=str_pattern.matcher(input);
 		
@@ -75,7 +75,7 @@ public class ExpressionParser {
 			
 			
 		}
-		return list.iterator();
+		return list;
 	}
 	/**
 	 * 对子串进行分析.

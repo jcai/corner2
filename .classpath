@@ -44,6 +44,7 @@
 	<classpathentry sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar" kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
 	<classpathentry sourcepath="M2_REPO/hsqldb/hsqldb/1.8.0.1/hsqldb-1.8.0.1-sources.jar" kind="var" path="M2_REPO/hsqldb/hsqldb/1.8.0.1/hsqldb-1.8.0.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jetty/org.mortbay.jetty/5.1.10/org.mortbay.jetty-5.1.10.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/easymock/easymock/2.2/easymock-2.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/jetty/jasper-compiler/4.2.20RC0/jasper-compiler-4.2.20RC0.jar"/>
 	<classpathentry sourcepath="M2_REPO/cglib/cglib/2.1_3/cglib-2.1_3-sources.jar" kind="var" path="M2_REPO/cglib/cglib/2.1_3/cglib-2.1_3.jar"/>
 	<classpathentry sourcepath="M2_REPO/org/apache/tapestry/tapestry-annotations/4.1.1-SNAPSHOT/tapestry-annotations-4.1.1-SNAPSHOT-sources.jar" kind="var" path="M2_REPO/org/apache/tapestry/tapestry-annotations/4.1.1-SNAPSHOT/tapestry-annotations-4.1.1-SNAPSHOT.jar"/>

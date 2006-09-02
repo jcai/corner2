@@ -17,8 +17,16 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.CriteriaQuery;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.NullExpression;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.type.Type;
+
+import corner.orm.hibernate.expression.annotations.QueryTypeWorker;
+import corner.service.EntityService;
 
 /**
  * 尝试新的表达式查询
@@ -27,7 +35,10 @@ import org.hibernate.type.Type;
  * @since 2.1
  */
 public class NewExpressionExample extends Example {
-
+	QueryTypeWorker worker;
+	private boolean isIgnoreCaseEnabled;
+	private boolean isLikeEnabled;
+	private MatchMode matchMode;
 	/**
 	 * 
 	 */
@@ -35,6 +46,9 @@ public class NewExpressionExample extends Example {
 
 	protected NewExpressionExample(Object entity, PropertySelector selector) {
 		super(entity, selector);
+		//首先分析出来类多对应的所有的特列查询
+		worker=new QueryTypeWorker(EntityService.getEntityClass(entity));
+		
 	}
 
 
@@ -43,7 +57,6 @@ public class NewExpressionExample extends Example {
 	 */
 	@Override
 	protected void addPropertyTypedValue(Object value, Type type, List list) {
-		
 		super.addPropertyTypedValue(value, type, list);
 	}
 
@@ -53,8 +66,45 @@ public class NewExpressionExample extends Example {
 	 */
 	@Override
 	protected void appendPropertyCondition(String propertyName, Object propertyValue, Criteria criteria, CriteriaQuery cq, StringBuffer buf) throws HibernateException {
-		super.appendPropertyCondition(propertyName, propertyValue, criteria, cq, buf);
+		Criterion crit;
+		if ( propertyValue!=null ) {
+			boolean isString = propertyValue instanceof String;
+			String op = isLikeEnabled && isString ? " like " : "=";
+			crit=isLikeEnabled&&isString?Restrictions.like(propertyName, (String) propertyValue, matchMode):Restrictions.like(propertyName, (String) propertyValue, matchMode);
+			if(isIgnoreCaseEnabled && isString){
+				((SimpleExpression) crit).ignoreCase();
+			}
+
+		}
+		else {
+			crit = Restrictions.isNull(propertyName);
+		}
+		String critCondition = crit.toSqlString(criteria, cq);
+		if ( buf.length()>1 && critCondition.trim().length()>0 ) buf.append(" and ");
+		buf.append(critCondition);
+		
 	}
 	
+	/**
+	 * 
+	 * @see org.hibernate.criterion.Example#enableLike(org.hibernate.criterion.MatchMode)
+	 */
+	public Example enableLike(MatchMode matchMode) {
+		super.enableLike(matchMode);
+		this.matchMode=matchMode;
+		isLikeEnabled = true;
+		return this;
+	}
 
+	
+
+	/**
+	 * 
+	 * @see org.hibernate.criterion.Example#ignoreCase()
+	 */
+	public Example ignoreCase() {
+		super.ignoreCase();
+		isIgnoreCaseEnabled = true;
+		return this;
+	}
 }

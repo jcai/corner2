@@ -281,6 +281,12 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.2</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>springmodules</groupId>
 			<artifactId>springmodules-lucene</artifactId>
 			<version>1.0-dev-20060328110632</version>
