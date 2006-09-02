@@ -81,6 +81,7 @@
 			<plugin>
 				<groupId>xdoclet</groupId>
 				<artifactId>maven2-xdoclet2-plugin</artifactId>
+
 				<configuration>
 					<configs>
 						<config>
@@ -94,6 +95,7 @@
 
 							</params>
 							<addToSources>false</addToSources>
+							<includes>corner/demo/**/*.java</includes>
 						</config>
 
 						<config>
@@ -107,6 +109,7 @@
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
 							<addToSources>false</addToSources>
+							<includes>corner/demo/**/*.java</includes>
 						</config>
 						<config>
 							<plugin>
@@ -118,6 +121,7 @@
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
 							<addToSources>false</addToSources>
+							<includes>corner/demo/**/*.java</includes>
 						</config>
 						<config>
 							<plugin>
@@ -129,6 +133,7 @@
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
 							<addToSources>false</addToSources>
+							<includes>corner/demo/**/*.java</includes>
 						</config>
 						<config>
 							<plugin>
@@ -140,6 +145,7 @@
 								<destdir>${basedir}/src/main/webapp/generates</destdir>
 							</params>
 							<addToSources>false</addToSources>
+							<includes>corner/demo/**/*.java</includes>
 						</config>
 					</configs>
 
