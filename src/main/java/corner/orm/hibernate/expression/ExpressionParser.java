@@ -76,6 +76,7 @@ public class ExpressionParser {
 		}
 		return list;
 	}
+	
 	/**
 	 * 对子串进行分析.
 	 * @param list 匹配结果保存的列表.

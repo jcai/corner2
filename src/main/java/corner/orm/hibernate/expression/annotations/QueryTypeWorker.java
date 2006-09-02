@@ -32,9 +32,10 @@ public class QueryTypeWorker {
 
 	public QueryTypeWorker(Class<?> clazz) {
 		QueryDefinition qd= clazz.getAnnotation(QueryDefinition.class);
-		
-		for(QueryField field:qd.value()){
-			queryTypes.put(field.propertyName(),field.queryType());
+		if(qd!=null){
+			for(QueryField field:qd.value()){
+				queryTypes.put(field.propertyName(),field.queryType());
+			}
 		}
 	}
 	
