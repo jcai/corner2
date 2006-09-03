@@ -1,5 +1,5 @@
 <module id="corner.asset" version="1.0.0">
-	<contribution configuration-id="tapestry.asset.UnprotectedAssets">
+	<contribution configuration-id="tapestry.asset.UnprotectedAssets" if="class org.apache.tapestry.asset.ResourceMatcher">
 	 	<unprotected-resource contains="corner/*" />
 	</contribution>
 </module>
