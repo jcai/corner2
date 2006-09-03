@@ -127,6 +127,20 @@ public class ExpressionParserTest extends TestCase {
 		assertEquals("它", p.value);
 		assertEquals("or", p.exp.toLowerCase());
 	}
+	/**
+	 * Test method for
+	 * {@link corner.orm.hibernate.expression.ExpressionParser#parseStringExpression(java.lang.String)}.
+	 */
+	public void testParseBlankExpression() {
+		String client_str = "你好 蔡君";
+		Iterator<ExpPair> r = ExpressionParser
+				.parseStringExpression(client_str).iterator();
+		ExpPair p = r.next();
+		assertEquals("你好 蔡君", p.value);
+		assertEquals(" ", p.exp.toLowerCase());
+
+
+	}
 	
 	public void testParseDateExpression(){
 		String client_str="1231231asdf";

@@ -39,11 +39,15 @@ public class StringExpressionTest extends TestCase {
 		 StringExpression exp=new  StringExpression(propertyName,expression,op);
 		 String r=exp.toSqlString(criteria, criteriaQuery);
 		 assertEquals(expectSql,r);
+		 
 		 EasyMock.verify(criteria,criteriaQuery);
 		 
 	}
 	public void testSingleSqlString() {
 		doTest("column","propertyName","him","   column like ?"," like ");
+	}
+	public void testBlankSqlString() {
+		doTest("column","propertyName","him asdf","   column like ?"," like ");
 	}
 
 	public void testSingleEqualsSqlString() {

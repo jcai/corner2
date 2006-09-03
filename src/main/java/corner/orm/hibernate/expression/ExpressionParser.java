@@ -73,6 +73,13 @@ public class ExpressionParser {
 			}
 			
 			
+		}else{
+			ExpressionParser.ExpPair pair= new ExpressionParser.ExpPair();
+			//第一个字符串为表达式为空
+			pair.exp=" ";
+			pair.value=input;
+			list.add(pair);
+			
 		}
 		return list;
 	}
