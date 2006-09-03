@@ -53,6 +53,16 @@ public class NewExpressionExampleTest extends TestCase {
 		 String [] expectParameterValues={"acai","other","she","20050607","20090805"};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
+	public void testEmptySql(){
+		 A a=new A();
+		 String[] pros={"userName","password"};
+		 String [] columns={"user_name","password"};
+		 String [] proValues={null,null};
+		 
+		 String expectSql="(1=1)";
+		 String [] expectParameterValues={};
+		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
+	}
 	public void testMultiSql(){
 		 A a=new A();
 		 String[] pros={"userName","password"};
@@ -103,8 +113,8 @@ public class NewExpressionExampleTest extends TestCase {
 		
 		assertEquals(expectSql,example.toSqlString(criteria, criteriaQuery));
 		TypedValue[] values = example.getTypedValues(criteria, criteriaQuery);
-		
-		for(int i=0;i<values.length;i++){
+		assertEquals(expectParameterValues.length,values.length);
+		for(int i=0;i<expectParameterValues.length;i++){
 			assertEquals(expectParameterValues[i],values[i].getValue());
 			
 		}

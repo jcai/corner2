@@ -10,11 +10,19 @@ import java.util.Iterator;
 
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 import org.apache.tapestry.contrib.table.model.ITableColumn;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Example;
+import org.hibernate.engine.SessionFactoryImplementor;
+import org.hibernate.engine.TypedValue;
+import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.loader.criteria.CriteriaQueryTranslator;
+import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import corner.orm.hibernate.expression.NewExpressionExample;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
@@ -43,6 +51,8 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 
 	private boolean isRewinding;
 
+	private IPersistentQueriable callback;
+
 	/**
 	 * @deprecated Use {@link #RelativePersistentBasicTableModel(EntityService,T,String,boolean)} instead
 	 */
@@ -63,6 +73,22 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 		this.relativeProName = relativeProName;
 		this.entityService = entityService;
 		this.isRewinding=isRewinding;
+	}
+	/**
+	 * 根据isRewinding来产生一个列表
+	 * @param entityService 实体服务类
+	 * @param callback 提供查询时候参数的使用.
+	 * @param rootedObj 根对象.
+	 * @param relativeProName 关联的属性.
+	 * @param isRewinding 是否为rewinding
+	 */
+	public RelativePersistentBasicTableModel(EntityService entityService,IPersistentQueriable callback,
+			T rootedObj, String relativeProName, boolean isRewinding) {
+		this.rootedObj = rootedObj;
+		this.relativeProName = relativeProName;
+		this.entityService = entityService;
+		this.isRewinding=isRewinding;
+		this.callback=callback;
 	}
 
 	private Collection getRelativeCollection() {
@@ -88,8 +114,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 
 						public Object doInHibernate(Session session)
 								throws HibernateException, SQLException {
-							Query query = session.createFilter(c,
-									"select count(*)");
+							Query query=createQuery(session,c,"select count(*)",null);
 							return query.iterate().next();
 						}
 					})).intValue();
@@ -128,8 +153,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 							orderStr = "order by " + column.getColumnName()
 									+ (sort ? " " : " desc");
 						}
-						Query query = session.createFilter(
-								getRelativeCollection(), orderStr);
+						Query query = createQuery(session,c,null,orderStr);
 
 						query.setFirstResult(nFirst);
 						query.setMaxResults(nPageSize);
@@ -137,6 +161,54 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 						return query.iterate();
 					}
 				}));
+	}
+	//提供对关联列表的查询
+	private Query  createQuery(Session session,Collection c,String selectStr,String orderStr){
+		StringBuffer sb=new StringBuffer();
+		if(selectStr!=null){
+			sb.append(selectStr).append(" ");
+		}
+			
+		Query query;
+		if(callback!=null){
+			//========  考虑此处采用Example方式查询.
+			Criteria criteria=callback.createCriteria(session);
+			String rootEntityName = ((CriteriaImpl) criteria).getEntityOrClassName();
+			CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(
+					(SessionFactoryImplementor)session.getSessionFactory(), 
+					( CriteriaImpl)criteria, 
+					rootEntityName, 
+					CriteriaQueryTranslator.ROOT_SQL_ALIAS
+				);
+			
+			Example example=NewExpressionExample.create(new Object());
+			TypedValue [] tvs=example.getTypedValues(criteria, criteriaQuery);
+			example.toSqlString(criteria, criteriaQuery);
+			Object [] values=new Object[tvs.length];
+			Type [] types=new Type[tvs.length];
+			for(int i=0;i<tvs.length;i++){
+				values[i]=tvs[i].getValue();
+				types[i]=tvs[i].getType();
+			}
+			String sql=example.toSqlString(criteria, criteriaQuery);
+			if(sql.length()>0){
+				sb.append("where ").append(sql).append(" ");
+			}
+			if(orderStr!=null){
+				sb.append(orderStr);
+			}
+			query = session.createFilter(c,sb.toString()).setParameters(values, types);
+		}else{
+			if(orderStr!=null){
+				sb.append(orderStr);
+			}
+			query = session.createFilter(c,
+					sb.toString());
+				
+		}
+		
+		return query;
+		
 	}
 
 }
