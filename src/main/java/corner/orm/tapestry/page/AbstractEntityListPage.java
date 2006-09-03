@@ -12,7 +12,7 @@ import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import corner.orm.hibernate.expression.ExpressionExample;
+import corner.orm.hibernate.expression.NewExpressionExample;
 import corner.orm.tapestry.HibernateConverter;
 import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.orm.tapestry.table.PersistentBasicTableModel;
@@ -124,7 +124,7 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	 */
 	public void appendCriteria(Criteria criteria) {
 		if (this.getQueryEntity() != null)
-			criteria.add(ExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
+			criteria.add(NewExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
 					.ignoreCase());
 	}
 
