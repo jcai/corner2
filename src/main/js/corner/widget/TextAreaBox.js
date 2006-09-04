@@ -90,6 +90,7 @@ dojo.widget.defineWidget(
 				tgt = dojo.dom.firstElement(this.optionsListNode);
 	
 				// user has input value not in option list
+				dojo.debug("this.getAttribute('resultName is:')"+tgt.getAttribute("resultName"));
 				if(!tgt || !this._isInputEqualToResult(tgt.getAttribute("resultName"))){
 					return;
 				}
@@ -105,14 +106,29 @@ dojo.widget.defineWidget(
 				}
 			}
 	
-			this.textInputNode.value = tgt.getAttribute("resultName");
-			this.selectedResult = [tgt.getAttribute("resultName"), tgt.getAttribute("resultValue")];
+			this.textInputNode.value = tgt.getAttribute("resultName");		
+			this.selectedResult = [tgt.getAttribute("resultName"), tgt.getAttribute("resultValue")];		
 			this.setAllValues(this.comboBoxSelectionValue.value.substr(0,this.comboBoxSelectionValue.value.lastIndexOf(';')+1)+tgt.getAttribute("resultName")+":", this.comboBoxSelectionValue.value.substr(0,this.comboBoxSelectionValue.value.lastIndexOf(';')+1));
-
+			
 			if(!evt.noHide){
 				this.hideResultList();
-				this.setSelectedRange(this.textInputNode, 0, null);
+				//设置是否选中刚TextAreaBox中的全部内容
+				//this.setSelectedRange(this.textInputNode, 0, null);
 			}
 			this.tryFocus();
+		},
+		_isInputEqualToResult: function(result){
+			input = this.textInputNode.value;
+			if(input.lastIndexOf(";")!=-1){
+				input = input.substr(input.lastIndexOf(";")+1);
+			}
+			if(!this.dataProvider.caseSensitive){
+				input = input.toLowerCase();
+				result = result.toLowerCase();
+				dojo.debug("input:"+input);
+				dojo.debug("result:"+result);
+			}
+			return (result.indexOf(input)!=-1);
 		}
+
 	});
