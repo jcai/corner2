@@ -12,6 +12,8 @@
 
 package corner.test;
 
+import java.io.FileWriter;
+
 import junit.framework.TestCase;
 
 import org.mortbay.http.SocketListener;
@@ -83,12 +85,17 @@ public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResu
         if (results == null) {
             throw new SeleniumCommandTimedOutException();
         }
+        int failNum=Integer.parseInt(results.getNumTestFailures());
+        
+        if(failNum>0){
+        	System.out.println("Test Failed");
+        }
 //        if (outputFile != null) {
 //            FileWriter fw = new FileWriter(outputFile);
 //            results.write(fw);
 //            fw.close();
 //        }
-        
+//        
 		/*
 		List<String> list=new ArrayList<String>();
 		list.add("-htmlSuite");
