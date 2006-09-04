@@ -171,6 +171,8 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			//========  考虑此处采用Example方式查询.
 			Criteria criteria=callback.createCriteria(session);
 			
+			//附加查询条件
+			callback.appendCriteria(criteria);
 			String rootEntityName = ((CriteriaImpl) criteria).getEntityOrClassName();
 			CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(
 					(SessionFactoryImplementor)session.getSessionFactory(), 
