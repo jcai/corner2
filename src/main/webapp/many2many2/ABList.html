@@ -1,4 +1,10 @@
 <span jwcid="@DemoBorder">
+	<center>
+		<form jwcid="ABQueryForm">
+			name:<input jwcid="messageField"/>
+			<input type="submit"/>
+		</form>
+	</center>
 	<div jwcid="@contrib:TableView" columns="name,message,!edit,!delete" element="div"
         persist="client" source="ognl:getSource('abs')" pageSize="5">
 		<table width="200" border="1" align="center">

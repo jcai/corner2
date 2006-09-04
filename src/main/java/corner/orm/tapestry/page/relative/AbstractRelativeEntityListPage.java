@@ -32,7 +32,7 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	 * @return table model
 	 */
 	public  IBasicTableModel getSource(String relativePropertyName){
-		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getRootedObject(),relativePropertyName,this.getRequestCycle().isRewinding());
+		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getRootedObject(),relativePropertyName,this.getRequestCycle().isRewinding(),this);
 	}
 
 	/**

@@ -79,8 +79,8 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 	 * @param relativeProName 关联的属性.
 	 * @param isRewinding 是否为rewinding
 	 */
-	public RelativePersistentBasicTableModel(EntityService entityService,IPersistentQueriable callback,
-			T rootedObj, String relativeProName, boolean isRewinding) {
+	public RelativePersistentBasicTableModel(EntityService entityService,
+			T rootedObj, String relativeProName, boolean isRewinding,IPersistentQueriable callback) {
 		this.rootedObj = rootedObj;
 		this.relativeProName = relativeProName;
 		this.entityService = entityService;
@@ -197,7 +197,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			}
 			String sql=example.toSqlString(criteria, criteriaQuery);
 			*/
-			sb.append(where);
+			sb.append("where ").append(where);
 			if(orderStr!=null){
 				sb.append(orderStr);
 			}
