@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<page-specification class="corner.demo.page.many2many2.ABFormPage">
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeMidEntityFormPage">
   <description>corner.demo.model.many2many2.AB Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   
@@ -23,8 +23,9 @@
     <binding value="ognl:entity.name" name="value"/>
   </component>
   <component type="corner:TextAreaBox" id="messageField">
-    <binding value="ognl:value" name="value"/>
-    <binding name="model" value="model"/>
+    <binding value="ognl:entity.message" name="value"/>
+    <binding name="queryClass" value="literal:corner.demo.model.many2many2.B" />
+    <binding name="entityService" value="entityService"/>
   </component>
   <component id="BField" type="Hidden">
   	<binding name="value" value="thirdObject" />    

@@ -15,7 +15,9 @@
 
   <parameter name="value" required="yes"/>
   
-  <parameter name="model" required="yes"/>
+  <parameter name="queryClass" required="yes"/>
+  
+  <parameter name="entityService" required="yes" />
   	
   <parameter name="disabled"/>
   

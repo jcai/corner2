@@ -47,9 +47,9 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
     private IPersistentQueriable callback;
     
     /**
-     * 存储对象的key信息
+     * 被检索的类的名称
      */
-    private String keyField;
+    private Class queryClass;
     
     /**
      * 存储拼音或拼音缩写字符
@@ -71,21 +71,20 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
      * 构造函数
 	 * <p>通过构造函数注入EntityService,IpersistentQueriable,obj</p>
      * @param entityService 基础服务类
-     * @param callback 调用该操作的实体(该实体实现了IpersistentQueriable接口)
+     * @param queryClass 下拉菜单中要现实的列表实体
      * @param keyField 带查询的实体的key字段，可以通过该字唯一标示该实体
      * @param labelField 用于进行拼音检索的字段
      * @param cnlabelField 用于进行中文检索的字段
      */
-	public DoubleSearchAutocompleteModel(EntityService entityService,IPersistentQueriable callback,String keyField, String labelField, String cnlabelField) {
+	public DoubleSearchAutocompleteModel(EntityService entityService,Class queryClass, String labelField, String cnlabelField) {
 		Defense.notNull(entityService, "entityService can't be null!");
-		Defense.notNull(callback, "callback can't be null!");
 		Defense.notNull(labelField, "label can't be null!");
+		Defense.notNull(queryClass, "queryClass can't be null!");
 		Defense.notNull(cnlabelField, "Model CNlabelField java beans expression can't be null.");
-		this.keyField = keyField;
+		this.queryClass = queryClass;
 		this.cnlabelField = cnlabelField;
 		this.labelField = labelField;
 		this.entityService = entityService;
-		this.callback = callback;
 	}
 	
 	/**
@@ -117,9 +116,8 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
 		return ((List) ((HibernateObjectRelativeUtils) this.entityService
 				.getObjectRelativeUtils()).getHibernateTemplate()
 				.execute(new HibernateCallback(){
-
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
-						Criteria criteria=callback.createCriteria(session);
+						Criteria criteria=session.createCriteria(queryClass);
 						criteria.add(Restrictions.or(Restrictions.like(labelField,filter), Restrictions.like(cnlabelField,filter)));
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
@@ -159,27 +157,14 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getPrimaryKey(java.lang.Object)
 	 */
 	public Object getPrimaryKey(Object value) {
-        try {
-            
-            return PropertyUtils.getProperty(value, keyField);
-            
-        } catch (Exception e) {
-            throw new ApplicationRuntimeException(e);
-        }
+        return value;
 	}
 
 	/**
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getValue(java.lang.Object)
 	 */
 	public Object getValue(Object primaryKey) {
-        for (int i = 0; i < _values.size(); i++) {
-            
-            Object value = _values.get(i);
-            if (getPrimaryKey(value).toString().equals(primaryKey.toString()))
-                return value;
-        }
-        
-        return null;
+        return this.getPrimaryKey(primaryKey);
 	}
 
 	/**

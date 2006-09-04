@@ -27,13 +27,16 @@ import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
+import corner.demo.page.many2many2.DoubleSearchAutocompleteModel;
+import corner.service.EntityService;
+
 /**
  * @author Ghost
  * @version $Revision$
  * @since 0.9.9.2
  */
 public abstract class TextAreaBox extends Autocompleter {
-
+	
     private static final String MODE_REMOTE = "remote";
 	
 	/**
@@ -142,7 +145,18 @@ public abstract class TextAreaBox extends Autocompleter {
             getForm().getDelegate().record(e);
         }
 	}
-	
-	
+
+	public IAutocompleteModel getModel(){
+		try {
+			return new DoubleSearchAutocompleteModel(this.getEntityService(),Class.forName(this.getQueryClass()),"name","cnName");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	 public abstract void setQueryClass(String queryClass);
+	 public abstract String getQueryClass();
+	 public abstract EntityService getEntityService();
 
 }
