@@ -14,15 +14,12 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Example;
+import org.hibernate.engine.QueryParameters;
 import org.hibernate.engine.SessionFactoryImplementor;
-import org.hibernate.engine.TypedValue;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.loader.criteria.CriteriaQueryTranslator;
-import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import corner.orm.hibernate.expression.NewExpressionExample;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
@@ -173,6 +170,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 		if(callback!=null){
 			//========  考虑此处采用Example方式查询.
 			Criteria criteria=callback.createCriteria(session);
+			
 			String rootEntityName = ((CriteriaImpl) criteria).getEntityOrClassName();
 			CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(
 					(SessionFactoryImplementor)session.getSessionFactory(), 
@@ -180,8 +178,10 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 					rootEntityName, 
 					Criteria.ROOT_ALIAS
 				);
+			String where = criteriaQuery.getWhereCondition();
+			QueryParameters qps=criteriaQuery.getQueryParameters();
 			
-			Example example=NewExpressionExample.create(new Object());
+			/*Example example=NewExpressionExample.create(new Object());
 			TypedValue [] tvs=example.getTypedValues(criteria, criteriaQuery);
 			example.toSqlString(criteria, criteriaQuery);
 			Object [] values=new Object[tvs.length];
@@ -191,13 +191,12 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 				types[i]=tvs[i].getType();
 			}
 			String sql=example.toSqlString(criteria, criteriaQuery);
-			if(sql.length()>0){
-				sb.append("where ").append(sql).append(" ");
-			}
+			*/
+			sb.append(where);
 			if(orderStr!=null){
 				sb.append(orderStr);
 			}
-			query = session.createFilter(c,sb.toString()).setParameters(values, types);
+			query = session.createFilter(c,sb.toString()).setParameters(qps.getPositionalParameterValues(),qps.getPositionalParameterTypes());
 		}else{
 			if(orderStr!=null){
 				sb.append(orderStr);
