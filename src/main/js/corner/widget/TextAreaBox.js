@@ -125,8 +125,6 @@ dojo.widget.defineWidget(
 			if(!this.dataProvider.caseSensitive){
 				input = input.toLowerCase();
 				result = result.toLowerCase();
-				dojo.debug("input:"+input);
-				dojo.debug("result:"+result);
 			}
 			return (result.indexOf(input)!=-1);
 		}
