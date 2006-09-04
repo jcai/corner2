@@ -18,11 +18,12 @@
     </body>
     <initialization>
         var ${id}prop=${props};
-        dojo.widget.createWidget("TextAreaBox",${id}prop,dojo.byId("${id}"));
-        if (${id}prop["label"] &amp;&amp; ${id}prop["value"]){
-            var selw=dojo.widget.byId("${id}");
+        tapestry.widget.synchronizeWidgetState("${id}", "TextAreaBox", ${id}prop);
+        var x = dojo.widget.byId("${id}prop");
+        if (${id}prop["value"]){
+            var selw=dojo.widget.byId(${id}prop["widgetId"]);
             selw.setValue(${id}prop["value"]);
-            selw.setLabel(${id}prop["label"]);
+            selw.setLabel(${id}prop["value"]);
         }
     </initialization>
 </script>

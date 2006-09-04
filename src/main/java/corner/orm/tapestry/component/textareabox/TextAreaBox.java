@@ -27,8 +27,6 @@ import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
-import corner.util.BeanUtils;
-
 /**
  * @author Ghost
  * @version $Revision$
@@ -86,7 +84,7 @@ public abstract class TextAreaBox extends Autocompleter {
         if (value != null) {
             
             json.put("value", value.toString());
-            json.put("label", BeanUtils.getProperty(model,"cnlabel"));
+//            json.put("label", BeanUtils.getProperty(model,"cnlabel"));
         }
         
         parms.put("props", json.toString());

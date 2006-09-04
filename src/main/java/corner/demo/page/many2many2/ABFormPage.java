@@ -27,7 +27,14 @@ public abstract class ABFormPage extends ReflectRelativeMidEntityFormPage {
 	 * 取得TextAreaBox的返回value
 	 * @return
 	 */
-	public abstract Object getValue();	
+	public abstract Object getValue();
+	
+	/**
+	 * 设置TextAreaBox的value
+	 * <p>设置TextAreaBox的value，通常是编辑时候使用</p>
+	 * @param obj
+	 */
+	public abstract void setValue(Object obj);
 	/**
 	 * 给TextAreaBox提供DataSource
 	 * <p>给TextAreaBox提供DataSource,该DataSource必须实现了IAutocompleteModel接口</p>
