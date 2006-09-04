@@ -178,7 +178,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 					(SessionFactoryImplementor)session.getSessionFactory(), 
 					( CriteriaImpl)criteria, 
 					rootEntityName, 
-					CriteriaQueryTranslator.ROOT_SQL_ALIAS
+					Criteria.ROOT_ALIAS
 				);
 			
 			Example example=NewExpressionExample.create(new Object());
