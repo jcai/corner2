@@ -161,6 +161,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 	}
 	//提供对关联列表的查询
 	private Query  createQuery(Session session,Collection c,String selectStr,String orderStr){
+		//TODO 考虑缓存，创建尽可能少的对象
+		
+		
 		StringBuffer sb=new StringBuffer();
 		if(selectStr!=null){
 			sb.append(selectStr).append(" ");
