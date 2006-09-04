@@ -12,7 +12,7 @@
 
 package corner.test;
 
-import java.io.FileWriter;
+
 
 import junit.framework.TestCase;
 
@@ -85,10 +85,13 @@ public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResu
         if (results == null) {
             throw new SeleniumCommandTimedOutException();
         }
-        int failNum=Integer.parseInt(results.getNumTestFailures());
+        String failNum=results.getNumTestFailures();
         
-        if(failNum>0){
-        	System.out.println("Test Failed");
+        if(failNum!=null&&!failNum.equals("0")){
+        	fail("功能测试失败,共测试["+results.getNumTotalTests()+"] 成功：["+results.getNumTestPasses()+"] 失败:["+results.getNumTestFailures()+"]");
+        	
+        }else{
+        	System.out.println("功能测试失成功,共测试["+results.getNumTotalTests()+"] 成功：["+results.getNumTestPasses()+"] 失败:["+results.getNumTestFailures()+"],总豪时:["+results.getTotalTime()+"]");
         }
 //        if (outputFile != null) {
 //            FileWriter fw = new FileWriter(outputFile);
