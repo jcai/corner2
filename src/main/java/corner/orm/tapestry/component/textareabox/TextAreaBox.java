@@ -27,7 +27,7 @@ import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
-import corner.demo.page.many2many2.DoubleSearchAutocompleteModel;
+import corner.demo.page.many2many2.CornerSelectModel;
 import corner.service.EntityService;
 
 /**
@@ -148,7 +148,7 @@ public abstract class TextAreaBox extends Autocompleter {
 
 	public IAutocompleteModel getModel(){
 		try {
-			return new DoubleSearchAutocompleteModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
+			return new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

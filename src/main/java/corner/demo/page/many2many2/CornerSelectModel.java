@@ -29,7 +29,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
-import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.service.EntityService;
 
 /**
