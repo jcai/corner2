@@ -70,7 +70,6 @@ public class CornerSelectModel implements IAutocompleteModel {
 	 * <p>通过构造函数注入EntityService,IpersistentQueriable,obj</p>
      * @param entityService 基础服务类
      * @param queryClass 下拉菜单中要现实的列表实体
-     * @param keyField 带查询的实体的key字段，可以通过该字唯一标示该实体
      * @param labelField 用于进行拼音检索的字段
      * @param cnlabelField 用于进行中文检索的字段
      */
