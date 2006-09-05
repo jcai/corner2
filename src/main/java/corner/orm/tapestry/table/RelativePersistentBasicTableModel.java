@@ -28,6 +28,7 @@ import corner.util.BeanUtils;
  * 提供显示本对象关联对象的集合。
  * 
  * @author Jun Tsai
+ * @author Ghost
  * @version $Revision$
  * @since 2.0.4
  */
@@ -197,7 +198,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			}
 			String sql=example.toSqlString(criteria, criteriaQuery);
 			*/
-			sb.append("where ").append(where);
+			if(where != null && where.length()>0){
+				sb.append("where ").append(where);
+			}
 			if(orderStr!=null){
 				sb.append(orderStr);
 			}
