@@ -23,6 +23,15 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 	 */
 	public IPage doNewRelativeAction(){
 		this.flushHibernate();
+
+		return this.goReturnPage();
+	}
+	/**
+	 * 返回到rootformPage {@link #getRootFormPage()}
+	 * 
+	 * @return
+	 */
+	public IPage goReturnPage(){
 		EntityPage<T> page=this.getRootFormPage();
 		if(page == null){
 			throw new IllegalStateException("RootFormPage 为空！");
@@ -34,5 +43,4 @@ public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEnt
 		}
 		return page;
 	}
-
 }
