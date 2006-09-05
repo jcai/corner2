@@ -22,10 +22,12 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
-  <component type="TextField" id="messageField">
-    <binding value="message:messageField" name="displayName"/>
-    <binding value="translator:string" name="translator"/>
+  <component type="corner:CornerSelect" id="messageField">
     <binding value="ognl:entity.message" name="value"/>
+    <binding name="queryClass" value="literal:corner.demo.model.many2many2.A" />
+    <binding name="entityService" value="entityService"/>
+    <binding name="label" value="literal:name" />
+    <binding name="cnlabel" value="literal:cnName" />
   </component>
   <component id="BField" type="Hidden">
   	<binding name="value" value="thirdObject" />    

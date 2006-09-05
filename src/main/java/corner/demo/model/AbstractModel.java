@@ -24,6 +24,26 @@ public class AbstractModel extends AbstractPersistDomain implements Serializable
 	 * @hibernate.property
 	 */
 	private String name;
+	
+	/**
+	 * 中文名称
+	 * <p>用于中文检索时使用</p>
+	 * @hibernate.property
+	 */
+	private String cnName;
+	
+	/**
+	 * @return Returns the cnName.
+	 */
+	public String getCnName() {
+		return cnName;
+	}
+	/**
+	 * @param cnName The cnName to set.
+	 */
+	public void setCnName(String cnName) {
+		this.cnName = cnName;
+	}
 	/**
 	 * @return Returns the id.
 	 */

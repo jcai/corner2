@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+  
+<component-specification class="corner.orm.tapestry.component.cornerselect.CornerSelect" 
+	allow-body="no" 
+	allow-informal-parameters="yes">
+  
+  <description>
+  Creates an HTML select to choose a single property from a list of options.
+  </description>
+
+  <parameter name="value" required="yes"/>
+  
+  <parameter name="queryClass" required="yes"/>
+  
+  <parameter name="entityService" required="yes" />
+  
+  <parameter name="label" required="yes" />
+  
+  <parameter name="cnlabel" required="yes" />
+  	
+  <parameter name="disabled"/>
+  
+  <parameter name="filterOnChange" default-value="true" />
+  
+  <parameter name="autocomplete" default-value="true" />
+  
+  <parameter name="searchDelay" default-value="100" />
+  
+  <parameter name="fadeTime" default-value="200" />
+  
+  <parameter name="maxListLength" default-value="8" />
+  
+  <parameter name="displayName"/>
+  <parameter name="validators"/>
+  
+  <parameter name="id" property="idParameter" default-value="id"/>
+  
+  <reserved-parameter name="name"/>
+  
+  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
+  
+  <inject property="dataSqueezer" object="service:tapestry.data.DataSqueezer"/>
+  
+  <inject property="directService" object="service:tapestry.services.Direct"/>
+  <inject property="script" type="script" object="CornerSelect.script"/>
+  
+</component-specification>

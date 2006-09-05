@@ -6,7 +6,4 @@
 	<inject property="rootFormPage" type="page" object="many2many2/BForm"/>    
     
     <property initial-value="new corner.demo.model.many2many2.AB()" name="entity"/>
-    <component id="ABForm" type="Form">
-    	<binding name="listener" value="listener:doNewRelativeAction"/>
-	</component>
 </page-specification>

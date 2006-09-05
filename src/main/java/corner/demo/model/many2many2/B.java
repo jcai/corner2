@@ -32,13 +32,6 @@ public class B extends AbstractModel {
 	private static final long serialVersionUID = -7691586213111454181L;
 	
 	/**
-	 * 中文名称
-	 * <p>用于检索和显示时候使用</p>
-	 * @hibernate.property
-	 */
-	private String cnName;
-	
-	/**
 	 * 和AB对象之间的one-2-many的关联
 	 * @hibernate.set inverse="true" cascade="all-delete-orphan"
 	 * @hibernate.key column="BId"
@@ -56,17 +49,5 @@ public class B extends AbstractModel {
 	 */
 	public void setAbs(Set<AB> abs) {
 		this.abs = abs;
-	}
-	/**
-	 * @return Returns the cnName.
-	 */
-	public String getCnName() {
-		return cnName;
-	}
-	/**
-	 * @param cnName The cnName to set.
-	 */
-	public void setCnName(String cnName) {
-		this.cnName = cnName;
 	}
 }

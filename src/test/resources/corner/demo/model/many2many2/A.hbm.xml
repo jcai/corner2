@@ -12,5 +12,6 @@
       <one-to-many class="corner.demo.model.many2many2.AB"/>
     </set>
     <property name="name"/>
+    <property name="cnName"/>
   </class>
 </hibernate-mapping>

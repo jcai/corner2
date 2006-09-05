@@ -7,11 +7,11 @@
     <id name="id">
       <generator class="uuid"/>
     </id>
-    <property name="cnName"/>
     <set inverse="true" cascade="all-delete-orphan" name="abs">
       <key column="BId"/>
       <one-to-many class="corner.demo.model.many2many2.AB"/>
     </set>
     <property name="name"/>
+    <property name="cnName"/>
   </class>
 </hibernate-mapping>

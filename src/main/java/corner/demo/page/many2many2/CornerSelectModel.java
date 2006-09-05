@@ -1,11 +1,13 @@
 //==============================================================================
-//file :        DoubleSearchAutocompleteModel.java
+// file :       $Id$
+// project:     corner
 //
-//last change:	date:       $Date$
-//           	by:         $Author$
-//           	revision:   $Revision$
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
 package corner.demo.page.many2many2;
@@ -31,20 +33,17 @@ import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.service.EntityService;
 
 /**
- * 支持中文和拼音双检索的AutocompleteModel
  * @author Ghost
  * @version $Revision$
- * @since 0.9.9.2
+ * @since 2.1
  */
-public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
-
+public class CornerSelectModel implements IAutocompleteModel {
 	public static final int nFirst = 0;
 	public static final int nPageSize = 20;
 	
-    /**
-     * 提供对实体的增删改查服务操作
-     */
+    
     private EntityService entityService;
+    
     
     /**
      * 被检索的类的名称
@@ -76,7 +75,7 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
      * @param labelField 用于进行拼音检索的字段
      * @param cnlabelField 用于进行中文检索的字段
      */
-	public DoubleSearchAutocompleteModel(EntityService entityService,Class queryClass, String labelField, String cnlabelField) {
+	public CornerSelectModel(EntityService entityService,Class queryClass, String labelField, String cnlabelField) {
 		Defense.notNull(entityService, "entityService can't be null!");
 		Defense.notNull(labelField, "label can't be null!");
 		Defense.notNull(queryClass, "queryClass can't be null!");
@@ -105,7 +104,8 @@ public class DoubleSearchAutocompleteModel implements IAutocompleteModel {
 
         _values = this.listAllMatchedValue(filter);
         for(Object obj:_values){
-        	String label = this.getLabelFor(obj);
+
+        	Object label = obj;
         	String cnlabel = this.getCnlabelFor(obj);
         	ret.put(label, cnlabel);
         }

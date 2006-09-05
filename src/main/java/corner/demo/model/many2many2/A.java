@@ -24,7 +24,7 @@ import corner.demo.model.AbstractModel;
  * @hibernate.cache usage="read-write"
  * @hibernate.mapping auto-import="false" 
  */
-public class A extends AbstractModel  {
+public class A extends AbstractModel{
 
 	/**
 	 * 
