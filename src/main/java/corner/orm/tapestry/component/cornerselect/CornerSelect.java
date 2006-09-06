@@ -15,7 +15,7 @@ package corner.orm.tapestry.component.cornerselect;
 import org.apache.tapestry.dojo.form.Autocompleter;
 import org.apache.tapestry.dojo.form.IAutocompleteModel;
 
-import corner.demo.page.many2many2.CornerSelectModel;
+import corner.orm.tapestry.component.CornerSelectModel;
 import corner.service.EntityService;
 
 /**

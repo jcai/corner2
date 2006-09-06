@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.demo.page.many2many2;
+package corner.orm.tapestry.component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

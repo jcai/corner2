@@ -27,7 +27,7 @@ import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
-import corner.demo.page.many2many2.CornerSelectModel;
+import corner.orm.tapestry.component.CornerSelectModel;
 import corner.service.EntityService;
 
 /**
