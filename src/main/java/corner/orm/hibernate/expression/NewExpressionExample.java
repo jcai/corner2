@@ -141,12 +141,14 @@ public class NewExpressionExample extends Example {
 		if (propertyValue != null) {
 			boolean isString = propertyValue instanceof String;
 			QueryType qt=this.worker.getQueryTypeByPropertyName(propertyName);
-			if(qt==QueryType.Date){
+			if(qt==QueryType.Date){//日期
 				crit = new DateExpression(propertyName, (String) propertyValue);
-			}else{
+			}else if(qt==QueryType.String||isString){//字符串
 				String op = isLikeEnabled && isString ? " like " : "=";
-				crit = new StringExpression(propertyName, (String) propertyValue,
+				crit = new StringExpression(propertyName, propertyValue.toString(),
 						op, isIgnoreCaseEnabled && isString);
+			}else{//其他类型
+				crit=Restrictions.eq(propertyName, propertyValue);
 			}
 		} else {
 			crit = Restrictions.isNull(propertyName);
