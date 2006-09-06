@@ -15,12 +15,26 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript">
 	dojo.require("corner.widget.TextAreaBox");
+	dojo.require("dojo.widget.Select");
 </script>
+<style>
+	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+	background-color: #FFFDEC;
+	border: 1px solid #CCCCCC;
+	width: 98%;
+	}
+	.input-form-99{
+		width: 99%;
+	}
+</style>
 </head>
 
 <body>
-	<div id="tab"></div>
-	<div id="tab1"></div>
+	<input id="tab"  class="input-form-ajax-99"></input>
+	<input id="tab1"  class="input-form-ajax-99"></input>
 </body>
 		<script language="javascript">
 			var props = {dataUrl:"TextAreaBoxData.js"};

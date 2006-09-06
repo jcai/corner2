@@ -47,7 +47,7 @@ public abstract class CornerSelect extends Autocompleter {
     {
         renderDelegatePrefix(writer, cycle);
         
-        writer.begin("select");
+        writer.begin("input");
         writer.attribute("name", getName());
         
         if (isDisabled())
@@ -89,6 +89,7 @@ public abstract class CornerSelect extends Autocompleter {
             
             json.put("value", getDataSqueezer().squeeze(key));
             json.put("cnlabel", model.getCnLabelFor(value));
+            json.put("label", model.getLabelFor(value));
         }
         
         parms.put("props", json.toString());
