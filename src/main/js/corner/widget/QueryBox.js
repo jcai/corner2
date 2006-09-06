@@ -9,6 +9,7 @@
  */
 dojo.provide("corner.widget.QueryBox");
 dojo.require("dojo.widget.DropdownContainer");
+dojo.require("dojo.event.*");
 
 //定义一个querybox的widget.
 dojo.widget.defineWidget("corner.widget.QueryBox");
@@ -28,10 +29,25 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		var source = this.getFragNodeRef(frag);
 		if(args.date){ this.date = new Date(args.date); }
 		var dpNode = document.createElement("div");
-		var text=document.createTextNode("hello!");
+		var frame=document.createElement("IFrame");
 		dpNode.style.backgroundColor="red";
-		dpNode.appendChild(text);
+		dpNode.appendChild(frame);
+		
+		var params={
+			id:source.id
+		};
+		dojo.debug(dojo.json.serialize(params));
+		var url="querybox_page.html?data="+dojo.json.serialize(params);
+		obj=dojo.json.evalJson(dojo.json.serialize(params));
+		dojo.debug(obj);
+		dojo.debug("url::"+url);
+		frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); 
+		frame.setAttribute("test","hello");
+		dojo.event.connect(frame,"onclick",this,"frameOnClick");
 		this.containerNode.appendChild(dpNode);
 		this.containerNode.style.backgroundColor = "transparent";
+	},
+	frameOnClick:function(evt){
+		dojo.debug("frame on click!");
 	}
 });
