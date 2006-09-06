@@ -20,7 +20,6 @@ import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.dojo.form.Autocompleter;
-import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.json.IJSONWriter;
@@ -28,6 +27,7 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
 import corner.orm.tapestry.component.CornerSelectModel;
+import corner.orm.tapestry.component.ISelectModel;
 import corner.service.EntityService;
 
 /**
@@ -78,7 +78,7 @@ public abstract class TextAreaBox extends Autocompleter {
         json.put("searchDelay", getSearchDelay());
         json.put("fadeTime", getFadeTime());
         
-        IAutocompleteModel model = getModel();
+        ISelectModel model = getModel();
         if (model == null)
             throw Tapestry.createRequiredParameterException(this, "model");
         
@@ -87,7 +87,7 @@ public abstract class TextAreaBox extends Autocompleter {
         if (value != null) {
             
             json.put("value", value.toString());
-//            json.put("label", BeanUtils.getProperty(model,"cnlabel"));
+            json.put("cnlabel", model.getCnLabelFor(value));
         }
         
         parms.put("props", json.toString());
@@ -102,7 +102,7 @@ public abstract class TextAreaBox extends Autocompleter {
 	 */
 	@Override
 	public void renderComponent(IJSONWriter writer, IRequestCycle cycle) {
-        IAutocompleteModel model = getModel();
+        ISelectModel model = getModel();
         
         if (model == null)
             throw Tapestry.createRequiredParameterException(this, "model");
@@ -146,7 +146,7 @@ public abstract class TextAreaBox extends Autocompleter {
         }
 	}
 
-	public IAutocompleteModel getModel(){
+	public ISelectModel getModel(){
 		try {
 			return new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
 		} catch (ClassNotFoundException e) {

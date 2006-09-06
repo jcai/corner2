@@ -21,7 +21,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.util.Defense;
-import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -37,7 +36,7 @@ import corner.util.TapestryHtmlFormatter;
  * @version $Revision$
  * @since 2.1
  */
-public class CornerSelectModel implements IAutocompleteModel {
+public class CornerSelectModel implements ISelectModel {
 	public static final int nFirst = 0;
 	public static final int nPageSize = 20;
 	
@@ -105,7 +104,7 @@ public class CornerSelectModel implements IAutocompleteModel {
         for(Object obj:_values){
 
         	Object label = obj;
-        	String cnlabel = this.getCnlabelFor(obj);
+        	String cnlabel = this.getCnLabelFor(obj);
         	ret.put(label, cnlabel);
         }
         return ret;
@@ -129,7 +128,7 @@ public class CornerSelectModel implements IAutocompleteModel {
 	 * @param value
 	 * @return
 	 */
-    public String getCnlabelFor(Object value){
+    public String getCnLabelFor(Object value){
         try {
             
             return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(cnlabelField)).toString();

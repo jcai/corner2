@@ -19,10 +19,10 @@
     <initialization>
         var ${id}prop=${props};
         tapestry.widget.synchronizeWidgetState("${id}", "Select", ${id}prop);
-        if (${id}prop["label"] &amp;&amp; ${id}prop["value"]){
-            var selw=dojo.widget.byId("${id}");
+        if (${id}prop["cnlabel"] &amp;&amp; ${id}prop["value"]){
+            var selw=dojo.widget.byId(${id}prop["widgetId"]);
             selw.setValue(${id}prop["value"]);
-            selw.setLabel(${id}prop["label"]);
+            selw.setLabel(${id}prop["cnlabel"]);
         }
     </initialization>
 </script>

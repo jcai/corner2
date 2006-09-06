@@ -12,10 +12,21 @@
 
 package corner.orm.tapestry.component.cornerselect;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.PageRenderSupport;
+import org.apache.tapestry.Tapestry;
+import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.dojo.form.Autocompleter;
-import org.apache.tapestry.dojo.form.IAutocompleteModel;
+import org.apache.tapestry.engine.DirectServiceParameter;
+import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.json.JSONObject;
 
 import corner.orm.tapestry.component.CornerSelectModel;
+import corner.orm.tapestry.component.ISelectModel;
 import corner.service.EntityService;
 
 /**
@@ -24,7 +35,75 @@ import corner.service.EntityService;
  * @since 2.1
  */
 public abstract class CornerSelect extends Autocompleter {
-	public IAutocompleteModel getModel(){
+	
+    // mode, can be remote or local (local being from html rendered option elements)
+    private static final String MODE_REMOTE = "remote";	
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+	protected void renderFormWidget(IMarkupWriter writer, IRequestCycle cycle)
+    {
+        renderDelegatePrefix(writer, cycle);
+        
+        writer.begin("select");
+        writer.attribute("name", getName());
+        
+        if (isDisabled())
+            writer.attribute("disabled", "disabled");
+        
+        renderIdAttribute(writer, cycle);
+        
+        renderDelegateAttributes(writer, cycle);
+        
+        getValidatableFieldSupport().renderContributions(this, writer, cycle);
+        
+        // Apply informal attributes.
+        renderInformalParameters(writer, cycle);
+        
+        writer.end();
+        renderDelegateSuffix(writer, cycle);
+        
+        ILink link = getDirectService().getLink(true, new DirectServiceParameter(this));
+        
+        Map parms = new HashMap();
+        parms.put("id", getClientId());
+        
+        JSONObject json = new JSONObject();
+        json.put("dataUrl", link.getURL() + "&filter=%{searchString}");
+        json.put("mode", MODE_REMOTE);
+        json.put("widgetId", getName());
+        json.put("name", getName());
+        json.put("searchDelay", getSearchDelay());
+        json.put("fadeTime", getFadeTime());
+        
+        ISelectModel model = getModel();
+        if (model == null)
+            throw Tapestry.createRequiredParameterException(this, "model");
+        
+        Object value = getValue();
+        Object key = value != null ? model.getPrimaryKey(value) : null;
+        
+        if (value != null && key != null) {
+            
+            json.put("value", getDataSqueezer().squeeze(key));
+            json.put("cnlabel", model.getCnLabelFor(value));
+        }
+        
+        parms.put("props", json.toString());
+        parms.put("form", getForm().getName());
+        
+        PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
+        getScript().execute(this, cycle, prs, parms);
+    }	
+	
+	/**
+	 * 返回CornerSelectModel
+	 * <p>返回自定义的CornerSelectModel</p>
+	 * @see org.apache.tapestry.dojo.form.Autocompleter#getModel()
+	 */
+	public ISelectModel getModel(){
 		try {
 			return new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
 		} catch (ClassNotFoundException e) {
