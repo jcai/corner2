@@ -187,19 +187,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			String where = criteriaQuery.getWhereCondition();
 			QueryParameters qps=criteriaQuery.getQueryParameters();
 			
-			/*Example example=NewExpressionExample.create(new Object());
-			TypedValue [] tvs=example.getTypedValues(criteria, criteriaQuery);
-			example.toSqlString(criteria, criteriaQuery);
-			Object [] values=new Object[tvs.length];
-			Type [] types=new Type[tvs.length];
-			for(int i=0;i<tvs.length;i++){
-				values[i]=tvs[i].getValue();
-				types[i]=tvs[i].getType();
-			}
-			String sql=example.toSqlString(criteria, criteriaQuery);
-			*/
+			//当Criteria里面的值不为空时，则增加where条件语句
 			if(where != null && where.length()>0){
-				sb.append("where ").append(where);
+				sb.append("where ").append(where).append(" ");
 			}
 			if(orderStr!=null){
 				sb.append(orderStr);
