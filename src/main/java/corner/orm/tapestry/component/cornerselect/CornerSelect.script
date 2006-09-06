@@ -19,10 +19,12 @@
     <initialization>
         var ${id}prop=${props};
         tapestry.widget.synchronizeWidgetState("${id}", "Select", ${id}prop);
+        var ${id}CornerSelect =dojo.widget.byId(${id}prop["widgetId"]);
+        
+        ${id}CornerSelect["optionsListWrapper"].style.textAlign ="left";
         if (${id}prop["cnlabel"] &amp;&amp; ${id}prop["value"]){
-            var selw=dojo.widget.byId(${id}prop["widgetId"]);
-            selw.setValue(${id}prop["value"]);
-            selw.setLabel(${id}prop["cnlabel"]);
+            ${id}CornerSelect.setValue(${id}prop["value"]);
+            ${id}CornerSelect.setLabel(${id}prop["cnlabel"]);
         }
     </initialization>
 </script>

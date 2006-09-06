@@ -1,3 +1,12 @@
+<style>
+	.right-td-width-bg,.right-td-width,.right-td-width-readonly{
+	color: #000066;
+	background-color: #ffffff;
+	width: 35%;
+	line-height: 22px;
+	text-align: center;
+}
+</style>
 <span jwcid="@DemoBorder">
 	<div jwcid="@contrib:TableView" columns="name" element="div"
         persist="client:page" source="ognl:source" pageSize="5">
@@ -30,7 +39,7 @@
 		  <td>
 		  	message
 		  </td>
-          <td align="center">
+          <td class="right-td-width">
             <input jwcid="messageField" id="message" name="message"/>
           </td>
         </tr>
