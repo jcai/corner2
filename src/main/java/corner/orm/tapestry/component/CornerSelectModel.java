@@ -30,6 +30,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
+import corner.util.TapestryHtmlFormatter;
 
 /**
  * @author Ghost
@@ -131,7 +132,7 @@ public class CornerSelectModel implements IAutocompleteModel {
     public String getCnlabelFor(Object value){
         try {
             
-            return PropertyUtils.getProperty(value, cnlabelField).toString();
+            return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(cnlabelField)).toString();
             
         } catch (Exception e) {
             throw new ApplicationRuntimeException(e);
@@ -144,13 +145,13 @@ public class CornerSelectModel implements IAutocompleteModel {
 	public String getLabelFor(Object value) {
         try {
             
-            return PropertyUtils.getProperty(value, labelField).toString();
+            return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(labelField)).toString();
             
         } catch (Exception e) {
             throw new ApplicationRuntimeException(e);
         }
 	}
-
+	
 	/**
 	 * @see org.apache.tapestry.components.IPrimaryKeyConverter#getPrimaryKey(java.lang.Object)
 	 */
