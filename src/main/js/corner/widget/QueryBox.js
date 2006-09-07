@@ -40,7 +40,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		//this.frame=document.createElement("IFrame");
 		var onloadstr="alert('okay')";
 		var r = dojo.render.html;
-		var ifrstr = ((r.ie)&&(dojo.render.os.win)) ? "<iframe name='"+fname+"' src='"+turi+"' onload='"+onloadstr+"'>" : "iframe";
+		var ifrstr = ((r.ie)&&(dojo.render.os.win)) ? "<iframe  onload='"+onloadstr+"'>" : "iframe";
 		this.frame = document.createElement(ifrstr);
 
 		dpNode.style.backgroundColor="red";
