@@ -95,8 +95,8 @@ public class CornerSelectModel implements ISelectModel {
         if (match == null)
             return ret;
         
-        StringBuffer buffer = new StringBuffer("%");
-        buffer.append(match.trim().toLowerCase());
+        StringBuffer buffer = new StringBuffer("");
+        buffer.append(match.trim());
         buffer.append("%");
         String filter = buffer.toString();
 
