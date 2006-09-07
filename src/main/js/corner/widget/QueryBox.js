@@ -27,6 +27,8 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	widgetType : "QueryBox",
 	frame:null,
 	fillInTemplate: function(args, frag){
+		dojo.debug("fill in template");
+				
 		corner.widget.QueryBox.superclass.fillInTemplate.call(this, args, frag);
 		var source = this.getFragNodeRef(frag);
 		if(args.date){ this.date = new Date(args.date); }
@@ -56,8 +58,12 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		this.containerNode.style.zIndex = this.zIndex;
 		this.containerNode.style.backgroundColor = "transparent";
 		
-		dojo.event.connect(this.getFrameWindow(),"onload",this,"frameOnload");
 		
+		
+	},
+	postCreate: function(args, frag, parentComp) {
+		dojo.debug("post create");
+		dojo.event.connect(this.frame,"onload",this,"frameOnload");
 	},
 	frameOnClick:function(evt){
 		dojo.debug("frame on click!");
@@ -77,6 +83,12 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	getFrameWindow:function(){
   	  var oDoc = (this.frame.contentWindow || this.frame.contentDocument);
 	  
+	  return oDoc;
+	},
+	getFrameDocument:function(){
+  	  var oDoc = (this.frame.contentWindow || this.frame.contentDocument);
+  	  dojo.debug(oDoc);
+	  if(oDoc.document){oDoc=oDoc.document}
 	  return oDoc;
 	}
 });
