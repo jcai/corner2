@@ -3,43 +3,49 @@
 <html>
 <head>
 <title>Dojo ComboBox Widget Demo</title>
-<SCRIPT LANGUAGE="JavaScript">
+	<SCRIPT LANGUAGE="JavaScript">
 <!--
 
-djConfig = { isDebug: true
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
           };
 
 //-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
-</head>
+
 <SCRIPT LANGUAGE="JavaScript">
 <!--
+dojo.require("dojo.event.*");
 dojo.require("dojo.json");
-dojo.debug(parent);
-dojo.debug(location.search);
-dojo.debug(getQueryVariable("data"));
 
-dojo.debug(getQueryVariable("data").replace("%22",'"'));
-//dojo.json.evalJson	
-
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        if (pair[0] == variable) {
-            return pair[1];
-        }
-    }
-}
+var queryBox=null;
 	
-//dojo.debug(document.getAttribute("test"));
+function initBox(){
+	 for(var i=0;i<10;i++){
+		var props={'label':'tesft','value':'value'+i};
+		dojo.byId("radioBtn"+i).setAttribute("object",dojo.json.serialize(props));
+		dojo.event.connect(dojo.byId("radioBtn"+i),"onclick",queryBox,"onclick");
+	} 
+}
+
 //-->
 </SCRIPT>
-
+</head>
 <body>
-test	
+	<form >
+		<input type="text">
+
+		<input type="submit"/>
+	</form>
+			list:<br/>
+<script>
+	for(var i=0;i<10;i++){
+		document.write("<input type='radio' id='radioBtn"+i+"'/>Value"+i+"<br/>");
+	}
+</script>
 </body>
 </html>

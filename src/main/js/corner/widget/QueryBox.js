@@ -10,6 +10,7 @@
 dojo.provide("corner.widget.QueryBox");
 dojo.require("dojo.widget.DropdownContainer");
 dojo.require("dojo.event.*");
+dojo.require("dojo.json");
 
 //定义一个querybox的widget.
 dojo.widget.defineWidget("corner.widget.QueryBox");
@@ -24,30 +25,56 @@ dojo.inherits(corner.widget.QueryBox,dojo.widget.DropdownContainer);
 //对QueryBox进行扩展.
 dojo.lang.extend(corner.widget.QueryBox,{
 	widgetType : "QueryBox",
+	frame:null,
 	fillInTemplate: function(args, frag){
 		corner.widget.QueryBox.superclass.fillInTemplate.call(this, args, frag);
 		var source = this.getFragNodeRef(frag);
 		if(args.date){ this.date = new Date(args.date); }
 		var dpNode = document.createElement("div");
-		var frame=document.createElement("IFrame");
+		dpNode.style.width="100%";
+		this.containerNode.appendChild(dpNode);
+		this.frame=document.createElement("IFrame");
 		dpNode.style.backgroundColor="red";
-		dpNode.appendChild(frame);
+		dpNode.appendChild(this.frame);
+		
+		
+		
+		
+		
+    
 		
 		var params={
 			id:source.id
 		};
-		dojo.debug(dojo.json.serialize(params));
-		var url="querybox_page.html?data="+dojo.json.serialize(params);
-		obj=dojo.json.evalJson(dojo.json.serialize(params));
-		dojo.debug(obj);
-		dojo.debug("url::"+url);
-		frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); 
-		frame.setAttribute("test","hello");
-		dojo.event.connect(frame,"onclick",this,"frameOnClick");
-		this.containerNode.appendChild(dpNode);
+		dojo.debug("wdigetId:::"+this.widgetId);
+		var url="querybox_page.html?widgetId="+this.widgetId;
+
+		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
+		
+		dojo.event.connect("before",this.frame,"onload",this,"onload");
+
+		
+		this.containerNode.style.zIndex = this.zIndex;
 		this.containerNode.style.backgroundColor = "transparent";
 	},
 	frameOnClick:function(evt){
 		dojo.debug("frame on click!");
+	},
+	onload:function(evt){
+		dojo.debug("onload");
+		this.getFrameWindow().queryBox=this;
+		this.getFrameWindow().initBox();
+	},
+	onclick:function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		var obj=src.getAttribute("object");
+		obj=dojo.json.evalJson(obj);	
+		this.inputNode.value=obj.value;
+		this.toggleContainerShow();		
+	},
+	getFrameWindow:function(){
+  	  var oDoc = (this.frame.contentWindow || this.frame.contentDocument);
+	  
+	  return oDoc;
 	}
 });

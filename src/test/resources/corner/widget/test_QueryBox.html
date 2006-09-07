@@ -25,13 +25,13 @@ djConfig = { isDebug: true,
 dojo.require("corner.widget.QueryBox");
 
 dojo.addOnLoad(function(){
-		dojo.widget.createWidget("QueryBox",{},dojo.byId("testMatrix"));
+		dojo.widget.createWidget("QueryBox",{widgetId:"testQ"},dojo.byId("testMatrix"));
 	});
 
 //-->
 </script>
 </HEAD>
 <BODY>
-<div id="testMatrix" ></div>
+<input id="testMatrix" ></div>
 </body>
 </html>
