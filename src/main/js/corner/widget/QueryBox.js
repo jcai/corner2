@@ -11,6 +11,7 @@ dojo.provide("corner.widget.QueryBox");
 dojo.require("dojo.widget.DropdownContainer");
 dojo.require("dojo.event.*");
 dojo.require("dojo.json");
+dojo.require("dojo.io.IframeIO");
 
 //定义一个querybox的widget.
 dojo.widget.defineWidget("corner.widget.QueryBox");
@@ -35,10 +36,15 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		var dpNode = document.createElement("div");
 		dpNode.style.width="100%";
 		this.containerNode.appendChild(dpNode);
-		this.frame=document.createElement("IFrame");
+		
+		//this.frame=document.createElement("IFrame");
+		var onloadstr="alert('okay')";
+		var r = dojo.render.html;
+		var ifrstr = ((r.ie)&&(dojo.render.os.win)) ? "<iframe name='"+fname+"' src='"+turi+"' onload='"+onloadstr+"'>" : "iframe";
+		this.frame = document.createElement(ifrstr);
+
 		dpNode.style.backgroundColor="red";
 		dpNode.appendChild(this.frame);
-		
 		
 		
 		
@@ -50,9 +56,12 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		};
 		dojo.debug("wdigetId:::"+this.widgetId);
 		var url="querybox_page.html?widgetId="+this.widgetId;
+		
 
 		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
-		
+		if(!r.ie){
+			this.frame.onload = new Function(onloadstr);
+		}
 		
 		
 		this.containerNode.style.zIndex = this.zIndex;
@@ -63,7 +72,9 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	},
 	postCreate: function(args, frag, parentComp) {
 		dojo.debug("post create");
-		dojo.event.connect(this.frame,"onload",this,"frameOnload");
+		//this.frame.onload=this.frameOnload;
+//		dojo.event.connect(this.frame,"onload",this,"frameOnload");			
+
 	},
 	frameOnClick:function(evt){
 		dojo.debug("frame on click!");
@@ -81,14 +92,9 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		this.toggleContainerShow();		
 	},
 	getFrameWindow:function(){
-  	  var oDoc = (this.frame.contentWindow || this.frame.contentDocument);
-	  
-	  return oDoc;
+	  return dojo.io.iframeContentWindow(this.frame);
 	},
 	getFrameDocument:function(){
-  	  var oDoc = (this.frame.contentWindow || this.frame.contentDocument);
-  	  dojo.debug(oDoc);
-	  if(oDoc.document){oDoc=oDoc.document}
-	  return oDoc;
+  	  return dojo.io.iframeContentDocument(this.frame);
 	}
 });
