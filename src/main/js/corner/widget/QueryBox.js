@@ -51,7 +51,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 
 		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
 		
-		dojo.event.connect("before",this.frame,"onload",this,"onload");
+		dojo.event.connect("after",this.frame,"onload",this,"onload");
 
 		
 		this.containerNode.style.zIndex = this.zIndex;
