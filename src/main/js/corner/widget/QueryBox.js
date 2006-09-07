@@ -51,11 +51,13 @@ dojo.lang.extend(corner.widget.QueryBox,{
 
 		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
 		
-		dojo.event.connect(this.frame,"onload",this,"frameOnload");
-
+		
 		
 		this.containerNode.style.zIndex = this.zIndex;
 		this.containerNode.style.backgroundColor = "transparent";
+		
+		dojo.event.connect(this.getFrameWindow(),"onload",this,"frameOnload");
+		
 	},
 	frameOnClick:function(evt){
 		dojo.debug("frame on click!");
