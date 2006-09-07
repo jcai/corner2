@@ -1,9 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-        "http://www.w3.org/TR/html4/strict.dtd">
+
 <html>
 <head>
 <title>Dojo ComboBox Widget Demo</title>
-	<SCRIPT LANGUAGE="JavaScript">
+<SCRIPT LANGUAGE="JavaScript">
 <!--
 
 djConfig = { isDebug: true,
@@ -17,35 +16,48 @@ djConfig = { isDebug: true,
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 
+
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-dojo.require("dojo.event.*");
-dojo.require("dojo.json");
-
-var queryBox=null;
-	
-function initBox(){
-	 for(var i=0;i<10;i++){
-		var props={'label':'tesft','value':'value'+i};
-		dojo.byId("radioBtn"+i).setAttribute("object",dojo.json.serialize(props));
-		dojo.event.connect(dojo.byId("radioBtn"+i),"onclick",queryBox,"onclick");
-	} 
+var queryBox;
+var pdojo=parent.dojo;
+function pageOnUnLoad(){
+	alert("unload");
 }
-
+var radioGroup=['id1','id2'];
+var radioGroupValue=['value1','value2'];
+function initBox(){
+	for(var i=0;i<radioGroup.length;i++){
+		obj=dojo.byId(radioGroup[i]);
+		props={label:'label',value:radioGroupValue[i]};
+		obj.setAttribute("object",dojo.json.serialize(props));
+		pdojo.event.connect(obj,"onclick",queryBox,"onclick");
+	}
+}
+dojo.addOnUnload(function(){
+	for(var i=0;i<radioGroup.length;i++){
+		pdojo.event.disconnect(dojo.byId(radioGroup[i]),"onclick",queryBox,"onclick");
+	}
+	
+});
 //-->
 </SCRIPT>
 </head>
-<body>
-	<form >
+<body >
+<a href="http://168.168.168.205">test link</a><br/>
+	<form action="?testf=asdf">
 		<input type="text">
 
 		<input type="submit"/>
 	</form>
 			list:<br/>
-<script>
-	for(var i=0;i<10;i++){
-		document.write("<input type='radio' id='radioBtn"+i+"'/>Value"+i+"<br/>");
-	}
-</script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+for(var i=0;i<radioGroup.length;i++){
+	document.write("<input type='radio' id='"+radioGroup[i]+"' />"+radioGroupValue[i]);
+}
+//-->
+</SCRIPT>
+
 </body>
 </html>
