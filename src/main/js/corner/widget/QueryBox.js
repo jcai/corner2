@@ -51,7 +51,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 
 		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
 		
-		dojo.event.connect("after",this.frame,"onload",this,"onload");
+		dojo.event.connect(this.frame,"onload",this,"frameOnload");
 
 		
 		this.containerNode.style.zIndex = this.zIndex;
@@ -60,7 +60,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	frameOnClick:function(evt){
 		dojo.debug("frame on click!");
 	},
-	onload:function(evt){
+	frameOnload:function(evt){
 		dojo.debug("onload");
 		this.getFrameWindow().queryBox=this;
 		this.getFrameWindow().initBox();
