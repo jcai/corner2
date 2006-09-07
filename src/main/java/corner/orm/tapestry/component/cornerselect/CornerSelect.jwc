@@ -26,7 +26,7 @@
   
   <parameter name="filterOnChange" default-value="true" />
   
-  <parameter name="autocomplete" default-value="true" />
+  <parameter name="autocomplete" default-value="false" />
   
   <parameter name="searchDelay" default-value="100" />
   

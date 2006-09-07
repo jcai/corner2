@@ -21,7 +21,20 @@
         tapestry.widget.synchronizeWidgetState("${id}", "Select", ${id}prop);
         var ${id}CornerSelect =dojo.widget.byId(${id}prop["widgetId"]);
         
+        //取得domNode的样式类.
+		var textInputClass =dojo.html.getClass(${id}CornerSelect.domNode);
+        //删除domNode的样式.
+        dojo.html.removeClass(${id}CornerSelect.domNode,textInputClass,false);
+        //替换TextInputNode的样式为源节点的样式
+        dojo.html.replaceClass(${id}CornerSelect.textInputNode,textInputClass,"dojoComboBoxInput");
+        //设定widget中table的样式
+        //dojo.html.replaceClass(${id}CornerSelect.cbTableNode,textInputClass,"dojoComboBox");
+        
+        
+        dojo.debug(dojo.html.getClass(${id}CornerSelect.textInputNode));
+        
         ${id}CornerSelect["optionsListWrapper"].style.textAlign ="left";
+        var tempObj = ${id}CornerSelect["optionsListNode"];
         if (${id}prop["cnlabel"] &amp;&amp; ${id}prop["value"]){
             ${id}CornerSelect.setValue(${id}prop["value"]);
             ${id}CornerSelect.setLabel(${id}prop["cnlabel"]);
