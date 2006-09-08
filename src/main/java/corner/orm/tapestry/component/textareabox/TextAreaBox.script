@@ -29,6 +29,8 @@
         dojo.html.replaceClass(${id}TextAreaBox.textInputNode,textInputClass,"dojoComboBoxInput");
         //设定widget中table的样式
         //dojo.html.replaceClass(${id}TextAreaBox.cbTableNode,textInputClass,"dojoComboBox");
+        //设定widget中table的边框
+        ${id}TextAreaBox.cbTableNode.style.border="none";
         
         ${id}TextAreaBox["optionsListWrapper"].style.textAlign ="left";
         if (${id}prop["value"]){
