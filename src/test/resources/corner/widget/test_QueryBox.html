@@ -25,13 +25,18 @@ djConfig = { isDebug: true,
 dojo.require("corner.widget.QueryBox");
 
 dojo.addOnLoad(function(){
-		dojo.widget.createWidget("QueryBox",{widgetId:"testQ"},dojo.byId("testMatrix"));
+		dojo.widget.createWidget("QueryBox",{widgetId:"testQ"},dojo.byId("testQ"));
 	});
 
 //-->
 </script>
 </HEAD>
 <BODY>
-<input id="testMatrix" ></div>
+<pre>
+对选择的时候，支持查询的widget。
+在查询的时候,支持弹出层的页面跳转，以及对查询页面的缓存.
+$Id$    
+</pre>
+<input id="testQ" ></div>
 </body>
 </html>
