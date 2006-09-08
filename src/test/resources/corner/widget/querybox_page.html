@@ -27,8 +27,8 @@ if(!pdojo){
 function pageOnUnLoad(){
 	alert("unload");
 }
-var radioGroup=['id1','id2'];
-var radioGroupValue=['value1','value2'];
+var radioGroup=['id1','id2','id3','id4','id5','id6'];
+var radioGroupValue=['value1','value2','value3','value4','value5','value6'];
 function initBox(){
 	for(var i=0;i<radioGroup.length;i++){
 		obj=dojo.byId(radioGroup[i]);
@@ -57,7 +57,7 @@ dojo.addOnUnload(function(){
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 for(var i=0;i<radioGroup.length;i++){
-	document.write("<input type='radio' name='test' id='"+radioGroup[i]+"' />"+radioGroupValue[i]);
+	document.write("<input type='radio' name='test' id='"+radioGroup[i]+"' />"+radioGroupValue[i]+"<br/>");
 }
 //-->
 </SCRIPT>
