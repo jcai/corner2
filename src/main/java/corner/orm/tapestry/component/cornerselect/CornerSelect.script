@@ -30,11 +30,6 @@
         //设定widget中table的样式
         //dojo.html.replaceClass(${id}CornerSelect.cbTableNode,textInputClass,"dojoComboBox");
         
-        //设定下拉层不出现scrollbar
-        ${id}CornerSelect.optionsListNode.style.overflow="hidden";
-        dojo.debug(${id}CornerSelect.optionsListNode.style.overflow);
-       //dojo.debug(dojo.html.getClass(${id}CornerSelect.textInputNode));
-        
         ${id}CornerSelect["optionsListWrapper"].style.textAlign ="left";
         var tempObj = ${id}CornerSelect["optionsListNode"];
         if (${id}prop["cnlabel"] &amp;&amp; ${id}prop["value"]){

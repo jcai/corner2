@@ -25,7 +25,6 @@
   <component type="corner:CornerSelect" id="messageField">
     <binding value="ognl:entity.a" name="value"/>
     <binding name="queryClass" value="literal:corner.demo.model.many2many2.A" />
-    <binding name="entityService" value="entityService"/>
     <binding name="label" value="literal:name" />
     <binding name="cnlabel" value="literal:cnName" />
   </component>

@@ -16,8 +16,6 @@
   
   <parameter name="queryClass" required="yes"/>
   
-  <parameter name="entityService" required="yes" />
-  
   <parameter name="label" required="yes" />
   
   <parameter name="cnlabel" required="yes" />

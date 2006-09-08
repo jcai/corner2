@@ -20,6 +20,7 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.dojo.form.Autocompleter;
 import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.ILink;
@@ -127,6 +128,7 @@ public abstract class CornerSelect extends Autocompleter {
 	  * 提供对实体的增删改查操作的能力
 	  * @return
 	  */
+	 @InjectObject("spring:entityService")
 	 public abstract EntityService getEntityService();
 	 /**
 	  * 取得供拼音检索的字段名称
