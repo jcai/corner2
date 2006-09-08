@@ -5,7 +5,9 @@ package corner.orm.tapestry.page;
 
 import java.util.List;
 
+import org.apache.tapestry.IComponent;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.components.IPrimaryKeyConverter;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
@@ -146,5 +148,21 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	public IPrimaryKeyConverter getConverter() {
 		return new HibernateConverter(this.getDataSqueezer());
 	}
+	//=====  加入直接操作实体的DirectLink连接
+	/**
+	 * 编辑实体的连接
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:doEditEntityAction","parameters=entity"})
+	public abstract IComponent getEditEntityLink();
+	/**
+	 * 增加实体的连接
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:doNewEntityAction"})
+	public abstract IComponent getNewEntityLink();
+	/**
+	 * 删除实体的连接
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:doDeleteEntityAction","parameters=entity"})
+	public abstract IComponent getDeleteEntityLink();
 
 }
