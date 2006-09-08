@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对树的测试 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+
+
+<script>
+<!--
+   dojo.require("dojo.lang.*");
+   dojo.require("dojo.widget.*");
+   dojo.require("dojo.widget.Tree");
+   dojo.require("dojo.widget.TreeRPCController");
+   dojo.require("dojo.widget.InlineEditBox");
+   
+   dojo.hostenv.writeIncludes();
+		
+dojo.addOnLoad(function(){
+		
+	var ControllerProps={widgetId:"treeController",RPCUrl:"local",DNDController:"create"};
+
+	var treeProps={DNDMode:"between",toggler:"fade",widgetId:"firstTree",DNDAcceptTypes:"firstTree",controller:"treeController"};
+	
+	var Controller=dojo.widget.createWidget("TreeRPCController", ControllerProps);
+	
+	document.body.appendChild(Controller.domNode);
+	
+	var Widget=dojo.widget.createWidget("Tree", treeProps,dojo.byId("tree"));
+	
+	var RootNode=dojo.widget.createWidget("TreeNode", {title:'Root',isFolder:true,objectId:'root'});
+	
+	editWidget = dojo.widget.createWidget('InlineEditBox', {}, RootNode.titleNode);
+	
+	
+	Widget.addChild(RootNode);
+	
+	
+});
+
+
+
+//-->
+</script>
+</HEAD>
+<BODY>
+
+<input id="tree" ></div>
+</body>
+</html>
