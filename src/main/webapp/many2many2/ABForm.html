@@ -1,4 +1,5 @@
 <style>
+/* 右侧表格的宽度和背景及字体大小颜色，行高 */
 .right-td-width-bg,.right-td-width,.right-td-width-readonly{
 	color: #000066;
 	background-color: #ffffff;
@@ -6,8 +7,32 @@
 	line-height: 22px;
 	text-align: center;
 }
-.dojoComboBoxOptions{
-	position: relative;
+/* 右侧表格的宽度和背景及字体大小颜色，行高(情况为：两列时) */
+.right-td-width {
+	width: 85%;
+}
+	
+	/* Input的颜色、背景色、宽度、行高及字体大小、颜色 */
+.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+	background-color: #FFFDEC;
+	border: 1px solid #CCCCCC;
+	width: 98%;
+}
+/* Input的颜色、背景色、宽度、行高及字体大小、颜色 */
+.input-form-ajax_b,.input-form-ajax-99_b{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+  /*  background-color: #FFFDEC; */
+	border: 1px solid #CCCCCC;
+	width: 98%;
+}
+/* 当两列时Input的颜色、背景色、宽度、行高及字体大小、颜色 */
+.input-form-99{
+	width: 99%;
 }
 </style>
 <span jwcid="@DemoBorder">
@@ -43,7 +68,7 @@
 		  	message
 		  </td>
           <td align="center" class="right-td-width">
-            <input jwcid="messageField" id="message" name="message"/>
+            <input class="input-form-99" jwcid="messageField" id="message" name="message"/>
           </td>
         </tr>
 		<tr>
