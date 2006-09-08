@@ -21,6 +21,9 @@ djConfig = { isDebug: true,
 <!--
 var queryBox;
 var pdojo=parent.dojo;
+if(!pdojo){
+	dojo.raise("不能够得到父窗口的dojo对象!");
+}
 function pageOnUnLoad(){
 	alert("unload");
 }
@@ -54,7 +57,7 @@ dojo.addOnUnload(function(){
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 for(var i=0;i<radioGroup.length;i++){
-	document.write("<input type='radio' id='"+radioGroup[i]+"' />"+radioGroupValue[i]);
+	document.write("<input type='radio' name='test' id='"+radioGroup[i]+"' />"+radioGroupValue[i]);
 }
 //-->
 </SCRIPT>
