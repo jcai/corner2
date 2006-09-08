@@ -131,7 +131,12 @@ public class CornerSelectModel implements ISelectModel {
     public String getCnLabelFor(Object value){
         try {
             
-            return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(cnlabelField)).toString();
+            if(value instanceof String){
+            	return value.toString();
+            }
+            else{
+            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(cnlabelField)).toString();
+            }
             
         } catch (Exception e) {
             throw new ApplicationRuntimeException(e);
