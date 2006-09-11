@@ -16,6 +16,13 @@ djConfig = { isDebug: true
 <script type="text/javascript">
 	dojo.require("corner.widget.CornerTextArea");
 	dojo.require("dojo.widget.Select");
+	
+function init(){	
+	var props = {dataUrl:"CornerTextAreaBox.js",dataProviderClass:"corner.widget.ComboBoxDataProvider"};
+	dojo.widget.createWidget("CornerTextArea",props,dojo.byId("tab"));
+}
+dojo.addOnLoad(init);
+
 </script>
 <style>
 	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
@@ -46,8 +53,5 @@ djConfig = { isDebug: true
 <body>
 <table><tr><td class="right-td-width"><input id="tab"  class="right-td-width"></input></td></tr></table>
 </body>
-		<script language="javascript">
-			var props = {dataUrl:"CornerTextAreaBox.js"};
-			dojo.widget.createWidget("CornerTextArea",props,dojo.byId("tab"));
-		</script>
+
 </html>

@@ -340,9 +340,11 @@ dojo.widget.defineWidget(
 			}else{
 				dpClass = this.dataProviderClass;
 			}
+			dojo.debug("dataProviderClass:["+this.dataProviderClass+"]");
+			dojo.debug("dpClass:["+dpClass+"]");
 			this.dataProvider = new dpClass();
 			this.dataProvider.init(this, this.getFragNodeRef(frag));
-	
+			
 			// Prevent IE bleed-through problem
 			this.optionsIframe = new dojo.html.BackgroundIframe(this.optionsListWrapper);
 			this.optionsIframe.size([0,0,0,0]);
