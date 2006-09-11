@@ -1,10 +1,10 @@
 <module id="corner.translator" version="1.0.0"
 	package="corner.orm.tapestry.translator">
 	<!-- for trasnlator -->
-	<contribution configuration-id="tapestry.form.translator.Translators">
+	<!-- contribution configuration-id="tapestry.form.translator.Translators">
 		<bean name="vector" class="VectorTranslator"/>
 							    	  
 		<bean name="queryDate" class="QueryStringDateTranslator"/>
 		
-	</contribution>
+	</contribution -->
 </module>
