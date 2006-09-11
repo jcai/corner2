@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Dojo ComboBox Widget Demo</title>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<script type="text/javascript">
+	dojo.require("corner.widget.CornerTextArea");
+	dojo.require("dojo.widget.Select");
+</script>
+<style>
+	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+	background-color: #FFFDEC;
+	border: 1px solid #CCCCCC;
+	width: 98%;
+	}
+	.input-form-99{
+		width: 99%;
+	}
+.right-td-width-bg,.right-td-width,.right-td-width-readonly{
+	color: #000066;
+	background-color: #ffffff;
+	width: 35%;
+	line-height: 22px;
+	text-align: center;
+}
+
+.wrapper{
+	text-align:left;
+}
+</style>
+</head>
+
+<body>
+<table><tr><td class="right-td-width"><input id="tab"  class="right-td-width"></input></td></tr></table>
+</body>
+		<script language="javascript">
+			var props = {dataUrl:"CornerTextAreaBox.js"};
+			dojo.widget.createWidget("CornerTextArea",props,dojo.byId("tab"));
+		</script>
+</html>
