@@ -1,14 +1,16 @@
 //==============================================================================
-//file :        TextAreaBox.java
+// file :       $Id$
+// project:     corner
 //
-//last change:	date:       $Date$
-//           	by:         $Author$
-//           	revision:   $Revision$
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.orm.tapestry.component.textareabox;
+package corner.orm.tapestry.component;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,28 +29,26 @@ import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
-import corner.orm.tapestry.component.CornerSelectModel;
-import corner.orm.tapestry.component.ISelectModel;
 import corner.service.EntityService;
 
 /**
  * @author Ghost
  * @version $Revision$
- * @since 0.9.9.2
+ * @since 2.1.1
  */
-public abstract class TextAreaBox extends Autocompleter {
-	
-    private static final String MODE_REMOTE = "remote";
-	
-	/**
-	 * @see org.apache.tapestry.dojo.form.Autocompleter#renderFormWidget(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
-	 */
-	@SuppressWarnings({ "unchecked", "unchecked" })
-	@Override
-	protected void renderFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
+public abstract class AbstractCornerSelectWidget extends Autocompleter {
+    // mode, can be remote or local (local being from html rendered option elements)
+    private static final String MODE_REMOTE = "remote";	
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+	protected void renderFormWidget(IMarkupWriter writer, IRequestCycle cycle)
+    {
         renderDelegatePrefix(writer, cycle);
         
-        writer.begin("select");
+        writer.begin("input");
         writer.attribute("name", getName());
         
         if (isDisabled())
@@ -84,11 +84,13 @@ public abstract class TextAreaBox extends Autocompleter {
             throw Tapestry.createRequiredParameterException(this, "model");
         
         Object value = getValue();
+        Object key = value != null ? model.getPrimaryKey(value) : null;
         
-        if (value != null) {
+        if (value != null && key != null) {
             
-            json.put("value", value.toString());
+            json.put("value", key);
             json.put("cnlabel", model.getCnLabelFor(value));
+            json.put("label", model.getLabelFor(value));
         }
         
         parms.put("props", json.toString());
@@ -96,8 +98,8 @@ public abstract class TextAreaBox extends Autocompleter {
         
         PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
         getScript().execute(this, cycle, prs, parms);
-	}
-
+    }	
+	
 	/**
 	 * @see org.apache.tapestry.dojo.form.Autocompleter#renderComponent(org.apache.tapestry.json.IJSONWriter, org.apache.tapestry.IRequestCycle)
 	 */
@@ -124,11 +126,10 @@ public abstract class TextAreaBox extends Autocompleter {
             
             json.put(key.toString(), filteredValues.get(key));
         }
-	}
-
+	}	
 	/**
-	 * 设置从TextAreaBox组件返回的value
-	 * <p>把从TextAreaBox返回的value直接作为结果返回
+	 * 设置从widget组件返回的value
+	 * <p>把从widget返回的value直接作为结果返回
 	 * @see org.apache.tapestry.dojo.form.Autocompleter#rewindFormWidget(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
 	@Override
@@ -145,8 +146,13 @@ public abstract class TextAreaBox extends Autocompleter {
         {
             getForm().getDelegate().record(e);
         }
-	}
-
+	}	
+	
+	/**
+	 * 返回CornerSelectModel
+	 * <p>返回自定义的CornerSelectModel</p>
+	 * @see org.apache.tapestry.dojo.form.Autocompleter#getModel()
+	 */	
 	public ISelectModel getModel(){
 		try {
 			return new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
@@ -193,5 +199,4 @@ public abstract class TextAreaBox extends Autocompleter {
 	  * @return
 	  */
 	 public abstract String getCnlabel();
-
 }
