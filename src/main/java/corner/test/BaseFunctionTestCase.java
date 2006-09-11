@@ -91,7 +91,7 @@ public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResu
         	fail("功能测试失败,共测试["+results.getNumTotalTests()+"] 成功：["+results.getNumTestPasses()+"] 失败:["+results.getNumTestFailures()+"]");
         	
         }else{
-        	System.out.println("功能测试失成功,共测试["+results.getNumTotalTests()+"] 成功：["+results.getNumTestPasses()+"] 失败:["+results.getNumTestFailures()+"],总豪时:["+results.getTotalTime()+"]");
+        	System.out.println("功能测试失成功,共测试["+results.getNumTotalTests()+"] 成功：["+results.getNumTestPasses()+"] 失败:["+results.getNumTestFailures()+"],总耗时:["+results.getTotalTime()+"]");
         }
 //        if (outputFile != null) {
 //            FileWriter fw = new FileWriter(outputFile);
