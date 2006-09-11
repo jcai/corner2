@@ -17,6 +17,7 @@ dojo.widget.defineWidget(
 	dojo.widget.html.ComboBox,
 	{
 		widgetType: "TextAreaBox",
+		autoComplete: false,
 		forceValidOption: false,
 		comboBoxValue: null,
 		
@@ -89,11 +90,11 @@ dojo.widget.defineWidget(
 				}
 				tgt = dojo.dom.firstElement(this.optionsListNode);
 	
-				// user has input value not in option list
-				dojo.debug("this.getAttribute('resultName is:')"+tgt.getAttribute("resultName"));
-				if(!tgt || !this._isInputEqualToResult(tgt.getAttribute("resultName"))){
+				// 判断用户输入是否在 option list 中
+				/*
+				if(!tgt || !this._isInputEqualToResult(tgt.getAttribute("resultName")),tgt.getAttribute("resultValue")){
 					return;
-				}
+				}*/
 				// otherwise the user has accepted the autocompleted value
 			}else{
 				tgt = evt.target; 
@@ -116,17 +117,6 @@ dojo.widget.defineWidget(
 				//this.setSelectedRange(this.textInputNode, 0, null);
 			}
 			this.tryFocus();
-		},
-		_isInputEqualToResult: function(result){
-			input = this.textInputNode.value;
-			if(input.lastIndexOf(";")!=-1){
-				input = input.substr(input.lastIndexOf(";")+1);
-			}
-			if(!this.dataProvider.caseSensitive){
-				input = input.toLowerCase();
-				result = result.toLowerCase();
-			}
-			return (result.indexOf(input)!=-1);
 		}
 
 	});
