@@ -20,7 +20,6 @@
         var ${id}prop=${props};
         tapestry.widget.synchronizeWidgetState("${id}", "Select", ${id}prop);
         var ${id}CornerSelect =dojo.widget.byId(${id}prop["widgetId"]);
-        
         //取得domNode的样式类.
 		var textInputClass =dojo.html.getClass(${id}CornerSelect.domNode);
 		var width=dojo.style.getContentWidth(${id}CornerSelect.domNode);
@@ -35,6 +34,9 @@
         //dojo.html.replaceClass(${id}CornerSelect.cbTableNode,textInputClass,"dojoComboBox");
         
         ${id}CornerSelect["optionsListWrapper"].style.textAlign ="left";
+        
+        ${id}CornerSelect.downArrowNode.style.verticalAlign="middle";
+        ${id}CornerSelect.textInputNode.style.verticalAlign="middle";
         dojo.style.setContentWidth(${id}CornerSelect.domNode,width);
         //设定widget中table的边框
         ${id}CornerSelect.cbTableNode.style.border="none";
