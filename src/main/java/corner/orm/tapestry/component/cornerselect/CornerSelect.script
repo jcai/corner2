@@ -38,8 +38,8 @@
         dojo.style.setContentWidth(${id}CornerSelect.domNode,width);
         //设定widget中table的边框
         ${id}CornerSelect.cbTableNode.style.border="none";
-        
-        var tempObj = ${id}CornerSelect["optionsListNode"];
+        dojo.debug(${id}prop["cnlabel"]);
+        dojo.debug(${id}prop["value"]);
         if (${id}prop["cnlabel"] &amp;&amp; ${id}prop["value"]){
             ${id}CornerSelect.setValue(${id}prop["value"]);
             ${id}CornerSelect.setLabel(${id}prop["cnlabel"]);

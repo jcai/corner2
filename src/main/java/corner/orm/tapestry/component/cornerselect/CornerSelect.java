@@ -13,6 +13,7 @@
 package corner.orm.tapestry.component.cornerselect;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.tapestry.IMarkupWriter;
@@ -24,7 +25,9 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.dojo.form.Autocompleter;
 import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.json.JSONObject;
+import org.apache.tapestry.valid.ValidatorException;
 
 import corner.orm.tapestry.component.CornerSelectModel;
 import corner.orm.tapestry.component.ISelectModel;
@@ -88,7 +91,7 @@ public abstract class CornerSelect extends Autocompleter {
         
         if (value != null && key != null) {
             
-            json.put("value", getDataSqueezer().squeeze(key));
+            json.put("value", key);
             json.put("cnlabel", model.getCnLabelFor(value));
             json.put("label", model.getLabelFor(value));
         }
@@ -100,6 +103,55 @@ public abstract class CornerSelect extends Autocompleter {
         getScript().execute(this, cycle, prs, parms);
     }	
 	
+	/**
+	 * @see org.apache.tapestry.dojo.form.Autocompleter#renderComponent(org.apache.tapestry.json.IJSONWriter, org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	public void renderComponent(IJSONWriter writer, IRequestCycle cycle) {
+        ISelectModel model = getModel();
+        
+        if (model == null)
+            throw Tapestry.createRequiredParameterException(this, "model");
+        
+        Map filteredValues = model.filterValues(getFilter());
+        
+        if (filteredValues == null)
+            return;
+        
+        Iterator it = filteredValues.keySet().iterator();
+        Object key = null;
+        
+        JSONObject json = writer.object();
+        
+        while (it.hasNext()) {
+            
+            key = it.next();
+            
+            json.put(key.toString(), filteredValues.get(key));
+        }
+	}
+
+	/**
+	 * @see org.apache.tapestry.dojo.form.Autocompleter#rewindFormWidget(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void rewindFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
+        String value = cycle.getParameter(getName());
+        
+        Object object = value;
+        
+        try
+        {
+            getValidatableFieldSupport().validate(this, writer, cycle, object);
+            
+            setValue(object);
+        }
+        catch (ValidatorException e)
+        {
+            getForm().getDelegate().record(e);
+        }
+	}
+
 	/**
 	 * 返回CornerSelectModel
 	 * <p>返回自定义的CornerSelectModel</p>

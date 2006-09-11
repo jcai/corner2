@@ -103,7 +103,9 @@ public class CornerSelectModel implements ISelectModel {
         _values = this.listAllMatchedValue(filter);
         for(Object obj:_values){
 
-        	Object label = obj;
+        	//需要保存关联的时候使用
+        	//Object label = obj;
+        	Object label = this.getCnLabelFor(obj);
         	String cnlabel = this.getCnLabelFor(obj);
         	ret.put(label, cnlabel);
         }
@@ -149,7 +151,12 @@ public class CornerSelectModel implements ISelectModel {
 	public String getLabelFor(Object value) {
         try {
             
-            return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(labelField)).toString();
+            if(value instanceof String){
+            	return value.toString();
+            }
+            else{
+            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(labelField)).toString();
+            }
             
         } catch (Exception e) {
             throw new ApplicationRuntimeException(e);
