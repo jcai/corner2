@@ -18,7 +18,7 @@
     <property name="support.dir"           value="${imported.basedir}/support"/>
 
     <!-- Base name for documentation artifacts. -->
-    <property name="docname"               value="maxinfo-doc"/>
+    <property name="docname"               value="corner-reference"/>
 
     <!-- Set DocBook stylesheets. -->
     <property name="db.style.fopdf"        value="fopdf.xsl"/>
@@ -91,7 +91,7 @@
             <classpath refid="lib.classpath"/>
             <arg value="-o"/>
             <arg value="${build.dir}/${lang}/pdf/docbook_fop.tmp"/>
-            <arg value="${basedir}/${lang}/piano-doc.xml"/>
+            <arg value="${basedir}/${lang}/corner-reference.xml"/>
             <arg value="${basedir}/${lang}/styles/${db.style.fopdf}"/>
         </java>
 
@@ -141,7 +141,7 @@
 
         <java classname="com.icl.saxon.StyleSheet" fork="true" dir="${build.dir}/${lang}/html">
             <classpath refid="lib.classpath"/>
-            <arg value="${basedir}/${lang}/piano-doc.xml"/>
+            <arg value="${basedir}/${lang}/corner-reference.xml"/>
             <arg value="${basedir}/${lang}/styles/${db.style.html}"/>
         </java>
     </target>
@@ -155,7 +155,7 @@
             <classpath refid="lib.classpath"/>
             <arg value="-o"/>
             <arg value="${build.dir}/${lang}/html_single/index.html"/>
-            <arg value="${basedir}/${lang}/piano-doc.xml"/>
+            <arg value="${basedir}/${lang}/corner-reference.xml"/>
             <arg value="${basedir}/${lang}/styles/${db.style.htmlsingle}"/>
         </java>
     </target>
@@ -186,8 +186,8 @@
 
         </taskdef>
 
-        <revdiff original="${basedir}/en/piano-doc.xml"
-                 copy="${basedir}/${lang}/piano-doc.xml"
+        <revdiff original="${basedir}/en/corner-reference.xml"
+                 copy="${basedir}/${lang}/corner-reference.xml"
                  report="${build.dir}/status_${lang}.html"/>
 
     </target>
@@ -196,7 +196,7 @@
             description="Reports missing unique chapter/section identifiers (set lang)">
         <java classname="com.icl.saxon.StyleSheet" fork="true" dir="${build.dir}/${lang}/html">
             <classpath refid="lib.classpath"/>
-            <arg value="${basedir}/${lang}/piano-doc.xml"/>
+            <arg value="${basedir}/${lang}/corner-reference.xml"/>
             <arg value="${support.dir}/section-check.xsl"/>
         </java>
     </target>

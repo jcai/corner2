@@ -13,9 +13,9 @@
 <book lang="zh_cn">
 	
 	<bookinfo>
-		<title>PIANO - 生产管理信息系统</title>
+		<title>corner - 快速开发的J2EE框架</title>
         
-        <subtitle>Piano项目文档</subtitle>
+        <subtitle>corner参考文档</subtitle>
         <releaseinfo>&book.version;</releaseinfo>
 		<authorgroup>
 			<author>

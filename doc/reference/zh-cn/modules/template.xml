@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter id="piano.template">
+<chapter id="corner.template">
 	<title>生产管理的XX</title>
 	<abstract>
 		<para>
@@ -11,7 +11,7 @@
 			</note>
 		</para>
 	</abstract>
-	<sect1 id="piano.template.sect1">
+	<sect1 id="corner.template.sect1">
 		<title>段落一标题</title>
 		
 		<para>
@@ -19,7 +19,7 @@
 		</para>
 		
 	</sect1>
-	<sect1 id="piano.template.sect2">
+	<sect1 id="corner.template.sect2">
 		<title>段落二标题</title>
 		<para>
 			段落二内容

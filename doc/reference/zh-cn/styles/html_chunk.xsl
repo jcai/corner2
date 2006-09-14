@@ -2,16 +2,16 @@
 
 <!--
 
-    This is the XSL HTML configuration file for the piano
+    This is the XSL HTML configuration file for the corner
     Reference Documentation.
 
     It took me days to figure out this stuff and fix most of
     the obvious bugs in the DocBook XSL distribution. Some of
     the workarounds might not be appropriate with a newer version
-    of DocBook XSL. This file is released as part of piano,
+    of DocBook XSL. This file is released as part of corner,
     hence LGPL licensed.
 
-    christian@piano.org
+    christian@corner.org
 -->
 
 <!DOCTYPE xsl:stylesheet [

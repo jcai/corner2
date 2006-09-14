@@ -2,17 +2,17 @@
 
 <!--
 
-    This is the XSL FO configuration file for the piano
+    This is the XSL FO configuration file for the corner
     Reference Documentation. It defines a custom titlepage and
     the parameters for the A4 sized PDF printable output.
 
     It took me days to figure out this stuff and fix most of
     the obvious bugs in the DocBook XSL distribution. Some of
     the workarounds might not be appropriate with a newer version
-    of DocBook XSL. This file is released as part of piano,
+    of DocBook XSL. This file is released as part of corner,
     hence LGPL licensed.
 
-    christian@piano.org
+    christian@corner.org
 
 -->
 
@@ -41,7 +41,7 @@
                     <fo:table-row>
                         <fo:table-cell text-align="center">
                             <fo:block>
-                                <fo:external-graphic src="file:images/piano_logo_a.png"/>
+                                <fo:external-graphic src="file:images/logo.gif"/>
                             </fo:block>
                             <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
                                 <xsl:value-of select="bookinfo/subtitle"/>
@@ -82,7 +82,7 @@
                           Custom Footer
         ################################################### -->
 
-    <!-- This footer prints the piano version number on the left side -->
+    <!-- This footer prints the corner version number on the left side -->
     <xsl:template name="footer.content">
         <xsl:param name="pageclass" select="''"/>
         <xsl:param name="sequence" select="''"/>
@@ -92,7 +92,7 @@
         <xsl:variable name="Version">
             <xsl:choose>
                 <xsl:when test="//releaseinfo">
-                    <xsl:text>piano </xsl:text>
+                    <xsl:text>corner </xsl:text>
                     <xsl:value-of select="//releaseinfo"/>
                 </xsl:when>
                 <xsl:otherwise>
