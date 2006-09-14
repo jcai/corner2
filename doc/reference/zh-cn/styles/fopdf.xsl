@@ -43,10 +43,10 @@
                             <fo:block>
                                 <fo:external-graphic src="file:images/logo.gif"/>
                             </fo:block>
-                            <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
+                            <fo:block font-family="simsun" font-size="22pt" padding-before="10mm">
                                 <xsl:value-of select="bookinfo/subtitle"/>
                             </fo:block>
-                            <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
+                            <fo:block font-family="simsun" font-size="12pt" padding="10mm">
                                 Version:
                                 <xsl:value-of select="bookinfo/releaseinfo"/>
                             </fo:block>
