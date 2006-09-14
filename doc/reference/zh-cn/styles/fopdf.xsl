@@ -50,6 +50,9 @@
                                 Version:
                                 <xsl:value-of select="bookinfo/releaseinfo"/>
                             </fo:block>
+                            <fo:block font-family="simsun" font-size="12pt" padding="10mm">
+                                <xsl:value-of select="bookinfo/copyright/holder"/>
+                            </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>

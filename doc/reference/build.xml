@@ -39,8 +39,9 @@
             description="Compile documentation for all languages and all formats.">
 
         <!-- TRANSLATOR: Duplicate this line for your language -->
-        <antcall target="lang.all"><param name="lang" value="zh-cn"/></antcall>
-        <!-- TODO: These translations need updating...
+    	<antcall target="lang.all"><param name="lang" value="zh-cn"/></antcall>
+    	
+    	        <!-- TODO: These translations need updating...
         <antcall target="lang.all"><param name="lang" value="zh-cn"/></antcall>
         <antcall target="lang.all"><param name="lang" value="es"/></antcall>
         <antcall target="lang.all"><param name="lang" value="ja"/></antcall>
@@ -49,14 +50,6 @@
         -->
 
     </target>
-
-    <target name="all.revdiff"
-            description="Generates a diff report for all translated versions.">
-
-        <!-- TRANSLATOR: Duplicate this line for your language -->
-        <antcall target="lang.revdiff"><param name="lang" value="docbook/zh-cn"/></antcall>
-    </target>
-
     <!-- ################################################################## -->
 
     <target name="clean">
@@ -176,22 +169,6 @@
         </copy>
 
     </target>
-
-    <target name="lang.revdiff"
-            description="Reports difference between English and translation (set lang)">
-
-        <taskdef name="revdiff"
-            classname="org.hibernate.docproc.revdiff.RevDiffReportTask"
-            classpathref="lib.classpath">
-
-        </taskdef>
-
-        <revdiff original="${basedir}/en/corner-reference.xml"
-                 copy="${basedir}/${lang}/corner-reference.xml"
-                 report="${build.dir}/status_${lang}.html"/>
-
-    </target>
-
     <target name="lang.section-check" depends="lang.dochtml"
             description="Reports missing unique chapter/section identifiers (set lang)">
         <java classname="com.icl.saxon.StyleSheet" fork="true" dir="${build.dir}/${lang}/html">
