@@ -11,9 +11,9 @@
 <book lang="zh_cn">
 	
 	<bookinfo>
-		<title>corner - 快速开发的J2EE框架</title>
+		<title>CORNER - 快速开发的J2EE框架</title>
         
-        <subtitle>corner参考文档</subtitle>
+        <subtitle>CORNER参考文档</subtitle>
         <releaseinfo>&book.version;</releaseinfo>
 		<authorgroup>
 			<author>
