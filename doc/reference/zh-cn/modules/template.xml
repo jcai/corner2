@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="piano.template">
+	<title>生产管理的XX</title>
+	<abstract>
+		<para>
+			本章描述....
+			<note>
+				<para>
+					概述
+				</para>
+			</note>
+		</para>
+	</abstract>
+	<sect1 id="piano.template.sect1">
+		<title>段落一标题</title>
+		
+		<para>
+			内容
+		</para>
+		
+	</sect1>
+	<sect1 id="piano.template.sect2">
+		<title>段落二标题</title>
+		<para>
+			段落二内容
+		</para>
+	</sect1>
+	
+</chapter>

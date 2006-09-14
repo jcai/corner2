@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3CR3//EN"
+                      "../support/docbook-dtd/docbookx.dtd"
+
+[
+<!ENTITY % vers   SYSTEM "modules/version.xml">
+%vers;
+<!ENTITY resources  SYSTEM "modules/resources.xml">
+<!ENTITY system     SYSTEM "modules/system.xml">
+<!ENTITY sample     SYSTEM "modules/sample.xml">
+]>
+
+<book lang="zh_cn">
+	
+	<bookinfo>
+		<title>PIANO - 生产管理信息系统</title>
+        
+        <subtitle>Piano项目文档</subtitle>
+        <releaseinfo>&book.version;</releaseinfo>
+		<authorgroup>
+			<author>
+				<firstname>蔡</firstname>
+				<surname>君</surname> 
+			</author>
+		</authorgroup>
+		
+		<copyright>
+			<year>2006</year>
+			<holder>北京美讯信息技术开发有限公司</holder>
+		</copyright>
+		
+		<legalnotice>
+			<para>本书使用创作共用署名许可证，可以通过访问<ulink
+					url="http://creativecommons.org/licenses/by/2.0/"/>
+				或者发送邮件到Creative Commons, 559 Nathan Abbott Way, Stanford, California
+				94305, USA来查看本许可证的内容。</para>
+		</legalnotice>
+		
+	</bookinfo>
+	
+	&resources;
+	&system;
+	&sample;
+
+</book>
