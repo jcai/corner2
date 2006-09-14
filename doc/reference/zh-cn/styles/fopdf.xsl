@@ -12,7 +12,7 @@
     of DocBook XSL. This file is released as part of corner,
     hence LGPL licensed.
 
-    christian@corner.org
+    christian@hibernate.org
 
 -->
 
