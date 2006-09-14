@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter id="corner.system">
-	<title>生产管理的系统表</title>
+<chapter id="corner.template">
+	<title>快速开始</title>
 	<abstract>
 		<para>
 			本章描述....
@@ -11,7 +11,7 @@
 			</note>
 		</para>
 	</abstract>
-	<sect1 id="corner.system.sect1">
+	<sect1 id="corner.template.sect1">
 		<title>段落一标题</title>
 		
 		<para>
@@ -19,7 +19,7 @@
 		</para>
 		
 	</sect1>
-	<sect1 id="corner.system.sect2">
+	<sect1 id="corner.template.sect2">
 		<title>段落二标题</title>
 		<para>
 			段落二内容

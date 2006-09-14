@@ -5,9 +5,7 @@
 [
 <!ENTITY % vers   SYSTEM "modules/version.xml">
 %vers;
-<!ENTITY resources  SYSTEM "modules/resources.xml">
-<!ENTITY system     SYSTEM "modules/system.xml">
-<!ENTITY sample     SYSTEM "modules/sample.xml">
+<!ENTITY quickstar  SYSTEM "modules/quickstar.xml">
 ]>
 
 <book lang="zh_cn">
@@ -38,8 +36,6 @@
 		
 	</bookinfo>
 	
-	&resources;
-	&system;
-	&sample;
+	&quickstar;
 
 </book>
