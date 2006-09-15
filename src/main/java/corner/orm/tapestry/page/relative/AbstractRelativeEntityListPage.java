@@ -12,7 +12,9 @@
 
 package corner.orm.tapestry.page.relative;
 
+import org.apache.tapestry.IComponent;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 import corner.orm.tapestry.page.AbstractEntityListPage;
@@ -92,5 +94,16 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 		page.setRootedObject(t);
 		return page;
 	}
+
+	/**
+	 * 采用注释，简化从list页面返回根页面
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:goRootFormPage"})
+	public abstract IComponent getGoRootFormPageLink();
 	
+	/**
+	 * 采用注释，简化创建新实体的操作
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:doNewEntityAction"})
+	public abstract IComponent getNewEntityLink();
 }
