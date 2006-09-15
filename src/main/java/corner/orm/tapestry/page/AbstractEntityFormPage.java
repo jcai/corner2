@@ -1,6 +1,8 @@
 package corner.orm.tapestry.page;
 
+import org.apache.tapestry.IComponent;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.Component;
 
 /**
  * 抽象的entity表单页。
@@ -41,4 +43,10 @@ public abstract class AbstractEntityFormPage<T> extends AbstractEntityPage<T>{
 	public IPage doCancelEntityAction(){
 		return this.getEntityListPage();
 	}
+	
+	/**
+	 * 使用注释，简化取消对一个实体的编辑或者新增
+	 */
+	@Component(type="DirectLink",bindings={"listener=listener:doCancelEntityAction"})
+	public abstract IComponent getCancelEntityLink();
 }
