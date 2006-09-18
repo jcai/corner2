@@ -155,13 +155,28 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
 	 */	
 	public ISelectModel getModel(){
 		try {
-			return new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
+			CornerSelectModel model=new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
+			
+			ISelectFilter selectFilter = this.getSelectFilter()==null?new DefaultSelectFilter():this.getSelectFilter();
+			selectFilter.setEntityService(this.getEntityService());
+			selectFilter.setQueryClass(Class.forName(this.getQueryClass()));
+			selectFilter.setLabel(this.getLabel());
+			selectFilter.setCnLabel(this.getCnlabel());
+			model.setFilter(selectFilter);
+			return model;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
+	/**
+	 * 取得
+	 * @return
+	 */
+	public abstract ISelectFilter getSelectFilter();
+	
 	/**
 	 * 设置下拉层列表中要显示的实体
 	 * @param queryClass

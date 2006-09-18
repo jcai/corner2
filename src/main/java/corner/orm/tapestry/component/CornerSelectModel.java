@@ -64,7 +64,16 @@ public class CornerSelectModel implements ISelectModel {
      * 通过输入的查询关键字检索出的所有符合条件的实体的列表
      */
     private List _values = new ArrayList();
+	private ISelectFilter filter;
 		
+    /**
+     * 默认的构造函数
+     *<p>提供一个默认的构造方法,需要的参数可以通过set方法注入</p>
+     */
+    public CornerSelectModel(){
+    	
+    }
+    
     /**
      * 构造函数
 	 * <p>通过构造函数注入EntityService,IpersistentQueriable,obj</p>
@@ -90,39 +99,7 @@ public class CornerSelectModel implements ISelectModel {
 	 */
 	@SuppressWarnings("unchecked")
 	public Map filterValues(String match) {
-        Map ret = new HashMap();
-        
-        if (match == null)
-            return ret;
-        
-        StringBuffer buffer = new StringBuffer("");
-        buffer.append(match.trim());
-        buffer.append("%");
-        String filter = buffer.toString();
-
-        _values = this.listAllMatchedValue(filter);
-        for(Object obj:_values){
-
-        	//需要保存关联的时候使用
-        	//Object label = obj;
-        	Object label = this.getCnLabelFor(obj);
-        	String cnlabel = this.getCnLabelFor(obj);
-        	ret.put(label, cnlabel);
-        }
-        return ret;
-	}
-	
-	public List listAllMatchedValue(final String filter){
-		return ((List) ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate()
-				.execute(new HibernateCallback(){
-					public Object doInHibernate(Session session) throws HibernateException, SQLException {
-						Criteria criteria=session.createCriteria(queryClass);
-						criteria.add(Restrictions.or(Restrictions.like(labelField,filter), Restrictions.like(cnlabelField,filter)));
-						criteria.setFirstResult(nFirst);
-						criteria.setMaxResults(nPageSize);
-						return criteria.list();
-					}}));
+		return this.filter.filterValues(match);
 	}
 
 	/**
@@ -189,5 +166,52 @@ public class CornerSelectModel implements ISelectModel {
 	 */
 	public void setEntityService(EntityService entityService) {
 		this.entityService = entityService;
+	}
+
+	/**
+	 * @return Returns the cnlabelField.
+	 */
+	public String getCnlabelField() {
+		return cnlabelField;
+	}
+
+	/**
+	 * @param cnlabelField The cnlabelField to set.
+	 */
+	public void setCnlabelField(String cnlabelField) {
+		this.cnlabelField = cnlabelField;
+	}
+
+	/**
+	 * @return Returns the labelField.
+	 */
+	public String getLabelField() {
+		return labelField;
+	}
+
+	/**
+	 * @param labelField The labelField to set.
+	 */
+	public void setLabelField(String labelField) {
+		this.labelField = labelField;
+	}
+
+	/**
+	 * @return Returns the queryClass.
+	 */
+	public Class getQueryClass() {
+		return queryClass;
+	}
+
+	/**
+	 * @param queryClass The queryClass to set.
+	 */
+	public void setQueryClass(Class queryClass) {
+		this.queryClass = queryClass;
+	}
+
+	public void setFilter(ISelectFilter filter) {
+		this.filter=filter;
+		
 	}
 }

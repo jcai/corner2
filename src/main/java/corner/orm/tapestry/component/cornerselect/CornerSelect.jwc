@@ -16,9 +16,11 @@
   
   <parameter name="queryClass" required="yes"/>
   
-  <parameter name="label" required="yes" />
+  <parameter name="label" default-value="literal:chnName"/>
   
-  <parameter name="cnlabel" required="yes" />
+  <parameter name="cnlabel" default-value="literal:chnName" />
+  
+  <parameter name="selectFilter" default-value="new corner.orm.tapestry.component.DefaultSelectFilter()" />
   	
   <parameter name="disabled"/>
   
