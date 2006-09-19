@@ -128,10 +128,6 @@ public class DefaultSelectFilter implements ISelectFilter {
 		// TODO Auto-generated method stub
 		this.labelField = label;
 	}
-
-	public static final int nFirst = 0;
-	public static final int nPageSize = 20;
-	
 	
 	public DefaultSelectFilter(EntityService entityService,Class queryClass,String labelField,String cnlabelField){
 		

@@ -22,6 +22,16 @@ import corner.service.EntityService;
  * @since 2.1.1
  */
 public interface ISelectFilter {
+
+	/**
+	 * 查询的起始位置
+	 */
+	public static final int nFirst = 0;
+	/**
+	 * 每次查询的数量，控制每次查询只查找前20条纪录
+	 */
+	public static final int nPageSize = 20;	
+	
 	/**
 	 * 
 	 * @param match
