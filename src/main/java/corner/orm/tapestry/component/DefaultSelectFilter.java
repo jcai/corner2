@@ -36,11 +36,31 @@ import corner.util.TapestryHtmlFormatter;
  */
 public class DefaultSelectFilter implements ISelectFilter {
 	
+	/**
+	 * 提供增加删除修改查询的基本操作
+	 */
 	private EntityService entityService;
+	
+	/**
+	 * 被查询的实体类
+	 */
 	private Class queryClass;
+	
+	/**
+	 * 被查询的实体的英文检索码名称
+	 */
 	private String labelField;
+	
+	/**
+	 * 被查询的实体的中文检索码名称
+	 */
 	private String cnlabelField;
 	
+	
+	/**
+	 * 默认的构造函数
+	 *
+	 */
 	public DefaultSelectFilter(){
 		
 	}
@@ -145,7 +165,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	}
 	
 	/**
-	 * search
+	 * 根据给定的字符串在指定的中文检索码和英文检索码中进行查找
 	 * @param searchParam
 	 * @return
 	 */

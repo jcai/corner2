@@ -32,7 +32,6 @@ public class CornerSelectModel implements ISelectModel {
      */
     private String labelField;
     
-	
 	/**
 	 * 用于存储中文字符
 	 */

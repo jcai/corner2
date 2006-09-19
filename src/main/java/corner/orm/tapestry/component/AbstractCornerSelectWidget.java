@@ -40,7 +40,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
     // mode, can be remote or local (local being from html rendered option elements)
     private static final String MODE_REMOTE = "remote";	
     /**
-     * 
+     * render FormWidget
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
@@ -86,6 +86,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
         Object value = getValue();
         Object key = value != null ? model.getPrimaryKey(value) : null;
         
+        //用于在json字符串中写如三个值，用于修改操作时候现实组件中选中的值
         if (value != null && key != null) {
             
             json.put("value", key);
@@ -101,6 +102,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
     }	
 	
 	/**
+	 * render Component
 	 * @see org.apache.tapestry.dojo.form.Autocompleter#renderComponent(org.apache.tapestry.json.IJSONWriter, org.apache.tapestry.IRequestCycle)
 	 */
 	@Override
