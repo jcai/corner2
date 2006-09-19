@@ -18,7 +18,7 @@ djConfig = { isDebug: true
 	dojo.require("dojo.widget.Select");
 	
 function init(){	
-	var props = {dataUrl:"CornerTextAreaBox.js",dataProviderClass:"corner.widget.ComboBoxDataProvider"};
+	var props = {dataUrl:"CornerTextAreaBox.js"};
 	dojo.widget.createWidget("CornerTextArea",props,dojo.byId("tab"));
 }
 dojo.addOnLoad(init);
