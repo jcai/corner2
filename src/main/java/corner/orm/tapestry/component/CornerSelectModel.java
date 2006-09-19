@@ -17,7 +17,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.hivemind.ApplicationRuntimeException;
 
-import corner.service.EntityService;
 import corner.util.TapestryHtmlFormatter;
 
 /**
@@ -27,16 +26,6 @@ import corner.util.TapestryHtmlFormatter;
  */
 public class CornerSelectModel implements ISelectModel {
     
-	/**
-	 * 为CornerSelectModel提供基础的增加修改删除查询操作
-	 */
-    private EntityService entityService;
-    
-    
-    /**
-     * 被检索的类的名称
-     */
-    private Class queryClass;
     
     /**
      * 存储拼音或拼音缩写字符
@@ -123,19 +112,6 @@ public class CornerSelectModel implements ISelectModel {
         return this.getPrimaryKey(primaryKey);
 	}
 
-	/**
-	 * @return Returns the entityService.
-	 */
-	public EntityService getEntityService() {
-		return entityService;
-	}
-
-	/**
-	 * @param entityService The entityService to set.
-	 */
-	public void setEntityService(EntityService entityService) {
-		this.entityService = entityService;
-	}
 
 	/**
 	 * @return Returns the cnlabelField.
@@ -163,20 +139,6 @@ public class CornerSelectModel implements ISelectModel {
 	 */
 	public void setLabelField(String labelField) {
 		this.labelField = labelField;
-	}
-
-	/**
-	 * @return Returns the queryClass.
-	 */
-	public Class getQueryClass() {
-		return queryClass;
-	}
-
-	/**
-	 * @param queryClass The queryClass to set.
-	 */
-	public void setQueryClass(Class queryClass) {
-		this.queryClass = queryClass;
 	}
 
 	public void setFilter(ISelectFilter filter) {
