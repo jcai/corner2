@@ -12,22 +12,11 @@
 
 package corner.orm.tapestry.component;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.hivemind.ApplicationRuntimeException;
-import org.apache.hivemind.util.Defense;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateCallback;
 
-import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 import corner.util.TapestryHtmlFormatter;
 
@@ -37,10 +26,10 @@ import corner.util.TapestryHtmlFormatter;
  * @since 2.1
  */
 public class CornerSelectModel implements ISelectModel {
-	public static final int nFirst = 0;
-	public static final int nPageSize = 20;
-	
     
+	/**
+	 * 为CornerSelectModel提供基础的增加修改删除查询操作
+	 */
     private EntityService entityService;
     
     
@@ -61,9 +50,8 @@ public class CornerSelectModel implements ISelectModel {
     private String cnlabelField;
     
     /**
-     * 通过输入的查询关键字检索出的所有符合条件的实体的列表
+     * 根据用户的输入对返回查询结果的接口
      */
-    private List _values = new ArrayList();
 	private ISelectFilter filter;
 		
     /**
@@ -73,25 +61,6 @@ public class CornerSelectModel implements ISelectModel {
     public CornerSelectModel(){
     	
     }
-    
-    /**
-     * 构造函数
-	 * <p>通过构造函数注入EntityService,IpersistentQueriable,obj</p>
-     * @param entityService 基础服务类
-     * @param queryClass 下拉菜单中要现实的列表实体
-     * @param labelField 用于进行拼音检索的字段
-     * @param cnlabelField 用于进行中文检索的字段
-     */
-	public CornerSelectModel(EntityService entityService,Class queryClass, String labelField, String cnlabelField) {
-		Defense.notNull(entityService, "entityService can't be null!");
-		Defense.notNull(labelField, "label can't be null!");
-		Defense.notNull(queryClass, "queryClass can't be null!");
-		Defense.notNull(cnlabelField, "Model CNlabelField java beans expression can't be null.");
-		this.queryClass = queryClass;
-		this.cnlabelField = cnlabelField;
-		this.labelField = labelField;
-		this.entityService = entityService;
-	}
 	
 	/**
 	 * 从给定的对象集合中查找出符合条件的对象

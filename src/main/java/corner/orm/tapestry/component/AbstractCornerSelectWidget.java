@@ -155,8 +155,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
 	 */	
 	public ISelectModel getModel(){
 		try {
-			CornerSelectModel model=new CornerSelectModel(this.getEntityService(),Class.forName(this.getQueryClass()),this.getLabel(),this.getCnlabel());
-			
+			CornerSelectModel model=new CornerSelectModel();
 			ISelectFilter selectFilter = this.getSelectFilter()==null?new DefaultSelectFilter():this.getSelectFilter();
 			selectFilter.setEntityService(this.getEntityService());
 			selectFilter.setQueryClass(Class.forName(this.getQueryClass()));
@@ -172,7 +171,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
 	}
 	
 	/**
-	 * 取得
+	 * 取得SelectFilter
 	 * @return
 	 */
 	public abstract ISelectFilter getSelectFilter();

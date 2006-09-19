@@ -120,6 +120,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	/**
 	 * @see corner.orm.tapestry.component.ISelectFilter#filterValues(java.lang.String)
 	 */
+	@SuppressWarnings("unchecked")
 	public Map filterValues(String match) {
 		Map ret = new HashMap();
         
