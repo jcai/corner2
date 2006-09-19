@@ -32,6 +32,7 @@ import org.apache.tapestry.valid.ValidatorException;
 import corner.service.EntityService;
 
 /**
+ * CornerSelect和TextAreaBox组件的实现类
  * @author Ghost
  * @version $Revision$
  * @since 2.1.1
@@ -166,7 +167,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
 			model.setFilter(selectFilter);
 			return model;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return null;

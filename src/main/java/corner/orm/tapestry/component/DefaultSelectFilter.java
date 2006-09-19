@@ -30,6 +30,7 @@ import corner.service.EntityService;
 import corner.util.TapestryHtmlFormatter;
 
 /**
+ * 默认的SelectFilter实现
  * @author Ghost
  * @version $Revision$
  * @since 2.1.1
@@ -70,7 +71,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#getQueryClass()
 	 */
 	public Class getQueryClass() {
-		// TODO Auto-generated method stub
+		
 		return this.queryClass;
 	}
 
@@ -85,7 +86,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#getCnLabel()
 	 */
 	public String getCnLabel() {
-		// TODO Auto-generated method stub
+		
 		return this.cnlabelField;
 	}
 
@@ -93,7 +94,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#getEntityService()
 	 */
 	public EntityService getEntityService() {
-		// TODO Auto-generated method stub
+		
 		return this.entityService;
 	}
 
@@ -101,7 +102,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#getLabel()
 	 */
 	public String getLabel() {
-		// TODO Auto-generated method stub
+		
 		return this.labelField;
 	}
 
@@ -109,7 +110,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#setCnLabel(java.lang.String)
 	 */
 	public void setCnLabel(String cnLabel) {
-		// TODO Auto-generated method stub
+		
 		this.cnlabelField =cnLabel;
 	}
 
@@ -117,7 +118,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#setEntityService(corner.service.EntityService)
 	 */
 	public void setEntityService(EntityService entityService) {
-		// TODO Auto-generated method stub
+		
 		this.entityService = entityService;
 	}
 
@@ -125,7 +126,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#setLabel(java.lang.String)
 	 */
 	public void setLabel(String label) {
-		// TODO Auto-generated method stub
+		
 		this.labelField = label;
 	}
 	

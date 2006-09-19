@@ -20,6 +20,7 @@ import org.apache.hivemind.ApplicationRuntimeException;
 import corner.util.TapestryHtmlFormatter;
 
 /**
+ * CornerSelect和TextAreaBox的实现Model
  * @author Ghost
  * @version $Revision$
  * @since 2.1
