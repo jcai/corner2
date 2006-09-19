@@ -59,7 +59,7 @@
 
 			<table id="corner-feactures">
             <title>
-                Corner主要功能
+                Corner基础功能
             </title>
 			<tgroup cols="4" align="center">
 				<colspec colname="c1" colwidth="1*"/>
@@ -147,6 +147,13 @@
 						<entry>
 							提供了基于表达式的查询方式。见：corner.hibernate.expression.*</entry>
 						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#11</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展tapestry组件，利用dojo和tapestry实现widget。见：corner.tapestry.components.*</entry>
+						<entry>jcai,ghostbb</entry>
 					</row>
 				</tbody>
 			</tgroup>
