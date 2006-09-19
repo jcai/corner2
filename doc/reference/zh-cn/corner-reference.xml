@@ -56,6 +56,102 @@
 						</para>
 					</listitem>
 				</itemizedlist>
+
+			<table id="corner-feactures">
+            <title>
+                Corner主要功能
+            </title>
+			<tgroup cols="4" align="center">
+				<colspec colname="c1" colwidth="1*"/>
+				<colspec colname="c2" colwidth="2*"/>
+				<colspec colname="c3" colwidth="4*" align="left"/>
+				<colspec colname="c4" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry>序号</entry>
+						<entry>扩展框架</entry>
+						<entry>功能</entry>
+						<entry>人员</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>#1</entry>
+						<entry>Spring</entry>
+						<entry>
+							实现属性文件的包含,见spring.CornerPropertiesPersister</entry>
+						<entry>jcai</entry>
+
+					</row>
+					<row>
+						<entry>#2</entry>
+						<entry>hivemind</entry>
+						<entry>
+							实现hivemind和spring的结合,见hivemind.SpringBeanFactoryHolderImpl</entry>
+						<entry>jcai</entry>
+
+					</row>
+					
+					<row>
+						<entry>#3</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.data,实现了对持久化对象的"序列化",见corner.tapestry.data.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#4</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.filter,实现了OpenSessionInView模式,见corner.tapestry.filter.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#5</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.record,实现了在页面进行对象的传递,见corner.tapestry.record.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#6</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.page,实现了对各种模型对象的处理,见corner.tapestry.page.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#7</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.service,实现了blob部分的处理,见corner.tapestry.service.blob.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#8</entry>
+						<entry>tapestry</entry>
+						<entry>
+							扩展了tapestry.translator,实现了向量数据类型的处理,见corner.tapestry.service.blob.*</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#9</entry>
+						<entry>hibernate</entry>
+						<entry>
+							提供了向量数据类型。见：corner.hibernate.v3.VectorType</entry>
+						<entry>jcai</entry>
+					</row>
+					<row>
+						<entry>#10</entry>
+						<entry>hibernate</entry>
+						<entry>
+							提供了基于表达式的查询方式。见：corner.hibernate.expression.*</entry>
+						<entry>jcai</entry>
+					</row>
+				</tbody>
+			</tgroup>
+        </table>
+				
 			<table id="corner-devs">
             <title>
                 Corner开发人员（包含文档编写人员)
@@ -82,6 +178,13 @@
                         <entry>蔡君</entry>
                         <entry>jcai</entry>
                         <entry>Leader,Developer,Documentor</entry>
+                        <entry>美讯</entry>
+                    </row>
+                    <row>
+                        <entry>#1</entry>
+                        <entry>赵鑫</entry>
+                        <entry>ghostbb</entry>
+                        <entry>Developer,Documentor</entry>
                         <entry>美讯</entry>
                     </row>
                     
