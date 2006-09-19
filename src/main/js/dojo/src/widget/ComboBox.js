@@ -69,7 +69,9 @@ dojo.widget.ComboBoxDataProvider = function(dataPairs, limit, timeout){
 	this.data = [];
 	this.searchTimeout = 500;
 	this.searchLimit = 30;
-	this.searchType = "STARTSTRING"; // may also be "STARTWORD" or "SUBSTRING"
+	//修改了查询方式，使用SUBSTRING查询方式，因为在动态实现过程中，查询实际上是自定义的，
+	// 因此这里采用SUBSTRING可以查到字符串中包含该子串的字符串，目的是为了方便静态测试
+	this.searchType = "SUBSTRING"; // may also be "STARTWORD" or "SUBSTRING"
 	this.caseSensitive = false;
 	// for caching optimizations
 	this._lastSearch = "";
