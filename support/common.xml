@@ -120,7 +120,7 @@
 	<target name="afterCompile"/>
 
 	<target name="jar" depends="compile">
-		<jar jarfile="${dist.dir}/${project.name}-${project.version}.jar" basedir="${build.classes.dir}">
+		<jar jarfile="${dist.dir}/${project.name}.jar" basedir="${build.classes.dir}">
 			<manifest>
 				<attribute name="Corner-Version" value="${project.version}"/>
 			</manifest>
@@ -186,24 +186,24 @@
          ================================= -->	
     <target name="publish" depends="jar" description="--> compile test and publish this project in the local ivy repository">
     	<property name="revision" value="${project.version}"/>
-		<ivy-publish artifactspattern="${dist.dir}/[artifact]-[revision].[ext]" 
+		<ivy-publish artifactspattern="${dist.dir}/[artifact].[ext]" 
 					   resolver="shared"
 			           pubrevision="${project.version}" 
 			           status="integration"/>
         <echo message="project ${ant.project.name} released with version ${project.version}" />
     </target>		
     <target name="install" depends="jar" description="--> compile test and publish this project in the local ivy repository">
-    	<property name="revision" value="${project.version}"/>
+    	
 		<tstamp>
 			<format property="now" pattern="yyyyMMddHHmmss"/>
 		</tstamp>
-		
-		<ivy-publish artifactspattern="${dist.dir}/[artifact]-[revision].[ext]" 
+		<property name="revision" value="${project.version}-${now}"/>
+		<ivy-publish artifactspattern="${dist.dir}/[artifact].[ext]" 
 					   resolver="local"
-			           pubrevision="${project.version}" 
+			           pubrevision="${revision}" 
 					   pubdate="${now}"
 			           status="integration"/>
-        <echo message="project ${ant.project.name} released with version ${project.version}" />
+        <echo message="project ${ant.project.name} released with version ${revision}" />
     </target>		
 	
 	<!-- ================================= 
