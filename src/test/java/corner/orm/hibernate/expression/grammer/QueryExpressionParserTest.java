@@ -2,11 +2,12 @@ package corner.orm.hibernate.expression.grammer;
 
 import java.io.StringReader;
 
+import junit.framework.TestCase;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
-
 import corner.orm.hibernate.expression.CreateCriterionCallback;
-import junit.framework.TestCase;
+import org.testng.annotations.Test;
+@Test
 
 public class QueryExpressionParserTest extends TestCase {
 

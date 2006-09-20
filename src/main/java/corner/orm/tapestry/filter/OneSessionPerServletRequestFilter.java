@@ -151,7 +151,8 @@ public class OneSessionPerServletRequestFilter implements
 	protected Session getSession(SessionFactory sessionFactory)
 			throws DataAccessResourceFailureException {
 		Session session = SessionFactoryUtils.getSession(sessionFactory, true);
-		session.setFlushMode(FlushMode.NEVER);
+		//TODO 确定NEVER的差别
+		session.setFlushMode(FlushMode.AUTO);
 		return session;
 	}
 

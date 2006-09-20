@@ -1,0 +1,29 @@
+<ivyconf>
+<conf defaultResolver="maxinfo" checkUpToDate="true"/>
+  <resolvers>
+	  <filesystem name="local">
+  			<ivy pattern="${ivy.repo.local}/[organisation]/[module]/ivys/ivy-[revision].xml"/>
+  			<artifact pattern="${ivy.repo.local}/[organisation]/[module]/[type]s/[artifact]-[revision].[type]"/>
+      </filesystem>
+	  <filesystem name="shared">
+  			<ivy pattern="${ivy.repo.shared}/[organisation]/[module]/ivys/ivy-[revision].xml"/>
+  			<artifact pattern="${ivy.repo.shared}/[organisation]/[module]/[type]s/[artifact]-[revision].[type]"/>
+      </filesystem>
+	  
+      <chain name="maxinfo">
+        <url name="maxinf-maven2">
+          <artifact pattern="http://dev.bjmaxinfo.com/ivy/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" />
+        </url>
+<!--        <url name="maxinf-maven2-branches">
+          <artifact pattern="http://dev.bjmaxinfo.com/maven2/repository/[organisation]/[module]/[revision]/[artifact]-[revision]-[branche].[ext]" />
+        </url>
+        <url name="tapestry-javaforge">
+          <artifact pattern="http://howardlewisship.com/repository/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        </url>
+        <url name="apache-snapshot">
+          <artifact pattern="http://people.apache.org/repo/m2-snapshot-repository/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        </url> -->
+
+      </chain>
+  </resolvers>
+</ivyconf>

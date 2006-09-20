@@ -20,6 +20,8 @@ import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
  * @version $Revision$
  * @since 2.1
  */
+import org.testng.annotations.Test;
+@Test
 public class QueryTypeWorkerTest extends TestCase {
 
 	/**

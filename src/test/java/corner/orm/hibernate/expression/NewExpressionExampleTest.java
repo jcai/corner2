@@ -15,6 +15,10 @@ import org.hibernate.type.Type;
 
 import corner.orm.hibernate.expression.annotations.QueryDefinition;
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+@Test
 
 public class NewExpressionExampleTest extends TestCase {
 	Criteria criteria;
@@ -24,7 +28,7 @@ public class NewExpressionExampleTest extends TestCase {
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	@Override
+	@BeforeMethod
 	protected void setUp() throws Exception {
 		super.setUp();
 		criteria=EasyMock.createMock(Criteria.class);
@@ -83,7 +87,7 @@ public class NewExpressionExampleTest extends TestCase {
 		 String [] expectParameterValues={"20050607","20090805","acai"};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
-	public void doTest(Object obj,String[]pros,String[]columns,String[]proValues,String expectSql,String[]expectParameterValues) {
+	private void doTest(Object obj,String[]pros,String[]columns,String[]proValues,String expectSql,String[]expectParameterValues) {
 		Type[] types=new Type[pros.length];
 		for(int i=0;i<types.length;i++){
 			 types[i]=Hibernate.STRING;

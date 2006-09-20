@@ -23,6 +23,9 @@ import junit.framework.TestCase;
  * @version $Revision$
  * @since 2.1
  */
+import org.testng.annotations.Test;
+@Test
+
 public class VectorUtilsTest extends TestCase {
 	public void testSumVector(){
 		Vector<String> v=new Vector<String>();

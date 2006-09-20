@@ -1,0 +1,21 @@
+<project name="corner" default="compile" basedir=".">
+	<property file="build.properties"/>
+	<import file="support/common.xml"/>
+	<property name="src.js.dir" value="src/main/js"/>
+	<property name="antlr.dir" value="src/main/antlr"/>
+	<target name="beforeCompile">
+		<java classname="antlr.Tool" classpathref="antlr.path">
+			<arg value="-o"/>
+			<arg value="${antlr.dir}/corner/orm/hibernate/expression/grammer"/>
+			<arg
+				value="${antlr.dir}/corner/orm/hibernate/expression/grammer/query-expression.g"/>
+		</java>
+	</target>
+	<target name="afterCompile">
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${src.js.dir}">
+				<include name="corner/**/*"/>
+			</fileset>
+		</copy>
+	</target>
+</project>

@@ -106,7 +106,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			if (c == null) {
 				return 0;
 			}
-			rows = ((Integer) ((HibernateObjectRelativeUtils) this.entityService
+			
+			//TODO 考虑兼容以前的版本 Integer变为 Long
+			rows = ((Long) ((HibernateObjectRelativeUtils) this.entityService
 					.getObjectRelativeUtils()).getHibernateTemplate().execute(
 					new HibernateCallback() {
 

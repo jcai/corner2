@@ -8,6 +8,10 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.type.Type;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+@Test
 
 public class StringExpressionTest extends TestCase {
 	Criteria criteria;
@@ -16,7 +20,7 @@ public class StringExpressionTest extends TestCase {
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	@Override
+	@BeforeMethod
 	protected void setUp() throws Exception {
 		super.setUp();
 		criteria=EasyMock.createMock(Criteria.class);

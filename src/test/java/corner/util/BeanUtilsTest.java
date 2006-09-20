@@ -5,6 +5,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import corner.demo.model.one.A;
+import org.testng.annotations.Test;
+@Test
 
 public class BeanUtilsTest extends TestCase {
 

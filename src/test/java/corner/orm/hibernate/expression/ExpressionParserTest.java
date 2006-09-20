@@ -14,15 +14,16 @@ package corner.orm.hibernate.expression;
 
 import java.util.Iterator;
 
-import corner.orm.hibernate.expression.ExpressionParser.ExpPair;
-
 import junit.framework.TestCase;
+import corner.orm.hibernate.expression.ExpressionParser.ExpPair;
 
 /**
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.1
  */
+import org.testng.annotations.Test;
+@Test
 public class ExpressionParserTest extends TestCase {
 
 	/**

@@ -10,4 +10,5 @@
     <component id="ABForm" type="Form">
     	<binding name="listener" value="listener:doNewRelativeAction"/>
 	</component>
+
 </page-specification>

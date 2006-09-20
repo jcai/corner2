@@ -1,6 +1,8 @@
 package corner.util;
 
 import junit.framework.TestCase;
+import org.testng.annotations.Test;
+@Test
 
 public class EntityConverterTest extends TestCase {
 

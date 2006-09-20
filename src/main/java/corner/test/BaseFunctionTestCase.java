@@ -25,6 +25,9 @@ import org.openqa.selenium.server.browserlaunchers.FirefoxCustomProfileLauncher;
 import org.openqa.selenium.server.htmlrunner.HTMLResultsListener;
 import org.openqa.selenium.server.htmlrunner.HTMLTestResults;
 import org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * 
@@ -36,7 +39,7 @@ import org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler;
 public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResultsListener{
 	private org.mortbay.jetty.Server server = null;
 	private HTMLTestResults results;
-
+	@BeforeMethod
 	protected void setUp() throws Exception {
 		super.setUp();
 		server=new Server();
@@ -68,7 +71,7 @@ public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResu
 		return "http://localhost:"+this.getListenerPort()+"/selenium/TestRunner.html?test=TestSuite.html&auto=true&resultsUrl=/postResults";
 	    
 	}
-
+	@Test
 	public void testFunction() throws Exception {
 		
 		String sessionId = Long.toString(System.currentTimeMillis() % 1000000);
@@ -121,6 +124,7 @@ public abstract class  BaseFunctionTestCase extends TestCase implements HTMLResu
         this.results = resultsParm;
     }
 
+    @AfterMethod
 	protected void tearDown() throws Exception {
 		server.stop();
 	}

@@ -82,23 +82,32 @@
 	</bean>
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
 			<ref local="dataSource"/>
 		</property>
 		<property name="hibernateProperties">
 			<props>
+				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				
 			</props>
 		</property>
-		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
-		</property>
+		<property name="annotatedClasses">
+	     <bean class="corner.orm.spring.EntityBeanFinderFactoryBean">
+    	    <property name="classNamePattern" value="corner.demo.model.**"/>
+        	<!-- Results in a find using "classpath*:**/domain/**/*.class" -->
+	      </bean>   
+	   </property>
+
+		<property name="schemaUpdate"><value>true</value></property>
 		<property name="mappingDirectoryLocations">
 			<value>
 				${hibernate.mapping.locations}
 			</value>
 		</property>
+		
 		<property name="lobHandler" ref="${database.lobHandler}"/>
 	</bean>
 	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
