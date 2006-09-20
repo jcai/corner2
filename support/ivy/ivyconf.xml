@@ -11,6 +11,7 @@
       </filesystem>
 	  
       <chain name="maxinfo">
+		<resolver ref="local"/>
         <url name="maxinf-maven2">
           <artifact pattern="http://dev.bjmaxinfo.com/ivy/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" />
         </url>
