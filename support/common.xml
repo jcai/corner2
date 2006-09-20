@@ -192,11 +192,16 @@
 			           status="integration"/>
         <echo message="project ${ant.project.name} released with version ${project.version}" />
     </target>		
-    <target name="publish-local" depends="jar" description="--> compile test and publish this project in the local ivy repository">
+    <target name="install" depends="jar" description="--> compile test and publish this project in the local ivy repository">
     	<property name="revision" value="${project.version}"/>
+		<tstamp>
+			<format property="now" pattern="yyyyMMddHHmmss"/>
+		</tstamp>
+		
 		<ivy-publish artifactspattern="${dist.dir}/[artifact]-[revision].[ext]" 
 					   resolver="local"
 			           pubrevision="${project.version}" 
+					   pubdate="${now}"
 			           status="integration"/>
         <echo message="project ${ant.project.name} released with version ${project.version}" />
     </target>		
