@@ -189,7 +189,7 @@
 		<ivy-publish artifactspattern="${dist.dir}/[artifact]-[revision].[ext]" 
 					   resolver="shared"
 			           pubrevision="${project.version}" 
-			           status="release"/>
+			           status="integration"/>
         <echo message="project ${ant.project.name} released with version ${project.version}" />
     </target>		
     <target name="publish-local" depends="jar" description="--> compile test and publish this project in the local ivy repository">
