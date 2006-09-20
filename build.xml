@@ -23,5 +23,11 @@
 				<include name="corner/**/*"/>
 			</fileset>
 		</copy>
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${project.src.java.dir}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		
 	</target>
 </project>
