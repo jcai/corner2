@@ -1,9 +1,10 @@
 <ivyconf>
 <conf defaultResolver="maxinfo" checkUpToDate="true"/>
+  <property name="ivy.local.default.root" value="${ivy.default.ivy.user.dir}/local" override="false"/>
   <resolvers>
 	  <filesystem name="local">
-  			<ivy pattern="${ivy.repo.local}/[organisation]/[module]/ivys/ivy-[revision].xml"/>
-  			<artifact pattern="${ivy.repo.local}/[organisation]/[module]/[type]s/[artifact]-[revision].[type]"/>
+  			<ivy pattern="${ivy.local.default.root}/[organisation]/[module]/ivys/ivy-[revision].xml"/>
+  			<artifact pattern="${ivy.local.default.root}/[organisation]/[module]/[type]s/[artifact]-[revision].[type]"/>
       </filesystem>
 	  <filesystem name="shared">
   			<ivy pattern="${ivy.repo.shared}/[organisation]/[module]/ivys/ivy-[revision].xml"/>
