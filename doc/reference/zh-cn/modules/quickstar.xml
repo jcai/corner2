@@ -41,13 +41,31 @@
 						<graphic fileref="../shared/images/corner-jetty-config.gif"></graphic>
 					</figure>
 				</step>
+				<step>
+					<para>这个demo演示了开发中,单表,一对多,多对多的增,删,改,查,的操作.</para>
+				</step>
 			</substeps>
 		</step>
 	</procedure>
 	<sect1 id="corner.quickstar.sect2">
-		<title>段落二标题</title>
+		<title>了解corner</title>
 		<para>
-			段落二内容
+			corner在 hibernate,spring,tapestry 的基础上构建.
+		</para>
+		<para>
+			实现了对基本数据的封装,和对tapestry的扩展.使程序员减少编码,更多的关注业务.
+			eg: xxxForm.page对应的类为　class="corner.orm.tapestry.page.PoFormPage"
+			　　xxxList.page对应的类为　class="corner.orm.tapestry.page.PoListPage"
+		</para>
+		<para>
+			实现了页面之间数据传递的对象化,只需关注对象,而不必关系对象的细节．
+			例如:在corner中,修改页面中一个实体的属性时，不需要传递这个对象的id，而只需传递一个entity 即可
+			　eg: ＜a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction"＞
+		</para>
+		<para>
+			在corner中，严格限定 html,page文件的命名规则．　用于显示数据的页面需为　xxxList.html 对应page为　xxxList.page
+			用于修改，添加数据的页面为　xxxForm.html　对应page为　xxxForm.page
+			
 		</para>
 	</sect1>
 </chapter>
