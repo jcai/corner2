@@ -92,7 +92,7 @@
 
 		<ivy-configure file="${support.ivy.dir}/ivyconf.xml"/>
 		<ivy-retrieve
-			pattern="${build.lib.dir}/[module]/[artifact]-[revision].[ext]"/>
+			pattern="${build.lib.dir}/[conf]/[module]/[artifact]-[revision].[ext]"/>
 	</target>
 	
 	<!-- ================================= 
