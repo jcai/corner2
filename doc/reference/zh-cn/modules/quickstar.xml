@@ -57,7 +57,9 @@
 		<para>
 			实现了页面之间数据传递的对象化,只需关注对象,而不必关系对象的细节．
 			例如:在corner中,修改页面中一个实体的属性时，不需要传递这个对象的id，而只需传递一个entity 即可
-			　eg: ＜a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction"＞
+			　eg:<programlisting><![CDATA[
+<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+				]]></programlisting>
 		</para>
 		<para>
 			在corner中，严格限定 html,page文件的命名规则．　用于显示数据的页面需为　xxxList.html 对应page为　xxxList.page
@@ -66,76 +68,121 @@
 	</sect1>
 	<sect1 id="corner.quickstar.sect3">
 		<title>step by step</title>
-		<para>单实体操作</para>
-		<para>参考corner下的 src/main/webapp/one</para>
-		<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
-		<para>使用tableview 显示数据
-			eg:＜div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client"＞
-		</para>
-		<para>查询数据
-		　eg:＜form jwcid="AQueryForm"＞
-			对应组件
-			＜component type="Form" id="AQueryForm"＞
-    			＜binding value="listener:doQueryEntityAction" name="listener"/＞
-				＜binding value="ognl:beans.delegate" name="delegate"/＞
-			＜/component＞
-		</para>
-		<para>
-			删除数据
-			eg: ＜a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction"＞
-              ＜span key="link.delete"＞Delete＜/span＞
-            ＜/a＞
-		</para>
-		<para>
-			导向编辑的链接
-			eg: ＜a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction"＞
-              ＜span key="link.edit"＞Edit＜/span＞
-            ＜/a＞
-		</para>
-		<para>AForm　功能：编辑或添加数据．</para>
-		 <para>eg:＜form jwcid="AForm" action="AList.html"＞
-				＜input jwcid="@Submit" type="Submit" value="message:button.Okay"/＞
-			＜/form＞
-		　</para>
-	      <para>
-		　对应组件　＜component type="Form" id="AForm"＞
-					＜binding value="ognl:beans.delegate" name="delegate"/＞
-					＜binding value="ognl:true" name="clientValidationEnabled"/＞
-    				＜binding value="listener:doSaveEntityAction" name="success"/＞
-					＜binding value="listener:doCancelEntityAction" name="cancel"/＞
-				  ＜/component＞
-		</para>
+		<para>按照通常实体关系有单一，一对多，多对多等关系，下面分别讲述了单表，一对多，多对多</para>
+		<sect2 id="corner.quickstar.sect3.1">
+			<title>单实体操作</title>
+			<para>参考corner下的 src/main/webapp/one</para>
+			<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
+			<para>使用tableview 显示数据
+				eg:
+				<programlisting id="mapping-declaration-ex1" revision="1"><![CDATA[
+<div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+				]]></programlisting>
+			</para>
+			<para>查询数据
+			　eg:<programlisting><![CDATA[
+<form jwcid="AQueryForm">
+				]]></programlisting>
+				对应组件
+				<programlisting><![CDATA[
+<component type="Form" id="AQueryForm">
+	<binding value="listener:doQueryEntityAction" name="listener"/>
+	<binding value="ognl:beans.delegate" name="delegate"/>
+</component>
+			]]></programlisting>
+			</para>
+			<para>
+				删除数据
+				eg: <programlisting><![CDATA[
+<a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+  <span key="link.delete">Delete</span>
+</a>
+				]]></programlisting>
+			</para>
+			<para>
+				导向编辑的链接
+				eg: <programlisting><![CDATA[
+<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+  <span key="link.edit">Edit</span>
+</a>
+				]]></programlisting>
+			</para>
+			<para>AForm　功能：编辑或添加数据．</para>
+			 <para>eg:<programlisting><![CDATA[
+<form jwcid="AForm" action="AList.html">
+	<input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+</form>
+				 ]]></programlisting>
+			　</para>
+			  <para>
+			　对应组件　<programlisting><![CDATA[
+<component type="Form" id="AForm">
+	<binding value="ognl:beans.delegate" name="delegate"/>
+	<binding value="ognl:true" name="clientValidationEnabled"/>
+	<binding value="listener:doSaveEntityAction" name="success"/>
+	<binding value="listener:doCancelEntityAction" name="cancel"/>
+  </component>
+				  ]]></programlisting>
+			</para>
+			
+		</sect2>
 		<para>
 			一对多关联。A-->B
 		</para>
 		<para>参考corner下的 src/main/webapp/one2many</para>
 		<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
 		<para>AForm　功能：编辑或添加数据．导向BFrom添加关联关系,显示A与B关联关系.</para>
-		<para>AForm 对应的corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage"＞</para>
-		<para>Add A to B＜a parameters="ognl:{entity,'one2many/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html"＞Add A to B＜/a＞</para>
-		<para>显示与A所关联的B的列表．＜tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject"＞
-			＜td＞＜span jwcid="@Insert" value="ognl:relativeObject.name" /＞＜td＞</para>
-		<para>修改与A关联的B的数据：＜a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'one2many/BForm'}" listener="listener:doEditRelativeEntityAction"＞＜/a＞</para>
-		<para>删除与B的关联关系：＜a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" listener="listener:doDeleteRelativeEntityAction"＞＜/a＞</para>
+		<para>AForm 对应的corner中的类为:
+			<programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
+			]]></programlisting>
+		</para>
+		<para>Add A to B<programlisting><![CDATA[
+<a parameters="ognl:{entity,'one2many/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a>
+		]]></programlisting>
+		</para>
+		<para>显示与A所关联的B的列表．<programlisting><![CDATA[
+<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+	<td><span jwcid="@Insert" value="ognl:relativeObject.name" /><td>
+	......	
+		]]></programlisting></para>
+		<para>修改与A关联的B的数据：<programlisting><![CDATA[
+<a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'one2many/BForm'}" listener="listener:doEditRelativeEntityAction"></a>
+		]]></programlisting></para>
+		<para>删除与B的关联关系：<programlisting><![CDATA[
+<a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" listener="listener:doDeleteRelativeEntityAction"></a>
+		]]></programlisting></para>
 		<para>BForm　功能：添加B,并保存与A的关联．</para>
-		<para>BForm对应corner中的类　＜page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage"＞</para>
-		<para>注入上级页面的地址＜inject property="rootFormPage" type="page" object="one2many/AForm"/＞</para>
-		<para>返回到AForm＜a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html"＞Return ＜/a＞</para>
+		<para>BForm对应corner中的类　<programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
+			]]></programlisting></para>
+		<para>注入上级页面的地址<programlisting><![CDATA[
+<inject property="rootFormPage" type="page" object="one2many/AForm"/>
+			]]></programlisting></para>
+		<para>返回到AForm<programlisting><![CDATA[
+<a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
+			]]></programlisting></para>
 		<para></para>
 		<para>多对多的关联，没有中间表（即中间表中不需要操作其自己表的数据）</para>
 		<para>参考corner下的 src/main/webapp/many2many</para>
 		<para>AList功能：显示数据，查询数据，删除数据，导向编辑的链接，导向BList．</para>
-		<para><para>AForm　功能：编辑或添加数据．导向ABList添加关联关系,显示A与B关联关系.</para></para>
-		<para>AForm 对应的corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage"＞</para>
+		<para>AForm　功能：编辑或添加数据．导向ABList添加关联关系,显示A与B关联关系.</para>
+		<para>AForm 对应的corner中的类为:<programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
+			]]></programlisting></para>
 		<para>ABList 功能: 添加A,B关联关系.</para>
-		<para>ABList对应corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage"＞</para>
+		<para>ABList对应corner中的类为:<programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage">
+			]]></programlisting></para>
 		<para>添加A与B的关联</para>
-		<para>＜component id="ABForm" type="Form"＞
-    	＜binding name="listener" value="listener:doNewRelativeAction"/＞
-		＜/component＞
+		<para><programlisting><![CDATA[
+<component id="ABForm" type="Form">
+   	<binding name="listener" value="listener:doNewRelativeAction"/>
+</component>
+]]></programlisting>
 		</para>
 		<para>在多对多的关联中，既可从A端添加B,也可从B端添加A</para>
-		<para></para>
+
 	</sect1>
 </chapter>
 
