@@ -126,9 +126,8 @@
 			</para>
 			
 		</sect2>
-		<para>
-			一对多关联。A-->B
-		</para>
+		<sect2 id="corner.quickstar.sect3.2">
+			<title>一对多关联。A-->B</title>
 		<para>参考corner下的 src/main/webapp/one2many</para>
 		<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
 		<para>AForm　功能：编辑或添加数据．导向BFrom添加关联关系,显示A与B关联关系.</para>
@@ -162,8 +161,10 @@
 		<para>返回到AForm<programlisting><![CDATA[
 <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
 			]]></programlisting></para>
-		<para></para>
-		<para>多对多的关联，没有中间表（即中间表中不需要操作其自己表的数据）</para>
+		</sect2>
+		<sect2 id="corner.quickstar.sect3.3">
+		<title>多对多关联。</title>
+		<para>多对多的关联,A--AB--B，没有中间表（即中间表中不需要操作其自己表的数据）</para>
 		<para>参考corner下的 src/main/webapp/many2many</para>
 		<para>AList功能：显示数据，查询数据，删除数据，导向编辑的链接，导向BList．</para>
 		<para>AForm　功能：编辑或添加数据．导向ABList添加关联关系,显示A与B关联关系.</para>
@@ -182,7 +183,7 @@
 ]]></programlisting>
 		</para>
 		<para>在多对多的关联中，既可从A端添加B,也可从B端添加A</para>
-
+	</sect2>
 	</sect1>
 </chapter>
 
