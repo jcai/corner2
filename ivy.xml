@@ -25,7 +25,6 @@
 		<dependency org="javax.persistence" name="ejb"	rev="3.0-public-draft-20060502" conf="runtime->*"/>
 		<dependency org="dom4j" name="dom4j" rev="1.6.1" conf="runtime->*"/>
 		<dependency org="javax/transaction" name="jta" rev="1.0.1B" conf="runtime->*"/>
-		<dependency org="hsqldb" name="hsqldb" rev="1.8.0.1" conf="test->*"/>
 		<dependency org="cglib" name="cglib-nodep" rev="2.1_3" conf="runtime->*"/>
 		<dependency org="apache" name="commons-collections" rev="2.1" conf="runtime->*"/>
 		<dependency org="ehcache" name="ehcache" rev="1.2" conf="runtime->*"/>
@@ -54,6 +53,7 @@
 		<dependency org="c3p0" name="c3p0" rev="0.9.0.4" conf="test->*"/>
 		<dependency org="jetty"	name="jasper-runtime" rev="4.2.20RC0" conf="test->*"/>
 		<dependency org="jetty"	name="jasper-compiler" rev="4.2.20RC0" conf="test->*"/>
+		<dependency org="hsqldb" name="hsqldb" rev="1.8.0.1" conf="test->*"/>
 		
 	</dependencies>
 </ivy-module>
