@@ -10,42 +10,34 @@
 	
 	<!-- 发布文件路径 -->
 	<property name="dist.dir" value="${build.dir}/dist"/>
-	<!-- 构建路径 -->
-	<path id="build.classpath">
-		<fileset dir="${build.lib.dir}">
+	<!-- 编译路径 -->
+	<path id="build.runtime.classpath">
+		<fileset dir="${build.lib.dir}/runtime">
 			<include name="**/*.jar"/>
-			<exclude name="**/ivy/*.jar"/>
+		</fileset>
+	</path>
+	<path id="build.compile.classpath">
+		<fileset dir="${build.lib.dir}/compile">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<path id="build.test.classpath">
+		<fileset dir="${build.lib.dir}/test">
+			<include name="**/*.jar"/>
 		</fileset>
 	</path>
 	<!-- ivy 的库路径 -->
 	<path id="ivy.path">
 		<fileset dir="${support.lib.dir}" includes="ivy*.jar"/>
 	</path>
-	<!--testNG 路径 -->
-	<path id="testng.path">
-		<fileset dir="${support.lib.dir}" includes="testng*.jar"/>
-	</path>
-	<!--testNG 路径 -->
-	<path id="cobertura.path">
-		<fileset dir="${support.lib.dir}/cobertura" includes="*.jar"/>
-	</path>
-	<!-- antlr 路径-->
-	<path id="antlr.path">
-		<fileset dir="${support.lib.dir}" includes="ant-antlr*.jar"/>
-		<fileset dir="${support.lib.dir}" includes="antlr*.jar"/>
-	</path>
-	<!--　定义任务　-->
 	<taskdef name="ivy-configure" classname="fr.jayasoft.ivy.ant.IvyConfigure"
-		classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
-	<taskdef name="ivy-resolve" classname="fr.jayasoft.ivy.ant.IvyResolve"
-		classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
-	<taskdef name="ivy-retrieve" classname="fr.jayasoft.ivy.ant.IvyRetrieve"
-		classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
-	<taskdef name="ivy-publish" classname="fr.jayasoft.ivy.ant.IvyPublish"
-		classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
-	
-	<taskdef resource="testngtasks" classpathref="testng.path"/>
-	<taskdef resource="tasks.properties" classpathref="cobertura.path"/>
+			classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
+		<taskdef name="ivy-resolve" classname="fr.jayasoft.ivy.ant.IvyResolve"
+			classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
+		<taskdef name="ivy-retrieve" classname="fr.jayasoft.ivy.ant.IvyRetrieve"
+			classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
+		<taskdef name="ivy-publish" classname="fr.jayasoft.ivy.ant.IvyPublish"
+			classpathref="ivy.path" loaderref="classpath.custom.ant.loaded"/>
 	
 	<!-- ================================= 
 	target: 生成eclipse的.classpath文件             
@@ -94,11 +86,32 @@
 		<ivy-retrieve
 			pattern="${build.lib.dir}/[conf]/[module]/[artifact]-[revision].[ext]"/>
 	</target>
+	<target name="taskdef" description="定义依赖包" depends="resolve">
+	
+		<!--testNG 路径 -->
+		<path id="testng.path">
+			<fileset dir="${build.lib.dir}/ant" includes="**/testng*.jar"/>
+		</path>
+		<!--testNG 路径 -->
+		<path id="cobertura.path">
+			<fileset dir="${support.lib.dir}/cobertura" includes="*.jar"/>
+		</path>
+		<!-- antlr 路径-->
+		<path id="antlr.path">
+			<fileset dir="${build.lib.dir}/ant" includes="**/antlr*.jar"/>
+		</path>
+		<!--　定义任务　-->
+		
+		
+		<taskdef resource="testngtasks" classpathref="testng.path"/>
+		<taskdef resource="tasks.properties" classpathref="cobertura.path"/>
+	</target>
+	
 	
 	<!-- ================================= 
 	target: 编译Java文件             
 	================================= -->
-	<target name="compile" depends="resolve" description="编译项目">
+	<target name="compile" depends="taskdef" description="编译项目">
 		<antcall target="compile-offline">
 			<param name="debug" value="false"/>
 		 </antcall>
@@ -108,7 +121,7 @@
 		<antcall target="beforeCompile"/>
 		
 		<javac destdir="${build.classes.dir}" fork="true" source="1.5" target="1.5"
-			classpathref="build.classpath" encoding="utf-8" debug="${debug}">
+			classpathref="build.compile.classpath" encoding="utf-8" debug="${debug}">
 			<src path="${project.src.java.dir}"/>
 			<src path="${antlr.dir}"/>
 		</javac>
@@ -133,7 +146,7 @@
 		<javac srcdir="${project.test.java.dir}" destdir="${build.classes-test.dir}" target="1.5"
 			source="1.5" nowarn="on" encoding="utf-8">
 			<classpath>
-				<path refid="build.classpath"/>
+				<path refid="build.test.classpath"/>
 				<pathelement path="${build.classes.dir}"/>
 			</classpath>
 		</javac>
@@ -148,7 +161,7 @@
 	<target name="test" depends="test.compile">
 			<testng outputDir="${build.test.report}" haltOnFailure="true" verbose="2">
 				<classpath>
-					<path refid="build.classpath"/>
+					<path refid="build.test.classpath"/>
 					<pathelement path="${build.classes.dir}"/>
 					<pathelement path="${build.classes-test.dir}"/>
 				</classpath>
@@ -156,7 +169,7 @@
 			</testng>
 	</target>
 	
-	<target name="instrument" depends="clean" description="运行字节码增强">
+	<target name="instrument" depends="clean,taskdef" description="运行字节码增强">
 	  <antcall target="compile-offline">
 			<param name="debug" value="true"/>
 	  </antcall>
@@ -167,11 +180,11 @@
 	  </cobertura-instrument>
 	</target>
 	<target name="cover-test" depends="instrument,test.compile" description="运行测试">
-	  <mkdir dir="${testreportdir}" />
-		<testng outputDir="${build.test.report}" haltOnFailure="true" verbose="2">
+	  <mkdir dir="${build.cover.report.dir}" />
+		<testng outputDir="${build.cover.report.dir}" haltOnFailure="true" verbose="2">
 			 <classpath location="target/instrumented-classes"/>
 			<classpath>
-				<path refid="build.classpath"/>
+				<path refid="build.test.classpath"/>
 				<pathelement path="${build.classes.dir}"/>
 				<pathelement path="${build.classes-test.dir}"/>
 			</classpath>

@@ -7,6 +7,9 @@
     	<conf name="runtime" description=""/>
 		<conf name="compile" extends="runtime"/>
     	<conf name="test" extends="compile" description=""/>
+
+		<conf name="ant"  description=""/>
+		  
     </configurations>
 	<dependencies>
 		<dependency org="apache" name="commons-logging" rev="1.0.4" conf="runtime->*"/>
@@ -44,8 +47,8 @@
 
 		<dependency org="log4j" name="log4j" rev="1.2.9" conf="test->*"/>
 		<dependency org="cobertura" name="cobertura" rev="1.7" conf="test->*"/>
-		<dependency org="spring" name="spring-mock" rev="1.2.8" conf="test->*"/>
-		<dependency org="org/openqa/selenium/server" name="selenium-server"		rev="0.8.1" conf="test->*"/>
+		<dependency org="spring" name="spring-mock" rev="1.2.8" conf="compile->*"/>
+		<dependency org="org/openqa/selenium/server" name="selenium-server"		rev="0.8.1" conf="compile->*"/>
 		<dependency org="testng" name="testng" rev="5.0.2-jdk15" conf="compile->*"/>
 		<dependency org="easymock" name="easymock" rev="2.2" conf="test->*"/>
 		<dependency org="tapestry.javaforge" name="tapestry-testng"	rev="1.0.0-SNAPSHOT" conf="test->*"/>
@@ -54,6 +57,12 @@
 		<dependency org="jetty"	name="jasper-runtime" rev="4.2.20RC0" conf="test->*"/>
 		<dependency org="jetty"	name="jasper-compiler" rev="4.2.20RC0" conf="test->*"/>
 		<dependency org="hsqldb" name="hsqldb" rev="1.8.0.1" conf="test->*"/>
+		
+		<dependency org="testng" name="testng" rev="5.0.2-jdk15" conf="ant->*"/>
+		<dependency org="apache" name="antlr" rev="2.7.6" conf="ant->*"/>
+
+		
+		
 		
 	</dependencies>
 </ivy-module>
