@@ -34,9 +34,15 @@
 			<substeps>
 				<step>
 					<para>点击eclipse run，在jetty web 上new 一个工程运行环境，配置如图：</para>
-					<figure><title>jetty配置</title>
-						<graphic fileref="../shared/images/corner-jetty-config.gif"></graphic>
-					</figure>
+					
+					<mediaobject>
+			            <imageobject role="fo">
+			                <imagedata fileref="images/corner-jetty-config.gif" format="GIF" align="center"/>
+			            </imageobject>
+			            <imageobject role="html">
+			                <imagedata fileref="../shared/images/corner-jetty-config.gif" format="GIF" align="center"/>
+			            </imageobject>
+			        </mediaobject>
 				</step>
 				<step>
 					<para>这个demo演示了开发中,单表,一对多,多对多的增,删,改,查,的操作.</para>
