@@ -4,8 +4,8 @@
 	<info organisation="bjmaxinfo" module="corner" status="integration">
 	</info>
 	  <configurations>
-    	<conf name="compile" description="编译时候需要的库"/>
-    	<conf name="test" extends="compile" description="测试时候需要的库"/>
+    	<conf name="compile" description=""/>
+    	<conf name="test" extends="compile" description=""/>
     </configurations>
 	<dependencies>
 		<dependency org="apache" name="commons-logging" rev="1.0.4" />
