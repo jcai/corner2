@@ -12,6 +12,11 @@
 
 package corner.model;
 
+import javax.persistence.Lob;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.Type;
+
 /**
  * 抽象的blob模型,所有的blob模型必须继承此类.
  * <p>此类提供了blob两个必须的东西,一个数据,一个为类型.
@@ -21,8 +26,9 @@ package corner.model;
  * @version	$Revision$
  * @since	2006-1-20
  */
+@MappedSuperclass
 public class AbstractBlobModel implements IBlobModel {
-
+	
 	/**
 	 * blob数据.
 	 * @hibernate.property column="BlobData" length="2147483647"
@@ -39,6 +45,8 @@ public class AbstractBlobModel implements IBlobModel {
 	/**
 	 * @see corner.model.IBlobModel#getBlobData()
 	 */
+	@Lob
+	@Type(type="org.springframework.orm.hibernate3.support.BlobByteArrayType")
 	public byte[] getBlobData() {
 		return blobData;
 	}
