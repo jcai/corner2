@@ -65,7 +65,48 @@
 		<para>
 			在corner中，严格限定 html,page文件的命名规则．　用于显示数据的页面需为　xxxList.html 对应page为　xxxList.page
 			用于修改，添加数据的页面为　xxxForm.html　对应page为　xxxForm.page
-			
+		</para>
+	</sect1>
+	<sect1 id="corner.quickstar.sect3">
+		<title>step by step</title>
+		<para>参考corner下的 src/main/webapp/one</para>
+		<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
+		<para>使用tableview 显示数据
+			eg:＜div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client"＞
+		</para>
+		<para>查询数据
+		　eg:＜form jwcid="AQueryForm"＞
+			对应组件
+			＜component type="Form" id="AQueryForm"＞
+    			＜binding value="listener:doQueryEntityAction" name="listener"/＞
+				＜binding value="ognl:beans.delegate" name="delegate"/＞
+			＜/component＞
+		</para>
+		<para>
+			删除数据
+			eg: ＜a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction"＞
+              ＜span key="link.delete"＞Delete＜/span＞
+            ＜/a＞
+		</para>
+		<para>
+			导向编辑的链接
+			eg: ＜a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction"＞
+              ＜span key="link.edit"＞Edit＜/span＞
+            ＜/a＞
+		</para>
+		<para>AForm　功能：编辑或添加数据．</para>
+		 <para>eg:＜form jwcid="AForm" action="AList.html"＞
+				＜input jwcid="@Submit" type="Submit" value="message:button.Okay"/＞
+			＜/form＞
+		　</para>
+	      <para>
+		　对应组件　＜component type="Form" id="AForm"＞
+					＜binding value="ognl:beans.delegate" name="delegate"/＞
+					＜binding value="ognl:true" name="clientValidationEnabled"/＞
+    				＜binding value="listener:doSaveEntityAction" name="success"/＞
+					＜binding value="listener:doCancelEntityAction" name="cancel"/＞
+				  ＜/component＞
 		</para>
 	</sect1>
 </chapter>
+
