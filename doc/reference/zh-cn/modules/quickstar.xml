@@ -110,7 +110,7 @@
 		</para>
 		<para>参考corner下的 src/main/webapp/one2many</para>
 		<para>AList 功能，　显示数据，查询数据，删除数据，导向编辑的链接．</para>
-		<para>AForm　功能：编辑或添加数据．导向BFromg添加关联关系,显示A与B关联关系.</para>
+		<para>AForm　功能：编辑或添加数据．导向BFrom添加关联关系,显示A与B关联关系.</para>
 		<para>AForm 对应的corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage"＞</para>
 		<para>Add A to B＜a parameters="ognl:{entity,'one2many/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html"＞Add A to B＜/a＞</para>
 		<para>显示与A所关联的B的列表．＜tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject"＞
@@ -124,7 +124,18 @@
 		<para></para>
 		<para>多对多的关联，没有中间表（即中间表中不需要操作其自己表的数据）</para>
 		<para>参考corner下的 src/main/webapp/many2many</para>
-		
+		<para>AList功能：显示数据，查询数据，删除数据，导向编辑的链接，导向BList．</para>
+		<para><para>AForm　功能：编辑或添加数据．导向ABList添加关联关系,显示A与B关联关系.</para></para>
+		<para>AForm 对应的corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage"＞</para>
+		<para>ABList 功能: 添加A,B关联关系.</para>
+		<para>ABList对应corner中的类为:＜page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage"＞</para>
+		<para>添加A与B的关联</para>
+		<para>＜component id="ABForm" type="Form"＞
+    	＜binding name="listener" value="listener:doNewRelativeAction"/＞
+		＜/component＞
+		</para>
+		<para>在多对多的关联中，既可从A端添加B,也可从B端添加A</para>
+		<para></para>
 	</sect1>
 </chapter>
 
