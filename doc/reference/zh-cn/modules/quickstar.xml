@@ -3,7 +3,7 @@
 	<title>快速开始</title>
 	<abstract>
 		<para>
-			本章描述....
+			本章描述:快速使用corner.
 			<note>
 				<para>
 					概述
@@ -12,18 +12,42 @@
 		</para>
 	</abstract>
 	<sect1 id="corner.quickstar.sect1">
-		<title>段落一标题</title>
-		
+		<title>构建corner的开发环境</title>
 		<para>
-			内容
+			
+		</para>
+		<para>
+			下载corner:
 		</para>
 		
 	</sect1>
+	<procedure id="corner.quickstar.proc1"><title>构建corner的开发环境</title>
+		<step>
+		  <para>安装eclipse plugin:取得168.168.168.205上的addons-3.2 eclipse plugin ,</para>
+		</step>
+		<step>
+		  <para>下载corner:打开svn资源库视图,新建一个资源库位置,填入corner的url地址:http://dev.bjmaxinfo.com/svn/corner,在turck目录下
+				 检索出corner工程.</para>
+		</step>
+		<step>
+		  <para>下载jetty，并解压缩。</para>
+		</step>
+		<step>
+			<para>运行corner</para>
+			<substeps>
+				<step>
+					<para>点击eclipse run，在jetty web 上new 一个工程运行环境，配置如图：</para>
+					<figure><title>jetty配置</title>
+						<graphic fileref="../shared/images/corner-jetty-config.gif"></graphic>
+					</figure>
+				</step>
+			</substeps>
+		</step>
+	</procedure>
 	<sect1 id="corner.quickstar.sect2">
 		<title>段落二标题</title>
 		<para>
 			段落二内容
 		</para>
 	</sect1>
-	
 </chapter>
