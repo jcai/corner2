@@ -16,6 +16,7 @@ import org.hibernate.Session;
 
 import corner.orm.hibernate.expression.NewExpressionExample;
 import corner.orm.tapestry.HibernateConverter;
+import corner.orm.tapestry.page.relative.IRelativeObjectOperatorSupport;
 import corner.orm.tapestry.table.IPersistentQueriable;
 import corner.orm.tapestry.table.PersistentBasicTableModel;
 
@@ -26,7 +27,7 @@ import corner.orm.tapestry.table.PersistentBasicTableModel;
  * @since 2006-5-24
  * @param <T> 当前操作的实体对象.
  */
-public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IListablePage<T>,IPersistentQueriable {
+public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements IListablePage<T>,IPersistentQueriable,IRelativeObjectOperatorSupport {
 	@SuppressWarnings("unchecked")
 	public EntityPage<T> getEntityFormPage() {
 		return (EntityPage<T>) this.getRequestCycle().getPage(getEntityFormPageStr());
@@ -148,6 +149,24 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 	public IPrimaryKeyConverter getConverter() {
 		return new HibernateConverter(this.getDataSqueezer());
 	}
+	/**
+	 * 通常操作one-to-one时候使用
+	 * @param rootObj one 主对象
+	 * @param relativeObj 从对象
+	 * @param pageName
+	 * @return 通常是在编辑rootObj(主对象)的时候进行relativeObj(从对象)操作。当relativeObj不为空的时候，
+	 * 就编辑relativeObj，当relativeObj为空的时候就新创建一个relativeObj
+	 */
+	@SuppressWarnings("unchecked")
+	public IPage doNewOrEditRelativeEntityAction(T rootObj,Object relativeObj,String pageName){
+		if(relativeObj!=null){
+			return this.getRelativeObjectOperator().doEditRelativeEntityAction(rootObj, relativeObj, pageName);
+		}
+		else{
+			return this.getRelativeObjectOperator().doNewRelativeAction(rootObj, pageName);
+		}	
+	}
+	
 	//=====  加入直接操作实体的DirectLink连接
 	/**
 	 * 编辑实体的连接

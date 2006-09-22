@@ -27,7 +27,7 @@ import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
  * @version $Revision$
  * @since 2.1
  */
-public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntityListPage<E> implements IPageRooted<T,E>,IRelativeObjectOperatorSupport{
+public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntityListPage<E> implements IPageRooted<T,E>{
 	/**
 	 * 得到列表的source,得到和当前实体关联的对象的列表。
 	 * @param relativePropertyName 关联的属性名字，通常为复数，譬如：groups,users等。
@@ -82,18 +82,7 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 		return this.goEntityPageByPage(this.getRootedObject(), this.getRootFormPage());
 	}
 
-	/**
-	 * 返回到关联对象的列表页。
-	 * @param t 实体对象。
-	 * @param listPath 列表页面。
-	 * @return 列表页面。
-	 */
-	@SuppressWarnings("unchecked")
-	public IPage doViewRelativeEntityListAction(T t,String listPageName){
-		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(listPageName);
-		page.setRootedObject(t);
-		return page;
-	}
+	
 
 	/**
 	 * 采用注释，简化从list页面返回根页面

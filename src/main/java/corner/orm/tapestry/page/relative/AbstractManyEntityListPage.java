@@ -12,8 +12,6 @@
 
 package corner.orm.tapestry.page.relative;
 
-import org.apache.tapestry.IPage;
-
 import corner.orm.tapestry.page.AbstractEntityListPage;
 
 /**
@@ -24,37 +22,9 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.1
+ * @deprecated 方法都已经重构到AbstractEntityListPage里面，请直接使用AbstractEntityListPage
  */
 public abstract class AbstractManyEntityListPage<T> extends AbstractEntityListPage<T> implements IRelativeObjectOperatorSupport{
 
-	/**
-	 * 返回到关联对象的列表页。
-	 * @param t 实体对象。
-	 * @param listPath 列表页面。
-	 * @return 列表页面。
-	 * @since 2.1
-	 */
-	@SuppressWarnings("unchecked")
-	public IPage doViewRelativeEntityListAction(T t,String listPageName){
-		IPageRooted<T,Object> page= (IPageRooted<T,Object>) this.getRequestCycle().getPage(listPageName);
-		page.setRootedObject(t);
-		return page;
-	}	
-	/**
-	 * 通常操作one-to-one时候使用
-	 * @param rootObj one 主对象
-	 * @param relativeObj 从对象
-	 * @param pageName
-	 * @return 通常是在编辑rootObj(主对象)的时候进行relativeObj(从对象)操作。当relativeObj不为空的时候，
-	 * 就编辑relativeObj，当relativeObj为空的时候就新创建一个relativeObj
-	 */
-	@SuppressWarnings("unchecked")
-	public IPage doNewOrEditRelativeEntityAction(T rootObj,Object relativeObj,String pageName){
-		if(relativeObj!=null){
-			return this.getRelativeObjectOperator().doEditRelativeEntityAction(rootObj, relativeObj, pageName);
-		}
-		else{
-			return this.getRelativeObjectOperator().doNewRelativeAction(rootObj, pageName);
-		}	
-	}
+	
 }

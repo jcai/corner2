@@ -14,11 +14,13 @@ package corner.orm.tapestry.page;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
+import corner.orm.tapestry.page.relative.IPageRooted;
 
 /**
  * 抽象的实体类.
@@ -114,7 +116,19 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 		page.setEntity(e);
 		return page;
 	}
-
+	/**
+	 * 返回到关联对象的列表页。
+	 * @param t 实体对象。one那一端的实体对象
+	 * @param listPath 列表页面。
+	 * @return 列表页面。
+	 * @since 2.1
+	 */
+	@SuppressWarnings("unchecked")
+	public IPage doViewRelativeEntityListAction(Object t,String listPageName){
+		IPageRooted<Object,Object> page= (IPageRooted<Object,Object>) this.getRequestCycle().getPage(listPageName);
+		page.setRootedObject(t);
+		return page;
+	}
 	/**
 	 * @deprecated
 	 * @return

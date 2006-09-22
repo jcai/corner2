@@ -136,19 +136,7 @@ public abstract class AbstractManyEntityFormPage<T, E> extends AbstractEntityFor
 		this.getEntityService().deleteEntities(e);
 		return this;
 	}
-	/**
-	 * 返回到关联对象的列表页。
-	 * @param t 实体对象。
-	 * @param listPath 列表页面。
-	 * @return 列表页面。
-	 * @since 2.1
-	 */
-	@SuppressWarnings("unchecked")
-	public IPage doViewRelativeEntityListAction(T t,String listPageName){
-		IPageRooted<T,E> page= (IPageRooted<T,E>) this.getRequestCycle().getPage(listPageName);
-		page.setRootedObject(t);
-		return page;
-	}
+	
 	
 	/**
 	 * 通常操作one-to-one时候使用
