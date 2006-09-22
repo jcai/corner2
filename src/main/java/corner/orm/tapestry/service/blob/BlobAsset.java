@@ -59,6 +59,12 @@ public class BlobAsset extends AbstractAsset {
 		parameters.add(key);
 
 	}
+	public BlobAsset(IEngineService blobService, IRequestCycle requestCycle, Object obj) {
+		super(null,null);
+		_blobService = blobService;
+		parameters.add(obj);
+		
+	}
 	/**
 	 * 构建URL.
 	 * @see org.apache.tapestry.IAsset#buildURL()

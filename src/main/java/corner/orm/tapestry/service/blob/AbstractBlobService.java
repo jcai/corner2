@@ -22,6 +22,7 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.error.RequestExceptionReporter;
+import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
@@ -47,6 +48,8 @@ public abstract class AbstractBlobService implements IEngineService {
 
 	public static final String TABLE_KEY_VAR = "table_key";
 
+	private static final String ENTITY = "entity_blob";
+
 	
 
 	/** @since 4.0 */
@@ -60,21 +63,33 @@ public abstract class AbstractBlobService implements IEngineService {
 
 	private EntityService entityService;
 
+	
+
+	private DataSqueezer dataSqueezer;
+
 	public ILink getLink(boolean post, Object parameter) {
 		Defense.isAssignable(parameter, Object[].class, "parameter");
 
 		Object[] blobParameters = (Object[]) parameter;
 		Map<String,Object> parameters = new HashMap<String,Object>();
-
-		parameters.put(TABLE_TYPE_VAR, blobParameters[0]);
-		parameters.put(TABLE_KEY_VAR, blobParameters[1]);
-
+		if(blobParameters.length==1){
+			parameters.put(ENTITY, this.dataSqueezer.squeeze(blobParameters[0]));
+		}else{
+			parameters.put(TABLE_TYPE_VAR, blobParameters[0]);
+			parameters.put(TABLE_KEY_VAR, blobParameters[1]);
+		}
 		return _linkFactory.constructLink(this, false, parameters, false);
 	}
 	protected abstract Map<String,IBlobProvider> getBlobProviderMap();
 	protected abstract Map<String, Class<? extends IBlobModel>> getBlobModelClassesMap();
 
 	public void service(IRequestCycle cycle) throws IOException {
+		String objStr=cycle.getParameter(ENTITY);
+		if(objStr!=null){
+			IBlobModel blob=(IBlobModel) this.dataSqueezer.unsqueeze(objStr);
+			outputStream(blob.getContentType(),blob.getBlobData());
+			return;
+		}
 		String tableType = cycle.getParameter(TABLE_TYPE_VAR);
 		String tableKey = cycle.getParameter(TABLE_KEY_VAR);
 
@@ -85,21 +100,13 @@ public abstract class AbstractBlobService implements IEngineService {
 			if (provider == null) { //针对blob模型的处理
 				Class<? extends IBlobModel>clazz=getBlobModelClassesMap().get(tableType);
 				provider=new BlobModelBlobProvider(clazz);
-				
-				
-				
 			}
 
 			provider.setKeyValue(tableKey);
 			provider.setEntityService(entityService);
 			String type = provider.getContentType();
-			if (provider.getBlobAsBytes() == null || type == null) {
-				return;
-			}
-
-			OutputStream output = _response
-					.getOutputStream(new ContentType(type));
-			output.write(provider.getBlobAsBytes());
+			
+			outputStream(type,provider.getBlobAsBytes());
 
 
 		}
@@ -113,7 +120,21 @@ public abstract class AbstractBlobService implements IEngineService {
 
 		return;
 	}
+	/**
+	 * 输出IO流
+	 * @param contentType
+	 * @param data
+	 * @throws IOException
+	 */
+	private void outputStream(String contentType,byte[] data) throws IOException{
+		if (data == null || contentType == null) {
+			return;
+		}
 
+		OutputStream output = _response
+		.getOutputStream(new ContentType(contentType));
+		output.write(data);
+	}
 	public String getName() {
 		return SERVICE_NAME;
 	}
@@ -136,4 +157,13 @@ public abstract class AbstractBlobService implements IEngineService {
 	public void setEntityService(EntityService entityService) {
 		this.entityService = entityService;
 	}
+	/**
+	 * 设置hibernate的DataSqueezer
+	 * @param filter hibernate filter
+	 * @since 2.2.1
+	 */
+    public void setDataSqueezer(DataSqueezer dataSqueezer){
+    	this.dataSqueezer=dataSqueezer;
+    }
+
 }

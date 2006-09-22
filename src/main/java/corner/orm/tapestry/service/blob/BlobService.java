@@ -55,6 +55,7 @@ public class BlobService extends AbstractBlobService{
     private List _contributions;
 
     private List nameProviderContributions;
+	
 
     /**
 	 * @param nameProviderContributions The nameProviderContributions to set.

@@ -30,7 +30,7 @@ import corner.util.BeanUtils;
  * @version	$Revision$
  * @since	2006-1-20
  */
-public class BlobPageDelegate <T extends IBlobModel>{
+public class BlobPageDelegate <T extends IBlobModel> implements IBlobPageDelegate<T>{
 	private static final Log log=LogFactory.getLog(BlobPageDelegate.class);
 	private IUploadFile uploadFile;
 	private String keyValue;
@@ -52,10 +52,7 @@ public class BlobPageDelegate <T extends IBlobModel>{
 		this.service=service;
 	}
 	/**
-	 * 保存blob对象.
-	 * @param callback 回调函数.
-	 * @see org.springframework.orm.hibernate3.support.BlobByteArrayType
-	 * 
+	 * @see corner.orm.tapestry.service.blob.IBlobPageDelegate#save(corner.orm.tapestry.service.blob.IBlobBeforSaveCallBack)
 	 */
 	public void save(IBlobBeforSaveCallBack<T> callback) {
 		//如果上传为空.
@@ -96,8 +93,7 @@ public class BlobPageDelegate <T extends IBlobModel>{
 		this.service.saveOrUpdateEntity(blob);
 	}
 	/**
-	 * 保存blob.
-	 * @see #save(IBlobBeforSaveCallBack)
+	 * @see corner.orm.tapestry.service.blob.IBlobPageDelegate#save()
 	 */
 	public void save() {
 		this.save(null);

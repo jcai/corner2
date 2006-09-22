@@ -44,6 +44,7 @@
 					value="infrastructure:linkFactory"/>
 				<set-object property="entityService"
 					value="spring:entityService"/>
+				<set-object property="dataSqueezer" value="service:tapestry.data.DataSqueezer"/>
 				<set-configuration property="contributions" configuration-id="BlobProvider"/>
 				<set-configuration property="nameProviderContributions" configuration-id="BlobModel"/>
 			</construct>

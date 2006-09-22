@@ -3,12 +3,14 @@ package corner.demo.model.one;
 import java.util.Vector;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 
 import corner.demo.model.AbstractModel;
+import corner.model.IBlobModel;
 
 /**
  *
@@ -21,7 +23,7 @@ import corner.demo.model.AbstractModel;
  */
 @Entity(name="oneA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class A extends AbstractModel {
+public class A extends AbstractModel implements IBlobModel {
 
 	/**
 	 *
@@ -77,5 +79,48 @@ public class A extends AbstractModel {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * blob数据.
+	 * @hibernate.property column="BlobData" length="2147483647"
+	 *                     type="org.springframework.orm.hibernate3.support.BlobByteArrayType"
+	 * 
+	 */
+	private byte[] blobData;
+	/**
+	 * blob数据的类型,此类型用来web页面的显示,可能的结果为:image/jpeg,image/gif,application/pdf 等.
+	 * @hibernate.property column="ContentType" length="30"
+	 */
+	private String contentType;
+	
+	/**
+	 * @see corner.model.IBlobModel#getBlobData()
+	 */
+	@Lob
+	@Type(type="org.springframework.orm.hibernate3.support.BlobByteArrayType")
+	public byte[] getBlobData() {
+		return blobData;
+	}
+
+	/**
+	 * @see corner.model.IBlobModel#setBlobData(byte[])
+	 */
+	public void setBlobData(byte[] blobData) {
+		this.blobData = blobData;
+	}
+
+	/**
+	 * @see corner.model.IBlobModel#getContentType()
+	 */
+	public String getContentType() {
+		return contentType;
+	}
+
+	/**
+	 * @see corner.model.IBlobModel#setContentType(java.lang.String)
+	 */
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 }

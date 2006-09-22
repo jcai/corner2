@@ -14,6 +14,7 @@ package corner.orm.tapestry.page;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 
+import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
@@ -21,6 +22,7 @@ import org.apache.tapestry.services.DataSqueezer;
 
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.page.relative.IPageRooted;
+import corner.orm.tapestry.service.blob.BlobAsset;
 
 /**
  * 抽象的实体类.
@@ -34,7 +36,7 @@ import corner.orm.tapestry.page.relative.IPageRooted;
  *            当前抽象的实体。
  */
 public abstract class AbstractEntityPage<T> extends BasePage implements
-		EntityPage<T> {
+		EntityPage<T>,IBlobPage {
 	/** 对日期类型的格式化 * */
 	private SimpleDateFormat _dateFormat;
 
@@ -128,6 +130,13 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 		IPageRooted<Object,Object> page= (IPageRooted<Object,Object>) this.getRequestCycle().getPage(listPageName);
 		page.setRootedObject(t);
 		return page;
+	}
+	/**
+	 * 显示的图像Asset对象.
+	 * @return 供显示图片数据的对象.
+	 */
+	public IAsset getChartImageAsset(Object obj) {
+		return new BlobAsset(this.getBlobService(),getRequestCycle(),obj);
 	}
 	/**
 	 * @deprecated
