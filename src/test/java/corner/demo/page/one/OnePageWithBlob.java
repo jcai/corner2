@@ -19,6 +19,7 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
 
 /**
  * 对blob的处理
+ * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.2.1
@@ -30,16 +31,15 @@ public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 	 */
 	@Override
 	protected void saveOrUpdateEntity() {
-		
+
 		super.saveOrUpdateEntity();
-		
+
 		if (isEditBlob()) {
-			IBlobPageDelegate<A> delegate = new		SqueezeBlobPageDelegate<A>(
+			IBlobPageDelegate<A> delegate = new SqueezeBlobPageDelegate<A>(
 					A.class, getUploadFile(), this.getEntity(), this
 							.getEntityService());
 			delegate.save();
 		}
 	}
-	
 
 }
