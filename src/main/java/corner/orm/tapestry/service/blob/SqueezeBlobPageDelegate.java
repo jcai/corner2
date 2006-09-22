@@ -25,7 +25,7 @@ import corner.util.BeanUtils;
 
 /**
  * 针对blob字段的处理的委派类.
- * 
+ * <p>采用了DataSequeezer对待处理的blob模型进行处理.
  * @author	<a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
  * @version	$Revision$
  * @since	2.2.1
