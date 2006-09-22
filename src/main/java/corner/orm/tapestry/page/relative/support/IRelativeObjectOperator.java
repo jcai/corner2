@@ -18,7 +18,6 @@ public interface IRelativeObjectOperator<T, E> {
 	 * @return 操作后返回的页面。
 	 * @since 2.0.5
 	 */
-	@SuppressWarnings("unchecked")
 	public abstract IPage doNewRelativeAction(T obj, String pageName);
 
 	/**
@@ -30,7 +29,6 @@ public interface IRelativeObjectOperator<T, E> {
 	 * @return 操作后返回的页面。
 	 * @since 2.0.5
 	 */
-	@SuppressWarnings("unchecked")
 	public abstract IPage doEditRelativeEntityAction(T obj, E e, String pageName);
 
 }
