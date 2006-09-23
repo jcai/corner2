@@ -26,6 +26,7 @@ import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import corner.demo.model.one.A;
 import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.util.PaginationBean;
@@ -244,5 +245,14 @@ public class EntityService {
 					}
 				});
 
+	}
+	/**
+	 * 找到所有的实体,通常用来做测试使用.
+	 * @param clazz 实体的类名.
+	 * @return 实体的列表
+	 */
+	public List findAll(Class<A> clazz) {
+		return ((HibernateObjectRelativeUtils) getObjectRelativeUtils()).getHibernateTemplate().find("from "+clazz.getName());
+		
 	}
 }
