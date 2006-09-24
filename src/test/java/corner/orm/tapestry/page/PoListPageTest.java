@@ -64,8 +64,8 @@ public class PoListPageTest extends CornerPageTestCase {
         page.setCheckboxSelected(true);
         
         invoker.invokeListenerMethod(page, cycle);
-        
-        assertEquals(0,page.getSource().getRowCount());
+        System.out.println("+++++++++++++++++++++++++++++++++++"+page.getSource().getRowCount());
+        assertEquals(page.getSource().getRowCount(),0);
         verify();
         
 	}
