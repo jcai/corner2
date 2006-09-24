@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import org.apache.hivemind.Registry;
 import org.apache.tapestry.BaseComponentTestCase;
-import org.apache.tapestry.services.ResetEventHub;
 import org.apache.tapestry.services.WebRequestServicer;
 import org.apache.tapestry.services.WebRequestServicerFilter;
 import org.apache.tapestry.web.WebRequest;
@@ -64,8 +63,5 @@ public class OsivTest extends BaseComponentTestCase{
         return newMock(WebRequestServicer.class);
     }
 
-    private ResetEventHub newREC()
-    {
-        return newMock(ResetEventHub.class);
-    }
+   
 }
