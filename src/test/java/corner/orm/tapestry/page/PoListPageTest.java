@@ -61,9 +61,10 @@ public class PoListPageTest extends CornerPageTestCase {
         A a=new A();
         page.setEntity(a);
         page.setQueryEntity(new A());
+        int begin=entityService.findAll(A.class).size();
         invoker.invokeListenerMethod(page, cycle);
         
-        assertEquals(1,page.getSource().getRowCount());
+        assertEquals(begin,page.getSource().getRowCount());
         assertEquals(testData.getId(),((A) page.getSource().getCurrentPageRows(0, 10, null, false).next()).getId());
         
         verify();
@@ -93,6 +94,7 @@ public class PoListPageTest extends CornerPageTestCase {
         A a=new A();
         page.setEntity(a);
         page.setQueryEntity(new A());
+        
         invoker.invokeListenerMethod(page, cycle);
         
         
