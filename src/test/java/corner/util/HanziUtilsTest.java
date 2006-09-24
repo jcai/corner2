@@ -18,7 +18,6 @@ import junit.framework.TestCase;
 
 import org.testng.annotations.Test;
 @Test
-
 public class HanziUtilsTest extends TestCase {
 	public void testLoadHanzi() throws IOException{
 		String s=HanziUtils.getPinyin("asdf");
