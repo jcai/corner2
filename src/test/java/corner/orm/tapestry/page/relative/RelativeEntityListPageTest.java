@@ -29,7 +29,7 @@ import corner.orm.tapestry.page.relative.support.RelativeObjectOperator;
  * @version $Revision$
  * @since 2.2.1
  */
-public class RelativeEntityListPage extends CornerPageTestCase {
+public class RelativeEntityListPageTest extends CornerPageTestCase {
 	@Test
 	public void testGetSource(){
 		A a=new A();
