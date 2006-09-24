@@ -32,7 +32,7 @@ import corner.orm.tapestry.page.relative.support.RelativeObjectOperator;
  * @version $Revision$
  * @since 2.2.1
  */
-public class PoListPageTeset extends CornerPageTestCase {
+public class PoListPageTest extends CornerPageTestCase {
 	private A testData;
 	
 	@BeforeMethod(dependsOnMethods={"buildFrameRegistry"})
@@ -56,13 +56,12 @@ public class PoListPageTeset extends CornerPageTestCase {
         ListenerMethodInvoker invoker = 
             new ListenerMethodInvokerImpl("doDeleteEntitiesAction", page.getClass().getMethods());
         
-        A a=new A();
-        page.setEntity(a);
-        page.setQueryEntity(new A());
         
-        List<Object> list=new ArrayList<Object>();
-        list.add(testData);
-        page.setSelectedEntities(list);
+        page.setSelectedEntities(new ArrayList<Object>());
+        
+        page.setEntity(testData);
+        page.setCheckboxSelected(true);
+        
         invoker.invokeListenerMethod(page, cycle);
         
         assertEquals(0,page.getSource().getRowCount());
