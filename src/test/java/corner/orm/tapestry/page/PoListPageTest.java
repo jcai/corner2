@@ -120,7 +120,7 @@ public class PoListPageTest extends CornerPageTestCase {
         page.setEntity(testData);
         page.setCheckboxSelected(true);
         int begin=entityService.findAll(A.class).size();
-        System.out.println("Begin:::::::::::::::::::::::::::::"+begin);
+        
         invoker.invokeListenerMethod(page, cycle);
         
         assertEquals(begin-1,entityService.findAll(A.class).size());
