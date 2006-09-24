@@ -103,7 +103,7 @@ public class PoListPageTest extends CornerPageTestCase {
 		IRequestCycle cycle = newCycle();
         
         EasyMock.expect(cycle.getListenerParameters()).andReturn(new Object[]{}).anyTimes();
-        PoListPage page = newInstance(PoListPage.class,new Object[]{"SelectedEntities",new ArrayList<Object>(),"pageName","AForm","entityService",entityService});
+        PoListPage page = newInstance(PoListPage.class,new Object[]{"selectedEntities",new ArrayList<Object>(),"pageName","AForm","entityService",entityService});
         cycle.activate(page);
         
         replay();
