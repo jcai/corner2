@@ -53,11 +53,11 @@ public class PoFormPageTest extends CornerPageTestCase {
         
         A a=new A();
         page.setEntity(a);
-        
+        int star=entityService.findAll(A.class).size();
         invoker.invokeListenerMethod(page, cycle);
         
         verify();
-        assertTrue(entityService.findAll(A.class).size()==1);
+        assertEquals(star+1,entityService.findAll(A.class).size());
         entityService.deleteEntities(a);
 	}
 	
