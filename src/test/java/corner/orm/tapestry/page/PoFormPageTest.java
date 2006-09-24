@@ -12,37 +12,23 @@
 
 package corner.orm.tapestry.page;
 
-import org.apache.hivemind.Registry;
-import org.apache.hivemind.lib.SpringBeanFactoryHolder;
-import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.BaseEngine;
 import org.apache.tapestry.listener.ListenerMethodInvoker;
 import org.apache.tapestry.listener.ListenerMethodInvokerImpl;
 import org.easymock.EasyMock;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
-import corner.service.EntityService;
 
 /**
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision: 1872 $
  * @since 2.2.1
  */
-public class PoFormPageTest extends BaseComponentTestCase {
-	Registry reg;
-	EntityService entityService;
-	@BeforeMethod
-	public void buildFrameRegistry() throws Exception{
-		reg = buildFrameworkRegistry(new String[]{});
-        SpringBeanFactoryHolder spring=(SpringBeanFactoryHolder) reg.getService("hivemind.lib.DefaultSpringBeanFactoryHolder",SpringBeanFactoryHolder.class);
-        entityService=(EntityService) spring.getBeanFactory().getBean("entityService");
-    	
-	}
+public class PoFormPageTest extends CornerPageTestCase {
+	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testEntityPage() throws Exception{
@@ -56,7 +42,7 @@ public class PoFormPageTest extends BaseComponentTestCase {
         
         replay();
         
-        AbstractEntityFormPage page = newInstance(AbstractEntityFormPage.class,new Object[]{"pageName","AForm","entityService",entityService});
+        PoFormPage page = (PoFormPage) newInstance(PoFormPage.class,new Object[]{"pageName","AForm","entityService",entityService});
         page.attach(new BaseEngine(), cycle);
         
         
@@ -68,16 +54,13 @@ public class PoFormPageTest extends BaseComponentTestCase {
         A a=new A();
         page.setEntity(a);
         
-         invoker.invokeListenerMethod(page, cycle);
+        invoker.invokeListenerMethod(page, cycle);
         
         verify();
         assertTrue(entityService.findAll(A.class).size()==1);
         entityService.deleteEntities(a);
 	}
-	@AfterMethod
-	public void closeRegistry(){
-		reg.shutdown();
-	}
+	
 	
 
 }
