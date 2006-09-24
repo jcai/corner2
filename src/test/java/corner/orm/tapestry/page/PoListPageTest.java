@@ -64,7 +64,7 @@ public class PoListPageTest extends CornerPageTestCase {
         page.setCheckboxSelected(true);
         
         invoker.invokeListenerMethod(page, cycle);
-        
+        page.flushHibernate();
         assertEquals(0,entityService.findAll(A.class).size());
         verify();
         
