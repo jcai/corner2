@@ -40,6 +40,7 @@ public class PoListPageTest extends CornerPageTestCase {
 		testData=new A();
 		entityService.saveEntity(testData);
 	}
+	
 	@Test
 	public void testDeleteEntityAction(){
 		IRequestCycle cycle = newCycle();
