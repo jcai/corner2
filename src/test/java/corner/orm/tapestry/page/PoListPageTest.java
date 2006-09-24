@@ -98,32 +98,33 @@ public class PoListPageTest extends CornerPageTestCase {
         
         verify();
 	}
-//	@Test
-//	public void testDeleteEntityAction(){
-//		IRequestCycle cycle = newCycle();
-//        
-//        EasyMock.expect(cycle.getListenerParameters()).andReturn(new Object[]{}).anyTimes();
-//        PoListPage page = newInstance(PoListPage.class,new Object[]{"pageName","AForm","entityService",entityService});
-//        cycle.activate(page);
-//        
-//        replay();
-//        
-//        page.attach(new BaseEngine(), cycle);
-//        
-//        
-//        ListenerMethodInvoker invoker = 
-//            new ListenerMethodInvokerImpl("doDeleteEntitiesAction", page.getClass().getMethods());
-//        
-//        
-//        page.setSelectedEntities(new ArrayList<Object>());
-//        
-//        page.setEntity(testData);
-//        page.setCheckboxSelected(true);
-//        
-//        invoker.invokeListenerMethod(page, cycle);
-//        page.flushHibernate();
-//        assertEquals(0,entityService.findAll(A.class).size());
-//        verify();
-//        
-//	}
+	@Test
+	public void testDeleteEntityAction(){
+		IRequestCycle cycle = newCycle();
+        
+        EasyMock.expect(cycle.getListenerParameters()).andReturn(new Object[]{}).anyTimes();
+        PoListPage page = newInstance(PoListPage.class,new Object[]{"SelectedEntities",new ArrayList<Object>(),"pageName","AForm","entityService",entityService});
+        cycle.activate(page);
+        
+        replay();
+        
+        page.attach(new BaseEngine(), cycle);
+        
+        
+        ListenerMethodInvoker invoker = 
+            new ListenerMethodInvokerImpl("doDeleteEntitiesAction", page.getClass().getMethods());
+        
+        
+        
+        
+        page.setEntity(testData);
+        page.setCheckboxSelected(true);
+        int begin=entityService.findAll(A.class).size();
+        System.out.println("Begin:::::::::::::::::::::::::::::"+begin);
+        invoker.invokeListenerMethod(page, cycle);
+        
+        assertEquals(begin-1,entityService.findAll(A.class).size());
+        verify();
+        
+	}
 }
