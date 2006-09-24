@@ -87,4 +87,30 @@ public class RelativeEntityListPageTest extends CornerPageTestCase {
 		entityService.deleteEntities(a);
 		
 	}
+	@Test
+	public void testDoNewEntityAction(){
+		A a=new A();
+		entityService.saveEntity(a);
+		B b=new B();
+		b.setA(a);
+		entityService.saveEntity(b);
+		
+		IRequestCycle cycle=newCycle();
+		RelativeObjectOperator operator=new RelativeObjectOperator();
+		operator.setRequestCycle(cycle);
+		AbstractRelativeEntityListPage<A,B> entityListPage=(AbstractRelativeEntityListPage<A, B>) newInstance(AbstractRelativeEntityListPage.class,"pageName","BList","entityService",entityService,"relativeObjectOperator",operator);
+		entityListPage.setRootedObject(a);
+		
+		AbstractRelativeEntityFormPage entityFormPage=(AbstractRelativeEntityFormPage) newInstance(AbstractRelativeEntityFormPage.class);
+		EasyMock.expect(cycle.getPage("BForm")).andReturn(entityFormPage);
+		replay();
+		entityListPage.attach(new BaseEngine(),cycle);
+		
+		entityFormPage=(AbstractRelativeEntityFormPage) entityListPage.doNewEntityAction();
+		assertEquals(a,entityFormPage.getRootedObject());
+		
+		verify();
+		entityService.deleteEntities(a);
+		
+	}
 }
