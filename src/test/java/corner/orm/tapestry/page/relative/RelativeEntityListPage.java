@@ -22,6 +22,7 @@ import org.testng.annotations.Test;
 import corner.demo.model.one2many.A;
 import corner.demo.model.one2many.B;
 import corner.orm.tapestry.page.CornerPageTestCase;
+import corner.orm.tapestry.page.relative.support.RelativeObjectOperator;
 
 /**
  * @author jcai
@@ -30,7 +31,7 @@ import corner.orm.tapestry.page.CornerPageTestCase;
  */
 public class RelativeEntityListPage extends CornerPageTestCase {
 	@Test
-	public void testRelativeEntityList(){
+	public void testGetSource(){
 		A a=new A();
 		entityService.saveEntity(a);
 		
@@ -45,5 +46,45 @@ public class RelativeEntityListPage extends CornerPageTestCase {
 		
 		assertEquals(0,source.getRowCount());
 		verify();
+		entityService.deleteEntities(a);
+		
+	}
+	@Test
+	public void testGetSourceWithoutRelativeNameExcpetion(){
+		
+		AbstractRelativeEntityListPage<A,B> entityListPage=(AbstractRelativeEntityListPage<A, B>) newInstance(AbstractRelativeEntityListPage.class,"entityService",entityService);
+		try{
+			entityListPage.getSource();
+			fail("should be throw exception");
+		}catch(IllegalStateException e){
+			//go there
+		}
+		
+	}
+	@Test
+	public void testDoEditEntityAction(){
+		A a=new A();
+		entityService.saveEntity(a);
+		B b=new B();
+		b.setA(a);
+		entityService.saveEntity(b);
+		
+		IRequestCycle cycle=newCycle();
+		RelativeObjectOperator operator=new RelativeObjectOperator();
+		operator.setRequestCycle(cycle);
+		AbstractRelativeEntityListPage<A,B> entityListPage=(AbstractRelativeEntityListPage<A, B>) newInstance(AbstractRelativeEntityListPage.class,"pageName","BList","entityService",entityService,"relativeObjectOperator",operator);
+		entityListPage.setRootedObject(a);
+		
+		AbstractRelativeEntityFormPage entityFormPage=(AbstractRelativeEntityFormPage) newInstance(AbstractRelativeEntityFormPage.class);
+		EasyMock.expect(cycle.getPage("BForm")).andReturn(entityFormPage);
+		replay();
+		entityListPage.attach(new BaseEngine(),cycle);
+		
+		entityFormPage=(AbstractRelativeEntityFormPage) entityListPage.doEditEntityAction(b);
+		assertEquals(a,entityFormPage.getRootedObject());
+		assertEquals(b,entityFormPage.getEntity());
+		verify();
+		entityService.deleteEntities(a);
+		
 	}
 }

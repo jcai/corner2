@@ -12,6 +12,7 @@ package corner.demo.model.one2many;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -50,7 +51,7 @@ public class A extends AbstractModel{
 	/**
 	 * @return Returns the bs.
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="A")
 	public Set<B> getBs() {
 		return bs;
