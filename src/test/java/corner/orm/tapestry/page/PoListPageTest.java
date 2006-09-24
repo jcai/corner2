@@ -48,7 +48,7 @@ public class PoListPageTest extends CornerPageTestCase {
         EasyMock.expect(cycle.getListenerParameters()).andReturn(new Object[]{}).anyTimes();
         PoListPage page = newInstance(PoListPage.class,new Object[]{"pageName","AForm","entityService",entityService});
         cycle.activate(page);
-        EasyMock.expect(cycle.isRewinding()).andReturn(false).times(1);
+        EasyMock.expect(cycle.isRewinding()).andReturn(false).times(2);
         replay();
         
         page.attach(new BaseEngine(), cycle);
@@ -64,6 +64,7 @@ public class PoListPageTest extends CornerPageTestCase {
         page.setCheckboxSelected(true);
         
         invoker.invokeListenerMethod(page, cycle);
+        
         System.out.println("+++++++++++++++++++++++++++++++++++"+page.getSource().getRowCount());
         assertEquals(page.getSource().getRowCount(),0);
         verify();
