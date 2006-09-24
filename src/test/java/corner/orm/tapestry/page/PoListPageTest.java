@@ -62,7 +62,7 @@ public class PoListPageTest extends CornerPageTestCase {
         
         page.setEntity(testData);
         page.setCheckboxSelected(true);
-        
+        System.out.println(entityService.findAll(A.class).size());
         invoker.invokeListenerMethod(page, cycle);
         
         System.out.println("+++++++++++++++++++++++++++++++++++"+page.getSource().getRowCount());
