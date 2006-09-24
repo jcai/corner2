@@ -6,12 +6,11 @@ import java.util.Vector;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
-
+import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.test.AbstractTestCase;
-import org.testng.annotations.Test;
 @Test
 public class ATest extends AbstractTestCase {
 	public void testVectorType() {

@@ -8,26 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.testng.annotations.Test;
 
 import corner.demo.model.many2many.A;
 import corner.demo.model.many2many.B;
 import corner.test.AbstractTestCase;
-
-/**
- * 对many2many的测试.
- * <p>
- *  many-to-many的关系适用于虽然是many-to-many但是相对来说，有一端是少些。
- *  譬如：
- *   用户(A)和组(B)。用户(A)相对于组(B)来说是多,所以通常用A来对A和B之间的关系进行增加，以及删除。
- * </p>
- * <p>同时在many-to-many的时候cascade对关系的维护没有任何实际的意义。
- * @author jcai
- * @version $Revision:1196 $
- * @since 0.5.2
- *
- *
- */
-import org.testng.annotations.Test;
 @Test
 public class Many2ManyTest extends AbstractTestCase {
 	/**

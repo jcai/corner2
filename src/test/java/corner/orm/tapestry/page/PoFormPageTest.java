@@ -21,6 +21,8 @@ import org.apache.tapestry.engine.BaseEngine;
 import org.apache.tapestry.listener.ListenerMethodInvoker;
 import org.apache.tapestry.listener.ListenerMethodInvokerImpl;
 import org.easymock.EasyMock;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
@@ -32,14 +34,19 @@ import corner.service.EntityService;
  * @since 2.2.1
  */
 public class PoFormPageTest extends BaseComponentTestCase {
-	  
+	Registry reg;
+	EntityService entityService;
+	@BeforeMethod
+	public void buildFrameRegistry() throws Exception{
+		reg = buildFrameworkRegistry(new String[]{});
+        SpringBeanFactoryHolder spring=(SpringBeanFactoryHolder) reg.getService("hivemind.lib.DefaultSpringBeanFactoryHolder",SpringBeanFactoryHolder.class);
+        entityService=(EntityService) spring.getBeanFactory().getBean("entityService");
+    	
+	}
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testEntityPage() throws Exception{
-		final Registry reg = buildFrameworkRegistry(new String[]{});
-        SpringBeanFactoryHolder spring=(SpringBeanFactoryHolder) reg.getService("hivemind.lib.DefaultSpringBeanFactoryHolder",SpringBeanFactoryHolder.class);
-        EntityService entityService=(EntityService) spring.getBeanFactory().getBean("entityService");
-        IPage listPage=newMock(IPage.class);
+	    IPage listPage=newMock(IPage.class);
         IRequestCycle cycle = newCycle();
         
         EasyMock.expect(cycle.getListenerParameters()).andReturn(new Object[]{}).anyTimes();
@@ -67,7 +74,10 @@ public class PoFormPageTest extends BaseComponentTestCase {
         assertTrue(entityService.findAll(A.class).size()==1);
         entityService.deleteEntities(a);
 	}
-	
+	@AfterMethod
+	public void closeRegistry(){
+		reg.shutdown();
+	}
 	
 
 }

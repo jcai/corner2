@@ -1,8 +1,8 @@
 package corner.function;
 
-import corner.test.BaseFunctionTestCase;
-
 import org.testng.annotations.Test;
+
+import corner.test.BaseFunctionTestCase;
 @Test
 public class FunctionTest extends BaseFunctionTestCase{
 

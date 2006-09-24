@@ -12,12 +12,11 @@ import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.TypedValue;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.Type;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import corner.orm.hibernate.expression.annotations.QueryDefinition;
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
-import org.testng.annotations.Test;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 @Test
 
 public class NewExpressionExampleTest extends TestCase {

@@ -24,7 +24,6 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.ServiceEncoding;
 import org.apache.tapestry.record.ClientPropertyPersistenceScope;
-import org.apache.tapestry.record.PageClientPropertyPersistenceScope;
 import org.apache.tapestry.record.PersistentPropertyDataEncoder;
 import org.apache.tapestry.record.PersistentPropertyDataEncoderImpl;
 import org.apache.tapestry.record.PropertyChange;

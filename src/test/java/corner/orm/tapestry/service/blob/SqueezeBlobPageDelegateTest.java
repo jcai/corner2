@@ -18,7 +18,6 @@ import org.apache.hivemind.Registry;
 import org.apache.hivemind.lib.SpringBeanFactoryHolder;
 import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.request.IUploadFile;
-import org.apache.tapestry.services.DataSqueezer;
 import org.easymock.EasyMock;
 import org.testng.annotations.Test;
 
@@ -48,5 +47,7 @@ public class SqueezeBlobPageDelegateTest extends BaseComponentTestCase {
 		delegate.save();
         
         EasyMock.verify(file);
+        reg.cleanupThread();
+        reg.shutdown();
 	}
 }

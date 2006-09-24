@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import corner.demo.model.one.A;
+
 import org.testng.annotations.Test;
+
+import corner.demo.model.one.A;
 @Test
 
 public class BeanUtilsTest extends TestCase {

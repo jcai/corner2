@@ -3,10 +3,12 @@ package corner.expression.calc;
 import java.io.StringReader;
 
 import junit.framework.TestCase;
+
+import org.testng.annotations.Test;
+
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.collections.AST;
-import org.testng.annotations.Test;
 @Test
 public class CalcParserTest extends TestCase {
 	public void testExpr() throws RecognitionException, TokenStreamException{

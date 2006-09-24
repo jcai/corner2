@@ -8,20 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.testng.annotations.Test;
 
 import corner.demo.model.one2many.A;
 import corner.demo.model.one2many.B;
 import corner.test.AbstractTestCase;
-
-/**
- * 提供对one-to-many和many-to-one的应用示例。
- * <p>one-to-many通常的关系维护是通过many的那一段来进行维护。
- * 为本例中的testB方法所示。
- * @author jcai
- * @version $Revision:1196 $
- * @since 0.5.2
- */
-import org.testng.annotations.Test;
 @Test
 public class One2ManyTest extends AbstractTestCase {
 	/**

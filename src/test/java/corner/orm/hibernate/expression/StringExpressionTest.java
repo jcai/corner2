@@ -8,9 +8,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.type.Type;
-import org.testng.annotations.Test;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 @Test
 
 public class StringExpressionTest extends TestCase {

@@ -27,13 +27,6 @@ import org.testng.annotations.Test;
 import corner.demo.model.one.A;
 import corner.service.EntityService;
 
-/**
- * @author Jun Tsai
- * @version $Revision$
- * @since 2.1.1
- */
-import org.testng.annotations.Test;
-@Test
 
 public class HibernateDataSqueezerTest extends BaseComponentTestCase{
 	private TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
@@ -60,6 +53,8 @@ public class HibernateDataSqueezerTest extends BaseComponentTestCase{
         assertTrue( squeezedValue.startsWith( "HB:"+A.class.getName() ) );
         
         manager.commit(t);
+        reg.cleanupThread();
+        reg.shutdown();
     }
 	@Test
 	public void testUnsqueeze() 
@@ -86,5 +81,6 @@ public class HibernateDataSqueezerTest extends BaseComponentTestCase{
         
         assertEquals(entity,squeezer.unsqueeze(squeezedValue));
         manager.commit(t);
+        reg.shutdown();
     }
 }

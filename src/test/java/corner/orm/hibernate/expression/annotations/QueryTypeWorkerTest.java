@@ -13,14 +13,10 @@
 package corner.orm.hibernate.expression.annotations;
 
 import junit.framework.TestCase;
-import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
 
-/**
- * @author Jun Tsai
- * @version $Revision$
- * @since 2.1
- */
 import org.testng.annotations.Test;
+
+import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
 @Test
 public class QueryTypeWorkerTest extends TestCase {
 

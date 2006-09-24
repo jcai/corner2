@@ -18,11 +18,6 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
-/**
- * @author jcai
- * @version $Revision$
- * @since 2.1
- */
 import org.testng.annotations.Test;
 @Test
 

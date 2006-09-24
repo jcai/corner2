@@ -2,21 +2,11 @@ package corner.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.testng.annotations.Test;
 
 import corner.demo.model.one2one.A;
 import corner.demo.model.one2one.B;
 import corner.test.AbstractTestCase;
-
-/**
- * 提供了one-to-one的映射。
- * <p>one-to-one哦那的映射通常为两种。
- * 一种是主建的映射，两个实体共用一个实体。(适用于一个为主，一个为辅)
- * 另外一种是通过一个不重复的外键实现关联。（适用于两个几乎是平级的）
- * @author jcai
- * @version $Revision:1196 $
- * @since 0.5.2
- */
-import org.testng.annotations.Test;
 @Test
 public class One2OneTest extends AbstractTestCase {
 	/**

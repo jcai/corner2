@@ -19,18 +19,10 @@ import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.services.ResetEventHub;
 import org.apache.tapestry.services.WebRequestServicer;
 import org.apache.tapestry.services.WebRequestServicerFilter;
-import org.apache.tapestry.services.impl.DisableCachingFilter;
 import org.apache.tapestry.web.WebRequest;
 import org.apache.tapestry.web.WebResponse;
 import org.easymock.EasyMock;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-/**
- * @author Jun Tsai
- * @version $Revision$
- * @since 2.1.1
- */
 import org.testng.annotations.Test;
 @Test
 public class OsivTest extends BaseComponentTestCase{
@@ -59,6 +51,8 @@ public class OsivTest extends BaseComponentTestCase{
         f.service(request, response, servicer);
 
         verify();
+        reg.cleanupThread();
+        reg.shutdown();
 	}
 	private WebResponse newResponse()
     {
