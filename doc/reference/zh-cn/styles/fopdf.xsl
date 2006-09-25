@@ -503,7 +503,7 @@
 	<!-- Simplified Chinese related Settings -->
     <xsl:param name="hyphenate">false</xsl:param>
 	<xsl:param name="body.font.family">simsun</xsl:param>
-	<xsl:param name="monospace.font.family">simsun</xsl:param>
+	<!-- <xsl:param name="monospace.font.family">simsun</xsl:param> -->
 	<xsl:param name="title.font.family">simhei</xsl:param>
 	<xsl:param name="saxon.character.representation" select="native"/>
 	<xsl:param name="callout.unicode" select="1"/>
