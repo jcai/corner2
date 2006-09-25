@@ -50,5 +50,15 @@ public class One2ManyTest extends AbstractTestCase {
 		session.delete(tmp);
 		this.commitTransaction();
 		
+		//确认是否删除成功
+		this.startTransaction();
+		session=this.getCurrentSession();
+		tmp=(A) session.get(A.class,a1.getId());
+		assertNull(tmp);
+		B tmpb=(B) session.get(B.class,b2.getId());
+		assertNull(tmpb);
+		this.commitTransaction();
+		
+		
 	}
 }
