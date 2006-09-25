@@ -1,11 +1,8 @@
 package corner.demo;
 
-import java.util.Vector;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
-
 import org.testng.annotations.Test;
 
 import corner.demo.model.one2one.A;

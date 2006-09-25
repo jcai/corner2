@@ -13,7 +13,6 @@
 package corner.orm.tapestry.page;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.BaseEngine;

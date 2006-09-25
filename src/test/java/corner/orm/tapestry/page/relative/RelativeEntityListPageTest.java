@@ -14,7 +14,6 @@ package corner.orm.tapestry.page.relative;
 
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
-import org.apache.tapestry.contrib.table.model.ITableModel;
 import org.apache.tapestry.engine.BaseEngine;
 import org.easymock.EasyMock;
 import org.testng.annotations.Test;
