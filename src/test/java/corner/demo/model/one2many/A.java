@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
 
@@ -52,8 +55,9 @@ public class A extends AbstractModel{
 	/**
 	 * @return Returns the bs.
 	 */
-	@OneToMany(cascade=CascadeType.REMOVE,mappedBy="a")
+	@OneToMany(mappedBy="a")
 	@JoinColumn(name="A")
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	public List<B> getBs() {
 		return bs;
 	}

@@ -47,7 +47,7 @@ public class A extends AbstractModel {
 	 * @return Returns the b.
 	 */
 	@OneToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name="b")
+	@JoinColumn(name="b")
 	public B getB() {
 		return b;
 	}

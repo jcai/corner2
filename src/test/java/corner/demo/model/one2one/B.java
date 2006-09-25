@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
 
@@ -45,6 +47,7 @@ public class B extends AbstractModel {
 	 * @return Returns the a.
 	 */
 	@OneToOne
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	public A getA() {
 		return a;
 	}
