@@ -39,6 +39,7 @@ public class One2OneTest extends AbstractTestCase {
 		session.delete(a1);
 		this.commitTransaction();
 		
+		//确信B已经被级联删除
 		this.startTransaction();
 		session=this.getCurrentSession();
 		B tmp=(B) session.get(B.class,b1.getId());
