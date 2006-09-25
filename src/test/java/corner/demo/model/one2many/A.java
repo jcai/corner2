@@ -10,7 +10,7 @@
 
 package corner.demo.model.one2many;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cascade;
 
 import corner.demo.model.AbstractModel;
 
@@ -46,21 +47,21 @@ public class A extends AbstractModel{
 	 * @hibernate.one-to-many class="corner.demo.model.one2many.B"
 	 */
 	
-	private Set<B> bs;
+	private List<B> bs;
 
 	/**
 	 * @return Returns the bs.
 	 */
-	@OneToMany(cascade=CascadeType.REMOVE)
+	@OneToMany(cascade=CascadeType.REMOVE,mappedBy="a")
 	@JoinColumn(name="A")
-	public Set<B> getBs() {
+	public List<B> getBs() {
 		return bs;
 	}
 
 	/**
 	 * @param bs The bs to set.
 	 */
-	public void setBs(Set<B> bs) {
+	public void setBs(List<B> bs) {
 		this.bs = bs;
 	}
 

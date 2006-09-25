@@ -22,48 +22,38 @@ public class One2ManyTest extends AbstractTestCase {
 
 	public void testA(){
 		logger.debug("----------------------对A的操作--------------");
-
+		//保存A
+		this.startTransaction();
+		Session session=this.getCurrentSession();
 		final A a1=new A();
-		this.getEntityService().saveEntity(a1);
-		final B b1=new B();
-		this.getEntityService().saveEntity(b1);
-		logger.debug("通过A来增加A和B之间的关系");
-		((HibernateDaoSupport) this.getEntityService().getObjectRelativeUtils())
-				.getHibernateTemplate().execute(new HibernateCallback() {
+		session.save(a1);
+		this.commitTransaction();
+		
+		logger.debug("保存B,同时保存两者之间的关系");
+		//保存B,同时增加关系
+		this.startTransaction();
+		session=this.getCurrentSession();
+		A a = (A) session.load(A.class, a1.getId());
+		B b2=new B();
+		b2.setA(a);
+		session.saveOrUpdate(b2);
+		this.commitTransaction();
+		
+		logger.debug("确认是否增加关系成功");
+		//确认是否增加成功
+		this.startTransaction();
+		session=this.getCurrentSession();
+		A tmp=(A) session.load(A.class,a1.getId());
+		assertEquals(1,tmp.getBs().size());
+		this.commitTransaction();
 
-					public Object doInHibernate(Session session)
-							throws HibernateException, SQLException {
-
-						A a = (A) session.load(A.class, a1.getId());
-						a.getBs().add(b1);
-						session.saveOrUpdate(a);
-						return null;
-					}
-				});
-		logger.debug("删除A来删除关系!");
-		this.getEntityService().deleteEntities(a1);
-	}
-	public void testB(){
-		logger.debug("----------------------对B的操作--------------");
-		final A a1=new A();
-		this.getEntityService().saveEntity(a1);
-		final B b1=new B();
-		this.getEntityService().saveEntity(b1);
-		logger.debug("通过B来增加A和B之间的关系"); //此为推荐的方法。
-		((HibernateDaoSupport) this.getEntityService().getObjectRelativeUtils())
-				.getHibernateTemplate().execute(new HibernateCallback() {
-
-					public Object doInHibernate(Session session)
-							throws HibernateException, SQLException {
-
-						B b = (B) session.load(B.class, b1.getId());
-						b.setA(a1);
-						session.saveOrUpdate(b);
-						return null;
-					}
-				});
-		logger.debug("删除A来删除关系!");
-		this.getEntityService().deleteEntities(b1);
-
+		logger.debug("删除A,同时删除A对应的many部分");
+		//删除A,同时也把one2many部分的B删除
+		this.startTransaction();
+		session=this.getCurrentSession();
+		tmp=(A) session.load(A.class,a1.getId());
+		session.delete(tmp);
+		this.commitTransaction();
+		
 	}
 }
