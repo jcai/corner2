@@ -20,7 +20,6 @@
   <component-type type="UpdateSelect" specification-path="select/UpdateSelect.jwc"/>
   <component-type type="TextAreaBox" specification-path="textareabox/TextAreaBox.jwc"/>
   <component-type type="CornerSelect" specification-path="cornerselect/CornerSelect.jwc"/>
-
   <component-type type="MagicField" specification-path="magic/FormField.jwc"/>
 
   
