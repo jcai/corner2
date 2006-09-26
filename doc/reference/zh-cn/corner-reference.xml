@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3CR3//EN"
-                      "../support/docbook-dtd/docbookx.dtd"
+                      "../../support/docbook-dtd/docbookx.dtd"
 
 [
 <!ENTITY % vers   SYSTEM "modules/version.xml">

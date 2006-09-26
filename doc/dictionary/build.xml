@@ -92,7 +92,11 @@
     </target>
 
     <target name="lang.docpdf.customized" depends="lang.docpdf.prepare" if="custom.fop.userconfig.present">
-
+        <copy todir="${build.dir}/${lang}/pdf">
+            <fileset dir="${support.dir}/${lang}/fop">
+                <include name="*"/>
+            </fileset>
+		</copy>	
         <copy todir="${build.dir}/${lang}/pdf">
             <fileset dir="${basedir}/../reference/${lang}/fop">
                 <include name="*"/>

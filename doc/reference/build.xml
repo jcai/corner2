@@ -92,11 +92,12 @@
     </target>
 
     <target name="lang.docpdf.customized" depends="lang.docpdf.prepare" if="custom.fop.userconfig.present">
-
-        <copy todir="${build.dir}/${lang}/pdf">
-            <fileset dir="${support.dir}/${lang}/fop">
-                <include name="*"/>
-            </fileset>
+		<echo message="copy file from ${support.dir}/${lang}/fop"/>
+        			<copy todir="${build.dir}/${lang}/pdf">
+						<fileset dir="${support.dir}/${lang}/fop">
+							<include name="*"/>
+						</fileset>
+					</copy>	
         <copy todir="${build.dir}/${lang}/pdf">
             <fileset dir="${basedir}/${lang}/fop">
                 <include name="*"/>
@@ -125,7 +126,7 @@
     <target name="lang.docpdf" depends="lang.docpdf.normal,lang.docpdf.customized"
             description="Generates the PDF documentation only for a language (set lang)">
         <!-- House keeping,delete temporary files. -->
-        <delete>
+       <delete>
             <fileset dir="${build.dir}/${lang}/pdf" excludes="**/*.pdf"/>
         </delete>
         <delete  dir="${build.dir}/${lang}/pdf/images"/>
