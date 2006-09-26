@@ -15,7 +15,7 @@
     <property name="build.dir"             value="../../target/dictionary"/>
 
     <!-- Support files for build process. -->
-    <property name="support.dir"           value="${imported.basedir}/support"/>
+    <property name="support.dir"           value="../reference/support"/>
 
     <!-- Base name for documentation artifacts. -->
     <property name="docname"               value="tapestry-dictionary"/>

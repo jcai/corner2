@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3CR3//EN"
-                      "../support/docbook-dtd/docbookx.dtd"
+                      "../../reference/support/docbook-dtd/docbookx.dtd"
 
 [
 <!ENTITY % vers   SYSTEM "modules/version.xml">
@@ -21,12 +21,6 @@
 	<title>	Tapestry字典</title>
 
 	<releaseinfo>0.0.1</releaseinfo>
-	<authorgroup>
-			<author>
-				<firstname>夏</firstname>
-				<surname>飞</surname> 
-			</author>
-	</authorgroup>
 	<copyright>
 			<year>2006</year>
 			<holder>北京美讯信息技术开发有限公司</holder>

@@ -17,7 +17,7 @@
 -->
 
 <!DOCTYPE xsl:stylesheet [
-    <!ENTITY db_xsl_path        "../../support/docbook-xsl/">
+    <!ENTITY db_xsl_path        "../../../reference/support/docbook-xsl/">
 ]>
 
 <xsl:stylesheet
@@ -95,7 +95,7 @@
         <xsl:variable name="Version">
             <xsl:choose>
                 <xsl:when test="//releaseinfo">
-                    <xsl:text>corner </xsl:text>
+                    <xsl:text>Tapestry Dictionary </xsl:text>
                     <xsl:value-of select="//releaseinfo"/>
                 </xsl:when>
                 <xsl:otherwise>
