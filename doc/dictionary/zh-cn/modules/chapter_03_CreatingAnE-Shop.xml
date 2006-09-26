@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<chapter id="ch3">
+	<title>	e商店（Creating an e-Shop）</title>
+	<sect1 id="ch3.1">
+		<title>	EShop练习基础程序</title>
+		<para>
+Product类
+<programlisting><![CDATA[
+public class Product {
+	private String id;
+	private String name;
+	private String desc;
+	private double price;
+	
+	public Product (String id,String name,String desc,double price){
+		this.id = id;
+		this.name = name;
+		this.desc = desc;
+		this.price = price;
+	}
+	// ....geter等，略
+}]]></programlisting>
+
+Catalog类
+<programlisting><![CDATA[
+//singleness（单一）模式
+public class Catalog {
+	private List products;
+	private static Catalog globalCatalog;
+	
+	public Catalog(){
+		products = new ArrayList();
+	}
+
+	public List getProducts() {
+		return products;
+	}
+
+	public void add(Product products) {
+		this.products.add(products);
+	}
+	
+	public static Catalog getGlobalCatalog(){
+		if (globalCatalog == null){
+			globalCatalog = new Catalog();
+			globalCatalog.add(new Product("p01","Pencil","aaaa",1.20));
+			globalCatalog.add(new Product("p02","Eraser","bbbb",2.00));
+			globalCatalog.add(new Product("p03","Ball pen","cccc",3.50));
+			globalCatalog.add(new Product("p04","ruler","dddd",2.30));
+		}
+		return globalCatalog;
+	}
+}]]></programlisting>
+
+Home类
+<programlisting><![CDATA[
+public class Home extends BasePage {
+	public List getProducts() {
+		return Catalog.getGlobalCatalog().getProducts();
+	}
+}]]></programlisting>
+
+Home.page文件
+<programlisting><![CDATA[
+<property name = "currentProduct"/>		<!-- 定义使用目录中的Product类 -->
+<component id = "products" type = "For">
+<!-- For类型是循环类型 -->
+	<binding name = "source" value="products"/>	
+<!-- 用Home.java中getProducts方法获得内容 -->
+	<binding name = "value" value="currentProduct"/>
+<!-- 使用目录中的Product类 -->
+	<binding name = "element" value="literal:tr"/>
+<!-- 用html.tr包装 -->
+</component>
+<component id="id" type="Insert">
+	<binding name="value" value="currentProduct.id"/>
+<!-- 调用Product.getId() -->
+</component>
+<component id="name" type="Insert">
+	<binding name="value" value="currentProduct.name"/>
+<!-- 调用Product.getName() -->
+</component>
+<component id="price" type="Insert">
+	<binding name="value" value="currentProduct.price"/>
+<!-- 调用Product.getPrice() -->
+</component>
+<component id="desc" type="Insert">
+	<binding name="value" value="currentProduct.desc"/>
+<!-- 调用Product.getDesc() -->
+</component>]]></programlisting>
+
+Home.html文件
+<programlisting><![CDATA[
+<html>
+	<head><title>Shop</title></head>
+<body>
+	<h1>Product listing</h1>
+<table border="1">
+	<tr jwcid = "products">
+		<td><span jwcid = "id">p01</span></td>
+		<td><span jwcid = "name">Pencil</span></td>
+		<td><span jwcid = "price">1.20</span></td>
+		<td><span jwcid = "desc">aaaa</span></td>
+	</tr>
+</table>
+</body>
+</html>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.2">
+		<title>	显示详细资料 － 使用DirectLink组建</title>
+		<para>
+html中添加
+<programlisting><![CDATA[
+<tr jwcid = "products">
+	<td><span jwcid = "id">p01</span></td>
+	<td>
+		<a href="" jwcid="detailsLink">
+		<span jwcid = "name">Pencil</span></a>
+	</td>
+	<td><span jwcid = "price">1.20</span></td>
+</tr>]]></programlisting>
+
+page文件中添加
+<programlisting><![CDATA[
+<component id="detailsLink" type="DirectLink">
+	<binding name="listener" value="listener:onClickDetailsLink"/>
+<!--需要在class文件中添加方法-->
+	<binding name="parameters" value="currentProduct.id"/>
+<!---传递的变量-->
+</component>]]></programlisting>
+
+Home.java中添加
+<programlisting><![CDATA[
+public void onClickDetailsLink(String productId) {		//page文件中配置监听方法
+	System.out.println("DetailsLink was clicked for product " + productId);
+}]]></programlisting>
+
+3.3.	显示详细资料2 － 在另一页显示信息
+ProductDetails.page中的配置
+<programlisting><![CDATA[
+<component id="name" type="Insert">
+	<binding name="value" value="name"/>
+</component>
+<component id="name2" copy-of="name"/> 
+<!-- copy-of属性复制一个组建并给新组建一个名字 -->
+<component id="desc" type="Insert">
+	<binding name="value" value="desc"/>
+</component>
+
+<!-- 也可以使用expression属性描述引用同一个组建，功能同copy-of属性
+<component id="name2" type="Insert">
+	<binding name="value" expression="name"/>
+</component>
+-->]]></programlisting>
+
+在Catalog类中添加
+<programlisting><![CDATA[
+public Product lookup(String productId) {	//使用javaSE1.5泛型功能
+	for (Iterator iter = products.iterator(); iter.hasNext();) {
+		Product product = (Product) iter.next();
+		if (product.getId().equals(productId)) {
+			return product;
+		}
+	}
+	throw new IllegalArgumentException("Unknown product id: " + productId);
+}]]></programlisting>
+
+添加ProductDetails类
+<programlisting><![CDATA[
+public class ProductDetails extends BasePage {
+	private String productId;
+
+	public void setProductId(String id) {
+		this.productId = id;
+	}
+
+	public String getName() {
+		return lookup().getName();
+	}
+
+	public String getDesc() {
+		return lookup().getDesc();
+	}
+
+	private Product lookup() {
+		return Catalog.getGlobalCatalog().lookup(productId);
+	}
+}]]></programlisting>
+
+Home加入跳转
+<programlisting><![CDATA[
+@InjectPage("ProductDetails")			//使用javaSE1.5注释功能，设置跳转页面
+public abstract ProductDetails getDetailsPage();
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.4">
+		<title>	使用不同包中的类</title>
+		<para>
+在WEB-INF/[projectName].application中添加
+<programlisting><![CDATA[
+<meta key="org.apache.tapestry.page-class-packages" 
+value="com.ttdev.shop,com.ttdev.shop.pages"/>
+
+设置后page文件中的class="com.ttdev.shop.Home"等就可以删除了
+
+注意web.xml中的servlet配置的工程名一定是正确的名称，否则无法使用本功能
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.5">
+		<title>	区别按钮点击方法</title>
+		<para>
+1)	初级方法
+在ProductDetails.page文件中添加
+<programlisting><![CDATA[
+<component id="productActionForm" type="Form">
+	<binding name="listener" value="listener:actionOnProduct"/>
+<!-- 在class中添加方法 -->
+</component>
+<component id="addToCart" type="Submit">
+	<binding name="selected" value="buttonClicked"/>
+	<binding name="tag" value="literal:CART"/>		<!-- 设置不同的点击值 -->
+</component>
+<component id="continueShopping" type="Submit">
+	<binding name="selected" value="buttonClicked"/>
+	<binding name="tag" value="literal:SHOP"/>		<!-- 设置不同的点击值 -->
+</component>]]></programlisting>
+	
+ProductDetails.java中添加
+<programlisting><![CDATA[
+static public final String ADD_TO_CART_BUTTON="CART";
+static public final String CONTINUE_SHOPPING_BUTTON="SHOP";
+private String buttonClicked;				//存储点击按钮的值
+
+public void setButtonClicked(String buttonClicked) {		//获得点击按钮的值
+	this.buttonClicked = buttonClicked;
+}
+
+public String actionOnProduct() {					//form监听的方法
+	if (buttonClicked.equals(ADD_TO_CART_BUTTON)) {
+		// add product to cart
+		return null;
+	}
+	if (buttonClicked.equals(CONTINUE_SHOPPING_BUTTON)) {
+		return "Home";						//返回到Home.html
+	}
+	return null;
+}]]></programlisting>
+
+2)	直接在按钮上定义监听方法
+page文件中设置
+<programlisting><![CDATA[
+<component id="productActionForm" type="Form"/>
+<component id="addToCart" type="Submit">
+	<binding name="action" value="listener:addToCart"/>
+	<!-- 或者使用 -->
+	<!-- <binding name="listener" value="listener:addToCart"/> -->
+</component>
+<component id="continueShopping" type="Submit">
+	<binding name="action" value="listener:continueShopping"/>
+	<!-- 或者使用 -->
+	<!-- <binding name="listener" value="listener:continueShopping"/> -->
+</component>
+]]></programlisting>
+
+class文件中添加
+<programlisting><![CDATA[
+public void addToCart() {
+	// add product to cart
+	// ...
+}
+
+public String continueShopping() {
+	return "Home";
+}
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.6">
+		<title>	使用Session</title>
+		<para>
+
+在源文件夹（src文件夹）建立文件夹META-INF，创建hivemodule.xml文件，如下
+<programlisting><![CDATA[
+<?xml version="1.0"?>
+<module id="com.ttdev.shop" version="1.0.0">
+	<contribution configuration-id="tapestry.state.ApplicationObjects">
+		<state-object name="cart" scope="session">
+			<create-instance class="java.util.ArrayList"/>
+		</state-object>
+	</contribution>
+</module>
+
+class中添加
+<programlisting><![CDATA[
+//@InjectState("cart")		//定义读出的名称
+public abstract List getCart();		//用getCart()方法从hivemodule.xml文件中读取session
+
+private List cart;
+
+public ProductDetails() {
+	cart = new ArrayList();
+}
+
+public void addToCart() {
+	cart.add(productId);
+}
+
+public String getProductId() {
+	return productId;
+}]]></programlisting>
+
+html页面增加
+<programlisting><![CDATA[
+<input type="hidden" jwcid="productId"/>
+]]></programlisting>
+
+page页面增加
+<programlisting><![CDATA[
+<inject property="cart" type="state" object="cart"/>
+<!-- class中的@InjectState("cart")可以删除了 -->
+<!-- property和class中geter一样的名字，type请求状态，object应用名称 -->
+<component id="productId" type="Hidden">
+	<binding name="value" value="productId"/>
+<!-- 自动调用class中getProductId() -->
+</component>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.7">
+		<title>	登录/登出PageLink组建/@InjectStateFlag注释</title>
+		<para>
+1)	刷新，不使用hidden隐藏数据
+删除关于hidden的所以代码，包括html和page文件
+
+html页面加入
+<programlisting><![CDATA[
+<a href="" jwcid="refresh">Refresh</a>
+]]></programlisting>
+page文件加入
+<programlisting><![CDATA[
+<component id="refresh" type="PageLink">
+	<binding name="page" value="literal:ProductDetails"/>
+<!-- 要刷新的类名“ProductDetails” -->
+</component>]]></programlisting>
+
+2)	跳转
+<programlisting><![CDATA[
+<a href="" jwcid="loginLink">Login</a>
+<component id="loginLink" type="PageLink">
+	<binding name="page" value="literal:Login"/>
+</component>]]></programlisting>
+
+3)	user对象判断
+在class中添加
+<programlisting><![CDATA[
+@InjectStateFlag("user")	//对象名“user”本例是在hivemodule.xml中配置的
+public abstract boolean getUserExists();	//判断是否存在user
+或者使用
+
+在page中添加
+<programlisting><![CDATA[
+<inject type="state-flag" property="userExists" object="user"/>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.8">
+		<title>	先选择商品在登录</title>
+		<para>
+调用login时
+<programlisting><![CDATA[
+public IPage onCheckout() {
+	if (getUserExists()) {
+		return getConfirmPage();
+	} else {
+		Login login = getLoginPage();
+		login.setNextPage("Confirm");
+		return login;
+	}
+}]]></programlisting>
+
+class文件中添加
+<programlisting><![CDATA[
+@Persist("client") 						//属性,将数据存储到html页面里
+public abstract String getNextPage();
+public abstract void setNextPage(String nextPage);
+
+return getNextPage() != null ? getNextPage() : "Home";		//判断跳转时
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.9">
+		<title>	阻挡恶意用户使用PageValidateListener接口</title>
+		<para>
+//自动对程序进行保护，在页面生成之前首先调用pageValidate()方法
+<programlisting><![CDATA[
+public abstract class Confirm extends BasePage implements PageValidateListener {
+//....
+	@InjectStateFlag("user")				//声明对象名
+	public abstract boolean getUserExists();	//判断是否存在user对象
+
+	@InjectPage("Login")					//声明对象名
+	public abstract Login getLoginPage();		//跳转页面
+
+	public void pageValidate(PageEvent event) {		//PageValidateListener接口方法
+		if (!getUserExists()) {
+			Login login = getLoginPage();
+			login.setNextPage("Confirm");
+			throw new PageRedirectException(login);
+		}
+	}
+//...
+}
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.10">
+		<title>	任何也登录都可以回到发起页面 - 使用IExternalPage接口</title>
+		<para>
+在需要的class中加入s
+<programlisting><![CDATA[
+//属于IExternalPage接口方法，任何页面都要在创建时调用他
+public void activateExternalPage(Object[] parameters, IRequestCycle cycle) {
+	//setProductId()业务方法，parameters页面中值
+	setProductId((String) parameters[0]);
+}
+public Login login() {
+	getLoginPage().setNextPage(new ExternalCallback(this, new String[] { getProductId() }));
+	//外部回调有两个参数，“this”外部页面名称，array数组
+	return getLoginPage();
+}]]></programlisting>
+
+Login.java需要修改加入ICallback接口
+<programlisting><![CDATA[
+public abstract ICallback getNextPage();
+public abstract void setNextPage(ICallback nextPage);
+
+public void onLogin(IRequestCycle cycle) {
+	try {
+		User user = Users.getKnownUsers().getUser(email, password);
+		getUser().copyFrom(user);
+		
+		ICallback callback = getNextPage();
+			if (callback != null) {
+			callback.performCallback(cycle);
+		} else {
+			cycle.activate("Home");
+		}
+		
+	} catch (AuthenticationException ee) {
+		ValidationDelegate delegate = getDelegate();
+		delegate.setFormComponent(null);
+		delegate.record("Login failed", null);
+	}
+}]]></programlisting>
+
+如果没有参数可以使用PageCallback类
+<programlisting><![CDATA[
+login.setNextPage(new PageCallback("Confirm"));
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.11">
+		<title>	密码隐藏</title>
+		<para>
+使用Tapestry自动创建子类功能
+<programlisting><![CDATA[
+public abstract String getEmail();
+public abstract String getPassword();
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch3.12">
+		<title>	登出 – logout</title>
+		<para>
+html文件上添加
+<programlisting><![CDATA[
+<a href="" jwcid="logoutLink">Logout</a>
+]]></programlisting>
+page文件中添加
+<programlisting><![CDATA[
+<component id="logoutLink" type="ServiceLink">
+	<binding name="service" value="literal:restart"/>
+	<!-- 或者 -->
+	<binding name="service" value="'restart'"/>
+</component>
+]]></programlisting></para>
+	</sect1>
+</chapter>

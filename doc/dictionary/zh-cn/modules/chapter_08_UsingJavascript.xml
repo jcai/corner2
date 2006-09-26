@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch8">
+	<title>	使用Javascript （Using Javascript）</title>
+	<sect1 id="ch8.1">
+		<title>	简单js</title>
+		<para><programlisting><![CDATA[
+<html>
+<body>
+<script type="text/javascript">
+	function getConfirmation() {
+		return confirm("Are you sure?");
+	}
+</script>
+<form action="http://www.sina.com.cn">
+	<input type="submit" value="Delete" onclick="return getConfirmation()"/>
+</form>
+</body>
+</html>]]></programlisting>
+
+可复用js（tapestry4.1自动添加dojo所以再源例上做了修改）
+创建Confirm.script
+<programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script PUBLIC
+"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+	<input-symbol key="msg" required="yes"/>
+	<body>
+		fun = function(evt) {
+			return confirm("${msg}");
+		};
+		dojo.event.connect(dojo.byId('btn'),"onclick","fun");
+	</body>
+</script>]]></programlisting>
+
+修改Home.html
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="literal:home">
+<body jwcid="@Body">
+	<span jwcid="insertConfirmScript"/>
+	<form action="http://www.foo.com">
+		<input type="submit" value="Delete" id="btn"/>
+	</form>
+</body>
+</html>]]></programlisting>
+
+Home.page
+<programlisting><![CDATA[
+<page-specification>
+	<component id="insertConfirmScript" type="Script">
+		<!-- literal:Confirm.script是文件名 -->
+		<binding name="script" value="literal:Confirm.script"/>
+		<!-- 调用getSymbols方法 -->
+		<binding name="symbols" value="symbols"/>
+	<!-- 或者，value="ognl:#{'msg': 'Are you sure?'}直接给msg附值不需要在创建java文件了 -->
+		<binding name="symbols" value="ognl:#{'msg': 'Are you sure?'}"/>
+	</component>
+</page-specification>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+public class Home extends BasePage {
+	public Map getSymbols() {
+		Map<String, String> symbols = new HashMap<String, String>();
+		symbols.put("msg", "Are you sure?");
+		return symbols;
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch8.3">
+		<title>	多script自动更名</title>
+		<para>
+Home.html文件
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="literal:home">
+<body jwcid="@Body">
+	<span jwcid="insertConfirmScript"/>
+	<form jwcid="@Form" action="http://www.foo.com">
+		<input jwcid="deleteButton@Submit" type="submit" value="Delete" />
+	</form>
+</body>
+</html>]]></programlisting>
+
+Home.page添加
+<programlisting><![CDATA[
+<binding name="button" value="components.deleteButton"/>]]></programlisting>
+
+Confirm.script文件
+<programlisting><![CDATA[
+<script>
+	<input-symbol key="msg" required="yes"/>
+	<input-symbol key="button" required="yes"/>
+	<let key="funcName" unique="yes">function</let>
+	<body>
+		fun${funcName} = ${funcName}() {
+			return confirm("${msg}");
+		};
+	</body>
+	<initialization>
+		dojo.event.connect(dojo.byId('${button.id}'),"onclick","fun${funcName}");
+	</initialization>
+</script>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch8.4">
+		<title>	组建中使用script</title>
+		<para>
+ConfirmButton.html文件
+<programlisting><![CDATA[
+<html>
+<body jwcid="$content$">
+	<input jwcid="button" type="submit"/>
+	<span jwcid="insertConfirmScript"/>
+</body>
+</html>]]></programlisting>
+
+ConfirmButton.jwc文件
+<programlisting><![CDATA[
+<component-specification allow-body="no" allow-informal-parameters="yes">
+	<parameter name="msg" required="yes"/>
+	<component id="insertConfirmScript" type="Script">
+		<binding name="script" value="literal:/Confirm.script"/>
+		<binding name="msg" value="msg"/>
+		<binding name="button" value="components.button"/>
+	</component>
+	<component id="button" type="Submit" inherit-informal-parameters="yes"/>
+</component-specification>
+
+<!-- inherit-informal-parameters="yes"获得copy，用目标名称替换原有名称 -->
+]]></programlisting>
+Home.html
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="literal:home">
+<body jwcid="@Body">
+	<form jwcid="@Form" action="http://www.foo.com">
+		<input jwcid="deleteButton@ConfirmButton" 
+			msg="Are you sure?" type="submit" value="Delete"/>
+	</form>
+</body>
+</html>
+]]></programlisting></para>
+	</sect1>
+</chapter>

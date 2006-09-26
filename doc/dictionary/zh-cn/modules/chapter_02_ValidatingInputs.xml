@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch2">
+	<title>	输入校验（Validating Inputs）</title>
+	<sect1 id="ch2.1">
+		<title>	初始程序（map的使用）</title>
+		<para>
+Home.html
+<programlisting><![CDATA[
+<html>
+<form jwcid="form">
+	<table>
+		<tr>
+			<td>Weight:</td>
+			<td><input type="text" jwcid="weight"/></td>
+		</tr>
+		<tr>
+			<td>Patron code:</td>
+			<td><input type="text" jwcid="patronCode"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit"/></td>
+		</tr>
+	</table>
+</form>
+</html>]]></programlisting>
+
+Home.page
+<programlisting><![CDATA[
+<page-specification class="com.ttdev.postage.Home">
+	<component id="form" type="Form">
+		<binding name="listener" value="listener:onSubmit"/>
+	</component>
+    <component id="weight" type="TextField">
+		<binding name="value" value="weight"/>
+	</component>
+     <component id="patronCode" type="TextField">
+		<binding name="value" value="patronCode"/>
+	</component>
+</page-specification>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+package com.ttdev.postage;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.hivemind.util.PropertyUtils;
+import org.apache.tapestry.IPage;
+import org.apache.tapestry.annotations.InjectPage;
+import org.apache.tapestry.html.BasePage;
+
+public abstract class Home extends BasePage{
+	private Map<String, Integer> patronCodeToDiscount;
+	@InjectPage("Result")
+	abstract public IPage getResultPage();
+	abstract public String getWeight();
+	abstract public String getPatronCode();
+	
+	public Home(){
+		patronCodeToDiscount = new HashMap<String, Integer>();
+		patronCodeToDiscount.put("p1", new Integer(95));
+		patronCodeToDiscount.put("p2", new Integer(90));
+	}
+	
+	public IPage onSubmit(){
+		int weight = Integer.valueOf(getWeight());
+		Integer discount = (Integer)patronCodeToDiscount.get(this.getPatronCode());
+		int postagePerKg = 10;
+		int postage = weight * postagePerKg;
+		
+		if (discount != null){
+			postage = postage * discount.intValue() / 100;
+		}
+		IPage resultPage = getResultPage();
+		PropertyUtils.write(resultPage, "postage", new Integer(postage));
+		return resultPage;
+	}
+}]]></programlisting>
+
+Result.html
+<programlisting><![CDATA[
+<html>
+The postage is <span jwcid="@Insert" value="ognl:postage"/>.
+</html>
+
+Result.page
+<programlisting><![CDATA[
+<page-specification>
+   	<property name="postage"/>
+</page-specification>
+
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.2">
+		<title>	变量自动转换/校验变量类型</title>
+		<para>
+在page文件TextField类型中添加
+<programlisting><![CDATA[
+<binding name="translator" value="translator:number"/>
+<!-- 将输入变量从String转换成int、double等 -->
+或者使用
+<binding name="translator" value="translator:number,pattern=#.#"/>
+<!-- pattern=#.#表示转换格式和小数位 -->
+<!--使用消息显示可以在html中显示 -->
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.3">
+		<title>	消息显示</title>
+		<para>
+1)	方法1，在class中添加ValidationDelegate
+在class中添加
+<programlisting><![CDATA[
+import org.apache.tapestry.valid.ValidationConstraint;
+import org.apache.tapestry.valid.ValidationDelegate;
+private ValidationDelegate delegate	//需要在构造函数中初始化，否则会报错
+
+delegate.setFormComponent((IFormComponent) getComponent("weight"));	//名称“weight”
+delegate.recordFieldInputValue(Integer.toString(weight));		//错误值，传过来的－20
+delegate.record("Weight must be >=0",ValidationConstraint.TOO_SMALL);	//显示文字“Weight must be >=0”
+if (delegate.getHasErrors()) { 		//判断是否有错误，如果有就结束
+	return null;
+}]]></programlisting>
+
+在page中添加
+<programlisting><![CDATA[
+<component id="errors" type="Delegator">
+	<binding name="delegate" value="delegate.firstError"/>
+</component>]]></programlisting>
+
+2)	方法2，在page中设置ValidationDelegate
+page中加入
+<programlisting><![CDATA[
+<bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate"/>
+使用delegate的需要加入beans，如
+<component id="errors" type="Delegator">
+	<binding name="delegate" value="beans.delegate.firstError"/>
+</component>
+class中删除ValidationDelegate初始化。使用时
+ValidationDelegate delegate = (ValidationDelegate) getBeans().getBean("delegate");
+获得delegate实例。]]></programlisting>
+
+3)	使用javaSE5.0注释配置
+在class中加入
+<programlisting><![CDATA[
+@Bean
+public abstract ValidationDelegate getDelegate();
+ValidationDelegate delegate = getDelegate();		//使用geter获得实例
+page文件中不需要配置ValidationDelegate的bean
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.4">
+		<title>	弹出框校验</title>
+		<para><programlisting><![CDATA[
+在page文件的设置
+<binding name="delegate" value="beans.delegate"/>		//Form中添加注明使用delegate
+<binding name="validators" value="validators:min=0"/>		//添加校验规则
+<binding name="displayName" value="literal:Weight"/>		//不符合校验规则显示的文字，“Weight”
+required 	判断是否为空
+required[You must enter {0}!] 	“You must enter”是显示的文字，{0}自动加入displayName中的值
+min	最小值是几
+max	最大值
+minDate	最小时间，minDate=7/1/2005
+maxDate	最大时间，maxDate=7/31/2005
+maxLength	最大长度，maxLength=20
+email	检查email
+pattern	使用正则表达式检查，value="validators:pattern=\w+"
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.5">
+		<title>	使用FieldLabel标签</title>
+		<para>
+在html中加入引用
+<programlisting><![CDATA[
+<td><span jwcid="weightLabel">Weight:</span></td>
+]]></programlisting>
+page文件中加入配置
+<programlisting><![CDATA[
+<component id="weightLabel" type="FieldLabel">
+	<binding name="field" value="component:weight"/>	
+<!--page文件中一定义好的组建“weight” -->
+</component>
+<!--如果id为weight校验错误weightLabel包含的文字也一同变成红色-->
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.6">
+		<title>	自定义校验规则</title>
+		<para>
+建立KnownPatrons类
+<programlisting><![CDATA[
+public class KnownPatrons {
+	private Map<String, Integer> patronCodeToDiscount;
+
+	public KnownPatrons() {
+		patronCodeToDiscount = new HashMap<String, Integer>();
+		patronCodeToDiscount.put("p1", new Integer(90));
+		patronCodeToDiscount.put("p2", new Integer(95));
+	}
+
+	public Integer getDiscount(String patronCode) {
+		return (Integer) patronCodeToDiscount.get(patronCode);
+	}
+
+	public boolean isKnown(String patronCode) {
+		return patronCodeToDiscount.containsKey(patronCode);
+	}
+}]]></programlisting>
+
+添加校验类
+<programlisting><![CDATA[
+public class PatronCodeValidator implements Validator {
+	private KnownPatrons knownPatrons;
+
+	public void setKnownPatrons(KnownPatrons knownPatrons) {
+		this.knownPatrons = knownPatrons;
+	}
+	//Validator接口方法
+	public void validate(IFormComponent field, ValidationMessages messages,
+			Object object) throws ValidatorException {
+		String patronId = (String) object;
+		if (!knownPatrons.isKnown(patronId)) {
+			throw new ValidatorException("Patron not found", null);
+		}
+	}
+	//Validator接口中其他方法，略
+}]]></programlisting>
+
+class文件中使用KnownPatrons类代替Map
+<programlisting><![CDATA[
+private KnownPatrons knownPatrons;	//定义
+
+public Home() {				//初始化
+	knownPatrons = new KnownPatrons();
+}
+
+Integer discount = knownPatrons.getDiscount(getPatronCode());	//使用时只需要一句
+]]></programlisting>
+在page文件中定义
+<programlisting><![CDATA[
+<!-- 加入Validatorbean -->
+<bean name="patronCodeValidator" class="com.ttdev.postage.PatronCodeValidator">
+	<set name="knownPatrons" value="ognl:knownPatrons"/>
+	<!-- 调用getKnownPatrons()设置校验 -->
+</bean>
+
+<!-- 加入校验，patronCodeValidator是定义的bean -->
+<binding name="validators" value="bean:patronCodeValidator"/>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.7">
+		<title>	显示多行错误信息</title>
+		<para>
+在html中加入
+<programlisting><![CDATA[
+<ul>
+<span jwcid="errors">
+	<span jwcid="isInError">
+		<li><span jwcid="error"/></li>
+	</span>
+</span>
+</ul>
+]]></programlisting>
+
+page文件中						//FieldTrack格式列表
+<programlisting><![CDATA[
+<property name="currentFieldTracking"/>		
+<!--getFieldTracking()方法返回一个FieldTrack列表 -->
+
+<component id="errors" type="For">
+	<binding name="source" value="beans.delegate.fieldTracking"/>
+	<binding name="value" value="currentFieldTracking"/>	
+<!--使用setCurrentFieldTracking()储存元素-->
+</component>
+
+<component id="error" type="Delegator">		<!--从列表读取error -->
+	<binding name="delegate" value="currentFieldTracking.errorRenderer"/>
+</component>
+
+<component id="isInError" type="If">			<!--使用getInError()判断是否有错误-->
+	<binding name="condition" value="currentFieldTracking.inError"/>
+	<binding name="element" value="literal:li"/>	<!--在li中判断时添加本行-->
+</component>
+]]></programlisting>
+
+在li中注入判断
+
+在html中加入
+<programlisting><![CDATA[
+<li jwcid="isInError" style="{color: red}">	
+<!--style="{color: red}"在Firefox中不会变色-->
+	<span jwcid="error"/>
+</li>
+]]></programlisting>
+
+page文件中
+<programlisting><![CDATA[
+<component id="isInError" type="If">
+	<binding name="condition" value="currentFieldTracking.inError"/>
+	<binding name="element" value="literal:li"/>		//在li中判断时添加本行
+</component>
+]]></programlisting>
+
+直接在错误循环中加入修释
+page文件中
+<programlisting><![CDATA[
+<component id="errors" type="For">
+	<binding name="source" value="beans.delegate.fieldTracking"/>
+	<binding name="value" value="currentFieldTracking"/>
+	<binding name="element" value="literal:h2"/>		<!--使用element添加-->
+</component>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.8">
+		<title>	页面加入js代码</title>
+		<para><programlisting><![CDATA[
+html中的body中加入
+<body jwcid="@Body">
+
+page文件中的Form类中加入
+<binding name="clientValidationEnabled" value="true"/>		<!-- 在客户端验证 -->
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.9">
+		<title>	自定义错误显示</title>
+		<para>
+在java代码中添加
+<programlisting><![CDATA[
+delegate.setFormComponent(null);	
+<!--使用setFormComponent()方法绑定错误显示的组建-->
+<!--使用(IFormComponent) getComponent("patronCode")定义，“patronCode”是在page文件中定义的组建名称-->
+
+delegate.record("Can't ship 50kg or more for p1",ValidationConstraint.CONSISTENCY);
+<!--输入显示的字符串-->
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch2.10">
+		<title>	使用date和taxtarea并加校验</title>
+		<para>
+html中加入
+<programlisting><![CDATA[
+<input type="text" jwcid="shippingDate"/>
+<textarea jwcid="desc"></textarea>
+]]></programlisting>
+page中加入
+<programlisting><![CDATA[
+<component id="shippingDate" type="DatePicker">
+	<binding name="value" value="shippingDate"/>		
+<!--转换为date类型，格式为yyyy/MM/dd-->
+	<binding name="translator" value="translator:date,pattern=yyyy/MM/dd"/>
+	<binding name="validators" 
+value="validators:required,minDate=7/1/2005,maxDate=7/31/2005"/>
+	<binding name="displayName" value="literal:Shipping date"/>
+</component>
+
+<component id="desc" type="TextArea">
+	<binding name="value" value="desc"/>
+	<binding name="validators" value="validators:required,maxLength=20"/>
+	<binding name="displayName" value="literal:Description"/>
+</component>
+]]></programlisting>
+
+class中加入geter/seter
+<programlisting><![CDATA[
+public abstract Date getShippingDate();
+public abstract String getDesc();
+]]></programlisting></para>
+	</sect1>
+</chapter>

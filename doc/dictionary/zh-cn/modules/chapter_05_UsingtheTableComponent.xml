@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch5">
+	<title>	使用Table组建（Using the Table Component）</title>
+	<sect1 id="ch5.1">
+		<title>	简单table应用</title>
+		<para>
+包名com.ttdev.phonebook
+GlobalPhoneBook.java
+<programlisting><![CDATA[
+public class GlobalPhoneBook extends PhoneBook {
+	public GlobalPhoneBook() {
+		addEntry(new PhoneBookEntry(0, "Alan", "Turing", "111111"));
+		addEntry(new PhoneBookEntry(1, "Bill", "Gates", "111222"));
+		addEntry(new PhoneBookEntry(2, "Martin", "Fowler", "654321"));
+		addEntry(new PhoneBookEntry(3, "Kent", "Beck", "999001"));
+		addEntry(new PhoneBookEntry(4, "Howard", "Ship", "554433"));
+		addEntry(new PhoneBookEntry(5, "Linus", "Torvalds", "888777"));
+	}
+}]]></programlisting>
+
+PhoneBook.java
+<programlisting><![CDATA[
+public class PhoneBook {
+	private List<PhoneBookEntry> entries;
+
+	public PhoneBook() {
+		entries = new ArrayList<PhoneBookEntry>();
+	}
+
+	public void addEntry(PhoneBookEntry entry) {
+		entries.add(entry);
+	}
+
+	public List getEntries() {
+		return entries;
+	}
+}]]></programlisting>
+
+PhoneBookEntry.java
+<programlisting><![CDATA[
+public class PhoneBookEntry {
+	private int id;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String telNo;
+
+	public PhoneBookEntry(int id, String firstName, String lastName,
+			String telNo) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.telNo = telNo;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getTelNo() {
+		return telNo;
+	}
+}]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+public abstract class Home extends BasePage {
+	public abstract int getIndex();
+
+	@InjectState("phoneBook")
+	public abstract PhoneBook getPhoneBook();
+
+	public List getEntries() {
+		return getPhoneBook().getEntries();
+	}
+}]]></programlisting>
+
+hivemodule.xml文件
+<programlisting><![CDATA[
+<?xml version="1.0"?>
+<module id="com.ttdev.phonebook" version="1.0.0">
+	<contribution configuration-id="tapestry.state.ApplicationObjects">
+		<state-object name="phoneBook" scope="application">
+			<create-instance class="com.ttdev.phonebook.GlobalPhoneBook"/>
+		</state-object>
+	</contribution>
+</module>
+	注框架自动将hivemodule.xml中配置的phoneBook创建成全局变量，phoneBook是通过其子类GlobalPhoneBook实例化的。
+	phoneBook在Home.java的@InjectState("phoneBook")调用]]></programlisting>
+
+Home.html文件
+<programlisting><![CDATA[
+<html>
+<head><title>Phone Book</title></head>
+<body>
+	<table border="1">
+		<tr><th>ID</th><th>First name</th><th>Last name</th><th>Tel #</th></tr>
+		<tr jwcid="eachEntry">
+			<td><span jwcid="id">1</span></td>
+			<td><span jwcid="firstName">Britney</span></td>
+			<td><span jwcid="lastName">Spears</span></td>
+			<td><span jwcid="telNo">376926</span></td>
+		</tr>
+		<tr jwcid="$remove$">
+<td>2</td><td>Elton</td><td>John</td><td>285984</td>
+</tr>
+		<tr jwcid="$remove$">
+<td>3</td><td>David</td><td>Letterman</td><td>877357</td>
+</tr>
+	</table>
+</body>
+</html>
+<!-- jwcid="$remove$"，删除行 -->
+]]></programlisting>
+
+Home.page文件
+<programlisting><![CDATA[
+<page-specification>
+	<property name="currentEntry"/>				<!--自动生成geter/seter-->
+	<component id="eachEntry" type="For">
+		<binding name="source" value="entries"/>
+		<binding name="element" value="literal:tr"/>
+		<binding name="value" value="currentEntry"/>	<!--使用geter/seter存放变量-->
+<!-- 			<binding name="index" value="index"/>		-->
+	</component>
+	<component id="id" type="Insert">
+		<binding name="value" value="currentEntry.id"/>
+	</component>
+	<component id="firstName" type="Insert">
+		<binding name="value" value="currentEntry.firstName"/>
+	</component>
+	<component id="lastName" type="Insert">
+		<binding name="value" value="currentEntry.lastName"/>
+	</component>
+	<component id="telNo" type="Insert">
+		<binding name="value" value="currentEntry.telNo"/>
+<!--			<binding name="value" value="entries[index].telNo"/>	-->
+	</component>
+</page-specification>]]></programlisting>
+
+phonebook.application文件
+<programlisting><![CDATA[
+<meta key="org.apache.tapestry.page-class-packages" value="com.ttdev.phonebook"/>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.2">
+		<title>	列表交互背景颜色</title>
+		<para>
+PhoneBook.css文件，放在css目录下
+<programlisting><![CDATA[
+tr.odd {background-color: RoyalBlue}
+tr.even {background-color: GreenYellow}]]></programlisting>
+
+Home.html添加
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="Phone Book" stylesheet="asset:phoneBook">
+<!-- 程序员使用，运行时生成 -->
+<head jwcid="$remove$"><title>Phone Book</title>	
+<!-- 美工使用，运行时自动删除 -->
+	<link rel="stylesheet" text="text/css" href="../css/PhoneBook.css"/>
+</head>
+<body>
+	<table border="1">
+		<tr><th>ID</th><th>First name</th><th>Last name</th><th>Tel #</th></tr>
+		<tr class="odd" jwcid="eachEntry">
+			<td><span jwcid="id">1</span></td>
+			<td><span jwcid="firstName">Britney</span></td>
+			<td><span jwcid="lastName">Spears</span></td>
+			<td><span jwcid="telNo">376926</span></td>
+		</tr>
+		<tr class="even" jwcid="$remove$">
+<td>2</td><td>Elton</td><td>John</td><td>285984</td></tr>
+		<tr class="odd" jwcid="$remove$">
+<td>3</td><td>David</td><td>Letterma</td><td>877357</td></tr>
+	</table>
+</body>
+</html>]]></programlisting>
+
+Home.page文件
+<programlisting><![CDATA[
+<asset name="phoneBook" path="context:/css/PhoneBook.css"/>
+<!-- css定义文件 -->
+<bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd">	
+<!-- tapestry奇偶类 -->
+	<set name="even" value="false"/>				<!-- 设置先显示奇还是偶 -->
+</bean>		
+<component id="eachEntry" type="For">
+	<binding name="source" value="entries"/>
+	<binding name="element" value="literal:tr"/>
+	<binding name="value" value="currentEntry"/>
+	<binding name="class" value="beans.evenOdd.next"/>
+	<!-- 只要是class类的，就安装even、Odd顺序循环添加 -->
+</component>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.3">
+		<title>	使用tapestry － Contrib.library</title>
+		<para>
+PhoneBook.application中添加
+<programlisting><![CDATA[
+<library id="Contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/>]]></programlisting>
+
+Home.html添加
+<programlisting><![CDATA[
+<table border="1" jwcid="table">]]></programlisting>
+
+Home.page添加
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<binding name="source" value="entries"/>
+	<!-- 按照列建立数组，entrie1、entrie2、entrie3、entrie4 -->
+	<binding name="columns" value="literal:id, firstName, lastName, telNo"/>
+	<!-- 按照列调用geter，getId、getFirstName、getLastName、getTelNo -->
+</component>
+
+注使用Contrib:Table后定义的其他普通组建将无法使用（不删除也不报错）
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.4">
+		<title>	自定义table显示的值/列</title>
+		<para><programlisting><![CDATA[
+新建Name类
+<programlisting><![CDATA[
+public class Name {
+	private String firstName;
+	private String lastName;
+
+	public Name(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+}]]></programlisting>
+
+修改PhoneBookEntry.java
+<programlisting><![CDATA[
+private Name name;
+
+public PhoneBookEntry(int id, Name name, String telNo) {
+	this.id = id;
+	this.name = name;
+	this.telNo = telNo;
+}
+public Name getName() {
+	return name;
+}]]></programlisting>
+
+修改GlobalPhoneBook.java如
+<programlisting><![CDATA[
+addEntry(new PhoneBookEntry(0, new Name("Alan", "Turing"), "111111"));]]></programlisting>
+
+修改page文件
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<binding name="source" value="entries"/>
+	<binding name="columns"	value="literal:id,
+firstName:name.firstName, lastName:name.lastName, telNo"/>
+	<!-- 框架自动调用getName().getFirstName()还可以自定义显示的列名称 -->
+<!-- <binding name="columns" 
+	value="literal:id, firstName:First name:name.firstName, lastName:name.lastName, telNo"/> -->
+</component>
+
+修改PhoneBookEntry.java
+<programlisting><![CDATA[
+public String getFirstName() {
+	return getName().getFirstName();
+}]]></programlisting>
+
+修改page文件，可以简化
+<programlisting><![CDATA[
+value="literal:id, firstName:First name:firstName, lastName:name.lastName, telNo"
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.5">
+		<title>	table多语言显示列名</title>
+		<para>
+建立Home.properties
+<programlisting><![CDATA[
+firstName = First Name
+
+建立Home_zh_CN.properties文件
+firstName = \u59D3]]></programlisting>
+
+修改page文件
+<programlisting><![CDATA[
+<binding name="columns" value="literal:id, firstName::firstName, lastName:name.lastName, telNo"/>
+<!-- 或者 -->
+<binding name="columns" value="literal:id, firstName, lastName:name.lastName, telNo"/>
+
+注firstName之所也可以正常访问因为getFirstName被重写了，系统可以直接访问name.firstName()
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.6">
+		<title>	在Contrib:Table中使用CSS</title>
+		<para>
+CSS中加入
+<programlisting><![CDATA[
+th.title {background-color: Pink}]]></programlisting>
+
+page中添加
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+    <binding name="source" value="entries"/>
+	<binding name="columns" value="literal:id, firstName, lastName:name.lastName, telNo"/>
+<binding name="rowsClass" value="beans.evenOdd.next"/>	
+<!-- 加入奇偶选择 -->
+	<binding name="columnsClass" value="literal:title"/>		<!-- 设定title -->
+</component>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.7">
+		<title>	在名字上添加连接</title>
+		<para>
+
+Home.html中添加
+<programlisting><![CDATA[
+<td jwcid="firstNameColumnValue">
+	<a href="" jwcid="firstNameLink">
+		<span jwcid="firstName">Britney</span>		<!-- 显示正确的姓 -->
+	</a>
+</td>]]></programlisting>
+
+page文件中添加
+<programlisting><![CDATA[
+<component id="firstNameColumnValue" type="Block"/>
+<!-- Block组建是为DirectLink组建建立的块 -->
+<component id="firstNameLink" type="DirectLink">
+	<binding name="listener" value="listener:onShowDetails"/>
+<!-- 使用onShowDetails方法 -->
+	<binding name="parameters" value="components.table.tableRow.id"/>
+<!-- 传入id -->
+</component>
+<component id="firstName" type="Insert">
+	<binding name="value" value="components.table.tableRow.firstName"/>	
+<!-- 显示正确的姓 -->
+</component>
+
+注显示时自动调用getFirstName()
+    components.table中的table是定义的Table类型的Id，所以可以随意定义
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.8">
+		<title>	Tapestry使用Table模版</title>
+		<para>
+Tapestry自动比对table的html代码，所以一下两种写法对tapestry都一样。
+1)	第一种
+<programlisting><![CDATA[
+<table border="1" jwcid="table">
+	<tr><th>ID</th><th>First name</th><th>Last name</th><th>Tel #</th></tr>
+	<tr class="odd">
+		<td>1</td>
+		<td jwcid="firstNameColumnValue">
+			<a href="" jwcid="firstNameLink">
+				<span jwcid="firstName">Britney</span>
+			</a>
+		</td>
+		<td>Spears</td>
+		<td>376926</td>
+	</tr>
+	<tr class="even"><td>2</td><td>Elton</td><td>John</td><td>285984</td></tr>
+	<tr class="odd"><td>3</td><td>David</td><td>Letterman</td><td>877357</td></tr>
+</table>
+]]></programlisting>
+
+2)	第二种
+<programlisting><![CDATA[
+<table border="1" jwcid="table">
+	<tr><th>ID</th><th>First name</th><th>Last name</th><th>Tel #</th></tr>
+	<tr class="odd">
+		<td>1</td>
+		<td>Britney</td>
+		<td>Spears</td>
+		<td>376926</td>
+	</tr>
+	<tr class="even"><td>2</td><td>Elton</td><td>John</td><td>285984</td></tr>
+	<tr class="odd"><td>3</td><td>David</td><td>Letterman</td><td>877357</td></tr>
+</table>
+<span jwcid="firstNameColumnValue">
+	<a href="" jwcid="firstNameLink"><span jwcid="firstName">Britney</span></a>
+</span>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.9">
+		<title>	自动分页</title>
+		<para>
+page中添加
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<!-- 前略 -->
+	<binding name="pageSize" value="3"/>			<!-- 每页多少个条记录 -->
+</component>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.10">
+		<title>	程序修改准备</title>
+		<para>
+新建PhoneBookTable.java
+<programlisting><![CDATA[
+public class PhoneBookTable {
+	private List<PhoneBookEntry> entries;
+
+	public PhoneBookTable() {
+		entries = new ArrayList<PhoneBookEntry>();
+	}
+
+	public void insert(PhoneBookEntry entry) {
+		entries.add(entry);
+	}
+
+	public ResultSet selectAll() {
+		System.out.println("Selecting all");
+		return new ResultSet(entries);
+	}
+}]]></programlisting>
+
+新建ResultSet.java
+<programlisting><![CDATA[
+public class ResultSet {
+	private List entriesInResultSet;
+
+	private int currentIdx;
+
+	public ResultSet(List entriesInResultSet) {
+		this.entriesInResultSet = entriesInResultSet;
+		this.currentIdx = -1;
+	}
+
+	public boolean next() {
+		if (currentIdx < entriesInResultSet.size() - 1) {
+			currentIdx++;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public PhoneBookEntry readEntry() {
+		PhoneBookEntry entry = (PhoneBookEntry) entriesInResultSet
+				.get(currentIdx);
+		System.out.println("Reading entry with id " + entry.getId());
+		return entry;
+	}
+}]]></programlisting>
+
+修改PhoneBook.java
+<programlisting><![CDATA[
+public class PhoneBook {
+	private PhoneBookTable table;
+
+	public PhoneBook(PhoneBookTable table) {
+		this.table = table;
+	}
+
+	public List getEntries() {
+		List<PhoneBookEntry> result = new ArrayList<PhoneBookEntry>();
+		ResultSet rs = table.selectAll();
+		while (rs.next()) {
+			result.add(rs.readEntry());
+		}
+		return result;
+	}
+}]]></programlisting>
+
+修改GlobalPhoneBook.java
+<programlisting><![CDATA[
+public class GlobalPhoneBook extends PhoneBook {
+
+	public GlobalPhoneBook() {
+		super(makePhoneBookTable());
+	}
+
+	private static PhoneBookTable makePhoneBookTable() {
+		PhoneBookTable phoneBookTable = new PhoneBookTable();
+		phoneBookTable.insert(new PhoneBookEntry(0, new Name("Alan", "Turing"),
+				"111111"));
+		phoneBookTable.insert(new PhoneBookEntry(1, new Name("Bill", "Gates"),
+				"111222"));
+		//......略
+		return phoneBookTable;
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.11">
+		<title>	部分分页显示（不一次从数据库中提出全部记录）</title>
+		<para>
+修改Home.page
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<binding name="source" value="model"/>
+	<!-- 略 -->
+</component>]]></programlisting>
+
+修改Home.java
+<programlisting><![CDATA[
+public IBasicTableModel getModel() {
+	return new IBasicTableModel() {					//内部类
+		public int getRowCount() {
+			return getPhoneBook().getNoEntries();		//获得记录数，本例为list.size()
+		}
+
+		/**
+		 * 获得当前页面显示的记录
+		 * 
+		 * @param nFirst
+		 *            第多少条记录，因为现在定义的是每页3条，所以第一页为0，2页为3，3页为6；
+		 * @param nPageSize
+		 *            每页显示几条记录，本例为3
+		 * @param objSortColumn
+		 *            按照什么排序，如果没有排序为null
+		 * @param bSortOrder
+		 *            升/降排序方法,默认为
+		 *            SORT_DESCENDING = true;SORT_ASCENDING = false;
+		 */
+		public Iterator getCurrentPageRows(int nFirst, int nPageSize,
+				ITableColumn objSortColumn, boolean bSortOrder) {
+			//getColumnName()，获得列ID
+			String sortColumnId = objSortColumn == null ? null
+					: objSortColumn.getColumnName();
+			return getPhoneBook().getSomeEntries(nFirst, nPageSize,
+					sortColumnId,
+					bSortOrder == ITableSortingState.SORT_ASCENDING)
+					.iterator();
+		}
+	};
+}]]></programlisting>
+
+PhoneBook.java添加
+<programlisting><![CDATA[
+public int getNoEntries() {
+	return table.selectCount();
+}
+
+public List getSomeEntries(int startIdx, int noEntries,
+		String sortColumnId, boolean isAscending) {
+	//selectLimit()模仿SQL语句，select * from table order by firstName limit 3 offset 3
+	ResultSet rs = table.selectLimit(startIdx, noEntries, sortColumnId,
+			isAscending);
+	List result = new ArrayList();
+	while (rs.next()) {
+		result.add(rs.readEntry());
+	}
+	return result;
+}]]></programlisting>
+
+PhoneBookTable.java添加
+<programlisting><![CDATA[
+public int selectCount() {
+	return entries.size();
+}
+
+public ResultSet selectLimit(int startIdx, int noRecords,
+		String columnName, boolean isAscending) {
+	System.out.println("Selecting with limit");
+	List sortedEntries = new ArrayList(entries);		//复制一个集合
+	if (columnName != null) {				//进行排序
+		Collections.sort(sortedEntries, new PhoneBookEntryComparator(
+				columnName));
+		if (!isAscending) {				//如果是倒序排列
+			Collections.reverse(sortedEntries);
+		}
+	}
+	List subList = sortedEntries.subList(startIdx, startIdx + noRecords);	//获得指定记录
+	return new ResultSet(subList);
+}]]></programlisting>
+
+添加新类PhoneBookEntryComparator.java
+<programlisting><![CDATA[
+public class PhoneBookEntryComparator implements Comparator {
+	private String columnName;
+
+	public PhoneBookEntryComparator(String columnName) {
+		this.columnName = columnName;
+	}
+
+	public int compare(Object obj1, Object obj2) {
+		PhoneBookEntry entry1 = (PhoneBookEntry) obj1;
+		PhoneBookEntry entry2 = (PhoneBookEntry) obj2;
+		if (columnName.equals("id")) {
+			return entry1.getId() - entry2.getId();
+		} else if (columnName.equals("firstName")) {
+			return entry1.getFirstName().compareTo(entry2.getFirstName());
+		} else {
+			// Similar for other columns.
+			return 0;
+		}
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.12">
+		<title>	使用缓存</title>
+		<para>
+Home.html文件添加
+<programlisting><![CDATA[
+public List getSource() {
+	return getPhoneBook().getEntries();
+}]]></programlisting>
+
+修改Home.page文件
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<binding name="source" value="source"/>
+	<!-- 略 -->
+	<binding name="tableSessionStateManager"
+		value="new org.apache.tapestry.contrib.table.model.common.FullTableSessionStateManager()"/>
+</component>
+
+在Name.java和PhoneBookEntry.java中添加可序列化接口，保存session使用
+	implements Serializable
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.13">
+		<title>	在table中加入按钮</title>
+		<para>
+（由于使用tapestry4.1，所以4.0的程序无法使用，看自定义table样式）
+添加修改Home.page
+<programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+	<!-- 略 -->
+	<binding name="columns" value="literal:id, firstName:First name:name.firstName,
+		lastName:name.lastName, telNo, delete"/>
+	<!-- 略 -->
+</component>
+
+<component id="deleteColumnValue" type="Block"/>
+<component id="deleteForm" type="Form">
+	<binding name="listener" value="listener:onDelete"/>
+	<binding name="direct" value="false"/>
+</component>]]></programlisting>
+
+Home.html文件添加
+<programlisting><![CDATA[
+<td jwcid="deleteColumnValue">
+	<form jwcid="deleteForm">
+		<input type="submit" value="Delete"/>
+	</form>
+</td>]]></programlisting>
+
+Home.java文件添加
+<programlisting><![CDATA[
+@InjectComponent("table")				//获得页面中叫"table"的组建
+public abstract Table getTable();			//获得页面中叫"table"的组建
+
+public void onDelete() {
+	int id = ((PhoneBookEntry) getTable().getTableRow()).getId();
+	System.out.println("Deleting " + id);
+	getPhoneBook().deleteEntry(id);
+}]]></programlisting>
+
+PhoneBook.java添加
+<programlisting><![CDATA[
+public void deleteEntry(int id) {
+	table.delete(id);
+}]]></programlisting>
+
+deleteEntry.java添加
+<programlisting><![CDATA[
+public void delete(int id) {
+	for (Iterator iter = entries.iterator(); iter.hasNext();) {
+		PhoneBookEntry entry = (PhoneBookEntry) iter.next();
+		if (entry.getId() == id) {
+			iter.remove();
+			return;
+		}
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.14">
+		<title>	更新缓存</title>
+		<para>
+Home.java文件添加
+<programlisting><![CDATA[
+public void onDelete() {
+	int id = ((PhoneBookEntry) getTable().getTableRow()).getId();
+	System.out.println("Deleting " + id);
+	getPhoneBook().deleteEntry(id);
+	SimpleTableModel tableModel = ((SimpleTableModel) getTable().getTableModel());
+	tableModel.setDataModel(new SimpleListTableDataModel(getSource()));
+	tableModel.tableDataChanged(null);
+	getTable().fireObservedStateChange();
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.15">
+		<title>	删除排序连接</title>
+		<para><programlisting><![CDATA[
+<component id="table" type="Contrib:Table">
+        <binding name="source" value="source"/>
+	<binding name="columns" 
+		value="literal:id, firstName, lastName:name.lastName, telNo, !delete"/>
+	<!-- 略 -->
+</component>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch5.16">
+		<title>	自定义table样式</title>
+		<para>
+Home.html文件
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="Phone Book" stylesheet="asset:phoneBook">
+<head jwcid="$remove$">
+<title>Phone Book</title>
+<link rel="stylesheet" text="text/css" href="../css/PhoneBook.css"/>
+</head>
+<body>
+<form jwcid="deleteForm">
+	<span jwcid="table" >
+		<table border="1">
+			<tr><span jwcid="@Contrib:TableColumns" class="title"/></tr>
+			<tr jwcid="tableRows" class="ognl:beans.evenOdd.next">
+				<td jwcid="@Contrib:TableValues"/>
+			</tr>
+		</table>
+		<span jwcid="@Contrib:TablePages"/>
+	</span>
+</form>
+	<table border="1" jwcid="$remove$">
+		<tr><th>ID</th><th>First name</th><th>Last name</th><th>Tel #</th><th>Delete</th></tr>
+		<tr class="odd">
+			<td>1</td>
+			<td>Britney</td>
+			<td>Spears</td>
+			<td>376926</td>
+			<td>
+				<form>
+					<input type="submit" value="Delete"/>
+				</form>
+			</td>
+		</tr>
+		<tr class="even">
+<td>2</td><td>Elton</td><td>John</td><td>285984</td><td>Delete</td></tr>
+		<tr class="odd">
+<td>3</td><td>David</td><td>Letterman</td><td>877357</td><td>Delete</td></tr>
+	</table>
+	<span jwcid="deleteColumnValue">
+		<span jwcid="delete" value="delete">
+			<input type="submit" value="Delete"/>
+		</span>
+	</span>
+	<span jwcid="firstNameColumnValue">
+		<a href="" jwcid="firstNameLink"><span jwcid="firstName">Britney</span></a>
+	</span>
+</body>
+</html>]]></programlisting>
+
+Home.page文件
+<programlisting><![CDATA[
+<page-specification>
+	<asset name="phoneBook" path="context:/css/PhoneBook.css"/>
+	<bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd">
+		<set name="even" value="false"/>
+	</bean>
+
+	<component id="deleteForm" type="Form">
+		<binding name="direct" value="false"/>
+	</component>
+
+	<component id="delete" type="Submit">
+		<binding name="listener" value="listener:onDelete"/>
+		<binding name="onClick" value="literal:return checkAddCountry()"/>
+	</component>
+
+	<component id="table" type="Contrib:TableView">
+		<binding name="source" value="source"/>
+		<binding name="columns" 
+			value="literal:id, firstName, lastName:name.lastName, telNo, !delete"/>
+		<binding name="pageSize" value="3"/>
+		<binding name="tableSessionStateManager"
+		value="new org.apache.tapestry.contrib.table.model.common.FullTableSessionStateManager()"/>
+	</component>
+	<component id="firstNameColumnValue" type="Block"/>
+	<component id="firstNameLink" type="DirectLink">
+		<binding name="listener" value="listener:onShowDetails"/>
+		<binding name="parameters" value="components.tableRows.tableRow.id"/>
+	</component>
+	<component id="firstName" type="Insert">
+		<binding name="value" value="components.tableRows.tableRow.firstName"/>
+	</component>
+
+	<component id="tableRows" type="Contrib:TableFormRows">
+	</component>
+	<component id="deleteColumnValue" type="Block"/>
+	
+</page-specification>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+public abstract class Home extends BasePage {
+
+	@InjectState("phoneBook")
+	public abstract PhoneBook getPhoneBook();
+
+	public List getSource() {
+		return getPhoneBook().getEntries();
+	}
+
+	@InjectComponent("table")
+	public abstract TableView getTable();
+
+	@InjectComponent("tableRows")
+	public abstract TableFormRows getTableRows();
+
+	public abstract TableValues getTableValues();
+
+	public void onDelete() {
+		int id = ((PhoneBookEntry) getTableRows().getTableRow()).getId();
+
+		System.out.println("Deleting " + id);
+		getPhoneBook().deleteEntry(id);
+
+		//刷新缓存
+		SimpleTableModel tableModel = ((SimpleTableModel) getTable()
+				.getTableModel());
+		tableModel.setDataModel(new SimpleListTableDataModel(getSource()));
+		tableModel.tableDataChanged(null);
+		getTable().fireObservedStateChange();
+	}
+
+	public IBasicTableModel getModel() {
+		return new IBasicTableModel() {
+			public int getRowCount() {
+				return getPhoneBook().getNoEntries();
+			}
+
+			public Iterator getCurrentPageRows(int nFirst, int nPageSize,
+					ITableColumn objSortColumn, boolean bSortOrder) {
+
+				String sortColumnId = objSortColumn == null ? null
+						: objSortColumn.getColumnName();
+				return getPhoneBook().getSomeEntries(nFirst, nPageSize,
+						sortColumnId,
+						bSortOrder == ITableSortingState.SORT_ASCENDING)
+						.iterator();
+			}
+		};
+	}
+
+	public void onShowDetails(int entryId) {
+		System.out.println("Showing details for " + entryId);
+	}
+}
+]]></programlisting></para>
+	</sect1>
+</chapter>

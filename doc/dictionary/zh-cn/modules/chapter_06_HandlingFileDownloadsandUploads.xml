@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch6">
+	<title>	文件上传下载（Handling File Downloads and Uploads）</title>
+	<sect1 id="ch6.1">
+		<title>	源形 页面显示图片</title>
+		<para>
+Home.html
+<programlisting><![CDATA[
+<html>
+<a href="/app?service=image&amp;imageId=101">Download photo #101</a>
+</html>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+public abstract class Home extends BasePage {
+}]]></programlisting>
+
+Home.page
+<programlisting><![CDATA[
+<page-specification>
+</page-specification>]]></programlisting>
+
+Download.java
+<programlisting><![CDATA[
+public abstract class Download extends BasePage {
+	private int imageId;
+
+	@InjectObject("service:tapestry.globals.HttpServletResponse")
+	public abstract HttpServletResponse getResponse();
+
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
+	}
+
+	//原先只可以传递html代码，重写renderPage让他可以传递流文件
+	public void renderPage(IMarkupWriter writer, IRequestCycle cycle) {
+		byte imageData[] = ImageDB.loadImage(imageId);
+		HttpServletResponse response = getResponse();
+		// 告诉浏览器返回的是图片文件
+		response.setContentType("image/jpeg");
+		// 通知浏览器要按照文件需要保存，文件名为foo.jpg
+		response.setHeader("Content-disposition",
+				"attachment; filename=foo.jpg");
+		// 在HTTP响应中创建输出流，如果失败抛出IOException
+		try {
+			OutputStream out = response.getOutputStream();
+			out.write(imageData);
+		} catch (IOException e) {
+			throw new ApplicationRuntimeException(e);
+		}
+	}
+}]]></programlisting>
+
+ImageDB.java
+<programlisting><![CDATA[
+public class ImageDB {
+	public static byte[] loadImage(int imageId) {
+		InputStream input = ImageDB.class
+				.getResourceAsStream("/com/ttdev/album/" + imageId + ".jpg");
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		byte buf[] = new byte[1024];
+		for (;;) {
+			try {
+				int noBytesRead = input.read(buf);
+				if (noBytesRead == -1) {
+					return output.toByteArray();
+				}
+				output.write(buf, 0, noBytesRead);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+}]]></programlisting>
+
+ImageService.java
+<programlisting><![CDATA[
+public class ImageService implements IEngineService {
+	public String getName() {
+		return "image";
+	}
+
+	public void service(IRequestCycle cycle) throws IOException {
+		int imageId = Integer.parseInt(cycle.getParameter("imageId"));
+		byte imageData[] = ImageDB.loadImage(imageId);
+		WebResponse response = cycle.getInfrastructure().getResponse();
+		try {
+			OutputStream out = response.getOutputStream(new ContentType(
+					"image/jpeg"));
+			out.write(imageData);
+		} catch (IOException e) {
+			throw new ApplicationRuntimeException(e);
+		}
+	}
+
+	public ILink getLink(boolean post, Object parameter) {
+		return null;
+	}
+}]]></programlisting>
+
+hivemodule.xml
+<programlisting><![CDATA[
+<?xml version="1.0"?>
+<module id="com.ttdev.album" version="1.0.0">
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="image" object="instance:com.ttdev.album.ImageService"/>
+	</contribution>
+</module>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch6.2">
+		<title>	上传文件</title>
+		<para>
+XXXX.application文件
+<programlisting><![CDATA[
+<meta key="com.ttdev.album.image-folder" value="c:/uploads"/>]]></programlisting>
+
+Upload.html
+<programlisting><![CDATA[
+<html>
+<form jwcid="uploadForm">
+	<input type="file" jwcid="upload"/><p>
+	<input type="submit" value="OK"/>
+</form>
+</html>]]></programlisting>
+
+Upload.page
+<programlisting><![CDATA[
+<page-specification>
+    <inject property="imageFolder" type="meta" object="com.ttdev.album.image-folder"/>
+	<component id="uploadForm" type="Form">
+		<binding name="listener" value="listener:onOk"/>
+	</component>
+	<component id="upload" type="Upload">
+		<binding name="file" value="file"/>
+	</component>
+</page-specification>]]></programlisting>
+
+Upload.java
+<programlisting><![CDATA[
+public abstract class Upload extends BasePage {
+
+	@InjectMeta("com.ttdev.album.image-folder")
+	public abstract String getImageFolder();
+
+	public abstract IUploadFile getFile();
+
+	public void onOk() {
+
+		if (getFile().getFileName().length() == 0) {
+			return;
+		}
+
+		byte imageData[] = new byte[(int) getFile().getSize()];
+		InputStream fileInput = getFile().getStream();
+		try {
+			fileInput.read(imageData);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		ImageDB.saveImage(101, imageData, getImageFolder());
+	}
+}]]></programlisting>
+
+ImageDB.java文件添加
+<programlisting><![CDATA[
+public static void saveImage(int imageId, byte[] imageData,
+		String imageFolder) {
+	File imageFile = new File(imageFolder, imageId + ".jpg");
+	try {
+		FileOutputStream output = new FileOutputStream(imageFile);
+		try {
+			output.write(imageData);
+		} finally {
+			output.close();
+		}
+	} catch (IOException e) {
+		throw new RuntimeException(e);
+	}
+}
+]]></programlisting></para>
+	</sect1>
+</chapter>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch1">
+	<title>	基础知识（Using Forms）</title>
+
+	<sect1 id="ch1.1">
+		<title>	page文件和class文件联系</title>
+		<para><programlisting><![CDATA[
+在page文件中加入，如
+<page-specification class="com.ttdev.helloworld.Home">
+	
+</page-specification>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch1.2">
+		<title>	页面跳转</title>
+		<para><programlisting><![CDATA[
+1)	cycle.activate("Result");
+//Result是一个页面
+2)	return "Result";
+//Result是一个页面，方法返回值需要改成String
+3)	Result resultPage = (Result) cycle.getPage("Result");
+return resultPage;
+//需要import Result类
+4)	Result resultPage = getResultPage();
+resultPage.setStockValue(stockValue);
+return cycle.getPage("Result");
+//在page文件中需要设置
+<inject property="resultPage" type="page" object="Result"/>
+5)	使用java5.0注释
+在class中导入import org.apache.tapestry.annotations.*;类
+@InjectPage("Result")	//Result是要跳转的页面
+public abstract Result getResultPage();
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch1.3">
+		<title>	初始化</title>
+		<para>
+1)	在class中加入
+<programlisting><![CDATA[
+protected void initialize() {
+		stockValue = 0;
+}
+]]></programlisting>
+2)	在page文件中加入
+<programlisting><![CDATA[
+<property name="stockValue"/>
+//tapestry在运行时会自动建立如:
+public class ResultEnhanced extends Result {
+	private XXX stockValue;
+	protected void initialize() {
+		stockValue = <default value for type XXX>;
+	}
+	public XXX getStockValue() {
+		return stockValue;
+	}
+	public void setStockValue(XXX stockValue) {
+		this.stockValue = stockValue;
+	}
+}
+//使用在page文件初始化要在class中添加相应的代码，并删除geter/seter。如
+public abstract String getStockId();
+//页面也可以定义初始值，添加
+<property name="stockId" initial-value="literal:MSFT"/>
+]]></programlisting>
+3)	使用java5.0注释
+<programlisting><![CDATA[
+在class中导入import org.apache.tapestry.annotations.*;类
+@InitialValue("literal:MSFT") //初始化id为MSFT
+abstract public String getStockId();
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch1.4">
+		<title>	在html页面装配</title>
+		<para><programlisting><![CDATA[
+直接在form中加入配置信息
+<form jwcid="stockQuoteForm@Form" listener="listener:onOk">
+或者使用匿名组建
+<form jwcid="@Form" listener="listener:onOk">
+//如果不用需要在page文件中定义
+<component id="stockQuoteForm" type="Form">
+	<binding name="listener" value="listener:onOk"/>
+</component>
+
+<input type="text" jwcid="stockId@TextField" value="ognl:stockId"/>
+//如果不用需要在page文件中定义
+<component id="stockId" type="TextField">
+	<binding name="value" value="stockId"/>
+</component>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch1.5">
+		<title>	使用下拉列表框（combo box）</title>
+		<para>
+page设置方法
+<programlisting><![CDATA[
+<component id="stockId" type="PropertySelection">	//stockId是在html中jwcid引用的
+	<binding name="model" value="availStockIds"/>	//通过class中的getavailStockIds方法附值
+	<binding name="value" value="stockId"/>		//选中的值
+</component>
+]]></programlisting>
+class中的定义
+<programlisting><![CDATA[
+public IPropertySelectionModel getAvailStockIds() {
+	return new StringPropertySelectionModel(new String[] { "IBM", "MSFT",
+			"RHAT" });
+}
+//数组按照顺序从0开始计数
+
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch1.6">
+		<title>	使用日历工具（DatePicker）</title>
+		<para>
+html中加入
+<programlisting><![CDATA[
+<span jwcid="quoteDate">May 3, 2005</span>
+//在body中还需要加入如<body jwcid="@Body">。否则会报错
+//添加<html jwcid="@Shell" title="date">，否则无法正常使用dojo
+]]></programlisting>
+
+page中加入
+<programlisting><![CDATA[
+<component id="quoteDate" type="DatePicker">
+	<binding name="value" value="quoteDate"/>
+</component>
+
+class中使用getQuoteDate()获得
+		]]></programlisting></para>
+	</sect1>
+</chapter>

@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch9">
+	<title>	动态创建列表（Building Dynamic Forms）</title>
+	<sect1 id="ch9.1">
+		<title>	基础程序</title>
+		<para>
+Home.html
+<programlisting><![CDATA[
+<html>
+<form jwcid="form">
+<table>
+	<tr jwcid="userList">
+		<td><input type="text" jwcid="userName"/></td>
+		<td><input type="password" jwcid="password"/></td>
+		<span jwcid="updateUser"/>
+	</tr>
+</table>
+<input type="submit" value="OK"/>
+</form>
+</html>]]></programlisting>
+
+Home.page
+<programlisting><![CDATA[
+<page-specification>
+   	<component id="form" type="Form"/>
+	<component id="userList" type="For">
+		<binding name="source" value="users"/>
+		<binding name="value" value="currentUser"/>
+		<binding name="element" value="literal:tr"/>
+	</component>
+	<component id="userName" type="TextField">
+		<binding name="value" value="currentUser.name"/>
+	</component>
+	<component id="password" type="TextField">
+		<binding name="value" value="currentUser.password"/>
+		<binding name="hidden" value="true"/>
+	</component>
+	<!-- 加入调用监听 -->
+	<component id="updateUser" type="InvokeListener">
+		<binding name="listener" value="listener:updateUser"/>
+	</component>
+</page-specification>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+public abstract class Home extends BasePage {
+	public abstract User getCurrentUser();
+
+	@InjectState("users")
+	public abstract Users getGlobalUsers();
+
+	public List getUsers() {
+		return getGlobalUsers().selectAll();
+	}
+	//监听调用方法
+	public void updateUser(IRequestCycle cycle) {
+		if (cycle.isRewinding()) {
+			System.out.println(getCurrentUser().getName());
+			getGlobalUsers().update(getCurrentUser());
+		}
+	}
+}]]></programlisting>
+
+User.java
+<programlisting><![CDATA[
+public class User implements Serializable{
+
+	private static final long serialVersionUID = 4751383452617811451L;
+
+	private int id;
+
+	private String name;
+
+	private String password;
+
+	public User(int id, String name, String password) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
+
+	public User makeCopy() {
+		return new User(id, name, password);
+	}
+
+	//更新
+	public void assignFrom(User user) {
+		this.name = user.name;
+		this.password = user.password;
+	}
+
+	//geter/seter略
+}]]></programlisting>
+
+Users.java
+<programlisting><![CDATA[
+public class Users {
+
+	public List<User> users;
+
+	public Users() {
+		users = new ArrayList<User>();
+		users.add(new User(0, "Paul", "123"));
+		users.add(new User(4, "John", "456"));
+		users.add(new User(6, "Mary", "789"));
+	}
+
+	public List selectAll() {
+		List<User> usersFound = new ArrayList<User>();
+		for (Iterator iter = users.iterator(); iter.hasNext();) {
+			User user = (User) iter.next();
+			usersFound.add(user.makeCopy());
+		}
+		return usersFound;
+}
+
+	//检索
+	public void update(User user) {
+		for (int i = 0; i < users.size(); i++) {
+			User currentUser = (User) users.get(i);
+			if (currentUser.getId() == user.getId()) {
+				currentUser.assignFrom(user);
+				return;
+			}
+		}
+		throw new RuntimeException("User not found");
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.2">
+		<title>	将主键隐藏存储在form上</title>
+		<para>
+Home.page添加
+<programlisting><![CDATA[
+<component id="userList" type="For">
+	<!-- 略 -->
+	<binding name="converter" value="converter"/>
+	<!-- 略 -->
+</component>]]></programlisting>
+
+Home.java添加
+<programlisting><![CDATA[
+public IPrimaryKeyConverter getConverter() {
+	return new IPrimaryKeyConverter() {
+		public Object getPrimaryKey(Object value) {
+			//获得修改ID
+			return new Integer(((User) value).getId());
+		}
+
+		public Object getValue(Object primaryKey) {
+			//模仿数据库查询
+			return getGlobalUsers().select(
+					((Integer) primaryKey).intValue());
+		}
+	};
+}]]></programlisting>
+
+Users.java文件添加
+<programlisting><![CDATA[
+public User select(int userId) {
+	for (Iterator iter = users.iterator(); iter.hasNext();) {
+		User user = (User) iter.next();
+		if (user.getId() == userId) {
+			return user.makeCopy();
+		}
+	}
+	throw new RuntimeException("User not found");
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.3">
+		<title>	数据校验，不通过不能更新</title>
+		<para>
+Home.html文件添加
+<programlisting><![CDATA[
+<span jwcid="error"/>
+<!-- 略-->
+<td>
+	<span jwcid="userNameLabel">User name</span>
+	<input type="text" jwcid="userName"/>
+</td>]]></programlisting>
+
+Home.page添加
+<programlisting><![CDATA[
+<component id="error" type="Delegator">
+	<binding name="delegate" value="beans.delegate.firstError"/>
+</component>
+<component id="form" type="Form">
+	<binding name="delegate" value="beans.delegate"/>
+</component>
+<component id="userName" type="TextField">
+	<binding name="value" value="currentUser.name"/>
+	<binding name="validators" value="validators:required"/>
+	<binding name="displayName" value="literal:User name"/>
+</component>
+<!-- 红色标题显示 -->
+<component id="userNameLabel" type="FieldLabel">
+	<binding name="field" value="component:userName"/>
+</component>]]></programlisting>
+
+Home.java
+<programlisting><![CDATA[
+@Bean
+public abstract ValidationDelegate getDelegate();
+
+@InjectComponent("userName")
+public abstract TextField getUserNameField();
+
+public void updateUser(IRequestCycle cycle) {
+	if (cycle.isRewinding()) {
+		getDelegate().setFormComponent(getUserNameField());
+		if (!getDelegate().isInError()) {
+			getGlobalUsers().update(getCurrentUser());
+		}
+	}
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.4">
+		<title>	加入选择框chexckbox</title>
+		<para>
+Home.html修改加入
+<programlisting><![CDATA[
+<tr jwcid="userList">
+	<td>
+		<span jwcid="userNameLabel">User name</span>
+		<input type="text" jwcid="userName"/>
+	</td>
+	<td><input type="password" jwcid="password"/></td>
+	<td><input type="checkbox" jwcid="delete"/>Delete</td>
+	<span jwcid="updateUser"/>
+</tr>]]></programlisting>
+
+Home.page加入
+<programlisting><![CDATA[
+<component id="delete" type="Checkbox">
+	<binding name="selected" value="toDeleteUser"/>
+</component>]]></programlisting>
+
+Home.java修改加入
+<programlisting><![CDATA[
+public abstract boolean isToDeleteUser();
+
+public void updateUser(IRequestCycle cycle) {
+	if (cycle.isRewinding()) {
+		//获得校验结果
+		getDelegate().setFormComponent(getUserNameField());
+		boolean isInError = getDelegate().isInError();
+		if (isToDeleteUser()) {
+			//清除校验功能
+			getDelegate().reset();
+			//删除
+			getGlobalUsers().delete(getCurrentUser().getId());
+		} else {
+			if (!isInError) {
+				//更新
+				getGlobalUsers().update(getCurrentUser());
+			}
+		}
+	}
+}]]></programlisting>
+
+Users.java添加
+<programlisting><![CDATA[
+public void delete(int userId) {
+	for (Iterator iter = users.iterator(); iter.hasNext();) {
+		User user = (User) iter.next();
+		if (user.getId() == userId) {
+			iter.remove();
+			return;
+		}
+	}
+	throw new RuntimeException("User not found");
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.5">
+		<title>	多用户删除问题</title>
+		<para>
+Home.java中更新
+<programlisting><![CDATA[
+public IPrimaryKeyConverter getConverter() {
+	return new IPrimaryKeyConverter() {
+		public Object getPrimaryKey(Object value) {
+			return new Integer(((User) value).getId());
+		}
+
+		public Object getValue(Object primaryKey) {
+			try {
+				return getGlobalUsers().select(
+						((Integer) primaryKey).intValue());
+			} catch (RuntimeException e) {
+				getDelegate().setFormComponent(null);
+				getDelegate().record("User has been deleted", null);
+				throw new PageRedirectException(getPageName());
+			}
+		}
+	};
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.6">
+		<title>	加入下拉框select</title>
+		<para>
+新建AddUser.html
+<programlisting><![CDATA[
+<html>
+<span jwcid="error"/>
+<form jwcid="form">
+	<input type="text" jwcid="userId"/><br>
+	<input type="text" jwcid="userName"/><br>
+	<input type="password" jwcid="password"/><br>
+	<select jwcid="country" onchange="this.form.submit()"></select>
+	<select jwcid="city"></select><br>
+	<input type="submit" value="OK"/>
+</form>
+</html>]]></programlisting>
+
+新建AddUser.page
+<programlisting><![CDATA[
+<page-specification>
+	<component id="error" type="Delegator">
+		<binding name="delegate" value="beans.delegate.firstError"/>
+	</component>
+	<component id="form" type="Form">
+		<binding name="listener" value="listener:onOk"/>
+		<binding name="delegate" value="bean:delegate"/>
+	</component>
+	<component id="userId" type="TextField">
+		<binding name="value" value="userId"/>
+		<binding name="translator" value="translator:number"/>
+	</component>
+	<component id="userName" type="TextField">
+		<binding name="value" value="userName"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:User name"/>
+	</component>
+	<component id="password" type="TextField">
+		<binding name="value" value="password"/>
+		<binding name="hidden" value="true"/>
+	</component>
+	<component id="country" type="PropertySelection">
+		<binding name="model" value="countries"/>
+		<binding name="value" value="country"/>
+	</component>
+	<component id="city" type="PropertySelection">
+		<binding name="model" value="cities"/>
+		<binding name="value" value="city"/>
+	</component>
+</page-specification>]]></programlisting>
+
+新建AddUser.java
+<programlisting><![CDATA[
+public abstract class AddUser extends BasePage implements
+		PageBeginRenderListener {
+	public abstract int getUserId();
+
+	public abstract String getUserName();
+
+	public abstract String getPassword();
+
+	public abstract String getCountry();
+
+	public abstract String getCity();
+
+	public abstract void setCountry(String country);
+
+	@InjectState("users")
+	public abstract Users getGlobalUsers();
+
+	public void pageBeginRender(PageEvent event) {
+		//当Country是空时，初始化Country，在刷新页面之前下拉框不能为空
+		if (getCountry() == null) {
+			setCountry("US");
+		}
+	}
+
+	@Bean
+	public abstract ValidationDelegate getDelegate();
+
+	public String onOk() {
+		//如果有错则不做操作，只是显示
+		if (getDelegate().getHasErrors()) {
+			return getPageName();
+		}
+		getGlobalUsers().insert(
+				new User(getUserId(), getUserName(), getPassword()));
+		return "Home";
+	}
+
+	/**
+	 * @return 返回国家数组
+	 */
+	public IPropertySelectionModel getCountries() {
+		return new StringPropertySelectionModel(new String[] { "US", "China" });
+	}
+
+	/**
+	 * @return 返回城市数组
+	 */
+	public IPropertySelectionModel getCities() {
+		if (getCountry().equals("US")) {
+			return new StringPropertySelectionModel(new String[] { "New York",
+					"Boston" });
+		} else {
+			return new StringPropertySelectionModel(new String[] { "Beijing",
+					"Shanghai" });
+		}
+	}
+}]]></programlisting>
+
+Users.java添加
+<programlisting><![CDATA[
+public void insert(User user) {
+	users.add(user);
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.7">
+		<title>	通过刷新更新信息，刷新后不显示错误信息</title>
+		<para>
+修改AddUser.html（由于使用tapestry4.1所以修改了源代码）
+<programlisting><![CDATA[
+<html jwcid="@Shell" title="AddUsers">
+<body jwcid="@Body">
+<span jwcid="error"/>
+<form jwcid="form">
+	<input type="text" jwcid="userId"/><br>
+	<input type="text" jwcid="userName"/><br>
+	<input type="password" jwcid="password"/><br>
+	<select jwcid="country" onchange="tapestry.form.refresh(this.form)"></select>	<!-- 4.1新加入 -->
+	<select jwcid="city"></select><br>
+	<input type="submit" value="OK"/>
+</form>
+</body>
+</html>]]></programlisting>
+
+AddUser.page
+<programlisting><![CDATA[
+<component id="form" type="Form">
+	<binding name="listener" value="listener:onOk"/>
+	<binding name="delegate" value="bean:delegate"/>
+	<binding name="refresh" value="listener:onRefresh" />	<!-- 加入监听 -->
+	<binding name="clientValidationEnabled" value="true"/>	<!-- 在客户端验证 -->
+</component>]]></programlisting>
+
+AddUser.java文件
+<programlisting><![CDATA[
+public void onRefresh() {
+	getDelegate().clearErrors();		//刷新页面，抛弃错误
+}
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch9.8">
+		<title>	避免选择数组跃界</title>
+		<para>
+修改AddUser.java
+<programlisting><![CDATA[
+@Persist("client")						//属性,将数据存储到html页面里
+public abstract String getCountryForRender();
+
+public abstract void setCountryForRender(String country);
+
+public void pageBeginRender(PageEvent event) {
+	// 当Country是空时，初始化Country，在刷新页面之前下拉框不能为空
+	if (getCountry() == null) {
+		setCountry("US");
+	}
+	//如果是重绕（rewind，使用Refresh）重新为读取的Conuntry附值
+	if (!event.getRequestCycle().isRewinding()) {
+		setCountryForRender(getCountry());
+	}
+}
+
+public IPropertySelectionModel getCities() {
+	//判断传入的Country是不是US
+	if (getCountryForRender().equals("US")) {
+		return new StringPropertySelectionModel(new String[] { "New York",
+				"Boston", "Chicago" });
+	} else {
+		return new StringPropertySelectionModel(new String[] { "Beijing",
+				"Shanghai" });
+	}
+}
+]]></programlisting></para>
+	</sect1>
+</chapter>

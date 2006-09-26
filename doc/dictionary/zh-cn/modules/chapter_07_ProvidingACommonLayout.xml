@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch7">
+	<title>	使用公共层（Providing a Common Layout）</title>
+	<sect1 id="ch7.1">
+		<title>	公共层基础程序</title>
+		<para>
+创建Border.jwc文件
+<programlisting><![CDATA[
+<?xml version="1.0"?>
+<!DOCTYPE component-specification PUBLIC
+"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<component-specification>
+	<parameter name="title"/>
+</component-specification>]]></programlisting>
+
+创建Border.html，模板文件
+<programlisting><![CDATA[
+<html>
+<!-- 
+	添加title,value="ognl:page.pageName"自动替换目标title，比较方便不需要配置
+	value="ognl:title"，在jwc文件中配置
+ -->
+<head><title><span jwcid="@Insert" value="ognl:title"/></title></head>
+<body>
+	<table>
+	<tr>
+		<td width="40%">
+			<a href="" jwcid="@PageLink" page="Home">Home</a><br>
+			<a href="" jwcid="@PageLink" page="Products">Products</a><br>
+			<a href="" jwcid="@PageLink" page="Contact">Contact</a>
+		</td>
+		<td>
+			<span jwcid="@RenderBody">
+				每个调用模板的文件使用jwcid="@Border"加入内容
+			</span>
+		</td>
+	</tr>
+	</table>
+</body>
+</html>]]></programlisting>
+
+Home.html文件（调用模板时）
+<programlisting><![CDATA[
+<html>
+<head><title>Home</title></head>
+<body jwcid="$content$">
+	<span jwcid="@Border">
+		This is the Home page.  替换的内容
+	</span>
+</body>
+</html>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch7.2">
+		<title>	去掉选中下划线</title>
+		<para>
+修改Border.html
+<programlisting><![CDATA[
+<td width="40%">
+<a href="" jwcid="@PageLink" page="Home" 
+disabled="ognl:page.pageName.equals('Home')">Home</a><br>
+<a href="" jwcid="@PageLink" page="Products" 
+disabled="ognl:page.pageName.equals('Products')">Products</a><br>
+<a href="" jwcid="@PageLink" page="Contact" 
+disabled="ognl:page.pageName.equals('Contact')">Contact</a>
+</td>
+]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch7.3">
+		<title>	添加标题</title>
+		<para>
+1)	直接使用
+Home.html
+<programlisting><![CDATA[
+<span jwcid="header@Block"><h1>Home header</h1></span>]]></programlisting>
+
+模板文件中
+<programlisting><![CDATA[
+<span jwcid="@RenderBlock" block="ognl:page.components.header"/>
+
+注通过定义的名字header替换]]></programlisting>
+
+2)	需要配置
+jwc文件加入
+<programlisting><![CDATA[
+<parameter name="header"/>]]></programlisting>
+
+模板文件中
+<programlisting><![CDATA[
+<span jwcid="@RenderBlock" block="ognl:header"/>]]></programlisting>
+
+Home.html文件
+<programlisting><![CDATA[
+<span jwcid="header@Block"><h1>Home header</h1></span>
+<span jwcid="@Border" title="Home" header="ognl:components.header">
+]]></programlisting></para>
+	</sect1>
+</chapter>

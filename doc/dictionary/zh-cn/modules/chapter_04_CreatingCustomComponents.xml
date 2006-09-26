@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="ch4">
+	<title>	自定义组建（Creating Custom Components）</title>
+	<sect1 id="ch4.1">
+		<title>	基本代码</title>
+		<para>
+home.html文件
+<programlisting><![CDATA[
+<html>
+<head></head>
+<body>
+	<h1>Page 1</h1>
+	This is page 1.
+	<span jwcid="copyright">Copyright notice</span>
+</body>
+</html>
+<!-- <span jwcid="copyright">在home.page中定义 -->]]></programlisting>
+
+home.page文件
+<programlisting><![CDATA[
+<page-specification>
+    <component id="copyright" type="Copyright"/>
+</page-specification>
+<!-- 发现类型是Copyright，到WEB-INF中去找Copyright.jwc -->]]></programlisting>
+
+Copyright.jwc文件
+<programlisting><![CDATA[
+<component-specification class="com.ttdev.components.Copyright">
+	<component id="year" type="Insert">
+		<binding name="value" value="currentYear"/>
+	</component>
+</component-specification>
+<!-- 查找用Copyright.html模板 -->]]></programlisting>
+
+Copyright.html文件
+<programlisting><![CDATA[
+<html>
+<body jwcid="$content$"> <!-- 加入jwcid="$content$"可以使引入的页面不在生成<html/>或<bady/>标签 -->
+<hr>
+	Copyright <span jwcid="year">2005</span>. Foo Inc. All rights reserved.
+</body>
+</html>
+<!-- 同Copyright.jwc中查找标签，添写显示信息 -->
+]]></programlisting>
+
+Copyright.java文件
+<programlisting><![CDATA[
+public class Copyright extends BaseComponent {
+	public int getCurrentYear() {
+		return new GregorianCalendar().get(GregorianCalendar.YEAR);
+	}
+}
+
+注Copyright.html文件和Copyright.jwc文件需要在同一个目录下，否则会报错。
+
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch4.2">
+		<title>	组建嵌套</title>
+		<para>
+Box.jwc文件
+<programlisting><![CDATA[
+<component-specification class="com.ttdev.components.Box" allow-body="yes"
+	allow-informal-parameters="yes">
+</component-specification>
+<!-- allow-body="yes"，允许嵌套，配置了allow-body="yes"以后可以不创建html模板 -->
+<!-- allow-informal-parameters="yes",使用不规则参数，在引用中定义的html属性 -->
+<!-- 
+	<span jwcid="box" width="50%">
+		<span jwcid="copyright">Copyright notice</span>
+	</span> 
+-->]]></programlisting>
+
+Box.java文件
+<programlisting><![CDATA[
+public class Box extends AbstractComponent {
+
+	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		writer.begin("table");				//创建<table>标签头
+		writer.attribute("border", 1);			//加入属性border ＝ 1
+		renderInformalParameters(writer, cycle);	//在引用中定义的html属性
+		writer.begin("tr");				//创建<tr>
+		writer.begin("td");				//创建<td>
+		renderBody(writer, cycle);			//中间的嵌套组建Copyright
+		writer.end();					//加入</td>
+		writer.end();					//加入</tr>
+		writer.end();					//加入</table>
+	}
+}
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch4.3">
+		<title>	可替换模板变量</title>
+		<para>
+1)	设置实现
+模板jwc文件
+<programlisting><![CDATA[
+<parameter name="holder" required="no" default-value="literal:Foo Inc."
+<!-- required，范围；default-value，定义默认值 -->
+<component id="holder" type="Insert">
+	<binding name="value" value="holder"/>
+</component>]]></programlisting>
+
+模板java文件
+<programlisting><![CDATA[
+public abstract String getHolder();]]></programlisting>
+
+模板html文件
+<programlisting><![CDATA[
+<html>
+<body jwcid="$content$">
+<hr>
+	Copyright <span jwcid="year">2005</span>. <span jwcid="holder">Foo Inc.</span> All rights reserved.
+</body>
+</html>]]></programlisting>
+
+调用的page文件
+<programlisting><![CDATA[
+<component id="copyright" type="Copyright">
+	<binding name="holder" value="literal:Bar Inc."/>
+<!-- value="literal:Bar Inc."，显示的文字 -->
+</component>]]></programlisting>
+
+2)	通过注释添加
+java文件中添加
+<programlisting><![CDATA[
+@Parameter(name="holder", required=false, defaultValue="literal:Foo Inc.")
+public abstract String getHolder();
+]]></programlisting>
+
+模板jwc文件中
+<programlisting><![CDATA[
+<parameter name="holder" required="no" default-value="literal:Foo Inc." />
+	删除
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch4.4">
+		<title>	组建使用指定包</title>
+		<para>
+xxxxx.application
+<programlisting><![CDATA[
+<meta key="org.apache.tapestry.component-class-packages" 
+value="com.ttdev.components"/>
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch4.5">
+		<title>	给模板传值</title>
+		<para>
+html文件
+<programlisting><![CDATA[
+<form jwcid="form">
+	<span jwcid="rgb">edit color here</span>
+	<input type="submit" value="OK"/>
+</form>]]></programlisting>
+
+page文件
+<programlisting><![CDATA[
+<component id="form" type="Form">
+	<binding name="listener" value="listener:onOk"/>
+</component>
+<component id="rgb" type="RGB">
+	<binding name="color" value="color"/>
+	<!-- 将获得的color传给RGB模板 -->
+</component>]]></programlisting>
+
+java文件
+<programlisting><![CDATA[
+public abstract int getColor();
+
+public void onOk() {
+	System.out.println(Integer.toHexString(getColor()));
+}]]></programlisting>
+
+模板html
+<programlisting><![CDATA[
+<html>
+<body jwcid="$content$">
+	R: <input type="text" size="3" maxlength="3" jwcid="red"/>
+	G: <input type="text" size="3" maxlength="3" jwcid="green"/>
+	B: <input type="text" size="3" maxlength="3" jwcid="blue"/>
+	Sample: <span jwcid="sample" style="background-color: rgb(255, 0, 0)">
+	&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</body>
+</html>]]></programlisting>
+
+模板jwc文件
+<programlisting><![CDATA[
+<component-specification allow-body="no" allow-informal-parameters="no">
+    <component id="red" type="TextField">
+		<binding name="value" value="red"/>
+	</component>
+	<component id="green" type="TextField">
+		<binding name="value" value="green"/>
+	</component>
+	<component id="blue" type="TextField">
+		<binding name="value" value="blue"/>
+	</component>
+	<component id="sample" type="Any">
+		<binding name="element" value="literal:span"/>
+		<binding name="style" value="backgroundColorAssignment"/>
+	</component>
+</component-specification>
+]]></programlisting>
+
+模板java文件
+<programlisting><![CDATA[
+public abstract class RGB extends BaseComponent {
+	public abstract int getRed();
+
+	public abstract void setRed(int red);
+
+	public abstract int getGreen();
+
+	public abstract void setGreen(int green);
+
+	public abstract int getBlue();
+
+	public abstract void setBlue(int blue);
+
+	@Parameter(required = true)
+	public abstract int getColor();
+
+	public abstract void setColor(int color);
+
+	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		if (!cycle.isRewinding()) {			//isRewinding，判断是否被重画
+			setRed(getColor() >> 16);
+			setGreen((getColor() >> 8) & 0xff);
+			setBlue(getColor() & 0xff);
+		}
+		super.renderComponent(writer, cycle);		//按照html绘制
+		if (cycle.isRewinding()) {
+			setColor((getRed() << 16) | (getGreen() << 8) | getBlue());
+		}
+	}
+
+	public String getBackgroundColorAssignment() {
+		return "background-color: rgb(" + getRed() + "," + getGreen() + ","
+				+ getBlue() + ")";
+	}
+}
+		]]></programlisting></para>
+	</sect1>
+	<sect1 id="ch4.6">
+		<title>	建立library</title>
+		<para>
+创建components.library
+<programlisting><![CDATA[
+<?xml version="1.0"?>
+<!DOCTYPE library-specification PUBLIC	"-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+<library-specification>
+<meta key="org.apache.tapestry.component-class-packages" 
+value="com.ttdev.components"/>
+</library-specification>
+]]></programlisting>
+XXX.application文件
+<programlisting><![CDATA[
+<library id="myLib" specification-path="/com/ttdev/components/Components.library"/>
+]]></programlisting>
+引用组建时
+<programlisting><![CDATA[
+<component id="copyright" type="myLib:Copyright">
+	<binding name="holder" value="literal:Bar Inc."/>
+</component>
+]]></programlisting></para>
+	</sect1>
+</chapter>
