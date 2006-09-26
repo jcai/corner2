@@ -15,7 +15,7 @@
     <property name="build.dir"             value="../../target/reference"/>
 
     <!-- Support files for build process. -->
-    <property name="support.dir"           value="${imported.basedir}/support"/>
+    <property name="support.dir"           value="${imported.basedir}/../support"/>
 
     <!-- Base name for documentation artifacts. -->
     <property name="docname"               value="corner-reference"/>
@@ -93,6 +93,10 @@
 
     <target name="lang.docpdf.customized" depends="lang.docpdf.prepare" if="custom.fop.userconfig.present">
 
+        <copy todir="${build.dir}/${lang}/pdf">
+            <fileset dir="${support.dir}/${lang}/fop">
+                <include name="*"/>
+            </fileset>
         <copy todir="${build.dir}/${lang}/pdf">
             <fileset dir="${basedir}/${lang}/fop">
                 <include name="*"/>
