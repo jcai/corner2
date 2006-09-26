@@ -13,24 +13,57 @@
 	</sect1>
 	<sect1 id="ch1.2">
 		<title>	页面跳转</title>
-		<para><programlisting><![CDATA[
-1)	cycle.activate("Result");
-//Result是一个页面
-2)	return "Result";
-//Result是一个页面，方法返回值需要改成String
-3)	Result resultPage = (Result) cycle.getPage("Result");
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>通过RequestCycle直接激活一个页面。
+			<programlisting><![CDATA[
+cycle.activate("Result");
+			]]></programlisting>
+					Result为待激活的页面。	
+					</para>
+				</listitem>
+				<listitem>
+					<para>直接把页面名称返回
+			<programlisting><![CDATA[
+return "Result";
+			]]></programlisting>
+					
+					</para>
+				</listitem>
+				<listitem>
+					<para>通过getPage来得到一个页面。
+			<programlisting><![CDATA[
+Result resultPage = (Result) cycle.getPage("Result");
 return resultPage;
-//需要import Result类
-4)	Result resultPage = getResultPage();
+			]]></programlisting>
+
+					</para>
+				</listitem>
+				<listitem>
+					<para>通过Inject来得到需要跳转的页面.
+			<programlisting><![CDATA[
+
+<inject property="resultPage" type="page" object="Result"/>			
+			
+Result resultPage = getResultPage();
 resultPage.setStockValue(stockValue);
 return cycle.getPage("Result");
-//在page文件中需要设置
-<inject property="resultPage" type="page" object="Result"/>
-5)	使用java5.0注释
-在class中导入import org.apache.tapestry.annotations.*;类
+			]]></programlisting>
+					
+					</para>
+				</listitem>
+				<listitem>
+					<para>通过JDK1.5中的注释(Annotation)来得到一个页面对象。
+			<programlisting><![CDATA[
 @InjectPage("Result")	//Result是要跳转的页面
 public abstract Result getResultPage();
-		]]></programlisting></para>
+			]]></programlisting>
+
+					</para>
+				</listitem>
+			</itemizedlist>
+			</para>
 	</sect1>
 	<sect1 id="ch1.3">
 		<title>	初始化</title>
@@ -92,12 +125,37 @@ abstract public String getStockId();
 		<title>	使用下拉列表框（combo box）</title>
 		<para>
 page设置方法
+<programlistingco>
+                 <areaspec>
+                     <area id="hm1" coords="2 55"/>
+                     <area id="hm2" coords="3 55"/>
+                     <area id="hm3" coords="4 55"/>
+                 </areaspec>
 <programlisting><![CDATA[
-<component id="stockId" type="PropertySelection">	//stockId是在html中jwcid引用的
-	<binding name="model" value="availStockIds"/>	//通过class中的getavailStockIds方法附值
-	<binding name="value" value="stockId"/>		//选中的值
+<component id="stockId" type="PropertySelection">
+	<binding name="model" value="availStockIds"/>
+	<binding name="value" value="stockId"/>
 </component>
 ]]></programlisting>
+	 <calloutlist>
+                     <callout arearefs="hm1">
+                         <para>
+                             <literal>stockId</literal>是在html中jwcid引用的.
+                         </para>
+                     </callout>
+                     <callout arearefs="hm2">
+                         <para>
+                            通过class中的getavailStockIds方法附值.
+                         </para>
+                     </callout>
+                     <callout arearefs="hm3">
+                         <para>
+                             选中的值.
+                         </para>
+                     </callout>
+                 </calloutlist>
+             </programlistingco>
+
 class中的定义
 <programlisting><![CDATA[
 public IPropertySelectionModel getAvailStockIds() {
