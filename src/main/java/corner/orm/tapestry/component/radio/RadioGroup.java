@@ -12,13 +12,10 @@
 
 package corner.orm.tapestry.component.radio;
 
-import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.form.Radio;
-import org.apache.tapestry.form.ValidatableFieldSupport;
-import org.apache.tapestry.valid.ValidatorException;
 
 /**
  * 扩展了Tapestry中的RadioGroup,实现了指定默认选中某个Radio的功能
