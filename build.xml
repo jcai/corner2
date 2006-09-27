@@ -37,6 +37,22 @@
 			<tarfileset dir=".">
 				<include name="src/**/*.*"/>
 				<include name="build.*"/>
+				<include name="*.xml"/>
+				<include name=".*"/>
+				<include name="support/**"/>
+			</tarfileset>
+		</tar>
+		<bzip2 src="${dist.dir}/corner-source-${project.version}.tar"
+			destfile="${dist.dir}/corner-source-${project.version}.tar.bz2"/>
+		<delete file="${dist.dir}/corner-source-${project.version}.tar"/>
+	</target>
+	<target name="source-with-doc">
+		<mkdir dir="${dist.dir}"/>
+		<tar destfile="${dist.dir}/corner-source-${project.version}.tar">
+			
+			<tarfileset dir=".">
+				<include name="src/**/*.*"/>
+				<include name="build.*"/>
 				<include name="doc/**"/>
 				<include name="*.xml"/>
 				<include name=".*"/>
