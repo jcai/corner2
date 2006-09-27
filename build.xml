@@ -30,4 +30,17 @@
 		</copy>
 		
 	</target>
+	<target name="source">
+		<mkdir dir="${dist.dir}"/>
+	 <zip destfile="${dist.dir}/corner-src.zip">
+
+    <fileset dir="." >
+		<include name="src/**/*.*"/>
+		<include name="build.*"/>
+		<include name="*.xml"/>
+		<include name=".*"/>
+		<include name="support/**"/>
+	</fileset>
+  </zip>
+</target>
 </project>
