@@ -27,7 +27,7 @@
   
   <parameter name="selected" required="yes"/>
   
-  <parameter name="defaultValue" />
+  <parameter name="defaultIndex" default-value="1"/>
   
   <parameter name="disabled"/>
   
