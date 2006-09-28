@@ -4,23 +4,23 @@
 
 */
 
-dojo.provide("corner.widget.CornerTextArea");
+dojo.provide("corner.widget.TextArea");
 dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.Select");
 dojo.require("dojo.widget.ComboBoxDataProvider");
-//定义一个CornerTextArea的widget.
-dojo.widget.defineWidget("corner.widget.CornerTextArea");
-dojo.widget.tags.addParseTreeHandler("dojo:CornerTextArea");
+//定义一个TextArea的widget.
+dojo.widget.defineWidget("corner.widget.TextArea");
+dojo.widget.tags.addParseTreeHandler("dojo:TextArea");
 
-//定义基本的CornerTextArea
-corner.widget.CornerTextArea = function(){
+//定义基本的TextArea
+corner.widget.TextArea = function(){
 	 dojo.widget.html.Select.call(this);
 }
 //继承
-dojo.inherits(corner.widget.CornerTextArea,  dojo.widget.html.Select);
-//对CornerTextArea进行扩展.
-dojo.lang.extend(corner.widget.CornerTextArea,{
-		widgetType: "CornerTextArea",
+dojo.inherits(corner.widget.TextArea,  dojo.widget.html.Select);
+//对TextArea进行扩展.
+dojo.lang.extend(corner.widget.TextArea,{
+		widgetType: "TextArea",
 		templatePath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.html"),
 		templateCssPath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.css"),
 		autoComplete: false,
