@@ -81,7 +81,7 @@ public class MulitRelativePersistentBasicTableModel extends
 							try {
 								int loopCount = OBJ_PERPAGE_INT - (i%OBJ_PERPAGE_INT);
 								for(int k=0;k<loopCount ;k++){
-									objList.add(obj.getClass().newInstance());
+									objList.add(EntityService.getEntityClass(obj).newInstance());
 								}
 							} catch (InstantiationException e) {
 								e.printStackTrace();
