@@ -15,6 +15,7 @@ package corner.demo.page.mulitable;
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 
 import corner.orm.tapestry.page.PoListPage;
+import corner.orm.tapestry.table.MulitPersistentBasicTableModel;
 
 /**
  * @author Ghost

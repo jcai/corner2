@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.demo.page.mulitable;
+package corner.orm.tapestry.table;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,17 +18,15 @@ import java.util.List;
 
 import org.apache.tapestry.contrib.table.model.ITableColumn;
 
-import corner.orm.tapestry.table.RelativePersistentBasicTableModel;
 import corner.service.EntityService;
 
 /**
- * 扩展了RelativePersistentBasicTableModel,使得返回的每行值是一个List,返回的行数等于纪录总数/每行List里的元素个数
+ * 扩展了BasicTableModel,实现每行显示指定数量的实体
  * @author Ghost
  * @version $Revision$
  * @since 2.2.1
  */
-public class MulitRelativePersistentBasicTableModel<T> extends
-		RelativePersistentBasicTableModel<T> {
+public class MulitPersistentBasicTableModel extends PersistentBasicTableModel {
 
 	/**
 	 * 每行显示的纪录数量
@@ -43,38 +41,36 @@ public class MulitRelativePersistentBasicTableModel<T> extends
 	/**
 	 * 是否为提交
 	 */
-	private boolean isRewinding=false;	
+	private boolean isRewinding=false;
 	
 	/**
-	 * 实现父类的构造方法
+	 * 构造方法
 	 * @param entityService
-	 * @param rootedObj
-	 * @param relativeProName
+	 * @param callback
+	 * @param isRewinding
 	 */
-	@SuppressWarnings("deprecation")
-	public MulitRelativePersistentBasicTableModel(EntityService entityService,
-			T rootedObj, String relativeProName, boolean isRewinding) {
-		super(entityService, rootedObj, relativeProName, isRewinding);
+	public MulitPersistentBasicTableModel(EntityService entityService,
+			IPersistentQueriable callback,boolean isRewinding) {
+		super(entityService, callback, isRewinding);
 		this.isRewinding = isRewinding;
 	}
 
 	/**
 	 * 取出本页显示的全部纪录进行封装，按照指定的每行显示的数量
-	 * @see corner.orm.tapestry.table.RelativePersistentBasicTableModel#getCurrentPageRows(int, int, org.apache.tapestry.contrib.table.model.ITableColumn, boolean)
+	 * @see corner.orm.tapestry.table.PersistentBasicTableModel#getCurrentPageRows(int, int, org.apache.tapestry.contrib.table.model.ITableColumn, boolean)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator getCurrentPageRows(int nFirst, int nPageSize, ITableColumn column, boolean sort) {
-		Iterator<T> rowIterator =  super.getCurrentPageRows(nFirst, nPageSize, column, sort);
+		Iterator rowIterator =  super.getCurrentPageRows(nFirst, nPageSize, column, sort);
 		if(rowIterator != null && rowIterator.hasNext()){
 			List<List> returnList = new ArrayList<List>();
-			List<T> objList = new ArrayList<T>();
+			List<Object> objList = new ArrayList<Object>();
 			int i=1;
 			while(rowIterator.hasNext()){
 				if(i>OBJ_PERPAGE_INT && i%OBJ_PERPAGE_INT==1){
-					objList = new ArrayList<T>();
+					objList = new ArrayList<Object>();
 				}
-				T obj = rowIterator.next();
+				Object obj = rowIterator.next();
 				objList.add(obj);
 				if(!rowIterator.hasNext() || i%OBJ_PERPAGE_INT==0){
 					if(!rowIterator.hasNext()){
@@ -104,7 +100,7 @@ public class MulitRelativePersistentBasicTableModel<T> extends
 
 	/**
 	 * 根据每行显示的数量计算出本页显示的行数
-	 * @see corner.orm.tapestry.table.RelativePersistentBasicTableModel#getRowCount()
+	 * @see corner.orm.tapestry.table.PersistentBasicTableModel#getRowCount()
 	 */
 	@Override
 	public int getRowCount() {
@@ -122,5 +118,5 @@ public class MulitRelativePersistentBasicTableModel<T> extends
 		}
 		return rowCount;
 	}
-	
+
 }
