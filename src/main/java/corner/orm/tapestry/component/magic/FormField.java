@@ -15,13 +15,8 @@ package corner.orm.tapestry.component.magic;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.apache.hivemind.ApplicationRuntimeException;
-import org.apache.hivemind.Location;
 import org.apache.tapestry.IBinding;
 import org.apache.tapestry.form.AbstractFormComponent;
-import org.apache.tapestry.form.IFormComponent;
-import org.apache.tapestry.spec.BindingSpecification;
-import org.apache.tapestry.spec.BindingType;
 import org.apache.tapestry.spec.ContainedComponent;
 import org.apache.tapestry.spec.IBindingSpecification;
 import org.apache.tapestry.spec.IContainedComponent;
