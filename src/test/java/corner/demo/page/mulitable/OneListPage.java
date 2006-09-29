@@ -29,7 +29,6 @@ public abstract class OneListPage extends PoListPage {
 	 */
 	@Override
 	public IBasicTableModel getSource() {
-		// TODO Auto-generated method stub
 		return new MulitPersistentBasicTableModel(this.getEntityService(),this,this.getRequestCycle().isRewinding());
 	}
 
