@@ -26,8 +26,8 @@ import corner.service.EntityService;
  * @version $Revision$
  * @since 2.2.1
  */
-public class MulitRelativePersistentBasicTableModel<T> extends
-		RelativePersistentBasicTableModel<T> {
+public class MulitRelativePersistentBasicTableModel extends
+		RelativePersistentBasicTableModel<Object> {
 
 	/**
 	 * 每行显示的纪录数量
@@ -52,7 +52,7 @@ public class MulitRelativePersistentBasicTableModel<T> extends
 	 */
 	@SuppressWarnings("deprecation")
 	public MulitRelativePersistentBasicTableModel(EntityService entityService,
-			T rootedObj, String relativeProName, boolean isRewinding) {
+			Object rootedObj, String relativeProName, boolean isRewinding) {
 		super(entityService, rootedObj, relativeProName, isRewinding);
 		this.isRewinding = isRewinding;
 	}
@@ -64,16 +64,16 @@ public class MulitRelativePersistentBasicTableModel<T> extends
 	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator getCurrentPageRows(int nFirst, int nPageSize, ITableColumn column, boolean sort) {
-		Iterator<T> rowIterator =  super.getCurrentPageRows(nFirst, nPageSize, column, sort);
+		Iterator<Object> rowIterator =  super.getCurrentPageRows(nFirst, nPageSize, column, sort);
 		if(rowIterator != null && rowIterator.hasNext()){
 			List<List> returnList = new ArrayList<List>();
-			List<T> objList = new ArrayList<T>();
+			List<Object> objList = new ArrayList<Object>();
 			int i=1;
 			while(rowIterator.hasNext()){
 				if(i>OBJ_PERPAGE_INT && i%OBJ_PERPAGE_INT==1){
-					objList = new ArrayList<T>();
+					objList = new ArrayList<Object>();
 				}
-				T obj = rowIterator.next();
+				Object obj = rowIterator.next();
 				objList.add(obj);
 				if(!rowIterator.hasNext() || i%OBJ_PERPAGE_INT==0){
 					if(!rowIterator.hasNext()){
