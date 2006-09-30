@@ -1,7 +1,5 @@
 package corner.demo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.testng.annotations.Test;
 
@@ -10,10 +8,6 @@ import corner.demo.model.one2one.B;
 import corner.test.AbstractTestCase;
 
 public class One2OneTest extends AbstractTestCase {
-	/**
-	 * Logger for this class
-	 */
-	private static final Log logger = LogFactory.getLog(One2OneTest.class);
 	@Test
 	public void testA() {
 		this.startTransaction();
