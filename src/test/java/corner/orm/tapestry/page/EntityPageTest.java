@@ -48,6 +48,7 @@ public class EntityPageTest extends BaseComponentTestCase {
 		
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGoEntityPage(){
 		A a=new A();
@@ -69,6 +70,7 @@ public class EntityPageTest extends BaseComponentTestCase {
 		assertEquals(a,entityPage.getEntity());
 		verify();
 	}
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetCurrentPagePath(){
 		AbstractEntityPage page=(AbstractEntityPage) newInstance(AbstractEntityPage.class,"pageName","test/test/AForm");

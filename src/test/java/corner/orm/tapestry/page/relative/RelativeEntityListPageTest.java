@@ -29,6 +29,7 @@ import corner.orm.tapestry.page.relative.support.RelativeObjectOperator;
  * @since 2.2.1
  */
 public class RelativeEntityListPageTest extends CornerPageTestCase {
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetSource(){
 		A a=new A();
@@ -48,6 +49,7 @@ public class RelativeEntityListPageTest extends CornerPageTestCase {
 		entityService.deleteEntities(a);
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetSourceWithoutRelativeNameExcpetion(){
 		
@@ -60,6 +62,7 @@ public class RelativeEntityListPageTest extends CornerPageTestCase {
 		}
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDoEditEntityAction(){
 		A a=new A();
@@ -86,6 +89,7 @@ public class RelativeEntityListPageTest extends CornerPageTestCase {
 		entityService.deleteEntities(a);
 		
 	}
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDoNewEntityAction(){
 		A a=new A();
