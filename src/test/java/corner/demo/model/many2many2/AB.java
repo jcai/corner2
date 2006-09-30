@@ -55,6 +55,7 @@ public class AB extends AbstractModel{
 	 */
 	private String message;
 	
+
 	/**
 	 * @return Returns the message.
 	 */
