@@ -12,6 +12,13 @@
 
 package corner.demo.model.many2many2;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import corner.demo.model.AbstractModel;
 
 /**
@@ -22,6 +29,8 @@ import corner.demo.model.AbstractModel;
  * @hibernate.cache usage="read-write"
  * @hibernate.mapping auto-import="false" 
  */
+@Entity(name="many2many2AB")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class AB extends AbstractModel{
 
 	/**
@@ -63,6 +72,8 @@ public class AB extends AbstractModel{
 	/**
 	 * @return Returns the a.
 	 */
+	@ManyToOne
+	@JoinColumn(name="AId")
 	public A getA() {
 		return a;
 	}
@@ -77,6 +88,8 @@ public class AB extends AbstractModel{
 	/**
 	 * @return Returns the b.
 	 */
+	@ManyToOne
+	@JoinColumn(name="BId")
 	public B getB() {
 		return b;
 	}
