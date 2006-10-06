@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.architecture">
+	<title>Corner针对List和Form处理的机制</title>
+	<abstract>
+		<para>
+			本章描述了corner对List和Form页面进行处理时候的机制.
+			<note>
+				<para>
+					Corner大部分的功能主要集中在ListPage和Form两种情况,而不论是单一表格还是关联表格处理的机制都是大同小异.
+				</para>
+			</note>
+		</para>
+	</abstract>
+	<sect1 id="corner.architecture.sect1">
+		<title>针对表单页面的处理.</title>
+		
+		<para>
+			Form页面通常是用来保存/更新实体的页面.而该页面所对应的实体则是由.page配置文件指定.
+			<programlisting><![CDATA[
+<property persist="entity" initial-value="new corner.demo.model.one.A()" name="entity"/>
+				]]></programlisting>
+		</para>
+		<para>
+			再点击保存之后响应的方法为:doSaveEntityAction,具体实现见corner.orm.tapestry.AbstractEntityForm#doSaveEntityAction.
+			<programlisting><![CDATA[
+	public IPage doSaveEntityAction() { // 保存操作。
+		saveOrUpdateEntity();
+		return getEntityListPage();
+	}
+			]]></programlisting>
+
+		</para>
+		<para>
+		 在Form页面提交表单之后,需要做两件事情.
+		 <itemizedlist>
+					<listitem>
+						<para>
+							保存或者更新页面操作的实体.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							跳转页面,保存完毕之后需要跳转的页面(默认为跳转到对应的List页面).
+						</para>
+					</listitem>
+		 </itemizedlist>
+		 
+		</para>
+		<para>
+		所以如果对表单提交需要个性化的实现,只需要关注这两个方法就可以了
+			<programlisting><![CDATA[
+		
+	protected void saveOrUpdateEntity() {
+		getEntityService().saveOrUpdateEntity(getEntity());
+
+	}
+
+	.....
+
+	protected IPage getEntityListPage(){
+		return this.getRequestCycle().getPage(
+				this.getPageName().substring(0,
+						this.getPageName().lastIndexOf("Form"))
+						+ "List");
+	}
+			]]></programlisting>
+	可以在自己需要重写的子类里面重载这两个方法.譬如,如果想在保存实体前进行特殊的操作.
+		<programlisting><![CDATA[
+public class XxxFormPage extends AbstractEntityForm<Xxx>{		
+	protected void saveOrUpdateEntity() {
+		getEntity().xxxx();
+		.....
+		.....
+		super.saveOrUpdateEntity();
+
+
+	}
+}
+			]]></programlisting>
+
+		</para>
+	</sect1>
+	<sect1 id="corner.architecture.sect2">
+		<title>针对列表页面的操作</title>
+		<para>
+			列表页面包含了查询,列表分页显示.corner里面处理查询的时候,根据页面传过来的QueryEntity进行查询.
+			譬如:
+			<programlisting><![CDATA[
+	<property persist="client" initial-value="new corner.demo.model.one.A()" name="queryEntity"/>
+
+
+			]]></programlisting>
+			那么在corner.orm.tapestry.AbstractEntityListPage类里面是这样操作的
+			<programlisting><![CDATA[
+	/**
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendCriteria(Criteria)
+	 */
+	public void appendCriteria(Criteria criteria) {
+		if (this.getQueryEntity() != null)
+			criteria.add(NewExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
+					.ignoreCase());
+	}
+
+	/**
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#createCriteria(Session)
+	 */
+	public Criteria createCriteria(Session session) {
+
+		return session.createCriteria(this.getEntity().getClass());
+	}
+			]]></programlisting>
+	利用了hibernate的Criteria查询方式进行对对象的查询.如果需要进行特别的查询操作,可以重载这两个方法.
+
+		</para>
+	</sect1>
+	
+</chapter>

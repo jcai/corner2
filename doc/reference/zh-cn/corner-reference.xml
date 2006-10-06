@@ -6,6 +6,7 @@
 <!ENTITY % vers   SYSTEM "modules/version.xml">
 %vers;
 <!ENTITY quickstar  SYSTEM "modules/quickstar.xml">
+<!ENTITY architecture  SYSTEM "modules/architecture.xml">
 ]>
 
 <book lang="zh_cn">
@@ -203,5 +204,5 @@
 	    </para>		     
 	</preface>
 	&quickstar;
-
+	&architecture;
 </book>
