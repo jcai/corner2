@@ -205,7 +205,7 @@
 		<echo
 			message="project ${ant.project.name} released with version ${project.version}"/>
 	</target>
-	<target name="install" depends="jar"
+	<target name="install" depends="clean,jar"
 		description="--> compile test and publish this project in the local ivy repository">
 		
 		<tstamp>
