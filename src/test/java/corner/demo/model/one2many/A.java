@@ -13,7 +13,6 @@ package corner.demo.model.one2many;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cache;
@@ -53,7 +52,6 @@ public class A extends AbstractModel{
 	 * @return Returns the bs.
 	 */
 	@OneToMany(mappedBy="a")
-	@JoinColumn(name="A")
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	public List<B> getBs() {
 		return bs;

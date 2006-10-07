@@ -1,7 +1,6 @@
 package corner.demo.model.one2many;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cache;
@@ -32,7 +31,6 @@ public class B extends AbstractModel{
 	 * @return Returns the a.
 	 */
 	@ManyToOne
-	@JoinColumn(name="A")
 	public A getA() {
 		return a;
 	}
