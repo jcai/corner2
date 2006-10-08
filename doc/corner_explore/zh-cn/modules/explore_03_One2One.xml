@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.template">
+	<title>One to One操作</title>
+	<sect1 id="ch3.1">
+		<title>所需文件</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>命名规则
+<programlisting><![CDATA[
+单个提交的页面都是用XXForm.html表示，操作使用的列表页面使用XXList.html表示
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+	<sect1 id="ch3.2">
+		<title>简单例子</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>AList.html文件
+<programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+	<center>
+		<a jwcid="@PageLink" page="xf/one/AForm"><span key="Add" /></a><br>
+	</center>
+	<center>
+		<form jwcid="AQueryForm">
+			name:<input jwcid="nameField"/>
+			<input type="submit"/>
+		</form>
+	</center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td>
+            <span key="color">color</span>
+          </td>
+          <td>
+            <span key="weight"></span>
+          </td>
+          <td>
+            <span key="link.edit">edit</span>
+          </td>
+          <td>
+            <span key="link.delete">delete</span>
+          </td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.color">color</span>
+          </td>
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.weight">weight</span>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
+
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>AList.page文件
+<programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.PoListPage">
+  <description>corner.demo.model.one.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <!-- entity模板，使用自动生成get/setEntity方法 -->
+  <property initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+  <!-- 查询时使用的queryEntity -->
+  <property persist="client" initial-value="new corner.demo.model.xf.one.apple()" name="queryEntity"/>
+  
+  <component type="Form" id="AQueryForm">
+    <binding value="listener:doQueryEntityAction" name="listener"/>
+    <binding value="ognl:beans.delegate" name="delegate"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:Color" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:queryEntity.color" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>			
+			<itemizedlist>
+				<listitem>
+					<para>AForm.html文件</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder" title="xfAForm">
+	<a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+	<form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="color">color</span>
+          </td>
+          <td>
+            <input jwcid="colorField" /><input jwcid="weightField"/>
+          </td>
+		</tr>
+		
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+</span>]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>AForm.page文件</para>
+如果有特殊操作可以继承AbstractEntityFormPage类，重写类中方法。
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.AbstractEntityFormPage">
+  <description>corner.demo.model.one.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <!-- 创建entity模型，以便在页面中传递类 -->
+  <property persist="entity" initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+  <component type="Form" id="AForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <!-- doSaveEntityAction是corner提供的保存方法 -->
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <!-- doCancelEntityAction是corner提供的取消方法 -->
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+  </component>
+  <component type="TextField" id="colorField">
+    <binding value="message:Color" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.color" name="value"/>
+    <binding name="validators" value="validators:required"/>    
+  </component>
+    <component type="TextField" id="weightField">
+    <binding value="message:Weight" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.weight" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>AbstractModel.java文件</para>
+包：corner.demo.model.xf.one；spring配置文件中将corner.demo.model包及其子包设置成为注释配置hibernate表结构的目标包
+<para><programlisting><![CDATA[
+@MappedSuperclass
+public class AbstractModel extends AbstractPersistDomain implements Serializable {
+
+	private static final long serialVersionUID = 772729287261953568L;
+	
+	/**
+	 * @hibernate.id generator-class="uuid"
+	 */
+	private String id;
+	
+	/**
+	 * @hibernate.property
+	 */
+	private String name;
+	
+	/**
+	 * @return 获得id
+	 */
+	@Id @GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(columnDefinition="char(32)")
+	public String getId() {
+		return id;
+	}
+	
+	/**
+	 * @param id 设置id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+]]></programlisting></para>
+继承AbstractPersistDomain抽象类，AbstractPersistDomain类是实例操作的基础类，实现了对单一记录操作的save、update、saveOrUpdate、delete方法，和从spring获得Entity的getEntityService方法
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>apple.java文件</para>
+继承AbstractModel类，@Entity(name = "apple")表示使用apple作为表名，继承的属性和方法不能重复
+<para><programlisting><![CDATA[
+@Entity(name = "apple")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class apple extends AbstractModel {
+
+	private static final long serialVersionUID = 8533936694005181003L;
+
+	private String color;
+
+	private double weight;
+
+	//geter和seter略
+}
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+
+	
+	<sect1 id="ch3.3">
+		<title>所需文件</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>命名规则</para>
+<para><programlisting><![CDATA[
+单个提交的页面都是用XXForm.html表示，操作使用的列表页面使用XXList.html表示
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+</chapter>

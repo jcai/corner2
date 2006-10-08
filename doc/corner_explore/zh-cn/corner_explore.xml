@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3CR3//EN"
+                      "../../support/docbook-dtd/docbookx.dtd"
+
+[
+<!ENTITY % vers   SYSTEM "modules/version.xml">
+%vers;
+	<!ENTITY explore_01  SYSTEM "modules/explore_01_SystemInitialize.xml">
+	<!ENTITY explore_02  SYSTEM "modules/explore_02_RunTime.xml">
+	<!ENTITY explore_03  SYSTEM "modules/explore_03_One2One.xml">
+]>
+<book lang="zh_cn">
+	
+	<bookinfo>
+	<title>Corner探索</title>
+
+	<releaseinfo>0.0.1</releaseinfo>
+	<copyright>
+			<year>2006</year>
+			<holder>北京美讯信息技术开发有限公司</holder>
+	</copyright>
+		
+	</bookinfo>
+
+ 	&explore_01;&explore_02;&explore_03;
+ 	
+ 	
+
+</book>

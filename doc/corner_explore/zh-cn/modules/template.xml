@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.template">
+	<title>系统初始化</title>
+	<sect1 id="ch1.1">
+		<title>Hibernate方面</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>包名
+<programlisting><![CDATA[
+corner.orm.hibernate.v3
+]]></programlisting>
+					Result为待激活的页面。	
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+	<sect1 id="ch1.2">
+		<title>Hibernate方面</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>包名
+<programlisting><![CDATA[
+corner.orm.hibernate.v3
+]]></programlisting>
+					Result为待激活的页面。	
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+
+	
+</chapter>
