@@ -21,6 +21,8 @@
   <parameter name="cnlabel" default-value="literal:chnName" />
   
   <parameter name="selectFilter" default-value="new corner.orm.tapestry.component.DefaultSelectFilter()" />
+  
+  <parameter name="selectModel" default-value="new corner.orm.tapestry.component.CornerSelectModel()" />
   	
   <parameter name="disabled"/>
   

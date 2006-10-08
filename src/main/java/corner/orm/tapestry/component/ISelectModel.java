@@ -30,4 +30,6 @@ public interface ISelectModel extends IAutocompleteModel {
 	 * @return
 	 */
 	String getCnLabelFor(Object value);
+	
+	public void setFilter(ISelectFilter filter);
 }
