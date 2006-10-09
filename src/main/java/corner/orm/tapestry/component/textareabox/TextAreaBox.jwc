@@ -17,15 +17,19 @@
   
   <parameter name="queryClass" required="yes"/>
   
-  <parameter name="label" required="yes" />
+  <parameter name="label" default-value="literal:chnName"/>
   
-  <parameter name="cnlabel" required="yes" />
+  <parameter name="cnlabel" default-value="literal:chnName" />
+  
+  <parameter name="selectFilter" default-value="new corner.orm.tapestry.component.DefaultSelectFilter()" />
+  
+  <parameter name="selectModel" default-value="new corner.orm.tapestry.component.CornerSelectModel()" />
   	
   <parameter name="disabled"/>
   
   <parameter name="filterOnChange" default-value="true" />
   
-  <parameter name="autocomplete" default-value="true" />
+  <parameter name="autocomplete" default-value="false" />
   
   <parameter name="searchDelay" default-value="100" />
   
