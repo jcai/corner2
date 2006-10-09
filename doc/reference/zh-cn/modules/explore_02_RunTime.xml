@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.template">
+	<title>系统运行</title>
+	<sect1 id="ch2.1">
+		<title>制作OID</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>包名
+<programlisting><![CDATA[
+corner.orm.hibernate.v3
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>AbstractDateTimeIDGenerator抽象类
+<programlisting><![CDATA[
+创建AbstractDateTimeIDGenerator抽象类，访问本类需要线程同步，也就是说方法返回的ID要求唯一，方法如果方法同时被访问，
+线程休眠千分之1秒。线程醒来后再在重新获得ID。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>DateTimeIDGenerator类
+<programlisting><![CDATA[
+创建DateTimeIDGenerator类，继承AbstractDateTimeIDGenerator抽象类，实现IdentifierGenerator、Configurable接口，
+IdentifierGenerator中的generate方法是生成ID的样式。因为需要在配置文件中加载一些用户定义的参数所以需要实现，
+Configurable接口的configure方法。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>可以参考Hibernate扩展_自定义OID生成器
+<programlisting><![CDATA[
+http://gocom.primeton.com/blog_37.htm
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+</chapter>

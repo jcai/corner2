@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.template">
+	<title>系统初始化</title>
+	<sect1 id="ch1.1">
+		<title>Hibernate方面</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>包名
+<programlisting><![CDATA[
+corner.orm.hibernate.v3
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>ObjectRelativeUtils接口
+<programlisting><![CDATA[
+创建ObjectRelativeUtils接口，接口定义了find/load/get/count等方法
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>HibernateObjectRelativeUtils抽象类
+<programlisting><![CDATA[
+创建HibernateObjectRelativeUtils抽象类，继承HibernateDaoSupport类，实现ObjectRelativeUtils接口，
+目前理解：HibernateObjectRelativeUtils类是为了可以在以后的程序中调用ObjectRelativeUtils接口进行操作才重写的。
+重写？没有和hibernate的源码对照，无法确认。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>HibernateDaoSupport
+<programlisting><![CDATA[
+HibernateDaoSupport是spring提供的类，设置SessionFactory类，可以实现HibernateTemplate功能除了translator/flush 功能
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	<sect1 id="ch1.2">
+		<title>Tapestry方面</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>包名
+<programlisting><![CDATA[
+corner.orm.tapestry.data
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>DataSqueezerFilter接口
+<programlisting><![CDATA[
+创建DataSqueezerFilter接口，中定义String squeeze、String[] squeeze、Object unsqueeze、Object[] unsqueeze方法
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>AbstractDataSqueezerFilter抽象类
+<programlisting><![CDATA[
+创建AbstractDataSqueezerFilter抽象类，实现DataSqueezerFilter接口，加入String[] squeeze、Object[] unsqueeze功能，
+功能中调用String squeeze、Object unsqueeze方法。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>HibernateSqueezerFilter类</para>
+使用HB: + 类名 + :: ＋ DataSqueezer.squeeze序列化方法再次序列化从hibernate.session.Identifier方法得到的序列化字符串。
+来确保显示的序列化编码唯一。
+<para><programlisting><![CDATA[
+创建HibernateSqueezerFilter类，继承AbstractDataSqueezerFilter类，加入String squeeze、Object unsqueeze方法，
+调用EntityService类的获得类名，通过DataSqueezer类中的squeeze方法加上EntityService类中Identifier方法获得类到
+String的转换。unsqueeze为解码。通过setEntityService获得EntityService。
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			</para>
+	</sect1>
+	<sect1 id="ch1.3">
+		<title>Spring方面</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>Xml文件</para>
+配置使用HibernateObjectRelativeUtils类作为sessionFactory，配置使用entityService时使用HibernateObjectRelativeUtils类。application-base-service.xml
+<para><programlisting><![CDATA[
+<beans>
+	<!-- transaction interceptor -->
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+    	<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="transactionAttributes">
+			<props> 
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="index*">PROPAGATION_REQUIRED</prop>
+				<!--<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>-->
+			</props>
+		</property>
+	</bean>
+	<!-- base service object -->
+	<bean id="baseServiceObject" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+      <property name="interceptorNames">
+         <list>
+            <!--<idref local="securityInterceptor"/> -->
+            <idref bean="transactionInterceptor"/>
+         </list>
+      </property>
+   </bean>
+
+	<!--
+	  - corner's central data access object: Hibernate implementation.
+    -->
+	<bean id="objectRelativeUtils" 
+		class="corner.orm.hibernate.v3.HibernateObjectRelativeUtils">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- entity service -->
+	<bean id="entityService" parent="baseServiceObject">
+		<property name="target">
+			<bean class="corner.service.EntityService">
+				<property name="objectRelativeUtils">
+					<ref bean="objectRelativeUtils"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<itemizedlist>
+				<listitem>
+					<para>SpringContainer类
+<programlisting><![CDATA[
+创建SpringContainer类，初始化类。因为类中设置静态初始化方法，所以在框架运行时就加载各种配置文件。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	<sect1 id="ch1.4">
+		<title>辅助类</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>EntityService
+<programlisting><![CDATA[
+EntityService，所以功能的操作类，关系通过ObjectRelativeUtils接口调用操作。
+]]></programlisting>
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+	<sect1 id="ch1.5">
+		<title>hivemodule过滤</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>hivemodule.xml的子文件corner.squeezer.xml</para>
+<para><programlisting><![CDATA[
+<module id="corner.squeezer" version="1.0.0" package="corner.orm.tapestry.data">
+	
+	<!-- 过滤器调用完后执行Terminator使用DataSqueezer接口解释 -->
+	<service-point id="DataSqueezerTerminator" visibility="private"
+		interface="org.apache.tapestry.services.DataSqueezer">
+		<invoke-factory>
+			<!-- DataSqueezerImpl类实现将类转换为字符串格式或将字符串转换成类 -->
+			<construct class="org.apache.tapestry.util.io.DataSqueezerImpl">
+				<set-configuration property="squeezeAdaptors"
+					configuration-id="tapestry.data.SqueezeAdaptors"/>
+					<!-- squeezeAdaptors属性表示使用DataSqueezerImpl类的setSqueezeAdaptors方法,
+						SqueezeAdaptors接口支持将类转换为字符串格式或将字符串转换成类 -->
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<!-- 程序调用的服务 -->
+	<implementation service-id="tapestry.data.DataSqueezer">
+		<!-- 使用hivemind.lib.PipelineFactory -->
+		<invoke-factory service-id="hivemind.lib.PipelineFactory">
+			<create-pipeline filter-interface="DataSqueezerFilter"
+				configuration-id="DataSqueezerFilters"
+				terminator="service:DataSqueezerTerminator"/>
+				<!-- DataSqueezerFilter过滤接口，DataSqueezerFilters过滤调用的类，DataSqueezerTerminator终结者 -->
+		</invoke-factory>
+	</implementation>
+	
+	<!-- 定义DataSqueezerFilters使用Pipeline -->
+	<configuration-point id="DataSqueezerFilters"
+		schema-id="hivemind.lib.Pipeline"> Allows you to plug in your own custom data
+		squeezers in front of the default Tapestry data squeezer. </configuration-point>
+	
+	<!-- 定义HibernateSqueezerFilter作为过滤器 -->
+	<contribution configuration-id="DataSqueezerFilters">
+		<filter name="HibernateSqueezerFilter"
+			object="service:HibernateSqueezerFilter"/>
+	</contribution>
+	
+	<!-- 定义HibernateSqueezerFilter为一个服务调用DataSqueezerFilter接口 -->
+	<service-point id="HibernateSqueezerFilter" interface="DataSqueezerFilter">
+		<invoke-factory>
+			<construct class="HibernateSqueezerFilter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+</module>
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>
