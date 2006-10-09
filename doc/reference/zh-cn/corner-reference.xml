@@ -5,8 +5,11 @@
 [
 <!ENTITY % vers   SYSTEM "modules/version.xml">
 %vers;
-<!ENTITY quickstar  SYSTEM "modules/quickstar.xml">
-<!ENTITY architecture  SYSTEM "modules/architecture.xml">
+	<!ENTITY quickstar  SYSTEM "modules/quickstar.xml">
+	<!ENTITY architecture  SYSTEM "modules/architecture.xml">
+	<!ENTITY explore_01  SYSTEM "modules/explore_01_SystemInitialize.xml">
+	<!ENTITY explore_02  SYSTEM "modules/explore_02_RunTime.xml">
+	<!ENTITY explore_03  SYSTEM "modules/explore_03_One2One.xml">
 ]>
 
 <book lang="zh_cn">
@@ -203,6 +206,11 @@
         </table>
 	    </para>		     
 	</preface>
+
 	&quickstar;
 	&architecture;
+	&explore_01;
+	&explore_02;
+
+	&explore_03;
 </book>
