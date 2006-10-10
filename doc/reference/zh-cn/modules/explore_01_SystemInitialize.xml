@@ -26,9 +26,7 @@ corner.orm.hibernate.v3
 				<listitem>
 					<para>HibernateObjectRelativeUtils抽象类
 <programlisting><![CDATA[
-创建HibernateObjectRelativeUtils抽象类，继承HibernateDaoSupport类，实现ObjectRelativeUtils接口，
-目前理解：HibernateObjectRelativeUtils类是为了可以在以后的程序中调用ObjectRelativeUtils接口进行操作才重写的。
-重写？没有和hibernate的源码对照，无法确认。
+创建HibernateObjectRelativeUtils抽象类，继承HibernateDaoSupport类，实现ObjectRelativeUtils接口。
 ]]></programlisting>
 					</para>
 				</listitem>

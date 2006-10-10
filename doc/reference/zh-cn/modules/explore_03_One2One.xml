@@ -242,11 +242,10 @@ public class apple extends AbstractModel {
 	
 	<sect1 id="ch3.3">
 		<title>背后隐藏的操作</title>
-		<para>
-			<itemizedlist>
-				<listitem>
-					<para>抽象Model文件 － AbstractPersistDomain.java</para>
-在这里将调用前面spring初始化中设置的entityService,corner.squeezer.xml中hivemind配置将过滤entityService
+		<sect2 id="ch3.3.1">
+			<title>抽象Model文件 － AbstractPersistDomain.java</title>
+			<para>
+			在这里将调用前面spring初始化中设置的entityService,corner.squeezer.xml中hivemind配置将过滤entityService
 <para><programlisting><![CDATA[
 public abstract class AbstractPersistDomain {
 	/**
@@ -273,36 +272,444 @@ public abstract class AbstractPersistDomain {
 	}
 }
 ]]></programlisting></para>
-				</listitem>
-			</itemizedlist>
-			
-			<itemizedlist>
-				<listitem>
-					<para>page文件 － AbstractEntityPage.java和AbstractEntityFormPage.java</para>
+			</para>
+		</sect2>
+		
+		<sect2 id="ch3.3.2">
+			<title>page文件 － AbstractEntityPage.java和AbstractEntityFormPage.java</title>
 <para>AbstractEntityPage是AbstractEntityFormPage父类继承了org.apache.tapestry.html.BasePage实现EntityPage接口IBlobPage接口</para>
-<para>AbstractEntityPage通过getDataSqueezer方法获得过滤的entity调用saveOrUpdateEntity方法更新数据</para>
 <para><programlisting><![CDATA[
-
+corner.orm.tapestry.page.AbstractEntityPage
+corner.orm.tapestry.page.AbstractEntityFormPage <T> extends AbstractEntityPage<T>
 ]]></programlisting></para>
-				</listitem>
-			</itemizedlist>
+
+<para>AbstractEntityFormPage继承AbstractEntityPage，提供从Form页提交来的用户操作，如果需要实现特殊的对Form页的支持可以继承AbstractEntityFormPage后重写或增加功能</para>
+<para><programlisting><![CDATA[
+corner.orm.tapestry.page.AbstractEntityFormPage
+]]></programlisting></para>
+			<sect3 id="ch3.3.2.1">
+				<title>Entity增改功能</title>
+<para>AbstractEntityPage通过getEntityService方法获得过滤的entity，用getEntity方法获得当前实体后用EntityService中的方法对数据进行增删改，而EntityService中调用的方法实际上就是model中所实现的功能。</para>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>接口 - EntityPage</para>
+							<para>读取在corner.squeezer.xml中配置的spring:entityService，此处已经经过了反过滤</para>
+<para><programlisting><![CDATA[
+/**
+ * 得到EntityService.
+ * 提供基本的操作.
+ * @return entityService 实体服务类
+ */
+@InjectObject("spring:entityService")
+public abstract EntityService getEntityService();
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>Page - AbstractEntityPage</para>
+							<para>使用getEntity()获得实体调用saveOrUpdateEntity更新</para>
+<para><programlisting><![CDATA[
+protected void saveOrUpdateEntity() {
+	getEntityService().saveOrUpdateEntity(getEntity());
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>继承了AbstractPersistDomain的AbstractModel类</para>
+							<para>前面已经提到过此类，这个类用来配置Hibernate的ID生成器，使用EJB3.0注释或xdoclet都可以</para>
+<para><programlisting><![CDATA[
+@MappedSuperclass
+public class AbstractModel extends AbstractPersistDomain implements Serializable {
+
+	private static final long serialVersionUID = 772729287261953568L;
+	
+	/**
+	 * @hibernate.id generator-class="uuid"
+	 */
+	private String id;
+	
+	@Id @GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Column(columnDefinition="char(32)")
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>继承了AbstractModel的apple</para>
+							<para>用Entity标签设置一下存储的表名</para>
+<para><programlisting><![CDATA[
+@Entity(name = "apple")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class apple extends AbstractModel {
+
+	private static final long serialVersionUID = 8533936694005181003L;
+
+	private String color;
+
+	private double weight;
+	
+	//geter和seter
+
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>Model - AbstractPersistDomain</para>
+							<para>corner.model.AbstractPersistDomain</para>
+<para>真正的工作在这里呢，前面的配置、调用都是为了对数据库操作。别急接着往下看！</para>
+<para>还记得前面提点的在spring的xml中的配置吗？对就是config.spring.application-base-service.xml文件，我们已经重新配置了
+sessionFactory要他使用时调用corner.orm.hibernate.v3.HibernateObjectRelativeUtils，而HibernateObjectRelativeUtils继承了
+实现了HibernateDaoSupport类ObjectRelativeUtils接口，EntityService对数据操作时也洽洽是调用了ObjectRelativeUtils接口的方法。
+java基础好的朋友大概已经兴奋起来了，我们不就是等于在调用spring提供给我们的HibernateTemplate吗！
+</para>
+<para><programlisting><![CDATA[
+/**
+ * 得到entity service
+ * @return entity service
+ */
+protected EntityService getEntityService(){
+	return (EntityService) SpringContainer.getInstance().getApplicationContext().getBean("entityService");
+}
+/**
+ * 保存或者更新
+ */
+public void saveOrUpdate(){
+	this.getEntityService().saveOrUpdateEntity(this); //this只的是任何继承了AbstractPersistDomain的类
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+				<para></para>
+			</sect3>
 			
-		</para>
+			<sect3 id="ch3.3.2.2">
+				<title>页面跳转</title>
+<para>在前面提到的增加和修改功能中的返回值是IPage接口，所以只有我没返回一个IPage就可以实现跳转功能</para>
+<para><programlisting><![CDATA[
+protected IPage getEntityListPage(){
+	return this.getRequestCycle().getPage(
+			this.getPageName().substring(0,this.getPageName().lastIndexOf("Form")) + "List");
+			//调用自己的getPageName()方法得到页面名称然后将Form改成List，然后在跳转，就可以回到XXList页面了
+}
+]]></programlisting></para>
+
+<para>使用goEntityPage方法</para>
+<para><programlisting><![CDATA[
+/**
+ * 提供entity页面的跳转
+ */
+@SuppressWarnings("unchecked")
+public <E> EntityPage<E> goEntityPage(E e,String pageName){
+	EntityPage<E> page=(EntityPage<E>) this.getRequestCycle().getPage(pageName);
+	return this.goEntityPageByPage(e, page);
+}
+/**
+ * 提供entity页面的跳转
+ */
+public <E> EntityPage<E> goEntityPageByPage(E e, EntityPage<E> page) {
+	if(page==null){
+		throw new IllegalArgumentException("待跳转的页面为空!");
+	}
+	page.setEntity(e);
+	return page;
+}
+]]></programlisting></para>
+			</sect3>
+		</sect2>
+	
 	</sect1>
 	
-
+	
 	
 	<sect1 id="ch3.4">
-		<title>所需文件</title>
+		<title>List页面</title>
+		<sect2 id="ch3.4.1">
+			<title>数据是怎样显示的？</title>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>xxList.html</para>
+<para>一句source="ognl:source"就可以获得记录集</para>
+<para><programlisting><![CDATA[
+<!-- corner.orm.tapestry.page.AbstractEntityListPage实现getSource方法 -->
+<div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+  <table>
+    <tr>
+      <td><span key="color">color</span></td>
+      <td><span key="weight">weight</span></td>
+    </tr>
+    <!-- 使用page文件中定义的entity -->
+    <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+    	<!-- entity的属性 -->
+      <td><span jwcid="@Insert" value="ognl:entity.color">color</span></td>
+      <td><span jwcid="@Insert" value="ognl:entity.weight">weight</span></td>
+    </tr>
+  </table>
+  <div jwcid="@contrib:TablePages" element="div"/>
+</div>
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>xxList.page</para>
+							<para></para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.AbstractEntityListPage">
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <!-- 使用的实例 -->
+  <property initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+</page-specification>
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractEntityListPage</para>
+<para>AbstractEntityListPage继承了AbstractEntityPage类实现了IListablePage、IPersistentQueriable、
+IRelativeObjectOperatorSupport接口</para>
+<para><programlisting><![CDATA[
+/**
+ * 得到列表的source
+ * @return table model
+ */
+public  IBasicTableModel getSource(){
+	//getEntityService为在page中定义的Entity
+	return new PersistentBasicTableModel(this.getEntityService(),this,this.getRequestCycle().isRewinding());
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>PersistentBasicTableModel类</para>
+<para>PersistentBasicTableModel类实现了IBasicTableModel接口，重写了getRowCount()和getCurrentPageRows()方法。在tapestry调用中自动显示记录。</para>
+<para><programlisting><![CDATA[
+public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
+		final ITableColumn column, final boolean sort) {
+	if(isRewinding){
+		if (logger.isDebugEnabled()) {
+			logger
+					.debug("is rewinding ,return false;");
+		}
+
+		return null;
+	}
+		return((Iterator) ((HibernateObjectRelativeUtils) this.entityService
+			.getObjectRelativeUtils()).getHibernateTemplate()
+			.execute(new HibernateCallback(){	//定义HibernateCallback接口中doInHibernate方法
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					Criteria criteria=callback.createCriteria(session);
+					callback.appendCriteria(criteria);
+
+					if (column != null) {
+
+						criteria.addOrder(sort ? Order.asc(column.getColumnName()) : Order
+								.desc(column.getColumnName()));
+					}
+
+					criteria.setFirstResult(nFirst);
+					criteria.setMaxResults(nPageSize);
+
+					return criteria.list().iterator();
+				}}));
+
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+		</sect2>
+		
+		<sect2 id="ch3.4.2">
+			<title>编辑记录及删除</title>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>xxList.html</para>
+<para><programlisting><![CDATA[
+<div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+  <table>
+    <tr>
+      <td><span key="color">color</span></td>
+      <td><span key="weight">weight</span></td>
+      <td><span key="link.edit">edit</span></td>
+      <td><span key="link.delete">delete</span></td>
+    </tr>
+    <!-- 使用page文件中定义的entity -->
+    <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+    	<!-- entity的属性 -->
+      <td><span jwcid="@Insert" value="ognl:entity.color">color</span></td>
+      <td><span jwcid="@Insert" value="ognl:entity.weight">weight</span></td>
+      <td>
+      <!-- 直接传入entity，doEditEntityAction是corner中提供的编辑方法 -->
+        <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="#" id="editAction">
+          <span key="link.edit">Edit</span>
+        </a>
+      </td>
+      <td>
+      <!-- 直接传入entity，doDeleteEntityAction是corner中提供的删除方法 -->
+        <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+          <span key="link.delete">Delete</span>
+        </a>
+      </td>
+    </tr>
+  </table>
+  <div jwcid="@contrib:TablePages" element="div"/>
+</div>
+
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractEntityListPage － 编辑</para>
+<para><programlisting><![CDATA[
+/**
+ * 编辑实体的连接
+ */
+@Component(type="DirectLink",bindings={"listener=listener:doEditEntityAction","parameters=entity"})
+public abstract IComponent getEditEntityLink();
+
+/**
+ * 得到实体表单页面的名称.
+ * @return 实体表单页面的名称。
+ */
+protected String getEntityFormPageStr(){
+	//设置返回页面
+	return 	this.getPageName().substring(0,this.getPageName().lastIndexOf("List")) + "Form";
+}
+
+@SuppressWarnings("unchecked")
+public EntityPage<T> getEntityFormPage() {
+	//将得到的页面page转换成EntityPage，EntityPage实现了IPage接口
+	return (EntityPage<T>) this.getRequestCycle().getPage(getEntityFormPageStr());
+}
+
+/**
+ * 编辑实体操作.
+ *
+ * @param entity
+ *            实体.
+ * @return 返回编辑页面.
+ * @since 2.0
+ */
+public IPage doEditEntityAction(T entity) { // entity就是从html页传过来的entity，不过已经进行了过滤处理
+	EntityPage<T> page = this.getEntityFormPage();
+	page.setEntity(entity);
+	return page;	//跳转到Form进行处理
+}
+
+
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractEntityListPage － 删除</para>
+<para><programlisting><![CDATA[
+/**
+ * 删除实体的连接
+ */
+@Component(type="DirectLink",bindings={"listener=listener:doDeleteEntityAction","parameters=entity"})
+public abstract IComponent getDeleteEntityLink();
+
+@SuppressWarnings("unchecked")
+public IPage doDeleteEntityAction(T entity) { // 删除操作
+	this.getEntityService().deleteEntities(entity);
+	return this;
+}
+
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+		</sect2>
+	</sect1>
+	
+	<sect1 id="ch3.5">
+		<title>记录查询功能</title>
 		<para>
 			<itemizedlist>
 				<listitem>
-					<para>命名规则</para>
+					<para>xxList.html</para>
 <para><programlisting><![CDATA[
-单个提交的页面都是用XXForm.html表示，操作使用的列表页面使用XXList.html表示
+<form jwcid="AQueryForm">
+	name:<input jwcid="nameField"/>
+	<input type="submit"/>
+</form>
 ]]></programlisting></para>
 				</listitem>
 			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>xxList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.AbstractEntityListPage">
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="client" initial-value="new corner.demo.model.xf.one.apple()" name="queryEntity"/>
+  
+  <component type="Form" id="AQueryForm">
+  	<!-- 监听doQueryEntityAction -->
+    <binding value="listener:doQueryEntityAction" name="listener"/>
+    <binding value="ognl:beans.delegate" name="delegate"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:Color" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <!-- 传入color -->
+    <binding value="ognl:queryEntity.color" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>抽象类AbstractEntityListPage － 查询</para>
+<para><programlisting><![CDATA[
+/**
+ * 响应查询的操作.
+ * @return 当前页
+ * @since 2.0
+ */
+public IPage doQueryEntityAction(){
+	this.setQueryEntity(this.getQueryEntity()); 
+	return this;
+}
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
 		</para>
 	</sect1>
 	
