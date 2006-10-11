@@ -126,4 +126,75 @@ EntityService，所以功能的操作类，关系通过ObjectRelativeUtils接口
 			</itemizedlist>
 		</para>
 	</sect1>
+	
+	<sect1 id="ch1.5">
+		<title>hivemodule过滤</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>hivemodule.xml的子文件corner.squeezer.xml</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>hivemodule.xml文件</para>
+<para><programlisting><![CDATA[
+<module id="corner.squeezer" version="1.0.0" package="corner.orm.tapestry.data">
+	
+	<!-- 过滤器调用完后执行Terminator使用DataSqueezer接口解释 -->
+	<service-point id="DataSqueezerTerminator" visibility="private"
+		interface="org.apache.tapestry.services.DataSqueezer">
+		<invoke-factory>
+			<!-- DataSqueezerImpl类实现将类转换为字符串格式或将字符串转换成类 -->
+			<construct class="org.apache.tapestry.util.io.DataSqueezerImpl">
+				<set-configuration property="squeezeAdaptors"
+					configuration-id="tapestry.data.SqueezeAdaptors"/>
+					<!-- squeezeAdaptors属性表示使用DataSqueezerImpl类的setSqueezeAdaptors方法,
+						SqueezeAdaptors接口支持将类转换为字符串格式或将字符串转换成类 -->
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<!-- 程序调用的服务 -->
+	<implementation service-id="tapestry.data.DataSqueezer">
+		<!-- 使用hivemind.lib.PipelineFactory -->
+		<invoke-factory service-id="hivemind.lib.PipelineFactory">
+			<create-pipeline filter-interface="DataSqueezerFilter"
+				configuration-id="DataSqueezerFilters"
+				terminator="service:DataSqueezerTerminator"/>
+				<!-- DataSqueezerFilter过滤接口，DataSqueezerFilters过滤调用的类，DataSqueezerTerminator终结者 -->
+		</invoke-factory>
+	</implementation>
+	
+	<!-- 定义DataSqueezerFilters使用Pipeline -->
+	<configuration-point id="DataSqueezerFilters"
+		schema-id="hivemind.lib.Pipeline"> Allows you to plug in your own custom data
+		squeezers in front of the default Tapestry data squeezer. </configuration-point>
+	
+	<!-- 定义HibernateSqueezerFilter作为过滤器 -->
+	<contribution configuration-id="DataSqueezerFilters">
+		<filter name="HibernateSqueezerFilter"
+			object="service:HibernateSqueezerFilter"/>
+	</contribution>
+	
+	<!-- 定义HibernateSqueezerFilter为一个服务调用DataSqueezerFilter接口 -->
+	<service-point id="HibernateSqueezerFilter" interface="DataSqueezerFilter">
+		<invoke-factory>
+			<construct class="HibernateSqueezerFilter">
+				<set-object property="entityService"
+					value="spring:entityService"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+</module>
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
 </chapter>
