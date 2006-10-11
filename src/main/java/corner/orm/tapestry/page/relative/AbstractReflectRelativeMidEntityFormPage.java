@@ -92,4 +92,10 @@ public abstract class AbstractReflectRelativeMidEntityFormPage<T,E,F> extends Ab
 		super.saveOrUpdateEntity();
 		this.flushHibernate();
 	}
+	/**
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendOrder(org.hibernate.Criteria)
+	 */
+	public void appendOrder(Criteria criteria) {
+		//do nothing just must implements
+	}
 }
