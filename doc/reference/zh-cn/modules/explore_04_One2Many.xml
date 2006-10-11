@@ -1,20 +1,728 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter id="explore.template">
+<chapter id="explore.One2Many">
 	<title>One to Many操作</title>
 	<sect1 id="ch4.1">
-		<title>第二段标题</title>
-		<para>
-			<itemizedlist>
-				<listitem>
-					<para>着重号标题</para>
+		<title>基础代码</title>
+		<sect2 id="ch4.1.1">
+			<title>建立Model</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>One.java</para>
+						<para>One继承AbstractModel类，AbstractModel在上一章中已经详细描述过</para>
 <para><programlisting><![CDATA[
-代码或内容
+@Entity(name="oneTomany_one")	//使用ejb3.0定义表名oneTomany_one
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class One extends AbstractModel{
+
+	private static final long serialVersionUID = 6695491838389725803L;
+	
+	/**
+	 * @hibernate.set cascade="none"  lazy="true"
+	 * @hibernate.key column="oneTomany_one"
+	 * @hibernate.one-to-many class="corner.demo.model.one2many.B"
+	 */
+	private List<Many> bs;
+
+	public void setBs(List<Many> bs) {	//存储One和Many的关系
+		this.bs = bs;
+	}
+	
+	@OneToMany(mappedBy="one")	//与Many中的one属性对应建立关系
+	@JoinColumn(name="oneTomany_one")	//使用oneTomany_one外键与Many相连，此时为双向1：n，可以删除变成单项1：n
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	public List<Many> getBs() {
+		return bs;
+	}
+	
+}
 ]]></programlisting></para>
-描述
-				</listitem>
-			</itemizedlist>
-		</para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>Many.java</para>
+<para><programlisting><![CDATA[
+@Entity(name="oneTomany_Many")	//定义表名，可以不定义
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class Many extends AbstractModel {
+
+	private static final long serialVersionUID = -1476529924068741195L;
+	
+	private One one;	//与One类中定义的OneToMany(mappedBy="one")对应的属性
+
+	@ManyToOne
+	@JoinColumn(name="oneTomany_one")	//定义外键
+	public One getOne() {
+		return one;
+	}
+
+	public void setOne(One one) {
+		this.one = one;
+	}
+
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		<sect2 id="ch4.1.2">
+			<title>One端操作需要的文件</title>
+			<para>				
+				<itemizedlist>
+					<listitem>
+						<para>oneList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <center>
+      <a listener="listener:doNewEntityAction" jwcid="@DirectLink" href="oneForm.html">
+        <span key="link.add">add</span>
+      </a>
+    </center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><span key="link.edit">edit</span></td>
+          <td><span key="link.delete">delete</span></td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.PoListPage">
+  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.xf.one2many.One()" name="queryEntity"/>
+  <component type="Form" id="AQueryForm">
+    <binding value="listener:doQueryEntityAction" name="listener"/>
+    <binding value="ognl:beans.delegate" name="delegate"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:queryEntity.name" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneForm.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+	<center>
+      <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="oneList.html">Return One List</a>
+    </center>
+    <form jwcid="oneForm" action="oneList.html">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><input jwcid="nameField" id="name" name="name"/></td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" 
+      onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+    
+    <div jwcid="@contrib:TableView" element="span" columns="name,!EditRelative,!DeleteRelative"
+     source="ognl:getSource('bs')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>
+	   A-B one-to-many,A关联的B列表 
+	   <a parameters="ognl:{entity,'xf/one2many/manyForm'}" listener="listener:doNewRelativeAction" 
+	   jwcid="@DirectLink" href="manyForm.html">Add One to Many</a>
+	   &nbsp;&nbsp;<a href="" jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
+	   parameters="ognl:{entity,'xf/one2many/manyList'}">View Many list</a>
+   </legend> 
+   
+	<table width="100%" align="center" border="1">
+		<tr><span jwcid="@contrib:TableColumns" element="th"/></tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td>
+				<a href="#" jwcid="@DirectLink" 
+				parameters="ognl:{entity,relativeObject,'xf/one2many/manyForm'}" 
+				listener="listener:doEditRelativeEntityAction">
+				<span key="doEditRelativeAction" /></a></td>
+			<td>
+				<a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" 
+				listener="listener:doDeleteRelativeEntityAction">
+				<span key="doDeleteRelativeAction" /></a></td>
+		</tr>
+	</table>
+    </fieldset>
+</div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneForm.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
+  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
+  <component type="Form" id="oneForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		<sect2 id="ch4.1.3">
+			<title>Many端操作需要的文件</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>manyList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <center>
+      <a listener="listener:doNewEntityAction" jwcid="@DirectLink" href="oneForm.html">
+        <span key="link.add">add</span>
+      </a>
+      <a listener="listener:doReturnRootedFormAction" jwcid="@DirectLink" href="oneForm.html">
+		返回
+      </a>
+      <a jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
+      parameters="ognl:{rootedObject,'xf/one2many/manyList'}">返回B列表</a>
+    </center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:getSource('bs')" 
+    persist="client">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><span key="link.edit">edit</span></td>
+          <td><span key="link.delete">delete</span></td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="oneForm.html">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityListPage">
+  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <inject property="rootFormPage" type="page" object="xf/one2many/oneForm"/>
+  <property initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.xf.one2many.One()" name="queryEntity"/>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyForm.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="manyList.html">Return </a>
+    <form jwcid="ManyForm" action="manyList.html">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><input jwcid="nameField" id="name" name="name"/></td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancel" 
+      onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyForm.html</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
+  <description>Form Page</description>
+  <!-- 设定返回的根页面 -->
+  <inject property="rootFormPage" type="page" object="xf/one2many/manyList"/>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.Many()" name="entity"/>
+  <component type="Form" id="ManyForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
 	</sect1>
+	
+	<sect1 id="ch4.2">
+		<title>One端代码分析</title>
+		<para>One端增加：由于ReflectRelativeEntityFormPage类在他的父类中继承了AbstractEntityFormPage类所以One在增加时
+			所调用的类和方法同上一章一样，所以本章中不在说明</para>
+		<para>One端删除、修改、查询：使用的同样是PoListPage类所以oneList.html、onelist.page略过</para>
+	</sect1>
+	
+	<sect1 id="ch4.3">
+		<title>Many端代码分析</title>
+		<sect2 id="ch4.3.1">
+			<title>添加Many</title>
+			<para>进入one端的修改后可以在单击“Add One to Many”添加Many，我们就从此处说起</para>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>oneForm.html</para>
+<para><programlisting><![CDATA[
+<legend>
+	   A-B one-to-many,A关联的B列表 
+	   <!-- 当进入修改页面时，ognl将需要加入关系的entity和要跳转的页面加入到连接。
+	   		doNewRelativeAction是corner实现的方法 -->
+	   <a parameters="ognl:{entity,'xf/one2many/manyForm'}" listener="listener:doNewRelativeAction" 
+	   jwcid="@DirectLink" href="manyForm.html">Add One to Many</a> &nbsp;&nbsp;
+	   <!-- 和添加关系一样将跳转的页面和entity加入连接并使用监听doViewRelativeEntityListAction方法准备进入显示页面 -->
+	   <a href="" jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
+	   parameters="ognl:{entity,'xf/one2many/manyList'}">View Many list</a>
+</legend> 
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>抽象类AbstractManyEntityFormPage</para>
+<para>从ReflectRelativeEntityFormPage开始查找doNewRelativeAction方法，经过几次向上操作我们在
+corner.orm.tapestry.page.relative包中找到了父类AbstractManyEntityFormPage。
+他继承了我们熟悉的抽象类AbstractEntityFormPage并且实现了IRelativeObjectOperatorSupport接口。</para>
+<para><programlisting><![CDATA[
+@SuppressWarnings("unchecked")
+public IPage doNewRelativeAction(T obj,String pageName){
+	return this.getRelativeObjectOperator().doNewRelativeAction(obj, pageName);
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>IRelativeObjectOperatorSupport接口</para>
+<para>IRelativeObjectOperatorSupport接口只有一个方法，方法调用服务service:corner.orm.relativeOperator，
+并返回一个实现了IRelativeObjectOperator接口的类</para>
+<para><programlisting><![CDATA[
+public interface IRelativeObjectOperatorSupport {
+	/**
+	 * 得到关联对象操作者.
+	 * @return 关联对象操作者。
+	 */
+	@InjectObject("service:corner.orm.relativeOperator")
+	public abstract IRelativeObjectOperator getRelativeObjectOperator();
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>service:corner.orm.relativeOperator</para>
+<para>relativeOperator在hivemodule.xml中配置，serviceID可以和serviceID相组合。将model与model直接的关系作为服务使用时直接调用</para>
+<para><programlisting><![CDATA[
+<service-point id="relativeOperator"
+	interface="corner.orm.tapestry.page.relative.support.IRelativeObjectOperator">
+	<invoke-factory>
+		<construct
+			class="corner.orm.tapestry.page.relative.support.RelativeObjectOperator">
+			<!-- 使用RelativeObjectOperator类 -->
+			<set-object property="requestCycle"
+				value="infrastructure:requestCycle"/>
+		</construct>
+	</invoke-factory>
+</service-point>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>RelativeObjectOperator类</para>
+<para>RelativeObjectOperator类实现IRelativeObjectOperator接口，IPageRooted接口继承IPage接口</para>
+<para><programlisting><![CDATA[
+public class RelativeObjectOperator implements IRelativeObjectOperator<Object, Object>  {
+	private IRequestCycle cycle;
+	
+	@SuppressWarnings("unchecked")
+	public IPage doNewRelativeAction(Object obj,String pageName){
+		//传入的entity和要进入的页面
+		IPageRooted<Object,Object> page= (IPageRooted<Object,Object>) this.cycle.getPage(pageName);
+		page.setRootedObject(obj);	//调用IPageRooted的setRootedObject方法保存entity，就目前来看就是one端页面中的的值
+		return page;	//准备跳转
+	}
+	@SuppressWarnings("unchecked")
+	public IPage doEditRelativeEntityAction(Object obj,Object e,String pageName){
+		IPageRooted<Object,Object> page= (IPageRooted<Object,Object>) this.cycle.getPage(pageName);
+		page.setRootedObject(obj);
+		page.setEntity(e);
+		
+		return page;
+	}
+	public void setRequestCycle(IRequestCycle cycle){
+		this.cycle=cycle;
+	}
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyForm.page</para>
+						<para>I</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
+  <description>Form Page</description>
+  <!-- 设定返回的根页面 -->
+  <inject property="rootFormPage" type="page" object="xf/one2many/manyList"/>
+  
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.Many()" name="entity"/>
+  <component type="Form" id="ManyForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <!--我们属性的doSaveEntityAction和doCancelEntityAction-->
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <!-- 表示此处将对entity操作，如果修改则显示 -->
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>抽象类AbstractRelativeEntityFormPage</para>
+<para>AbstractRelativeEntityFormPage是ReflectRelativeEntityFormPage的父类AbstractEntityFormPage的子类并实现了IPageRooted接口</para>
+<para><programlisting><![CDATA[
+public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntityFormPage<E> 
+		implements IPageRooted<T,E>{
+	/**
+	 * @see corner.orm.tapestry.page.AbstractEntityFormPage#getEntityListPage()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	protected IPage getEntityListPage() {	//重写了AbstractEntityFormPage的getEntityListPage方法
+		EntityPage<T> page= (EntityPage<T>) getRootFormPage();	//获得根页面，在page中配置的
+		if(page instanceof IPageRooted){	//如果是新添加的，也就是说中间保存着one端entity的
+			((IPageRooted<T,E>) page).setRootedObject(this.getRootedObject());	//传递entity给新page
+		}else{
+			page.setEntity(this.getRootedObject());	//？？？？？？
+		}
+		return page;
+	}
+}
+]]></programlisting></para>
+返回manyList.html
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		<sect2 id="ch4.3.2">
+			<title>显示关联关系</title>
+				<para>
+					<itemizedlist>
+						<listitem>
+							<para>oneForm.html</para>
+<para><programlisting><![CDATA[
+<div jwcid="@contrib:TableView" element="span" columns="name,!EditRelative,!DeleteRelative"
+     source="ognl:getSource('bs')" pageSize="5" persist="client">
+   <fieldset>
+	<table width="100%" align="center" border="1">
+		<tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		</tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'xf/one2many/manyForm'}" 
+				listener="listener:doEditRelativeEntityAction"><span key="doEditRelativeAction" /></a></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" 
+				listener="listener:doDeleteRelativeEntityAction"><span key="doDeleteRelativeAction" /></a></td>
+		</tr>
+		
+	</table>
+    </fieldset>
+</div>
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractManyEntityFormPage</para>
+<para><programlisting><![CDATA[
+/**
+ * 得到关联对象。
+ * 此对象用来在对关联对象循环的时候使用的临时变量。
+ * @return 关联的对象
+ */
+public abstract E getRelativeObject();
+public abstract void setRelativeObject(E obj);
+/**
+ * 得到列表的source,得到和当前实体关联的对象的列表。
+ * @param relativePropertyName 关联的属性名字，通常为复数，譬如：groups,users等。
+ * @return table model
+ */
+public  IBasicTableModel getSource(String relativePropertyName){
+	//实体服务类，根对象，关联的属性（String类型的），是否为rewinding
+	return new RelativePersistentBasicTableModel<T>
+	(this.getEntityService(),this.getEntity(),relativePropertyName,this.getRequestCycle().isRewinding());
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>RelativePersistentBasicTableModel类</para>
+<para>RelativePersistentBasicTableModel类同上一章讲的PersistentBasicTableModel一样都是为了显示而创建的类，
+他同样实现了IBasicTableModel接口</para>
+<para><programlisting><![CDATA[
+public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
+	/**
+	 * 根据isRewinding来产生一个列表
+	 * @param entityService 实体服务类
+	 * @param rootedObj 根对象.
+	 * @param relativeProName 关联的属性.
+	 * @param isRewinding 是否为rewinding
+	 */
+	public RelativePersistentBasicTableModel(EntityService entityService,
+			T rootedObj, String relativeProName, boolean isRewinding) {
+		this.rootedObj = rootedObj;
+		this.relativeProName = relativeProName;
+		this.entityService = entityService;
+		this.isRewinding=isRewinding;
+	}
+	//...
+	private Collection getRelativeCollection() {	//通过反射创建集合，此时集合中无元素
+		return (Collection) BeanUtils.getProperty(rootedObj, relativeProName);
+	}
+	
+	/**
+	 * 获得相关联记录
+	 */
+	public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
+			final ITableColumn column, final boolean sort) {
+		if(isRewinding){
+			return null;
+		}
+		
+		final Collection c = this.getRelativeCollection();
+		if (c == null) {
+			return Collections.EMPTY_LIST.iterator();
+		}
+
+		return ((Iterator) ((HibernateObjectRelativeUtils) this.entityService
+				.getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String orderStr = "";
+
+						if (column != null) {
+							orderStr = "order by " + column.getColumnName()
+									+ (sort ? " " : " desc");
+						}
+						Query query = createQuery(session,c,null,orderStr);
+
+						query.setFirstResult(nFirst);
+						query.setMaxResults(nPageSize);
+
+						return query.iterate();
+					}
+				}));
+	}
+	//提供对关联列表的查询
+	private Query  createQuery(Session session,Collection c,String selectStr,String orderStr){
+		//TODO 考虑缓存，创建尽可能少的对象
+		
+		
+		StringBuffer sb=new StringBuffer();
+		if(selectStr!=null){
+			sb.append(selectStr).append(" ");
+		}
+			
+		Query query;
+		if(callback!=null){
+			//========  考虑此处采用Example方式查询.
+			Criteria criteria=callback.createCriteria(session);
+			
+			//附加查询条件
+			callback.appendCriteria(criteria);
+			String rootEntityName = ((CriteriaImpl) criteria).getEntityOrClassName();
+			CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(
+					(SessionFactoryImplementor)session.getSessionFactory(), 
+					( CriteriaImpl)criteria, 
+					rootEntityName, 
+					Criteria.ROOT_ALIAS
+				);
+			String where = criteriaQuery.getWhereCondition();
+			QueryParameters qps=criteriaQuery.getQueryParameters();
+			
+			//当Criteria里面的值不为空时，则增加where条件语句
+			if(where != null && where.length()>0){
+				sb.append("where ").append(where).append(" ");
+			}
+			if(orderStr!=null){
+				sb.append(orderStr);
+			}
+			query = session.createFilter(c,sb.toString()).setParameters(qps.getPositionalParameterValues(),qps.getPositionalParameterTypes());
+		}else{
+			if(orderStr!=null){
+				sb.append(orderStr);
+			}
+			query = session.createFilter(c,
+					sb.toString());
+				
+		}
+		
+		return query;
+		
+	}
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>BeanUtils类</para>
+<para>通过beanutils.PropertyUtils.getProperty获得ognl中的model与model的关系</para>
+<para><programlisting><![CDATA[
+public class BeanUtils {
+	static {
+
+		//only for opensymphony oscore
+		System.setProperty("bean.provider", "ognl");
+
+	}
+	//...
+	/**
+	 * 得到bean的属性值。
+	 * @param bean bean.
+	 * @param pro 属性的名称.
+	 * @return 属性值.
+	 */
+	public static Object getProperty(Object bean, String pro) {
+		try {
+			return org.apache.commons.beanutils.PropertyUtils.getProperty(bean,pro);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+记录显示时，通过getRelativeObject将many显示出来
+					
+				</para>
+		</sect2>
+		
+		<sect2 id="ch4.3.3">
+			<title>Many修改与删除</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>many的修改</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+	</sect1>
+	
 	
 	
 </chapter>
