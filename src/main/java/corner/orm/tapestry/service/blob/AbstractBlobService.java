@@ -87,6 +87,9 @@ public abstract class AbstractBlobService implements IEngineService {
 		String objStr=cycle.getParameter(ENTITY);
 		if(objStr!=null){
 			IBlobModel blob=(IBlobModel) this.dataSqueezer.unsqueeze(objStr);
+			if(blob==null){ //纠正blob对象为空的NPE异常
+				return;
+			}
 			outputStream(blob.getContentType(),blob.getBlobData());
 			return;
 		}
