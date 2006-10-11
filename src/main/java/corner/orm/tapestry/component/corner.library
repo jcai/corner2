@@ -23,6 +23,7 @@
   <component-type type="MagicField" specification-path="magic/FormField.jwc"/>
   <component-type type="RadioGroup" specification-path="radio/RadioGroup.jwc"/>
   <component-type type="TextField" specification-path="textfield/TextField.jwc"/>
+  <component-type type="PropertySelection" specification-path="propertyselection/PropertySelection.jwc"/>
 
   
 </library-specification>
