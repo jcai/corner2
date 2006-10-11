@@ -23,4 +23,10 @@ public interface IPersistentQueriable {
 	 * @param criteria
 	 */
 	public void appendCriteria(Criteria criteria);
+	/**
+	 * 对查询进行排序处理.
+	 * @param criteria 查询对象.
+	 * @since 2.2.1
+	 */
+	public void appendOrder(Criteria criteria);
 }

@@ -115,6 +115,7 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						Criteria criteria=callback.createCriteria(session);
+						callback.appendOrder(criteria);//增加排序 since 2.2.1
 						callback.appendCriteria(criteria);
 
 						if (column != null) {

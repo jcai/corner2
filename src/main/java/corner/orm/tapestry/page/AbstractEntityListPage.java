@@ -139,6 +139,13 @@ public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> im
 		return session.createCriteria(this.getEntity().getClass());
 	}
 	/**
+	 * 
+	 * @see corner.orm.tapestry.table.IPersistentQueriable#appendOrder(org.hibernate.Criteria)
+	 */
+	public void appendOrder(Criteria criteria){
+		//do nothing
+	}
+	/**
 	 * 得到列表的source
 	 * @return table model
 	 */
