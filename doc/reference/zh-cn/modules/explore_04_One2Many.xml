@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="explore.template">
+	<title>One to Many操作</title>
+	<sect1 id="ch4.1">
+		<title>第二段标题</title>
+		<para>
+			<itemizedlist>
+				<listitem>
+					<para>着重号标题</para>
+<para><programlisting><![CDATA[
+代码或内容
+]]></programlisting></para>
+描述
+				</listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+	
+	
+</chapter>

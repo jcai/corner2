@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chapter id="corner.template">
+<chapter id="explore.one2one">
 	<title>One to One操作</title>
 	<sect1 id="ch3.1">
 		<title>所需文件</title>
@@ -493,6 +493,12 @@ public <E> EntityPage<E> goEntityPageByPage(E e, EntityPage<E> page) {
 IRelativeObjectOperatorSupport接口</para>
 <para><programlisting><![CDATA[
 /**
+ * IPersistentQueriable接口的createCriteria方法
+ */
+public Criteria createCriteria(Session session) {
+	return session.createCriteria(this.getEntity().getClass());
+}
+/**
  * 得到列表的source
  * @return table model
  */
@@ -524,11 +530,11 @@ public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
 			.execute(new HibernateCallback(){	//定义HibernateCallback接口中doInHibernate方法
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					//callback就是IPersistentQueriable接口，使用createCriteria方法相当于调用实现此方法本身的类
 					Criteria criteria=callback.createCriteria(session);
 					callback.appendCriteria(criteria);
 
 					if (column != null) {
-
 						criteria.addOrder(sort ? Order.asc(column.getColumnName()) : Order
 								.desc(column.getColumnName()));
 					}
@@ -698,18 +704,76 @@ public IPage doDeleteEntityAction(T entity) { // 删除操作
 					<para>抽象类AbstractEntityListPage － 查询</para>
 <para><programlisting><![CDATA[
 /**
+ * @see corner.orm.tapestry.table.IPersistentQueriable#appendCriteria(Session)
+ * IListablePage接口中的getQueryEntity方法
+ */
+public void appendCriteria(Criteria criteria) {
+	if (this.getQueryEntity() != null)
+		criteria.add(NewExpressionExample.create(getQueryEntity()).enableLike().excludeZeroes()
+				.ignoreCase());
+}
+
+/**
+ * @see corner.orm.tapestry.table.IPersistentQueriable#createCriteria(Session)
+ */
+public Criteria createCriteria(Session session) {
+
+	return session.createCriteria(this.getEntity().getClass());
+}
+/**
  * 响应查询的操作.
+ * IListablePage接口中的setQueryEntity方法
  * @return 当前页
- * @since 2.0
  */
 public IPage doQueryEntityAction(){
 	this.setQueryEntity(this.getQueryEntity()); 
 	return this;
 }
 ]]></programlisting></para>
+当页面doQueryEntityAction方法返回自己后tapestry使页面重新载入，在@contrib:TableView处获得source时又在次从AbstractEntityListPage中查找getSource方法
+再次建立PersistentBasicTableModel类
 				</listitem>
 			</itemizedlist>
 			
+			<itemizedlist>
+				<listitem>
+					<para>NewExpressionExample类</para>
+<para><programlisting><![CDATA[
+public class NewExpressionExample extends Example {
+	//....
+	protected NewExpressionExample(Object entity, PropertySelector selector) {
+		super(entity, selector);
+		this.selector=selector;
+		this.entity=entity;
+		// 首先分析出来类多对应的所有的特列查询
+		worker = new QueryTypeWorker(EntityService.getEntityClass(entity));	//次方法再其他章节中详细描述
+
+	}
+	public static Example create(Object entity) {
+		if (entity==null) throw new NullPointerException("null example");
+		return new NewExpressionExample(entity, NOT_NULL);
+	}
+	//....
+}
+]]></programlisting></para>
+				</listitem>
+			</itemizedlist>
+			
+			<itemizedlist>
+				<listitem>
+					<para>抽象类AbstractEntityListPage － 查询</para>
+<para><programlisting><![CDATA[
+public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
+			final ITableColumn column, final boolean sort) {
+	//...
+	Criteria criteria=callback.createCriteria(session);	//调用AbstractEntityListPage类中的createCriteria方法
+	callback.appendCriteria(criteria);		//调用AbstractEntityListPage类中的appendCriteria方法
+	//...
+}
+]]></programlisting></para>
+返回Iterator后查询结束。
+				</listitem>
+			</itemizedlist>
 		</para>
 	</sect1>
 	
