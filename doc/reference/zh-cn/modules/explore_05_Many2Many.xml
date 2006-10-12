@@ -571,7 +571,7 @@ public class EntityConverter {
 				</para>
 			</sect3>
 			
-			<sect3 id="ch5.2.1.2">
+			<sect3 id="ch5.2.1.3">
 				<title>更新A与B的关联</title>
 					<para>
 					<itemizedlist>
@@ -637,7 +637,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 				</para>
 			</sect3>
 			
-			<sect3 id="ch5.2.1.3">
+			<sect3 id="ch5.2.1.4">
 				<title>删除关联</title>
 					<para>
 					<itemizedlist>
