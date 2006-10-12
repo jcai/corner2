@@ -92,7 +92,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
             
             json.put("value", key);
             json.put("cnlabel", model.getCnLabelFor(value));
-            json.put("label", model.getLabelFor(value));
+            json.put("label", this.getDataSqueezer().squeeze(model.getLabelFor(value)));
         }
         
         parms.put("props", json.toString());
@@ -127,7 +127,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
             
             key = it.next();
             
-            json.put(key.toString(), filteredValues.get(key));
+            json.put(this.getDataSqueezer().squeeze(key).toString(), filteredValues.get(key));
         }
 	}	
 	/**
@@ -138,7 +138,7 @@ public abstract class AbstractCornerSelectWidget extends Autocompleter {
 	@Override
 	protected void rewindFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
         String value = cycle.getParameter(getName());  
-        Object object = value;
+        Object object = this.getDataSqueezer().unsqueeze(value);
         try
         {
             getValidatableFieldSupport().validate(this, writer, cycle, object);

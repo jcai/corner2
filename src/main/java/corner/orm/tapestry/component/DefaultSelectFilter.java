@@ -37,6 +37,7 @@ import corner.util.TapestryHtmlFormatter;
  */
 public class DefaultSelectFilter implements ISelectFilter {
 	
+	
 	/**
 	 * 提供增加删除修改查询的基本操作
 	 */

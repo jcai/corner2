@@ -27,17 +27,6 @@ import corner.util.TapestryHtmlFormatter;
  */
 public class CornerSelectModel implements ISelectModel {
     
-    
-    /**
-     * 存储拼音或拼音缩写字符
-     */
-    private String labelField;
-    
-	/**
-	 * 用于存储中文字符
-	 */
-    private String cnlabelField;
-    
     /**
      * 根据用户的输入对返回查询结果的接口
      */
@@ -72,7 +61,7 @@ public class CornerSelectModel implements ISelectModel {
             	return value.toString();
             }
             else{
-            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(cnlabelField)).toString();
+            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(this.filter.getCnLabel())).toString();
             }
             
         } catch (Exception e) {
@@ -90,7 +79,7 @@ public class CornerSelectModel implements ISelectModel {
             	return value.toString();
             }
             else{
-            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(labelField)).toString();
+            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(this.filter.getLabel())).toString();
             }
             
         } catch (Exception e) {
@@ -112,37 +101,9 @@ public class CornerSelectModel implements ISelectModel {
         return this.getPrimaryKey(primaryKey);
 	}
 
-
-	/**
-	 * @return Returns the cnlabelField.
-	 */
-	public String getCnlabelField() {
-		return cnlabelField;
-	}
-
-	/**
-	 * @param cnlabelField The cnlabelField to set.
-	 */
-	public void setCnlabelField(String cnlabelField) {
-		this.cnlabelField = cnlabelField;
-	}
-
-	/**
-	 * @return Returns the labelField.
-	 */
-	public String getLabelField() {
-		return labelField;
-	}
-
-	/**
-	 * @param labelField The labelField to set.
-	 */
-	public void setLabelField(String labelField) {
-		this.labelField = labelField;
-	}
-
 	public void setFilter(ISelectFilter filter) {
 		this.filter=filter;
 		
 	}
+
 }
