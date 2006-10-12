@@ -76,8 +76,8 @@ corner.orm.tapestry.data
 			<itemizedlist>
 				<listitem>
 					<para>HibernateSqueezerFilter类</para>
-使用HB: + 类名 + :: ＋ DataSqueezer.squeeze序列化方法再次序列化从hibernate.session.Identifier方法得到的序列化字符串。
-来确保显示的序列化编码唯一。
+<para>使用HB: + 类名 + :: ＋ DataSqueezer.squeeze序列化方法再次序列化从hibernate.session.Identifier方法得到的序列化字符串。
+来确保显示的序列化编码唯一。</para>
 <para><programlisting><![CDATA[
 创建HibernateSqueezerFilter类，继承AbstractDataSqueezerFilter类，加入String squeeze、Object unsqueeze方法，
 调用EntityService类的获得类名，通过DataSqueezer类中的squeeze方法加上EntityService类中Identifier方法获得类到
@@ -93,7 +93,7 @@ String的转换。unsqueeze为解码。通过setEntityService获得EntityService
 			<itemizedlist>
 				<listitem>
 					<para>Xml文件</para>
-配置使用HibernateObjectRelativeUtils类作为sessionFactory，配置使用entityService时使用HibernateObjectRelativeUtils类。application-base-service.xml
+<para>配置使用HibernateObjectRelativeUtils类作为sessionFactory，配置使用entityService时使用HibernateObjectRelativeUtils类。application-base-service.xml</para>
 <para><programlisting><![CDATA[
 <beans>
 	<!-- transaction interceptor -->
