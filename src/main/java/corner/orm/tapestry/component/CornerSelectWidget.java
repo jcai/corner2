@@ -138,7 +138,7 @@ public abstract class CornerSelectWidget extends Autocompleter {
 	@Override
 	protected void rewindFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
         String value = cycle.getParameter(getName());  
-        Object object = this.getDataSqueezer().unsqueeze(value);
+        Object object = value!=null?this.getDataSqueezer().unsqueeze(value):value;
         try
         {
             getValidatableFieldSupport().validate(this, writer, cycle, object);
