@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="explore.Many2Many">
+	<title>Many to Many</title>
+	<sect1 id="ch5.1">
+		<title>基础代码</title>
+			<note>
+				<para>
+					本章介绍Many to Many操作，由于不像前两章容易区分，所以用一个many用A表示另一个many用B表示。
+				</para>
+			</note>
+		<sect2 id="ch5.1.1">
+			<title>建立Model</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>A.java</para>
+						<para>A继承AbstractModel类(one模式中创建的)</para>
+<para><programlisting><![CDATA[
+@Entity(name="many2manyAA")		//表名设定为many2manyAA
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class A extends AbstractModel{
+	private static final long serialVersionUID = -4521820026127298625L;
+	/**
+	 * 和B对象之间的many-2-many的关联
+	 * @hibernate.set cascade="none" table="AB" lazy="true"
+	 * @hibernate.key column="A"
+	 * @hibernate.many-to-many class="corner.demo.model.many2many.B" column="B"
+	 */
+	
+	private List<B> bs;		//存储与A相关联的B关系
+
+	/**
+	 * @return Returns the bs.
+	 */
+	@ManyToMany		//设置表关系
+	@JoinTable(name="AA_BB",joinColumns={@JoinColumn(name="A_ID")},	//中间表设置为AA_BB
+	        inverseJoinColumns={@JoinColumn(name="B_ID")})	//连接列名为A_ID，第二个列名为B_ID
+	
+	public List<B> getBs() {
+		return bs;
+	}
+
+	public void setBs(List<B> bs) {
+		this.bs = bs;
+	}
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>B.java</para>
+						<para>B同样继承AbstractModel类</para>
+<para><programlisting><![CDATA[
+@Entity(name="many2manyBB")	//表名设定为many2manyAA
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+public class B extends AbstractModel{
+	private static final long serialVersionUID = -1109811268307875945L;
+	/**
+	 * 和A对象之间的many-2-many的关联
+	 * @hibernate.set cascade="none" table="AB" lazy="true"
+	 * @hibernate.key column="B"
+	 * @hibernate.many-to-many class="corner.demo.model.many2many.A" column="A"
+	 */
+	
+	private List<A> as;		//存储与B相关联的A关系
+
+	/**
+	 * @return Returns the as.
+	 */
+	@ManyToMany
+	@JoinTable(name="AA_BB",joinColumns={@JoinColumn(name="B_ID")},	//中间表设置为AA_BB
+	        inverseJoinColumns={@JoinColumn(name="A_ID")})	//连接列名为B_ID，第二个列名为A_ID
+	public List<A> getAs() {
+		return as;
+	}
+	public void setAs(List<A> as) {
+		this.as = as;
+	}
+}
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		<sect2 id="ch5.1.2">
+			<title>A端操作需要的文件</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>index.html</para>
+<para><programlisting><![CDATA[
+<a jwcid="@PageLink" page="many2many/AList">对A的操作</a><br/>
+<a jwcid="@PageLink" page="many2many/BList">对B的操作</a><br/>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>AList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <center>
+      <a listener="listener:doNewEntityAction" jwcid="@DirectLink" href="AForm.html">
+      	<span key="link.add">add</span></a>
+	  &nbsp;&nbsp;
+	  <a href="#" jwcid="@PageLink" page="many2many/BList"><span>Goto BList</span></a>
+    </center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><span key="link.edit">edit</span></td>
+          <td><span key="link.delete">delete</span></td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" 
+            		jwcid="@DirectLink" href="AForm.html">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>AList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.PoListPage">
+  <description>corner.demo.model.many2many.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property initial-value="new corner.demo.model.many2many.A()" name="entity"/>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>AForm.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+	<a jwcid="@PageLink" page="many2many/AList">Return A List</a>
+
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><input jwcid="nameField" id="name" name="name"/></td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" 
+      		onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+    <div jwcid="@contrib:TableView" element="span" columns="name,!DeleteRelative"
+     	source="ognl:getSource('bs')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>A-B many-to-many,A关联的B列表
+   		<a parameters="ognl:{entity,'many2many/ABList'}" 
+   		listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a>
+   	</legend> 
+	<table width="100%" align="center" border="1">
+		<tr><span jwcid="@contrib:TableColumns" element="th"/></tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject}" 
+				listener="listener:doDeleteRelativeAction"><span key="doDeleteRelativeAction" />
+				</a></td>
+		</tr>
+	</table>
+    </fieldset>
+</div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>AForm.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
+  <description>corner.demo.model.many2many.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.many2many.A()" name="entity"/>
+  <component type="Form" id="AForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>ABList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+	<form jwcid="ABForm">
+		<div jwcid="@contrib:TableView" columns="!checkbox,name" element="div"
+	        persist="client" source="ognl:source" pageSize="5">
+			<table width="200" border="1" align="center">
+			  <tr><span jwcid="@contrib:TableColumns" element="th"/></tr>
+			  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
+			  	<th align="center"><input jwcid="@Checkbox" value="ognl:checkboxSelected" /></th>
+				<td align="center"><span jwcid="@Insert" value="ognl:entity.name" /></td>
+			  </tr>
+			  <tr><td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td></tr>
+			  <tr><td colspan="6" align="center"><input type="submit" value="Submit"></td></tr>
+			</table>
+		</div>
+	</form>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>ABList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage">
+	<!-- 设定返回的根页面 -->
+    <inject property="rootFormPage" type="page" object="many2many/AForm"/>
+    <property initial-value="new corner.demo.model.many2many.B()" name="entity"/>
+    <component id="ABForm" type="Form">
+    	<binding name="listener" value="listener:doNewRelativeAction"/>
+	</component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		<sect2 id="ch5.1.3">
+			<title>B端操作需要的文件</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>BList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <center>
+      <a listener="listener:doNewEntityAction" jwcid="@DirectLink" href="BForm.html">
+      	<span key="link.add">add</span></a>
+		&nbsp;&nbsp;
+	  <a href="#" jwcid="@PageLink" page="many2many/AList"><span>Goto AList</span></a>
+    </center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><span key="link.edit">edit</span></td>
+          <td><span key="link.delete">delete</span></td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" 
+            	jwcid="@DirectLink" href="BForm.html"><span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" 
+            	jwcid="@DirectLink" href="#"><span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>BList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.PoListPage">
+  <description>corner.demo.model.many2many.B Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property initial-value="new corner.demo.model.many2many.B()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.many2many.B()" name="queryEntity"/>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>BForm.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return B List</a>
+    <form jwcid="BForm" action="BList.html">
+      <table>
+        <tr>
+          <td><span key="name">name</span></td>
+          <td><input jwcid="nameField" id="name" name="name"/></td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" 
+      		onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+    <div jwcid="@contrib:TableView" element="span" columns="name,!DeleteRelative"
+     	source="ognl:getSource('as')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>B-A many-to-many,B关联的A列表 
+   		<a parameters="ognl:{entity,'many2many/BAList'}" listener="listener:doNewRelativeAction" 
+   		jwcid="@DirectLink" href="BForm.html">Add B to A</a></legend> 
+   
+	<table width="100%" align="center" border="1">
+		<tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		</tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject}" 
+				listener="listener:doDeleteRelativeAction"><span key="doDeleteRelativeAction" />
+				</a></td>
+		</tr>
+	</table>
+    </fieldset>
+</div>
+</span>
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>BForm.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
+  <description>corner.demo.model.many2many.B Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.many2many.B()" name="entity"/>
+  <component type="Form" id="BForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+    <binding value="listener:false" name="focus"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+</page-specification>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>BAList.html</para>
+<para><programlisting><![CDATA[
+<span jwcid="@DemoBorder">
+	<form jwcid="BAForm">
+		<div jwcid="@contrib:TableView" columns="!checkbox,name" element="div"
+	        persist="client" source="ognl:source" pageSize="5">
+			<table width="200" border="1" align="center">
+			  <tr><span jwcid="@contrib:TableColumns" element="th"/></tr>
+			  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
+			  	<th align="center"><input jwcid="@Checkbox" value="ognl:checkboxSelected" /></th>
+				<td align="center"><span jwcid="@Insert" value="ognl:entity.name" /></td>
+			  </tr>
+			  <tr><td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td></tr>
+			  <tr><td colspan="6" align="center"><input type="submit" value="Submit"></td></tr>
+			</table>
+		</div>
+	</form>
+</span>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				<itemizedlist>
+					<listitem>
+						<para>BAList.page</para>
+<para><programlisting><![CDATA[
+<page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage">
+    <!-- 设定返回的根页面 -->
+    <inject property="rootFormPage" type="page" object="many2many/BForm"/>
+    <property initial-value="new corner.demo.model.many2many.A()" name="entity"/>
+	<component id="BAForm" type="Form">
+    	<binding name="listener" value="listener:doNewRelativeAction"/>
+	</component>
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+	</sect1>
+	
+	
+	
+	<sect1 id="ch5.2">
+		<title>两表增加关系</title>
+			<note>
+				<para>
+					many to many中的大部分操作都是使用前两章中描述的one和one to many两种操作方法，唯一有所区别的就是增删改同时操作两张表的时候。
+				</para>
+			</note>
+		<sect2 id="ch5.2.1">
+			<title>从A表建立与B表的关联</title>
+			<sect3 id="ch5.2.1.1">
+				<title>从AForm传递需要添加的entity</title>
+				<para>此处使用的ReflectRelativeEntityFormPage调用父类doNewRelativeAction方法，同上一章种添加many的操作一样，这里不在过多描述。</para>
+<para>doNewRelativeAction调用后会将页面转向到ABList，准备为选中的entity加入与B的关系。</para>
+<para><programlisting><![CDATA[
+<legend>A-B many-to-many,A关联的B列表 <a parameters="ognl:{entity,'many2many/ABList'}" 
+listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a></legend>
+]]></programlisting></para>
+			</sect3>
+			
+			<sect3 id="ch5.2.1.2">
+				<title>初始化ABList页面信息</title>
+					<para>
+					<itemizedlist>
+						<listitem>
+							<para>获得B数据源</para>
+<para>B的entity集合已经在ABList.page中配置好了。现在我们从ReflectRelativeSelectionListPage一路找寻getSource方法，大家可能已经发现我们熟悉的父类AbstractEntityListPage，熟悉的类实例PersistentBasicTableModel，这些都是最初one的查询中讲述过的，又是老声长谈的东西。</para>
+<para><programlisting><![CDATA[
+public abstract class AbstractEntityListPage<T> extends AbstractEntityPage<T> implements
+	 IListablePage<T>,IPersistentQueriable,IRelativeObjectOperatorSupport {
+	//...
+	public  IBasicTableModel getSource(){
+		return new PersistentBasicTableModel(this.getEntityService(),this,
+			this.getRequestCycle().isRewinding());
+	}
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>使用Checkbox组建</para>
+<para>通过调用checkboxSelected方法为Checkbox附值，在ReflectRelativeSelectionListPage中可以找到被重写了的checkboxSelected方法</para>
+<para><programlisting><![CDATA[
+public abstract class ReflectRelativeSelectionListPage extends
+		AbstractRelativeSelectionListPage<Object,Object> {
+	//....
+	/**
+	 * 当前的本实体是否为反向控制端。
+	 * 默认为false。
+	 * @return 判断当前的根实体是否为反向控制端。
+	 */
+	public abstract boolean isInverse();
+	public abstract void setInverse(boolean inverse);
+	/**
+	 * 判断是否选中。
+	 * @return 是否选中
+	 * @see corner.orm.tapestry.page.AbstractEntityListPage#isCheckboxSelected()
+	 */
+	public boolean isCheckboxSelected(){
+		//在model类文件中定义的inverseJoinColumns
+		if(isInverse())
+			return this.getRelationshipCollection(this.getEntity()).contains(this.getRootedObject());
+		else{
+			//一般不反向控制,从getRelationshipCollection返回一个Collection判断是否包括当前entity
+			return this.getRelationshipCollection(this.getRootedObject()).contains(this.getEntity());
+		}
+	}
+	/**
+	 * 根据给定的实体和属性名称取得对应的属性值
+	 * <p>本方法中是根据传入的实体和关联的属性名称取得该实体关联的实体的集合
+	 * @param obj
+	 * @return
+	 */
+	private Collection getRelationshipCollection(Object obj){
+		Collection c= (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
+		if(c==null){
+			throw new IllegalStateException
+				("从["+obj+"] 通过属性 ["+this.getRelativePropertyName()+"] 得到的集合为空!");
+		}
+		return c;
+	}
+	/**
+	 * 得到关联实体的名称，作为集合的复数。
+	 * <p>譬如：users,groups等。
+	 * 假设我们从User实体进行编辑，进入UserGroup页面，此时UserGroup页面将对应本类，对于该页面来说
+	 * User实体为:this.getRootedObject(),而Group实体为:this.getEntity().当isInverse()为true的时候，
+	 * 返回"users",当isInverse()为false的时候，返回"groups",因为默认情况下isInverse()为false，因此默认返回"groups"
+	 * @return 关联的额属性名称，一般为复数形式。
+	 */
+	protected String getRelativePropertyName()
+	{
+		if(isInverse()){
+			return EntityConverter.getClassNameAsCollectionProperty(this.getRootedObject());
+		}else{
+			return EntityConverter.getClassNameAsCollectionProperty(this.getEntity());
+		}
+	}
+	//....
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>工具类EntityConverter</para>
+<para><programlisting><![CDATA[
+public class EntityConverter {
+	//...
+	/**
+	 * 通过给定的类来得到类名的复数属性，譬如: com.abc.AbCd,将返回 abCds
+	 * @param object 待处理的对象。
+	 * @return 类名的复数属性。
+	 */
+	public static String getClassNameAsCollectionProperty(Object object) {
+		
+		return getClassNameAsPropertyName(object)+"s";
+
+	}
+	/**
+	 * 通过对象来得到classd的名称，譬如 com.abc.Abc，返回为：abc
+	 * @param object 待处理的对象。
+	 * @return 属性名称。
+	 */
+	public static String getClassNameAsPropertyName(Object object){
+		String name=getShortClassName(object);
+		StringBuffer sb = new StringBuffer();
+		sb.append(Character.toLowerCase(name.charAt(0)));
+		sb.append(name.substring(1));
+		return sb.toString();
+	}
+	/**
+	 * 得到类的不含包名的名称。
+	 * <p>譬如 com.abc.A 将返回 A
+	 * @param obj 对象。
+	 * @return 不含包名的类名
+	 */
+	public static  String getShortClassName(Object obj) {
+		String name = EntityService.getEntityClass(obj).getName();
+
+		name = name.substring(name.lastIndexOf(".") + 1);
+		return name;
+	}
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</sect3>
+			
+			<sect3 id="ch5.2.1.2">
+				<title>更新A与B的关联</title>
+					<para>
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractRelativeSelectionListPage</para>
+<para>ReflectRelativeSelectionListPage的父类AbstractRelativeSelectionListPage中可以找到doNewRelativeAction</para>
+<para><programlisting><![CDATA[
+public abstract class AbstractRelativeSelectionListPage<T,E> extends AbstractEntityListPage<E> 
+	implements IPageRooted<T,E>{
+	//...
+	/**
+	 * 新增加关系的操作。
+	 * @return 增加关系后的页面。
+	 */
+	public IPage doNewRelativeAction(){
+		this.flushHibernate();	//调用父类AbstractEntityPage的方法
+		return this.goReturnPage();
+	}
+	/**
+	 * 返回到rootformPage {@link #getRootFormPage()}
+	 * 
+	 * @return
+	 */
+	public IPage goReturnPage(){
+		EntityPage<T> page=this.getRootFormPage();
+		if(page == null){
+			throw new IllegalStateException("RootFormPage 为空！");
+		}
+		if(page instanceof IPageRooted){
+			((IPageRooted<T,E>) page).setRootedObject(this.getRootedObject());
+		}else{
+			page.setEntity(this.getRootedObject());
+		}
+		return page;
+	}
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractEntityPage</para>
+<para>从getEntityService中获得一个实现了ObjectRelativeUtils接口的实例，把这个实例强制转换为实现了ObjectRelativeUtils接口的HibernateObjectRelativeUtils，由于HibernateObjectRelativeUtils继承了HibernateDaoSupport所以代码“((HibernateObjectRelativeUtils) this.getEntityService().getObjectRelativeUtils())”就和使用HibernateDaoSupport的一个实例一样</para>
+<para><programlisting><![CDATA[
+public abstract class AbstractEntityPage<T> extends BasePage implements
+		EntityPage<T>,IBlobPage {
+	//...
+	/**
+	 * 对hibernate进行flush操作。
+	 */
+	protected void flushHibernate() {
+		((HibernateObjectRelativeUtils) this.getEntityService()
+				.getObjectRelativeUtils()).getHibernateTemplate().flush();
+	}
+	
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</sect3>
+			
+			<sect3 id="ch5.2.1.3">
+				<title>删除关联</title>
+					<para>
+					<itemizedlist>
+						<listitem>
+							<para>删除步骤</para>
+<para><programlisting><![CDATA[
+(1)单击AForm页面中删除按钮
+(2)调用AbstractManyEntityFormPage.doDeleteRelativeAction(T t,E e)方法
+(3)调用ReflectMultiManyEntityFormPage.doDeleteRelativeAction(T t, E e, String relativeName)方法
+(4)调用EntityConverter.getShortClassName方法
+(5)调用AbstractManyEntityFormPage.doDeleteRelativeAction(T t, E e, String relativeName)方法
+(6)调用AbstractManyEntityFormPage.deleteRelationship方法
+(7)调用AbstractEntityPage.flushHibernate方法
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>从AForm删除</para>
+<para><programlisting><![CDATA[
+<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject}" 
+	listener="listener:doDeleteRelativeAction"><span key="doDeleteRelativeAction" /></a></td>
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>抽象类AbstractManyEntityFormPage</para>
+<para><programlisting><![CDATA[
+	/**
+	 * 响应删除关联关系的操作。
+	 * @param t 当前的实体对象。
+	 * @param e 关联关系实体对象。
+	 * @return 删除关联关系后的返回页面。
+	 */
+	public IPage doDeleteRelativeAction(T t,E e){
+		//调用ReflectMultiManyEntityFormPage类的doDeleteRelativeAction方法
+		this.doDeleteRelativeAction(t, e, null);
+		return this;
+	}
+	/**
+	 * 响应删除关联关系的操作。
+	 * @param t 当前的实体对象。
+	 * @param e 关联关系实体对象。
+	 * @param relativeName 关联关系的名程
+	 * @return 删除关联关系后的返回页面。
+	 */
+	public IPage doDeleteRelativeAction(T t,E e,String relativeName){
+		this.deleteRelationship(t,e,relativeName);
+		this.setEntity(t);
+		this.flushHibernate();	//更新关系表
+		return this;
+	}
+	/**
+	 * 删除对象之间的关联关系。
+	 * @param t 当前的实体对象。
+	 * @param e 关联的关系实体对象。
+	 * @param relativeName 关联关系的名程
+	 */
+	@SuppressWarnings("unchecked")
+	protected void deleteRelationship(T t,E e, String relativeName){
+		if(relativeName==null){
+			throw new IllegalArgumentException("relativeName is null!");
+		}
+		//通过反射获得集合
+		Collection<Object> c = (Collection<Object>) BeanUtils.getProperty(t, relativeName);
+		if(c==null){
+			throw new IllegalStateException("从["+t+"],通过关系["+relativeName+"]得到的集合为空！");
+		}
+		c.remove(e);	//删除关系
+		this.getEntityService().saveOrUpdateEntity(t);	//由于在model中的极连关系，所以更新t就会更新关系
+	}
+	
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+					
+					<itemizedlist>
+						<listitem>
+							<para>ReflectMultiManyEntityFormPage类</para>
+<para><programlisting><![CDATA[
+public abstract class ReflectMultiManyEntityFormPage extends
+		AbstractMultiManyEntityFormPage<Object> {
+	//...
+	@SuppressWarnings("unchecked")
+	protected void deleteRelationship(Object t, Object e, String relativeName) {
+		if(relativeName==null){
+			// 得到属性的名称，譬如：groups,users 注意后面的复数s。
+			String name = EntityConverter.getShortClassName(e);
+	
+			StringBuffer sb = new StringBuffer();
+			sb.append(Character.toLowerCase(name.charAt(0)));
+			sb.append(name.substring(1));
+			sb.append("s");
+			relativeName=sb.toString();
+		}
+		super.deleteRelationship(t, e, relativeName);
+	}
+	//...
+}
+]]></programlisting></para>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</sect3>
+		</sect2>
+		
+		
+		
+		<sect2 id="ch5.2.2">
+			<title>从B表建立与A表的关联</title>
+				<para>同从A表建立与B表的关联表的做法一样</para>
+		</sect2>
+	</sect1>
+	
+</chapter>

@@ -4,11 +4,6 @@
 	<abstract>
 		<para>
 			本章描述:快速使用corner.
-			<note>
-				<para>
-					概述
-				</para>
-			</note>
 		</para>
 	</abstract>
 	<sect1 id="corner.quickstar.sect1">
@@ -40,7 +35,8 @@
 			                <imagedata fileref="images/corner-jetty-config.gif" format="GIF" align="center"/>
 			            </imageobject>
 			            <imageobject role="html">
-			                <imagedata fileref="../shared/images/corner-jetty-config.gif" format="GIF" align="center"/>
+			                <imagedata fileref="../shared/images/corner-jetty-config.gif" format="GIF" 
+			                	align="center"/>
 			            </imageobject>
 			        </mediaobject>
 				</step>
@@ -64,8 +60,9 @@
 			实现了页面之间数据传递的对象化,只需关注对象,而不必关系对象的细节．
 			例如:在corner中,修改页面中一个实体的属性时，不需要传递这个对象的id，而只需传递一个entity 即可
 			　eg:<programlisting><![CDATA[
-<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
-				]]></programlisting>
+<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" 
+	id="editAction">
+]]></programlisting>
 		</para>
 		<para>
 			在corner中，严格限定 html,page文件的命名规则．　用于显示数据的页面需为　xxxList.html 对应page为　xxxList.page
@@ -83,19 +80,19 @@
 				eg:
 				<programlisting id="mapping-declaration-ex1" revision="1"><![CDATA[
 <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
-				]]></programlisting>
+]]></programlisting>
 			</para>
 			<para>查询数据
 			　eg:<programlisting><![CDATA[
 <form jwcid="AQueryForm">
-				]]></programlisting>
+]]></programlisting>
 				对应组件
 				<programlisting><![CDATA[
 <component type="Form" id="AQueryForm">
 	<binding value="listener:doQueryEntityAction" name="listener"/>
 	<binding value="ognl:beans.delegate" name="delegate"/>
 </component>
-			]]></programlisting>
+]]></programlisting>
 			</para>
 			<para>
 				删除数据
@@ -103,22 +100,23 @@
 <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
   <span key="link.delete">Delete</span>
 </a>
-				]]></programlisting>
+]]></programlisting>
 			</para>
 			<para>
 				导向编辑的链接
 				eg: <programlisting><![CDATA[
-<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+<a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" 
+	id="editAction">
   <span key="link.edit">Edit</span>
 </a>
-				]]></programlisting>
+]]></programlisting>
 			</para>
 			<para>AForm　功能：编辑或添加数据．</para>
 			 <para>eg:<programlisting><![CDATA[
 <form jwcid="AForm" action="AList.html">
 	<input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
 </form>
-				 ]]></programlisting>
+]]></programlisting>
 			　</para>
 			  <para>
 			　对应组件　<programlisting><![CDATA[
@@ -127,8 +125,8 @@
 	<binding value="ognl:true" name="clientValidationEnabled"/>
 	<binding value="listener:doSaveEntityAction" name="success"/>
 	<binding value="listener:doCancelEntityAction" name="cancel"/>
-  </component>
-				  ]]></programlisting>
+</component>
+]]></programlisting>
 			</para>
 			
 		</sect2>
@@ -140,33 +138,36 @@
 		<para>AForm 对应的corner中的类为:
 			<programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
-			]]></programlisting>
+]]></programlisting>
 		</para>
 		<para>Add A to B<programlisting><![CDATA[
-<a parameters="ognl:{entity,'one2many/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a>
-		]]></programlisting>
+<a parameters="ognl:{entity,'one2many/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" 
+	href="BForm.html">Add A to B</a>
+]]></programlisting>
 		</para>
 		<para>显示与A所关联的B的列表．<programlisting><![CDATA[
 <tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
 	<td><span jwcid="@Insert" value="ognl:relativeObject.name" /><td>
 	......	
-		]]></programlisting></para>
+]]></programlisting></para>
 		<para>修改与A关联的B的数据：<programlisting><![CDATA[
-<a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'one2many/BForm'}" listener="listener:doEditRelativeEntityAction"></a>
-		]]></programlisting></para>
+<a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'one2many/BForm'}" 
+	listener="listener:doEditRelativeEntityAction"></a>
+]]></programlisting></para>
 		<para>删除与B的关联关系：<programlisting><![CDATA[
-<a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" listener="listener:doDeleteRelativeEntityAction"></a>
-		]]></programlisting></para>
+<a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" 
+	listener="listener:doDeleteRelativeEntityAction"></a>
+]]></programlisting></para>
 		<para>BForm　功能：添加B,并保存与A的关联．</para>
 		<para>BForm对应corner中的类　<programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
-			]]></programlisting></para>
+]]></programlisting></para>
 		<para>注入上级页面的地址<programlisting><![CDATA[
 <inject property="rootFormPage" type="page" object="one2many/AForm"/>
-			]]></programlisting></para>
+]]></programlisting></para>
 		<para>返回到AForm<programlisting><![CDATA[
 <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
-			]]></programlisting></para>
+]]></programlisting></para>
 		</sect2>
 		<sect2 id="corner.quickstar.sect3.3">
 		<title>多对多关联。</title>
@@ -176,11 +177,11 @@
 		<para>AForm　功能：编辑或添加数据．导向ABList添加关联关系,显示A与B关联关系.</para>
 		<para>AForm 对应的corner中的类为:<programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
-			]]></programlisting></para>
+]]></programlisting></para>
 		<para>ABList 功能: 添加A,B关联关系.</para>
 		<para>ABList对应corner中的类为:<programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeSelectionListPage">
-			]]></programlisting></para>
+]]></programlisting></para>
 		<para>添加A与B的关联</para>
 		<para><programlisting><![CDATA[
 <component id="ABForm" type="Form">
@@ -192,4 +193,3 @@
 	</sect2>
 	</sect1>
 </chapter>
-

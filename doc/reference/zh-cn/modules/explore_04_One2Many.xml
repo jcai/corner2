@@ -115,10 +115,10 @@ public class Many extends AbstractModel {
 						<para>oneList.page</para>
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.PoListPage">
-  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <description>corner.demo.model.one2many.One Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
-  <property persist="client" initial-value="new corner.demo.model.xf.one2many.One()" name="queryEntity"/>
+  <property initial-value="new corner.demo.model.one2many.One()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.one2many.One()" name="queryEntity"/>
   <component type="Form" id="AQueryForm">
     <binding value="listener:doQueryEntityAction" name="listener"/>
     <binding value="ognl:beans.delegate" name="delegate"/>
@@ -159,10 +159,10 @@ public class Many extends AbstractModel {
    <fieldset>
    <legend>
 	   A-B one-to-many,A关联的B列表 
-	   <a parameters="ognl:{entity,'xf/one2many/manyForm'}" listener="listener:doNewRelativeAction" 
+	   <a parameters="ognl:{entity,'one2many/manyForm'}" listener="listener:doNewRelativeAction" 
 	   jwcid="@DirectLink" href="manyForm.html">Add One to Many</a>
 	   &nbsp;&nbsp;<a href="" jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
-	   parameters="ognl:{entity,'xf/one2many/manyList'}">View Many list</a>
+	   parameters="ognl:{entity,'one2many/manyList'}">View Many list</a>
    </legend> 
    
 	<table width="100%" align="center" border="1">
@@ -171,7 +171,7 @@ public class Many extends AbstractModel {
 			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
 			<td>
 				<a href="#" jwcid="@DirectLink" 
-				parameters="ognl:{entity,relativeObject,'xf/one2many/manyForm'}" 
+				parameters="ognl:{entity,relativeObject,'one2many/manyForm'}" 
 				listener="listener:doEditRelativeEntityAction">
 				<span key="doEditRelativeAction" /></a></td>
 			<td>
@@ -192,9 +192,9 @@ public class Many extends AbstractModel {
 						<para>oneForm.page</para>
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage">
-  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <description>corner.demo.model.one2many.One Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
+  <property persist="entity" initial-value="new corner.demo.model.one2many.One()" name="entity"/>
   <component type="Form" id="oneForm">
     <binding value="ognl:beans.delegate" name="delegate"/>
     <binding value="ognl:true" name="clientValidationEnabled"/>
@@ -230,7 +230,7 @@ public class Many extends AbstractModel {
 		返回
       </a>
       <a jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
-      parameters="ognl:{rootedObject,'xf/one2many/manyList'}">返回B列表</a>
+      parameters="ognl:{rootedObject,'one2many/manyList'}">返回B列表</a>
     </center>
     <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:getSource('bs')" 
     persist="client">
@@ -243,7 +243,8 @@ public class Many extends AbstractModel {
         <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
           <td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
           <td>
-            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="oneForm.html">
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" 
+            	href="oneForm.html">
               <span key="link.edit">Edit</span>
             </a>
           </td>
@@ -266,11 +267,11 @@ public class Many extends AbstractModel {
 						<para>manyList.page</para>
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityListPage">
-  <description>corner.demo.model.xf.one2many.One Form Page</description>
+  <description>corner.demo.model.one2many.One Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <inject property="rootFormPage" type="page" object="xf/one2many/oneForm"/>
-  <property initial-value="new corner.demo.model.xf.one2many.One()" name="entity"/>
-  <property persist="client" initial-value="new corner.demo.model.xf.one2many.One()" name="queryEntity"/>
+  <inject property="rootFormPage" type="page" object="one2many/oneForm"/>
+  <property initial-value="new corner.demo.model.one2many.One()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.one2many.One()" name="queryEntity"/>
 </page-specification>
 ]]></programlisting></para>
 					</listitem>
@@ -301,14 +302,14 @@ public class Many extends AbstractModel {
 				
 				<itemizedlist>
 					<listitem>
-						<para>manyForm.html</para>
+						<para>manyForm.page</para>
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
   <description>Form Page</description>
   <!-- 设定返回的根页面 -->
-  <inject property="rootFormPage" type="page" object="xf/one2many/manyList"/>
+  <inject property="rootFormPage" type="page" object="one2many/manyList"/>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.Many()" name="entity"/>
+  <property persist="entity" initial-value="new corner.demo.model.one2many.Many()" name="entity"/>
   <component type="Form" id="ManyForm">
     <binding value="ognl:beans.delegate" name="delegate"/>
     <binding value="ognl:true" name="clientValidationEnabled"/>
@@ -350,11 +351,11 @@ public class Many extends AbstractModel {
 	   A-B one-to-many,A关联的B列表 
 	   <!-- 当进入修改页面时，ognl将需要加入关系的entity和要跳转的页面加入到连接。
 	   		doNewRelativeAction是corner实现的方法 -->
-	   <a parameters="ognl:{entity,'xf/one2many/manyForm'}" listener="listener:doNewRelativeAction" 
+	   <a parameters="ognl:{entity,'one2many/manyForm'}" listener="listener:doNewRelativeAction" 
 	   jwcid="@DirectLink" href="manyForm.html">Add One to Many</a> &nbsp;&nbsp;
 	   <!-- 和添加关系一样将跳转的页面和entity加入连接并使用监听doViewRelativeEntityListAction方法准备进入显示页面 -->
 	   <a href="" jwcid="@DirectLink" listener="listener:doViewRelativeEntityListAction" 
-	   parameters="ognl:{entity,'xf/one2many/manyList'}">View Many list</a>
+	   parameters="ognl:{entity,'one2many/manyList'}">View Many list</a>
 </legend> 
 ]]></programlisting></para>
 					</listitem>
@@ -452,10 +453,10 @@ public class RelativeObjectOperator implements IRelativeObjectOperator<Object, O
 <page-specification class="corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage">
   <description>Form Page</description>
   <!-- 设定返回的根页面 -->
-  <inject property="rootFormPage" type="page" object="xf/one2many/manyList"/>
+  <inject property="rootFormPage" type="page" object="one2many/manyList"/>
   
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property persist="entity" initial-value="new corner.demo.model.xf.one2many.Many()" name="entity"/>
+  <property persist="entity" initial-value="new corner.demo.model.one2many.Many()" name="entity"/>
   <component type="Form" id="ManyForm">
     <binding value="ognl:beans.delegate" name="delegate"/>
     <binding value="ognl:true" name="clientValidationEnabled"/>
@@ -521,7 +522,7 @@ public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntit
 		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
 			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
 			<td><a href="#" jwcid="@DirectLink" 
-				parameters="ognl:{entity,relativeObject,'xf/one2many/manyForm'}" 
+				parameters="ognl:{entity,relativeObject,'one2many/manyForm'}" 
 				listener="listener:doEditRelativeEntityAction">
 				<span key="doEditRelativeAction" /></a></td>
 			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" 
@@ -721,7 +722,7 @@ public class BeanUtils {
 							<para>从oneForm进入修改页面</para>
 <para>使用DirectLink组建，用ognl将one、要修改的many和路径加入属性中，监听doEditRelativeEntityAction方法</para>
 <para><programlisting><![CDATA[
-<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'xf/one2many/manyForm'}" 
+<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'one2many/manyForm'}" 
 listener="listener:doEditRelativeEntityAction"><span key="doEditRelativeAction" /></a></td>
 ]]></programlisting></para>
 					

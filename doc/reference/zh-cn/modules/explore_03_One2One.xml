@@ -25,7 +25,7 @@
 <programlisting><![CDATA[
 <span jwcid="@DemoBorder">
 	<center>
-		<a jwcid="@PageLink" page="xf/one/AForm"><span key="Add" /></a><br>
+		<a jwcid="@PageLink" page="one/AForm"><span key="Add" /></a><br>
 	</center>
 	<center>
 		<form jwcid="AQueryForm">
@@ -60,13 +60,15 @@
           </td>
           <td>
           <!-- 加入编辑功能doEditEntityAction为corner实现的功能 -->
-            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" 
+            	href="AForm.html" id="editAction">
               <span key="link.edit">Edit</span>
             </a>
           </td>
           <td>
           <!-- 加入删除功能doDeleteEntityAction为corner实现的功能 -->
-            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" 
+            	href="#" id="deleteAction">
               <span key="link.delete">Delete</span>
             </a>
           </td>
@@ -89,9 +91,9 @@
   <description>corner.demo.model.one.A Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <!-- entity模板，使用自动生成get/setEntity方法 -->
-  <property initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+  <property initial-value="new corner.demo.model.one.apple()" name="entity"/>
   <!-- 查询时使用的queryEntity -->
-  <property persist="client" initial-value="new corner.demo.model.xf.one.apple()" name="queryEntity"/>
+  <property persist="client" initial-value="new corner.demo.model.one.apple()" name="queryEntity"/>
   
   <component type="Form" id="AQueryForm">
     <binding value="listener:doQueryEntityAction" name="listener"/>
@@ -111,7 +113,7 @@
 				<listitem>
 					<para>AForm.html文件</para>
 <para><programlisting><![CDATA[
-<span jwcid="@DemoBorder" title="xfAForm">
+<span jwcid="@DemoBorder" title="AForm">
 	<a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
 	<form jwcid="AForm" action="AList.html">
       <table>
@@ -126,7 +128,8 @@
 		
       </table>
       <input jwcid="@Submit" type="Submit" value="message:Okay"/>
-      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle"
+      	 onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>
 </span>]]></programlisting></para>
 				</listitem>
@@ -138,10 +141,10 @@
 如果有特殊操作可以继承AbstractEntityFormPage类，重写类中方法。
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.AbstractEntityFormPage">
-  <description>corner.demo.model.one.A Form Page</description>
+  <description>corner.demo.model.one.Apple Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <!-- 创建entity模型，以便在页面中传递类 -->
-  <property persist="entity" initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+  <property persist="entity" initial-value="new corner.demo.model.one.apple()" name="entity"/>
   <component type="Form" id="AForm">
     <binding value="ognl:beans.delegate" name="delegate"/>
     <binding value="ognl:true" name="clientValidationEnabled"/>
@@ -169,7 +172,7 @@
 			<itemizedlist>
 				<listitem>
 					<para>AbstractModel.java文件</para>
-包：corner.demo.model.xf.one；spring配置文件中将corner.demo.model包及其子包设置成为注释配置hibernate表结构的目标包
+包：corner.demo.model.one；spring配置文件中将corner.demo.model包及其子包设置成为注释配置hibernate表结构的目标包
 <para><programlisting><![CDATA[
 @MappedSuperclass
 public class AbstractModel extends AbstractPersistDomain implements Serializable {
@@ -321,8 +324,8 @@ protected void saveOrUpdateEntity() {
 					
 					<itemizedlist>
 						<listitem>
-							<para>继承了AbstractPersistDomain的AbstractModel类</para>
-							<para>前面已经提到过此类，这个类用来配置Hibernate的ID生成器，使用EJB3.0注释或xdoclet都可以</para>
+						<para>继承了AbstractPersistDomain的AbstractModel类</para>
+						<para>前面已经提到过此类，这个类用来配置Hibernate的ID生成器，使用EJB3.0注释或xdoclet都可以</para>
 <para><programlisting><![CDATA[
 @MappedSuperclass
 public class AbstractModel extends AbstractPersistDomain implements Serializable {
@@ -377,10 +380,7 @@ public class apple extends AbstractModel {
 							<para>Model - AbstractPersistDomain</para>
 							<para>corner.model.AbstractPersistDomain</para>
 <para>真正的工作在这里呢，前面的配置、调用都是为了对数据库操作。别急接着往下看！</para>
-<para>还记得前面提点的在spring的xml中的配置吗？对就是config.spring.application-base-service.xml文件，我们已经重新配置了
-sessionFactory要他使用时调用corner.orm.hibernate.v3.HibernateObjectRelativeUtils，而HibernateObjectRelativeUtils继承了
-实现了HibernateDaoSupport类ObjectRelativeUtils接口，EntityService对数据操作时也洽洽是调用了ObjectRelativeUtils接口的方法。
-java基础好的朋友大概已经兴奋起来了，我们不就是等于在调用spring提供给我们的HibernateTemplate吗！
+<para>还记得前面提点的在spring的xml中的配置吗？对就是config.spring.application-base-service.xml文件，我们已经重新配置了sessionFactory要他使用时调用corner.orm.hibernate.v3.HibernateObjectRelativeUtils，而HibernateObjectRelativeUtils继承了实现了HibernateDaoSupport类ObjectRelativeUtils接口，EntityService对数据操作时也洽洽是调用了ObjectRelativeUtils接口的方法。java基础好的朋友大概已经兴奋起来了，我们不就是等于在调用spring提供给我们的HibernateTemplate吗！
 </para>
 <para><programlisting><![CDATA[
 /**
@@ -480,7 +480,7 @@ public <E> EntityPage<E> goEntityPageByPage(E e, EntityPage<E> page) {
 <page-specification class="corner.orm.tapestry.page.AbstractEntityListPage">
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <!-- 使用的实例 -->
-  <property initial-value="new corner.demo.model.xf.one.apple()" name="entity"/>
+  <property initial-value="new corner.demo.model.one.apple()" name="entity"/>
 </page-specification>
 ]]></programlisting></para>
 						</listitem>
@@ -530,7 +530,8 @@ public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
 			.execute(new HibernateCallback(){	//定义HibernateCallback接口中doInHibernate方法
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
-					//callback就是IPersistentQueriable接口，使用createCriteria方法相当于调用实现此方法本身的类
+					//callback就是IPersistentQueriable接口，
+					//使用createCriteria方法相当于调用实现此方法本身的类
 					Criteria criteria=callback.createCriteria(session);
 					callback.appendCriteria(criteria);
 
@@ -574,13 +575,15 @@ public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
       <td><span jwcid="@Insert" value="ognl:entity.weight">weight</span></td>
       <td>
       <!-- 直接传入entity，doEditEntityAction是corner中提供的编辑方法 -->
-        <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="#" id="editAction">
+        <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" 
+        	href="#" id="editAction">
           <span key="link.edit">Edit</span>
         </a>
       </td>
       <td>
       <!-- 直接传入entity，doDeleteEntityAction是corner中提供的删除方法 -->
-        <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+        <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" 
+        	href="#" id="deleteAction">
           <span key="link.delete">Delete</span>
         </a>
       </td>
@@ -681,7 +684,7 @@ public IPage doDeleteEntityAction(T entity) { // 删除操作
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.AbstractEntityListPage">
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property persist="client" initial-value="new corner.demo.model.xf.one.apple()" name="queryEntity"/>
+  <property persist="client" initial-value="new corner.demo.model.one.apple()" name="queryEntity"/>
   
   <component type="Form" id="AQueryForm">
   	<!-- 监听doQueryEntityAction -->

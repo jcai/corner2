@@ -11,7 +11,7 @@
 	<!ENTITY explore_02  SYSTEM "modules/explore_02_RunTime.xml">
 	<!ENTITY explore_03  SYSTEM "modules/explore_03_One2One.xml">
 	<!ENTITY explore_04  SYSTEM "modules/explore_04_One2Many.xml">
-	
+	<!ENTITY explore_05  SYSTEM "modules/explore_05_Many2Many.xml">
 ]>
 
 <book lang="zh_cn">
@@ -214,7 +214,8 @@
 	&explore_01;
 	&explore_02;
 	&explore_03;
-
 	&explore_04;
+
+	&explore_05;
 	
 </book>

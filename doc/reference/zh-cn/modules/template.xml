@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!----------------------- ch5.1 E----------------------->
+<!---------- ch5.1.1 S ---------->
+<!-------itemizedlist-------->
 <chapter id="corner.template">
 	<title>CornerXX</title>
 	<abstract>
@@ -81,5 +84,162 @@
 			</sect3>
 		</sect2>
 	</sect1>
+	
+	
+<!---------------------------------------------------------------------------------------------------------------->
+	<sect1 id="ch5.1">
+		<title>基础代码</title>
+			<note>
+				<para>
+					本章介绍Many to Many操作，由于不像前两章容易区分，所以用一个many用A表示另一个many用B表示。
+				</para>
+			</note>
+		
+		<sect2 id="ch5.1.1">
+			<title>建立Model</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>A.java</para>
+						<para>One继承AbstractModel类，AbstractModel在上一章中已经详细描述过</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>Many.java</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		
+		<sect2 id="ch5.1.2">
+			<title>One端操作需要的文件</title>
+			<para>				
+				<itemizedlist>
+					<listitem>
+						<para>oneList.html</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneList.page</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneForm.html</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>oneForm.page</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		
+		<sect2 id="ch5.1.3">
+			<title>Many端操作需要的文件</title>
+			<para>
+				<itemizedlist>
+					<listitem>
+						<para>manyList.html</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyList.page</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyForm.html</para>
+<para><programlisting><![CDATA[
+
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+				
+				<itemizedlist>
+					<listitem>
+						<para>manyForm.html</para>
+<para><programlisting><![CDATA[
+
+</page-specification>
+]]></programlisting></para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</sect2>
+		
+		<procedure id="corner.quickstar.proc1"><title>构建corner的开发环境</title>
+		<step>
+		  <para>安装eclipse plugin:取得168.168.168.205上的addons-3.2 eclipse plugin ,</para>
+		</step>
+		<step>
+		  <para>下载corner:打开svn资源库视图,新建一个资源库位置,填入corner的url地址:http://dev.bjmaxinfo.com/svn/corner,在turck目录下
+				 检索出corner工程.</para>
+		</step>
+		<step>
+		  <para>下载jetty，并解压缩。</para>
+		</step>
+		<step>
+			<para>运行corner</para>
+			<substeps>
+				<step>
+					<para>点击eclipse run，在jetty web 上new 一个工程运行环境，配置如图：</para>
+					
+					<mediaobject>
+			            <imageobject role="fo">
+			                <imagedata fileref="images/corner-jetty-config.gif" format="GIF" align="center"/>
+			            </imageobject>
+			            <imageobject role="html">
+			                <imagedata fileref="../shared/images/corner-jetty-config.gif" format="GIF" 
+			                	align="center"/>
+			            </imageobject>
+			        </mediaobject>
+				</step>
+				<step>
+					<para>这个demo演示了开发中,单表,一对多,多对多的增,删,改,查,的操作.</para>
+				</step>
+			</substeps>
+		</step>
+	</procedure>
+		
+	</sect1>
+	
+<!---------------------------------------------------------------------------------------------------------------->
 	
 </chapter>

@@ -200,7 +200,8 @@ EntityService，所以功能的操作类，关系通过ObjectRelativeUtils接口
 			<create-pipeline filter-interface="DataSqueezerFilter"
 				configuration-id="DataSqueezerFilters"
 				terminator="service:DataSqueezerTerminator"/>
-				<!-- DataSqueezerFilter过滤接口，DataSqueezerFilters过滤调用的类，DataSqueezerTerminator终结者 -->
+				<!-- DataSqueezerFilter过滤接口，DataSqueezerFilters过滤调用的类，
+					DataSqueezerTerminator终结者 -->
 		</invoke-factory>
 	</implementation>
 	
