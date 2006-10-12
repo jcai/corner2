@@ -1,12 +1,12 @@
 <span jwcid="@DemoBorder">
-	<div jwcid="@contrib:TableView" columns="name,message,!edit,!delete" element="div"
+	<div jwcid="@contrib:TableView" columns="name,message,!entity.a.cnName,!edit,!delete" element="div"
         persist="client" source="ognl:getSource('abs')" pageSize="5">
 		<table width="200" border="1" align="center">
 		  <tr>
-			  <td colspan="4" align="right"><a href="BForm.html" jwcid="@DirectLink" listener="listener:goRootFormPage">返回BForm</a></td>
+			  <td colspan="5" align="right"><a href="BForm.html" jwcid="@DirectLink" listener="listener:goRootFormPage">返回BForm</a></td>
 		  </tr>
 		  <tr>
-			  <td colspan="4" align="right"><a href="#" jwcid="@DirectLink" listener="listener:doNewEntityAction">New</a></td>
+			  <td colspan="5" align="right"><a href="#" jwcid="@DirectLink" listener="listener:doNewEntityAction">New</a></td>
 		  </tr>
 		  <tr>
 			<span jwcid="@contrib:TableColumns" element="th"/>
@@ -14,11 +14,12 @@
 		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
 		  	<th align="center"><span jwcid="@Insert" value="ognl:entity.name" /></th>
 			<td align="center"><span jwcid="@Insert" value="ognl:entity.message" /></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.a.cnName"></span></td>
 			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doEditEntityAction" parameters="ognl:entity">Edit</a></td>
 			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doDeleteEntityAction" parameters="ognl:entity">Delete</a></td>
 		  </tr>
 		  <tr>
-		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  	<td colspan="5" align="center"><div jwcid="@contrib:TablePages" /></td>
 		  </tr>
 		</table>
 	</div>
