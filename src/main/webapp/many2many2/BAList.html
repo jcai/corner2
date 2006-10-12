@@ -14,7 +14,7 @@
 		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:entity" converter="ognl:converter">
 		  	<th align="center"><span jwcid="@Insert" value="ognl:entity.name" /></th>
 			<td align="center"><span jwcid="@Insert" value="ognl:entity.message" /></td>
-			<td align="center"><span jwcid="@Insert" value="ognl:entity.a.cnName"></span></td>
+			<td align="center"><span jwcid="@Insert" value="ognl:entity.getA().getCnName()"></span></td>
 			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doEditEntityAction" parameters="ognl:entity">Edit</a></td>
 			<td align="center"><a href="#" jwcid="@DirectLink" listener="listener:doDeleteEntityAction" parameters="ognl:entity">Delete</a></td>
 		  </tr>

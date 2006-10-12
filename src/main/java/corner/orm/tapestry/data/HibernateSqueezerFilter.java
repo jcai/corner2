@@ -36,7 +36,7 @@ public class HibernateSqueezerFilter extends AbstractDataSqueezerFilter {
 
 	@SuppressWarnings("unchecked")
 	public Object unsqueeze(String string, DataSqueezer next) {
-		if (string.startsWith(PREFIX)) {
+		if (string!=null&&string.startsWith(PREFIX)) {
 			string = string.substring(PREFIX.length());
 			String[] split = string.split(DELIMITER);
 			String clazzName = split[0];
