@@ -138,7 +138,7 @@
 			<itemizedlist>
 				<listitem>
 					<para>AForm.page文件</para>
-如果有特殊操作可以继承AbstractEntityFormPage类，重写类中方法。
+<para>如果有特殊操作可以继承AbstractEntityFormPage类，重写类中方法。</para>
 <para><programlisting><![CDATA[
 <page-specification class="corner.orm.tapestry.page.AbstractEntityFormPage">
   <description>corner.demo.model.one.Apple Form Page</description>
@@ -172,7 +172,7 @@
 			<itemizedlist>
 				<listitem>
 					<para>AbstractModel.java文件</para>
-包：corner.demo.model.one；spring配置文件中将corner.demo.model包及其子包设置成为注释配置hibernate表结构的目标包
+<para>包：corner.demo.model.one；spring配置文件中将corner.demo.model包及其子包设置成为注释配置hibernate表结构的目标包</para>
 <para><programlisting><![CDATA[
 @MappedSuperclass
 public class AbstractModel extends AbstractPersistDomain implements Serializable {
@@ -215,14 +215,14 @@ public class AbstractModel extends AbstractPersistDomain implements Serializable
 	}
 }
 ]]></programlisting></para>
-继承AbstractPersistDomain抽象类，AbstractPersistDomain类是实例操作的基础类，实现了对单一记录操作的save、update、saveOrUpdate、delete方法，和从spring获得Entity的getEntityService方法
+<para>继承AbstractPersistDomain抽象类，AbstractPersistDomain类是实例操作的基础类，实现了对单一记录操作的save、update、saveOrUpdate、delete方法，和从spring获得Entity的getEntityService方法</para>
 				</listitem>
 			</itemizedlist>
 			
 			<itemizedlist>
 				<listitem>
 					<para>apple.java文件</para>
-继承AbstractModel类，@Entity(name = "apple")表示使用apple作为表名，继承的属性和方法不能重复
+<para>继承AbstractModel类，@Entity(name = "apple")表示使用apple作为表名，继承的属性和方法不能重复</para>
 <para><programlisting><![CDATA[
 @Entity(name = "apple")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -237,7 +237,7 @@ public class apple extends AbstractModel {
 	//geter和seter略
 }
 ]]></programlisting></para>
-添加完以上文件最基本的增删改功能就可是实现了。
+<para>添加完以上文件最基本的增删改功能就可是实现了。</para>
 				</listitem>
 			</itemizedlist>
 		</para>
@@ -247,8 +247,7 @@ public class apple extends AbstractModel {
 		<title>背后隐藏的操作</title>
 		<sect2 id="ch3.3.1">
 			<title>抽象Model文件 － AbstractPersistDomain.java</title>
-			<para>
-			在这里将调用前面spring初始化中设置的entityService,corner.squeezer.xml中hivemind配置将过滤entityService
+<para>在这里将调用前面spring初始化中设置的entityService,corner.squeezer.xml中hivemind配置将过滤entityService</para>
 <para><programlisting><![CDATA[
 public abstract class AbstractPersistDomain {
 	/**
@@ -275,7 +274,7 @@ public abstract class AbstractPersistDomain {
 	}
 }
 ]]></programlisting></para>
-			</para>
+			
 		</sect2>
 		
 		<sect2 id="ch3.3.2">
@@ -733,8 +732,8 @@ public IPage doQueryEntityAction(){
 	return this;
 }
 ]]></programlisting></para>
-当页面doQueryEntityAction方法返回自己后tapestry使页面重新载入，在@contrib:TableView处获得source时又在次从AbstractEntityListPage中查找getSource方法
-再次建立PersistentBasicTableModel类
+<para>当页面doQueryEntityAction方法返回自己后tapestry使页面重新载入，在@contrib:TableView处获得source时又在次从AbstractEntityListPage中查找getSource方法
+再次建立PersistentBasicTableModel类</para>
 				</listitem>
 			</itemizedlist>
 			
@@ -774,7 +773,7 @@ public Iterator getCurrentPageRows(final int nFirst, final int nPageSize,
 	//...
 }
 ]]></programlisting></para>
-返回Iterator后查询结束。
+<para>返回Iterator后查询结束。</para>
 				</listitem>
 			</itemizedlist>
 		</para>
