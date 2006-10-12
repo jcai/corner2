@@ -37,7 +37,7 @@ import corner.service.EntityService;
  * @version $Revision$
  * @since 2.1.1
  */
-public abstract class AbstractCornerSelectWidget extends Autocompleter {
+public abstract class CornerSelectWidget extends Autocompleter {
     // mode, can be remote or local (local being from html rendered option elements)
     private static final String MODE_REMOTE = "remote";	
     /**
