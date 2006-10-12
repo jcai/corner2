@@ -499,7 +499,7 @@ public abstract class AbstractRelativeEntityFormPage<T, E> extends AbstractEntit
 	}
 }
 ]]></programlisting></para>
-返回manyList.html
+<para>返回manyList.html</para>
 					</listitem>
 				</itemizedlist>
 			</para>
