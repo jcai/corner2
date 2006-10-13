@@ -63,6 +63,7 @@ public abstract class RadioGroup extends org.apache.tapestry.form.RadioGroup {
 	protected void cleanupAfterRender(IRequestCycle cycle) {
 		super.cleanupAfterRender(cycle);
 		this._selection=null;
+		this._optionId = 0;
 	}
 
 	/**
