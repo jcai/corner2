@@ -75,8 +75,6 @@ public abstract class PropertySelection extends
                 foundSelected = true;
             }        
 
-            foundSelected = true;
-
             writer.print(this.getOptionName());
 
             writer.end();
