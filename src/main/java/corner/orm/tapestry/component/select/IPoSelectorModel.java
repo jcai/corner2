@@ -1,5 +1,6 @@
 package corner.orm.tapestry.component.select;
 
+import org.apache.tapestry.IComponent;
 import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.apache.tapestry.services.DataSqueezer;
 
@@ -48,5 +49,13 @@ public interface IPoSelectorModel extends IAutocompleteModel{
 	public void setPoClass(Class poClass);
 
 	public void setSelectFilter(ISelectFilter filter);
+
+	/**
+	 * 得到此model所对应的组件.
+	 * @return 组件对象
+	 */
+	public abstract IComponent getComponent();
+
+	public abstract void setComponent(IComponent selector);
 
 }

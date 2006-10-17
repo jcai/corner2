@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id$
+// file :       $Id:Selector.java 2023 2006-10-17 05:18:45Z jcai $
 // project:     corner
 //
-// last change: date:       $Date$
-//              by:         $Author$
-//              revision:   $Revision$
+// last change: date:       $Date:2006-10-17 05:18:45Z $
+//              by:         $Author:jcai $
+//              revision:   $Revision:2023 $
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
@@ -34,7 +34,7 @@ import corner.service.EntityService;
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @author ghostbb
- * @version $Revision$
+ * @version $Revision:2023 $
  * @since 2.2.1
  * 
  */
@@ -58,7 +58,7 @@ public abstract class Selector extends Autocompleter {
 	@InjectObject("service:tapestry.data.DataSqueezer")
 	public abstract DataSqueezer getDataSqueezer();
 
-	@Parameter(required = true)
+	@Parameter
 	public abstract String getLabelField();
 
 	
@@ -110,6 +110,7 @@ public abstract class Selector extends Autocompleter {
 		if (this.getReturnValueFields() != null) {
 			model.setReturnValueFields(this.getReturnValueFields().split(","));
 		}
+		model.setComponent(this);
 
 	}
 

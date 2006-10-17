@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id$
+// file :       $Id:SelectorModel.java 2023 2006-10-17 05:18:45Z jcai $
 // project:     corner
 //
-// last change: date:       $Date$
-//              by:         $Author$
-//              revision:   $Revision$
+// last change: date:       $Date:2006-10-17 05:18:45Z $
+//              by:         $Author:jcai $
+//              revision:   $Revision:2023 $
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
@@ -14,6 +14,7 @@ package corner.orm.tapestry.component.select;
 
 import java.util.Map;
 
+import org.apache.tapestry.IComponent;
 import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.apache.tapestry.services.DataSqueezer;
 
@@ -24,7 +25,7 @@ import corner.util.BeanUtils;
  * 实现一个po的自动完成模型.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @author ghostbb
- * @version $Revision$
+ * @version $Revision:2023 $
  * @since 2.2.1
  */
 public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
@@ -37,6 +38,7 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 	ISelectFilter filter;
 	
 	String[] returnValueFileds;
+	private IComponent nestComp;
 	
 	/**
 	 * @param field The field to set.
@@ -154,5 +156,11 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 	 */
 	public Class getPoClass() {
 		return poClass;
+	}
+	public IComponent getComponent() {
+		return this.nestComp;
+	}
+	public void setComponent(IComponent c){
+		this.nestComp=c;
 	}
 }

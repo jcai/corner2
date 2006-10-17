@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.json.JSONArray;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -54,7 +55,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 		int len=returnValueFields.length;
 		
 		for(Object obj:list){
-			Object label=BeanUtils.getProperty(obj,model.getLabelField()); //得到label.
+			Object label=BeanUtils.getProperty(obj,getLabelField()); //得到label.
 			if(len>1){//为连带多个字段内容.
 				JSONArray arr=new JSONArray();
 				for(int i=0;i<len;i++){
@@ -73,6 +74,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * @return label字段名称.
 	 */
 	protected String getLabelField(){
+		if(this.model.getLabelField()==null){
+			throw Tapestry.createRequiredParameterException(model.getComponent(), "labelField");
+		}
 		return this.model.getLabelField();
 	}
 	
@@ -97,7 +101,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 */
 	protected void appendCriteria(Criteria criteria, String match) {
 		if(match!=null&&match.trim().length()>0){
-			criteria.add(Restrictions.like(model.getLabelField(),match.trim()+"%"));
+			criteria.add(Restrictions.like(getLabelField(),match.trim()+"%"));
 		}
 	}
 	/**
