@@ -6,6 +6,7 @@ http://www.bjmaxinfo.com
 changes in version 2.2.2 	(unreleased)
 ------------------------------------------
 package corner.orm.tapestry.component
+* Selector的样式设定，从Tapestry的组件中移动到js中处理.
 * 提出AbstractSelectFilter方法里面的getLabelField,供子类调用.
 * AbstractSelectFilter实现ISelectFilter接口。
 * 删除DefaultSelectFilter的接口ISelectFilter,采用抽象的父类
