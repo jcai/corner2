@@ -90,6 +90,19 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 	 */
 	public String getLabelFor(Object value) {
 		if(this.entityService.isPersistent(value)){
+			boolean fieldIsNull=(field==null);
+			boolean filterFieldIsNull=(filter.getLabelField()==null);
+			
+			
+			if(fieldIsNull){
+				if(!filterFieldIsNull){
+					return (String) BeanUtils.getProperty(value, filter.getLabelField());
+				}
+				
+				return null;
+				
+			}
+			
 			return (String) BeanUtils.getProperty(value, field);
 		}
 		return value.toString();
@@ -139,12 +152,7 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 	public EntityService getEntityService() {
 		return entityService;
 	}
-	/**
-	 * @see corner.orm.tapestry.component.select.IPoSelectorModel#getField()
-	 */
-	public String getField() {
-		return getLabelField();
-	}
+	
 	/**
 	 * @see corner.orm.tapestry.component.select.IPoSelectorModel#getLabelField()
 	 */
