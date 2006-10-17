@@ -11,11 +11,12 @@
     <binding value="listener:doSaveEntityAction" name="success"/>
     <binding value="listener:doCancelEntityAction" name="cancel"/>
   </component>
-  <component type="TextField" id="nameField">
+  <component type="corner:Selector" id="nameField">
     <binding value="message:name" name="displayName"/>
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
-    <binding name="validators" value="validators:required"/>    
+	<binding name="queryClassName" value="literal:corner.demo.model.one.A"/>  
+	<binding name="labelField" value="literal:password"/>  
   </component>
     <component type="TextField" id="passwordField">
     <binding value="message:num" name="displayName"/>

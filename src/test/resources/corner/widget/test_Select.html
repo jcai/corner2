@@ -14,13 +14,24 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript">
-	dojo.require("corner.widget.CornerSelect");
+	dojo.require("corner.widget.Selector");
 	dojo.require("dojo.widget.Select");
-	
+
+var _this;
 function init(){	
-	var props = {dataUrl:"TextAreaBox.js"};
-	dojo.widget.createWidget("CornerSelect",props,dojo.byId("tab"));
+	var props = {dataUrl:"SelectData.js"};
+	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
+	_this=widget;
+	
+
+	
+//	dojo.event.disconnect(_this.dataProvider, "provideSearchResults", _this, "openResultList");
+//	dojo.event.connect(_this.dataProvider, "provideSearchResults", this, "openResultList");
+	
 }
+
+
+		
 dojo.addOnLoad(init);
 
 </script>

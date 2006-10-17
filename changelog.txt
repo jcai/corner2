@@ -1,0 +1,10 @@
+CORNER FRAMEWORK
+===========================================
+http://www.bjmaxinfo.com 
+
+changes in version 2.2.1 	(unrelease)
+------------------------------------------
+package corner.orm.tapestry.component
+* 加入新版本的自动完成组件的model类.
+* 加入单一实体选取一个字段的AutoCompleter.
+

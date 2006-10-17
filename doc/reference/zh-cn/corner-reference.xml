@@ -7,6 +7,7 @@
 %vers;
 	<!ENTITY quickstar  SYSTEM "modules/quickstar.xml">
 	<!ENTITY architecture  SYSTEM "modules/architecture.xml">
+	<!ENTITY components  SYSTEM "modules/components.xml">
 	<!ENTITY explore_01  SYSTEM "modules/explore_01_SystemInitialize.xml">
 	<!ENTITY explore_02  SYSTEM "modules/explore_02_RunTime.xml">
 	<!ENTITY explore_03  SYSTEM "modules/explore_03_One2One.xml">
@@ -211,6 +212,7 @@
 
 	&quickstar;
 	&architecture;
+	&components;
 	&explore_01;
 	&explore_02;
 	&explore_03;

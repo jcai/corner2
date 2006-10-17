@@ -340,8 +340,7 @@ dojo.widget.defineWidget(
 			}else{
 				dpClass = this.dataProviderClass;
 			}
-			dojo.debug("dataProviderClass:["+this.dataProviderClass+"]");
-			dojo.debug("dpClass:["+dpClass+"]");
+			
 			this.dataProvider = new dpClass();
 			this.dataProvider.init(this, this.getFragNodeRef(frag));
 			

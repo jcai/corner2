@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chapter id="corner.components">
+	<title>组件</title>
+	<abstract>
+		<para>
+			本章描述Corner里面集成的组件。
+			<note>
+				<para>
+					概述
+				</para>
+			</note>
+		</para>
+	</abstract>
+	<sect1 id="corner.components.sect1">
+		<title>Selector</title>
+		
+		<para>
+			提供了页面自动完成的功能,自动完成分为一下几种：
+			<itemizedlist>
+				<listitem>
+					<para>选取一个字段，并保存选取的值，</para>
+<para>使用为：
+	<programlistingco>
+                 <areaspec>
+                     <area id="c11" coords="6"/>
+                     <area id="c12" coords="7"/>
+                 </areaspec>
+		<programlisting><![CDATA[
+<component type="corner:Selector" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+	<binding name="queryClassName" value="literal:corner.demo.model.one.A"/>  
+	<binding name="labelField" value="literal:password"/>  
+</component>
+]]></programlisting>
+	 <calloutlist>
+                     <callout arearefs="c11">
+                         <para>
+                             <literal>queryClassName</literal>待查询的实体类的名称.
+                         </para>
+                     </callout>
+                     <callout arearefs="c12">
+                         <para>
+                             <literal>labelField</literal>待查询的实体名称的属性名称。
+                         </para>
+                     </callout>
+</calloutlist>
+		</programlistingco>
+</para>
+
+				</listitem>
+				<listitem>
+					<para>选取一个字段，并保存实体之间的关联</para>
+<para>使用为：
+	<programlistingco>
+                 <areaspec>
+                     <area id="c21" coords="5"/>
+                     <area id="c22" coords="6"/>
+                     <area id="c23" coords="7"/>
+                 </areaspec>
+		<programlisting><![CDATA[
+  <component type="corner:Selector" id="BField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="ognl:entity.b" name="value"/>
+	<binding name="queryClassName" value="literal:corner.demo.model.many2many2.B"/>  
+	<binding name="labelField" value="literal:cnName"/>  
+	<binding name="returnValueFields" value="literal:this"/>  
+  </component>
+
+]]></programlisting>
+	 <calloutlist>
+                     <callout arearefs="c21">
+                         <para>
+                             <literal>queryClassName</literal>待查询的实体类的名称.
+                         </para>
+                     </callout>
+                     <callout arearefs="c22">
+                         <para>
+                             <literal>labelField</literal>待查询的实体名称的属性名称。
+                         </para>
+                     </callout>
+                     <callout arearefs="c23">
+                         <para>
+                             <literal>returnValueFields</literal>待查询的实体名称的属性名称,该名称如果为this,则返回的即为当前查询的实体对象。
+                         </para>
+                     </callout>
+</calloutlist>
+		</programlistingco>
+</para>
+
+				</listitem>
+				<listitem>
+					<para>选取一个字段，查询的时候带有自定义的查询条件</para>
+					<para></para>
+				</listitem>
+				<listitem>
+					<para>选取一个字段,保存关联,同时填写其他字段</para>
+					<para></para>
+				</listitem>
+
+			</itemizedlist>
+			
+		</para>
+		
+	</sect1>
+</chapter>

@@ -57,22 +57,28 @@
 		</table>
 	</div>    
     <form jwcid="ABForm" action="AForm.html">
-	  <input type="hidden" jwcid="BField"/>
+
       <table align="center" width="500" border="1" bordercolorlight="#0000FF">
         <tr>
+			
           <td>
             <span key="name">name</span>
           </td>
           <td align="center">
-            <input jwcid="nameField" id="name" name="name"/>
+            <input jwcid="nameField" class="input-form-ajax-99" id="name" name="name"/>
           </td>
 		  <td>
 		  	message
 		  </td>
           <td align="center" class="right-td-width">
-            <input class="input-form-ajax-99" jwcid="messageField" id="message" name="message"/>
+
           </td>
         </tr>
+		  <tr>
+		  <td colspan="4" align="center">
+			 选取B<input jwcid="BField"/>
+		  </td>
+		</tr>
 		<tr>
 		  <td colspan="4" align="center">
 			  <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
