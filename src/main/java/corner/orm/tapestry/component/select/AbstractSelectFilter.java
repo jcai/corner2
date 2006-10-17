@@ -19,10 +19,10 @@ import corner.util.BeanUtils;
  * 抽象的选择过滤器。
  * 提供实现filter的大部分操作.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision$
+ * @version $Revision:2023 $
  * @since 2.2.1
  */
-public abstract class AbstractSelectFilter {
+public abstract class AbstractSelectFilter implements ISelectFilter{
 	/** 供选择的模型 **/
 	protected IPoSelectorModel model;
 	

@@ -2,7 +2,14 @@ CORNER FRAMEWORK
 ===========================================
 http://www.bjmaxinfo.com 
 
-changes in version 2.2.1 	(unrelease)
+
+changes in version 2.2.2 	(unreleased)
+------------------------------------------
+package corner.orm.tapestry.component
+* AbstractSelectFilter实现ISelectFilter接口。
+* 删除DefaultSelectFilter的接口ISelectFilter,采用抽象的父类
+
+changes in version 2.2.1 	(2006-10-17)
 ------------------------------------------
 package corner.orm.tapestry.component
 * 加入新版本的自动完成组件的model类.
