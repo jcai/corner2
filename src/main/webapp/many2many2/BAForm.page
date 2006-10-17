@@ -22,15 +22,15 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
-  <component type="corner:CornerSelect" id="messageField">
+  <component type="corner:Selector" id="messageField">
     <binding value="ognl:entity.message" name="value"/>
-    <binding name="queryClass" value="literal:corner.demo.model.many2many2.A" />
+    <binding name="queryClassName" value="literal:corner.demo.model.many2many2.A" />
     <binding name="label" value="literal:name" />
     <binding name="cnlabel" value="literal:cnName" />
   </component>
-  <component type="corner:CornerSelect" id="anothermessageField">
+  <component type="corner:Selector" id="anothermessageField">
     <binding value="ognl:entity.A" name="value"/>
-    <binding name="queryClass" value="literal:corner.demo.model.many2many2.A" />
+    <binding name="queryClassName" value="literal:corner.demo.model.many2many2.A" />
     <binding name="selectFilter" value="new corner.orm.tapestry.component.ObjectSelectFilter()"/>
     <binding name="label" value="literal:name" />
     <binding name="cnlabel" value="literal:cnName" />

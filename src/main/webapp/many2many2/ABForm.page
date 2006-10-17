@@ -31,7 +31,7 @@
   </component>
 <!--  <component type="corner:TextAreaBox" id="messageField">
     <binding value="ognl:entity.message" name="value"/>
-    <binding name="queryClass" value="literal:corner.demo.model.many2many2.B" />
+    <binding name="queryClassName" value="literal:corner.demo.model.many2many2.B" />
     <binding name="label" value="literal:name" />
     <binding name="cnlabel" value="literal:cnName" />
   </component> -->

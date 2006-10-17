@@ -73,7 +73,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * 返回label字段名称.
 	 * @return label字段名称.
 	 */
-	protected String getLabelField(){
+	public String getLabelField(){
 		if(this.model.getLabelField()==null){
 			throw Tapestry.createRequiredParameterException(model.getComponent(), "labelField");
 		}
