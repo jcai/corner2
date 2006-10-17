@@ -77,7 +77,7 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 		if(this.filter==null){
 			filter=new DefaultSelectFilter();
 		}
-		if(this.getReturnValueFields()==null){
+		if(this.getReturnValueFields()==null&&this.getLabelField()!=null){
 			this.setReturnValueFields(this.getLabelField());
 		}
 		return filter.query(match,this);
