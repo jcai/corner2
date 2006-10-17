@@ -20,6 +20,7 @@ import java.util.Map;
  * @author Ghost
  * @version $Revision$
  * @since 2.2.1
+ * @deprecated
  */
 public class ObjectSelectFilter extends DefaultSelectFilter {
 

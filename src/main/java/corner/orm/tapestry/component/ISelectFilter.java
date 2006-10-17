@@ -22,6 +22,7 @@ import corner.service.EntityService;
  * @author Ghost
  * @version $Revision$
  * @since 2.1.1
+ * @deprecated
  */
 public interface ISelectFilter {
 

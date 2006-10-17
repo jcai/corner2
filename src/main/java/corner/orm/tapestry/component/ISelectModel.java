@@ -20,6 +20,7 @@ import org.apache.tapestry.dojo.form.IAutocompleteModel;
  * @author Ghost
  * @version $Revision$
  * @since 2.1
+ * @deprecated
  */
 public interface ISelectModel extends IAutocompleteModel {
 

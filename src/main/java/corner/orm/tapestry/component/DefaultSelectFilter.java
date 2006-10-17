@@ -34,6 +34,7 @@ import corner.util.TapestryHtmlFormatter;
  * @author Ghost
  * @version $Revision$
  * @since 2.1.1
+ * @deprecated
  */
 public class DefaultSelectFilter implements ISelectFilter {
 	
