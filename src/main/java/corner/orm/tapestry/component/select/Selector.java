@@ -110,6 +110,7 @@ public abstract class Selector extends Autocompleter {
 		if (this.getReturnValueFields() != null) {
 			model.setReturnValueFields(this.getReturnValueFields().split(","));
 		}
+		model.setSelectFilter(this.getSelectFilter());
 		model.setComponent(this);
 
 	}
