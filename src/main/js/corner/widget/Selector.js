@@ -55,7 +55,31 @@ dojo.lang.extend(corner.widget.Selector,{
 			dojo.debug("combox.value:["+this.getValue()+"]");
 			dojo.debug("combox_selection.value:["+this.comboBoxSelectionValue.value+"]");
 		},
-		coonvertResultList:function(results){
+		fillInTemplate: function(args, frag){
+			corner.widget.Selector.superclass.fillInTemplate.call(this,args,frag);
+			//---------------调整Selector的样式
+			//取得domNode的样式类.
+			var textInputClass =dojo.html.getClass(this.domNode);
+			var width=dojo.style.getContentWidth(this.domNode);
+	
+	        //删除domNode的样式.
+	        dojo.html.removeClass(this.domNode,textInputClass,false);
+	
+	        //替换TextInputNode的样式为源节点的样式
+	        dojo.html.replaceClass(this.textInputNode,textInputClass,"dojoComboBoxInput");
+	        dojo.debug(this.textInputNode.style.width);
+	        //设定widget中table的样式
+	        //dojo.html.replaceClass(this.cbTableNode,textInputClass,"dojoComboBox");
+	        
+	        this["optionsListWrapper"].style.textAlign ="left";
+	        
+	        this.downArrowNode.style.verticalAlign="middle";
+	        this.textInputNode.style.verticalAlign="middle";
+	        //dojo.style.setContentWidth(this.domNode,width);
+	        //设定widget中table的边框
+	        this.cbTableNode.style.border="none";
+		},
+		convertResultList:function(results){
 			dojo.debug("call here");
 			var r=[];
 			for(var i=0;i<results.length;i++){
@@ -63,48 +87,10 @@ dojo.lang.extend(corner.widget.Selector,{
 				if(tr)
 					results[i]=[tr[1],tr[0]];
 			}
-			/*_this.clearResultList();
-			if(!results.length){
-				_this.hideResultList();
-			}
-	
-			if(	(_this.autoComplete)&&
-				(results.length)&&
-				(!_this._prev_key_backspace)&&
-				(_this.textInputNode.value.length > 0)){
-				var cpos = _this.getCaretPos(_this.textInputNode);
-				// only try to extend if we added the last character at the end of the input
-				if((cpos+1) > _this.textInputNode.value.length){
-					// only add to input node as we would overwrite Capitalisation of chars
-					_this.textInputNode.value += results[1][0].substr(cpos);
-					// build a new range that has the distance from the earlier
-					// caret position to the end of the first string selected
-					_this.setSelectedRange(_this.textInputNode, cpos, _this.textInputNode.value.length);
-				}
-			}
-	
-			var even = true;
-			while(results.length){
-				var tr = results.shift();
-				if(tr){
-					var td = document.createElement("div");
-					td.appendChild(document.createTextNode(tr[1]));
-					td.setAttribute("resultName", tr[1]);
-					td.setAttribute("resultValue", tr[0]);
-					td.className = "dojoComboBoxItem "+((even) ? "dojoComboBoxItemEven" : "dojoComboBoxItemOdd");
-					even = (!even);
-					_this.optionsListNode.appendChild(td);
-					dojo.event.connect(td, "onmouseover", _this, "itemMouseOver");
-					dojo.event.connect(td, "onmouseout", _this, "itemMouseOut");
-				}
-			}
-	
-			// show our list (only if we have content, else nothing)
-			_this.showResultList(); */
 		},
 		postCreate: function(){
 			corner.widget.Selector.superclass.postCreate.call(this);
-			dojo.event.connect("before",this,"openResultList",this,"coonvertResultList");
+			dojo.event.connect("before",this,"openResultList",this,"convertResultList");
 			
 		}
 	

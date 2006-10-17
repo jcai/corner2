@@ -17,17 +17,9 @@ djConfig = { isDebug: true
 	dojo.require("corner.widget.Selector");
 	dojo.require("dojo.widget.Select");
 
-var _this;
 function init(){	
 	var props = {dataUrl:"SelectData.js"};
 	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
-	_this=widget;
-	
-
-	
-//	dojo.event.disconnect(_this.dataProvider, "provideSearchResults", _this, "openResultList");
-//	dojo.event.connect(_this.dataProvider, "provideSearchResults", this, "openResultList");
-	
 }
 
 
@@ -62,7 +54,7 @@ dojo.addOnLoad(init);
 </head>
 
 <body>
-<table><tr><td class="right-td-width"><input id="tab"  class="right-td-width"></input></td></tr></table>
+<table><tr><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"></input></td></tr></table>
 </body>
 
 </html>
