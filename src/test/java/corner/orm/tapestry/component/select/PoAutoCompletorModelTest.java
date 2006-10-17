@@ -12,6 +12,7 @@
 
 package corner.orm.tapestry.component.select;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -151,4 +152,16 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
         verify();
         assertEquals(json.object().get("阿菜"),serialStr);
     }
+	@Test
+	public void test_selectFilter(){
+		IPoSelectorModel model=new SelectorModel();
+		model.setSelectFilter(new ISelectFilter(){
+
+			public Map query(String match, IPoSelectorModel model) {
+				// TODO Auto-generated method stub
+				return new HashMap();
+			}});
+		model.filterValues("asdf");
+		assertTrue(model.getReturnValueFields()==null);
+	}
 }
