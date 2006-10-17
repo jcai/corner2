@@ -68,6 +68,13 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 		}
 		return map;
 	}
+	/**
+	 * 返回label字段名称.
+	 * @return label字段名称.
+	 */
+	protected String getLabelField(){
+		return this.model.getLabelField();
+	}
 	
 	/**
 	 * 得到返回对象，并把他转换为字符串。
