@@ -91,7 +91,9 @@ public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
 	public String getLabelFor(Object value) {
 		if(this.entityService.isPersistent(value)){
 			boolean fieldIsNull=(field==null);
-			boolean filterFieldIsNull=(filter.getLabelField()==null);
+			boolean filterFieldIsNull=false;
+			if(filter!=null)
+				filterFieldIsNull=(filter.getLabelField()==null);
 			
 			
 			if(fieldIsNull){

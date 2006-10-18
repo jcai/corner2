@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.hivemind.Registry;
+import org.apache.hivemind.lib.SpringBeanFactoryHolder;
 import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.dojo.form.Autocompleter;
@@ -168,5 +170,28 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 			}});
 		model.filterValues("asdf");
 		assertTrue(model.getReturnValueFields()==null);
+	}
+	@Test
+	public void test_GetLabelFor() throws Exception{
+		final Registry reg = buildFrameworkRegistry(new String[]{});
+        final DataSqueezer squeezer = ( DataSqueezer )reg.getService( DataSqueezer.class );
+        SpringBeanFactoryHolder spring=(SpringBeanFactoryHolder) reg.getService("hivemind.lib.DefaultSpringBeanFactoryHolder",SpringBeanFactoryHolder.class);
+        EntityService entityService=(EntityService) spring.getBeanFactory().getBean("entityService");
+        
+		IPoSelectorModel model=new SelectorModel();
+		model.setEntityService(entityService);
+		
+		replay();
+		Object value = "阿菜";
+        assertEquals(model.getLabelFor(value),value);
+        verify();
+        
+        A a=new A();
+		a.setCnName("阿菜");
+		a.save();
+		
+		model.setLabelField("cnName");
+		value=a;
+		assertEquals(model.getLabelFor(value),"阿菜");
 	}
 }
