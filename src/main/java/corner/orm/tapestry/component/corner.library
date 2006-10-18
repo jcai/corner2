@@ -27,5 +27,7 @@
   <component-type type="GoAnchor" specification-path="anchor/GoAnchor.jwc"/>
   <component-type type="Insert" specification-path="insert/Insert.jwc"/>
   <component-type type="Selector" specification-path="select/Selector.jwc"/>
+
+  <component-type type="Row" specification-path="matrix/RowComponent.jwc"/>
   
 </library-specification>

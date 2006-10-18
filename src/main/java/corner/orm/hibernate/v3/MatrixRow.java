@@ -22,4 +22,9 @@ import java.util.Vector;
  */
 public class MatrixRow<T> extends Vector<T> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4481128241802168063L;
+
 }

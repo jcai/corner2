@@ -1,0 +1,25 @@
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" /><input jwcid="passwordField"/>colors:<span jwcid="colorsField">asdf</span>
+          </td>
+		</tr>
+		<tr>
+			<td>blob</td>
+			<td><a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{entity}"><img jwcid="@Image" image="ognl:getChartImageAsset(entity)" border="0"/></a>
+            <input jwcid="isEditBlobField" /><input jwcid="blobDataField"/>
+          </td>
+			
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+	<div id="debug">f</div>
+</span>

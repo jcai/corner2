@@ -1,0 +1,12 @@
+<span jwcid="$content$">
+	<span jwcid="@If" condition="ognl:firstNew">
+		<input jwcid="@TextField" value="ognl:value" asdf="asdf" translator="translator:vector"/>
+	</span>
+	<span jwcid="@Else">
+		<span jwcid="@For" source="ognl:value">
+			<input jwcid="@TextField" value="ognl:elementValue"/>
+		</span>
+	</span>
+	
+	
+</span>

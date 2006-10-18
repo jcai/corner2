@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="corner.demo.page.one.OnePageWithBlob">
+  <description>corner.demo.model.one.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.one.A()" name="entity"/>
+  <component type="Form" id="AForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+  </component>
+  <component type="corner:Selector" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+	<binding name="queryClassName" value="literal:corner.demo.model.one.A"/>  
+	<binding name="labelField" value="literal:password"/>  
+  </component>
+    <component type="TextField" id="passwordField">
+    <binding value="message:num" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.password" name="value"/>
+  </component>
+  <component type="corner:Row" id="colorsField">
+    <binding value="message:colors" name="displayName"/>
+<!--    <binding value="translator:vector" name="translator"/> -->
+    <binding value="ognl:entity.colors" name="value"/>
+  </component>
+	
+	<!-- for blob -->
+  <component type="Upload" id="blobDataField">
+    <binding name="displayName" value="message:BlobData"/>
+    <binding name="file" value="ognl:uploadFile"/>
+  </component>
+  <component type="Checkbox" id="isEditBlobField">
+    <binding name="value" value="ognl:editBlob"/>
+  </component>      
+</page-specification>

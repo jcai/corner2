@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+	
+<component-specification class="corner.orm.tapestry.component.matrix.RowComponent" allow-body="no" allow-informal-parameters="yes">
+
+  <description>
+    A row component
+  </description>
+ 
+
+  <parameter name="displayName">
+    <description>
+      The name of the field, which may be used by a FieldLabel.
+    </description>
+  </parameter>
+    
+  
+
+  <parameter name="id" property="idParameter" default-value="id"/>
+  		  
+  <reserved-parameter name="name"/>
+  <reserved-parameter name="type"/>
+  <reserved-parameter name="value"/>
+    
+</component-specification>

@@ -6,13 +6,14 @@ import org.hibernate.Session;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
+import corner.orm.hibernate.v3.MatrixRow;
 import corner.test.AbstractTestCase;
 
 public class ATest extends AbstractTestCase {
 	@Test
 	public void testVectorType() {
 		final A a=new A();
-		Vector<String> v=new Vector<String>();
+		MatrixRow<String> v=new MatrixRow<String>();
 		v.add("test");
 		v.add("test2");
 		a.setColors(v);

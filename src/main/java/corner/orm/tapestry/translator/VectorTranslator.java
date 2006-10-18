@@ -14,7 +14,6 @@ package corner.orm.tapestry.translator;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Vector;
 
 import org.apache.hivemind.HiveMind;
 import org.apache.hivemind.util.PropertyUtils;
@@ -23,6 +22,7 @@ import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.translator.AbstractTranslator;
 import org.apache.tapestry.valid.ValidatorException;
 
+import corner.orm.hibernate.v3.MatrixRow;
 import corner.orm.hibernate.v3.VectorType;
 
 /**
@@ -63,7 +63,7 @@ public  class VectorTranslator extends AbstractTranslator {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected String formatObject(IFormComponent field, Locale locale, Object object) {
-		Vector<String> v=(Vector<String>) object;
+		MatrixRow<String> v=(MatrixRow<String>) object;
 		StringBuffer sb=new StringBuffer();
 		
 		for(String s : v){
@@ -82,7 +82,7 @@ public  class VectorTranslator extends AbstractTranslator {
 	 */
 	@Override
 	protected Object parseText(IFormComponent field, ValidationMessages messages, String text) throws ValidatorException {
-		Vector<String> v=new Vector<String>();
+		MatrixRow<String> v=new MatrixRow<String>();
 		String [] array=text.split(this._segment);
 		v.addAll(Arrays.asList(array));
 		return v;

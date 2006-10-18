@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 
 import corner.demo.model.AbstractModel;
 import corner.model.IBlobModel;
+import corner.orm.hibernate.v3.MatrixRow;
 
 /**
  *
@@ -34,7 +35,7 @@ public class A extends AbstractModel implements IBlobModel {
 	 * @hibernate.property type="corner.orm.hibernate.v3.VectorType"
 	 */
 	
-	private Vector<String> colors;
+	private MatrixRow<String> colors;
 	private String password;
 	private double num;
 	/**
@@ -55,7 +56,7 @@ public class A extends AbstractModel implements IBlobModel {
 	 * @return Returns the colors.
 	 */
 	@Type(type="corner.orm.hibernate.v3.VectorType")
-	public Vector<String> getColors() {
+	public MatrixRow<String> getColors() {
 		return colors;
 	}
 
@@ -63,7 +64,7 @@ public class A extends AbstractModel implements IBlobModel {
 	 * @param colors
 	 *            The colors to set.
 	 */
-	public void setColors(Vector<String> colors) {
+	public void setColors(MatrixRow<String> colors) {
 		this.colors = colors;
 	}
 
