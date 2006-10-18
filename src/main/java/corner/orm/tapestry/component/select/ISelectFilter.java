@@ -14,8 +14,6 @@ package corner.orm.tapestry.component.select;
 
 import java.util.Map;
 
-import org.apache.tapestry.Tapestry;
-
 /**
  * 对字符串进行查询的过滤器.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>

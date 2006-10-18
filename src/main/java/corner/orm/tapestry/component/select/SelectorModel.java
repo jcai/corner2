@@ -15,7 +15,6 @@ package corner.orm.tapestry.component.select;
 import java.util.Map;
 
 import org.apache.tapestry.IComponent;
-import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.service.EntityService;
@@ -28,7 +27,7 @@ import corner.util.BeanUtils;
  * @version $Revision:2023 $
  * @since 2.2.1
  */
-public class SelectorModel implements IAutocompleteModel, IPoSelectorModel {
+public class SelectorModel implements IPoSelectorModel {
 	
 	Class poClass;
 	String field;
