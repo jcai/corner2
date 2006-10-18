@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
-import java.util.Vector;
 
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
@@ -36,7 +35,7 @@ public class VectorType implements UserType {
 	 */
 	public Class returnedClass() {
 
-		return Vector.class;
+		return MatrixRow.class;
 	}
 
 
@@ -47,7 +46,7 @@ public class VectorType implements UserType {
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
 			throws HibernateException, SQLException {
 		String str=rs.getString(names[0]);
-		Vector<String> v=new Vector<String>();
+		MatrixRow<String> v=new MatrixRow<String>();
 		if(str!=null){
 			v.addAll(Arrays.asList(str.split(SEGMENT)));
 		}
@@ -61,7 +60,7 @@ public class VectorType implements UserType {
 	public void nullSafeSet(PreparedStatement st, Object value, int index)
 			throws HibernateException, SQLException {
 		if(value!=null){
-			Vector<String> v = (Vector<String>) value;
+			MatrixRow<String> v = (MatrixRow<String>) value;
 			StringBuffer sb=new StringBuffer();
 			for(String str:v){
 				sb.append(str);
