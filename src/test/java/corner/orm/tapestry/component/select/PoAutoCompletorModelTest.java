@@ -160,6 +160,11 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 			public Map query(String match, IPoSelectorModel model) {
 				// TODO Auto-generated method stub
 				return new HashMap();
+			}
+
+			public String getLabelField() {
+				// TODO Auto-generated method stub
+				return null;
 			}});
 		model.filterValues("asdf");
 		assertTrue(model.getReturnValueFields()==null);
