@@ -33,8 +33,16 @@ public abstract class RowComponent extends BaseComponent {
 	private int star=0;
 	@Parameter
 	public abstract MatrixRow getRefVector();
+	
+	/**
+	 * 得到循环元素的值.
+	 * @return
+	 */
 	public String getElementValue(){
-		return (String) getValue().get(star++);
+		if(getValue().size()>star)
+			return (String) getValue().get(star++);
+		else
+			return null;
 	}
 	@SuppressWarnings("unchecked")
 	public void setElementValue(String value){
@@ -50,7 +58,7 @@ public abstract class RowComponent extends BaseComponent {
 	 * @return
 	 */
 	public boolean isFirstNew(){
-		return this.getValue()==null||this.getValue().size()==0;
+		return this.getRefVector()==null||this.getRefVector().size()==0;
 	}
 	/**
 	 * 
@@ -62,5 +70,7 @@ public abstract class RowComponent extends BaseComponent {
 		if(this.getValue()==null){
 			setValue(new MatrixRow());
 		}
+		
+		
 	}
 }

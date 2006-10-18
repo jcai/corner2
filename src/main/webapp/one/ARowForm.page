@@ -27,6 +27,7 @@
     <binding value="message:colors" name="displayName"/>
 <!--    <binding value="translator:vector" name="translator"/> -->
     <binding value="ognl:entity.colors" name="value"/>
+    <binding name="refVector" value="ognl:refVector"/>
   </component>
 	
 	<!-- for blob -->

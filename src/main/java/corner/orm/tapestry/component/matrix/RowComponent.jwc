@@ -27,5 +27,6 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <reserved-parameter name="name"/>
   <reserved-parameter name="type"/>
   <reserved-parameter name="value"/>
-    
+   
+  <property name="tmpObj"/> 
 </component-specification>
