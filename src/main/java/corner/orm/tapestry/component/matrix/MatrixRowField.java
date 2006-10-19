@@ -24,14 +24,14 @@ import corner.orm.hibernate.v3.MatrixRow;
  * @version $Revision$
  * @since 2.2.2
  */
-public abstract class RowComponent extends BaseComponent {
+public abstract class MatrixRowField extends BaseComponent {
 	
 	@Parameter(required=true)
 	public abstract MatrixRow getValue();
 	public abstract void setValue(MatrixRow value);
 	
 	private int star=0;
-	@Parameter
+	@Parameter(required=true)
 	public abstract MatrixRow getRefVector();
 	
 	/**

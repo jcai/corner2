@@ -7,7 +7,7 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 	
-<component-specification class="corner.orm.tapestry.component.matrix.RowComponent" allow-body="no" allow-informal-parameters="yes">
+<component-specification class="corner.orm.tapestry.component.matrix.MatrixRowField" allow-body="no" allow-informal-parameters="yes">
 
   <description>
     A row component
