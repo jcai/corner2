@@ -28,6 +28,7 @@
   <component-type type="Insert" specification-path="insert/Insert.jwc"/>
   <component-type type="Selector" specification-path="select/Selector.jwc"/>
 
-  <component-type type="Row" specification-path="matrix/RowComponent.jwc"/>
+  <component-type type="MatrixHead" specification-path="matrix/MatrixHead.jwc"/>
+  <component-type type="MatrixRowField" specification-path="matrix/MatrixRowField.jwc"/>
   
 </library-specification>
