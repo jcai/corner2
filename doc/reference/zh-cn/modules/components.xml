@@ -60,13 +60,13 @@
                      <area id="c23" coords="7"/>
                  </areaspec>
 		<programlisting><![CDATA[
-  <component type="corner:Selector" id="BField">
-    <binding value="message:name" name="displayName"/>
-    <binding value="ognl:entity.b" name="value"/>
+<component type="corner:Selector" id="BField">
+	<binding value="message:name" name="displayName"/>
+	<binding value="ognl:entity.b" name="value"/>
 	<binding name="queryClassName" value="literal:corner.demo.model.many2many2.B"/>  
 	<binding name="labelField" value="literal:cnName"/>  
 	<binding name="returnValueFields" value="literal:this"/>  
-  </component>
+</component>
 
 ]]></programlisting>
 	 <calloutlist>
@@ -104,4 +104,38 @@
 		</para>
 		
 	</sect1>
+	<sect1 id="corner.component.MatrixHead">
+		<title>显示向量头的组件(MatrixHead)</title>
+		<para>
+		给定一个参考向量展示出向量的表头文字
+			<programlistingco>
+                 <areaspec>
+                     <area id="c31" coords="3"/>
+                     <area id="c32" coords="4"/>
+                 </areaspec>
+		<programlisting><![CDATA[
+<component type="corner:MatrixHead" id="colorsHeadField">
+    <binding name="refVector" value="ognl:refVector"/>
+    <binding name="tdClass" value="literal:black"/>
+</component>		
+		
+		]]>
+		</programlisting>
+		<calloutlist>
+                     <callout arearefs="c31">
+                         <para>
+                             <literal>refVector</literal>参考向量.
+                         </para>
+                     </callout>
+                     <callout arearefs="c32">
+                         <para>
+                             <literal>tdClass</literal>显示向量的每格的时候所用到的样式class。
+                         </para>
+                     </callout>
+</calloutlist>
+</programlistingco>
+		</para>
+	</sect1>
+
+
 </chapter>
