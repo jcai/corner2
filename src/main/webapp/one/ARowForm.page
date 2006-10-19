@@ -27,10 +27,12 @@
     <binding value="message:colors" name="displayName"/>
     <binding value="ognl:entity.colors" name="value"/>
     <binding name="refVector" value="ognl:refVector"/>
+    
   </component>
 
   <component type="corner:MatrixHead" id="colorsHeadField">
     <binding name="refVector" value="ognl:refVector"/>
+    <binding name="tdClass" value="literal:asdf"/>
   </component>
 	
 	<!-- for blob -->

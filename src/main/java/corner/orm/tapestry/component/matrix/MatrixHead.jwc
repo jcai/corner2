@@ -12,7 +12,7 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <description>
     A matrix view
   </description>
-    <parameter name="headClass">
+    <parameter name="tdClass">
         <description>
             展示时候的每格的样式.
         </description>
