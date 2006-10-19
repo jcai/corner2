@@ -23,10 +23,13 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.password" name="value"/>
   </component>
-  <component type="corner:Row" id="colorsField">
+  <component type="corner:MatrixRowField" id="colorsField">
     <binding value="message:colors" name="displayName"/>
-<!--    <binding value="translator:vector" name="translator"/> -->
     <binding value="ognl:entity.colors" name="value"/>
+    <binding name="refVector" value="ognl:refVector"/>
+  </component>
+
+  <component type="corner:MatrixHead" id="colorsHeadField">
     <binding name="refVector" value="ognl:refVector"/>
   </component>
 	
