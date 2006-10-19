@@ -50,7 +50,8 @@ public abstract class RowComponent extends BaseComponent {
 			if(star==0){
 				setValue(new MatrixRow());
 			}
-			getValue().add(star++,value);
+			if(value!=null)
+				getValue().add(star++,value);
 		}
 	}
 	/**
@@ -70,7 +71,5 @@ public abstract class RowComponent extends BaseComponent {
 		if(this.getValue()==null){
 			setValue(new MatrixRow());
 		}
-		
-		
 	}
 }
