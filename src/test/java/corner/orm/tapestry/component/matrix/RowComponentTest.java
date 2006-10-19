@@ -13,7 +13,7 @@ public class RowComponentTest extends BaseComponentTestCase{
 		MatrixRow row=new MatrixRow();
 		row.add("L");
 		row.add("LX");
-		RowComponent c=(RowComponent) this.newInstance(RowComponent.class,new Object[]{"refVector",row});
+		MatrixRowField c=(MatrixRowField) this.newInstance(MatrixRowField.class,new Object[]{"refVector",row});
 		c.prepareForRender(newCycle());
 		replay();
 		assertFalse(c.isFirstNew());
