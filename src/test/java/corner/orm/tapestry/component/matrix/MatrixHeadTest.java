@@ -13,10 +13,6 @@
 package corner.orm.tapestry.component.matrix;
 
 import org.apache.tapestry.BaseComponentTestCase;
-import org.apache.tapestry.IMarkupWriter;
-import org.apache.tapestry.IRender;
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.components.Any;
 import org.testng.annotations.Test;
 
 /**
