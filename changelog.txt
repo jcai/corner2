@@ -6,6 +6,7 @@ http://www.bjmaxinfo.com
 changes in version 2.2.2 	(unreleased)
 ------------------------------------------
 package corner.orm.tapestry.component
+* 加入了MatrixRowField和MatrixHead两个组件，实现二维表格的处理.
 * Selector的样式设定，从Tapestry的组件中移动到js中处理.
 * 提出AbstractSelectFilter方法里面的getLabelField,供子类调用.
 * AbstractSelectFilter实现ISelectFilter接口。
