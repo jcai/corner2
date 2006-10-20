@@ -10,7 +10,7 @@ public class RowComponentTest extends BaseComponentTestCase{
 	@Test
 	public void test_Component(){
 		
-		MatrixRow row=new MatrixRow();
+		MatrixRow<String> row=new MatrixRow<String>();
 		row.add("L");
 		row.add("LX");
 		MatrixRowField c=(MatrixRowField) this.newInstance(MatrixRowField.class,new Object[]{"refVector",row});

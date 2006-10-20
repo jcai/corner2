@@ -45,7 +45,7 @@ public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 	
 	public MatrixRow getRefVector(){
 //		only for test
-		MatrixRow matrix=new MatrixRow();
+		MatrixRow<String> matrix=new MatrixRow<String>();
 		matrix.add("L");
 		matrix.add("XL");
 		return matrix;

@@ -1,7 +1,5 @@
 package corner.demo.model.one;
 
-import java.util.Vector;
-
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
