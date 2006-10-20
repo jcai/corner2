@@ -161,7 +161,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * @since 2.2.2
 	 */
 	@SuppressWarnings("unchecked")
-	public <B extends IBlobModel> void saveBlobData(B blobEntity){
+	protected <B extends IBlobModel> void saveBlobData(B blobEntity){
 		IBlobPageDelegate<B> delegate = new SqueezeBlobPageDelegate<B>(
 				EntityService.getEntityClass(blobEntity), getUploadFile(), blobEntity, this
 						.getEntityService());
