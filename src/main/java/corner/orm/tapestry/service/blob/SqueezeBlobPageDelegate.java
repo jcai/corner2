@@ -37,6 +37,7 @@ public class SqueezeBlobPageDelegate <T extends IBlobModel> implements IBlobPage
 	private EntityService service;
 	private Class<T> clazz;
 	private T oldObj;
+	private boolean ifNullDelete=true;
 
 	/**
 	 * 构造一个委派类对象.
@@ -53,6 +54,21 @@ public class SqueezeBlobPageDelegate <T extends IBlobModel> implements IBlobPage
 		this.service=service;
 	}
 	/**
+	 * 构造一个委派类对象.
+	 * @param clazz 类.
+	 * @param uploadFile 上传文件对象.
+	 * @param oldObj 待处理的blob对象,该类必须实现{@link IBlobModel IBlobModel}接口.
+	 * @param service 实体服务.
+	 * @see EntityService
+	 */
+	public SqueezeBlobPageDelegate(Class<T> clazz,IUploadFile uploadFile, T oldObj,EntityService service,boolean ifNullDelete) {
+		this.clazz=clazz;
+		this.oldObj=oldObj;
+		this.uploadFile=uploadFile;
+		this.service=service;
+		this.ifNullDelete=ifNullDelete;
+	}
+	/**
 	 * @see corner.orm.tapestry.service.blob.IBlobPageDelegate#save(corner.orm.tapestry.service.blob.IBlobBeforSaveCallBack)
 	 */
 	@SuppressWarnings("unchecked")
@@ -60,7 +76,14 @@ public class SqueezeBlobPageDelegate <T extends IBlobModel> implements IBlobPage
 		//如果上传为空.
 		if(uploadFile==null){
 			if(oldObj!=null){
-				service.deleteEntities(oldObj);
+				if(ifNullDelete)
+					service.deleteEntities(oldObj);
+				else{
+					oldObj.setBlobData(null);
+					oldObj.setContentType(null);
+					service.saveEntity(oldObj);
+				}
+					
 				
 			}
 			return;
