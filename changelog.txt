@@ -12,6 +12,9 @@ package corner.orm.tapestry.component
 * AbstractSelectFilter实现ISelectFilter接口。
 * 删除DefaultSelectFilter的接口ISelectFilter,采用抽象的父类
 * component下面几个java文件均过期，采用select下面新的组件。
+package corner.orm.tapestry.page
+* AbstractEntityPage 中加入保存blob的操作方法.
+
 
 changes in version 2.2.1 	(2006-10-17)
 ------------------------------------------
