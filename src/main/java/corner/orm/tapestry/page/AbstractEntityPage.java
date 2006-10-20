@@ -20,9 +20,13 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
 
+import corner.model.IBlobModel;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.service.blob.BlobAsset;
+import corner.orm.tapestry.service.blob.IBlobPageDelegate;
+import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
+import corner.service.EntityService;
 
 /**
  * 抽象的实体类.
@@ -148,6 +152,20 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 		sb.append(thisPageName.substring(0, thisPageName.lastIndexOf("/")));
 		sb.append("/");
 		return sb.toString();
+	}
+	
+	/**
+	 * 保存Blob实体
+	 * @param <B> 待保存的blob实体。
+	 * @param blobEntity blob实体
+	 * @since 2.2.2
+	 */
+	@SuppressWarnings("unchecked")
+	public <B extends IBlobModel> void saveBlobData(B blobEntity){
+		IBlobPageDelegate<B> delegate = new SqueezeBlobPageDelegate<B>(
+				EntityService.getEntityClass(blobEntity), getUploadFile(), blobEntity, this
+						.getEntityService());
+		delegate.save();
 	}
 
 }
