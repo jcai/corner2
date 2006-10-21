@@ -28,9 +28,7 @@ import org.apache.tapestry.spec.IContainedComponent;
  * @since 2.2.1
  */
 public abstract class FormField extends AbstractFormComponent {
-	public FormField(){
-		System.out.println(this.getSpecification());
-	}
+	
 	public abstract IContainedComponent getDelegateComponent();
 	public abstract void setDelegateComponent(IContainedComponent cc);
 	/**
