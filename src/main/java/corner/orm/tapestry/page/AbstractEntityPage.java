@@ -158,13 +158,14 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * 保存Blob实体
 	 * @param <B> 待保存的blob实体。
 	 * @param blobEntity blob实体
+	 * @param ifNullDelete 当上传的实体为空的时候是否要删除该实体，如果为True，则删除实体。
 	 * @since 2.2.2
 	 */
 	@SuppressWarnings("unchecked")
-	protected <B extends IBlobModel> void saveBlobData(B blobEntity){
+	protected <B extends IBlobModel> void saveBlobData(B blobEntity,boolean ifNullDelete){
 		IBlobPageDelegate<B> delegate = new SqueezeBlobPageDelegate<B>(
 				EntityService.getEntityClass(blobEntity), getUploadFile(), blobEntity, this
-						.getEntityService());
+						.getEntityService(),ifNullDelete);
 		delegate.save();
 	}
 
