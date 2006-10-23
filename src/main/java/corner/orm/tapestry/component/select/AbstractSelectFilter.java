@@ -1,6 +1,7 @@
 package corner.orm.tapestry.component.select;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,16 +53,20 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 		Map<Object,Object> map=new HashMap<Object,Object>();
 		
 		String [] returnValueFields=model.getReturnValueFields();
+		String [] updateFields=model.getUpdateFields();
 		int len=returnValueFields.length;
 		
 		for(Object obj:list){
 			Object label=BeanUtils.getProperty(obj,getLabelField()); //得到label.
 			if(len>1){//为连带多个字段内容.
+				if(returnValueFields.length!=updateFields.length){
+					throw new RuntimeException("查询的字段和更新的字段的长度不相等! returnValueFields:["+Arrays.asList(returnValueFields)+"] updateFields:["+Arrays.asList(updateFields)+"]");
+				}
 				JSONArray arr=new JSONArray();
 				for(int i=0;i<len;i++){
 					arr.put(getReturnObject(returnValueFields[i],obj));
 				}
-				map.put(label, arr.toString());
+				map.put(label, arr.join(","));
 			}
 			else if(len==1){//仅仅一个字段
 				map.put(label,getReturnObject(returnValueFields[0],obj));

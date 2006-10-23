@@ -37,6 +37,7 @@ public class SelectorModel implements IPoSelectorModel {
 	ISelectFilter filter;
 	
 	String[] returnValueFileds;
+	String [] updateFields;
 	private IComponent nestComp;
 	
 	/**
@@ -172,4 +173,12 @@ public class SelectorModel implements IPoSelectorModel {
 	public void setComponent(IComponent c){
 		this.nestComp=c;
 	}
+	public String[] getUpdateFields() {
+		return updateFields;
+	}
+	public void setUpdateFields(String[] updateFields) {
+		this.updateFields = updateFields;
+	}
+	
+	
 }

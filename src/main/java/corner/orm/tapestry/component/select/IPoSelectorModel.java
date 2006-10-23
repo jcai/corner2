@@ -58,4 +58,7 @@ public interface IPoSelectorModel extends IAutocompleteModel{
 
 	public abstract void setComponent(IComponent selector);
 
+	public abstract void setUpdateFields(String[] updateFields);
+	public abstract String[] getUpdateFields();
+
 }

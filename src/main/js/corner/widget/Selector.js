@@ -47,8 +47,38 @@ dojo.lang.extend(corner.widget.Selector,{
 		widgetType: "Selector",
 		autoComplete: false,
 		forceValidOption: false,
-		setAllValues: function(name, value){
-			corner.widget.Selector.superclass.setAllValues.call(this,name,value);
+		updateFields:null,
+		setAllValues: function(_label, value){
+			dojo.debug("updateFields:"+this.updateFields);
+			dojo.debug("value:"+value);
+			
+			this.setLabel(_label);
+			if(this.updateFields && this.updateFields.indexOf(",")>0){
+				vs=value.split(",");
+				fs=this.updateFields.split(",");
+				dojo.debug("values length:"+vs.length);
+				dojo.debug("this.updateFields length:"+fs.length);
+				
+				
+				if(vs.length!=fs.length){
+					dojo.raise("values length != update Fields length \n"+"values:"+value+",\n"+"updateFields:"+fs);
+					return;	
+				}
+				for(var i=0;i<fs.length;i++){
+					if(fs[i] == 'this'){
+						this.setValue(eval(vs[i]));
+					}else{
+						if(dojo.byId(fs[i])){
+							dojo.byId(fs[i]).value=eval(vs[i]);
+						}else{
+							dojo.debug("cant find filed by id ["+fs[i]+"]");
+						}
+
+					}
+				}
+			}else{
+				this.setValue(value);
+			}
 			dojo.debug("name:["+name+"]");
 			dojo.debug("value:["+value+"]");
 			
