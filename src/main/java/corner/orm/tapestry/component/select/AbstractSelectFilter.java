@@ -64,6 +64,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 		
 		for(Object obj:list){
 			Object label=BeanUtils.getProperty(obj,getLabelField()); //得到label.
+			if(label==null){//label为空的时候，不展示该记录.
+				continue;
+			}
 			if(len>1){//为连带多个字段内容.
 				if(returnValueFields.length!=updateFields.length){
 					throw new RuntimeException("查询的字段和更新的字段的长度不相等! returnValueFields:["+Arrays.asList(returnValueFields)+"] updateFields:["+Arrays.asList(updateFields)+"]");
