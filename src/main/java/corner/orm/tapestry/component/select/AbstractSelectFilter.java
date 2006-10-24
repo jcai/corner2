@@ -6,7 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tapestry.IComponent;
+import org.apache.tapestry.IForm;
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.Tapestry;
+import org.apache.tapestry.dojo.form.Autocompleter;
+import org.apache.tapestry.form.AbstractFormComponent;
+import org.apache.tapestry.form.Hidden;
 import org.apache.tapestry.json.JSONArray;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -63,13 +69,28 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 					throw new RuntimeException("查询的字段和更新的字段的长度不相等! returnValueFields:["+Arrays.asList(returnValueFields)+"] updateFields:["+Arrays.asList(updateFields)+"]");
 				}
 				JSONArray arr=new JSONArray();
-				for(int i=0;i<len;i++){
-					arr.put(getReturnObject(returnValueFields[i],obj));
+				IPage page=this.model.getComponent().getPage();
+				
+				for(int i=0;i<len;i++){	
+					if("this".equals(updateFields[i])){
+						arr.put(getReturnObject(returnValueFields[i],obj,true));
+						continue;
+					}
+					
+					//根据页面对应的组件的来自动进行更新是否需要序列化.
+					Map cs=page.getComponents();
+					IComponent c=(IComponent) cs.get(returnValueFields[i]);
+					
+					if(c!=null&&(c instanceof Hidden||c instanceof Autocompleter)){
+						arr.put(getReturnObject(returnValueFields[i],obj,true));
+					}else{
+						arr.put(getReturnObject(returnValueFields[i],obj,false));
+					}
 				}
 				map.put(label, arr.join(","));
 			}
 			else if(len==1){//仅仅一个字段
-				map.put(label,getReturnObject(returnValueFields[0],obj));
+				map.put(label,getReturnObject(returnValueFields[0],obj,true));
 			}
 		}
 		return map;
@@ -89,14 +110,18 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * 得到返回对象，并把他转换为字符串。
 	 * @param pro 属性名称。
 	 * @param obj 待操作的对象。
+	 * @param isSqueeze  是否需要序列化
 	 * @return 字符串。
 	 */
-	protected Object getReturnObject(String pro, Object obj) {
+	protected Object getReturnObject(String pro, Object obj, boolean isSqueeze) {
 		Object value=obj;
 		if(!Criteria.ROOT_ALIAS.equals(pro)){ 
 			value=BeanUtils.getProperty(obj,pro); //得到属性
 		}
-		return model.getSqueezer().squeeze(value);
+		if(isSqueeze)
+			return model.getSqueezer().squeeze(value);
+		else
+			return value==null?"":value;
 	
 	}
 	/**

@@ -19,8 +19,11 @@ import java.util.Map;
 import org.apache.hivemind.Registry;
 import org.apache.hivemind.lib.SpringBeanFactoryHolder;
 import org.apache.tapestry.BaseComponentTestCase;
+import org.apache.tapestry.IComponent;
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.dojo.form.Autocompleter;
+import org.apache.tapestry.form.TextField;
 import org.apache.tapestry.json.IJSONWriter;
 import org.apache.tapestry.services.DataSqueezer;
 import org.easymock.EasyMock;
@@ -194,4 +197,7 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 		value=a;
 		assertEquals(model.getLabelFor(value),"阿菜");
 	}
+	
+	
+
 }

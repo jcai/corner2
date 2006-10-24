@@ -18,7 +18,7 @@
 	
 	<binding name="labelField" value="literal:password"/>
     <binding name="queryClassName" value="literal:corner.demo.model.one.A"/>  
-	<binding name="returnValueFields" value="literal:password,name,name"/>
+	<binding name="returnValueFields" value="literal:password,password,name"/>
 	<binding name="updateFields" value="literal:this,passwordField,testField"/>
       
   </component>
