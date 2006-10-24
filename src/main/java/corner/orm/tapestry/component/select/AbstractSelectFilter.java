@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.tapestry.IComponent;
-import org.apache.tapestry.IForm;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.dojo.form.Autocompleter;
-import org.apache.tapestry.form.AbstractFormComponent;
 import org.apache.tapestry.form.Hidden;
 import org.apache.tapestry.json.JSONArray;
 import org.hibernate.Criteria;

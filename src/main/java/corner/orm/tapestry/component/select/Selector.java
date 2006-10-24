@@ -29,7 +29,6 @@ import org.apache.tapestry.dojo.form.IAutocompleteModel;
 import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.json.IJSONWriter;
-import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.DataSqueezer;
 
@@ -145,6 +144,7 @@ public abstract class Selector extends Autocompleter {
 	 * @see org.apache.tapestry.dojo.form.Autocompleter#renderFormWidget(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void renderFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
 		initSelectorModel();
