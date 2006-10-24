@@ -13,6 +13,7 @@ package corner.orm.tapestry.component
 * 删除DefaultSelectFilter的接口ISelectFilter,采用抽象的父类
 * component下面几个java文件均过期，采用select下面新的组件。
 * 加入AutoCompleter的更新多个字段的操作。
+* RowField组件增加对input的样式自定义
 package corner.orm.tapestry.page
 * AbstractEntityPage 中加入保存blob的操作方法.
 * 修改AbstractEntityPage方法，加入参数IfNullDelete,当blob为空时，是否删除该实体.
