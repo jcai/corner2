@@ -101,6 +101,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * @return label字段名称.
 	 */
 	public String getLabelField(){
+		if(model==null){ //回显的时候
+			return null;
+		}
 		if(this.model.getLabelField()==null){
 			throw Tapestry.createRequiredParameterException(model.getComponent(), "labelField");
 		}
