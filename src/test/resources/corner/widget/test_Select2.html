@@ -13,20 +13,7 @@ djConfig = { isDebug: true
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
-<script type="text/javascript">
-	dojo.require("corner.widget.Selector");
-	dojo.require("dojo.widget.Select");
 
-function init(){	
-	var props = {dataUrl:"SelectData2.js",updateFields:"this,f1,f2"};
-	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
-}
-
-
-		
-dojo.addOnLoad(init);
-
-</script>
 <style>
 	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
 	font-size: 12px;
@@ -57,6 +44,29 @@ dojo.addOnLoad(init);
 <table><tr><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"></input></td></tr></table>
 	<input type="text" id="f1"/>
 	<input type="text" id="f2"/>
+	
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	dojo.require("corner.widget.Selector");
+	dojo.require("dojo.widget.Select");
+	
+dojo.event.connect("after",window,"onload",function(){
+	dojo.debug("after onload");
+	dojo.debug("widget:"+dojo.widget.byId("selectorW"));
+	dojo.event.connect("after",dojo.widget.byId("selectorW"),"setAllValues",this,"doAfterSetAllValues");
+	this.doAfterSetAllValues=function(){dojo.debug("set all values");};
+});
+
+
+	
+dojo.event.connect("before",window, 'onload', function(e) {
+	var props = {dataUrl:"SelectData2.js",widgetId:"selectorW",updateFields:"this,f1,f2"};
+	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
+	
+});
+//-->
+</SCRIPT>	
 </body>
 
 </html>
