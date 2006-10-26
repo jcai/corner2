@@ -13,7 +13,10 @@
 package corner.orm.tapestry.validator;
 
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
@@ -38,9 +41,13 @@ import corner.service.EntityService;
  * @since 2.2.2
  */
 public class UniqueEntity extends BaseValidator {
+	private static final String REGEX_PATTERN = "^\\{([\\w\\.]+):(\\w+)\\}$";
+
 	private String entityClassName;
 
 	private String property;
+
+	private String uniqueStr;
 
 	public UniqueEntity() {
 		super();
@@ -60,6 +67,7 @@ public class UniqueEntity extends BaseValidator {
 		if (object == null) {
 			return;
 		}
+		
 		long rowCount = (Long) ((HibernateDaoSupport) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
@@ -79,6 +87,26 @@ public class UniqueEntity extends BaseValidator {
 		}
 
 	}
+	public void setUniqueEntity(String uniqueStr){
+		
+		if(uniqueStr==null){
+			throw new ApplicationRuntimeException("UniqueEntity validator的参数'"+uniqueStr+"'不对，应该为{className:propertyName}");
+		}
+		this.uniqueStr=uniqueStr;
+		
+		initProperty();
+	}
+	void initProperty(){
+		Matcher matcher=Pattern.compile(REGEX_PATTERN).matcher(this.uniqueStr);
+		if(matcher.groupCount()!=2){
+			throw new ApplicationRuntimeException("UniqueEntity validator的参数'"+uniqueStr+"'不对，应该为'{className:propertyName}'");
+		}
+		if(matcher.find()){
+			this.entityClassName=matcher.group(1);
+			this.property=matcher.group(2);
+		}
+		
+	}
 	/**
 	 * 设定待查询的类名
 	 * @param entityClassName
@@ -97,5 +125,11 @@ public class UniqueEntity extends BaseValidator {
 	private EntityService getEntityService() {
 		return (EntityService) SpringContainer.getInstance()
 				.getApplicationContext().getBean("entityService");
+	}
+	String getEntityClassName(){
+		return this.entityClassName;
+	}
+	String getPropertyName(){
+		return this.property;
 	}
 }
