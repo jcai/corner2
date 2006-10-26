@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Dojo ComboBox Widget Demo</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+数字<input id="num"	/>,保留的位数<input id="p" />结果<input id="r" />
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+dojo.require("dojo.math");
+dojo.require("dojo.event.*");
+
+dojo.event.connect(dojo.byId("num"),"onkeyup",this,"cal");
+dojo.event.connect(dojo.byId("p"),"onkeyup",this,"cal");
+
+var cal=function(){
+	dojo.debug("hello world!");
+	value1=dojo.byId("num").value;
+	value2=dojo.byId("p").value;
+	if(!(isNaN(value1)||isNaN(value2))){
+		dojo.byId("r").value=dojo.math.round(value1,value2);
+	}
+}
+	
+//-->
+</SCRIPT>
+	
+</body>
+
+</html>
