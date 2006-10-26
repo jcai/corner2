@@ -4,5 +4,6 @@
 	<!--  validator -->
 	<contribution configuration-id="tapestry.form.validator.Validators">
 		<validator name="numPattern" class="NumPattern"/>
+		<validator name="uniqueEntity" class="UniqueEntity"/>
 	</contribution>
 </module>
