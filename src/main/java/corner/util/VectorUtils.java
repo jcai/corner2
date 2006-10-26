@@ -35,9 +35,9 @@ public final class VectorUtils {
 	 * @param v 向量
 	 * @return 求和后的结果.
 	 */
-	public static double sum(Vector<String> v){
+	public static<T> double sum(Vector<T> v){
 		StringBuffer sb=new StringBuffer();
-		for(String str:v){
+		for(T str:v){
 			sb.append(str);
 			sb.append("+");
 		}
@@ -50,7 +50,7 @@ public final class VectorUtils {
 	 * @return 求和后的向量.
 	 * @TODO 判断向量的维数要相同.
 	 */
-	public static Vector<Double> sumList(List<Vector<String>> list){
+	public static <T> Vector<Double> sumList(List<Vector<T>> list){
 		Vector<Double> r=new Vector<Double>();
 		if(list.size() == 0){
 			return r;
@@ -59,7 +59,7 @@ public final class VectorUtils {
 		
 		int width=list.get(0).size();
 		for(int i=0;i<width;i++){
-			for(Vector<String>v:list){
+			for(Vector<T>v:list){
 				sb.append(v.get(i));
 				sb.append("+");
 			}

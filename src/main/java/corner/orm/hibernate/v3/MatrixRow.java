@@ -14,6 +14,8 @@ package corner.orm.hibernate.v3;
 
 import java.util.Vector;
 
+import corner.util.VectorUtils;
+
 /**
  * 矩阵的行记录.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
@@ -27,4 +29,9 @@ public class MatrixRow<T> extends Vector<T> {
 	 */
 	private static final long serialVersionUID = -4481128241802168063L;
 
+	public double getRowSum(){
+		return VectorUtils.sum(this);
+		
+	}
+	
 }

@@ -37,6 +37,21 @@ public class VectorUtilsTest extends TestCase {
 		
 		
 	}
+	public void testSumErrorVector(){
+		Vector<String> v=new Vector<String>();
+		v.add("1s");
+		v.add("2");
+		
+		try{
+			VectorUtils.sum(v);
+			fail("can't reacheable");
+		}catch(RuntimeException e){
+			// go here
+		}
+		
+		
+		
+	}
 	public void testSubmVectorList(){
 		Vector<String> v1=new Vector<String>();
 		v1.add("1");
@@ -52,4 +67,5 @@ public class VectorUtilsTest extends TestCase {
 		Vector<Double> r=VectorUtils.sumList(list);
 		assertTrue(2==r.get(0));
 	}
+	
 }
