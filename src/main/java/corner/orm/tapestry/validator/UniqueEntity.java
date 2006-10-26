@@ -68,7 +68,7 @@ public class UniqueEntity extends BaseValidator {
 			return;
 		}
 		
-		long rowCount = (Long) ((HibernateDaoSupport) getEntityService()
+		int rowCount = (Integer) ((HibernateDaoSupport) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session)
