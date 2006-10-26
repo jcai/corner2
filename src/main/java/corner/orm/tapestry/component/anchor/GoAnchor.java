@@ -22,6 +22,12 @@ import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
 
+/**
+ * 提供了一个自动跳到Anchor的组件.
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @version $Revision$
+ * @since 2.2.2
+ */
 public abstract class GoAnchor extends AbstractComponent {
 
 	/**
@@ -33,7 +39,8 @@ public abstract class GoAnchor extends AbstractComponent {
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
-		getScript().execute(cycle,pageRenderSupport,new HashMap());
+		
+		getScript().execute(this,cycle,pageRenderSupport,new HashMap());
 		
 		String element = getElement();
 
