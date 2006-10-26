@@ -8,6 +8,9 @@ changes in version 2.2.2 	(unreleased)
 package corner.util
 * 加入对货币的四舍五入操作（CurrencyUtil）.
 
+package corner.orm.tapestry.validator
+* 加入了实体是否存在的validator。
+
 package corner.orm.tapestry.component
 * 加入了MatrixRowField和MatrixHead两个组件，实现二维表格的处理.
 * Selector的样式设定，从Tapestry的组件中移动到js中处理.
