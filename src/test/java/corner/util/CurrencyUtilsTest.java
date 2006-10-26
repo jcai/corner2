@@ -37,11 +37,28 @@ public class CurrencyUtilsTest {
 		Assert.assertEquals(1034.75, CurrencyUtils.round((double) 1034.745, 2));
 		Assert.assertEquals(1034.74, CurrencyUtils.round((double) 1034.735, 2));
 
+		Assert.assertEquals(1034.7, CurrencyUtils.round((double) 1034.735, 1));
+
 	}
 	@Test
 	public void testPlus(){
 		double v1=2.1;
 		double v2=2.2;
 		Assert.assertEquals(CurrencyUtils.plus(v1, v2),4.3);
+	}
+	@Test
+	public void testMinus(){
+		double v1=2.0;
+		double v2=2.4;
+		Assert.assertEquals(CurrencyUtils.minus(v1, v2),-0.4);
+	}
+	@Test
+	public void testDiv(){
+		double v1=2.4;
+		double v2=2.0;
+		Assert.assertEquals(CurrencyUtils.div(v1, v2),1.2);
+		Assert.assertEquals(CurrencyUtils.div(v1, v2,0),(double)1);
+		
+		
 	}
 }
