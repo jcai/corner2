@@ -48,6 +48,7 @@ dojo.lang.extend(corner.widget.Selector,{
 		autoComplete: false,
 		forceValidOption: false,
 		updateFields:null,
+		protoUrl:null,
 		setAllValues: function(_label, value){
 			dojo.debug("updateFields:"+this.updateFields);
 			dojo.debug("value:"+value);
@@ -123,7 +124,22 @@ dojo.lang.extend(corner.widget.Selector,{
 			dojo.event.connect("before",this,"openResultList",this,"convertResultList");
 			//此处加入对禁用IE缓存的策略 通过动态构建URL
 			//see http://dev.bjmaxinfo.com/projects/manufacturing-system/wiki/2006/10/26/09.11
+			this.protoUrl=this.dataUrl;
 			
+			dojo.event.connect("before",this,"startSearch",this,"constructDynamicUrl");
+			
+		},
+		constructDynamicUrl:function(){
+			var d = new Date();
+			var time = d.getTime();
+			tmpUrl=this.protoUrl;
+			if (tmpUrl.indexOf('?') > 0)
+				tmpUrl = tmpUrl+'&prevent_cache='+time;
+			else
+				tmpUrl = tmpUrl+'?prevent_cache='+time;
+			
+			this.dataUrl=tmpUrl;
+			dojo.debug("data url :["+tmpUrl+"]");
 		}
 		
 	
