@@ -71,12 +71,14 @@ public class UniqueEntity extends BaseValidator {
 		}
 		Object obj=((EntityPage) field.getPage()).getEntity();
 		
+		//判断是否为更新操作.
 		if(getEntityService().isPersistent(obj)){//是否为持久化
 			Object properyValue=BeanUtils.getProperty(obj,this.property);
 			if(object.equals(properyValue)){//加入属性没变化，则不进行校验.
 				return;
 			}
 		}
+		//得到行数.
 		int rowCount = (Integer) ((HibernateDaoSupport) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
@@ -89,6 +91,7 @@ public class UniqueEntity extends BaseValidator {
 						return criteria.list().get(0);
 					}
 				});
+		//抛出验证异常
 		if (rowCount == 1) {
 			throw new ValidatorException(messages.formatValidationMessage(
 					"{0}为"+object+"的记录已经存在", ValidationStrings.REQUIRED_FIELD,
