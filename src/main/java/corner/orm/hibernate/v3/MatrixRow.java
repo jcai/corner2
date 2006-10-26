@@ -12,6 +12,7 @@
 
 package corner.orm.hibernate.v3;
 
+import java.util.Arrays;
 import java.util.Vector;
 
 import corner.util.VectorUtils;
@@ -32,6 +33,13 @@ public class MatrixRow<T> extends Vector<T> {
 	public double getRowSum(){
 		return VectorUtils.sum(this);
 		
+	}
+	public MatrixRow(T ... ts){
+		this();
+		this.addAll(Arrays.asList(ts));
+	}
+	public MatrixRow(){
+		super();
 	}
 	
 	/**
