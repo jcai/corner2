@@ -34,4 +34,13 @@ public class MatrixRow<T> extends Vector<T> {
 		
 	}
 	
+	/**
+	 * 以double类型返回matrix中的一个对象
+	 * @param index
+	 * @return
+	 */
+	public double getDouble(int index){
+		T t=this.get(index);
+		return Double.parseDouble(t.toString());
+	}
 }

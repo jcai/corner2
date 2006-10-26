@@ -46,7 +46,7 @@ public class VectorType implements UserType {
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
 			throws HibernateException, SQLException {
 		String str=rs.getString(names[0]);
-		MatrixRow<String> v=new MatrixRow<String>();
+		MatrixRow<Object> v=new MatrixRow<Object>();
 		if(str!=null){
 			v.addAll(Arrays.asList(str.split(SEGMENT)));
 		}
@@ -60,10 +60,10 @@ public class VectorType implements UserType {
 	public void nullSafeSet(PreparedStatement st, Object value, int index)
 			throws HibernateException, SQLException {
 		if(value!=null){
-			MatrixRow<String> v = (MatrixRow<String>) value;
+			MatrixRow<Object> v = (MatrixRow<Object>) value;
 			StringBuffer sb=new StringBuffer();
-			for(String str:v){
-				sb.append(str);
+			for(Object str:v){
+				sb.append(str.toString());
 				sb.append(SEGMENT);
 			}
 			if(sb.length()>0){
