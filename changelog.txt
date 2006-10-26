@@ -5,6 +5,9 @@ http://www.bjmaxinfo.com
 
 changes in version 2.2.2 	(unreleased)
 ------------------------------------------
+package corner.util
+* 加入对货币的四舍五入操作（CurrencyUtil）.
+
 package corner.orm.tapestry.component
 * 加入了MatrixRowField和MatrixHead两个组件，实现二维表格的处理.
 * Selector的样式设定，从Tapestry的组件中移动到js中处理.
@@ -14,6 +17,7 @@ package corner.orm.tapestry.component
 * component下面几个java文件均过期，采用select下面新的组件。
 * 加入AutoCompleter的更新多个字段的操作。
 * RowField组件增加对input的样式自定义
+
 package corner.orm.tapestry.page
 * AbstractEntityPage 中加入保存blob的操作方法.
 * 修改AbstractEntityPage方法，加入参数IfNullDelete,当blob为空时，是否删除该实体.
