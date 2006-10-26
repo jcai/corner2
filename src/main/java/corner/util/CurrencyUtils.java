@@ -12,8 +12,7 @@
 
 package corner.util;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.math.BigDecimal;
 
 
 
@@ -24,15 +23,18 @@ import java.text.NumberFormat;
  * @since 2.2.2
  */
 public class CurrencyUtils {
+	/**默认为四舍五入方法**/
+	private static int DEFAULT_ROUND_PATTERN=BigDecimal.ROUND_HALF_UP;
 	/**
 	 * 转换为货币。
-	 * 
+	 * 采用了四舍五入的方法.
 	 * @param currency 待转换的数字。
 	 * @param p 小数点后保留的位数.
 	 * @return 转换后的数字.
 	 */
 	public  static double round(double currency,int p){
-		return Double.parseDouble(constructFormatter(p).format(currency));
+		BigDecimal decimal=BigDecimal.valueOf(currency);
+		return decimal.divide(new BigDecimal(1),p,DEFAULT_ROUND_PATTERN).doubleValue();
 	}
 	/**
 	 * 浮点类型的四舍五入.
@@ -41,26 +43,7 @@ public class CurrencyUtils {
 	 * @return 转换后的结果.
 	 */
 	public  static float round(float currency,int p){
-		return Float.parseFloat(constructFormatter(p).format(currency));
+		BigDecimal decimal=BigDecimal.valueOf(currency);
+		return decimal.divide(new BigDecimal(1),p,DEFAULT_ROUND_PATTERN).floatValue();
 	}
-	private static NumberFormat constructFormatter(int p){
-		String zeroStr=productZero(p); //产生后缀的0字符串
-		StringBuffer sb=new StringBuffer();
-		sb.append("##0");
-		sb.append(p>0?".":"");
-		sb.append(zeroStr);
-		sb.append(";");
-		sb.append("-##0");
-		sb.append(p>0?".":"");
-		sb.append(zeroStr);
-		NumberFormat format=new DecimalFormat(sb.toString());
-		return format;
 	}
-	private static String productZero(int p){
-		StringBuffer sb=new StringBuffer();
-		while(p-->0)
-			sb.append("0");
-		return sb.toString();
-	}
-	
-}
