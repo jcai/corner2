@@ -26,5 +26,7 @@ public class CurrencyUtilsTest {
 		Assert.assertEquals(123456.12,CurrencyUtils.round((double)123456.123456,2));
 		Assert.assertEquals(123456.1235,CurrencyUtils.round((double)123456.123456,4));
 		Assert.assertEquals(-123456.1235,CurrencyUtils.round((double)-123456.123456,4));
+		Assert.assertEquals(-123456.11113,CurrencyUtils.round((double)-123456.111126,5));
+		Assert.assertEquals(1034.75,CurrencyUtils.round((double)1034.746,2));
 	}
 }
