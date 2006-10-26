@@ -82,7 +82,7 @@ public class UniqueEntity extends BaseValidator {
 				});
 		if (rowCount == 1) {
 			throw new ValidatorException(messages.formatValidationMessage(
-					"${1}已经存在", ValidationStrings.REQUIRED_FIELD,
+					"{0}为"+object+"的记录已经存在", ValidationStrings.REQUIRED_FIELD,
 					new Object[] { field.getDisplayName() }));
 		}
 
