@@ -31,7 +31,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import corner.orm.spring.SpringContainer;
+import corner.orm.tapestry.page.EntityPage;
 import corner.service.EntityService;
+import corner.util.BeanUtils;
 
 /**
  * 判断实体是否唯一.
@@ -67,7 +69,14 @@ public class UniqueEntity extends BaseValidator {
 		if (object == null) {
 			return;
 		}
+		Object obj=((EntityPage) field.getPage()).getEntity();
 		
+		if(getEntityService().isPersistent(obj)){//是否为持久化
+			Object properyValue=BeanUtils.getProperty(obj,this.property);
+			if(object.equals(properyValue)){//加入属性没变化，则不进行校验.
+				return;
+			}
+		}
 		int rowCount = (Integer) ((HibernateDaoSupport) getEntityService()
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
