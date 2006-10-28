@@ -14,12 +14,12 @@
             dojo.require("dojo.widget.Select");
             dojo.require("corner.widget.Selector");
             
-            dojo.require("tapestry.widget.*");
+            dojo.require("tapestry.widget.Widget");
         </unique>
     </body>
     <initialization>
         var ${id}prop=${props};
-        tapestry.widget.synchronizeWidgetState("${id}", "Selector", ${id}prop);
+        tapestry.widget.synchronizeWidgetState("${id}", "corner:Selector", ${id}prop);
         if (${id}prop["label"] &amp;&amp; ${id}prop["value"]){
             var selw=dojo.widget.byId("${id}");
             selw.setValue(${id}prop["value"]);

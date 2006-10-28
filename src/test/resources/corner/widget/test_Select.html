@@ -19,7 +19,7 @@ djConfig = { isDebug: true
 
 function init(){	
 	var props = {dataUrl:"SelectData.js"};
-	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
+	var widget=dojo.widget.createWidget("corner:Selector",props,dojo.byId("tab"));
 }
 
 
@@ -32,13 +32,11 @@ dojo.addOnLoad(init);
 	font-size: 12px;
 	line-height: 18px;
 	color: #000066;
-	background-color: #FFFDEC;
+	background-color: red;
 	border: 1px solid #CCCCCC;
 	width: 98%;
 	}
-	.input-form-99{
-		width: 99%;
-	}
+	
 .right-td-width-bg,.right-td-width,.right-td-width-readonly{
 	color: #000066;
 	background-color: #ffffff;
@@ -54,7 +52,7 @@ dojo.addOnLoad(init);
 </head>
 
 <body>
-<table><tr><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"></input></td></tr></table>
+<table><tr><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"/></td></tr></table>
 </body>
 
 </html>

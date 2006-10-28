@@ -15,9 +15,6 @@ dojo.provide("tapestry.widget");
 dojo.provide("tapestry.widget.Widget");
 
 dojo.require("dojo.widget.*");
-dojo.require("dojo.dom");
-dojo.require("dojo.event");
-dojo.require("dojo.lang.common");
 
 // Define core widget management methods
 tapestry.widget = {
@@ -35,11 +32,20 @@ tapestry.widget = {
 	 * @param props 
 	 * 			The js properties object to create the widget with.
 	 */
-	synchronizeWidgetState : function(widgetId, type, props){
+	synchronizeWidgetState : function(widgetId, type, props, destroy){
+		if(typeof destroy == "undefined"){
+			destroy=true;
+		}
 		var widget = dojo.widget.byId(widgetId);
 		
-		if (!widget)
+		if (!widget) {
 			this.createWidget(widgetId, type, props);
+		} else if (destroy){
+			widget.destroy();
+			this.createWidget(widgetId, type, props);
+		} else {
+			this.setWidgetProperties(widget, props);
+		}
 	},
 	
 	/**
@@ -52,9 +58,19 @@ tapestry.widget = {
 			return;
 		}
 		
-		if (!props["widgetId"]) props["widgetId"]=widgetId;
+		if (!props["widgetId"]) {
+			props["widgetId"]=widgetId;
+		}
 		
-		dojo.widget.createWidget(type, props, node);
-	}
+		// handle disabling widgets
+		var w = dojo.widget.createWidget(type, props, node);
+		this.setWidgetProperties(w, props);
+	},
 	
+	setWidgetProperties: function(w, props){
+		if (!dj_undef("disabled",props) && props.disabled == true 
+			&& dojo.lang.isFunction(w["disable"])){
+			w.disable();
+		}
+	}
 }

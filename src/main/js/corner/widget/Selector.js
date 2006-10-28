@@ -7,17 +7,17 @@
 dojo.provide("corner.widget.Selector");
 dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.Select");
-dojo.require("dojo.widget.ComboBoxDataProvider");
-//定义一个Selector的widget.
-dojo.widget.defineWidget("corner.widget.Selector");
-dojo.widget.tags.addParseTreeHandler("dojo:Selector");
 
-//定义基本的Selector
-corner.widget.Selector = function(){
-	 dojo.widget.html.Select.call(this);
-}
-//继承
-dojo.inherits(corner.widget.Selector,  dojo.widget.html.Select);
+//定义一个Selector的widget.
+dojo.widget.defineWidget(
+	"corner.widget.Selector",
+ 	dojo.widget.Select,{},
+ 	"html"
+
+);
+
+
+
 //对Selector进行扩展.
 /**
  * 在原始的Select中。
@@ -44,7 +44,6 @@ dojo.inherits(corner.widget.Selector,  dojo.widget.html.Select);
  * 
  */
 dojo.lang.extend(corner.widget.Selector,{
-		widgetType: "Selector",
 		autoComplete: false,
 		forceValidOption: false,
 		updateFields:null,
@@ -88,27 +87,14 @@ dojo.lang.extend(corner.widget.Selector,{
 		},
 		fillInTemplate: function(args, frag){
 			corner.widget.Selector.superclass.fillInTemplate.call(this,args,frag);
-			//---------------调整Selector的样式
-			//取得domNode的样式类.
-			var textInputClass =dojo.html.getClass(this.domNode);
-			var width=dojo.style.getContentWidth(this.domNode);
-	
-	        //删除domNode的样式.
-	        dojo.html.removeClass(this.domNode,textInputClass,false);
-	
-	        //替换TextInputNode的样式为源节点的样式
-	        dojo.html.replaceClass(this.textInputNode,textInputClass,"dojoComboBoxInput");
-	        dojo.debug(this.textInputNode.style.width);
-	        //设定widget中table的样式
-	        //dojo.html.replaceClass(this.cbTableNode,textInputClass,"dojoComboBox");
-	        
-	        this["optionsListWrapper"].style.textAlign ="left";
-	        
-	        this.downArrowNode.style.verticalAlign="middle";
+			
+			var source = this.getFragNodeRef(frag);
+			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
+			this.domNode.style.textAlign="left";
+			this.downArrowNode.style.verticalAlign="middle";
 	        this.textInputNode.style.verticalAlign="middle";
-	        //dojo.style.setContentWidth(this.domNode,width);
-	        //设定widget中table的边框
-	        this.cbTableNode.style.border="none";
+			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
+
 		},
 		convertResultList:function(results){
 			dojo.debug("call here");
@@ -141,8 +127,6 @@ dojo.lang.extend(corner.widget.Selector,{
 			this.dataUrl=tmpUrl;
 			dojo.debug("data url :["+tmpUrl+"]");
 		}
-		
-	
 });
 
 

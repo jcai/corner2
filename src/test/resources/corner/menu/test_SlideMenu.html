@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Drowdown menu test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+
+<style>
+#slideMenu,.slideMenu{
+	position: absolute;
+	background-color: white;
+	border:1px solid black;
+	font: normal 12px Verdana;
+	line-height: 18px;
+	z-index: 100;
+	width:140px;
+	left: 40px;
+}
+/* 弹出窗口左侧的高度，背景色 */
+.left-window{
+	width: 100%;
+	background-color: #CCCCCC;
+	line-height: 22px;
+	text-align: center;
+	}
+
+/* 弹出窗口右侧的宽度，背景色 */
+.right-window{
+	font-size: 14px;
+	color: #ffffff;
+	background-color: #9F5000;
+	line-width: 35px;
+	text-align: center;
+	font-weight: bold;
+	}
+
+</style>
+</head>
+
+<body>
+<div id="slideMenu" jwcid="@corner:SlideMenu" menuBarId="menuBar">
+
+<table border="0" cellpadding="2" cellspacing="1" class="left-window">
+<tr>
+  <td class="down-td-width-bg">
+	<a href="SaleContractMainForm.html" jwcid="@DirectLink" class="titlelink" listener="listener:goEntityPage" parameters="ognl:{entity,'sale/SaleContractMainForm'}">销售合同基本信息</a> <br/></td>
+  <td rowspan="10" class="right-window" id="menuBar">销<br>
+    售<br>合<br>
+    同</td>
+	<tr class="down-td-width-bg">
+  <td><a href="OrderTodoList.html" jwcid="@DirectLink" class="titlelink" listener="listener:doViewRelativeEntityListAction" parameters="ognl:{entity,'sale/OrderTodoList'}">工作计划安排</a></td>
+<tr class="down-td-width-bg">
+  <td><a href="BriefCaseMainList.html" jwcid="@DirectLink" class="titlelink" listener="listener:doViewRelativeEntityListAction" parameters="ognl:{entity,'sale/BriefCaseMainList'}">相关文件</a></td>
+<tr class="down-td-width-bg">
+  <td><a href="OrderVisiterList.html" jwcid="@DirectLink" class="titlelink" listener="listener:doViewRelativeEntityListAction" parameters="ognl:{entity,'sale/OrderVisiterList'}">相关人员</a></td>
+<tr class="down-td-width-bg">
+  <td><a href="#.html" class="titlelink"  target="_top">总览</a></td>
+</table>
+</div>
+	
+<script language="JavaScript" type="text/javascript"><!--
+
+	dojo.require("corner.menu.SlideMenu");
+	var slideMenu=new corner.menu.SlideMenu('slideMenu');
+	slideMenu.setTop(100);
+	slideMenu.setSpeed(20);
+	slideMenu.setMenuBarId('menuBar');
+	slideMenu.buildMenu();
+ 
+// -->
+</script>
+	
+</body>
+
+</html>

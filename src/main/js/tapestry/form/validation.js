@@ -1,15 +1,16 @@
 dojo.provide("tapestry.form.validation");
 
 dojo.require("dojo.validate.check");
-dojo.require("dojo.html");
+dojo.require("dojo.html.style");
 dojo.require("dojo.widget.*");
-
 dojo.require("tapestry.widget.AlertDialog");
 
 tapestry.form.validation={
 	
 	missingClass:"fieldMissing", // default css class that will be applied to fields missing a value
 	invalidClass:"fieldInvalid", // default css class applied to fields with invalid data
+	
+	dialogName:"tapestry:AlertDialog",
 	
 	/**
 	 * Main entry point for running form validation. The
@@ -42,9 +43,9 @@ tapestry.form.validation={
 	 * 			will ~not~ be submitted. 
 	 */
 	validateForm:function(form, props){
-		if (!form) return false;
-		if (!props) return true; // form exists but no profile? just submit I guess..
-		if (!props.validateForm) return true;
+		if (typeof form == "undefined") {return false;}
+		if (typeof props == "undefined") {return true;} // form exists but no profile? just submit I guess..
+		if (!props.validateForm) {return true;}
 		
 		try {
 			this.clearValidationDecorations(form, props);
@@ -83,7 +84,7 @@ tapestry.form.validation={
 	 * 		   form will be submitted.
 	 */
 	processResults:function(form, results, profile){
-		if (results.isSuccessful()) return true; 
+		if (results.isSuccessful()) { return true; } 
 		
 		var formValid=true;
 		if (results.hasMissing()) {
@@ -114,6 +115,8 @@ tapestry.form.validation={
 	 * @param profile The form validation profile.
 	 */
 	handleMissingField:function(field, profile){
+		field=dojo.byId(field);
+		if (dj_undef("type", field)) {return;}
 		dojo.html.removeClass(field, this.invalidClass);
 		
 		if (!dojo.html.hasClass(field, this.missingClass)){
@@ -128,6 +131,8 @@ tapestry.form.validation={
 	 * @param profile The form validation profile.
 	 */
 	handleInvalidField:function(field, profile){
+		field=dojo.byId(field);
+		if (dj_undef("type", field)) {return;}
 		dojo.html.removeClass(field, this.missingClass);
 		
 		if (!dojo.html.hasClass(field, this.invalidClass)){
@@ -140,8 +145,8 @@ tapestry.form.validation={
 	 * in error.
 	 */
 	clearValidationDecorations:function(form, props){
-		for (var i=0; i<form.elements.length; i++) {
-			if (typeof form.elements[i].type == "undefined"
+		for (var i=0; i< form.elements.length; i++) {
+			if (dj_undef("type", form.elements[i]) || typeof form.elements[i].type == "undefined"
 				|| form.elements[i].type == "submit" 
 				|| form.elements[i].type == "hidden") { continue; }
 			
@@ -162,9 +167,14 @@ tapestry.form.validation={
 	summarizeErrors:function(form, results, profile){
 		var merrs=[];
 		var ierrs=[];
+		tapestry.form.currentFocus=null;
+		
 		if (results.hasMissing()){
 			var fields=results.getMissing();
 			for (var i=0; i<fields.length; i++){
+				if(i==0 && !tapestry.form.currentFocus){
+					tapestry.form.currentFocus=fields[i];
+				}
 				if (profile[fields[i]] && profile[fields[i]]["required"]){
 					if (dojo.lang.isArray(profile[fields[i]]["required"])) {
 						for (var z=0; z < profile[fields[i]]["required"].length; z++)
@@ -177,6 +187,9 @@ tapestry.form.validation={
 		if (results.hasInvalid()){
 			var fields=results.getInvalid();
 			for (var i=0; i<fields.length; i++){
+				if(i==0 && !tapestry.form.currentFocus){
+					tapestry.form.currentFocus=fields[i];
+				}
 				if (profile[fields[i]] && profile[fields[i]]["constraints"]){
 					if (dojo.lang.isArray(profile[fields[i]]["constraints"])) {
 						for (var z=0; z < profile[fields[i]]["constraints"].length; z++)
@@ -212,7 +225,7 @@ tapestry.form.validation={
 		
 		var node=document.createElement("span");
 		document.body.appendChild(node);
-		var dialog=dojo.widget.createWidget("AlertDialog", 
+		var dialog=dojo.widget.createWidget(this.dialogName, 
 						{
 							widgetId:"validationDialog",
 							message:msg

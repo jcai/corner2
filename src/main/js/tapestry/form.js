@@ -1,132 +1,153 @@
 dojo.provide("tapestry.form");
 
-dojo.require("dojo.event");
 dojo.require("dojo.event.browser");
+dojo.require("dojo.dom");
+dojo.require("dojo.html.selection");
 
 dojo.require("tapestry.core");
 
 /**
+ * package: tapestry.form
  * Provides central handling of all client side form related logic.
- * 
- * Validation system to be replaced with {@link dojo.validate#check(form, profile)}.
  */
 tapestry.form={
 	
+	// property: forms
+	// Contains a reference to all registered Tapestry forms in the current document.
 	forms:{}, // registered form references
+	// property: currentFocus 
+	// Reference to form element/element id of field that should currently recieve focus, if any
+	currentFocus:null,
 	
 	/**
-	 * Generically displays a window alert for the 
-	 * given field when in error.
-	 * 
-	 * @param field The field element
-	 * @param message The message to display
-	 */
-	invalidField:function(field, message){
-		if (field.disabled) return;
-		
-    	window.alert(message);
-    	this.focusField(field);
-	},
-	
-	invalid_field:function(field, message){tapestry.form.invalidField(field, message); },
-	
-	/**
+	 * Function: focusField
 	 * If possible, brings keyboard input focus
 	 * to the specified field.
 	 * 
-	 * @param field The field(field id) of the field to focus.
+	 * Parameters:
+	 * 	field - The field(field id) of the field to focus.
+	 * 
+	 * Note:
+	 * 	Function deprecated in favor of dojo equivalent, like 
+	 *  dojo.html.selectInputText(node).
 	 */
 	focusField:function(field){
-		if (arguments.length < 1) return;
+		if (arguments.length < 1) {return;}
 		
-		field = dojo.byId(field);
-		if (!field) return;
-		if (field.disabled || field.clientWidth < 1) return;
-        
+		var f=dojo.widget.byId(field);
+		if(f && !dj_undef("focus", f)){
+			f.focus();
+			return;
+		} else {
+			f = dojo.byId(field);
+		}
+		
+		if (!f) { return; }
+		
+		if(!dj_undef("focus", f)){
+			f.focus();
+			return;
+		}
+		
+		if (field.disabled || field.clientWidth < 1) {
+			return;
+		}
+		
         dojo.html.selectInputText(field);
 	},
 	
 	/**
-	 * Trims whitespace from before/after field.
-	 * @param id The field(field id) of the field to trim
-	 * 			 whitespace input from.
+	 * Used by AlertDialog to focus the highest priority form field 
+	 * that failed validation. This happens because the field needs to 
+	 * be focused ~after~ the dialog is hidden.
 	 */
-	trimField:function(id){
-		if (arguments.length < 1) return;
+	_focusCurrentField:function(){
+		if(!this.currentFocus){return;}
 		
-		var elm=dojo.byId(id);
-		if (!elm) return;
-		if ( elm.type != "text" && elm.type != "textarea"
-			&& elm.type != "password" ) { return; }
-		
-		elm.value = elm.value.replace(/(^\s*|\s*$)/g, "");
+		this.focusField(this.currentFocus);
 	},
 	
 	/**
-	 * Checks if the field specified has a non-null value
-	 * selected. This covers input fields/checkboxes/radio groups/etc..
+	 * Function: registerForm
 	 * 
-	 * @param field The field(field id) of the field to check for input.
-	 * @param message The message to be displayed if no value has been input/selected
-	 * 				  for the field.
-	 */
-	requireField:function(field, message){
-		if (arguments.length < 1) return;
-		
-		var elem=dojo.byId(field);
-		if (!elem) return;
-		
-		// Are textbox, textarea, or password fields blank.
-		if ( (elem.type == "text" || elem.type == "textarea" || elem.type == "password") 
-			&& /^\s*$/.test(elem.value) ) {
-			this.invalidField(elem, message);
-			return;
-		}
-		// Does drop-down box have option selected.
-		else if ( (elem.type == "select-one" || elem.type == "select-multiple") 
-				&& elem.selectedIndex == -1 ) {
-			this.invalidField(elem, message);
-		}
-		// Does radio button group (or check box group) have option checked.
-		else if ( elem instanceof Array )  {
-			var checked = false;
-			for (var j = 0; j < elem.length; j++) {
-				if (elem[j].checked) { checked = true; }
-			}
-			if ( !checked ) {	
-				this.invalidField(elem, message);
-				return;
-			}
-		}
-	},
-	
-	/**
-	 * Registers the form with the local <code>forms</code> property so 
+	 * Registers the form with the local <forms> property so 
 	 * that there is a central reference of all tapestry forms.
-	 * @param id The form(form id) to register.
+	 * 
+	 * Parameters:
+	 * 
+	 *	id		-	The form(form id) to register.
+	 *  async	-	Boolean, if true causes form submission to be asynchronous.
+	 *  json	-	Boolean, if true causes form submission to be asyncrhronous with an 
+	 * 				expected JSON response.
 	 */
-	registerForm:function(id){
+	registerForm:function(id, async, json){
 		var form=dojo.byId(id);
 		if (!form) {
 			dojo.raise("Form not found with id " + id);
 			return;
 		}
 		
-		// make sure id is correct just in case node passed in
-		id=(form.getAttribute("id") ) ? form.getAttribute("id") : form.getAttribute("name");
+		// make sure id is correct just in case node passed in has only name
+		id=form.getAttribute("id");
 		
-		if (!this.forms[id]) {
-			this.forms[id]={};
-			this.forms[id].validateForm=true;
-			this.forms[id].profiles=[];
+		// if previously connected, cleanup and reconnect
+		if (this.forms[id]) {
+			dojo.event.disconnect(form, "onsubmit", this, "onFormSubmit");
+			for(var i = 0; i < form.elements.length; i++) {
+				var node = form.elements[i];
+				if(node && node.type && dojo.lang.inArray(["submit", "button"],node.type.toLowerCase())) {
+					dojo.event.disconnect(node, "onclick", tapestry.form, "inputClicked");
+				}
+			}
 			
+			var inputs = form.getElementsByTagName("input");
+			for(var i = 0; i < inputs.length; i++) {
+				var input = inputs[i];
+				if(input.type.toLowerCase() == "image" && input.form == form) {
+					dojo.event.disconnect(input, "onclick", tapestry.form, "inputClicked");
+				}
+			}
+			
+			dojo.event.disconnect(form, "onsubmit", this, "overrideSubmit");
+			delete this.forms[id];
+		}
+		
+		this.forms[id]={};
+		this.forms[id].validateForm=true;
+		this.forms[id].profiles=[];
+		this.forms[id].async=(typeof async != "undefined") ? async : false;
+		this.forms[id].json=(typeof json != "undefined") ? json : false;
+		
+		if (!this.forms[id].async) {
 			dojo.event.connect(form, "onsubmit", this, "onFormSubmit");
 		} else {
-			dojo.log.warn("egisterForm(" + id + ") Form already registered.");
+			for(var i = 0; i < form.elements.length; i++) {
+				var node = form.elements[i];
+				if(node && node.type && dojo.lang.inArray(["submit", "button"],node.type.toLowerCase())) {
+					dojo.event.connect(node, "onclick", tapestry.form, "inputClicked");
+				}
+			}
+			
+			var inputs = form.getElementsByTagName("input");
+			for(var i = 0; i < inputs.length; i++) {
+				var input = inputs[i];
+				if(input.type.toLowerCase() == "image" && input.form == form) {
+					dojo.event.connect(input, "onclick", tapestry.form, "inputClicked");
+				}
+			}
+			
+			dojo.event.connect(form, "onsubmit", this, "overrideSubmit");
 		}
 	},
 	
+	overrideSubmit:function(e){
+		dojo.event.browser.stopEvent(e);
+		tapestry.form.submitAsync(e.target);
+	},
+	
 	/**
+	 * Function: registerProfile
+	 * 
 	 * Registers a form validation/translation profile. There
 	 * can potentially be more than one profile registered with
 	 * a form.
@@ -135,11 +156,13 @@ tapestry.form={
 	 * life, which currently only involves running the profile checks
 	 * before form submission. (more points to be determined in the future)
 	 * 
-	 * @see {@link dojo.validate.check(form, profile)}.
+	 * See Also:
+	 * 	<dojo.validate.check>
 	 * 
-	 * @param id The form(form id) to register profile with.
-	 * @param profile The object containing all of the validation/value
-	 * 				  constraints for the form. 
+	 * Parameters:
+	 * 
+	 *	id		-	The form(form id) to register profile with.
+	 *	profile	-	The object containing all of the validation/value constraints for the form. 
 	 */
 	registerProfile:function(id, profile){
 		if (!this.forms[id]) {
@@ -151,12 +174,16 @@ tapestry.form={
 	},
 
 	/**
+	 * Function: clearProfiles
+	 * 
 	 * Clears any previously registered validation profiles 
 	 * on the specified form. Normally called during XHR requests
 	 * by returned JS response to ensure new validation logic coming
 	 * in from potentially new form fields is accounted for.
 	 * 
-	 * @param id The form id to clear profiles for.
+	 * Parameters:
+	 * 
+	 *	id - The form id to clear profiles for.
 	 */
 	clearProfiles:function(id){
 		if (!this.forms[id]) return;
@@ -166,15 +193,24 @@ tapestry.form={
 		}
 		this.forms[id].profiles=[];
 	},
-
+	
+	inputClicked:function(e){
+		var node = e.currentTarget;
+		if(node.disabled || dj_undef("form", node)) { return; }
+		this.forms[node.form.getAttribute("id")].clickedButton = node;
+	},
+	
 	/**
+	 * Function: setFormValidating
+	 * 
 	 * If a form registered with the specified formId
 	 * exists a local property will be set that causes
 	 * validation to be turned on/off depending on the argument.
 	 * 
-	 * @param formId The id of the form to turn validation on/off for.
-	 * @param validate Boolean for whether or not to validate form, if
-	 * 				   not specified assumes true.
+	 * Parameters:
+	 * 
+	 * formId - The id of the form to turn validation on/off for.
+	 * validate - Boolean for whether or not to validate form, if not specified assumes true.
 	 */
 	setFormValidating:function(formId, validate){
 		if (this.forms[formId]){
@@ -187,47 +223,91 @@ tapestry.form={
 	 * is submitted.
 	 */
 	onFormSubmit:function(evt){
-		if (!evt || !evt.target) {
-			dojo.raise("No target for form event." + evt);
+		if(!evt || dj_undef("target", evt)) {
+			dojo.raise("No valid form event found with argument: " + evt);
 			return;
 		}
 		
 		var id=evt.target.getAttribute("id");
-		if (!id) return;
-		
+		if (!id) {
+			dojo.raise("Form had no id attribute.");
+			return;
+		}
 		var form = dojo.byId(id);
-		if (form.submitmode.value 
+		
+		if (!dj_undef("value", form.submitmode)
 			&& (form.submitmode.value == "cancel" || form.submitmode.value == "refresh")) {
 			return;
 		}
 		
-		if (!tapestry.form.validation.validateForm(evt.target, this.forms[id])) {
+		if (!tapestry.form.validation.validateForm(form, this.forms[id])) {
 			dojo.event.browser.stopEvent(evt);
 		}
 	},
 	
 	/**
+	 * Function: submit
+	 * 
 	 * Submits the form specified, optionally setting the submitname
 	 * hidden input field to the value of submitName to let the Form 
 	 * component on server know which button caused the submission. (For
 	 * the case of submit button listeners).
 	 * 
-	 * @param form The form(form id) to submit.
-	 * @param submitName Optional submit name string to use when submitting.
+	 * Parameters:
+	 * 
+	 * form			-	The form(form id) to submit.
+	 * submitName	- 	Optional submit name string to use when submitting. This is used
+	 * 					to associate a form submission with a particular component, like a
+	 * 					Submit/LinkSubmit/etc..
+	 * parms		-	Optional extra set of arguments that can control the form submission semantics
+	 * 					such as url/async/json/etc. 
 	 */
-	submit:function(form, submitName){
+	submit:function(form, submitName, parms){
 		var form=dojo.byId(form);
 		if (!form) {
 			dojo.raise("Form not found with id " + form);
 			return;
 		}
+		var id=form.getAttribute("id");
 		
 		if (submitName){
 			form.submitname.value=submitName;
 		}
+		
+		if (!dj_undef("value", form.submitmode)
+			&& (form.submitmode.value == "cancel" || form.submitmode.value == "refresh")) {
+			form.submit();
+			return;
+		}
+		
+		if (!tapestry.form.validation.validateForm(form, this.forms[id])) {
+			return;
+		}
+		
+		if (parms && !dj_undef("async", parms) && parms.async) {
+			tapestry.form.submitAsync(form, null, submitName, parms);
+			return;
+		} else if(!dj_undef(id, this.forms) && this.forms[id].async){
+			tapestry.form.submitAsync(form);
+			return;
+		}
+		
 		form.submit();
 	},
 	
+	/**
+	 * Function: cancel
+	 * 
+	 * Submits the form to the server in "cancel" mode, invoking any cancel listeners
+	 * registered to the server side equivalent to the form passed in.
+	 * 
+	 * Parameters:
+	 * 	
+	 * 	form 		-	The form(form id) to cancel.
+	 * 	submitName	- 	Optional submit name string to use when submitting. This is used
+	 * 					to associate a form submission with a particular component, like a
+	 * 					Submit/LinkSubmit/etc..
+	 */
 	cancel:function(form, submitName){
 		var form=dojo.byId(form);
 		if (!form){
@@ -240,6 +320,19 @@ tapestry.form={
 		this.submit(form, submitName);
 	},
 	
+	/**
+	 * Function: refresh
+	 * 
+	 * Submits the form to the server in "refresh" mode, invoking any refresh listeners
+	 * registered to the server side equivalent to the form passed in.
+	 * 
+	 * Parameters:
+	 * 	
+	 * 	form 		-	The form(form id) to refresh.
+	 * 	submitName	- 	Optional submit name string to use when submitting. This is used
+	 * 					to associate a form submission with a particular component, like a
+	 * 					Submit/LinkSubmit/etc..
+	 */
 	refresh:function(form, submitName){
 		var form=dojo.byId(form);
 		if (!form){
@@ -253,17 +346,23 @@ tapestry.form={
 	},
 	
 	/**
-	 * Does almost the same thing as {@link tapestry.form#submit(form, submitName)}, 
+	 * Function: submitAsync
+	 * 
+	 * Does almost the same thing as <tapestry.form.submit>, 
 	 * but submits the request via XHR to the server asynchronously.
 	 * 
-	 * @param form The form(form id) to submit.
-	 * @param content Optional content map, mainly used to pass in browser
-	 * 				  event parameters to form submission, but can be any
-	 * 				  typical form/value pair.
-	 * @param submitName Optional submit name string to use when submitting.
-	 * @param validate Whether or not to validate form, default is false.
+	 * Parameters:
+	 * 
+	 *	form		-	The form(form id) to submit.
+	 *	content		-	Optional content map, mainly used to pass in browser
+	 * 					event parameters to form submission, but can be any
+	 * 					typical form/value pair.
+	 *	submitName	-	Optional submit name string to use when submitting.
+	 *	parms		-	Optional set of extra parms that can override the defautls for 
+	 * 					this specific form submission, like the url/async/json behaviour of 
+	 * 					the submission.
 	 */
-	submitAsync:function(form, content, submitName, validate){
+	submitAsync:function(form, content, submitName, parms){
 		var form=dojo.byId(form);
 		if (!form) {
 			dojo.raise("Form not found with id " + id);
@@ -271,25 +370,49 @@ tapestry.form={
 		}
 		var formId=form.getAttribute("id");
 		
-		if (validate && !tapestry.form.validation.validateForm(form, this.forms[formId])) {
+		if (!tapestry.form.validation.validateForm(form, this.forms[formId])) {
 			dojo.log.debug("Form validation failed for form with id " + formId);
 			return;
 		}
 		
 		if (submitName){
 			form.submitname.value=submitName;
+			if(!content){ content={}; }
+			if(form[submitName]){
+				content[submitName]=form[submitName].value;
+			}
 		}
-		dojo.io.bind({
+		
+		// handle submissions from input buttons
+		if (!dj_undef("clickedButton", this.forms[formId])) {
+			if (!content) { content={}; }
+			content[this.forms[formId].clickedButton.getAttribute("name")]=this.forms[formId].clickedButton.getAttribute("value");
+		}
+		
+		var kwArgs={
 			formNode:form,
 			content:content,
-            headers:{"dojo-ajax-request":true},
             useCache:true,
             preventCache:true,
-            load: (function(){tapestry.load.apply(this, arguments);}),
             error: (function(){tapestry.error.apply(this, arguments);}),
-            mimetype: "text/xml",
             encoding: "UTF-8"
-        });
+		};
+		
+		// check for override
+		if (parms){
+			if (!dj_undef("url", parms)) { kwArgs.url=parms.url; }
+		}
+		
+		if (this.forms[formId].json || parms && parms.json) {
+			kwArgs.headers={"json":true};
+			kwArgs.mimetype="text/json";
+		} else {
+			kwArgs.headers={"dojo-ajax-request":true};
+			kwArgs.mimetype="text/xml";
+			kwArgs.load=(function(){tapestry.load.apply(this, arguments);});
+		}
+		
+		dojo.io.queueBind(kwArgs);
 	}
 }
 

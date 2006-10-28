@@ -57,7 +57,7 @@ been tested on almost every modern browser, including:
     - Konqueror 3.4+
     - Opera 8.5+
 
-Note that some widgets and features may not preform exactly the same on every
+Note that some widgets and features may not perform exactly the same on every
 browser due to browser implementation differences.
 
 For those looking to use Dojo in non-browser environments, please see "Working
@@ -120,7 +120,7 @@ repository are available at:
 
 Anonymous Subversion access is also available:
 
-    %> svn co http://svn.dojootoolkit.org/dojo/trunk/ dojo
+    %> svn co http://svn.dojotoolkit.org/dojo/trunk/ dojo
 
 Each of these sources will include some extra directories not included in the
 pre-packaged editions, including command-line tests and build tools for
@@ -168,7 +168,7 @@ could then make a profile build using it by doing:
     %> ant -Dprofile=test -Ddocless=true release intern-strings
 
 If the build is successful, your newly minted and compressed  profile build will
-be placed in [dojo]/releae/dojo/
+be placed in [dojo]/release/dojo/
 
 -------------------------------------------------------------------------------
 Copyright (c) 2004-2006, The Dojo Foundation, All Rights Reserved

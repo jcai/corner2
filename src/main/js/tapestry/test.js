@@ -1,21 +1,10 @@
 dojo.provide("tapestry.test");
 
+dojo.require("dojo.logging.Logger");
+dojo.require("dojo.event.browser");
+
 // override to make sure our fake events pass
 dojo.event.browser.isEvent=function() { return true; }
-
-if (dj_undef("byId", dj_global)) {
-dojo.byId = function(id, doc){
-	if(id && (typeof id == "string" || id instanceof String)){
-		if(!doc){ doc = document; }
-		return doc.getElementById(id);
-	}
-	return id; // assume it's a node
-}
-}
-
-dojo.debug=function(message){
-	dojo.log.debug(message);
-}
 
 function lastMsgContains(str){
 	if (arguments.length < 1) return false;
@@ -40,3 +29,4 @@ function mock(){
 		}
 	}
 }
+

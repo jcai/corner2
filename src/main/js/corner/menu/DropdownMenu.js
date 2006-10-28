@@ -9,8 +9,8 @@ dojo.provide("corner.menu.DropdownMenu");
 dojo.require("dojo.logging.*");
 
 dojo.require("dojo.collections.ArrayList");
-dojo.require("dojo.html.extras");
-dojo.require("dojo.style");
+
+dojo.require("dojo.html.style");
 corner.menu.DropdownMenu={
 	//下拉菜单的层
 	menus:new dojo.collections.ArrayList(),
@@ -70,17 +70,17 @@ corner.menu.DropdownMenu={
 		}
 		
 		//设定下拉菜单的宽度
-		contentWidth=dojo.style.getContentBoxWidth(src);
-		dojo.style.setContentBoxWidth(node,contentWidth);
+		contentWidth=dojo.html.getContentBox(src).width;
+		dojo.html.setContentBox(node,{width:contentWidth});
 
 		//得到菜单的位置
-		with(dojo.style){
-			var _left=totalOffsetLeft(src,false);
-			var _top=totalOffsetTop(src,false)
+		with(dojo.html.getAbsolutePosition(src)){
+			var _left=left;
+			var _top=top;
 		}
 		//设定下拉菜单的位置
 		with(dojo.html){
-			_top+=dojo.html.getContentHeight(src);
+			_top+=dojo.html.getContentBox(src).height;
 			dojo.debug("left :"+_left+" _top:"+_top);
 			dojo.html.placeOnScreen(node,_left,_top,[0,0],false);	
 		}

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Drowdown menu test</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<style>
+.menu-normal {
+	background-image: url(../image/sample_3.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+	cursor: pointer ;
+}
+.menu-selected {
+	background-image: url(../image/sample_1.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+	text-indent: 4px;
+
+}
+.menu-selected-after {
+	background-image: url(../image/sample_2.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+
+}
+.menu-table{
+	height:30px;
+	width:960px;
+	text-align: center;
+	font-size: 12px;
+	color: #000000;
+
+}
+.popMenuDiv,#popMenuDiv{
+	position: absolute;
+	background-color: white;
+	border:1px solid black;
+	font: normal 12px Verdana;
+	display:none;
+}
+
+
+#popMenuDiv  a,.popMenuDiv a{
+	font-size:12px;
+	text-decoration: none;
+	padding-left: 6px;
+	color: black;
+	display: block;
+}
+
+#popMenuDiv a:hover,.popMenuDiv a:hover{ 
+	background-color: #CCFF9D;
+}
+
+</style>
+</head>
+
+<body>
+<table><tr><td id="menu1">menu1</td></tr></table>
+	<div id="menu1Div" class="popMenuDiv">
+	menu1 dive
+	</div>
+<script type="text/javascript"><!--
+
+
+
+dojo.require("corner.menu.DropdownMenu");
+
+dojo.event.connect(window,"onload",function(){
+	corner.menu.DropdownMenu.registerMenu('menu1','menu1Div');							   
+								   
+	});
+
+// --></script>
+	
+</body>
+
+</html>

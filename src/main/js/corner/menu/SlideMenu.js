@@ -8,7 +8,6 @@ dojo.provide("corner.menu.SlideMenu");
 
 dojo.require("dojo.event.*");
 dojo.require("dojo.logging.*");
-dojo.require("dojo.html.extras");
 dojo.require("dojo.collections.ArrayList");
 
 corner.menu.SlideMenu=function(menuId){
@@ -24,7 +23,7 @@ corner.menu.SlideMenu=function(menuId){
 		if(this.movingHandler){
 			clearTimeout(this.movingHandler);
 		}
-		left=dojo.style.totalOffsetLeft(this.menu,true);
+		left=dojo.html.getAbsolutePosition(this.menu,true).left;
 		if(left<=0){
 			this.movingHandler=dojo.lang.setTimeout(this,"moveoutMenu",this.speed);
 			if((left+10)>0)
@@ -52,7 +51,7 @@ corner.menu.SlideMenu=function(menuId){
 		if(this.movingHandler){
 			clearTimeout(this.movingHandler);
 		}
-		left=dojo.style.totalOffsetLeft(this.menu,true);
+		left=dojo.html.getAbsolutePosition(this.menu,true).left;
 		if(left>this.menuInitLeft){
 					
 			this.movingHandler=dojo.lang.setTimeout(this,"movebackMenu",this.speed);
@@ -69,23 +68,25 @@ corner.menu.SlideMenu=function(menuId){
 		this.menu.style.left=(left+distance)+"px";
 	}
 	this.buildMenu=function(){
-		this.menuWidth=dojo.style.getContentWidth(this.menu);
-		this.barWidth=dojo.style.getContentWidth(this.menuBar);
+		this.menuWidth=dojo.html.getContentBox(this.menu).width;
+		this.barWidth=dojo.html.getContentBox(this.menuBar).width;
 		this.menuInitLeft=this.barWidth-this.menuWidth;
 
-		dojo.html.placeOnScreen(this.menu,this.menuInitLeft,this.topDistance,[-this.menuWidth,0],false);
+		dojo.debug("init left:"+this.menuInitLeft);
+		//dojo.html.placeOnScreen(this.menu,this.barWidth,this.topDistance,[-this.menuWidth,0],false);
 		//this.menu.style.top=this.topDistance;
-		//this.menu.style.left=this.menuInitLeft;
+		this.menu.style.left=this.menuInitLeft+"px";
 		this.moveCorrectPosition();
 	};
 	this.menuInitLeft=0;
 	this.scrollCached=null;
 	this.fixPositionHandler=null;
 	this.moveCorrectPosition=function(){
+		//dojo.debug("move correct position");
 		if(this.fixPositionHandler){
 			clearTimeout(this.fixPositionHandler);
 		}
-		var scroll = dojo.html.getScrollOffset();
+		var scroll = dojo.html.getScroll().offset;
 
 		this.menu.style.top=(this.topDistance+scroll.y)+"px";		
 		this.fixPositionHandler=dojo.lang.setTimeout(this,"moveCorrectPosition",500);

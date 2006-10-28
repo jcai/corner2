@@ -41,7 +41,8 @@ djConfig = { isDebug: true
 </head>
 
 <body>
-<table><tr><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"></input></td></tr></table>
+<table border="1" width="1024"><tr><td ><td></td><td class="right-td-width"> </td></td><td class="right-td-width"><input id="tab"  class="input-form-99" size="100"></input></td></tr></table>
+<table border="1" width="1024"><tr><td ><td></td><td class="right-td-width"> </td></td><td class="right-td-width"><input   class="input-form-99" size="100"></input></td></tr></table>
 	<input type="text" id="f1"/>
 	<input type="text" id="f2"/>
 	
@@ -54,7 +55,7 @@ djConfig = { isDebug: true
 dojo.event.connect("after",window,"onload",function(){
 	dojo.debug("after onload");
 	dojo.debug("widget:"+dojo.widget.byId("selectorW"));
-	dojo.event.connect("after",dojo.widget.byId("selectorW"),"setAllValues",this,"doAfterSetAllValues");
+	//dojo.event.connect("after",dojo.widget.byId("selectorW"),"setAllValues",this,"doAfterSetAllValues");
 	this.doAfterSetAllValues=function(){dojo.debug("set all values");};
 });
 
@@ -62,7 +63,7 @@ dojo.event.connect("after",window,"onload",function(){
 	
 dojo.event.connect("before",window, 'onload', function(e) {
 	var props = {dataUrl:"SelectData2.js",widgetId:"selectorW",updateFields:"this,f1,f2"};
-	var widget=dojo.widget.createWidget("Selector",props,dojo.byId("tab"));
+	var widget=dojo.widget.createWidget("corner:Selector",props,dojo.byId("tab"));
 	
 });
 //-->
