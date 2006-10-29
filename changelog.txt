@@ -3,7 +3,7 @@ CORNER FRAMEWORK
 http://www.bjmaxinfo.com 
 
 
-changes in version 2.2.2 	(unreleased)
+changes in version 2.2.2 	(2006-10-29)
 ------------------------------------------
 package corner.widget
 * 升级dojo到0.4版本
