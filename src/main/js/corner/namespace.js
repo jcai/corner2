@@ -6,7 +6,8 @@ dojo.require("dojo.ns");
 	
 	var map = {
 		html: {
-			"Selector": "corner.widget.Selector"
+			"Selector": "corner.widget.Selector",
+			"TextAreaBox":"corner.widget.TextAreaBox"
 		}
 	};
 	

@@ -44,18 +44,11 @@ djConfig = { isDebug: true
 </head>
 
 <body>
-<table><tr><td class="right-td-width"><input id="tab"  class="right-td-width"></input></td></tr></table>	
+<table><tr><td class="right-td-width"><textarea id="tab"  class="right-td-width"></textarea></td></tr></table>	
 	<input id="tab1"  class="right-td-width"></input>
 </body>
 		<script language="javascript">
 			var props = {dataUrl:"TextAreaBoxData.js"};
-			dojo.widget.createWidget("TextAreaBox",props,dojo.byId("tab"));
-			var s=dojo.widget.createWidget("Select",props,dojo.byId("tab1"));
-//			dojo.debug(s["optionsListWrapper"].style["text-align"]="left");
-			s["optionsListWrapper"].style.textAlign ="left";
-			//dojo.style.setStyleAttributes(s["optionsListWrapper"],"text-align","center");
-			
-			//dojo.debug(dojo.widget.Select);
-			//dojo.debug(corner.widget.TextAreaBox);			
+			dojo.widget.createWidget("corner:TextAreaBox",props,dojo.byId("tab"));
 		</script>
 </html>

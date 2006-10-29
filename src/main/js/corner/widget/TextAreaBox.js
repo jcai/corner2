@@ -6,20 +6,17 @@
 
 dojo.provide("corner.widget.TextAreaBox");
 
-dojo.require("dojo.widget.html.ComboBox");
+dojo.require("dojo.widget.ComboBox");
 dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.html.stabile");
 
-dojo.widget.tags.addParseTreeHandler("dojo:TextAreaBox");
+
 
 dojo.widget.defineWidget(
 	"corner.widget.TextAreaBox",
-	dojo.widget.html.ComboBox,
+	dojo.widget.ComboBox,
 	{
-		widgetType: "TextAreaBox",
-		autoComplete: false,
-		forceValidOption: false,
-		comboBoxValue: null,
+		
 		
 		setValue: function(value) {
 			this.comboBoxValue.value = value;
@@ -63,6 +60,13 @@ dojo.widget.defineWidget(
 		//指定自己的html模版文件
 		templatePath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.html"),
 		templateCssPath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.css"),
+		fillInTemplate: function( args,  frag){
+			this.downArrowNode=document.createElement("span");
+			corner.widget.TextAreaBox.superclass.fillInTemplate.call(this,args,frag);
+			var source = this.getFragNodeRef(frag);
+			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
+			this.domNode.style.textAlign="left";
+		},
 		startSearchFromInput: function(){
 			var searchStr = this.textInputNode.value
 			if(searchStr != null && searchStr.length>0 && searchStr.search(';')>-1){

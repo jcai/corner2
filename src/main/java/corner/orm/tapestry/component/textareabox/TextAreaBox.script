@@ -13,26 +13,13 @@
             dojo.require("dojo.event");
             dojo.require("dojo.widget.Manager");
             dojo.require("corner.widget.TextAreaBox");
-            dojo.require("tapestry.widget.*");
+            dojo.require("tapestry.widget.Widget");
         </unique>
     </body>
     <initialization>
         var ${id}prop=${props};
-        tapestry.widget.synchronizeWidgetState("${id}", "TextAreaBox", ${id}prop);
-        
-         var ${id}TextAreaBox =dojo.widget.byId(${id}prop["widgetId"]);
-        //取得domNode的样式类.
-		var textInputClass =dojo.html.getClass(${id}TextAreaBox.domNode);
-        //删除domNode的样式.
-        dojo.html.removeClass(${id}TextAreaBox.domNode,textInputClass,false);
-        //替换TextInputNode的样式为源节点的样式
-        dojo.html.replaceClass(${id}TextAreaBox.textInputNode,textInputClass,"dojoComboBoxInput");
-        //设定widget中table的样式
-        //dojo.html.replaceClass(${id}TextAreaBox.cbTableNode,textInputClass,"dojoComboBox");
-        //设定widget中table的边框
-        ${id}TextAreaBox.cbTableNode.style.border="none";
-        
-        ${id}TextAreaBox["optionsListWrapper"].style.textAlign ="left";
+        tapestry.widget.synchronizeWidgetState("${id}", "corner:TextAreaBox", ${id}prop);
+ 	       
         if (${id}prop["value"]){
             var selw=dojo.widget.byId(${id}prop["widgetId"]);
             selw.setValue(${id}prop["value"]);
