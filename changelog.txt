@@ -9,6 +9,7 @@ package corner.widget
 * 升级dojo到0.4版本
 * 升级tapestry到最新（1027）的版本
 * 纠正应为升级dojo带来的js错误
+* 纠正TextAreaBox的js错误（dojo的升级）
 
 package corner.util
 * 加入对货币的四舍五入操作（CurrencyUtil）.
