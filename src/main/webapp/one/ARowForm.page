@@ -27,7 +27,7 @@
     <binding value="message:colors" name="displayName"/>
     <binding value="ognl:entity.colors" name="value"/>
     <binding name="refVector" value="ognl:refVector"/>
-    <binding name="translator" value="translator:number"/>
+    <binding name="translator" value="translator:number,pattern=##0"/>
   </component>
 
   <component type="corner:MatrixHead" id="colorsHeadField">
