@@ -4,7 +4,8 @@ http://www.bjmaxinfo.com
 
 changes in version 2.3 	(unreleased)
 ------------------------------------------
-
+package corner.widget
+* 纠正TextAreaBox的rows和cols的错误.
 
 changes in version 2.2.2 	(2006-10-29)
 ------------------------------------------
