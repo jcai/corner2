@@ -66,6 +66,12 @@ dojo.widget.defineWidget(
 			var source = this.getFragNodeRef(frag);
 			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
 			this.domNode.style.textAlign="left";
+			if(dojo.html.getAttribute(source,"rows")){
+				this.textInputNode.rows=dojo.html.getAttribute(source,"rows");
+			}
+			if(dojo.html.getAttribute(source,"cols")){
+				this.textInputNode.cols=dojo.html.getAttribute(source,"cols");
+			}
 		},
 		startSearchFromInput: function(){
 			var searchStr = this.textInputNode.value
