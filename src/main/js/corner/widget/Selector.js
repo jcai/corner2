@@ -61,7 +61,7 @@ dojo.lang.extend(corner.widget.Selector,{
 				
 				
 				if(vs.length!=fs.length){
-					dojo.raise("values length != update Fields length \n"+"values:"+value+",\n"+"updateFields:"+fs);
+					dojo.debug("values length != update Fields length \n"+"values:"+value+",\n"+"updateFields:"+fs);
 					return;	
 				}
 				for(var i=0;i<fs.length;i++){
@@ -85,7 +85,58 @@ dojo.lang.extend(corner.widget.Selector,{
 			dojo.debug("combox.value:["+this.getValue()+"]");
 			dojo.debug("combox_selection.value:["+this.comboBoxSelectionValue.value+"]");
 		},
-		fillInTemplate: function(args, frag){
+		fillInTemplate: function(/*Object*/ args, /*Object*/ frag){
+			// For inlining a table we need browser specific CSS
+			dojo.html.applyBrowserClass(this.domNode);
+
+			var source = this.getFragNodeRef(frag); 
+			if (! this.name && source.name){ this.name = source.name; } 
+			this.comboBoxValue.name = this.name; 
+			this.comboBoxSelectionValue.name = this.name+"_selected";
+
+			/* different nodes get different parts of the style */
+			dojo.html.copyStyle(this.domNode, source);
+			dojo.html.copyStyle(this.textInputNode, source);
+			dojo.html.copyStyle(this.downArrowNode, source);
+			
+			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
+			this.domNode.style.textAlign="left";
+			this.downArrowNode.style.verticalAlign="middle";
+	        this.textInputNode.style.verticalAlign="middle";
+			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
+			
+			with (this.downArrowNode.style){ // calculate these later
+				width = "0px";
+				height = "0px";
+			}
+
+			var dpClass;
+			if(this.mode == "remote"){
+				dpClass = dojo.widget.incrementalComboBoxDataProvider;
+			}else if(typeof this.dataProviderClass == "string"){
+				dpClass = dojo.evalObjPath(this.dataProviderClass)
+			}else{
+				dpClass = this.dataProviderClass;
+			}
+			this.dataProvider = new dpClass();
+			this.dataProvider.init(this, this.getFragNodeRef(frag));
+
+			this.popupWidget = new dojo.widget.createWidget("PopupContainer", 
+				{toggle: this.dropdownToggle, toggleDuration: this.toggleDuration});
+			dojo.event.connect(this, 'destroy', this.popupWidget, 'destroy');
+			this.optionsListNode = this.popupWidget.domNode;
+			this.domNode.appendChild(this.optionsListNode);
+			dojo.html.addClass(this.optionsListNode, 'dojoComboBoxOptions');
+			dojo.event.connect(this.optionsListNode, 'onclick', this, 'selectOption');
+			dojo.event.connect(this.optionsListNode, 'onmouseover', this, '_onMouseOver');
+			dojo.event.connect(this.optionsListNode, 'onmouseout', this, '_onMouseOut');
+			
+			dojo.event.connect(this.optionsListNode, "onmouseover", this, "itemMouseOver");
+			dojo.event.connect(this.optionsListNode, "onmouseout", this, "itemMouseOut");
+		},
+	/*		fillInTemplate: function(args, frag){
+			//提高页面的展示效果
+		
 			corner.widget.Selector.superclass.fillInTemplate.call(this,args,frag);
 			
 			var source = this.getFragNodeRef(frag);
@@ -94,8 +145,11 @@ dojo.lang.extend(corner.widget.Selector,{
 			this.downArrowNode.style.verticalAlign="middle";
 	        this.textInputNode.style.verticalAlign="middle";
 			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
+			
+			
 
 		},
+		* */
 		convertResultList:function(results){
 			dojo.debug("call here");
 			var r=[];
@@ -125,7 +179,7 @@ dojo.lang.extend(corner.widget.Selector,{
 				tmpUrl = tmpUrl+'?prevent_cache='+time;
 			
 			this.dataUrl=tmpUrl;
-			dojo.debug("data url :["+tmpUrl+"]");
+			//dojo.debug("data url :["+tmpUrl+"]");
 		}
 });
 
