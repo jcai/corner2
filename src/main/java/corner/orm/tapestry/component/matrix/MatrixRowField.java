@@ -13,8 +13,14 @@
 package corner.orm.tapestry.component.matrix;
 
 import org.apache.tapestry.BaseComponent;
+import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.event.PageBeginRenderListener;
+import org.apache.tapestry.event.PageEvent;
+import org.apache.tapestry.form.TextField;
+import org.apache.tapestry.form.translator.Translator;
 
 import corner.orm.hibernate.v3.MatrixRow;
 
@@ -24,7 +30,8 @@ import corner.orm.hibernate.v3.MatrixRow;
  * @version $Revision$
  * @since 2.2.2
  */
-public abstract class MatrixRowField extends BaseComponent {
+public abstract class MatrixRowField extends BaseComponent  {
+	
 	
 	@Parameter(required=true)
 	public abstract MatrixRow getValue();
@@ -33,6 +40,16 @@ public abstract class MatrixRowField extends BaseComponent {
 	private int star=0;
 	@Parameter(required=true)
 	public abstract MatrixRow getRefVector();
+	
+	@Parameter
+	public abstract Translator getTranslator();
+	
+	
+	@Component(type="TextField",bindings={"displayName=displayName","class=inputClass","value=elementValue","translator=translator"})
+	public abstract TextField getElementTextField();
+	
+	
+	
 	
 	/**
 	 * 得到循环元素的值.
