@@ -34,7 +34,7 @@ public abstract class Insert extends org.apache.tapestry.components.Insert {
 		}
 		else{
 			if(this.getLength()>0){//如果指定的长度大于0
-				if(this.getValue().toString()!=null && this.getValue().toString().length()>=this.getLength()){//指定的长度小于value的长度
+				if(this.getValue().toString()!=null && this.getValue().toString().length()>this.getLength()){//指定的长度小于value的长度
 					StringBuffer buffer = new StringBuffer(this.getValue().toString().trim().substring(0, this.getLength()));
 					buffer.append("...");
 					this.setValue(buffer.toString());
