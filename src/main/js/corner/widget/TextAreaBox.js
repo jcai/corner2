@@ -67,10 +67,10 @@ dojo.widget.defineWidget(
 			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
 			this.domNode.style.textAlign="left";
 			if(dojo.html.getAttribute(source,"rows")){
-				this.textInputNode.rows=dojo.html.getAttribute(source,"rows");
+				this.textInputNode.setAttribute("rows",dojo.html.getAttribute(source,"rows"));
 			}
 			if(dojo.html.getAttribute(source,"cols")){
-				this.textInputNode.cols=dojo.html.getAttribute(source,"cols");
+				this.textInputNode.setAttribute("cols",dojo.html.getAttribute(source,"cols"));
 			}
 		},
 		startSearchFromInput: function(){
