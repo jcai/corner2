@@ -5,6 +5,6 @@
 	<contribution configuration-id="tapestry.form.validator.Validators">
 		<validator name="numPattern" class="NumPattern"/>
 		<validator name="uniqueEntity" class="UniqueEntity"/>
-		<validator name="personID" class="PersonID"/>
+		<validator name="personID" class="PersonID" configurable="false"/>
 	</contribution>
 </module>
