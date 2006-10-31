@@ -13,7 +13,6 @@
 package corner.orm.tapestry.component.matrix;
 
 import org.apache.tapestry.BaseComponent;
-import org.apache.tapestry.IComponent;
 import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.components.ForBean;
@@ -34,8 +33,7 @@ public abstract class MatrixHead extends BaseComponent {
 	public abstract void setHeadObj(Object headObj);
 	public abstract Object getHeadObj();
 	
-	@Component(type="Insert",bindings="value=headObj")
-	public abstract IComponent getHeadLabel();
+	
 	@Parameter(required=true)
 	public abstract MatrixRow getRefVector();
 	

@@ -17,6 +17,11 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
             展示时候的每格的样式.
         </description>
     </parameter>
+    <parameter name="inputClass">
+        <description>
+            展示输入框时候的样式
+        </description>
+    </parameter>
 	<parameter name="element" default-value="literal:td"> 
 		<description>
 			The tag with which the component will be inserted in the generated content.	
