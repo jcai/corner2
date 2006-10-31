@@ -13,12 +13,9 @@
 package corner.orm.tapestry.component.matrix;
 
 import org.apache.tapestry.BaseComponent;
-import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
-import org.apache.tapestry.event.PageBeginRenderListener;
-import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.TextField;
 import org.apache.tapestry.form.translator.Translator;
 
