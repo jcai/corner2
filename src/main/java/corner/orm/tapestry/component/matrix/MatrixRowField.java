@@ -16,8 +16,12 @@ import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.TextField;
+import org.apache.tapestry.form.ValidationMessages;
+import org.apache.tapestry.form.ValidationMessagesImpl;
 import org.apache.tapestry.form.translator.Translator;
+import org.apache.tapestry.valid.ValidatorException;
 
 import corner.orm.hibernate.v3.MatrixRow;
 
@@ -27,7 +31,7 @@ import corner.orm.hibernate.v3.MatrixRow;
  * @version $Revision$
  * @since 2.2.2
  */
-public abstract class MatrixRowField extends BaseComponent  {
+public abstract class MatrixRowField extends BaseComponent  implements IFormComponent {
 	
 	
 	@Parameter(required=true)
@@ -51,21 +55,27 @@ public abstract class MatrixRowField extends BaseComponent  {
 	/**
 	 * 得到循环元素的值.
 	 * @return
+	 * @throws ValidatorException 当错误验证的时候.
 	 */
-	public String getElementValue(){
-		if(getValue().size()>star)
-			return (String) getValue().get(star++);
-		else
+	public Object getElementValue() throws ValidatorException{
+		if(getValue().size()>star){
+			ValidationMessages messages=new ValidationMessagesImpl(this, this.getPage().getLocale());
+			return this.getTranslator().parse(this,messages,(String) getValue().get(star++));
+//			return getValue().get(star++);
+		}
+		else{
 			return null;
+		}
 	}
 	@SuppressWarnings("unchecked")
-	public void setElementValue(String value){
+	public void setElementValue(Object value){
 		if(this.getPage().getRequestCycle().isRewinding()){
 			if(star==0){
 				setValue(new MatrixRow());
 			}
-			if(value!=null)
+			if(value!=null){
 				getValue().add(star++,value);
+			}
 		}
 	}
 	/**
