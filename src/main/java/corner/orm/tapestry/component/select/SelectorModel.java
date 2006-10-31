@@ -98,14 +98,14 @@ public class SelectorModel implements IPoSelectorModel {
 			
 			if(fieldIsNull){
 				if(!filterFieldIsNull){
-					return (String) BeanUtils.getProperty(value, filter.getLabelField());
+					return BeanUtils.getProperty(value, filter.getLabelField())!=null?BeanUtils.getProperty(value, filter.getLabelField()).toString():null;
 				}
 				
 				return null;
 				
 			}
 			
-			return (String) BeanUtils.getProperty(value, field);
+			return BeanUtils.getProperty(value, field)!=null?BeanUtils.getProperty(value, field).toString():null;
 		}
 		return value.toString();
 	}
