@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-Tapestry.validate_Personid = function(event, fieldId){
+Tapestry.personid_field = function(event,fieldId){
 	var field = this.find(fieldId);
 	var value = field.value;
 	
