@@ -59,6 +59,8 @@ public class CurrencyUtilsTest {
 		Assert.assertEquals(CurrencyUtils.div(v1, v2),1.2);
 		Assert.assertEquals(CurrencyUtils.div(v1, v2,0),(double)1);
 		
-		
+		double qutnum= 12000.0;
+		double totalsum= 83454.55;
+		Assert.assertEquals(CurrencyUtils.div(totalsum, qutnum,6),6.954546);
 	}
 }
