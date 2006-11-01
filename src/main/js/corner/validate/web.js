@@ -9,6 +9,12 @@ dojo.provide("corner.validate.web");
  * 验证身份证号码是否正确
  */
 corner.validate.isPersonID = function(/*String*/value, /*Object?*/flags){
+// summary:
+//	验证公民身份证号码是否正确。
+//
+// value  A string.
+// flags  An object. 	
+
 	if (value == "") return;
 	
 	//身份证号码校验,并从中拆分出出生年月日和性别
@@ -68,12 +74,12 @@ corner.validate.isPersonID = function(/*String*/value, /*Object?*/flags){
 
 	if (id_length==0){
 		//event.invalid_field(field,"请输入身份证号码!");
-		return false;
+		return false;// Boolean
 	}
 
 	if (id_length!=15 && id_length!=18){
 		//event.invalid_field(field,"身份证号长度应为15位或18位！");
-		return false;
+		return false;// Boolean
 	}
 
 	if (id_length==15){
@@ -83,12 +89,12 @@ corner.validate.isPersonID = function(/*String*/value, /*Object?*/flags){
 
 		if (mm>12 || mm<=0){
 			//event.invalid_field(field,"输入身份证号,月份非法！");
-			return false;
+			return false;// Boolean
 		}
 
 		if (dd>31 || dd<=0){
 			//event.invalid_field(field,"输入身份证号,日期非法！");
-			return false;
+			return false;// Boolean
 		}
 
 		birthday=yyyy+ "-" +mm+ "-" +dd;
@@ -101,38 +107,38 @@ corner.validate.isPersonID = function(/*String*/value, /*Object?*/flags){
 	}else if (id_length==18){
 		if (id.indexOf("X") > 0 && id.indexOf("X")!=17 || id.indexOf("x")>0 && id.indexOf("x")!=17){
 			//event.invalid_field(field,"身份证中\"X\"输入位置不正确！");
-			return false;
+			return false;// Boolean
 		}
 
 		yyyy=id.substring(6,10);
 		if (yyyy>2200 || yyyy<1900){
 			//event.invalid_field(field,"输入身份证号,年度非法！");
-			return false;
+			return false;// Boolean
 		}
 
 		mm=id.substring(10,12);
 		if (mm>12 || mm<=0){
 			//event.invalid_field(field,"输入身份证号,月份非法！");
-			return false;
+			return false;// Boolean
 		}
 
 		dd=id.substring(12,14);
 		if (dd>31 || dd<=0){
 			//event.invalid_field(field,"输入身份证号,日期非法！");
-			return false;
+			return false;// Boolean
 		}
 
 		if (id.charAt(17)=="x" || id.charAt(17)=="X")
 		{
 			if ("x"!=GetVerifyBit(id) && "X"!=GetVerifyBit(id)){
 				//event.invalid_field(field,"身份证校验错误，请检查最后一位！");
-				return false;
+				return false;// Boolean
 			}
 
 		}else{
 			if (id.charAt(17)!=GetVerifyBit(id)){
 				//event.invalid_field(field,"身份证校验错误，请检查最后一位！");
-				return false;
+				return false;// Boolean
 			}
 		}
 
@@ -144,7 +150,7 @@ corner.validate.isPersonID = function(/*String*/value, /*Object?*/flags){
 		}
 	}
 
-	return true;
+	return true;// Boolean
 	
 }
 
