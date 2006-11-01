@@ -10,6 +10,7 @@ package corner.orm.tapestry.validator
 * 加入了PersonID的validator.
 package corner.orm.tapestry.component
 * 纠正MatrixRowField编辑时候的Number format错误。
+* 调整MatrixRowHead也采用Input的方式来显示元素.
 
 changes in version 2.2.2 	(2006-10-29)
 ------------------------------------------
