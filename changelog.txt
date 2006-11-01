@@ -6,6 +6,8 @@ changes in version 2.3 	(unreleased)
 ------------------------------------------
 package corner.widget
 * 纠正TextAreaBox的rows和cols的错误.
+package corner.orm.tapestry.validator
+* 加入了PersonID的validator.
 package corner.orm.tapestry.component
 * 纠正MatrixRowField编辑时候的Number format错误。
 
