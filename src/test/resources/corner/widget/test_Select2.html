@@ -61,7 +61,7 @@ dojo.event.connect("after",window,"onload",function(){
 
 
 	
-dojo.event.connect("before",window, 'onload', function(e) {
+dojo.addOnLoad(function(e) {
 	var props = {dataUrl:"SelectData2.js",widgetId:"selectorW",updateFields:"this,f1,f2"};
 	var widget=dojo.widget.createWidget("corner:Selector",props,dojo.byId("tab"));
 	
