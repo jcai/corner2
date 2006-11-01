@@ -14,6 +14,8 @@ import org.apache.tapestry.valid.ValidatorException;
  * @since 2.0.6
  */
 public class NumPattern extends org.apache.tapestry.form.validator.Pattern {
+	private String pattern;
+
 	public NumPattern() {
 		super();
 	}
@@ -33,7 +35,17 @@ public class NumPattern extends org.apache.tapestry.form.validator.Pattern {
 	 * @param pattern 验证的pattern.
 	 */
 	public void setNumPattern(String pattern){
+		this.pattern=pattern;
 		super.setPattern(pattern.replaceAll("^\\{(\\d+):(\\d+)\\}$","^\\\\d{0,$1}(\\\\.\\\\d{0,$2})?\\$"));
 	}
+
+	/**
+	 * @see org.apache.tapestry.form.validator.BaseValidator#getMessage()
+	 */
+	@Override
+	public String getMessage() {
+		return pattern.replaceAll("^\\{(\\d+):(\\d+)\\}$","错误的数字格式，正确的为：小数点前面$1位，后面$2位.");
+	}
+	
 
 }

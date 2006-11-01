@@ -20,7 +20,6 @@ import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
-import org.apache.tapestry.valid.ValidationStrings;
 import org.apache.tapestry.valid.ValidatorException;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -94,7 +93,7 @@ public class UniqueEntity extends BaseValidator {
 		//抛出验证异常
 		if (rowCount == 1) {
 			throw new ValidatorException(messages.formatValidationMessage(
-					"{0}为"+object+"的记录已经存在", ValidationStrings.REQUIRED_FIELD,
+					"{0}为"+object+"的记录已经存在", null,
 					new Object[] { field.getDisplayName() }));
 		}
 
