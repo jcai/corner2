@@ -147,7 +147,7 @@ public abstract class MatrixRowField extends BaseComponent implements
 			try {
 
 				getValidatableFieldSupport().validate(this, writer, cycle,
-						100);
+						((MatrixRow)this.getValue()).getRowSum());
 
 			} catch (ValidatorException e) {
 				getForm().getDelegate().record(e);

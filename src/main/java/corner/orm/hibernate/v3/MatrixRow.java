@@ -13,6 +13,7 @@
 package corner.orm.hibernate.v3;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Vector;
 
 import corner.util.VectorUtils;
@@ -31,6 +32,12 @@ public class MatrixRow<T> extends Vector<T> {
 	private static final long serialVersionUID = -4481128241802168063L;
 
 	public double getRowSum(){
+		Iterator it = this.iterator();
+		if(it.hasNext()){
+			if(it.next() instanceof String){
+				return 0;
+			}
+		}
 		return VectorUtils.sum(this);
 		
 	}
