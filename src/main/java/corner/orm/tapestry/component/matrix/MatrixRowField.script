@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+<input-symbol key="len" required="yes" />
+<input-symbol key="fieldName" required="yes" />
+
+<initialization>
+for(var i=0;i&lt;${len};i++){
+	elementTextField=(i==0?dojo.byId("elementTextField"):dojo.byId("elementTextField_"+(i-1)));
+	if(elementTextField){
+		dojo.event.connect(elementTextField,"onchange",this,"sumRowFieldValue");
+	}
+	
+}
+this.sumRowFieldValue=function(evt){
+	var sumValue=0;
+	for(var i=0;i&lt;${len};i++){
+		elementTextField=(i==0?dojo.byId("elementTextField"):dojo.byId("elementTextField_"+(i-1)));
+		dojo.debug(elementTextField);
+		if(elementTextField.value &amp;&amp; !isNaN(elementTextField.value)){
+				dojo.debug(!isNaN(elementTextField.value));
+				dojo.debug(elementTextField.id+"  :"+elementTextField.value);
+				sumValue+=eval(elementTextField.value);
+		}
+		
+	}
+	dojo.byId("${fieldName}").value=sumValue;
+	dojo.debug(sumValue);
+}
+</initialization>
+</script>
