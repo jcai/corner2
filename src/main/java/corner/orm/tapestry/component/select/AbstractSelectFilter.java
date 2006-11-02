@@ -70,8 +70,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 					throw new RuntimeException("查询的字段和更新的字段的长度不相等! returnValueFields:["+Arrays.asList(returnValueFields)+"] updateFields:["+Arrays.asList(updateFields)+"]");
 				}
 				JSONArray arr=new JSONArray();
-				IPage page=this.model.getComponent().getPage();
-				
+				IComponent nestComp=model.getComponent();
+				IPage page=nestComp.getPage();
+				Map cs=page.getComponents();
 				for(int i=0;i<len;i++){	
 					if("this".equals(updateFields[i])){
 						arr.put(getReturnObject(returnValueFields[i],obj,true));
@@ -79,7 +80,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 					}
 					
 					//根据页面对应的组件的来自动进行更新是否需要序列化.
-					Map cs=page.getComponents();
+					
 					IComponent c=(IComponent) cs.get(returnValueFields[i]);
 					
 					if(c!=null&&(c instanceof Hidden||c instanceof Autocompleter)){
@@ -122,8 +123,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 		if(!Criteria.ROOT_ALIAS.equals(pro)){ 
 			value=BeanUtils.getProperty(obj,pro); //得到属性
 		}
-		if(isSqueeze)
+		if(isSqueeze){
 			return model.getSqueezer().squeeze(value);
+		}
 		else
 			return value==null?"":value;
 	
