@@ -24,7 +24,7 @@ public class BeanUtilsTest extends TestCase {
 		A a=new A();
 		assertNull(BeanUtils.getProperty(a,"name"));
 		a.setName("test");
-		assertEquals("test",a.getName());
+		assertEquals("test",BeanUtils.getProperty(a,"Name"));
 	}
 
 	
