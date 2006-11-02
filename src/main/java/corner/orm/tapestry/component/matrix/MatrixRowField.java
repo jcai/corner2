@@ -12,17 +12,12 @@
 
 package corner.orm.tapestry.component.matrix;
 
-import java.util.HashMap;
-
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.IScript;
-import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.Component;
-import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.TextField;
