@@ -38,4 +38,7 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <reserved-parameter name="value"/>
    
   <property name="tmpObj"/> 
+  
+  <parameter name="validators"/>
+  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
 </component-specification>

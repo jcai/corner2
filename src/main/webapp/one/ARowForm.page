@@ -28,6 +28,7 @@
     <binding value="ognl:entity.colors" name="value"/>
     <binding name="refVector" value="ognl:refVector"/>
     <binding name="translator" value="translator:number,pattern=##0"/>
+    <binding name="validators" value="validators:max=10"/>
   </component>
 
   <component type="corner:MatrixHead" id="colorsHeadField">
