@@ -32,29 +32,22 @@ dojo.widget.defineWidget(
 		getLabel: function(){
 			return this.comboBoxSelectionValue.value;
 		},
-/*
-		getState: function() {
-			return {
-				value: this.getValue(),
-				label: this.getLabel()
-			};
-		},
-*/
 		onKeyUp: function(evt){
 			this.comboBoxValue.value = this.textInputNode.value;
 			this.setValue(this.textInputNode.value);
 			this.setLabel(this.textInputNode.value);
+//			dojo.debug("in onKeyUp --- this.comboBoxValue.value:"+this.comboBoxValue.value);
 		},
-
-/*
-		setState: function(state) {
-			this.setValue(state.value);
-			this.setLabel(state.label);
+		compositionEnd: function( evt){
+			this.comboBoxValue.value = this.textInputNode.value;
+			this.setValue(this.textInputNode.value);
+			this.setLabel(this.textInputNode.value);
+//			dojo.debug("in compositionEnd --- this.comboBoxValue.value:"+this.comboBoxValue.value);
 		},
-*/
 		setAllValues: function(value1, value2){
 			this.setValue(value1);
 			this.setLabel(value1);
+//			dojo.debug("in setAllValues --- this.comboBoxValue.value:"+this.comboBoxValue.value);
 		},
 		//overwirte the default Html templete URL,use our Html templete instead
 		//指定自己的html模版文件
@@ -74,13 +67,33 @@ dojo.widget.defineWidget(
 			}
 		},
 		startSearchFromInput: function(){
-			var searchStr = this.textInputNode.value
-			if(searchStr != null && searchStr.length>0 && searchStr.search(';')>-1){
-				this.startSearch(searchStr.substr(searchStr.lastIndexOf(';')+1,searchStr.length));
-			}
-			else{
-				this.startSearch(this.textInputNode.value);
-			}
+			
+			var searchStr = "";
+			var inputStr = this.textInputNode.value;
+			dojo.debug("inputStr is:"+inputStr);
+			if(inputStr != null && inputStr.length>0){
+				if(inputStr.lastIndexOf(";")==-1){//无分号
+					searchStr = inputStr;
+				} else{//有分号
+					inputStr = inputStr.substr(inputStr.lastIndexOf(";")+1);
+					if(inputStr.length>0){
+						searchStr = inputStr;						
+					} else{
+						searchStr = "+";//inputStr中出现分号的时候，说明已经不是第一次搜索，此时键入分号不应该列出选项
+						                //因此设置一个特殊字符，让其不显示
+					}
+				}
+			} 
+			dojo.debug("searchStr is:"+searchStr);
+			this.startSearch(searchStr);
+//			var searchStr = this.textInputNode.value
+//			if(searchStr != null && searchStr.length>0 && searchStr.search(';')>-1){
+//				this.startSearch(searchStr.substr(searchStr.lastIndexOf(';')+1,searchStr.length));
+//				dojo.debug("searchStr is:"+searchStr.substr(searchStr.lastIndexOf(';')+1,searchStr.length));
+//			}
+//			else{
+//				this.startSearch(this.textInputNode.value);
+//			}
 		},
 
 		//overwirte the selectOptionMethod,record all of the user input

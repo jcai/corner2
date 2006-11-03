@@ -12,6 +12,9 @@ dojo.require("dojo.widget.Select");
 dojo.widget.defineWidget(
 	"corner.widget.TextArea",
  	dojo.widget.Select,{
+		autoComplete: false,
+		forceValidOption: false,
+		protoUrl:null,
 		templatePath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.html"),
 		templateCssPath: dojo.uri.dojoUri("../corner/widget/templates/TextAreaBox.css"),
 		fillInTemplate: function( args,  frag){
@@ -83,10 +86,40 @@ dojo.widget.defineWidget(
 				//this.setSelectedRange(this.textInputNode, 0, null);
 			}
 			this.tryFocus();
+		},
+		convertResultList:function(results){
+			dojo.debug("call here");
+			var r=[];
+			for(var i=0;i<results.length;i++){
+				var tr=results[i];
+				if(tr)
+					results[i]=[tr[1],tr[0]];
+			}
+		},
+		postCreate: function(){
+			corner.widget.TextArea.superclass.postCreate.call(this);
+			dojo.event.connect("before",this,"openResultList",this,"convertResultList");
+			//此处加入对禁用IE缓存的策略 通过动态构建URL
+			//see http://dev.bjmaxinfo.com/projects/manufacturing-system/wiki/2006/10/26/09.11
+			this.protoUrl=this.dataUrl;
+			
+			dojo.event.connect("before",this,"startSearch",this,"constructDynamicUrl");
+			
+		},
+		constructDynamicUrl:function(){
+			var d = new Date();
+			var time = d.getTime();
+			tmpUrl=this.protoUrl;
+			if (tmpUrl.indexOf('?') > 0)
+				tmpUrl = tmpUrl+'&prevent_cache='+time;
+			else
+				tmpUrl = tmpUrl+'?prevent_cache='+time;
+			
+			this.dataUrl=tmpUrl;
+			dojo.debug("data url :["+tmpUrl+"]");
 		}
- 	}
-
-);
+ 	
+ });
 
 
 
