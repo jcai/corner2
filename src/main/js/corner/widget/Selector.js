@@ -151,7 +151,7 @@ dojo.lang.extend(corner.widget.Selector,{
 		},
 		* */
 		convertResultList:function(results){
-			dojo.debug("call here");
+			dojo.debug("call here results"+results);
 			var r=[];
 			for(var i=0;i<results.length;i++){
 				var tr=results[i];
@@ -168,6 +168,12 @@ dojo.lang.extend(corner.widget.Selector,{
 			
 			dojo.event.connect("before",this,"startSearch",this,"constructDynamicUrl");
 			
+			dojo.event.connect("before",this,"compositionEnd",this,"replaceKey");
+			
+		},
+		replaceKey:function(evt){
+			dojo.debug("replace key evt:"+evt);
+			evt.keyCode = dojo.event.browser.keys.KEY_SPACE;
 		},
 		constructDynamicUrl:function(){
 			var d = new Date();

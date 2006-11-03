@@ -1,1 +1,1 @@
-{"abc":"Sabc","asdf":"Sasdf"}
+{"label1":"我们","label2":"你们"}
