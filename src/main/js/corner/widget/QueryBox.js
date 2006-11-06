@@ -16,11 +16,11 @@ dojo.require("dojo.io.IframeIO");
 //定义一个querybox的widget.
 dojo.widget.defineWidget("corner.widget.QueryBox");
 
-dojo.widget.tags.addParseTreeHandler("dojo:QueryBox");
+
 //定义基本的QueryBox
-corner.widget.QueryBox=function(){
+/* corner.widget.QueryBox=function(){
 	dojo.widget.DropdownContainer.call(this);
-}
+}*/
 //继承
 dojo.inherits(corner.widget.QueryBox,dojo.widget.DropdownContainer);
 //对QueryBox进行扩展.
@@ -94,12 +94,12 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		var obj=src.getAttribute("object");
 		obj=dojo.json.evalJson(obj);	
 		this.inputNode.value=obj.value;
-		this.toggleContainerShow();		
+		this.hideContainer();		
 	},
 	getFrameWindow:function(){
-	  return dojo.io.iframeContentWindow(this.frame);
+	  return dojo.html.iframeContentWindow(this.frame);
 	},
 	getFrameDocument:function(){
-  	  return dojo.io.iframeContentDocument(this.frame);
+  	  return dojo.html.iframeContentDocument(this.frame);
 	}
 });

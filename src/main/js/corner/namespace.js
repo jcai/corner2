@@ -8,6 +8,7 @@ dojo.require("dojo.ns");
 		html: {
 			"Selector": "corner.widget.Selector",
 			"TextAreaBox":"corner.widget.TextAreaBox"
+			"QueryBox":"corner.widget.QueryBox"
 		}
 	};
 	

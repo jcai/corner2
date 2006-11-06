@@ -30,10 +30,11 @@ function pageOnUnLoad(){
 var radioGroup=['id1','id2','id3','id4','id5','id6'];
 var radioGroupValue=['value1','value2','value3','value4','value5','value6'];
 function initBox(){
+	pdojo.debug("init box");
 	for(var i=0;i<radioGroup.length;i++){
 		obj=dojo.byId(radioGroup[i]);
 		props={label:'label',value:radioGroupValue[i]};
-		obj.setAttribute("object",dojo.json.serialize(props));
+		obj.setAttribute("object",pdojo.json.serialize(props));
 		pdojo.event.connect(obj,"onclick",queryBox,"onclick");
 	}
 }
