@@ -38,8 +38,10 @@ public final class VectorUtils {
 	public static<T> double sum(Vector<T> v){
 		StringBuffer sb=new StringBuffer();
 		for(T str:v){
-			sb.append(str);
-			sb.append("+");
+			if(str!=null){
+				sb.append(str);
+				sb.append("+");
+			}
 		}
 		sb.append("0");
 		return expr(sb.toString());

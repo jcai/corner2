@@ -27,7 +27,8 @@ dojo.require("dojo.event.*");
 dojo.event.connect(dojo.byId("num"),"onkeyup",this,"cal");
 dojo.event.connect(dojo.byId("p"),"onkeyup",this,"cal");
 
-var cal=function(){
+var cal=function(evt){
+	dojo.debug(dojo.html.getEventTarget(evt));
 	dojo.debug("hello world!");
 	value1=dojo.byId("num").value;
 	value2=dojo.byId("p").value;
