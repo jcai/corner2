@@ -6,12 +6,6 @@
 	<target name="beforeCompile">
 		<java classname="antlr.Tool" classpathref="antlr.path">
 			<arg value="-o"/>
-			<arg value="${antlr.dir}/corner/orm/hibernate/expression/grammer"/>
-			<arg
-				value="${antlr.dir}/corner/orm/hibernate/expression/grammer/query-expression.g"/>
-		</java>
-		<java classname="antlr.Tool" classpathref="antlr.path">
-			<arg value="-o"/>
 			<arg value="${antlr.dir}/corner/expression/calc"/>
 			<arg
 				value="${antlr.dir}/corner/expression/calc/calc.g"/>
