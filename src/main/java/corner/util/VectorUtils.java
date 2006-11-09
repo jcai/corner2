@@ -13,8 +13,12 @@
 package corner.util;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
@@ -30,6 +34,11 @@ import corner.expression.calc.ExprTreeParser;
  * @since 2.1
  */
 public final class VectorUtils {
+	
+	public static final String COMMAEND_STR = ".*,$";
+	
+	public static final String COMMAS_STR = "^,*$";
+	
 	/**
 	 * 对向量进行求和.
 	 * @param v 向量
@@ -100,5 +109,34 @@ public final class VectorUtils {
 			throw new RuntimeException(e);
 		}
 
+	}
+	
+	/**
+	 * 提供对String类的 split方法的扩展,当录入的字符串以','结尾的时候,在split出来的String[]中增加一个[""]元素,并封装List返回
+	 * @param str
+	 * @param regex
+	 * @return
+	 */
+	public static List<Object> VectorSplit(String str, String regex){
+		if(str == null || str.trim().length()<=0){
+			return null;
+		} else{
+			List<Object> newList = new ArrayList<Object>();
+			Pattern p = Pattern.compile(COMMAS_STR);
+			Matcher match = p.matcher(str.trim());
+			if(match.find()){
+				for(int i=0;i<=str.length();i++){
+					newList.add("");
+				}
+			} else{
+				p = Pattern.compile(COMMAEND_STR);
+				match = p.matcher(str.trim());
+				newList.addAll(Arrays.asList(str.split(regex)));
+				if(match.find()){
+					newList.add("");
+				}
+			}
+			return newList;
+		}
 	}
 }

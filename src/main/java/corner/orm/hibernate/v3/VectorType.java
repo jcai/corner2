@@ -14,6 +14,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
 import org.hibernate.util.EqualsHelper;
 
+import corner.util.VectorUtils;
+
 /**
  * 
  * 实现一个vector的数据持久华类型。
@@ -48,7 +50,7 @@ public class VectorType implements UserType {
 		String str=rs.getString(names[0]);
 		MatrixRow<Object> v=new MatrixRow<Object>();
 		if(str!=null){
-			v.addAll(Arrays.asList(str.split(SEGMENT)));
+			v.addAll(VectorUtils.VectorSplit(str,SEGMENT));
 		}
 		return v;
 	}
@@ -63,7 +65,7 @@ public class VectorType implements UserType {
 			MatrixRow<Object> v = (MatrixRow<Object>) value;
 			StringBuffer sb=new StringBuffer();
 			for(Object str:v){
-				sb.append(str.toString());
+				sb.append(str!=null?str.toString():"");
 				sb.append(SEGMENT);
 			}
 			if(sb.length()>0){
