@@ -36,6 +36,7 @@ public class A extends AbstractModel implements IBlobModel {
 	private MatrixRow<String> colors;
 	private String password;
 	private double num;
+	private double maxnum;
 	/**
 	 * @return Returns the num.
 	 */
@@ -121,5 +122,13 @@ public class A extends AbstractModel implements IBlobModel {
 	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public double getMaxnum() {
+		return maxnum;
+	}
+
+	public void setMaxnum(double maxnum) {
+		this.maxnum = maxnum;
 	}
 }
