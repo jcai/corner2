@@ -37,6 +37,7 @@ public class A extends AbstractModel implements IBlobModel {
 	private String password;
 	private double num;
 	private double maxnum;
+	private double plusnum;
 	/**
 	 * @return Returns the num.
 	 */
@@ -130,5 +131,13 @@ public class A extends AbstractModel implements IBlobModel {
 
 	public void setMaxnum(double maxnum) {
 		this.maxnum = maxnum;
+	}
+
+	public double getPlusnum() {
+		return plusnum;
+	}
+
+	public void setPlusnum(double plusnum) {
+		this.plusnum = plusnum;
 	}
 }
