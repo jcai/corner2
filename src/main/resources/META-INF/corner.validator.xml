@@ -6,6 +6,7 @@
 		<validator name="numPattern" class="NumPattern"/>
 		<validator name="uniqueEntity" class="UniqueEntity"/>
 		<validator name="fieldMax" class="FieldMax"/>
+		<validator name="fieldPlusEq" class="FieldPlusEq"/>
 		<validator name="personID" class="PersonID" configurable="false"/>
 	</contribution>
 </module>

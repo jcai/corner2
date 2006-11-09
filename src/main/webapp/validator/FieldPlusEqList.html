@@ -1,0 +1,54 @@
+<span jwcid="@DemoBorder">
+	<center>
+		<a jwcid="@PageLink" page="validator/FieldPlusEqForm"><span key="Add" /></a><br>
+	</center>
+	<center>
+		<form jwcid="AQueryForm">
+			name:<input jwcid="nameField"/>
+			<input type="submit"/>
+		</form>
+	</center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td>
+            <span key="num">num</span>
+          </td>
+          <td>
+            <span key="maxNum">maxNum</span>
+          </td>
+          <td>
+            <span key="maxNum">maxNum</span>
+          </td>
+          <td>
+            <span key="link.edit">edit</span>
+          </td>
+          <td>
+            <span key="link.delete">delete</span>
+          </td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.num">num</span>
+          </td>
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.maxnum">maxNum</span>
+          </td>
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.plusnum">plusnum</span>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#" id="deleteAction">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>
