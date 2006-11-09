@@ -2,9 +2,13 @@ package corner.orm.tapestry.validator;
 
 import java.math.BigDecimal;
 
+import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -25,7 +29,10 @@ public class FieldMax extends BaseValidator{
 		super(initializer);
 	}
 	
-	//后台判断
+	/**
+	 * 后台判断
+	 * @see org.apache.tapestry.form.validator.Validator#validate(org.apache.tapestry.form.IFormComponent, org.apache.tapestry.form.ValidationMessages, java.lang.Object)
+	 */
 	public void validate(IFormComponent field, ValidationMessages messages, Object object) throws ValidatorException {
 		Number value = (Number) object;
 		
@@ -36,7 +43,24 @@ public class FieldMax extends BaseValidator{
 			throw new ValidatorException(buildMessage(messages,field));
 	}
 	
-	//	构建message
+	/**
+	 * 前台js判断
+	 * @see org.apache.tapestry.form.validator.BaseValidator#renderContribution(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle, org.apache.tapestry.form.FormComponentContributorContext, org.apache.tapestry.form.IFormComponent)
+	 */
+	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
+            FormComponentContributorContext context, IFormComponent field){
+//		context.addInitializationScript(field, "dojo.require(\"corner.validate.web\");");
+//        
+//        JSONObject profile = context.getProfile();
+        
+        
+    }
+	
+	
+	/**
+	 * 构建message
+	 * @return 返回显示信息
+	 */
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
 		return messages.formatValidationMessage("必须小于或等于{0}.",
