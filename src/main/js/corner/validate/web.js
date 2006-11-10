@@ -5,6 +5,35 @@
 */
 dojo.provide("corner.validate.web");
 
+dojo.require("dojo.validate.common");
+
+corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
+// summary:
+//  validate number
+// value a string
+// flags an object
+ rFlags={};
+	if(flags.maxField!=null&&dojo.byId(flags.maxField)){
+		maxValue=dojo.byId(flags.maxField).value;
+		if(maxValue!=null){
+			if(dojo.validate.isRealNumber(maxValue)){
+				rFlags.max=eval(maxValue);		
+			}
+		}
+		
+		
+	}
+	if(flags.minField!=null&&dojo.byId(flags.minField)){
+		minValue=dojo.byId(flags.minField).value;
+		if(minValue!=null){
+			if(dojo.validate.isRealNumber(minValue)){
+				rFlags.min=eval(minValue);		
+			}
+		}
+	}
+	rFlags.decimal=flags.decimal;
+	return dojo.validate.isInRange(value,rFlags);
+}
 /**
  * 验证身份证号码是否正确
  */

@@ -1,11 +1,17 @@
 package corner.orm.tapestry.validator;
 
+import java.text.DecimalFormatSymbols;
+
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.Min;
+import org.apache.tapestry.json.JSONLiteral;
+import org.apache.tapestry.json.JSONObject;
+import org.apache.tapestry.valid.ValidationConstants;
+import org.apache.tapestry.valid.ValidationStrings;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -42,7 +48,8 @@ public class FieldMin extends Min {
 		this.setMin(otherValue);
 		super.validate(field, messages, object);
 	}
-
+	
+    
 	/**
 	 * @see org.apache.tapestry.form.validator.Min#renderContribution(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle,
@@ -53,6 +60,26 @@ public class FieldMin extends Min {
 	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
 			FormComponentContributorContext context, IFormComponent field) {
 		
+		context.addInitializationScript(field, "dojo.require(\"corner.validate.web\");");
+		
+        JSONObject profile = context.getProfile();
+        
+        if (!profile.has(ValidationConstants.CONSTRAINTS)) {
+            profile.put(ValidationConstants.CONSTRAINTS, new JSONObject());
+        }
+        JSONObject cons = profile.getJSONObject(ValidationConstants.CONSTRAINTS);
+        
+        
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(context.getLocale());
+        
+        accumulateProperty(cons, field.getClientId(), 
+                new JSONLiteral("[corner.validate.isInRange,{"
+                        + "maxField:" +_fieldMax + ","
+                        + "decimal:" + JSONObject.quote(symbols.getDecimalSeparator())
+                        + "}]"));
+        
+        accumulateProfileProperty(field, profile, 
+                ValidationConstants.CONSTRAINTS, String.format("%s必须小于或等于%s",((IFormComponent) field.getPage().getComponent(_fieldMax)).getDisplayName(),field.getDisplayName()));
 	}
 
 	/**
