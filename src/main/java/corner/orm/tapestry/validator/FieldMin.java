@@ -1,5 +1,8 @@
 package corner.orm.tapestry.validator;
 
+import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.Min;
@@ -38,6 +41,18 @@ public class FieldMin extends Min {
 				.getRequestCycle().getParameter(_fieldMax));
 		this.setMin(otherValue);
 		super.validate(field, messages, object);
+	}
+
+	/**
+	 * @see org.apache.tapestry.form.validator.Min#renderContribution(org.apache.tapestry.IMarkupWriter,
+	 *      org.apache.tapestry.IRequestCycle,
+	 *      org.apache.tapestry.form.FormComponentContributorContext,
+	 *      org.apache.tapestry.form.IFormComponent)
+	 */
+	@Override
+	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
+			FormComponentContributorContext context, IFormComponent field) {
+		
 	}
 
 	/**
