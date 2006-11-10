@@ -8,6 +8,8 @@ import org.apache.tapestry.form.validator.BaseValidator;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
+ * 判断是否当前组建的值是否小于设定组建的之和
+ * 如：a=b+c+...,a为当前组建，b、c等是设定的组建
  * @author xiafei
  * @version $Revision$
  * @since 2.3
