@@ -3,9 +3,7 @@ package corner.orm.tapestry.component.matrix;
 import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.html.BasePage;
 import org.easymock.EasyMock;
-import org.easymock.IAnswer;
 import org.testng.annotations.Test;
 
 import corner.orm.hibernate.v3.MatrixRow;
@@ -46,6 +44,8 @@ public class RowComponentTest extends BaseComponentTestCase{
 		c.setElementValue(null);
 		
 		assertEquals(c.getValue().size(),1);
+		assertEquals(c.getValue().get(0),"");
+		
 		assertEquals(c.getValue().getRowSum(),0.0);
 		
 		verify();
