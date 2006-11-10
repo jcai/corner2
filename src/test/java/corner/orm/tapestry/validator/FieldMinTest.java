@@ -110,7 +110,7 @@ public class FieldMinTest extends BaseValidatorTestCase {
         
         context.addInitializationScript(field,"dojo.require(\"corner.validate.web\");");
         
-        Locale locale = Locale.FRANCE;
+        Locale locale = Locale.getDefault();
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
         
         EasyMock.expect(context.getLocale()).andReturn(locale);
