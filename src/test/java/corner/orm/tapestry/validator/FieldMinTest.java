@@ -123,7 +123,7 @@ public class FieldMinTest extends BaseValidatorTestCase {
 
         verify();
         
-        assertEquals("{\"constraints\":{\"myfield\":[[corner.validate.isInRange,{maxField:minField,decimal:\""
+        assertEquals("{\"constraints\":{\"myfield\":[[corner.validate.isInRange,{minField:\"minField\",decimal:\""
                 + symbols.getDecimalSeparator() + "\"}]]},"
                 + "\"myfield\":{\"constraints\":[\"Min Field必须小于或等于My Field\"]}}",
                 json.toString());

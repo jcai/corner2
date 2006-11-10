@@ -31,7 +31,9 @@ corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 			}
 		}
 	}
+	dojo.debug("get max value :"+rFlags.max);
 	rFlags.decimal=flags.decimal;
+	//return false;
 	return dojo.validate.isInRange(value,rFlags);
 }
 /**

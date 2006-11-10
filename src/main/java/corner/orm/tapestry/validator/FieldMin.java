@@ -23,7 +23,7 @@ import org.apache.tapestry.valid.ValidatorException;
 public class FieldMin extends Min {
 
 	// 保存page页中定义的field
-	private String _fieldMax;
+	private String _minField;
 
 	public FieldMin() {
 		super();
@@ -43,7 +43,7 @@ public class FieldMin extends Min {
 			Object object) throws ValidatorException {
 		// 获得指定field的值
 		double otherValue = Double.parseDouble(field.getPage()
-				.getRequestCycle().getParameter(_fieldMax));
+				.getRequestCycle().getParameter(_minField));
 		this.setMin(otherValue);
 		super.validate(field, messages, object);
 	}
@@ -73,12 +73,12 @@ public class FieldMin extends Min {
         
         accumulateProperty(cons, field.getClientId(), 
                 new JSONLiteral("[corner.validate.isInRange,{"
-                        + "maxField:" +_fieldMax + ","
+                        + "minField:\"" +_minField + "\","
                         + "decimal:" + JSONObject.quote(symbols.getDecimalSeparator())
                         + "}]"));
         
         accumulateProfileProperty(field, profile, 
-                ValidationConstants.CONSTRAINTS, String.format("%s必须小于或等于%s",((IFormComponent) field.getPage().getComponent(_fieldMax)).getDisplayName(),field.getDisplayName()));
+                ValidationConstants.CONSTRAINTS, String.format("%s必须小于或等于%s",((IFormComponent) field.getPage().getComponent(_minField)).getDisplayName(),field.getDisplayName()));
 	}
 
 	/**
@@ -86,6 +86,6 @@ public class FieldMin extends Min {
 	 *            需要比对大小的field
 	 */
 	public void setFieldMin(String compareMinField) {
-		this._fieldMax = compareMinField;
+		this._minField = compareMinField;
 	}
 }
