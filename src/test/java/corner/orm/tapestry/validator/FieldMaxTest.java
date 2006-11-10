@@ -20,26 +20,26 @@ import org.testng.annotations.Test;
 public class FieldMaxTest extends BaseComponentTestCase{
 	
 	
-	public void testWrongValidate(){
-		FieldMax fieldMax = new FieldMax();
-		IFormComponent field=EasyMock.createMock(IFormComponent.class);
-		IPage page=EasyMock.createMock(IPage.class);
-//		field.getPage().getRequestCycle().getParameter(this.get_fieldMax())
-		IRequestCycle cyc = EasyMock.createMock(IRequestCycle.class);
-		cyc.setAttribute("aaaField", "20");
-		
-		
-		field.setPage(page);
-		
-		
-		ValidationMessages messages=new ValidationMessagesImpl(field, Locale.getDefault());
-		try {
-			fieldMax.validate(field,messages,"10");
-			fieldMax.set_fieldMax("aaaField");
-		}catch(ValidatorException e){
-			
-		}
-	}
+//	public void testWrongValidate(){
+//		FieldMax fieldMax = new FieldMax();
+//		IFormComponent field=EasyMock.createMock(IFormComponent.class);
+//		IPage page=EasyMock.createMock(IPage.class);
+////		field.getPage().getRequestCycle().getParameter(this.get_fieldMax())
+//		IRequestCycle cyc = EasyMock.createMock(IRequestCycle.class);
+//		cyc.setAttribute("aaaField", "20");
+//		
+//		
+//		field.setPage(page);
+//		
+//		
+//		ValidationMessages messages=new ValidationMessagesImpl(field, Locale.getDefault());
+//		try {
+//			fieldMax.validate(field,messages,"10");
+//			fieldMax.set_fieldMax("aaaField");
+//		}catch(ValidatorException e){
+//			
+//		}
+//	}
 	@Test
 	public void testRightValidator(){
 		double d=12.0;
@@ -77,7 +77,7 @@ public class FieldMaxTest extends BaseComponentTestCase{
 		double d=12.0; 
 		FieldMax max=new FieldMax();
 		String maxF="maxField";
-		double maxV=100;
+		double maxV=100.01;
 		max.setFieldMax(maxF);
 		
 		
@@ -102,7 +102,7 @@ public class FieldMaxTest extends BaseComponentTestCase{
 			max.validate(field, messages, d);
 			fail("can't reacheable!");
 		} catch (ValidatorException e) {
-			assertEquals(e.getMessage(),"必须小于或等于fieldName.");
+			assertEquals(e.getMessage(),String.format("fieldName的数值不能小于%s。",maxV));
 		}
 		verify();
 		
