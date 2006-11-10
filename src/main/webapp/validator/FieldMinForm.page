@@ -20,7 +20,7 @@
   <component type="TextField" id="numField">
     <binding value="message:num" name="displayName"/>
     <binding value="translator:number" name="translator"/>
-    <binding name="validators" value="validators:fieldMax=maxnumField"/>
+    <binding name="validators" value="validators:fieldMin=maxnumField"/>
     <binding value="ognl:entity.num" name="value"/>
   </component>
   <component type="TextField" id="maxnumField">
