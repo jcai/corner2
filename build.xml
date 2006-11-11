@@ -11,6 +11,7 @@
 				value="${antlr.dir}/corner/expression/calc/calc.g"/>
 		</java>
 	</target>
+	<!-- assemble resource files -->
 	<target name="afterCompile">
 		<copy todir="${build.classes.dir}">
 			<fileset dir="${src.js.dir}">
