@@ -2,6 +2,7 @@ package corner.orm.tapestry.validator;
 
 import java.math.BigDecimal;
 
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
@@ -23,7 +24,7 @@ public class FieldPlusEq extends BaseValidator{
 	
 	public FieldPlusEq() {
 		super();
-		allFieldValue = new BigDecimal(0);
+		
 	}
 
 	public FieldPlusEq(String initializer) {
@@ -34,10 +35,11 @@ public class FieldPlusEq extends BaseValidator{
 	public void validate(IFormComponent field, ValidationMessages messages, Object object) throws ValidatorException {
 		Number value = (Number)object;
 		BigDecimal [] btemp = new BigDecimal[this.otherField.length];
-		
+		allFieldValue = new BigDecimal(0);
 		//计算总值
+		IRequestCycle cycle=field.getPage().getRequestCycle();
 		for(int i=0;i<this.otherField.length;i++){
-			btemp[i] = new BigDecimal(field.getPage().getRequestCycle().getParameter(this.otherField[i]));
+			btemp[i] = new BigDecimal(cycle.getParameter(this.otherField[i]));
 			allFieldValue = allFieldValue.add(btemp[i]);
 		}
 		
@@ -68,17 +70,7 @@ public class FieldPlusEq extends BaseValidator{
 	}
 
 	private void initFieldPlusEq(String fieldPlusEqStr) {
-		String [] temp = fieldPlusEqStr.split(":");
-		setOtherField(temp);
+		otherField = fieldPlusEqStr.split(":");
+		
 	}
-
-	public String[] getOtherField() {
-		return otherField;
-	}
-
-	public void setOtherField(String[] otherField) {
-		this.otherField = otherField;
-	}
-	
-
 }
