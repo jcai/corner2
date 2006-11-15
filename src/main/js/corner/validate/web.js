@@ -7,6 +7,10 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isfieldPlusEq = function(/*String*/value, /*Object?*/flags){
+	return false;// Boolean
+}
+
 corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 // summary:
 //  validate number
@@ -17,7 +21,7 @@ corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 		maxValue=dojo.byId(flags.maxField).value;
 		if(maxValue!=null){
 			if(dojo.validate.isRealNumber(maxValue)){
-				rFlags.max=eval(maxValue);		
+				rFlags.max=eval(maxValue);
 			}
 		}
 		
