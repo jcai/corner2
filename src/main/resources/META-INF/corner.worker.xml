@@ -1,4 +1,4 @@
-<module id="corner.validator" version="1.0.0"
+<module id="corner.worker" version="1.0.0"
 	package="corner.orm.tapestry.worker">
 	
 	<!--  validator -->
