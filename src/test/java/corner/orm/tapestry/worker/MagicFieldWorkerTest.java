@@ -15,6 +15,7 @@ import org.apache.tapestry.annotations.AnnotationUtils;
 import org.apache.tapestry.enhance.EnhancementOperation;
 import org.apache.tapestry.spec.ComponentSpecification;
 import org.apache.tapestry.spec.IComponentSpecification;
+import org.apache.tapestry.spec.IContainedComponent;
 import org.apache.tapestry.spec.IPropertySpecification;
 import org.apache.tapestry.spec.PropertySpecification;
 import org.easymock.EasyMock;
@@ -24,6 +25,43 @@ import org.testng.annotations.Test;
 
 public class MagicFieldWorkerTest extends BaseComponentTestCase {
 
+	@Test
+	public void test_customComponent(){
+		IComponentSpecification spec = new ComponentSpecification();
+		IPropertySpecification pspec = new PropertySpecification();
+
+		EnhancementOperation op = newOp();
+
+		pspec.setName("entity");
+		pspec
+				.setInitialValue("new corner.orm.tapestry.worker.AnnotatedModel()");
+		spec.addPropertySpecification(pspec);
+
+		
+		Method method = findMethod(AnnotatedPage.class, "getMagicField");
+		Resource resource = newResource(AnnotatedPage.class);
+		
+		//FIXME 
+		op
+				.addMethod(
+						EasyMock.anyInt(),
+						EasyMock.isA(MethodSignature.class),
+						EasyMock.isA(String.class),
+						EasyMock.isA(Location.class));
+		
+		replay();
+		MagicFieldWorker worker = new MagicFieldWorker();
+		worker.peformEnhancement(op, spec, method, resource);
+		
+		IContainedComponent c=spec.getComponent("userNameField");
+		assertEquals(c.getType(),"TextArea");
+		assertNotNull(c.getBinding("a"));
+		assertNotNull(c.getBinding("a").getValue(),"b");
+		assertNotNull(c.getBinding("value").getValue(),"entity.customValue");
+		
+		verify();
+		assertEquals(spec.getComponentIds().size(), 4);
+	}
 	@Test
 	public void test_get_properties() {
 		MagicFieldWorker worker = new MagicFieldWorker();

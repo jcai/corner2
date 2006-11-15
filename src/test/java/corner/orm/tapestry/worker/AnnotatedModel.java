@@ -1,5 +1,7 @@
 package corner.orm.tapestry.worker;
 
+import org.apache.tapestry.annotations.Component;
+
 import corner.demo.model.AbstractModel;
 
 public class AnnotatedModel extends AbstractModel{
@@ -9,6 +11,7 @@ public class AnnotatedModel extends AbstractModel{
 	/**
 	 * @return Returns the userName.
 	 */
+	@Component(type="TextArea",bindings={"a=b","value=entity.customValue"})
 	public String getUserName() {
 		return userName;
 	}

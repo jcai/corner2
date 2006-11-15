@@ -24,6 +24,7 @@ import org.apache.hivemind.Location;
 import org.apache.hivemind.Resource;
 import org.apache.hivemind.service.MethodSignature;
 import org.apache.tapestry.annotations.AnnotationUtils;
+import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.SecondaryAnnotationWorker;
 import org.apache.tapestry.enhance.EnhancementOperation;
 import org.apache.tapestry.spec.BindingSpecification;
@@ -33,6 +34,7 @@ import org.apache.tapestry.spec.IBindingSpecification;
 import org.apache.tapestry.spec.IComponentSpecification;
 import org.apache.tapestry.spec.IContainedComponent;
 import org.apache.tapestry.spec.IPropertySpecification;
+import org.apache.tapestry.util.DescribedLocation;
 import org.hibernate.reflection.ReflectionManager;
 import org.hibernate.reflection.XClass;
 import org.hibernate.reflection.XProperty;
@@ -92,11 +94,12 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			Class<?> clazz = Class.forName(className);
 			XClass xclazz=reflectionManager.toXClass(clazz);
 			List<XProperty> list=new ArrayList<XProperty>();
-			getElementsToProcess(xclazz,list);
+			getElementsToProcess(xclazz,list);//得到所有处理的属性名称
 			Location location = AnnotationUtils.buildLocationForAnnotation(method, magicField, resource);
 			
 			for(XProperty pro:list){
-				createContainerComponent(op,pro,spec,location);
+				Location cLocation=new DescribedLocation(resource,String.format("类%s的属性%s",className,pro.getName()));
+				createContainerComponent(op,pro,spec,cLocation); //通过给定的属性名称来
 			}
 			op.addMethod(Modifier.PUBLIC, new MethodSignature(method), "throw new UnsupportedOperationException(\"不能调用此方法！此方法仅仅用来动态生成组件使用!\");", location);
 		} catch (ClassNotFoundException e) {
@@ -107,18 +110,32 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 
 	private void createContainerComponent(EnhancementOperation op,XProperty pro, IComponentSpecification spec,Location location) {
 		IContainedComponent cc = new ContainedComponent();
-		cc.setType("TextField");
+		Component c=pro.getAnnotation(Component.class);
+		if(c!=null){
+			cc.setType(c.type());//根据给定的的类型
+			for (String binding : c.bindings())
+	        {
+	            addBinding(cc, binding, location);
+	        }
+		}else{
+			cc.setType("TextField");//默认的组件类型
+		}
         cc.setLocation(location);
         cc.setPropertyName(pro.getName()+"Field");
         
-        IBindingSpecification bs = new BindingSpecification();
+        if(cc.getBinding("value")==null){
+        	addValueBinding(cc,pro,location);
+        }
+        spec.addComponent(pro.getName()+"Field",cc);
+		
+	}
+
+	private void addValueBinding(IContainedComponent cc,XProperty pro,Location location) {
+		IBindingSpecification bs = new BindingSpecification();
 		bs.setType(BindingType.PREFIXED);
 		bs.setValue("entity."+pro.getName());
 		bs.setLocation(location);
 		cc.setBinding("value",bs);
-		
-		
-		spec.addComponent(pro.getName()+"Field",cc);
 		
 	}
 
@@ -142,4 +159,29 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			}
 		}
 	}
+    void addBinding(IContainedComponent component, String binding, Location location)
+    {
+        int equalsx = binding.indexOf('=');
+
+        if (equalsx < 1)
+            invalidBinding(binding);
+
+        if (equalsx + 1 >= binding.length())
+            invalidBinding(binding);
+
+        String name = binding.substring(0, equalsx).trim();
+        String value = binding.substring(equalsx + 1).trim();
+
+        IBindingSpecification bs = new BindingSpecification();
+        bs.setType(BindingType.PREFIXED);
+        bs.setValue(value);
+        bs.setLocation(location);
+
+        component.setBinding(name, bs);
+    }
+
+	private void invalidBinding(String binding) {
+		throw new ApplicationRuntimeException("错误的binding"+binding);
+		
+	}    
 }
