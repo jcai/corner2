@@ -101,6 +101,8 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 				Location cLocation=new DescribedLocation(resource,String.format("类%s的属性%s",className,pro.getName()));
 				createContainerComponent(op,pro,spec,cLocation); //通过给定的属性名称来
 			}
+			//不能直接在页面类中调用magicField的属性,
+			//TODO 改为加在页面的类中.
 			op.addMethod(Modifier.PUBLIC, new MethodSignature(method), "throw new UnsupportedOperationException(\"不能调用此方法！此方法仅仅用来动态生成组件使用!\");", location);
 		} catch (ClassNotFoundException e) {
 			throw new ApplicationRuntimeException(e);
@@ -112,6 +114,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 		IContainedComponent cc = new ContainedComponent();
 		Component c=pro.getAnnotation(Component.class);
 		if(c!=null){
+			cc.setInheritInformalParameters(c.inheritInformalParameters());
 			cc.setType(c.type());//根据给定的的类型
 			for (String binding : c.bindings())
 	        {
@@ -124,7 +127,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
         cc.setPropertyName(pro.getName()+"Field");
         
         if(cc.getBinding("value")==null){
-        	addValueBinding(cc,pro,location);
+        	addValueBinding(cc,pro,location);//加入默认的value属性binding
         }
         spec.addComponent(pro.getName()+"Field",cc);
 		
