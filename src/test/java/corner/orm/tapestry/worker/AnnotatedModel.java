@@ -1,6 +1,7 @@
 package corner.orm.tapestry.worker;
 
 import org.apache.tapestry.annotations.Component;
+import org.hibernate.validator.Max;
 
 import corner.demo.model.AbstractModel;
 
@@ -12,6 +13,7 @@ public class AnnotatedModel extends AbstractModel{
 	 * @return Returns the userName.
 	 */
 	@Component(type="TextArea",bindings={"a=b","value=entity.customValue"})
+	@Max(value=12)
 	public String getUserName() {
 		return userName;
 	}
