@@ -24,7 +24,7 @@ max field <input id="max"	/> min field <input id="min"/><br/>
 <!--
 dojo.require("corner.validate.web");
 
-dojo.event.connect(dojo.byId("num"),"onkeyup",this,"val");
+dojo.event.connect(dojo.byId("num"),"onchange",this,"val");
 val=function(evt){
 	dojo.debug(corner.validate.isInRange(dojo.byId("num").value,{maxField:'max',minField:"min"}));
 }

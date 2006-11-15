@@ -11,6 +11,7 @@
 package corner.orm.tapestry.worker;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,6 +22,7 @@ import javax.persistence.MappedSuperclass;
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.Location;
 import org.apache.hivemind.Resource;
+import org.apache.hivemind.service.MethodSignature;
 import org.apache.tapestry.annotations.AnnotationUtils;
 import org.apache.tapestry.annotations.SecondaryAnnotationWorker;
 import org.apache.tapestry.enhance.EnhancementOperation;
@@ -92,13 +94,15 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			List<XProperty> list=new ArrayList<XProperty>();
 			getElementsToProcess(xclazz,list);
 			Location location = AnnotationUtils.buildLocationForAnnotation(method, magicField, resource);
+			
 			for(XProperty pro:list){
 				createContainerComponent(op,pro,spec,location);
 			}
-			
+			op.addMethod(Modifier.PUBLIC, new MethodSignature(method), "throw new UnsupportedOperationException(\"不能调用此方法！此方法仅仅用来动态生成组件使用!\");", location);
 		} catch (ClassNotFoundException e) {
 			throw new ApplicationRuntimeException(e);
 		}
+		
 	}
 
 	private void createContainerComponent(EnhancementOperation op,XProperty pro, IComponentSpecification spec,Location location) {
