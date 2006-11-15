@@ -1,0 +1,8 @@
+<module id="corner.validator" version="1.0.0"
+	package="corner.orm.tapestry.worker">
+	
+	<!--  validator -->
+	<contribution configuration-id="tapestry.annotation.SecondaryAnnotationWorkers"> 
+    <worker object="instance:MagicFieldWorker"/>
+  </contribution>
+</module>

@@ -14,6 +14,8 @@ package corner.orm.tapestry.component
 package corner.orm.hibernate
 * 删除expression表达式的antlr方式，采用新版本的正则表达式。
 
+package corner.orm.taepstry
+* 增加了动态生成组件的Worker，根据模型来动态自动产生组件.
 
 changes in version 2.2.2 	(2006-10-29)
 ------------------------------------------

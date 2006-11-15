@@ -41,5 +41,6 @@
 	<sub-module descriptor="corner.persist.xml"/>
 	<sub-module descriptor="corner.validator.xml"/>
 	<sub-module descriptor="corner.asset.xml"/>
+	<sub-module descriptor="corner.worker.xml"/>
 	
 </module>
