@@ -28,6 +28,11 @@ public class FieldPlusEqTest extends BaseValidatorTestCase {
 		} catch (ValidatorException e) {
 			fail("不该到达这里!");
 		}
+		try {
+			eq.validate(field, null, 32);
+		} catch (ValidatorException e) {
+			fail("不该到达这里!");
+		}
 		verify();
 		
 	}
