@@ -16,6 +16,50 @@ dojo.widget.defineWidget(
 
 );
 
+corner.widget.CustomComboBoxDataProvider=function(){
+	
+}
+dojo.lang.inherits(corner.widget.CustomComboBoxDataProvider,dojo.widget.incrementalComboBoxDataProvider);
+dojo.lang.extend(corner.widget.CustomComboBoxDataProvider,
+	{
+
+		assembleStr:function(searchStr){
+			dojo.debug("search String from self "+searchStr)
+			return searchStr;
+		},
+		startSearch : function(/*String*/ searchStr, /*String*/ type, /*Boolean*/ ignoreLimit){
+			
+			
+			str=this.assembleStr(searchStr);//提供自定义的字符串搜索
+			dojo.debug("search string:"+str);
+			//以下代码从父类copy而来，父类的js方法没有采用prototype方式编写，在此不能调用父类的方法。
+			if(this.inFlight){
+				// FIXME: implement backoff!
+			}
+			var tss = encodeURIComponent(str);
+			var realUrl = dojo.string.substituteParams(this.searchUrl, {"searchString": tss});
+			var _this = this;
+			var request = dojo.io.bind({
+				url: realUrl,
+				method: "get",
+				mimetype: "text/json",
+				load: function(type, data, evt){
+					_this.inFlight = false;
+					if(!dojo.lang.isArray(data)){
+						var arrData = [];
+						for(var key in data){
+							arrData.push([data[key], key]);
+						}
+						data = arrData;
+					}
+					_this.addToCache(searchStr, data);
+					_this.provideSearchResults(data);
+				}
+			});
+			this.inFlight = true;
+		}
+	}
+);
 
 
 //对Selector进行扩展.
@@ -85,56 +129,8 @@ dojo.lang.extend(corner.widget.Selector,{
 			dojo.debug("combox.value:["+this.getValue()+"]");
 			dojo.debug("combox_selection.value:["+this.comboBoxSelectionValue.value+"]");
 		},
-		fillInTemplate: function(/*Object*/ args, /*Object*/ frag){
-			// For inlining a table we need browser specific CSS
-			dojo.html.applyBrowserClass(this.domNode);
-
-			var source = this.getFragNodeRef(frag); 
-			if (! this.name && source.name){ this.name = source.name; } 
-			this.comboBoxValue.name = this.name; 
-			this.comboBoxSelectionValue.name = this.name+"_selected";
-
-			/* different nodes get different parts of the style */
-			dojo.html.copyStyle(this.domNode, source);
-			dojo.html.copyStyle(this.textInputNode, source);
-			dojo.html.copyStyle(this.downArrowNode, source);
-			
-			dojo.html.removeClass(this.textInputNode,"dojoComboBox");
-			this.domNode.style.textAlign="left";
-			this.downArrowNode.style.verticalAlign="middle";
-	        this.textInputNode.style.verticalAlign="middle";
-			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
-			
-			with (this.downArrowNode.style){ // calculate these later
-				width = "0px";
-				height = "0px";
-			}
-
-			var dpClass;
-			if(this.mode == "remote"){
-				dpClass = dojo.widget.incrementalComboBoxDataProvider;
-			}else if(typeof this.dataProviderClass == "string"){
-				dpClass = dojo.evalObjPath(this.dataProviderClass)
-			}else{
-				dpClass = this.dataProviderClass;
-			}
-			this.dataProvider = new dpClass();
-			this.dataProvider.init(this, this.getFragNodeRef(frag));
-
-			this.popupWidget = new dojo.widget.createWidget("PopupContainer", 
-				{toggle: this.dropdownToggle, toggleDuration: this.toggleDuration});
-			dojo.event.connect(this, 'destroy', this.popupWidget, 'destroy');
-			this.optionsListNode = this.popupWidget.domNode;
-			this.domNode.appendChild(this.optionsListNode);
-			dojo.html.addClass(this.optionsListNode, 'dojoComboBoxOptions');
-			dojo.event.connect(this.optionsListNode, 'onclick', this, 'selectOption');
-			dojo.event.connect(this.optionsListNode, 'onmouseover', this, '_onMouseOver');
-			dojo.event.connect(this.optionsListNode, 'onmouseout', this, '_onMouseOut');
-			
-			dojo.event.connect(this.optionsListNode, "onmouseover", this, "itemMouseOver");
-			dojo.event.connect(this.optionsListNode, "onmouseout", this, "itemMouseOut");
-		},
-	/*		fillInTemplate: function(args, frag){
+		
+	 fillInTemplate: function(args, frag){
 			//提高页面的展示效果
 		
 			corner.widget.Selector.superclass.fillInTemplate.call(this,args,frag);
@@ -145,11 +141,8 @@ dojo.lang.extend(corner.widget.Selector,{
 			this.downArrowNode.style.verticalAlign="middle";
 	        this.textInputNode.style.verticalAlign="middle";
 			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
-			
-			
-
 		},
-		* */
+		
 		convertResultList:function(results){
 			dojo.debug("call here results"+results);
 			var r=[];

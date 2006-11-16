@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test person id validator</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function Person(){
+}
+Person.prototype.getName=function(){
+    return this.name;
+}
+Person.prototype.setName=function(name){
+    this.name=name;
+}
+Person.prototype.toString=function(){
+    return this.name;
+}
+function Man(){
+}
+dojo.lang.inherits(Man, Person);
+dojo.lang.extend(Man,{
+getName:function(){return this.name+'of Man';},
+getAge:function(){return this.age;},
+setAge:function(age){this.age=age;}
+});
+var man=new Man();
+man.setName('zkj');
+man.setAge(25);
+alert(man.getName());
+alert(man.getAge());
+alert(Man.superclass.getName.call(man,null));//父方法
+	//-->
+</SCRIPT>
+</body>
+</html>
