@@ -26,8 +26,6 @@ public class FieldPlusEq extends BaseValidator {
 	// 保存page页中定义的field
 	private String[] otherField;
 
-	private String nameFields;
-
 	private BigDecimal allFieldValue = null;
 
 	public FieldPlusEq() {
@@ -100,7 +98,7 @@ public class FieldPlusEq extends BaseValidator {
 
 		accumulateProfileProperty(field, profile,
 				ValidationConstants.CONSTRAINTS, String.format("%s之和必须等于%s.",
-						nameFields, field.getDisplayName()));
+						getDisplayName(otherField,field), field.getDisplayName()));
 	}
 
 	/**
@@ -111,7 +109,7 @@ public class FieldPlusEq extends BaseValidator {
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
 		return messages.formatValidationMessage("{0}之和必须等于{1}.", null,
-				new Object[] { nameFields,field.getDisplayName() });
+				new Object[] { getDisplayName(otherField,field),field.getDisplayName() });
 	}
 
 	/**
@@ -128,14 +126,29 @@ public class FieldPlusEq extends BaseValidator {
 	}
 
 	/**
-	 * 将传入的字符串转变为字符串数组，将字符串中间的冒号变成逗号
+	 * 将传入的字符串转变为字符串数组
 	 * @param fieldPlusEqStr 需要处理的字符串
 	 */
 	private void initFieldPlusEq(String fieldPlusEqStr) {
 		otherField = fieldPlusEqStr.split(":");
-		nameFields = (fieldPlusEqStr.replaceAll(":", ",")).replaceAll("Field", "");
 	}
 
+	/**
+	 * 建立显示信息
+	 * @param fields 需要处理的数组
+	 * @param field 当前form组建
+	 * @return 返回的字符串
+	 */
+	private String getDisplayName(String[] fields,IFormComponent field){
+		StringBuffer temp = new StringBuffer();
+		for (String t : fields) {
+			((IFormComponent) field.getPage().getComponent(t)).getDisplayName();
+			temp.append(((IFormComponent) field.getPage().getComponent(t)).getDisplayName()).append(",");
+		}
+		String str = temp.toString();
+		return str.substring(0, str.length() - 1);
+	}
+	
 	/**
 	 * 返回用双引号扩起来，用逗号分割的字符串
 	 * @param fields 需要处理的数组
