@@ -16,50 +16,7 @@ dojo.widget.defineWidget(
 
 );
 
-corner.widget.CustomComboBoxDataProvider=function(){
-	
-}
-dojo.lang.inherits(corner.widget.CustomComboBoxDataProvider,dojo.widget.incrementalComboBoxDataProvider);
-dojo.lang.extend(corner.widget.CustomComboBoxDataProvider,
-	{
 
-		assembleStr:function(searchStr){
-			dojo.debug("search String from self "+searchStr)
-			return searchStr;
-		},
-		startSearch : function(/*String*/ searchStr, /*String*/ type, /*Boolean*/ ignoreLimit){
-			
-			
-			str=this.assembleStr(searchStr);//提供自定义的字符串搜索
-			dojo.debug("search string:"+str);
-			//以下代码从父类copy而来，父类的js方法没有采用prototype方式编写，在此不能调用父类的方法。
-			if(this.inFlight){
-				// FIXME: implement backoff!
-			}
-			var tss = encodeURIComponent(str);
-			var realUrl = dojo.string.substituteParams(this.searchUrl, {"searchString": tss});
-			var _this = this;
-			var request = dojo.io.bind({
-				url: realUrl,
-				method: "get",
-				mimetype: "text/json",
-				load: function(type, data, evt){
-					_this.inFlight = false;
-					if(!dojo.lang.isArray(data)){
-						var arrData = [];
-						for(var key in data){
-							arrData.push([data[key], key]);
-						}
-						data = arrData;
-					}
-					_this.addToCache(searchStr, data);
-					_this.provideSearchResults(data);
-				}
-			});
-			this.inFlight = true;
-		}
-	}
-);
 
 
 //对Selector进行扩展.
