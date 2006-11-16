@@ -10,7 +10,6 @@
 
 package corner.orm.tapestry.worker;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import org.hibernate.reflection.ReflectionManager;
 import org.hibernate.reflection.XClass;
 import org.hibernate.reflection.XProperty;
 import org.hibernate.reflection.java.JavaXFactory;
-import org.hibernate.validator.Max;
 
 /**
  * 对tapestry的根据模型自动产生Component
@@ -131,14 +129,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
         if(cc.getBinding("value")==null){
         	addValueBinding(cc,pro,location);//加入默认的value属性binding
         }
-        //加入Hibernate的验证
-        StringBuffer sb=new StringBuffer();
-        for(Annotation annotation:pro.getAnnotations()){
-        	//for max
-        	if(annotation.annotationType().equals(Max.class)){
-        		sb.append("max="+((Max) annotation).value());
-        	}
-        }
+
         
         spec.addComponent(pro.getName()+"Field",cc);
 		
