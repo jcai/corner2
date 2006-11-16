@@ -35,7 +35,11 @@ import corner.orm.hibernate.v3.VectorType;
 
 /**
  * 实现对向量类型的translator。
+ * <p>提供了把输入的字符串转换为向量，其中向量的分割符是{@link VectorType#SEGMENT}.
+ * 校验部分代码来自于piano-core，Thanks Ghostbb.
+ * 
  * @author jcai
+ * @author ghostbb
  * @version $Revision$
  * @since 2.1
  */
