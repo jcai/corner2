@@ -48,7 +48,7 @@ public class VectorType implements UserType {
 			throws HibernateException, SQLException {
 		String str=rs.getString(names[0]);
 		MatrixRow<Object> v=new MatrixRow<Object>();
-		if(str!=null){
+		if(str!=null&&str.trim().length()>0){
 			v.addAll(VectorUtils.VectorSplit(str,SEGMENT));
 		}
 		return v;
@@ -70,12 +70,13 @@ public class VectorType implements UserType {
 			if(sb.length()>0){
 				sb.setLength(sb.length()-SEGMENT.length()); //删除最后的分割符
 			}
-			st.setString(index,sb.toString());
-		}else{
-			st.setString(index,null);
+			String str=sb.toString();
+			if(str.length()>0){
+				st.setString(index,sb.toString());
+				return;
+			}
 		}
-
-
+		st.setString(index,null);
 	}
 
 	/**
