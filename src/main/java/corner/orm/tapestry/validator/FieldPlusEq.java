@@ -26,6 +26,8 @@ public class FieldPlusEq extends BaseValidator {
 	// 保存page页中定义的field
 	private String[] otherField;
 
+	private String nameFields;
+
 	private BigDecimal allFieldValue = null;
 
 	public FieldPlusEq() {
@@ -40,7 +42,7 @@ public class FieldPlusEq extends BaseValidator {
 	public void validate(IFormComponent field, ValidationMessages messages,
 			Object object) throws ValidatorException {
 		Number value = (Number) object;
-		
+
 		compute(field);
 
 		if (value.doubleValue() != allFieldValue.doubleValue())
@@ -49,9 +51,11 @@ public class FieldPlusEq extends BaseValidator {
 
 	/**
 	 * 计算功能的方法
-	 * @param field	当前组建
+	 * 
+	 * @param field
+	 *            当前组建
 	 */
-	private void compute(IFormComponent field){
+	private void compute(IFormComponent field) {
 		BigDecimal[] btemp = new BigDecimal[this.otherField.length];
 		allFieldValue = new BigDecimal(0);
 		// 计算总值
@@ -59,43 +63,44 @@ public class FieldPlusEq extends BaseValidator {
 		for (int i = 0; i < this.otherField.length; i++) {
 			String Value = cycle.getParameter(this.otherField[i]);
 			btemp[i] = new BigDecimal(Value);
-			
+
 			allFieldValue = allFieldValue.add(btemp[i]);
 		}
 	}
-	
+
 	/**
 	 * @see org.apache.tapestry.form.validator.BaseValidator#renderContribution(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle,
 	 *      org.apache.tapestry.form.FormComponentContributorContext,
 	 *      org.apache.tapestry.form.IFormComponent)
 	 */
-//	@Override
-	public void renderContributio(IMarkupWriter writer, IRequestCycle cycle,
+	@Override
+	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
 			FormComponentContributorContext context, IFormComponent field) {
-		
-		context.addInitializationScript(field, "dojo.require(\"corner.validate.web\");");
-		
-        JSONObject profile = context.getProfile();
-        
-        if (!profile.has(ValidationConstants.CONSTRAINTS)) {
-            profile.put(ValidationConstants.CONSTRAINTS, new JSONObject());
-        }
-        JSONObject cons = profile.getJSONObject(ValidationConstants.CONSTRAINTS);
-        
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(context.getLocale());
-        
-        accumulateProperty(cons, field.getClientId(), 
-                new JSONLiteral("[corner.validate.isfieldPlusEq,{"
-                        + "minField:\"" + 00 + "\","
-                        + "decimal:" + JSONObject.quote(symbols.getDecimalSeparator())
-                        + "}]"));
-        
-//        new JSONLiteral("[corner.validate.isInRange,{ minField: \\ otherField[0] \\,decimal: JSONObject.quote(symbols.getDecimalSeparator())}]");
-        
-        
-        accumulateProfileProperty(field, profile, 
-                ValidationConstants.CONSTRAINTS, String.format("%s必须小于或等于%s","测试1",field.getDisplayName()));
+
+		context.addInitializationScript(field,
+				"dojo.require(\"corner.validate.web\");");
+
+		JSONObject profile = context.getProfile();
+
+		if (!profile.has(ValidationConstants.CONSTRAINTS)) {
+			profile.put(ValidationConstants.CONSTRAINTS, new JSONObject());
+		}
+		JSONObject cons = profile
+				.getJSONObject(ValidationConstants.CONSTRAINTS);
+
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(context
+				.getLocale());
+
+		accumulateProperty(cons, field.getClientId(), new JSONLiteral(
+				"[corner.validate.isFieldPlusEq,{" + "\"fields\":["
+						+ toFieldString(otherField) + "]," + "decimal:"
+						+ JSONObject.quote(symbols.getDecimalSeparator())
+						+ "}]"));
+
+		accumulateProfileProperty(field, profile,
+				ValidationConstants.CONSTRAINTS, String.format("%s之和必须等于%s.",
+						nameFields, field.getDisplayName()));
 	}
 
 	/**
@@ -105,11 +110,12 @@ public class FieldPlusEq extends BaseValidator {
 	 */
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
-		return messages.formatValidationMessage("{0}输入有错误.", null,
-				new Object[] { field.getDisplayName() });
+		return messages.formatValidationMessage("{0}之和必须等于{1}.", null,
+				new Object[] { nameFields,field.getDisplayName() });
 	}
 
 	/**
+	 * 从page页面读入的配置信息
 	 * @param fieldPlusEqStr
 	 *            需要相加后与本field判断的组建
 	 */
@@ -121,7 +127,26 @@ public class FieldPlusEq extends BaseValidator {
 		initFieldPlusEq(fieldPlusEqStr);
 	}
 
+	/**
+	 * 将传入的字符串转变为字符串数组，将字符串中间的冒号变成逗号
+	 * @param fieldPlusEqStr 需要处理的字符串
+	 */
 	private void initFieldPlusEq(String fieldPlusEqStr) {
 		otherField = fieldPlusEqStr.split(":");
+		nameFields = (fieldPlusEqStr.replaceAll(":", ",")).replaceAll("Field", "");
+	}
+
+	/**
+	 * 返回用双引号扩起来，用逗号分割的字符串
+	 * @param fields 需要处理的数组
+	 * @return 返回字符串
+	 */
+	public String toFieldString(String[] fields) {
+		StringBuffer temp = new StringBuffer();
+		for (String t : fields) {
+			temp.append("\"").append(t).append("\",");
+		}
+		String str = temp.toString();
+		return str.substring(0, str.length() - 1);
 	}
 }

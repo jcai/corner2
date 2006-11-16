@@ -7,8 +7,29 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
-corner.validate.isfieldPlusEq = function(/*String*/value, /*Object?*/flags){
-	return false;// Boolean
+corner.validate.isFieldPlusEq = function(/*String*/value, /*Object?*/flags){
+//将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true
+	dojo.debug("value :" + value);
+	dojo.debug("fields.length :" + flags.fields.length);
+	
+	var allvalue = 0;
+	var tValue;
+	for (var i in flags.fields){
+		tVCalue = dojo.byId(flags.fields[i]).value;
+		if(tVCalue!=null){
+			if(dojo.validate.isRealNumber(tVCalue)){
+				allvalue = allvalue +eval(tVCalue);
+			}
+		}
+	}
+	
+	dojo.debug("allvalue : " + allvalue);
+	
+	if(value != allvalue){
+		return false;
+	}else{
+		return true;
+	}
 }
 
 corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
