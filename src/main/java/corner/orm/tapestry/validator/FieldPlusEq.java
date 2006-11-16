@@ -98,7 +98,7 @@ public class FieldPlusEq extends BaseValidator {
 
 		accumulateProfileProperty(field, profile,
 				ValidationConstants.CONSTRAINTS, String.format("%s之和必须等于%s.",
-						getDisplayName(otherField,field), field.getDisplayName()));
+						getDisplayNames(otherField,field), field.getDisplayName()));
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class FieldPlusEq extends BaseValidator {
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
 		return messages.formatValidationMessage("{0}之和必须等于{1}.", null,
-				new Object[] { getDisplayName(otherField,field),field.getDisplayName() });
+				new Object[] { getDisplayNames(otherField,field),field.getDisplayName() });
 	}
 
 	/**
@@ -139,10 +139,9 @@ public class FieldPlusEq extends BaseValidator {
 	 * @param field 当前form组建
 	 * @return 返回的字符串
 	 */
-	private String getDisplayName(String[] fields,IFormComponent field){
+	public String getDisplayNames(String[] fields,IFormComponent field){
 		StringBuffer temp = new StringBuffer();
 		for (String t : fields) {
-			((IFormComponent) field.getPage().getComponent(t)).getDisplayName();
 			temp.append(((IFormComponent) field.getPage().getComponent(t)).getDisplayName()).append(",");
 		}
 		String str = temp.toString();
