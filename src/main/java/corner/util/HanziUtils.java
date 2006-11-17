@@ -49,8 +49,8 @@ public final class HanziUtils {
 	}
 	/**
 	 * 判断给定的字符为汉字
-	 * @param hanzi
-	 * @return
+	 * @param hanzi 汉字字符
+	 * @return 是汉字返回True
 	 */
 	public static boolean isHanzi(char hanzi){
 		return hanzi>=HANZI_UNICODE_START&&hanzi<=HANZI_UNICODE_END;
