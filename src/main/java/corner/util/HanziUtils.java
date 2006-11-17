@@ -47,6 +47,15 @@ public final class HanziUtils {
 		}
 		return result.toString();
 	}
+	/**
+	 * 判断给定的字符为汉字
+	 * @param hanzi
+	 * @return
+	 */
+	public static boolean isHanzi(char hanzi){
+		return hanzi>=HANZI_UNICODE_START&&hanzi<=HANZI_UNICODE_END;
+	}
+	
 	/**定义的Unicode中的汉字对应拼音的首子母.**/
 	 private static String strChineseFirstPY =
 		 "ydyqsxmwzssxjbymgcczqpssqbycdscdqldylybssjgyzzjjfkcclzdhwdwzjljpfyynwjjtmyhzwzhflzppqhgscyyynjqyxxgj"

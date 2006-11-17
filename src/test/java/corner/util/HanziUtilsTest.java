@@ -24,7 +24,10 @@ public class HanziUtilsTest extends TestCase {
 		assertEquals("asdf",s);
 		s=HanziUtils.getPinyin("中华人民共和国");
 		assertEquals("zhrmghg",s);
-		
+	}
+	public void test_hanzi(){
+		assertTrue(HanziUtils.isHanzi('我'));
+		assertFalse(HanziUtils.isHanzi('a'));
 		
 	}
 }
