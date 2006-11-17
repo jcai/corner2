@@ -97,8 +97,7 @@ public class FieldPlusEq extends BaseValidator {
 						+ "}]"));
 
 		accumulateProfileProperty(field, profile,
-				ValidationConstants.CONSTRAINTS, String.format("%s之和必须等于%s.",
-						getDisplayNames(otherField,field), field.getDisplayName()));
+				ValidationConstants.CONSTRAINTS, buildMessage(context,field));
 	}
 
 	/**

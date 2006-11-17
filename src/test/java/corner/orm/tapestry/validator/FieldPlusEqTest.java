@@ -14,6 +14,10 @@ import org.apache.tapestry.form.validator.BaseValidatorTestCase;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 import org.easymock.EasyMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.aryEq;
+
 import org.testng.annotations.Test;
 
 public class FieldPlusEqTest extends BaseValidatorTestCase {
@@ -45,7 +49,7 @@ public class FieldPlusEqTest extends BaseValidatorTestCase {
         EasyMock.expect(context.getLocale()).andReturn(locale);
         
         EasyMock.expect(context.getProfile()).andReturn(json);
-		
+		EasyMock.expect(context.formatValidationMessage(eq("{0}之和必须等于{1}."), (String) eq(null), aryEq(new Object[]{"Field 1,Field 2","Field"}))).andReturn("Field 1,Field 2之和必须等于Field.");
 		replay();
         
         new FieldPlusEq("fieldPlusEq={f1:f2}").renderContribution(writer, cycle, context, f);
