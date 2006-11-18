@@ -4,17 +4,13 @@ import static org.easymock.EasyMock.aryEq;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 
-import java.util.Locale;
-
 import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
-import org.apache.tapestry.form.translator.NumberTranslator;
 import org.apache.tapestry.json.JSONObject;
-import org.apache.tapestry.valid.ValidationStrings;
 import org.apache.tapestry.valid.ValidatorException;
 import org.easymock.EasyMock;
 import org.testng.annotations.Test;
@@ -22,6 +18,14 @@ import org.testng.annotations.Test;
 import corner.orm.hibernate.v3.MatrixRow;
 
 public class VectorTranslatorTest extends BaseComponentTestCase {
+	@Test
+	public void test_format_empty_row(){
+		VectorTranslator translator = new VectorTranslator();
+		MatrixRow<Object> row = new MatrixRow<Object>();
+
+		assertEquals(translator.format(null, null, row), null);
+		
+	}
 	@Test
 	public void test_formatObject() {
 		VectorTranslator translator = new VectorTranslator();

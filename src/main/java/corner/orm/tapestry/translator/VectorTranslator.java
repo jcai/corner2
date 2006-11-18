@@ -76,15 +76,18 @@ public  class VectorTranslator extends AbstractTranslator {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected String formatObject(IFormComponent field, Locale locale, Object object) {
-		MatrixRow<String> v=(MatrixRow<String>) object;
+		MatrixRow<Object> v=(MatrixRow<Object>) object;
 		StringBuffer sb=new StringBuffer();
 		
-		for(String s : v){
-			sb.append(s);
+		for(Object s : v){
+			sb.append(s.toString());
 			sb.append(this._segment);
 		}
 		if(sb.length()>0)
 			sb.setLength(sb.length()-this._segment.length());
+		if(sb.toString().length()==0){
+			return null;
+		}
 		return sb.toString();
 	}
 
