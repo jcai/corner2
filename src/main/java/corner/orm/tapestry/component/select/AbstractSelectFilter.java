@@ -81,7 +81,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 					
 					//根据页面对应的组件的来自动进行更新是否需要序列化.
 					
-					IComponent c=(IComponent) cs.get(returnValueFields[i]);
+					IComponent c=(IComponent) cs.get(updateFields[i]);
 					
 					if(c!=null&&(c instanceof Hidden||c instanceof Autocompleter)){
 						arr.put(getReturnObject(returnValueFields[i],obj,true));
