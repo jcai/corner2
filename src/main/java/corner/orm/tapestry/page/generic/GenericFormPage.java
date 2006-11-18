@@ -13,7 +13,7 @@ package corner.orm.tapestry.page.generic;
 import org.apache.tapestry.IComponent;
 import org.apache.tapestry.annotations.Component;
 
-import corner.orm.tapestry.page.AbstractEntityFormPage;
+import corner.orm.tapestry.page.relative.AbstractMultiManyEntityFormPage;
 import corner.orm.tapestry.worker.MagicField;
 
 /**
@@ -23,7 +23,7 @@ import corner.orm.tapestry.worker.MagicField;
  * @version $Revision$
  * @since 0.1
  */
-public abstract class GenericFormPage<T> extends AbstractEntityFormPage<T> implements IGenericPage<T> {
+public abstract class GenericFormPage<T> extends AbstractMultiManyEntityFormPage<T> implements IGenericPage<T> {
 
 	
 	/**
