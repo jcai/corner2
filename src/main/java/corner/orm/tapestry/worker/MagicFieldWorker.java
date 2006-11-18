@@ -146,13 +146,21 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 		cc.setLocation(location);
 		cc.setPropertyName(pro.getName() + "Field");
 
+		//确定value值，是否有
 		if (cc.getBinding("value") == null) {
 			addValueBinding(cc, pro, location);// 加入默认的value属性binding
 		}
-
+		//确定displayName
+		if (cc.getBinding("displayName") == null) {
+			addBinding(cc,"displayName=message:"+pro.getName(),location);
+		}
+		
+		
 		spec.addComponent(pro.getName() + "Field", cc);
 
 	}
+
+	
 
 	private void addValueBinding(IContainedComponent cc, XProperty pro,
 			Location location) {
