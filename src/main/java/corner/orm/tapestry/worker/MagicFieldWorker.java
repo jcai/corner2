@@ -44,9 +44,8 @@ import org.hibernate.reflection.java.JavaXFactory;
  * 对tapestry的根据模型自动产生Component
  * 
  * <p>
- * 采用Hibernate的反射管理器和ejb3.0中的实体bean注释，动态生成tapestry组件。<br/>
- * 需要注意的是：页面类中使用注释{@link MagicField}，其中{@link MagicField#entity()}参数为页面类中实体对应的属性值.
- *    
+ * 采用Hibernate的反射管理器和ejb3.0中的实体bean注释，动态生成tapestry组件。<br/> 需要注意的是：页面类中使用注释{@link MagicField}，其中{@link MagicField#entity()}参数为页面类中实体对应的属性值.
+ * 
  * @author jcai
  * @version $Revision$
  * @since 2.3
@@ -55,14 +54,14 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 	/**
 	 * 反射管理器。thanks hibernate
 	 */
-	private  ReflectionManager reflectionManager=new JavaXFactory();
-	/** 从初始化值中得到类的名称 **/
-	private static final String GET_CLASS_NAME_REG = "\\s([\\w\\.]+)\\s*\\(\\)";
+	private ReflectionManager reflectionManager = new JavaXFactory();
 
-	
+	/** 从初始化值中得到类的名称 * */
+	private static final String GET_CLASS_NAME_REG = "\\s([\\w\\.]+)\\s*\\(\\)";
 
 	/**
 	 * 是否能够增强
+	 * 
 	 * @see org.apache.tapestry.annotations.SecondaryAnnotationWorker#canEnhance(java.lang.reflect.Method)
 	 */
 	public boolean canEnhance(Method method) {
@@ -71,77 +70,98 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 
 	/**
 	 * 对使用了{@link MagicField}的注释进行增强。
-	 * @see org.apache.tapestry.annotations.SecondaryAnnotationWorker#peformEnhancement(org.apache.tapestry.enhance.EnhancementOperation, org.apache.tapestry.spec.IComponentSpecification, java.lang.reflect.Method, org.apache.hivemind.Resource)
+	 * 
+	 * @see org.apache.tapestry.annotations.SecondaryAnnotationWorker#peformEnhancement(org.apache.tapestry.enhance.EnhancementOperation,
+	 *      org.apache.tapestry.spec.IComponentSpecification,
+	 *      java.lang.reflect.Method, org.apache.hivemind.Resource)
 	 */
 	public void peformEnhancement(EnhancementOperation op,
 			IComponentSpecification spec, Method method, Resource resource) {
-		
+
 		MagicField magicField = method.getAnnotation(MagicField.class);
-		String entityName = magicField.entity();
-		IPropertySpecification pSpec = spec
-				.getPropertySpecification(entityName);// 获取对应属性的配置说明
-		if (pSpec.getInitialValue() == null) {
-			return;
+		Class<?> entityClass = magicField.entityClass();
+		if (entityClass.equals(Object.class)) {
+			entityClass = null;
 		}
-
-		String initialValue = pSpec.getInitialValue();// 得到初始值的字符串
-		String className = this.getClassNameFromInitialValue(initialValue);
-		if (className == null) {
-			throw new ApplicationRuntimeException("不能解析给定的初始化值:[" + initialValue
-					+ "]");
-		}
-		try {
-			Class<?> clazz = Class.forName(className);
-			XClass xclazz=reflectionManager.toXClass(clazz);
-			List<XProperty> list=new ArrayList<XProperty>();
-			getElementsToProcess(xclazz,list);//得到所有处理的属性名称
-			Location location = AnnotationUtils.buildLocationForAnnotation(method, magicField, resource);
-			
-			for(XProperty pro:list){
-				Location cLocation=new DescribedLocation(resource,String.format("类%s的属性%s",className,pro.getName()));
-				createContainerComponent(op,pro,spec,cLocation); //通过给定的属性名称来
+		if (entityClass == null) {
+			String entityName = magicField.entity();
+			IPropertySpecification pSpec = spec
+					.getPropertySpecification(entityName);// 获取对应属性的配置说明
+			if (pSpec.getInitialValue() == null) {
+				return;
 			}
-			//不能直接在页面类中调用magicField的属性,
-			//TODO 改为加在页面的类中.
-			op.addMethod(Modifier.PUBLIC, new MethodSignature(method), "throw new UnsupportedOperationException(\"不能调用此方法！此方法仅仅用来动态生成组件使用!\");", location);
-		} catch (ClassNotFoundException e) {
-			throw new ApplicationRuntimeException(e);
+
+			String initialValue = pSpec.getInitialValue();// 得到初始值的字符串
+			String className = this.getClassNameFromInitialValue(initialValue);
+			if (className == null) {
+				throw new ApplicationRuntimeException("不能解析给定的初始化值:["
+						+ initialValue + "]");
+			}
+			try {
+				entityClass = Class.forName(className);
+			} catch (ClassNotFoundException e) {
+				throw new ApplicationRuntimeException(e);
+			}
+
 		}
-		
+		if(entityClass==null){
+			throw new ApplicationRuntimeException("从MagicField中得到的实体类为空");
+		}
+
+		XClass xclazz = reflectionManager.toXClass(entityClass);
+		List<XProperty> list = new ArrayList<XProperty>();
+		getElementsToProcess(xclazz, list);// 得到所有处理的属性名称
+		Location location = AnnotationUtils.buildLocationForAnnotation(method,
+				magicField, resource);
+
+		for (XProperty pro : list) {
+			Location cLocation = new DescribedLocation(resource, String.format(
+					"类%s的属性%s", entityClass.getName(), pro.getName()));
+			createContainerComponent(op, pro, spec, cLocation); // 通过给定的属性名称来
+		}
+		// 不能直接在页面类中调用magicField的属性,
+		// TODO 改为加在页面的类中.
+		op
+				.addMethod(
+						Modifier.PUBLIC,
+						new MethodSignature(method),
+						"throw new UnsupportedOperationException(\"不能调用此方法！此方法仅仅用来动态生成组件使用!\");",
+						location);
+
 	}
 
-	private void createContainerComponent(EnhancementOperation op,XProperty pro, IComponentSpecification spec,Location location) {
+	private void createContainerComponent(EnhancementOperation op,
+			XProperty pro, IComponentSpecification spec, Location location) {
 		IContainedComponent cc = new ContainedComponent();
-		Component c=pro.getAnnotation(Component.class);
-		if(c!=null){
+		Component c = pro.getAnnotation(Component.class);
+		if (c != null) {
 			cc.setInheritInformalParameters(c.inheritInformalParameters());
-			cc.setType(c.type());//根据给定的的类型
-			for (String binding : c.bindings())
-	        {
-	            addBinding(cc, binding, location);
-	        }
-		}else{
-			cc.setType("TextField");//默认的组件类型
+			cc.setType(c.type());// 根据给定的的类型
+			for (String binding : c.bindings()) {
+				addBinding(cc, binding, location);
+			}
+		} else {
+			cc.setType("TextField");// 默认的组件类型
 		}
-        cc.setLocation(location);
-        cc.setPropertyName(pro.getName()+"Field");
-        
-        if(cc.getBinding("value")==null){
-        	addValueBinding(cc,pro,location);//加入默认的value属性binding
-        }
+		cc.setLocation(location);
+		cc.setPropertyName(pro.getName() + "Field");
 
-        
-        spec.addComponent(pro.getName()+"Field",cc);
-		
+		if (cc.getBinding("value") == null) {
+			addValueBinding(cc, pro, location);// 加入默认的value属性binding
+		}
+
+		spec.addComponent(pro.getName() + "Field", cc);
+
 	}
 
-	private void addValueBinding(IContainedComponent cc,XProperty pro,Location location) {
+	private void addValueBinding(IContainedComponent cc, XProperty pro,
+			Location location) {
 		IBindingSpecification bs = new BindingSpecification();
 		bs.setType(BindingType.PREFIXED);
-		bs.setValue("entity."+pro.getName());
+		bs.setValue("entity." + pro.getName());
 		bs.setLocation(location);
-		cc.setBinding("value",bs);
-		
+		cc.setBinding("value", bs);
+
 	}
 
 	String getClassNameFromInitialValue(String value) {
@@ -164,29 +184,30 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			}
 		}
 	}
-    void addBinding(IContainedComponent component, String binding, Location location)
-    {
-        int equalsx = binding.indexOf('=');
 
-        if (equalsx < 1)
-            invalidBinding(binding);
+	void addBinding(IContainedComponent component, String binding,
+			Location location) {
+		int equalsx = binding.indexOf('=');
 
-        if (equalsx + 1 >= binding.length())
-            invalidBinding(binding);
+		if (equalsx < 1)
+			invalidBinding(binding);
 
-        String name = binding.substring(0, equalsx).trim();
-        String value = binding.substring(equalsx + 1).trim();
+		if (equalsx + 1 >= binding.length())
+			invalidBinding(binding);
 
-        IBindingSpecification bs = new BindingSpecification();
-        bs.setType(BindingType.PREFIXED);
-        bs.setValue(value);
-        bs.setLocation(location);
+		String name = binding.substring(0, equalsx).trim();
+		String value = binding.substring(equalsx + 1).trim();
 
-        component.setBinding(name, bs);
-    }
+		IBindingSpecification bs = new BindingSpecification();
+		bs.setType(BindingType.PREFIXED);
+		bs.setValue(value);
+		bs.setLocation(location);
+
+		component.setBinding(name, bs);
+	}
 
 	private void invalidBinding(String binding) {
-		throw new ApplicationRuntimeException("错误的binding"+binding);
-		
-	}    
+		throw new ApplicationRuntimeException("错误的binding" + binding);
+
+	}
 }

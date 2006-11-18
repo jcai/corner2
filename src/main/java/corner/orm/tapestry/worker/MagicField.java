@@ -31,5 +31,6 @@ public @interface MagicField {
 	 * 实体对应的属性名称.
 	 * @return 实体在页面的属性名称.
 	 */
-	String entity();
+	String entity() default "";
+	Class entityClass() default Object.class;
 }
