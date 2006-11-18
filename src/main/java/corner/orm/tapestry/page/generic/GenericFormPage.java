@@ -23,7 +23,7 @@ import corner.orm.tapestry.worker.MagicField;
  * @version $Revision$
  * @since 0.1
  */
-public abstract class GenericFormPage<T> extends AbstractMultiManyEntityFormPage<T> implements IGenericPage<T> {
+public abstract class GenericFormPage<T> extends AbstractMultiManyEntityFormPage<T> implements IGenericPage{
 
 	
 	/**
@@ -35,9 +35,7 @@ public abstract class GenericFormPage<T> extends AbstractMultiManyEntityFormPage
 			"cancel=listener:doCancelEntityAction" })
 	public abstract IComponent getGenericForm();
 
-	/**
-	 * @see corner.orm.tapestry.page.generic.IGenericPage#getMagicField()
-	 */
+	
 	@MagicField(entity = "entity")
 	public abstract void getMagicField();
 

@@ -14,6 +14,7 @@ import org.apache.tapestry.IComponent;
 import org.apache.tapestry.annotations.Component;
 
 import corner.orm.tapestry.page.AbstractEntityListPage;
+import corner.orm.tapestry.worker.MagicField;
 
 /**
  * 对泛型的列表页面类.
@@ -22,7 +23,7 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * @version $Revision$
  * @since 2.3
  */
-public abstract class GenericListPage<T> extends AbstractEntityListPage<T> {
+public abstract class GenericListPage<T> extends AbstractEntityListPage<T>  implements IGenericPage{
 
 	@Component(type = "contrib:TableView", bindings = { "source=source",
 			"value=entity", "columns=literal:id", "element=literal:table",
@@ -44,4 +45,7 @@ public abstract class GenericListPage<T> extends AbstractEntityListPage<T> {
 			"success=listener:doQueryEntityAction"
 			 })
 	public abstract IComponent getQueryForm();
+	
+	@MagicField(entity = "queryEntity")
+	public abstract void getMagicField();
 }
