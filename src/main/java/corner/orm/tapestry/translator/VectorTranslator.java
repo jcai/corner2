@@ -77,6 +77,9 @@ public  class VectorTranslator extends AbstractTranslator {
 	@Override
 	protected String formatObject(IFormComponent field, Locale locale, Object object) {
 		MatrixRow<Object> v=(MatrixRow<Object>) object;
+		if(v.size()==0){
+			return null;
+		}
 		StringBuffer sb=new StringBuffer();
 		
 		for(Object s : v){
