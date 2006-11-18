@@ -11,9 +11,7 @@
 package corner.orm.tapestry.page.generic;
 
 import org.apache.tapestry.IComponent;
-import org.apache.tapestry.annotations.Bean;
 import org.apache.tapestry.annotations.Component;
-import org.wtstudio.trip.tapestry.TripValidationDelegate;
 
 import corner.orm.tapestry.page.AbstractEntityListPage;
 
@@ -22,7 +20,7 @@ import corner.orm.tapestry.page.AbstractEntityListPage;
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
- * @since 0.1
+ * @since 2.3
  */
 public abstract class GenericListPage<T> extends AbstractEntityListPage<T> {
 
@@ -31,8 +29,6 @@ public abstract class GenericListPage<T> extends AbstractEntityListPage<T> {
 			"persist=literal:client" })
 	public abstract IComponent getTableView();
 
-	@Bean
-	public abstract TripValidationDelegate getDelegateBean();
 	
 	/**
 	 * 

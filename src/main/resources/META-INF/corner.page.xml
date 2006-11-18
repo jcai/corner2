@@ -1,0 +1,6 @@
+<module id="corner.page" version="1.0.0"
+	package="corner.orm.tapestry.generic">
+	<contribution configuration-id="tapestry.page.PageClassProviderChain">
+    <command id="corner-class-search" object="instance:corner.orm.tapestry.page.generic.GenericPageClassProvider" after="tapestry.page.namespace-class-search"/>
+ </contribution>	
+</module>

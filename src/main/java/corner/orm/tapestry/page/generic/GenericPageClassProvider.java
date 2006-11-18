@@ -18,7 +18,7 @@ import org.apache.tapestry.pageload.ComponentClassProviderContext;
  * 定义对Form和List页面自定义查找对应的页面类
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
- * @since 0.1
+ * @since 2.3
  */
 public class GenericPageClassProvider implements ComponentClassProvider{
 
