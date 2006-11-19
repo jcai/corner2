@@ -85,7 +85,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 		}
 		if (entityClass == null) {
 			String entityName = magicField.entity();
-			if(entityName==null||entityName.trim().length()==0){
+			if (entityName == null || entityName.trim().length() == 0) {
 				throw new ApplicationRuntimeException("entityName不能为空!");
 			}
 			IPropertySpecification pSpec = spec
@@ -107,7 +107,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			}
 
 		}
-		if(entityClass==null){
+		if (entityClass == null) {
 			throw new ApplicationRuntimeException("从MagicField中得到的实体类为空");
 		}
 
@@ -135,8 +135,20 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 
 	private void createContainerComponent(EnhancementOperation op,
 			XProperty pro, IComponentSpecification spec, Location location) {
-		IContainedComponent cc = new ContainedComponent();
 		Component c = pro.getAnnotation(Component.class);
+		String compId = null;
+		if (c != null){
+			compId = c.id();
+		}
+		if (compId == null||compId.length()==0) {
+			compId = pro.getName() + "Field";
+		}
+		
+		if (spec.getComponent(compId) != null) {
+			return;
+		}
+		IContainedComponent cc = new ContainedComponent();
+
 		if (c != null) {
 			cc.setInheritInformalParameters(c.inheritInformalParameters());
 			cc.setType(c.type());// 根据给定的的类型
@@ -149,21 +161,18 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 		cc.setLocation(location);
 		cc.setPropertyName(pro.getName() + "Field");
 
-		//确定value值，是否有
+		// 确定value值，是否有
 		if (cc.getBinding("value") == null) {
 			addValueBinding(cc, pro, location);// 加入默认的value属性binding
 		}
-		//确定displayName
+		// 确定displayName
 		if (cc.getBinding("displayName") == null) {
-			addBinding(cc,"displayName=message:"+pro.getName(),location);
+			addBinding(cc, "displayName=message:" + pro.getName(), location);
 		}
-		
-		
+
 		spec.addComponent(pro.getName() + "Field", cc);
 
 	}
-
-	
 
 	private void addValueBinding(IContainedComponent cc, XProperty pro,
 			Location location) {
