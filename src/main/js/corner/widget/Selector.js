@@ -61,11 +61,11 @@ dojo.lang.extend(corner.widget.Selector,{
 				dojo.debug("this.updateFields length:"+fs.length);
 				
 				
-				if(vs.length!=fs.length){
-					dojo.debug("values length != update Fields length \n"+"values:"+value+",\n"+"updateFields:"+fs);
-					return;	
-				}
-				for(var i=0;i<fs.length;i++){
+//				if(vs.length!=fs.length){
+//					dojo.debug("values length != update Fields length \n"+"values:"+value+",\n"+"updateFields:"+fs);
+//					return;	
+//				}
+				for(var i=0;i<vs.length;i++){
 					if(fs[i] == 'this'){
 						this.setValue(eval(vs[i]));
 					}else{
