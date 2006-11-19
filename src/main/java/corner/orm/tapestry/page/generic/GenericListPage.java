@@ -42,7 +42,8 @@ public abstract class GenericListPage<T> extends AbstractEntityListPage<T>  impl
 	 */
 	@Component(type = "Form", bindings = { "delegate=beans.delegateBean",
 			"clientValidationEnabled=true",
-			"success=listener:doQueryEntityAction"
+			"success=listener:doQueryEntityAction",
+			"focus=false"
 			 })
 	public abstract IComponent getQueryForm();
 	

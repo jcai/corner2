@@ -32,7 +32,8 @@ public abstract class GenericFormPage<T> extends AbstractMultiManyEntityFormPage
 	@Component(type = "Form", bindings = { "delegate=beans.delegateBean",
 			"clientValidationEnabled=true",
 			"success=listener:doSaveEntityAction",
-			"cancel=listener:doCancelEntityAction" })
+			"cancel=listener:doCancelEntityAction",
+			"focus=false"})
 	public abstract IComponent getGenericForm();
 
 	
