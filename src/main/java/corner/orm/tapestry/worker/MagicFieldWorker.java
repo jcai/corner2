@@ -85,6 +85,9 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 		}
 		if (entityClass == null) {
 			String entityName = magicField.entity();
+			if(entityName==null||entityName.trim().length()==0){
+				throw new ApplicationRuntimeException("entityName不能为空!");
+			}
 			IPropertySpecification pSpec = spec
 					.getPropertySpecification(entityName);// 获取对应属性的配置说明
 			if (pSpec.getInitialValue() == null) {
