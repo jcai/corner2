@@ -23,6 +23,8 @@ import corner.study.proxy.model.FooImpl;
 
 /**
  * 基于Javassist的代理
+ * 网站：http://www.csg.is.titech.ac.jp/~chiba/javassist/
+ * JBoos ：http://www.jboss.org/products/javassist
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
@@ -34,10 +36,14 @@ public class JavassistProxyTest {
 
 		public static Object createProxy(Class clazz) throws Throwable {
 			ClassPool pool = ClassPool.getDefault();
-			CtClass cc = pool.getAndRename(clazz.getName(), "$JProxy");
+			CtClass cc = pool.getAndRename(clazz.getName(), clazz.getName()+"$Proxy");
 			CtMethod cm = cc.getDeclaredMethod("getSayHello", new CtClass[0]);
+			
+			//方法前的操作.
 			cm.insertBefore("{ System.out.println(\"before\"); }");
+			//方法后的操作.
 			cm.insertAfter("{ System.out.println(\"after\"); }");
+			
 			return cc.toClass().newInstance();
 
 		}

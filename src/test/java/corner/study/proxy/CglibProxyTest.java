@@ -14,18 +14,23 @@ import corner.study.proxy.model.FooImpl;
 
 /**
  * 基于Cglib的代理类
+ * 官方网站 : http://cglib.sourceforge.net/
+ * 相关资料 : http://www.google.com/search?q=cglib&ie=utf-8&oe=utf-8
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.3
  */
 public class CglibProxyTest extends Assert{
+	
 	public static class CglibInvocationHandler implements MethodInterceptor {
 		public Object intercept(Object o, Method method, Object[] args,
 				MethodProxy proxy) throws Throwable {
-			
 			System.out.println("------------------------now to execute method ["+method.getName()+"]-----------------------------");
+			//方法执行前的操作
 			System.out.println("catch before method from cglib proxy");
-			Object result = proxy.invokeSuper(o, args);
+			
+			Object result = proxy.invokeSuper(o, args); //执行原来类的方法.
+			//方法执行后的操作.
 			System.out.println("catch after method from cglib proxy");
 			
 			return result;
