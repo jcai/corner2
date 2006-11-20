@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test js proxy</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+         
+	 };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+	<input type="button" value="test proxy" id="testBtn"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+//定义对象
+function Foo(){
+	
+}	
+//对象的原型方法
+Foo.prototype.getSayHello=function(){
+		dojo.debug("say hello from implementor");
+   return "hello";
+}
+var testObject=new Foo();	
+
+dojo.event.connect("around",testObject,"getSayHello",function(invocation){
+		dojo.debug("方法执行之前 ");
+   invocation.proceed();
+		dojo.debug("方法执行之后");
+ 		
+	});
+	
+	dojo.event.connect(dojo.byId("testBtn"),"onclick",testObject,"getSayHello");
+
+	//-->
+</SCRIPT>
+</body>
+</html>
