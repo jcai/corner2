@@ -10,7 +10,7 @@
 			</construct>
 		</invoke-factory>
 	</service-point>
-	<contribution configuration-id="hivemind.ApplicationDefaults">
+  <contribution configuration-id="hivemind.FactoryDefaults">
    <default symbol="corner.page.enable-generic-page" value="false"/>
   </contribution>
 	
