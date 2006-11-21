@@ -1,5 +1,5 @@
 <module id="corner.page" version="1.0.0"
-	package="corner.orm.tapestry.generic">
+	package="corner.orm.tapestry.page.generic">
 	
 	<service-point id="CornerGenericClassProvider"
 		interface="org.apache.tapestry.pageload.ComponentClassProvider">
