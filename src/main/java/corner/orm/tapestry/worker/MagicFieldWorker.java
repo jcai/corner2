@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 import org.apache.hivemind.ApplicationRuntimeException;
@@ -199,7 +200,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 			list.addAll(0, clazz.getDeclaredProperties(XClass.ACCESS_PROPERTY));
 			XClass superClass = clazz.getSuperclass();
 			if (superClass != null
-					&& superClass.isAnnotationPresent(MappedSuperclass.class)) {
+					&& (superClass.isAnnotationPresent(MappedSuperclass.class)||superClass.isAnnotationPresent(Entity.class))) {
 				getElementsToProcess(clazz.getSuperclass(), list);
 			}
 		}
