@@ -14,7 +14,10 @@ public class GenericPageClassProviderTest extends BaseComponentTestCase{
         replay();
 		ComponentClassProviderContext context = new ComponentClassProviderContext("bar/BazForm", spec,
                 namespace);
+		
 		GenericPageClassProvider provider=new GenericPageClassProvider();
+		provider.setEnableGenericPage(true);
+		
 		String className=provider.provideComponentClassName(context);
 		
 		assertEquals(className,"corner.orm.tapestry.page.generic.GenericFormPage");
@@ -28,6 +31,8 @@ public class GenericPageClassProviderTest extends BaseComponentTestCase{
 		ComponentClassProviderContext context = new ComponentClassProviderContext("bar/BazList", spec,
                 namespace);
 		GenericPageClassProvider provider=new GenericPageClassProvider();
+		provider.setEnableGenericPage(true);
+		
 		String className=provider.provideComponentClassName(context);
 		
 		assertEquals(className,"corner.orm.tapestry.page.generic.GenericListPage");
@@ -41,6 +46,23 @@ public class GenericPageClassProviderTest extends BaseComponentTestCase{
 		ComponentClassProviderContext context = new ComponentClassProviderContext("bar/Baz", spec,
                 namespace);
 		GenericPageClassProvider provider=new GenericPageClassProvider();
+		provider.setEnableGenericPage(true);
+		
+		String className=provider.provideComponentClassName(context);
+		
+		assertEquals(className,null);
+		
+	}
+	@Test
+	public void test_disable_load_page(){
+		INamespace namespace = newMock(INamespace.class);
+        IComponentSpecification spec = newSpec();
+        replay();
+		ComponentClassProviderContext context = new ComponentClassProviderContext("bar/BazList", spec,
+                namespace);
+		GenericPageClassProvider provider=new GenericPageClassProvider();
+		
+		
 		String className=provider.provideComponentClassName(context);
 		
 		assertEquals(className,null);

@@ -1,7 +1,20 @@
 <module id="corner.page" version="1.0.0"
 	package="corner.orm.tapestry.generic">
 	
-	<contribution configuration-id="tapestry.page.PageClassProviderChain" if="property enable-generic-page">
-    <command id="corner-class-search" object="instance:corner.orm.tapestry.page.generic.GenericPageClassProvider" after="tapestry.page.namespace-class-search"/>
+	<service-point id="CornerGenericClassProvider"
+		interface="org.apache.tapestry.pageload.ComponentClassProvider">
+		<invoke-factory>
+			<construct class="GenericPageClassProvider">
+				<set property="enableGenericPage"
+					value="${corner.page.enable-generic-page}"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	<contribution configuration-id="hivemind.ApplicationDefaults">
+   <default symbol="corner.page.enable-generic-page" value="false"/>
+  </contribution>
+	
+	<contribution configuration-id="tapestry.page.PageClassProviderChain">
+    <command id="corner-class-search" object="service:CornerGenericClassProvider" after="tapestry.page.namespace-class-search"/>
  </contribution>	
 </module>
