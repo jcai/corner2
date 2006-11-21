@@ -11,6 +11,9 @@ var dlg;
 function init(e) {
 	//use dojo Dialog widget
 	dlg = dojo.widget.byId("DialogContent");
+	if(!dlg){
+	    dlg = dojo.widget.createWidget("Dialog",{},dojo.byId("DialogContent"));
+	}
 	var btn = document.getElementById("hider");
 	dlg.setCloseControl(btn);
 	
@@ -58,7 +61,7 @@ form {
 <a href="javascript:dlg.show()">Show Dialog</a><br>
 <input type="button" id="alertDialog" value="Show Alert Dialog">
 
-<div dojoType="dialog" id="DialogContent" bgColor="white" bgOpacity="0.5" toggle="fade" toggleDuration="250">
+<div id="DialogContent" bgColor="white" bgOpacity="0.5" toggle="fade" toggleDuration="250">
 	<form onsubmit="return false;">
 		<table>
 			<tr>
