@@ -44,7 +44,7 @@ public class RowComponentTest extends BaseComponentTestCase{
 		c.setElementValue(null);
 		
 		assertEquals(c.getValue().size(),1);
-		assertEquals(c.getValue().get(0),"");
+		assertEquals(c.getValue().get(0),null);
 		
 		assertEquals(c.getValue().getRowSum(),0.0);
 		

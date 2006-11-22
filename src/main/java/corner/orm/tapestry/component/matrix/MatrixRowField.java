@@ -97,7 +97,8 @@ public abstract class MatrixRowField extends BaseComponent implements
 				setValue(new MatrixRow());
 			}
 //			if (value != null) {
-				getValue().add(star++, value==null?"":value);
+//			getValue().add(star++, value==null?"":value);
+			getValue().add(star++, value);
 //			}
 		}
 	}
