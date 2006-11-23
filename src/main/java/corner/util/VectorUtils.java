@@ -41,6 +41,7 @@ public final class VectorUtils {
 	
 	/**
 	 * 对向量进行求和.
+	 * 假如向量为空，返回0
 	 * @param v 向量
 	 * @return 求和后的结果.
 	 */
