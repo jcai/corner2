@@ -45,6 +45,9 @@ public final class VectorUtils {
 	 * @return 求和后的结果.
 	 */
 	public static<T> double sum(Vector<T> v){
+		if(v==null){
+			return 0;
+		}
 		StringBuffer sb=new StringBuffer();
 		for(T str:v){
 			if(str!=null){
