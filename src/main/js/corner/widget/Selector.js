@@ -97,7 +97,7 @@ dojo.lang.extend(corner.widget.Selector,{
 			this.domNode.style.textAlign="left";
 			this.downArrowNode.style.verticalAlign="middle";
 	        this.textInputNode.style.verticalAlign="middle";
-			this.textInputNode.style.width=(source.offsetWidth-15)+"px";
+			this.textInputNode.style.width=(source.offsetWidth-20)+"px";
 		},
 		
 		convertResultList:function(results){
