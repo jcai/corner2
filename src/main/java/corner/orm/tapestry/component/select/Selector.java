@@ -50,7 +50,7 @@ public abstract class Selector extends Autocompleter {
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
 	@Parameter(defaultValue="false")
-	public abstract boolean getForceValidOption();
+	public abstract boolean isForceValidOption();
 
 	// @Parameter(required=true,defaultValue="new
 	// corner.orm.tapestry.component.select.SelectorModel()")
@@ -194,7 +194,7 @@ public abstract class Selector extends Autocompleter {
 		if(this.getUpdateFields()!=null){
 			json.put("updateFields",this.getUpdateFields());
 		}
-		json.put("forceValidOption", this.getForceValidOption());
+		json.put("forceValidOption", this.isForceValidOption());
 		//========= end ===============
 
 		
