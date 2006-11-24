@@ -48,4 +48,24 @@ public class InsertTest extends BaseComponentTestCase {
 
 		verify();
 	}
+	@Test
+	public void test_with_empty_string() {
+		IMarkupWriter writer = newWriter();
+		IRequestCycle cycle = newCycle(false);
+
+		Insert insert = newInstance(Insert.class, new Object[] { "value",
+				"1         ", "length",5});
+
+		expect(cycle.renderStackPush(insert)).andReturn(insert);
+
+		writer.print("1...", false);
+
+		expect(cycle.renderStackPop()).andReturn(insert);
+
+		replay();
+
+		insert.render(writer, cycle);
+
+		verify();
+	}
 }
