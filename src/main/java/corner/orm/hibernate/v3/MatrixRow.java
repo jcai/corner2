@@ -61,4 +61,18 @@ public class MatrixRow<T> extends Vector<T> {
 		}
 		return Double.parseDouble(t.toString());
 	}
+	
+	/**
+	 * 以double类型返回matrix中的一个对象,当matrix中对象为空时,返回defaultValue
+	 * @param index
+	 * @param defaultValue
+	 * @return
+	 */
+	public double getDouble(int index, double defaultValue){
+		T t=this.get(index);
+		if(t==null){
+			return defaultValue;
+		}
+		return Double.parseDouble(t.toString());		
+	}
 }
