@@ -29,11 +29,11 @@ public abstract class Insert extends org.apache.tapestry.components.Insert {
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
-
-		if(this.getValue() != null && this.getValue().toString().trim().length()>0 &&
+		String inputValue = this.getValue()!=null?this.getValue().toString().trim():null;
+		if(inputValue != null && inputValue.length()>0 &&
 				this.getLength()>0 &&
-				this.getValue().toString().length()>this.getLength()){//指定的长度小于value的长度
-			StringBuffer buffer = new StringBuffer(this.getValue().toString().trim().substring(0, this.getLength()));
+				inputValue.length()>this.getLength()){//指定的长度小于value的长度
+			StringBuffer buffer = new StringBuffer(inputValue.substring(0, this.getLength()));
 			buffer.append("...");
 			this.setValue(buffer.toString());
 		}
