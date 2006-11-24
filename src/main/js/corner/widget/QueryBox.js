@@ -36,15 +36,18 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		var dpNode = document.createElement("div");
 		dpNode.style.width="100%";
 		this.containerNode.appendChild(dpNode);
-		
+
 		//this.frame=document.createElement("IFrame");
 		var onloadstr='dojo.widget.byId("'+this.widgetId+'").frameOnload();';
 		var onunloadstr='dojo.widget.byId("'+this.widgetId+'").frameOnunload();';
 		var r = dojo.render.html;
 		var ifrstr = ((r.ie)&&(dojo.render.os.win)) ? "<iframe  onLoad='"+onloadstr+"'  >" : "iframe";
 		this.frame = document.createElement(ifrstr);
+		
+
 
 		dpNode.style.backgroundColor="red";
+		
 		dpNode.appendChild(this.frame);
 		
 		
@@ -84,6 +87,8 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		dojo.debug("onload");
 		this.getFrameWindow().queryBox=this;
 		this.getFrameWindow().initBox();
+		dojo.debug("dojo.html.getContentBox(this.getFrameDocument()):"+dojo.html.getBorderBox(this.getFrameDocument().body).width);
+		dojo.html.setContentBox(this.frame,dojo.html.getBorderBox(this.getFrameDocument().body));
 		//dojo.event.connect(this.getFrameWindow(),"onunload",this,"frameOnunload");	
 	},
 	frameOnunload:function(evt){
