@@ -37,4 +37,28 @@ public abstract class MatrixHead extends BaseComponent {
 	@Parameter(required=true)
 	public abstract MatrixRow getRefVector();
 	
+	@Parameter(defaultValue="-1")
+	public abstract int getRefSize();
+	
+	/**
+	 * 是否继续循环.
+	 * @return
+	 */
+	public  boolean isLoop(){
+		if(this.getRefSize()==-1){
+			return true;
+		}
+		return this.getRefSize()>this.getHeadIter().getIndex();
+	}
+	/**
+	 * 是否需要补齐剩下的空格
+	 * @return 
+	 */
+	public boolean isNeedFill(){
+		return this.getRefSize()>this.getRefVector().size();
+	}
+	
+	public int [] getFillSource(){
+		return new int[this.getRefSize()-this.getRefVector().size()];
+	}
 }
