@@ -22,6 +22,7 @@ import corner.orm.hibernate.v3.MatrixRow;
 /**
  * 显示矩阵头的部分.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @author Ghost
  * @version $Revision$
  * @since 2.2.2
  */
@@ -55,7 +56,7 @@ public abstract class MatrixHead extends BaseComponent {
 	 * @return 
 	 */
 	public boolean isNeedFill(){
-		return this.getRefSize()>this.getRefVector().size();
+		return this.getRefSize()>(this.getRefVector()!=null?this.getRefVector().size():0);
 	}
 	
 	public int [] getFillSource(){
