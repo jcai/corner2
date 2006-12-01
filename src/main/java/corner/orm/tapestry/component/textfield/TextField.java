@@ -32,11 +32,12 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 			super.renderFormComponent(writer, cycle);
 		}
 		else{
+			
 			String value = getTranslatedFieldSupport().format(this, getValue());
 	        if(value != null && value.trim().length()>0){
 	        	super.renderFormComponent(writer, cycle);
 	        }
-	        else{
+	        else{//TODO  为什么不能直接使用 setValue(getDefaultValue()) 这样岂不更简单？
 
 		        renderDelegatePrefix(writer, cycle);
 

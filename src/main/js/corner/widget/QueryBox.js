@@ -27,6 +27,7 @@ dojo.inherits(corner.widget.QueryBox,dojo.widget.DropdownContainer);
 dojo.lang.extend(corner.widget.QueryBox,{
 	widgetType : "QueryBox",
 	frame:null,
+	url:null,
 	fillInTemplate: function(args, frag){
 		dojo.debug("fill in template");
 				
@@ -60,10 +61,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 			id:source.id
 		};
 		dojo.debug("wdigetId:::"+this.widgetId);
-		var url="querybox_page.html?widgetId="+this.widgetId;
-		
-
-		this.frame.src=url;//"querybox_page.html?data="+dojo.json.serialize(params); `
+		this.frame.src=this.url;//"querybox_page.html?data="+dojo.json.serialize(params); `
 		if(!r.ie){
 			this.frame.onload = new Function(onloadstr);
 		}
