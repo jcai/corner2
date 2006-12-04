@@ -27,6 +27,9 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  */
 public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 
+	
+	
+	
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityPage#saveOrUpdateEntity()
 	 */

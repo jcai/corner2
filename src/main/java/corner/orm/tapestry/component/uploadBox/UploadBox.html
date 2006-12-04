@@ -1,0 +1,22 @@
+<span jwcid="$content$">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+				<table width="99%" border="0" cellspacing="0" cellpadding="0">
+				  <tr>
+                	<td width="5%">
+					  <div align="center">
+						<input type="checkbox" name="Input" jwcid="isEditBlobField" />
+					  </div></td>
+					<td width="95%"><input type="file" name="blobDataField" jwcid="blobDataField" onchange="Preview()" /></td>
+				  </tr>
+				</table>
+			<td>
+		</tr>
+		<tr>
+			<td>
+				<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="imgview" image="ognl:blobAsset" border="0"/></a>
+			<td>
+		</tr>
+	</table>
+</span>
