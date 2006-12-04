@@ -20,30 +20,11 @@ djConfig = { isDebug: true,
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 var queryBox;
-var pdojo=parent.dojo;
-if(!pdojo){
-	dojo.raise("不能够得到父窗口的dojo对象!");
-}
-function pageOnUnLoad(){
-	alert("unload");
-}
-var radioGroup=['id1','id2','id3','id4','id5','id6'];
-var radioGroupValue=['value1','value2','value3','value4','value5','value6'];
-function initBox(){
-	pdojo.debug("init box");
-	for(var i=0;i<radioGroup.length;i++){
-		obj=dojo.byId(radioGroup[i]);
-		props={label:'label',value:radioGroupValue[i]};
-		obj.setAttribute("object",pdojo.json.serialize(props));
-		pdojo.event.connect(obj,"onclick",queryBox,"onclick");
-	}
-}
-dojo.addOnUnload(function(){
-	for(var i=0;i<radioGroup.length;i++){
-		pdojo.event.disconnect(dojo.byId(radioGroup[i]),"onclick",queryBox,"onclick");
-	}
 	
-});
+function clickRadio(obj){
+	queryBox.onSelect(obj);
+}
+
 //-->
 </SCRIPT>
 </head>
@@ -55,13 +36,7 @@ dojo.addOnUnload(function(){
 		<input type="submit"/>
 	</form>
 			list:<br/>
-<SCRIPT LANGUAGE="JavaScript">
-<!--
-for(var i=0;i<radioGroup.length;i++){
-	document.write("<input type='radio' name='test' id='"+radioGroup[i]+"' />"+radioGroupValue[i]+"<br/>");
-}
-//-->
-</SCRIPT>
+			<input type="radio" label='test' onClick="clickRadio(this)"/> r1
 
 </body>
 </html>

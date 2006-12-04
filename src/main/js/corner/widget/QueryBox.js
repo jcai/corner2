@@ -37,7 +37,8 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		var dpNode = document.createElement("div");
 
 		this.containerNode.appendChild(dpNode);
-
+		dojo.debug("containerNode width "+this.containerNode.style.width);
+		
 		//this.frame=document.createElement("IFrame");
 		var onloadstr='dojo.widget.byId("'+this.widgetId+'").frameOnload();';
 		var onunloadstr='dojo.widget.byId("'+this.widgetId+'").frameOnunload();';
@@ -52,6 +53,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		
 		dpNode.appendChild(this.frame);
 		
+
 		
 		
 		
@@ -85,7 +87,7 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	frameOnload:function(evt){
 		dojo.debug("onload");
 		this.getFrameWindow().queryBox=this;
-		this.getFrameWindow().initBox();
+
 		dojo.debug("dojo.html.getContentBox(this.getFrameDocument()):"+dojo.html.getBorderBox(this.getFrameDocument().body).width);
 		
 		
@@ -101,6 +103,14 @@ dojo.lang.extend(corner.widget.QueryBox,{
 		obj=dojo.json.evalJson(obj);	
 		this.inputNode.value=obj.value;
 		this.hideContainer();		
+	},
+	onSelect:function(obj){
+		this.processSelectedObj(obj);
+		this.hideContainer();
+	},
+	processSelectedObj:function(obj){
+		//TODO add self code 
+		dojo.debug("select object"+obj);
 	},
 	getFrameWindow:function(){
 	  return dojo.html.iframeContentWindow(this.frame);
