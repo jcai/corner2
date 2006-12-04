@@ -19,12 +19,24 @@ djConfig = { isDebug: true,
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-dojo.addOnLoad(function(evt){
+/* dojo.addOnLoad(function(evt){
 	dojo.event.connect(dojo.byId('r1'),"onclick",function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		queryBox.onSelect(src);
 		
 	});
+}); */
+	
+dojo.event.connect("before",window,"onload",function(e) {
+
+
+dojo.debug("init selected field");
+dojo.event.connect(dojo.byId("r1"),"onclick",function(evt){
+	var src=dojo.html.getEventTarget(evt);
+	parent.dojo.debug("event"+evt+" src:"+src);
+	queryBox.onSelect(src);
+});
+
 });
 
 //-->
