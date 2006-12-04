@@ -8,4 +8,15 @@
 		<asset-encoder id="asset" path="/assets"/>
 		<extension-encoder id="ext" extension="svc" after="*"/>
 	</contribution>
+	
+		<!-- override default response builder -->
+	<implementation service-id="tapestry.services.DefaultResponseContributor">
+			<invoke-factory>
+            <construct class="corner.demo.PianoResponseContributorImpl" >
+                <set-service property="localeManager" service-id="tapestry.request.RequestLocaleManager"/>
+                <set-object property="markupWriterSource"  value="infrastructure:markupWriterSource"/>
+                <set-object property="webResponse" value="infrastructure:response"/>
+            </construct>
+    </invoke-factory>
+	</implementation>
 </module>

@@ -31,4 +31,7 @@
   <component-type type="MatrixHead" specification-path="matrix/MatrixHead.jwc"/>
   <component-type type="MatrixRowField" specification-path="matrix/MatrixRowField.jwc"/>
   
+  <component-type type="QueryBoxField" specification-path="textfield/QueryBox.jwc"/>
+  <component-type type="SelectedField" specification-path="textfield/SelectedField.jwc"/>
+  
 </library-specification>

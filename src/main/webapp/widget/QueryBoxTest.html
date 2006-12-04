@@ -1,0 +1,23 @@
+<span jwcid="@DemoBorder">
+<form jwcid="AForm">
+	<input jwcid="queryBoxField" />
+	<br/>
+	<input type="submit"/>
+</form>	
+<script>
+<!--
+
+
+dojo.event.connect("after",window,"onload",function(e) {
+	 w=dojo.widget.byId("queryBoxField");
+	 dojo.event.connect(w,"processSelectedObj",dojo.lang.hitch(w,function(obj){
+			dojo.debug(obj.getAttribute("label"));
+			dojo.debug(this.inputNode);
+			this.inputNode.value=obj.getAttribute("label");
+		}));
+	
+	});
+
+//-->
+</script>
+</span>

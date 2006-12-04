@@ -53,15 +53,17 @@ public abstract class QueryBoxField extends TextField  {
 		  JSONObject json=new JSONObject();
 		  //widgetID
 		  json.put("widgetId",getClientId());
+		  json.put("inputId", getClientId());
+	      json.put("inputName", getName());
 		  //构造查询页面的URL
-		  json.put("url",this.getPageService().getLink(false, this.getQueryPageName()));
+		  json.put("url",this.getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL());
 		  parms.put("props", json.toString());
 		 
 		 PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 	        getScript().execute(this, cycle, prs, parms);
 	}
 
-	@InjectScript("QueryBoxy.script")
+	@InjectScript("QueryBox.script")
 	public abstract IScript getScript();
 	
 }
