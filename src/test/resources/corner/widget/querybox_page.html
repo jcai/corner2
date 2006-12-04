@@ -19,11 +19,13 @@ djConfig = { isDebug: true,
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-//var queryBox;
-	
-function clickRadio(obj){
-	queryBox.onSelect(obj);
-}
+dojo.addOnLoad(function(evt){
+	dojo.event.connect(dojo.byId('r1'),"onclick",function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		queryBox.onSelect(src);
+		
+	});
+});
 
 //-->
 </SCRIPT>
@@ -36,7 +38,7 @@ function clickRadio(obj){
 		<input type="submit"/>
 	</form>
 			list:<br/>
-			<input type="radio" label='test' onClick="clickRadio(this)"/> r1
+			<input type="radio" label='你好呀' id='r1' /> r1
 
 </body>
 </html>
