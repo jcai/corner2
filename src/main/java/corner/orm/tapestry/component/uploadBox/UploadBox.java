@@ -39,6 +39,12 @@ public abstract class UploadBox extends BaseComponent{
 	 */
 	@Parameter(required=true)
 	public abstract boolean isEditBlob();
+	
+	/**
+	 * 是否是图片文件
+	 * @return 如果是图片文件返回true
+	 */
+	public abstract boolean isImageFile();
 
 	/**
 	 * 得到blob服务。

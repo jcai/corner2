@@ -15,7 +15,12 @@
 		</tr>
 		<tr>
 			<td>
-				<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="imgview" image="ognl:blobAsset" border="0"/></a>
+				<span jwcid="@If" condition="ognl:ImageFile eq true">
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="imgview" image="ognl:blobAsset" border="0"/></a>
+				</span>
+				<span jwcid="@Else">
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">查看</a>
+				</span>
 			<td>
 		</tr>
 	</table>
