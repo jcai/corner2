@@ -34,6 +34,7 @@
     <binding name="uploadFile" value="uploadFile"/>
     <binding name="blobEntity" value="entity"/>
     <binding name="editBlob" value="editBlob"/>
+    <binding name="imageFile" value="true"/>
   </component>
   
     
