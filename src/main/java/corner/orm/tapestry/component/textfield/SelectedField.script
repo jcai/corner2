@@ -9,8 +9,8 @@
 dojo.debug("init selected field");
 dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 	var src=dojo.html.getEventTarget(evt);
-	parent.dojo.debug("event"+evt+" src:"+src);
+	dojo.debug("event"+evt+" src:"+src+" querybox: "+queryBox);
 	queryBox.onSelect(src);
-});
+});  
 </initialization>
 </script>

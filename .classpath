@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/antlr"/>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/js"/>
+	<classpathentry excluding="dojo/*|tapestry/*" kind="src" path="src/main/js"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry output="target/test-classes" kind="src" path="src/test/java"/>
 	<classpathentry output="target/test-classes" kind="src" path="src/test/resources"/>
