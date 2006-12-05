@@ -8,7 +8,7 @@
 					  <div align="center">
 						<input type="checkbox" name="Input" jwcid="isEditBlobField" />
 					  </div></td>
-					<td width="95%"><input type="file" name="blobDataField" jwcid="blobDataField" onchange="Preview()" /></td>
+					<td width="95%"><input type="file" name="blobDataField" jwcid="blobDataField"  /></td>
 				  </tr>
 				</table>
 			<td>
@@ -16,7 +16,7 @@
 		<tr>
 			<td>
 				<span jwcid="@If" condition="ognl:ImageFile eq true">
-					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="imgview" image="ognl:blobAsset" border="0"/></a>
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="ImageField" image="ognl:blobAsset" border="0"/></a>
 				</span>
 				<span jwcid="@Else">
 					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">查看</a>
@@ -24,4 +24,25 @@
 			<td>
 		</tr>
 	</table>
+	<!--script type="text/javascript" language="JavaScript">
+		
+		onchange="Preview()"
+		function Preview(){
+    var objimg = dojo.byId('ImageField');
+    var filepath = dojo.byId('blobDataField').value;
+    re='/\\/g';
+    filepath = filepath.replace(re,'/');
+    
+    var fileext = filepath.substring(filepath.length-4,filepath.length)
+    fileext = fileext.toLowerCase();
+    if (fileext=='.gif' || fileext=='.png'){
+        objimg.src="file:///"+filepath;
+        objimg.style.display='';
+    }
+    else{
+        objimg.style.display='none';
+        alert('fafdsaf');
+    }
+}
+	</script-->
 </span>

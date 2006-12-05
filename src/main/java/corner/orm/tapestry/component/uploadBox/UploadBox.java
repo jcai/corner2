@@ -1,8 +1,17 @@
 package corner.orm.tapestry.component.uploadBox;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IAsset;
+import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.IScript;
+import org.apache.tapestry.PageRenderSupport;
+import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.request.IUploadFile;
@@ -19,6 +28,20 @@ import corner.orm.tapestry.service.blob.BlobAsset;
  * @since 2.3
  */
 public abstract class UploadBox extends BaseComponent{
+	
+	@InjectScript("UploadBox.script")
+	public abstract IScript getScript();
+	
+	/**
+	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
+		Map<String, String> parms = new HashMap<String, String>();
+		parms.put("id", this.getClientId());
+		getScript().execute(this, cycle, prs, parms);
+	}
 	
 	/**
 	 * 上传的文件句柄
@@ -59,5 +82,5 @@ public abstract class UploadBox extends BaseComponent{
 	public IAsset getBlobAsset() {
 		return new BlobAsset(this.getBlobService(),this.getPage().getRequestCycle(),getBlobEntity());
 	}
-	
+
 }
