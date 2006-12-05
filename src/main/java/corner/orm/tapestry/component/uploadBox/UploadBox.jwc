@@ -19,4 +19,6 @@
     <binding name="value" value="ognl:editBlob"/>
   </component>
   
+  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
+  
 </component-specification>

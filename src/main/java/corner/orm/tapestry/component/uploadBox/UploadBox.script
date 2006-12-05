@@ -4,24 +4,24 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 
 <script>
-	<body>
-		function preview(){
-		    var objimg = dojo.byId('ImageField');
-		    var filepath = dojo.byId('blobDataField').value;
-		    re='/\\/g';
-		    filepath = filepath.replace(re,'/');
-		    
-		    var fileext = filepath.substring(filepath.length-4,filepath.length)
-		    fileext = fileext.toLowerCase();
-		    if (fileext=='.gif' || fileext=='.png'){
-		        objimg.src="file:///"+filepath;
-		        objimg.style.display='';
-		    }
-		    else{
-		        objimg.style.display='none';
-		        alert('fafdsaf');
-		    }
-		}
-		dojo.event.connect(dojo.byId('blobDataField'),"onchange","preview");
-	</body>
+<initialization>
+	 preview=function(){
+	    var objimg = dojo.byId('ImageField');
+	    var filepath = dojo.byId('blobDataField').value;
+	    re=/\\/g
+	    filepath = filepath.replace(re,'/');
+	    
+	    var fileext = filepath.substring(filepath.length-4,filepath.length)
+	    fileext = fileext.toLowerCase();
+	    if (fileext=='.gif' || fileext=='.png'){
+	        objimg.src="file:///"+filepath;
+	        objimg.style.display='';
+	    }
+	    else{
+	        objimg.style.display='none';
+	        alert('fafdsaf');
+	    }
+	}
+	dojo.event.connect(dojo.byId('blobDataField'),"onchange","preview");
+</initialization>
 </script>

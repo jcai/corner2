@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IAsset;
+import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
@@ -14,7 +15,11 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.form.IFormComponent;
+import org.apache.tapestry.form.ValidatableField;
+import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.request.IUploadFile;
+import org.apache.tapestry.valid.IValidationDelegate;
 
 import corner.model.IBlobModel;
 import corner.orm.tapestry.service.blob.BlobAsset;
@@ -27,16 +32,32 @@ import corner.orm.tapestry.service.blob.BlobAsset;
  * @version $Revision$
  * @since 2.3
  */
-public abstract class UploadBox extends BaseComponent{
+public abstract class UploadBox extends BaseComponent implements IFormComponent, ValidatableField{
 	
 	@InjectScript("UploadBox.script")
 	public abstract IScript getScript();
+	
+	public abstract IForm getForm();
+
+	public abstract void setForm(IForm form);
 	
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		IForm form = TapestryUtils.getForm(cycle, this);
+		this.setForm(form);
+		
+		IValidationDelegate delegate = form.getDelegate();
+
+		delegate.setFormComponent(this);
+		
+		form.getElementId(this);
+		
+		form.getDelegate().writePrefix(writer, cycle, this, null);
+		super.renderComponent(writer, cycle);
+		
 		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("id", this.getClientId());
@@ -82,5 +103,10 @@ public abstract class UploadBox extends BaseComponent{
 	public IAsset getBlobAsset() {
 		return new BlobAsset(this.getBlobService(),this.getPage().getRequestCycle(),getBlobEntity());
 	}
+	
+	/**
+	 * Injected.
+	 */
+	public abstract ValidatableFieldSupport getValidatableFieldSupport();
 
 }
