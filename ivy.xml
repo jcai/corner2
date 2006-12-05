@@ -17,9 +17,10 @@
 		<dependency org="org.hibernate" name="hibernate-annotations" rev="3.2.0.ga" conf="runtime->*"/>
 		<dependency org="spring" name="spring" rev="1.2.8" conf="runtime->*"/>
 		
-		<dependency org="tapestry" name="tapestry-framework" rev="4.1.1-SNAPSHOT" conf="compile->*"/>
-		<dependency org="tapestry" name="tapestry-annotations"	rev="4.1.1-SNAPSHOT" conf="compile->*"/>
-		<dependency org="tapestry" name="tapestry-contrib"		rev="4.1.1-SNAPSHOT" conf="compile->*"/>
+		<dependency org="tapestry" name="tapestry-framework" rev="4.1.1-1119" conf="runtime->*"/>
+		<dependency org="tapestry" name="tapestry-annotations"	rev="4.1.1-1119" conf="runtime->*"/>
+		<dependency org="tapestry" name="tapestry-contrib"		rev="4.1.1-1119" conf="runtime->*"/>
+		<dependency org="backport-util-concurrent" name="backport-util-concurrent"		rev="2.2" conf="runtime->*"/>
 		
 		<dependency org="apache" name="antlr" rev="2.7.6" conf="runtime->*"/>
 		<dependency org="apache" name="hivemind" rev="1.1.1" conf="runtime->*"/>
