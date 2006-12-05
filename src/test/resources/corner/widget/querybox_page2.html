@@ -1,0 +1,56 @@
+
+<html>
+<head>
+<title>Dojo ComboBox Widget Demo</title>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+/* dojo.addOnLoad(function(evt){
+	dojo.event.connect(dojo.byId('r1'),"onclick",function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		queryBox.onSelect(src);
+		
+	});
+}); */
+	
+dojo.event.connect("before",window,"onload",function(e) {
+
+
+dojo.debug("init selected field");
+dojo.event.connect(dojo.byId("r1"),"onclick",function(evt){
+	var src=dojo.html.getEventTarget(evt);
+	parent.dojo.debug("event"+evt+" src:"+src);
+	queryBox.onSelect(src);
+});
+
+});
+
+//-->
+</SCRIPT>
+</head>
+<body style="width:300px;overflow-x:hidden">
+<br/>
+	<form action="?testf=asdf">
+		<input type="text">
+
+		<input type="submit"/>
+	</form>
+			list:<br/>
+			<input type="radio" label='你好呀' id='r1' /> r1
+
+</body>
+</html>
