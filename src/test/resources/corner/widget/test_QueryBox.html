@@ -16,31 +16,71 @@ djConfig = { isDebug: true,
 //-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
+<script type="text/javascript">
+dojo.require("dojo.logging.Logger");
+dojo.log.setLevel(dojo.log.getLevel("WARNING"));
+dojo.require("tapestry.namespace")
+</script>
+	
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</HEAD>
+<BODY>
+<script type="text/javascript"><!--
 
 
+        
+            dojo.require("dojo.widget.Manager");
+            dojo.require("tapestry.widget.Widget");
+            dojo.require("corner.widget.QueryBox");
+        
+    
+
+// --></script>
+
+
+<form method="post" action="/widget/QueryBoxTest,AForm.direct" id="AForm">
+<div style="display:none;" id="AFormhidden"><input type="hidden" name="formids" value="queryBoxField"/>
+<input type="hidden" name="submitmode" value=""/>
+<input type="hidden" name="submitname" value=""/>
+</div>
+
+	<input type="text" name="queryBoxField" value="" id="queryBoxField"/>
+	<br/>
+	<input type="submit"/>
+</form>	
 <script>
 <!--
 
-dojo.require("corner.widget.QueryBox");
-
-dojo.addOnLoad(function(){
-		w=dojo.widget.createWidget("corner:QueryBox",{widgetId:"testQ",url:"querybox_page.html"},dojo.byId("testQ"));
-	 dojo.event.connect(w,"processSelectedObj",function(obj){dojo.debug(obj.getAttribute("label"));});
+/*
+dojo.event.connect("after",window,"onload",function(e) {
+	 w=dojo.widget.byId("queryBoxField");
+	 dojo.event.connect(w,"processSelectedObj",dojo.lang.hitch(w,function(obj){
+			dojo.debug(obj.getAttribute("label"));
+			dojo.debug(this.inputNode);
+			this.inputNode.value=obj.getAttribute("label");
+		}));
 	
 	});
-
+*/
 //-->
 </script>
-</HEAD>
-<BODY>
-<pre>
-对选择的时候，支持查询的widget。
-在查询的时候,支持弹出层的页面跳转，以及对查询页面的缓存.
-TODO:
-    增强美观
-</pre>
-<input id="testQ" ></div>
-$Id$
+
+<!--
+<div jwcid="@contrib:InspectorButton"/>
+-->
+<br/>
+<span>Version:0.0.1  $Revision$ $Date: 2006-07-22 13:23:08Z $ </span>
+<script type="text/javascript"><!--
+dojo.event.connect("before",window,"onload",function(e) {
+dojo.require("tapestry.form");tapestry.form.registerForm("AForm");
+
+        var queryBoxFieldprop={"widgetId":"queryBoxField","inputId":"queryBoxField","inputName":"queryBoxField","url":"querybox_page.html"};
+        tapestry.widget.synchronizeWidgetState("queryBoxField", "corner:QueryBox", queryBoxFieldprop);
+    
+tapestry.form.focusField('queryBoxField');
+tapestry.form.clearProfiles('AForm'); tapestry.form.registerProfile('AForm',{"required":["queryBoxField"],"queryBoxField":{"required":["请输入[NAME]的内容。"]}});
+});
+// --></script>
 </body>
 </html>

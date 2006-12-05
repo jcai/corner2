@@ -86,9 +86,10 @@ dojo.lang.extend(corner.widget.QueryBox,{
 	},
 	frameOnload:function(evt){
 		dojo.debug("onload");
-		this.getFrameWindow().queryBox=this;
+		if(this.getFrameWindow())
+			this.getFrameWindow().queryBox=this;
 
-		dojo.debug("dojo.html.getContentBox(this.getFrameDocument()):"+dojo.html.getBorderBox(this.getFrameDocument().body).width);
+		//dojo.debug("dojo.html.getContentBox(this.getFrameDocument()):"+dojo.html.getBorderBox(this.getFrameDocument().body).width);
 		
 		
 		//dojo.html.setContentBox(this.frame.parentNode,dojo.html.getBorderBox(this.getFrameDocument().body));
