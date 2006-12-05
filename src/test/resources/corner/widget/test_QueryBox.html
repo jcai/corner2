@@ -75,7 +75,7 @@ dojo.event.connect("after",window,"onload",function(e) {
 dojo.event.connect("before",window,"onload",function(e) {
 dojo.require("tapestry.form");tapestry.form.registerForm("AForm");
 
-        var queryBoxFieldprop={"widgetId":"queryBoxField","inputId":"queryBoxField","inputName":"queryBoxField","url":"http://localhost:8080/widget/SelectionListPage.page"};
+        var queryBoxFieldprop={"widgetId":"queryBoxField","inputId":"queryBoxField","inputName":"queryBoxField","url":"querybox_page.html"};
         tapestry.widget.synchronizeWidgetState("queryBoxField", "corner:QueryBox", queryBoxFieldprop);
     
 tapestry.form.focusField('queryBoxField');
