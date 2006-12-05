@@ -2,6 +2,7 @@
 <form jwcid="AForm">
 	<input jwcid="queryBoxField" />
 	<br/>
+	<input id="test"/>
 	<input type="submit"/>
 </form>	
 <script>
@@ -14,6 +15,8 @@ dojo.event.connect("after",window,"onload",function(e) {
 			dojo.debug(obj.getAttribute("label"));
 			dojo.debug(this.inputNode);
 			this.inputNode.value=obj.getAttribute("label");
+			//other field
+			dojo.byId('test').value=obj.getAttribute("asdf");
 		}));
 	
 	});
