@@ -16,41 +16,33 @@ djConfig = { isDebug: true,
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 
+</head>
+<body >
 
-<SCRIPT LANGUAGE="JavaScript">
+	<table>
+		<tr>
+			<td>	<input type="radio" label="label" id="SelectedField"></input>r1</td><td bgcolor="red">asdfasdfasdff</td>
+
+		</tr>
+	</table>
+
+
 <!--
-/* dojo.addOnLoad(function(evt){
-	dojo.event.connect(dojo.byId('r1'),"onclick",function(evt){
-		var src=dojo.html.getEventTarget(evt);
-		queryBox.onSelect(src);
-		
-	});
-}); */
-	
+<div jwcid="@contrib:InspectorButton"/>
+-->
+<br/>
+<span>Version:0.0.1  $Revision$ $Date: 2006-07-22 13:23:08Z $ </span>
+<script type="text/javascript"><!--
 dojo.event.connect("before",window,"onload",function(e) {
 
 
 dojo.debug("init selected field");
-dojo.event.connect(dojo.byId("r1"),"onclick",function(evt){
+dojo.event.connect(dojo.byId("SelectedField"),"onclick",function(evt){
 	var src=dojo.html.getEventTarget(evt);
-	parent.dojo.debug("event"+evt+" src:"+src);
+	dojo.debug("event"+evt+" src:"+src+" querybox: "+queryBox);
 	queryBox.onSelect(src);
-});
+});  
 
 });
-
-//-->
-</SCRIPT>
-</head>
-<body style="width:300px;overflow-x:hidden">
-<br/>
-	<form action="?testf=asdf">
-		<input type="text">
-
-		<input type="submit"/>
-	</form>
-			list:<br/>
-			<input type="radio" label='你好呀' id='r1' /> r1
-
-</body>
+// --></script></body>
 </html>
