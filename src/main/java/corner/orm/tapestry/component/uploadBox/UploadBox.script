@@ -19,7 +19,6 @@
 	    }
 	    else{
 	        objimg.style.display='none';
-	        alert('fafdsaf');
 	    }
 	}
 	dojo.event.connect(dojo.byId('blobDataField'),"onchange","preview");
