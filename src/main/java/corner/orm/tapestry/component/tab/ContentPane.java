@@ -61,7 +61,7 @@ public abstract class ContentPane extends BaseComponent {
 		this.renderInformalParameters(writer, cycle);
 		this.renderBody(writer, cycle);
 		writer.end(this.getElement());
-		String widgetId=this._clientId+"Widget";
+		String widgetId=getClientId()+"Widget";
 		if(this.isSelected()){
 			cycle.setAttribute(TabConstants.TAB_SELECTED_WIDGET_ID_STR, widgetId);
 		}
@@ -70,7 +70,7 @@ public abstract class ContentPane extends BaseComponent {
 		
 		PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 		Map<String,String> map=new HashMap<String,String>();
-		map.put("clientId", this._clientId);
+		map.put("clientId", getClientId());
 		
 		
 		JSONObject json=new JSONObject();

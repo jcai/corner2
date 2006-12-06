@@ -61,7 +61,7 @@ public abstract class TabContainer extends BaseComponent {
 		
 		
 		this.renderInformalParameters(writer, cycle);
-		String widgetId=this._clientId+"Widget";
+		String widgetId=getClientId()+"Widget";
 		
 		JSONArray oldTabs=(JSONArray) cycle.getAttribute(TabConstants.TAB_WIDGETS_ID_COLLECTION_STR);
 		if(oldTabs!=null){
@@ -88,7 +88,7 @@ public abstract class TabContainer extends BaseComponent {
 		//JavaScript参数
 		Map<String,String> map=new HashMap<String,String>();
 				 
-		map.put("clientId", this._clientId);
+		map.put("clientId", getClientId());
 		
 		
 		//设定一些json属性.
@@ -101,7 +101,7 @@ public abstract class TabContainer extends BaseComponent {
 		map.put("selectedWidgetId", selectedWidgetId);
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("containerid::["+this._clientId+"]"); //$NON-NLS-1$
+			logger.debug("containerid::["+getClientId()+"]"); //$NON-NLS-1$
 		}
 
 		getScript().execute(this,cycle, pageRenderSupport, map);
