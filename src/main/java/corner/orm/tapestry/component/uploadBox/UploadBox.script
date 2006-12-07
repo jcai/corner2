@@ -13,7 +13,7 @@
 	    
 	    var fileext = filepath.substring(filepath.length-4,filepath.length)
 	    fileext = fileext.toLowerCase();
-	    if (fileext=='.gif' || fileext=='.png'){
+	    if (fileext=='.gif' || fileext=='.png' || fileext=='.jpg'){
 	        objimg.src="file:///"+filepath;
 	        objimg.style.display='';
 	    }

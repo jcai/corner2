@@ -20,6 +20,7 @@ import org.apache.tapestry.form.ValidatableField;
 import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.request.IUploadFile;
 import org.apache.tapestry.valid.IValidationDelegate;
+import org.apache.tapestry.valid.ValidatorException;
 
 import corner.model.IBlobModel;
 import corner.orm.tapestry.service.blob.BlobAsset;
@@ -60,6 +61,13 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 		super.renderComponent(writer, cycle);
 		
 		if (form.isRewinding()) {
+//			ValidatableField file = (ValidatableField) cycle.getPage().getComponent("blobDataField");
+//			try {
+//				getValidatableFieldSupport().validate(file, writer, cycle,getFileValidator());
+//			} catch (ValidatorException e) {
+//				getForm().getDelegate().record(e);
+//				e.printStackTrace();
+//			}
 			
 		}else{
 			PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
@@ -68,10 +76,14 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 			getScript().execute(this, cycle, prs, parms);
 		}
 		
-		
-		
-		
 	}
+	
+	
+	/**
+	 * 设置上传文件的Validators
+	 */
+//	@Parameter(required=true)
+//	public abstract String getFileValidators();
 	
 	/**
 	 * 上传的文件句柄
