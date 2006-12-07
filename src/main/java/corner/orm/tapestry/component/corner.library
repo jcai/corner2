@@ -35,5 +35,6 @@
   <component-type type="SelectedField" specification-path="textfield/SelectedField.jwc"/>
   
   <component-type type="UploadBox" specification-path="uploadBox/UploadBox.jwc"/>
+  <component-type type="TinyMceEditor" specification-path="tinymce/TinyMceEditor.jwc"/>
   
 </library-specification>
