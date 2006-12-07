@@ -61,13 +61,15 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 		super.renderComponent(writer, cycle);
 		
 		if (form.isRewinding()) {
-//			ValidatableField file = (ValidatableField) cycle.getPage().getComponent("blobDataField");
-//			try {
-//				getValidatableFieldSupport().validate(file, writer, cycle,getFileValidator());
-//			} catch (ValidatorException e) {
-//				getForm().getDelegate().record(e);
-//				e.printStackTrace();
-//			}
+			
+			ValidatableField file = (ValidatableField) getComponent("blobDataField");
+			
+			try {
+				getValidatableFieldSupport().validate(file, writer, cycle,"validators:required");
+			} catch (ValidatorException e) {
+				getForm().getDelegate().record(e);
+				e.printStackTrace();
+			}
 			
 		}else{
 			PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
@@ -110,6 +112,8 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 	 * @return 如果是图片文件返回true
 	 */
 	public abstract boolean isImageFile();
+	
+	public abstract String getMsg();
 
 	/**
 	 * 得到blob服务。

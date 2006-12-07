@@ -11,6 +11,8 @@
 
   <parameter name="imageFile"/>
   
+  <property name="msg" initial-value="literal:查看"/>
+  
   <component type="Upload" id="blobDataField">
     <binding name="displayName" value="message:BlobData"/>
     <binding name="file" value="ognl:uploadFile"/>
