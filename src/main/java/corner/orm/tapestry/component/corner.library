@@ -36,5 +36,6 @@
   
   <component-type type="UploadBox" specification-path="uploadBox/UploadBox.jwc"/>
   <component-type type="TinyMceEditor" specification-path="tinymce/TinyMceEditor.jwc"/>
+  <component-type type="StringCheckbox" specification-path="checkbox/StringCheckbox.jwc"/>
   
 </library-specification>
