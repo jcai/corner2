@@ -251,7 +251,7 @@ public class EntityService {
 	 * @param clazz 实体的类名.
 	 * @return 实体的列表
 	 */
-	public List findAll(Class<?> clazz) {
+	public<T> List<T> findAll(Class<T> clazz) {
 		return ((HibernateObjectRelativeUtils) getObjectRelativeUtils()).getHibernateTemplate().find("from "+clazz.getName());
 		
 	}
