@@ -111,6 +111,7 @@ dojo.lang.extend(corner.widget.Selector,{
 		},
 		postCreate: function(){
 			corner.widget.Selector.superclass.postCreate.call(this);
+			dojo.event.connect("before",this,"_openResultList",this,"convertResultList");
 			dojo.event.connect("before",this,"openResultList",this,"convertResultList");
 			//此处加入对禁用IE缓存的策略 通过动态构建URL
 			//see http://dev.bjmaxinfo.com/projects/manufacturing-system/wiki/2006/10/26/09.11
