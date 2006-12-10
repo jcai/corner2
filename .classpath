@@ -4,9 +4,12 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry excluding="dojo/*|tapestry/*" kind="src" path="src/main/js"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry output="target/test-classes" kind="src" path="src/test/java"/>
-	<classpathentry output="target/test-classes" kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.jayasoft.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/ivy.xml/*"/>
+	<classpathentry kind="lib" path="tmplib/pja.jar"/>
+	<classpathentry kind="lib" path="tmplib/pjatools.jar"/>
+	<classpathentry kind="lib" path="tmplib/tapestry-captcha-0.1-20060603.130242-3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
