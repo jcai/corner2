@@ -8,5 +8,6 @@
 		<validator name="fieldMin" class="FieldMin"/>
 		<validator name="fieldPlusEq" class="FieldPlusEq"/>
 		<validator name="personID" class="PersonID" configurable="false"/>
+		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
 	</contribution>
 </module>

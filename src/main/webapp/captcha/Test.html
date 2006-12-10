@@ -1,6 +1,8 @@
 <span jwcid="@DemoBorder">
 
-	<form>
+	<form jwcid="@Form">
+		<input jwcid="@TextField" validators="validators:captcha" value="ognl:entity.name"/>
+		<input type="submit"/>
 	<span jwcid="@corner:CaptchaImage"/>
 	<span jwcid="@ServiceLink" service="captcha">	asdf	</span>
 	</form>
