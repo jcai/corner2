@@ -1,0 +1,19 @@
+<module id="corner.service" version="1.0.0" package="corner.orm.tapestry.service">
+	<service-point id="CaptchaService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="captcha.CaptchaService">
+				<set-object property="response" value="infrastructure:response"/>
+				<set-object property="request" value="infrastructure:request"/>
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+<!-- contribution -->
+  <contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="captcha" object="service:CaptchaService"/>
+  </contribution>
+  
+
+</module>
