@@ -45,5 +45,13 @@ public class CornerValidationDelegate extends ValidationDelegate{
 			writer.end("div");
             
 		}
+		
+	}
+	/**
+	 * @see org.apache.tapestry.valid.ValidationDelegate#writeSuffix(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle, org.apache.tapestry.form.IFormComponent, org.apache.tapestry.valid.IValidator)
+	 */
+	@Override
+	public void writeSuffix(IMarkupWriter arg0, IRequestCycle arg1, IFormComponent arg2, IValidator arg3) {
+		//do nothing
 	}
 }
