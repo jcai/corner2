@@ -18,6 +18,7 @@ import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
 
 /**
+ * 实现对Blob字段操作的Form页面
  * @author Ghost
  * @version $Revision$
  * @since 2.2.1
