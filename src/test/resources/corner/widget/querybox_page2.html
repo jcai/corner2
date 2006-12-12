@@ -20,11 +20,13 @@ function autofitIframe(id){
 if (!window.opera && !document.mimeType && document.all && document.getElementById){
 parent.document.getElementById(id).style.height=this.document.body.offsetHeight+"px";
 parent.document.getElementById(id).style.width=this.document.body.offsetWidth+"px";
-	
+	parent.dojo.debug("call here");
+	alert("call here");
 }
 else if(document.getElementById) {
 parent.document.getElementById(id).style.height=this.document.body.scrollHeight+"px"
 parent.document.getElementById(id).style.width=this.document.body.scrollWidth+"px";
+parent.dojo.debug("call there");
 
 }
 }
