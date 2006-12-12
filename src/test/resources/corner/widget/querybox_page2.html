@@ -24,16 +24,26 @@ parent.document.getElementById(id).style.width=this.document.body.offsetWidth+"p
 	alert("call here");
 }
 else if(document.getElementById) {
-parent.document.getElementById(id).style.height=this.document.body.scrollHeight+"px"
-parent.document.getElementById(id).style.width=this.document.body.scrollWidth+"px";
+	height=this.document.body.scrollHeight+"px";
+	width=this.document.body.scrollWidth+"px";
+	
+	parent.dojo.debug("height"+height);
+	parent.dojo.debug("width"+width);
+	height=this.document.body.offsetHeight+"px";
+	parent.dojo.debug("height"+height);
+	
+	parent.dojo.byId(id).style.height=height;
+	parent.dojo.byId(id).style.width=width;
 parent.dojo.debug("call there");
+	parent.dlg.placeModalDialog();
+	
 
 }
 }
 </script>
 
-<body onload="autofitIframe('contentFRM')">
-	<table width="1000px">
+<body onresize="autofitIframe('contentFRM')">
+	<table width="500px">
 		<tr><td>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf我们</td></tr>
 	</table>
 <br/>
