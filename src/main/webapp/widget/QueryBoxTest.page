@@ -14,7 +14,7 @@
     <binding value="message:name" name="displayName"/>
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:inputValue" name="value"/>
-	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
+	<binding value="literal:widget/SelectionListPage" name="queryPageName"/>
     <binding name="validators" value="validators:required"/>    
   </component>
 </page-specification>
