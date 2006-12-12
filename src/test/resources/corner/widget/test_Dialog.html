@@ -1,91 +1,12 @@
 <title>Dialog Widget Dojo Tests</title>
 <script type="text/javascript"> djConfig = { isDebug: true }; </script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
-<script type="text/javascript">
-	dojo.require("dojo.widget.Dialog");
-	dojo.require("tapestry.widget.AlertDialog");
-</script>
 
-<script type="text/javascript">
-var dlg;
-function init(e) {
-	//use dojo Dialog widget
-	dlg = dojo.widget.byId("DialogContent");
-	if(!dlg){
-	    dlg = dojo.widget.createWidget("Dialog",{},dojo.byId("DialogContent"));
-	}
-	var btn = document.getElementById("hider");
-	dlg.setCloseControl(btn);
-	
-	//use Tapestry validationDialog widget
-	var ad=dojo.widget.byId("validationDialog");
-	var triggerId = dojo.byId("alertDialog");
-	var alertMessage = "this is an Error message";
-	dojo.event.connect(triggerId,"onclick",this,"showTrigger");
-	this.showTrigger = function(){
-		alert("1");
-		if (ad) {
-				ad.setMessage(alertMessage);
-				ad.show();
-				return;
-			}
-			
-			var node=document.createElement("span");
-			document.body.appendChild(node);
-			var dialog=dojo.widget.createWidget("tapestry:AlertDialog", 
-							{
-								widgetId:"validationDialog",
-								message:alertMessage
-							}, node);
-			dialog.show();
-	}
-}
-dojo.addOnLoad(init);
-
-</script>
-<style type="text/css">
-body { font-family : sans-serif; }
-.dojoDialog {
-	background : #eee;
-	border : 1px solid #999;
-	-moz-border-radius : 5px;
-	padding : 4px;
-}
-
-form {
-	margin-bottom : 0;
-}
-</style>
 </head>
 <body>
-<a href="javascript:dlg.show()">Show Dialog</a><br>
-<input type="button" id="alertDialog" value="Show Alert Dialog">
 
-<div id="DialogContent" bgColor="white" bgOpacity="0.5" toggle="fade" toggleDuration="250">
-	<form onsubmit="return false;">
-		<table>
-			<tr>
-				<td>Name:</td>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-				<td>Location:</td>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-				<td>Description:</td>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-				<td>Location:</td>
-				<td><input type="file"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="button" id="hider" value="OK"></td>
-			</tr>
-		</table>
-	</form>
-</div>
+	<div>
+		<iframe id="contentFRM" src="querybox_page2.html" arginwidth="0" marginheight="0" scrolling="no" frameborder="1"/>
+	</div>
 </body>
 </html>
