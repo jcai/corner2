@@ -52,6 +52,8 @@ public class NumTranslator extends AbstractTranslator {
 	private String validatePattern;
 
 	private String formatPattern;
+	
+	private boolean _omitZero = true;
 
 	public NumTranslator() {
 		this.setPattern(getDefaultPattern());
@@ -73,13 +75,14 @@ public class NumTranslator extends AbstractTranslator {
 	@Override
 	protected String formatObject(IFormComponent field, Locale locale,
 			Object object) {
-		Number number = (Number) object;
-
-		if (number.doubleValue() == 0) { //加入值为0的时候，不显示该值
-
-			return "";
+		
+		if(_omitZero){
+			Number number = (Number) object;
+			if (number.doubleValue() == 0) { //加入值为0的时候，不显示该值
+	
+				return "";
+			}
 		}
-
 		Format format = getFormat(locale);
 
 		return format.format(object);
@@ -169,4 +172,14 @@ public class NumTranslator extends AbstractTranslator {
 		}
 
 	}
+	 /**
+     * If true (which is the default for the property), then values that are 0 are rendered to an
+     * empty string, not "0" or "0.00". This is useful in most cases where the field is optional; it
+     * allows the field to render blank when no value is present.
+     */
+
+    public void setOmitZero(boolean omitZero)
+    {
+        _omitZero = omitZero;
+    }
 }
