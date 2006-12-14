@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import org.apache.hivemind.ApplicationRuntimeException;
+import org.apache.hivemind.HiveMind;
 import org.apache.hivemind.util.PropertyUtils;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
@@ -52,11 +53,20 @@ public class NumTranslator extends AbstractTranslator {
 	private String formatPattern;
 
 	public NumTranslator() {
+		this.setPattern(getDefaultPattern());
 	}
 
 	// TODO: Needed until HIVEMIND-134 fix is available
 	public NumTranslator(String initializer) {
 		PropertyUtils.configureProperties(this, initializer);
+		 if (HiveMind.isBlank(srcPattern))
+	        {
+	            this.setPattern(getDefaultPattern());
+	        }
+	}
+
+	private String getDefaultPattern() {
+		return "{100:0}";
 	}
 
 	@Override
