@@ -25,6 +25,6 @@ public class NumPatternTest extends Assert{
 	public void test_getMessage(){
 		NumPattern pattern=new NumPattern();
 		pattern.setNumPattern("{6:2}");
-		assertEquals(pattern.getMessage(),"错误的数字格式，正确的为：小数点前面6位，后面2位.");
+		assertEquals(pattern.getMessage(),"错误的数字格式，正确的为：小数点前面至多6位，后面至少2位.");
 	}
 }
