@@ -29,6 +29,7 @@ public class NumPattern extends org.apache.tapestry.form.validator.Pattern {
 		String input = (String) object.toString();
 		super.validate(field, messages, input);
 	}
+	
 	/**
 	 * 设定num的样式，需要注意的是，样式的格式一般是：{xx:xx}
 	 * 分别定义了小数点前，和小数点后的出现的数字的个数。
@@ -44,7 +45,7 @@ public class NumPattern extends org.apache.tapestry.form.validator.Pattern {
 	 */
 	@Override
 	public String getMessage() {
-		return pattern.replaceAll("^\\{(\\d+):(\\d+)\\}$","错误的数字格式，正确的为：小数点前面至多$1位，后面至少$2位.");
+		return pattern.replaceAll("^\\{(\\d+):(\\d+)\\}$","错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位.");
 	}
 	
 

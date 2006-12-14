@@ -3,5 +3,6 @@
 	<!-- for trasnlator -->
 	<contribution configuration-id="tapestry.form.translator.Translators">
 		<bean name="vector" class="VectorTranslator"/>
+		<bean name="num" class="NumTranslator"/>
 	</contribution>
 </module>
