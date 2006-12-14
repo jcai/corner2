@@ -15,6 +15,7 @@ package corner.orm.tapestry.translator;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Format;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -125,6 +126,7 @@ public class NumTranslator extends AbstractTranslator {
 		JSONObject cons = profile
 				.getJSONObject(ValidationConstants.CONSTRAINTS);
 
+		//通过正则表达式，对前台输入数据进行验证.
 		accumulateProperty(cons, field.getClientId(),
 				new JSONLiteral("[tapestry.form.validation.isValidPattern,\""
 						+ pattern + "\"]"));
@@ -135,21 +137,18 @@ public class NumTranslator extends AbstractTranslator {
 
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
-		return messages.formatValidationMessage(getMessage(),
+		return messages.formatValidationMessage(getMessage(field.getDisplayName()),
 				ValidationStrings.PATTERN_MISMATCH, new Object[] {
 						field.getDisplayName(), validatePattern });
 	}
 
-	/**
-	 * @see org.apache.tapestry.form.translator.AbstractTranslator#getMessage()
-	 */
-	@Override
-	public String getMessage() {
+	
+	public String getMessage(String filedName) {
 		if (this.srcPattern == null) {
 			return super.getMessage();
 		}
-		return srcPattern.replaceAll(DEFINE_PATTERN,
-				"错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位.");
+		return MessageFormat.format(srcPattern.replaceAll(DEFINE_PATTERN,
+				"{0}是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."),filedName);
 	}
 
 	public void setPattern(String pattern) {
