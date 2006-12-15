@@ -22,6 +22,9 @@ import org.apache.tapestry.valid.ValidatorException;
 /**
  * 提供对String类型的checkbox的支持.
  * <p>tapestry内置的checkbox只能保存boolean类型，而boolean类型在查询的时候不好控制.
+ * 而如果用string类型，他会存true或者false
+ * 
+ * 而本Checkbox提供了一个选中的时候库中存 1,否则存 0
  * 当选中的时候，数据库中保存 1,否则保存 0
  * 
  * 所以采用了String类型来处理.
