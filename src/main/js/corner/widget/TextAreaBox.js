@@ -84,8 +84,12 @@ dojo.widget.defineWidget(
 					}
 				}
 			} 
-			dojo.debug("searchStr is:"+searchStr);
-			this.startSearch(searchStr);
+			dojo.debug("searchStr is:"+searchStr.substr(searchStr.lastIndexOf("+")+1));
+			if(searchStr.indexOf("+")){//出现加号说明使用者已经录入了';',此处把'+'去掉作为查询条件
+				this.startSearch(searchStr.substr(searchStr.lastIndexOf("+")+1));			
+			} else{
+				this.startSearch(searchStr);
+			}
 //			var searchStr = this.textInputNode.value
 //			if(searchStr != null && searchStr.length>0 && searchStr.search(';')>-1){
 //				this.startSearch(searchStr.substr(searchStr.lastIndexOf(';')+1,searchStr.length));
