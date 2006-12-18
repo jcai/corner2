@@ -23,18 +23,20 @@ function init() {
 	
 	dojo.debug('location');
 
-	this.iframe=dojo.html.iframeContentDocument(frame);
+	this.iframe=dojo.html.iframeContentWindow(frame);
 
 	this.iframe.location="querybox_page2.html";
-	dojo.event.connect(this.iframe,'onload',function(evt){
-		dojo.debug('auto fit from this');
-	});
+
+	dojo.debug(this.iframe.dojo);
 }
 dojo.addOnLoad(init);
 function autofitFrame(){
 	dojo.debug('autofitFrame');
 	this.iframe=dojo.html.iframeContentDocument(frame);
 	width=this.iframe.body.scrollWidth;
+	dojo.debug(dojo.html.iframeContentWindow(frame).dojo.addOnLoad(function(){
+		dojo.debug("onload this ");
+	}));
 	dojo.debug("scroll width"+width);
 	dojo.debug("offset width"+this.iframe.body.offsetWidth);
 
