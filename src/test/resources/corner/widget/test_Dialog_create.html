@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Dialog Widget Dojo Tests</title>
+<script type="text/javascript"> djConfig = { isDebug: true }; </script>
+<script type="text/javascript" src="../../../../main/js/dojo/dojo.js"></script>
+<script type="text/javascript">
+	dojo.require("dojo.debug.console");
+	dojo.require("dojo.widget.Dialog");
+</script>
+
+<script type="text/javascript">
+var dlg, dlgProg,frame;
+function init() {
+	var node=document.createElement("span");
+	frame=document.createElement("<iframe id='testIframe' onload=\"autofitFrame()\"></iframe>");
+	node.appendChild(frame);
+	document.body.appendChild(node);
+	
+	dlgProg = dojo.widget.createWidget("dojo:Dialog",{toggle:"fade",toggleDuration:250,widgetId:"testDialog"}, node);
+	dojo.debug(dlgProg.domNode.innerHTML);
+	
+	dojo.debug('location');
+
+	this.iframe=dojo.html.iframeContentDocument(frame);
+
+	this.iframe.location="querybox_page2.html";
+	dojo.event.connect(this.iframe,'onload',function(evt){
+		dojo.debug('auto fit from this');
+	});
+}
+dojo.addOnLoad(init);
+function autofitFrame(){
+	dojo.debug('autofitFrame');
+	this.iframe=dojo.html.iframeContentDocument(frame);
+	width=this.iframe.body.scrollWidth;
+	dojo.debug("scroll width"+width);
+	dojo.debug("offset width"+this.iframe.body.offsetWidth);
+
+	
+}
+</script>
+<style type="text/css">
+body { font-family : sans-serif; }
+.dojoDialog {
+	background : #eee;
+	border : 1px solid #999;
+	-moz-border-radius : 5px;
+	padding : 4px;
+}
+
+form {
+	margin-bottom : 0;
+}
+</style>
+</head>
+<body>
+<a href="javascript:dlgProg.show()">Show Programatic Dialog</a>
+asdfasdfasdf
+</body>
+</html>
+
