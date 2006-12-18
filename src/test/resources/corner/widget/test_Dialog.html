@@ -1,3 +1,5 @@
+<html>
+<head>
 <title>Dialog Widget Dojo Tests</title>
 <script type="text/javascript"> djConfig = { isDebug: true }; </script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
@@ -6,12 +8,13 @@
 
 </script>
 <SCRIPT>
+var width=0;
 	dojo.addOnLoad(function(e){
 	
-	height=dojo.html.iframeContentDocument(dojo.byId('contentFRM')).body.offsetHeight+"px";
-dojo.debug("height"+height);
 	
 	dlg = dojo.widget.createWidget("Dialog",{},dojo.byId("DialogContent"));
+	dojo.debug(dlg);
+	dlg.domNode.style.width=(width+30);
 
 	var btn = dojo.byId("hider");
 	dlg.setCloseControl("hider");
@@ -27,9 +30,12 @@ function autofitIframe(id){
 	height=dojo.html.iframeContentDocument(dojo.byId('contentFRM')).body.offsetHeight+"px";
 dojo.debug("height"+height);
 		this.iframe=dojo.html.iframeContentDocument(dojo.byId('contentFRM'));
-		dojo.debug(this.iframe.body.scrollHeight);
+		dojo.debug("scroll width"+this.iframe.body.scrollWidth);
+		width=this.iframe.body.scrollWidth;
+		dojo.byId('contentFRM').style.width='100%';
 		dojo.debug("dojo.html.getContentBox():"+dojo.html.getBorderBox(this.iframe.body).width);
 		
+
 
 }
 </script>
@@ -45,16 +51,27 @@ body { font-family : sans-serif; }
 form {
 	margin-bottom : 0;
 }
+div#DialogContent { overflow: hidden; }
+div#iframe_container {
+width:318px;
+height:100px;
+overflow-x:hidden;
+overflow-y:scroll;
+}
 </style>
 	
 </head>
 <body>
+
 <a href="javascript:dlg.show()">Show Dialog</a><br>
-	<div id="DialogContent" style="width: 600px; height: 400px;display:'none'">
-		<input type="button" id="hider" value="hide dialog"/><br/>
-		<iframe id="contentFRM" name="contentFRM" onload="autofitIframe('contentFRM')"  src="querybox_page2.html" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"/>
-		
-		<br/>
-	</div>
+
+我们中国人
+
+<div id="DialogContent" >
+	<input type="button" id="hider" value="hide dialog"/><br/>
+	<iframe id="contentFRM" name="contentFRM" onload="autofitIframe('contentFRM')"  src="querybox_page2.html"  marginwidth="0" marginheight="0" scrolling="auto" frameborder="0"/>
+	
+	<br/>
+</div>
 </body>
 </html>

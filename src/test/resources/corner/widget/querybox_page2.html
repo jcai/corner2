@@ -15,34 +15,9 @@ djConfig = { isDebug: true,
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
-<script type="text/javascript">
-function autofitIframe(id){
-if (!window.opera && !document.mimeType && document.all && document.getElementById){
-parent.document.getElementById(id).style.height=this.document.body.offsetHeight+"px";
-parent.document.getElementById(id).style.width=this.document.body.offsetWidth+"px";
-	parent.dojo.debug("call here");
-	alert("call here");
-}
-else if(document.getElementById) {
-	height=this.document.body.scrollHeight+"px";
-	width=this.document.body.scrollWidth+"px";
-	
-	parent.dojo.debug("height"+height);
-	parent.dojo.debug("width"+width);
-//	height=this.document.body.offsetHeight+"px";
-	parent.dojo.debug("height"+height);
-	
-	parent.dojo.byId(id).style.height=height;
-	parent.dojo.byId(id).style.width=width;
-parent.dojo.debug("call there");
 
-	
-
-}
-}
-</script>
-
-<body style="width:300px" >
+<body >
+<div  style="width:532px">
 	<table >
 		<tr><td>asdfasdfasd fasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf我们</td><td>asdf wo </td></tr>
 	</table>
@@ -71,5 +46,6 @@ parent.dojo.debug("call there");
 			<br/>
 			<br/>
 asdfasdf
+</div>
 </body>
 </html>
