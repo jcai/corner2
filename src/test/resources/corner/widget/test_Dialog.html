@@ -8,13 +8,30 @@
 <SCRIPT>
 	dojo.addOnLoad(function(e){
 	
+	height=dojo.html.iframeContentDocument(dojo.byId('contentFRM')).body.offsetHeight+"px";
+dojo.debug("height"+height);
+	
 	dlg = dojo.widget.createWidget("Dialog",{},dojo.byId("DialogContent"));
 
 	var btn = dojo.byId("hider");
 	dlg.setCloseControl("hider");
+	dojo.byId('contentFRM').onload = new Function("autofitIframe()");
 
 	});
 	
+</script>
+	<script type="text/javascript">
+function autofitIframe(id){
+
+	dojo.debug("autofit");
+	height=dojo.html.iframeContentDocument(dojo.byId('contentFRM')).body.offsetHeight+"px";
+dojo.debug("height"+height);
+		this.iframe=dojo.html.iframeContentDocument(dojo.byId('contentFRM'));
+		dojo.debug(this.iframe.body.scrollHeight);
+		dojo.debug("dojo.html.getContentBox():"+dojo.html.getBorderBox(this.iframe.body).width);
+		
+
+}
 </script>
 <style type="text/css">
 body { font-family : sans-serif; }
@@ -33,9 +50,9 @@ form {
 </head>
 <body>
 <a href="javascript:dlg.show()">Show Dialog</a><br>
-	<div id="DialogContent" style="width: 600px; height: 400px;">
+	<div id="DialogContent" style="width: 600px; height: 400px;display:'none'">
 		<input type="button" id="hider" value="hide dialog"/><br/>
-		<iframe id="contentFRM"  src="querybox_page2.html" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"/>
+		<iframe id="contentFRM" name="contentFRM" onload="autofitIframe('contentFRM')"  src="querybox_page2.html" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"/>
 		
 		<br/>
 	</div>
