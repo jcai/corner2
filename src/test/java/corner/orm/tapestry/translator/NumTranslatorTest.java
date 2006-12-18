@@ -31,6 +31,21 @@ import org.testng.annotations.Test;
 public class NumTranslatorTest extends BaseValidatorTestCase{
 
 	@Test
+	public void test_parse_negative() throws ValidatorException{
+		NumTranslator translator=new NumTranslator();
+		translator.setPattern("{6:2}");
+		
+		IFormComponent field=newField();
+		ValidationMessages messages=this.newMessages();
+		EasyMock.expect(messages.getLocale()).andReturn(Locale.getDefault());
+		String text="-21.12";
+		
+		replay();
+		Number n=(Number) translator.parseText(field, messages, text);
+		assertEquals((double)-21.12,n);
+		verify();
+	}
+	@Test
 	public void test_parse() throws ValidatorException{
 		NumTranslator translator=new NumTranslator();
 		translator.setPattern("{6:2}");

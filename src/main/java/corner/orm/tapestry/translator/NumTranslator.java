@@ -46,6 +46,8 @@ public class NumTranslator extends AbstractTranslator {
 	private RegexpMatcher _matcher = new RegexpMatcher();
 
 	private static final String DEFINE_PATTERN = "^\\{(\\d+):(\\d+)\\}$";
+	private static final String NEGATIVE_STR="-?";
+	private static final String REPLACE_STR="\\\\d{0,$1}(\\\\.\\\\d{0,$2})?\\";
 
 	private String srcPattern;
 
@@ -54,6 +56,7 @@ public class NumTranslator extends AbstractTranslator {
 	private String formatPattern;
 	
 	private boolean _omitZero = true;
+	private boolean _negative=true;
 
 	public NumTranslator() {
 		this.setPattern(getDefaultPattern());
@@ -154,13 +157,27 @@ public class NumTranslator extends AbstractTranslator {
 				"{0}是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."),filedName);
 	}
 
+	/**
+	 * 得到被替换的字符串
+	 * @return 
+	 */
+	private String getReplaceString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append("^");
+		if(this.isNegative()){ //判断是否有负数
+			sb.append(NEGATIVE_STR);
+		}
+		sb.append(REPLACE_STR);
+		sb.append("$");
+		return sb.toString();
+	}
 	public void setPattern(String pattern) {
 		if (!pattern.matches(DEFINE_PATTERN)) {
 			throw new ApplicationRuntimeException("错误的pattern定义，正确的格式应该为：{x:x}");
 		}
 		this.srcPattern = pattern;
-		this.validatePattern = pattern.replaceAll(DEFINE_PATTERN,
-				"^\\\\d{0,$1}(\\\\.\\\\d{0,$2})?\\$");
+		
+		this.validatePattern = pattern.replaceAll(DEFINE_PATTERN,getReplaceString());
 		int places = Integer.parseInt(srcPattern.replaceAll(DEFINE_PATTERN,
 				"$2"));
 		formatPattern = "#";
@@ -182,4 +199,18 @@ public class NumTranslator extends AbstractTranslator {
     {
         _omitZero = omitZero;
     }
+
+	/**
+	 * @return Returns the _negative.
+	 */
+	public boolean isNegative() {
+		return _negative;
+	}
+
+	/**
+	 * @param _negative The _negative to set.
+	 */
+	public void setNegative(boolean _negative) {
+		this._negative = _negative;
+	}
 }
