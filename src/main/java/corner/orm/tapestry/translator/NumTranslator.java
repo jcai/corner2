@@ -71,7 +71,11 @@ public class NumTranslator extends AbstractTranslator {
 	        }
 	}
 
-	private String getDefaultPattern() {
+	/**
+	 * 得到默认的pattern
+	 * @return
+	 */
+	protected String getDefaultPattern() {
 		return "{100:0}";
 	}
 
