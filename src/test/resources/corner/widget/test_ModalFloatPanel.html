@@ -1,0 +1,42 @@
+<title>Dialog Widget Dojo Tests</title>
+<script type="text/javascript"> djConfig = { isDebug: true }; </script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+	<script type="text/javascript">
+	dojo.require("dojo.widget.Dialog");
+	dojo.require("dojo.widget.FloatingPane");
+</script>
+<SCRIPT>
+	dojo.addOnLoad(function(e){
+	
+	dlg = dojo.widget.createWidget("ModalFloatingPane",{},dojo.byId("DialogContent"));
+
+	/*
+	var btn = dojo.byId("hider");
+	dlg.setCloseControl(btn);
+	*/
+	});
+	
+</script>
+<style type="text/css">
+body { font-family : sans-serif; }
+.dojoDialog {
+	background : #eee;
+	border : 1px solid #999;
+	-moz-border-radius : 5px;
+	padding : 4px;
+}
+
+form {
+	margin-bottom : 0;
+}
+</style>
+	
+</head>
+<body>
+<a href="javascript:dlg.show()">Show Dialog</a><br>
+	<div id="DialogContent"  style="width: 400px; height: 200px;">
+		<iframe id="contentFRM"  src="querybox_page2.html" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"/>
+		<input type="button" id="hider"/>
+	</div>
+</body>
+</html>
