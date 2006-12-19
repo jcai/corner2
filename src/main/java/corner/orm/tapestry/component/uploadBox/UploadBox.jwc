@@ -15,11 +15,31 @@
   
   <component type="Upload" id="blobDataField">
     <binding name="displayName" value="message:BlobData"/>
+    <binding name="class" value="inputClass"/>
+    <binding name="validators" value="fileValidators"/>
     <binding name="file" value="ognl:uploadFile"/>
   </component>
   <component type="Checkbox" id="isEditBlobField">
     <binding name="value" value="ognl:editBlob"/>
   </component>
+  
+  <parameter name="displayName">
+    <description>
+      The name of the field, which may be used by a FieldLabel.
+    </description>
+  </parameter>
+    
+   <parameter name="inputClass">
+        <description>
+            展示输入框时候的样式
+        </description>
+    </parameter>
+  		  
+  <reserved-parameter name="name"/>
+  <reserved-parameter name="type"/>
+  <reserved-parameter name="value"/>
+  
+  <parameter name="fileValidators"/>
   
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
   

@@ -62,10 +62,11 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 		
 		if (form.isRewinding()) {
 			
+			
 			ValidatableField file = (ValidatableField) getComponent("blobDataField");
 			
 			try {
-				getValidatableFieldSupport().validate(file, writer, cycle,"validators:required");
+				getValidatableFieldSupport().validate(file, writer, cycle,file);
 			} catch (ValidatorException e) {
 				getForm().getDelegate().record(e);
 				e.printStackTrace();
@@ -79,13 +80,6 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 		}
 		
 	}
-	
-	
-	/**
-	 * 设置上传文件的Validators
-	 */
-//	@Parameter(required=true)
-//	public abstract String getFileValidators();
 	
 	/**
 	 * 上传的文件句柄

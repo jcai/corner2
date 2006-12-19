@@ -13,19 +13,14 @@
   </component>
   <component type="TextField" id="nameField">
     <binding value="message:name" name="displayName"/>
-    <binding value="translator:string" name="translator"/>
-    <binding value="validators:personID" name="validators"/>
-    
     <binding value="ognl:entity.name" name="value"/>
   </component>
     <component type="TextField" id="passwordField">
     <binding value="message:num" name="displayName"/>
-    <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.password" name="value"/>
   </component>
   <component type="TextField" id="colorsField">
     <binding value="message:colors" name="displayName"/>
-    <binding value="translator:vector" name="translator"/>
     <binding value="ognl:entity.colors" name="value"/>
   </component>
 	
@@ -35,7 +30,7 @@
     <binding name="blobEntity" value="entity"/>
     <binding name="editBlob" value="editBlob"/>
     <binding name="imageFile" value="true"/>
-    <!--binding name="fileValidators" value="required"/-->
+    <binding name="fileValidators" value="validators:required"/>
   </component>
   
     
