@@ -47,8 +47,9 @@ dojo.widget.defineWidget(
 
 		this.dlg = dojo.widget.createWidget("dojo:Dialog",{toggle:"fade",toggleDuration:250}, this.dlgDiv);
 		dojo.html.addClass(this.dlg.containerNode, this.dialogClass);
-		this.dlg.containerNode.style.width=this.width;
-		this.dlg.containerNode.style.heigth=this.height;
+		dojo.debug("screent"+screen.height)
+		this.dlg.containerNode.style.width= (screen.width*0.8);
+		this.dlg.containerNode.style.height= (screen.height*0.6);
 		
 	},
 	hideDlg:function(){
