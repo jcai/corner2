@@ -11,7 +11,6 @@ corner.validate.isPictureSize = function(/*String*/value, /*Object?*/flags){
 //summary:
 // 将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true
 	dojo.debug("value :" + value);
-	dojo.debug("fields.length :" + flags.fields.length);
 	dojo.debug("flags[width] :" + flags['width']);
 	dojo.debug("flags[height] :" + flags['height']);
 	
