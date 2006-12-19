@@ -49,7 +49,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 
 		        if (isDisabled()) writer.attribute("disabled", "disabled");
 
-		        writer.attribute("value", this.getDefaultValue());
+		        writer.attribute("value", this.getValue()!=null?this.getValue().toString():this.getDefaultValue());
 
 		        renderIdAttribute(writer, cycle);
 
