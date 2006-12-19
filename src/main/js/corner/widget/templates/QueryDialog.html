@@ -1,0 +1,7 @@
+<div id="${this.widgetId}" class="queryDialog" dojoattachpoint="wrapper">
+	<input type="button" value="Query" dojoattachpoint="queryButtonNode" dojoAttachEvent="onClick: buttonClick"/>
+	<div dojoattachpoint="dlgDiv" style="display:none" class="${this.contentClass}">
+		<input type="button" value="close" dojoattachpoint="hideBtn" dojoAttachEvent="onClick: hideDlg" class="${this.buttonClass}"/><br/>
+		<iframe marginwidth="0" marginheight="0" scrolling="auto" width="100%" height="100%" frameborder="0" dojoattachpoint="frameNode"/>
+	</div>
+</div>

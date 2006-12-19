@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
+<script type="text/javascript">
+dojo.require("dojo.logging.Logger");
+dojo.log.setLevel(dojo.log.getLevel("WARNING"));
+dojo.require("tapestry.namespace")
+</script>
+	
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+
+</HEAD>
+<BODY>
+<div id="testBtn" class="box">
+</div>
+<script type="text/javascript"><!--
+
+dojo.require("corner.widget.QueryDialog");
+
+dojo.addOnLoad(function(evt){
+	widget = 	dojo.widget.createWidget("corner:QueryDialog",{url:"querybox_page2.html"},dojo.byId("testBtn"));
+});
+//-->
+</script>
+
+<br/>
+<span>Version:0.0.1  $Revision$ $Date: 2006-07-22 13:23:08Z $ </span>
+
+</body>
+</html>
