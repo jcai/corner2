@@ -7,6 +7,39 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isPictureSize = function(/*String*/value, /*Object?*/flags){
+//summary:
+// 将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true
+	dojo.debug("value :" + value);
+	dojo.debug("fields.length :" + flags.fields.length);
+	dojo.debug("flags[width] :" + flags['width']);
+	dojo.debug("flags[height] :" + flags['height']);
+	
+	var filepath = document.getElementById(upfile_idfile).value;
+   
+    if (!filepath==""){//为空提示
+    
+	    var fileext = filepath.substring(filepath.length-4,filepath.length);;
+	    
+	    fileext = fileext.toLowerCase();//转为小写
+	    
+	    if (fileext=='.gif' || fileext=='.png' || fileext=='.jpg'){
+	        return false;
+	    }
+	    
+		//
+		var width = dojo.byId('ImageField').width;
+		var height = dojo.byId('ImageField').height;
+		//
+		if(width>flags['width']||height>flags['height']){
+			return false;
+		}
+   		return true;
+   	}else{
+    	return true;
+    }
+}
+
 corner.validate.isFieldPlusEq = function(/*String*/value, /*Object?*/flags){
 //summary:
 // 将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true

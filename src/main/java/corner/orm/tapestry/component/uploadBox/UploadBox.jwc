@@ -9,35 +9,32 @@
 	
 <component-specification class="corner.orm.tapestry.component.uploadBox.UploadBox" allow-body="no" allow-informal-parameters="yes">
 
-  <parameter name="imageFile"/>
-  
-  <property name="msg" initial-value="literal:查看"/>
-  
   <component type="Upload" id="blobDataField">
     <binding name="displayName" value="message:BlobData"/>
-    <binding name="class" value="inputClass"/>
+    <binding name="class" value="fileInputClass"/>
     <binding name="validators" value="fileValidators"/>
     <binding name="file" value="ognl:uploadFile"/>
   </component>
   <component type="Checkbox" id="isEditBlobField">
     <binding name="value" value="ognl:editBlob"/>
+    <binding name="class" value="checkBoxInputClass"/>
   </component>
   
-  <parameter name="displayName">
+  <parameter name="imageFile"/>
+  
+  <property name="msg" initial-value="literal:查看"/>
+  
+  <parameter name="fileInputClass">
     <description>
-      The name of the field, which may be used by a FieldLabel.
+      展示上传框时候的样式
     </description>
   </parameter>
-    
-   <parameter name="inputClass">
-        <description>
-            展示输入框时候的样式
-        </description>
-    </parameter>
-  		  
-  <reserved-parameter name="name"/>
-  <reserved-parameter name="type"/>
-  <reserved-parameter name="value"/>
+  
+  <parameter name="checkBoxInputClass">
+    <description>
+      展示上传框时候的样式
+    </description>
+  </parameter>
   
   <parameter name="fileValidators"/>
   
