@@ -14,18 +14,20 @@
 var dlg, dlgProg,frame;
 function init() {
 	var node=document.createElement("span");
-	frame=document.createElement("<iframe id='testIframe' onload=\"autofitFrame()\"></iframe>");
-	node.appendChild(frame);
+	node.innerHTML="<iframe id=\"testFrame\" src=\"querybox_page2.html\" width=\"100%\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\" frameborder=\"0\"></iframe>";
+
+	//node.appendChild(frame);
 	document.body.appendChild(node);
 	
 	dlgProg = dojo.widget.createWidget("dojo:Dialog",{toggle:"fade",toggleDuration:250,widgetId:"testDialog"}, node);
 	dojo.debug(dlgProg.domNode.innerHTML);
-	
+	dlgProg.domNode.style.width="652px";
 	dojo.debug('location');
+	frame=dojo.byId("testFrame");
 
 	this.iframe=dojo.html.iframeContentWindow(frame);
 
-	this.iframe.location="querybox_page2.html";
+
 
 	dojo.debug(this.iframe.dojo);
 }
