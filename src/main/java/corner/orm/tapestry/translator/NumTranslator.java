@@ -108,6 +108,8 @@ public class NumTranslator extends AbstractTranslator {
 	}
 
 	protected Format getFormat(Locale locale) {
+		//初始化pattern
+		initPattern();
 		return getDecimalFormat(locale);
 	}
 
@@ -126,6 +128,8 @@ public class NumTranslator extends AbstractTranslator {
 	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
 			FormComponentContributorContext context, IFormComponent field) {
 		super.renderContribution(writer, cycle, context, field);
+		//初始化pattern
+		initPattern();
 		String pattern = _matcher.getEscapedPatternString(validatePattern);
 
 		JSONObject profile = context.getProfile();
@@ -158,7 +162,7 @@ public class NumTranslator extends AbstractTranslator {
 			return super.getMessage();
 		}
 		return MessageFormat.format(srcPattern.replaceAll(DEFINE_PATTERN,
-				"{0}是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."),filedName);
+				"{0}是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."+(this.isNegative()?"":"且不能是负数.")),filedName);
 	}
 
 	/**
@@ -175,13 +179,25 @@ public class NumTranslator extends AbstractTranslator {
 		sb.append("$");
 		return sb.toString();
 	}
+	
 	public void setPattern(String pattern) {
 		if (!pattern.matches(DEFINE_PATTERN)) {
 			throw new ApplicationRuntimeException("错误的pattern定义，正确的格式应该为：{x:x}");
 		}
 		this.srcPattern = pattern;
 		
-		this.validatePattern = pattern.replaceAll(DEFINE_PATTERN,getReplaceString());
+		
+	}
+	/**
+	 * 对pattern进行初始化处理
+	 *
+	 */
+	private void initPattern(){
+		if(this.srcPattern==null){
+			throw new ApplicationRuntimeException("初始化pattern错误，没有定义pattern!");
+		}
+		
+		this.validatePattern = srcPattern.replaceAll(DEFINE_PATTERN,getReplaceString());
 		int places = Integer.parseInt(srcPattern.replaceAll(DEFINE_PATTERN,
 				"$2"));
 		formatPattern = "#";
@@ -191,7 +207,6 @@ public class NumTranslator extends AbstractTranslator {
 		while (places-- > 0) {
 			formatPattern += "0";
 		}
-
 	}
 	 /**
      * If true (which is the default for the property), then values that are 0 are rendered to an
