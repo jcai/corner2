@@ -38,6 +38,4 @@
   
   <parameter name="fileValidators"/>
   
-  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
-  
 </component-specification>

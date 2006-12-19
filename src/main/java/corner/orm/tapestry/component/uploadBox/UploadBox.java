@@ -17,10 +17,7 @@ import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidatableField;
-import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.request.IUploadFile;
-import org.apache.tapestry.valid.IValidationDelegate;
-import org.apache.tapestry.valid.ValidatorException;
 
 import corner.model.IBlobModel;
 import corner.orm.tapestry.service.blob.BlobAsset;
@@ -38,39 +35,16 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 	@InjectScript("UploadBox.script")
 	public abstract IScript getScript();
 	
-	public abstract IForm getForm();
-
-	public abstract void setForm(IForm form);
-	
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		IForm form = TapestryUtils.getForm(cycle, this);
-		this.setForm(form);
-		
-		IValidationDelegate delegate = form.getDelegate();
-
-		delegate.setFormComponent(this);
-		
-		form.getElementId(this);
-		
-		form.getDelegate().writePrefix(writer, cycle, this, null);
 		
 		super.renderComponent(writer, cycle);
 		
 		if (form.isRewinding()) {
-			
-			
-			ValidatableField file = (ValidatableField) getComponent("blobDataField");
-			
-			try {
-				getValidatableFieldSupport().validate(file, writer, cycle,file);
-			} catch (ValidatorException e) {
-				getForm().getDelegate().record(e);
-				e.printStackTrace();
-			}
 			
 		}else{
 			PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
@@ -78,7 +52,6 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 			parms.put("id", this.getClientId());
 			getScript().execute(this, cycle, prs, parms);
 		}
-		
 	}
 	
 	/**
@@ -122,10 +95,4 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 	public IAsset getBlobAsset() {
 		return new BlobAsset(this.getBlobService(),this.getPage().getRequestCycle(),getBlobEntity());
 	}
-	
-	/**
-	 * Injected.
-	 */
-	public abstract ValidatableFieldSupport getValidatableFieldSupport();
-
 }
