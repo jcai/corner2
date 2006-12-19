@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test FieldPlusEq validator</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+field 1 <input type="file" id="blobDataField" /><input type="button" id="but" value="ok"><br/>
+	<img jwcid="@Image" id="ImageField" image="ognl:blobAsset" border="0"/>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	dojo.require("corner.validate.web");
+	
+	preview=function(){
+	    var objimg = dojo.byId('ImageField');
+	    var filepath = dojo.byId('blobDataField').value;
+	    re=/\\/g
+	    filepath = filepath.replace(re,'/');
+	    
+	    var fileext = filepath.substring(filepath.length-4,filepath.length)
+	    fileext = fileext.toLowerCase();
+	    if (fileext=='.gif' || fileext=='.png' || fileext=='.jpg'){
+	        objimg.src="file:///"+filepath;
+	        objimg.style.display='';
+	    }
+	    else{
+	        objimg.style.display='none';
+	    }
+	}
+	dojo.event.connect(dojo.byId('blobDataField'),"onchange","preview");
+	
+	
+	
+	
+	val=function(evt){
+		dojo.debug(corner.validate.isPictureSize(dojo.byId("blobDataField").value,{"width":800,"height":1000}));
+	}
+	dojo.event.connect(dojo.byId("but"),"onclick",this,"val");
+	
+//-->
+</SCRIPT>
+	
+</body>
+
+</html>

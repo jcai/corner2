@@ -30,8 +30,8 @@
     <binding name="blobEntity" value="entity"/>
     <binding name="editBlob" value="editBlob"/>
     <binding name="imageFile" value="true"/>
-    <binding name="fileValidators" value="validators:required"/>
-    <!--binding name="fileValidators" value="validators:pictureSize={8000:9999}"/-->
+    <!--binding name="fileValidators" value="validators:required"/-->
+    <binding name="fileValidators" value="validators:pictureSize={1000:1000}"/>
   </component>
   
     

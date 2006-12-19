@@ -14,7 +14,7 @@ corner.validate.isPictureSize = function(/*String*/value, /*Object?*/flags){
 	dojo.debug("flags[width] :" + flags['width']);
 	dojo.debug("flags[height] :" + flags['height']);
 	
-	var filepath = document.getElementById(upfile_idfile).value;
+	var filepath = dojo.byId('blobDataField').value;
    
     if (!filepath==""){//为空提示
     
@@ -22,19 +22,26 @@ corner.validate.isPictureSize = function(/*String*/value, /*Object?*/flags){
 	    
 	    fileext = fileext.toLowerCase();//转为小写
 	    
-	    if (fileext=='.gif' || fileext=='.png' || fileext=='.jpg'){
+	    dojo.debug("fileext value" + fileext);
+	    
+	    if (fileext != '.gif' && fileext != '.png' && fileext != '.jpg'){
+	    	dojo.debug("fileext error" + fileext);
 	        return false;
 	    }
 	    
-		//
+		//获得高和宽
 		var width = dojo.byId('ImageField').width;
 		var height = dojo.byId('ImageField').height;
-		//
+		
+		//判断
 		if(width>flags['width']||height>flags['height']){
+			dojo.debug("width || height error{" + "width = " + width +",height = " +  height +"}");
 			return false;
 		}
+		dojo.debug("true");
    		return true;
    	}else{
+   		dojo.debug("true");
     	return true;
     }
 }

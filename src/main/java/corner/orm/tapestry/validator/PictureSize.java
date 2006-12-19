@@ -76,8 +76,8 @@ public class PictureSize extends BaseValidator{
 	 */
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
-		return messages.formatValidationMessage("{0}图像尺寸：图像尺寸过大！你只能上传尺寸为 128×110的图像，请重新浏览图片！{1}.", null,
-				new Object[] { field.getDisplayName() });
+		return messages.formatValidationMessage("图像尺寸：图像尺寸过大！你只能上传尺寸为 {0}×{1}的图像，请重新浏览图片！.", null,
+				new Object[] { picSize[0],picSize[1] });
 	}
 	
 	
