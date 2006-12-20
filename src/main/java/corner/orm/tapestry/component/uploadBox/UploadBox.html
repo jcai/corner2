@@ -19,7 +19,9 @@
 					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><img jwcid="@Image" id="ImageField" image="ognl:blobAsset" border="0"/></a>
 				</span>
 				<span jwcid="@Else">
+					<span jwcid="@If" condition="ognl:blobEntity.blobData != null">
 					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a>
+					</span>
 				</span>
 			<td>
 		</tr>
