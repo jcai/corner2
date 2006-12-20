@@ -11,18 +11,28 @@ djConfig = { isDebug: true,
                parseWidgets: false
           };
 
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+	<script>
 function autofitThis(){
 	parent.dojo.debug("auto fit this");
 dojo.debug("call form this");
 dojo.debug("width"+this.document.body.scrollWidth);
 
 }
-//-->
-</SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
-<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
-
-<body onload="autofitThis()">
+	dojo.addOnLoad(function(){
+		dojo.event.connect(dojo.byId('r1'),"onclick",function(evt){
+			var src=dojo.html.getEventTarget(evt);
+	dojo.debug("event"+evt+" src:"+src+" querybox: "+queryBox);
+	queryBox.onSelect(src);
+		});
+	});
+	</script>
+</head>
+<body >
 <div  style="width:532px">
 	<table >
 		<tr><td>asdfasdfasd fasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf我们</td><td>asdf wo </td></tr>

@@ -9,19 +9,11 @@
 <script>
 <!--
 
-/*
-dojo.event.connect("after",window,"onload",function(e) {
-	 w=dojo.widget.byId("queryBoxField");
-	 dojo.event.connect(w,"processSelectedObj",dojo.lang.hitch(w,function(obj){
-			dojo.debug(obj.getAttribute("label"));
-			dojo.debug(this.inputNode);
-			this.inputNode.value=obj.getAttribute("label");
-			//other field
-			dojo.byId('test').value=obj.getAttribute("asdf");
-		}));
-	
-	});
-*/
+
+function selectRecord(obj){
+			dojo.byId('test').value=obj.getAttribute("label");
+}
+
 //-->
 </script>
 </span>

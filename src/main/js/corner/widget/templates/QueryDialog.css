@@ -1,3 +1,11 @@
+.frameClass{
+	border: 0px none;
+	margin: 0px;
+	padding: 0px;
+	height: 90%;
+	width: 100%;
+
+}
 .alertButton {
 	width: auto;
 	border: none;

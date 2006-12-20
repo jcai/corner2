@@ -5,8 +5,6 @@
 <script>
 <input-symbol key="id" required="yes" />
 <initialization>
-
-dojo.debug("init selected field");
 dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 	var src=dojo.html.getEventTarget(evt);
 	dojo.debug("event"+evt+" src:"+src+" querybox: "+queryBox);

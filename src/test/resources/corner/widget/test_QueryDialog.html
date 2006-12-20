@@ -34,8 +34,11 @@ dojo.require("tapestry.namespace")
 dojo.require("corner.widget.QueryDialog");
 
 dojo.addOnLoad(function(evt){
-	widget = 	dojo.widget.createWidget("corner:QueryDialog",{url:"querybox_page2.html"},dojo.byId("testBtn"));
+	widget = 	dojo.widget.createWidget("corner:QueryDialog",{url:"querybox_page2.html",selectFun:"selectRecord"},dojo.byId("testBtn"));
 });
+function selectRecord(obj){
+dojo.debug("select record"+obj);
+}
 //-->
 </script>
 
