@@ -1,4 +1,4 @@
-#Mon Dec 04 11:28:59 CST 2006
+#Wed Dec 20 10:03:29 CST 2006
 eclipse.preferences.version=1
 encoding//src/main/webapp/many2many/ABList.page=UTF-8
 encoding//src/main/webapp/many2many2/ABForm.page=UTF-8
@@ -9,6 +9,7 @@ encoding//src/main/webapp/one2many/AForm.page=UTF-8
 encoding//src/main/webapp/one2many/AList.page=UTF-8
 encoding//src/main/webapp/one2many/BForm.page=UTF-8
 encoding//src/main/webapp/widget/QueryBoxTest.page=UTF-8
+encoding//src/main/webapp/widget/QueryDialogTest.page=UTF-8
 encoding//support/build.properties=UTF-8
 encoding/<project>=UTF-8
 encoding/build.properties=UTF-8

@@ -9,9 +9,10 @@
     <body>
     <unique>
     dojo.require("corner.widget.QueryDialog");
+    dojo.require("tapestry.widget.Widget");
     </unique>
     </body>
     <initialization>
-    tapestry.widget.synchronizeWidgetState("${component.clientId}", "corner:Dialog", ${props}, ${component.destroy});
+    tapestry.widget.synchronizeWidgetState("${component.clientId}", "corner:QueryDialog", ${props}, ${component.destroy});
     </initialization>
 </script>

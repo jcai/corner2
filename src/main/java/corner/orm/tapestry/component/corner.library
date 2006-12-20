@@ -38,5 +38,7 @@
   <component-type type="TinyMceEditor" specification-path="tinymce/TinyMceEditor.jwc"/>
   <component-type type="StringCheckbox" specification-path="checkbox/StringCheckbox.jwc"/>
   <component-type type="CaptchaImage" specification-path="captcha/CaptchaImage.jwc"/>
+  <component-type type="PageQueryDialog" specification-path="textfield/PageQueryDialog.jwc"/>
+  <component-type type="DirectQueryDialog" specification-path="textfield/DirectQueryDialog.jwc"/>
   
 </library-specification>
