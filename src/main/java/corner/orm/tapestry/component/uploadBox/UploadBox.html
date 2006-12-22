@@ -17,7 +17,7 @@
 			<td>
 				<span jwcid="@If" condition="ognl:ImageFile eq true">
 					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">
-						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="0"/>
+						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder"/>
 					</a>
 				</span>
 				<span jwcid="@Else">

@@ -39,6 +39,7 @@
   <parameter name="imgHeight">
     <description>图片高度</description>
   </parameter>
+  <parameter name="imgBorder" default-value="0"/>
   
   <parameter name="checkBoxInputClass">
     <description>

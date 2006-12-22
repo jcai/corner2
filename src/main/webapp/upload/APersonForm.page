@@ -34,7 +34,8 @@
     <binding name="fileValidators" value="validators:pictureSize={1000:1000}"/>
     <binding name="imgInputClass" value="literal:test-style"/>
     <binding name="imgWidth" value="literal:50"/>
-    <binding name="imgInputClass" value="literal:100"/>
+    <binding name="imgHeight" value="literal:100"/>
+    <binding name="imgBorder" value="literal:5"/>
   </component>
   
     
