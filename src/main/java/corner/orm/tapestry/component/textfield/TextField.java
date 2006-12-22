@@ -28,7 +28,8 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 */
 	@Override
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
-		if(this.getDefaultValue()==null || this.getDefaultValue().trim().length()<1){
+		Object defaultValue = this.getDefaultValue();
+		if(defaultValue==null || defaultValue.toString().trim().length()<1){
 			super.renderFormComponent(writer, cycle);
 		}
 		else{
@@ -38,31 +39,8 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	        	super.renderFormComponent(writer, cycle);
 	        }
 	        else{//TODO  为什么不能直接使用 setValue(getDefaultValue()) 这样岂不更简单？
-
-		        renderDelegatePrefix(writer, cycle);
-
-		        writer.beginEmpty("input");
-
-		        writer.attribute("type", isHidden() ? "password" : "text");
-
-		        writer.attribute("name", getName());
-
-		        if (isDisabled()) writer.attribute("disabled", "disabled");
-
-		        writer.attribute("value", this.getValue()!=null?this.getValue().toString():this.getDefaultValue());
-
-		        renderIdAttribute(writer, cycle);
-
-		        renderDelegateAttributes(writer, cycle);
-
-		        getTranslatedFieldSupport().renderContributions(this, writer, cycle);
-		        getValidatableFieldSupport().renderContributions(this, writer, cycle);
-
-		        renderInformalParameters(writer, cycle);
-
-		        writer.closeTag();
-
-		        renderDelegateSuffix(writer, cycle);
+	        	this.setValue(this.getDefaultValue());
+	        	super.renderFormComponent(writer, cycle);
 	        }
 		}
 	}
@@ -71,5 +49,5 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 * 取得默认值
 	 * @return
 	 */
-	public abstract String getDefaultValue();
+	public abstract Object getDefaultValue();
 }
