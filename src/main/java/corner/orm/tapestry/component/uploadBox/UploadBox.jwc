@@ -26,13 +26,23 @@
   
   <parameter name="fileInputClass">
     <description>
-      展示上传框时候的样式
+      上传文件的样式
     </description>
+  </parameter>
+  
+  <parameter name="imgInputClass">
+    <description>图片的样式</description>
+  </parameter>
+  <parameter name="imgWidth">
+    <description>图片宽度</description>
+  </parameter>
+  <parameter name="imgHeight">
+    <description>图片高度</description>
   </parameter>
   
   <parameter name="checkBoxInputClass">
     <description>
-      展示上传框时候的样式
+      checkBox的样式
     </description>
   </parameter>
   
