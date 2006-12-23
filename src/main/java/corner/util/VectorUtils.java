@@ -13,12 +13,9 @@
 package corner.util;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -55,7 +52,7 @@ public final class VectorUtils {
 		}
 		StringBuffer sb = new StringBuffer();
 		for (T str : v) {
-			if (str != null) {
+			if (str != null&&str.toString().trim().length()>0) {
 				sb.append(str);
 				sb.append("+");
 			}

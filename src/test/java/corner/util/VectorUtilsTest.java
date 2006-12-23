@@ -51,6 +51,26 @@ public class VectorUtilsTest extends TestCase {
 
 	}
 
+	@Test
+	public void testSumEmptyVector() {
+		Vector<String> v = new Vector<String>();
+		v.add("1");
+		v.add("2");
+		v.add("");
+		v.add("");
+		v.add("");
+		
+		
+		assertEquals(3.0, VectorUtils.sum(v));
+
+		v.add("1.2");
+		assertEquals(4.2, VectorUtils.sum(v));
+
+		v.add("1.258");
+		assertEquals(5.458, VectorUtils.sum(v));
+
+	}
+
 	public void testSumErrorVector() {
 		Vector<String> v = new Vector<String>();
 		v.add("1s");
