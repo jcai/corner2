@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
 @Test
@@ -97,29 +98,36 @@ public class VectorUtilsTest extends TestCase {
 	}
 
 	public void testVectorSplit() {
-		List<Object> strList = VectorUtils.VectorSplit(COMMAEND_ARR[0], ",");
+		List<String> strList = VectorUtils.VectorSplit(COMMAEND_ARR[0], ",");
 		assertEquals(4, strList.size());
 		assertEquals(strList.get(0).toString(), "");
 		assertEquals(strList.get(1).toString(), "a");
 		assertEquals(strList.get(2).toString(), "b");
 		assertEquals(strList.get(3).toString(), "");
 
-		List<Object> strList1 = VectorUtils.VectorSplit(COMMAEND_ARR[1], ",");
+		List<String> strList1 = VectorUtils.VectorSplit(COMMAEND_ARR[1], ",");
 		assertEquals(2, strList1.size());
 		assertEquals(strList1.get(0).toString(), "");
 		assertEquals(strList1.get(1).toString(), "");
 
-		List<Object> strList2 = VectorUtils.VectorSplit(COMMAEND_ARR[2], ",");
+		List<String> strList2 = VectorUtils.VectorSplit(COMMAEND_ARR[2], ",");
 		assertEquals(4, strList2.size());
 		assertEquals(strList2.get(0).toString(), "");
 		assertEquals(strList2.get(1).toString(), "");
 
-		List<Object> strList3 = VectorUtils.VectorSplit(COMMAEND_ARR[3], ",");
+		List<String> strList3 = VectorUtils.VectorSplit(COMMAEND_ARR[3], ",");
 		assertEquals(3, strList3.size());
 		assertEquals(strList3.get(0).toString(), "a");
 		assertEquals(strList3.get(1).toString(), "b");
 		assertEquals(strList3.get(2).toString(), "");
+		
+		List<String> strList4 = VectorUtils.VectorSplit("1,2,,,,", ",");
+		assertEquals(6,strList4.size());
+		
 
+		String[] list5=StringUtils.splitPreserveAllTokens("1,2,,,,",",");
+		
+		assertEquals(6,list5.length);
 	}
 
 }
