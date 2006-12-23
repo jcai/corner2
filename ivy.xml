@@ -21,7 +21,7 @@
 		<dependency org="tapestry" name="tapestry-annotations"	rev="4.1.1-1212" conf="compile->*"/>
 		<dependency org="tapestry" name="tapestry-contrib"		rev="4.1.1-1212" conf="compile->*"/>
 		<dependency org="backport-util-concurrent" name="backport-util-concurrent"		rev="2.2" conf="compile->*"/>
-		<dependency org="apache" name="commons-lang" rev="2.1" conf="test->*" />
+		<dependency org="apache" name="commons-lang" rev="2.1" conf="compile->*" />
 		
 
 		
