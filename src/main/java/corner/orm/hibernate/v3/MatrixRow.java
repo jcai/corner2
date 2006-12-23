@@ -56,7 +56,7 @@ public class MatrixRow<T> extends Vector<T> {
 	 */
 	public double getDouble(int index){
 		T t=this.get(index);
-		if(t==null){
+		if(t==null||t.toString().trim().length()==0){
 			return 0;
 		}
 		return Double.parseDouble(t.toString());
