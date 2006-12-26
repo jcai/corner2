@@ -19,7 +19,6 @@ import org.apache.tapestry.IPage;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
-import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.model.IBlobModel;
