@@ -2,7 +2,7 @@
 	package="corner.orm.tapestry.worker">
 	
 	<!--  generic worker -->
-	<!-- contribution configuration-id="tapestry.annotation.SecondaryAnnotationWorkers" if="class org.apache.tapestry.annotations.SecondaryAnnotationWorker"> 
-    <worker object="instance:MagicFieldWorker"/>
-  </contribution -->
+	<contribution configuration-id="tapestry.annotation.SecondaryAnnotationWorkers" if="class org.apache.tapestry.annotations.SecondaryAnnotationWorker"> 
+		<worker object="instance:MagicFieldWorker"/>
+	</contribution>
 </module>
