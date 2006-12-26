@@ -16,8 +16,10 @@ import java.text.SimpleDateFormat;
 
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.model.IBlobModel;
@@ -27,6 +29,7 @@ import corner.orm.tapestry.service.blob.BlobAsset;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
 import corner.service.EntityService;
+import corner.util.CornerUtils;
 
 /**
  * 抽象的实体类.
@@ -96,6 +99,26 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 */
 	@InjectObject("service:tapestry.data.DataSqueezer")
 	public abstract DataSqueezer getDataSqueezer();
+	
+	/**
+	 * 对给定的Object进行序列化.
+	 * @param obj 待处理的对象。
+	 * @return 序列化后的结果.
+	 * @since 2.3
+	 */
+	public String squeezeObject(Object obj){
+		return this.getDataSqueezer().squeeze(obj);
+	}
+	/**
+	 * 给给定的字符串进行处理，提供给传递JS使用的字符串.
+	 * @param str 待处理的字符串.
+	 * @return 处理完的字符串.
+	 * @since 2.3
+	 * @see TapestryUtils#enquote(String)
+	 */
+	public String enquoteString(String str){
+		return CornerUtils.enquoteString(str);
+	}
 
 	/**
 	 * 提供entity页面的跳转

@@ -90,4 +90,9 @@ public class EntityPageTest extends BaseComponentTestCase {
 		verify();
 		
 	}
+	@Test
+	public void test_enquoteString(){
+		AbstractEntityPage page=(AbstractEntityPage) newInstance(AbstractEntityPage.class);
+		assertEquals(page.enquoteString("asdf'a'\n\'sdf'asdf"),"asdf'a'\\n'sdf'asdf");
+	}
 }
