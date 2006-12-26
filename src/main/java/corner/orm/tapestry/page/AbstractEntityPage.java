@@ -113,7 +113,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * @param str 待处理的字符串.
 	 * @return 处理完的字符串.
 	 * @since 2.3
-	 * @see TapestryUtils#enquote(String)
+	 * @see CornerUtils#enquoteString(String)
 	 */
 	public String enquoteString(String str){
 		return CornerUtils.enquoteString(str);
