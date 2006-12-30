@@ -71,4 +71,16 @@ public class MatrixRow<T> extends Vector<T> {
 		}
 		return Double.parseDouble(t.toString());		
 	}
+	/**
+	 * 总是得到一个值，无论是超过边界.
+	 * @param index 索引。
+	 * @param defaultValue 默认值。
+	 * @return 数值.
+	 */
+	public double getDoubleWithAnyway(int index,double defaultValue){
+		if(index<this.size()){
+			return getDouble(index,defaultValue);
+		}
+		return defaultValue;
+	}
 }

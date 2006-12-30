@@ -12,6 +12,7 @@
 
 package corner.orm.hibernate.v3;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -19,10 +20,11 @@ import org.testng.annotations.Test;
  * @version $Revision$
  * @since 2.3
  */
-public class MatrixRowTest {
+public class MatrixRowTest extends Assert{
 
 	@Test
 	public void testSumValue(){
-		
+		MatrixRow<Double> m=new MatrixRow<Double>();
+		assertEquals(m.getDoubleWithAnyway(2,2.1),2.1);
 	}
 }
