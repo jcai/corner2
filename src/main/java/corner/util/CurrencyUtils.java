@@ -120,7 +120,7 @@ public class CurrencyUtils {
 	}
 
 	/**
-	 * 提供两个数字的乘法(v1*v2)
+	 * 提供两个数字的乘法(v1与v2相乘) 
 	 * 
 	 * @param v1
 	 *            值1
