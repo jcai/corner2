@@ -58,7 +58,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	            writer.attribute("value", value);
 	        
 	        //把该TextArea设置成ReadOnly
-	        writer.attribute("readonly", "readonly");
+	        writer.attribute("readonly", "true");
 
 	        renderIdAttribute(writer, cycle);
 

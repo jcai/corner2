@@ -54,11 +54,14 @@ public abstract class MatrixRowField extends BaseComponent implements
 	@Parameter
 	public abstract Object getDefaultValue();
 	
+	@Parameter(defaultValue="false")
+	public abstract Boolean getReadOnly();
+	
 	@Parameter(defaultValue = "translator:string")
 	public abstract Translator getTranslator();
 
 	@Component(type = "TextField", bindings = { "displayName=displayName",
-			"class=inputClass", "value=elementValue", "translator=translator","defaultValue=defaultValue" })
+			"class=inputClass", "value=elementValue", "translator=translator","defaultValue=defaultValue","readOnly=readOnly" })
 	public abstract TextField getElementTextField();
 
 	public abstract IForm getForm();
