@@ -64,6 +64,25 @@ public class ExpressionParserTest extends TestCase {
 	 * Test method for
 	 * {@link corner.orm.hibernate.expression.ExpressionParser#parseStringExpression(java.lang.String)}.
 	 */
+	public void testParseEmptyStringAndExpression() {
+		String client_str = "我们 AND fdsa ";
+		Iterator<ExpPair> r = ExpressionParser
+				.parseStringExpression(client_str).iterator();
+		ExpPair p = r.next();
+		assertEquals("我们", p.value);
+
+		assertEquals(" ", p.exp.toLowerCase());
+
+		p = r.next();
+		assertEquals("fdsa", p.value);
+		assertEquals("and", p.exp.toLowerCase());
+
+	}
+
+	/**
+	 * Test method for
+	 * {@link corner.orm.hibernate.expression.ExpressionParser#parseStringExpression(java.lang.String)}.
+	 */
 	public void testParseOrExpression() {
 		String client_str = "你好 or fdsa";
 		Iterator<ExpPair> r = ExpressionParser

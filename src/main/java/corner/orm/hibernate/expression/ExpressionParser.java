@@ -27,7 +27,7 @@ public class ExpressionParser {
 	/** 对日期类型的数据进行分析 **/
 	public final static String DATE_PATTERN="^([\\d]*)~([\\d]*)$";
 	/** 对表达式的模式进行分析 **/
-	public final static String EXP_PATTERN="^([^\\s]*)(([\\s]+(AND|OR)[\\s]+([^\\s]+))*)$";
+	public final static String EXP_PATTERN="^([^\\s]*)(([\\s]+(AND|OR)[\\s]+([^\\s]+))*)\\s*$";
 	/** 对表达式的字模式进行分析 **/
 	public final static String EXP_SUB_PATTER="[\\s]+(AND|OR)[\\s]+([^\\s]+)";
 	

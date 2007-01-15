@@ -46,6 +46,16 @@ public class NewExpressionExampleTest extends TestCase {
 		 String [] expectParameterValues={"acai","other","pasdf"};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
+	public void testSqltrim(){
+		 A a=new A();
+		 String[] pros={"userName","password"};
+		 String [] columns={"user_name","password"};
+		 String [] proValues={"acai and other   ","pasdf"};
+		 
+		 String expectSql="((   user_name=? and user_name=?) and password=?)";
+		 String [] expectParameterValues={"acai","other","pasdf"};
+		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
+	}
 	public void testManySql(){
 		 A a=new A();
 		 String[] pros={"userName","password"};
