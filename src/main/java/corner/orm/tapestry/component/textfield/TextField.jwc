@@ -25,6 +25,12 @@
     </description>
   </parameter>
   
+  <parameter name="readOnly" default-value="false">
+    <description>
+      Give a ReadOnly attribute if the set this property true.
+    </description>
+  </parameter>
+  
   <parameter name="disabled">
     <description>
       If true, then the disabled attribute will be written on render, and the

@@ -29,19 +29,64 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	@Override
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		Object defaultValue = this.getDefaultValue();
-		if(defaultValue==null || defaultValue.toString().trim().length()<1){
-			super.renderFormComponent(writer, cycle);
-		}
-		else{
-			
-			String value = getTranslatedFieldSupport().format(this, getValue());
-	        if(value != null && value.trim().length()>0){
-	        	super.renderFormComponent(writer, cycle);
-	        }
-	        else{//TODO  为什么不能直接使用 setValue(getDefaultValue()) 这样岂不更简单？
-	        	this.setValue(this.getDefaultValue());
-	        	super.renderFormComponent(writer, cycle);
-	        }
+		boolean isReadOnly = this.getReadOnly() != null ?this.getReadOnly().booleanValue():false; 
+		if(isReadOnly){
+			String value = null;
+			if(defaultValue==null || defaultValue.toString().trim().length()<1){
+				value = getTranslatedFieldSupport().format(this, getValue());
+			}
+			else{
+		        if(value != null && value.trim().length()>0){
+		        	value = getTranslatedFieldSupport().format(this, getValue());
+		        }
+		        else{
+		        	value = getTranslatedFieldSupport().format(this, this.getDefaultValue());
+		        }
+			}
+	        renderDelegatePrefix(writer, cycle);
+
+	        writer.beginEmpty("input");
+
+	        writer.attribute("type", isHidden() ? "password" : "text");
+
+	        writer.attribute("name", getName());
+
+	        if (isDisabled()) 
+	            writer.attribute("disabled", "disabled");
+
+	        if (value != null) 
+	            writer.attribute("value", value);
+	        
+	        //把该TextArea设置成ReadOnly
+	        writer.attribute("readonly", "readonly");
+
+	        renderIdAttribute(writer, cycle);
+
+	        renderDelegateAttributes(writer, cycle);
+
+	        getTranslatedFieldSupport().renderContributions(this, writer, cycle);
+	        getValidatableFieldSupport().renderContributions(this, writer, cycle);
+
+	        renderInformalParameters(writer, cycle);
+	        
+	        writer.closeTag();
+
+	        renderDelegateSuffix(writer, cycle);
+		} else{
+			if(defaultValue==null || defaultValue.toString().trim().length()<1){
+				super.renderFormComponent(writer, cycle);
+			}
+			else{
+				
+				String value = getTranslatedFieldSupport().format(this, getValue());
+		        if(value != null && value.trim().length()>0){
+		        	super.renderFormComponent(writer, cycle);
+		        }
+		        else{//TODO  为什么不能直接使用 setValue(getDefaultValue()) 这样岂不更简单？
+		        	this.setValue(this.getDefaultValue());
+		        	super.renderFormComponent(writer, cycle);
+		        }
+			}
 		}
 	}
 
@@ -50,4 +95,11 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 * @return
 	 */
 	public abstract Object getDefaultValue();
+	
+	/**
+	 * 取得该TextField的属性
+	 * true:该TextField为readonly;false:该TextField不是readonly
+	 * @return
+	 */
+	public abstract Boolean getReadOnly();
 }
