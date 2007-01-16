@@ -48,6 +48,7 @@ import org.apache.tapestry.web.WebSession;
  */
 public class CaptchaService implements IEngineService {
 	public static final String SERVICE_NAME = "captcha";
+	public static final String SESSION_ATTRIBUTE_ID="corner.orm.tapestry.service.captcha";
 	/** 构建动态的连接工厂类 **/
 	private LinkFactory _linkFactory;
 
@@ -84,8 +85,7 @@ public class CaptchaService implements IEngineService {
 	 * @see org.apache.tapestry.engine.IEngineService#service(org.apache.tapestry.IRequestCycle)
 	 */
 	public void service(IRequestCycle cycle) throws IOException {
-		final String sid = getSessionId();//产生session的ID
-		final String randomStr=RandomUtil.encodeStr(sid);
+		final String randomStr=createAndSaveRandomId();
 		final BufferedImage image = this.createCaptch(randomStr); //产生随机图片
 		//得到图片的数据
 		final ImageWriter writer = getImageWriter(mimeType);
@@ -96,9 +96,12 @@ public class CaptchaService implements IEngineService {
 		out.write(bytes);
 	}
 	
-	private String getSessionId() {
+	private String createAndSaveRandomId() {
 		final WebSession session = _request.getSession(true);
-		return session.getId();
+		String randomStr=RandomUtil.generateUUIDString();
+		String randomCode=RandomUtil.encodeStr(randomStr);
+		session.setAttribute(SESSION_ATTRIBUTE_ID, randomStr);
+		return randomCode;
 	}
 
 	BufferedImage createCaptch(String code) {

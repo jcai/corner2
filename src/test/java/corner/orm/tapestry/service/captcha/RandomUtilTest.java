@@ -12,6 +12,7 @@
 
 package corner.orm.tapestry.service.captcha;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -19,9 +20,13 @@ import org.testng.annotations.Test;
  * @version $Revision$
  * @since 2.3
  */
-public class RandomUtilTest {
+public class RandomUtilTest extends Assert {
 	@Test
 	public void test_createEncodeStr(){
 		RandomUtil.encodeStr("hello");
+	}
+	@Test
+	public void test_generate_randomStr(){
+		assertNotNull(RandomUtil.generateUUIDString());
 	}
 }

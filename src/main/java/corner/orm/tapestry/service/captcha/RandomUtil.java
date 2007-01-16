@@ -13,6 +13,7 @@
 package corner.orm.tapestry.service.captcha;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.id.UUIDHexGenerator;
 
 /**
  * 产生随即码的类.
@@ -22,6 +23,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class RandomUtil {
 
+	private static UUIDHexGenerator GENERATOR=new UUIDHexGenerator();
 	/**
 	 * 产生一个四位的验证码
 	 * @param string 原字符串
@@ -35,5 +37,12 @@ public class RandomUtil {
 		sb.append(str.charAt(23));
 		sb.append(str.charAt(31));
 		return sb.toString();
+	}
+	/**
+	 * 随机产生一个UUID字符串.
+	 * @return 随机的UUID字符串.
+	 */
+	public static String generateUUIDString(){
+		return  GENERATOR.generate(null,null).toString();
 	}
 }

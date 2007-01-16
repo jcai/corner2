@@ -17,6 +17,7 @@ import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
 import org.apache.tapestry.valid.ValidatorException;
 
+import corner.orm.tapestry.service.captcha.CaptchaService;
 import corner.orm.tapestry.service.captcha.RandomUtil;
 
 /**
@@ -41,7 +42,7 @@ public class CaptchaValidator extends BaseValidator{
 	 * @see org.apache.tapestry.form.validator.Validator#validate(org.apache.tapestry.form.IFormComponent, org.apache.tapestry.form.ValidationMessages, java.lang.Object)
 	 */
 	public void validate(IFormComponent field, ValidationMessages messages, Object object) throws ValidatorException {
-		String sid=field.getPage().getRequestCycle().getInfrastructure().getRequest().getSession(false).getId();
+		String sid=(String) field.getPage().getRequestCycle().getInfrastructure().getRequest().getSession(false).getAttribute(CaptchaService.SESSION_ATTRIBUTE_ID);
 		if(sid==null){
 			return;
 		}
