@@ -27,6 +27,13 @@ public class BeanUtilsTest extends TestCase {
 		assertEquals("test",BeanUtils.getProperty(a,"Name"));
 	}
 
-	
+	/**
+	 * 当给定的实体中不包含要查找的属性的时候，返回null
+	 *
+	 */
+	public void testGetNoProperty(){
+		A a = new A();
+		assertNull(BeanUtils.getProperty(a, "test"));
+	}
 
 }
