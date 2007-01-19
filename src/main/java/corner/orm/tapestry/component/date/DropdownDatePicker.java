@@ -12,11 +12,13 @@
 
 package corner.orm.tapestry.component.date;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
@@ -25,7 +27,6 @@ import org.apache.tapestry.dojo.form.AbstractFormWidget;
 import org.apache.tapestry.form.TranslatedField;
 import org.apache.tapestry.form.TranslatedFieldSupport;
 import org.apache.tapestry.form.ValidatableFieldSupport;
-import org.apache.tapestry.form.translator.DateTranslator;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
@@ -41,9 +42,26 @@ public abstract class DropdownDatePicker extends AbstractFormWidget implements
 	/** parameter. */
 	public abstract String getValue();
 
+	/**
+	 * 设置给定model中对应的属性
+	 * 
+	 * @param value
+	 */
 	public abstract void setValue(String value);
 
+	/**
+	 * 是否为不可用
+	 * 
+	 * @see org.apache.tapestry.form.IFormComponent#isDisabled()
+	 */
 	public abstract boolean isDisabled();
+
+	/**
+	 * 判断是否自动带有当前日期 true:自动带有当前日期;false:不带有当前日期
+	 * 
+	 * @return
+	 */
+	public abstract boolean isCurrentDate();
 
 	/**
 	 * Alt html text for the date icon, what is displayed when mouse hovers over
@@ -52,11 +70,23 @@ public abstract class DropdownDatePicker extends AbstractFormWidget implements
 	public abstract String getIconAlt();
 
 	/**
+	 * 设置一个日期类型的pattern
+	 * 
+	 * @param pattern
+	 */
+	public abstract void setPattern(String pattern);
+
+	/**
+	 * 得到一个日期类型的pattern
+	 * 
+	 * @return
+	 */
+	public abstract String getPattern();
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected void renderFormWidget(IMarkupWriter writer, IRequestCycle cycle) {
-		// dojo dates are in POSIX style formats so we format the value manually
-		DateTranslator translator = (DateTranslator) getTranslator();
 
 		renderDelegatePrefix(writer, cycle);
 
@@ -80,10 +110,20 @@ public abstract class DropdownDatePicker extends AbstractFormWidget implements
 		json.put("inputId", getClientId());
 		json.put("inputName", getName());
 		json.put("iconAlt", getIconAlt());
-		json.put("displayFormat", translator.getPattern());
+		json.put("displayFormat", getPattern());
 
 		if (getValue() != null) {
-			json.put("value", getValue());
+			try {
+				json.put("value", (new SimpleDateFormat(getPattern()))
+						.parse(getValue()));
+			} catch (ParseException e) {
+				throw new ApplicationRuntimeException(
+						"corner:DropdownDatePicker组件中使用给定的Pattern解析录入的时候字符串出错!");
+			}
+		} else {
+			if (isCurrentDate()) {
+				json.put("value", (new Date()).getTime());
+			}
 		}
 
 		json.put("disabled", isDisabled());
@@ -104,11 +144,11 @@ public abstract class DropdownDatePicker extends AbstractFormWidget implements
 		String value = cycle.getParameter(getName());
 
 		try {
-			Date date = (Date) getTranslatedFieldSupport().parse(this, value);
-
+			String date = (String) getTranslatedFieldSupport().parse(this,
+					value);
+			// 对录入的date字符串进行验证，判断该字符串是否是时间(无默认的validator)
 			getValidatableFieldSupport().validate(this, writer, cycle, date);
-			String timeValue = new SimpleDateFormat("yyyy-MM-dd").format(date);
-			setValue(timeValue);
+			setValue(date);
 		} catch (ValidatorException e) {
 			getForm().getDelegate().record(e);
 		}
