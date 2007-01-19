@@ -41,6 +41,7 @@ public class A extends AbstractModel implements IBlobModel {
 	private double maxnum;
 	private double plusnum;
 	private String birthday;
+	private Date parkTime;
 	/**
 	 * @return Returns the birthday.
 	 */
@@ -156,5 +157,19 @@ public class A extends AbstractModel implements IBlobModel {
 
 	public void setPlusnum(double plusnum) {
 		this.plusnum = plusnum;
+	}
+
+	/**
+	 * @return Returns the parkTime.
+	 */
+	public Date getParkTime() {
+		return parkTime;
+	}
+
+	/**
+	 * @param parkTime The parkTime to set.
+	 */
+	public void setParkTime(Date parkTime) {
+		this.parkTime = parkTime;
 	}
 }
