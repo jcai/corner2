@@ -1,5 +1,7 @@
 package corner.demo.model.one;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
@@ -38,6 +40,21 @@ public class A extends AbstractModel implements IBlobModel {
 	private double num;
 	private double maxnum;
 	private double plusnum;
+	private String birthday;
+	/**
+	 * @return Returns the birthday.
+	 */
+	public String getBirthday() {
+		return birthday;
+	}
+
+	/**
+	 * @param birthday The birthday to set.
+	 */
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	/**
 	 * @return Returns the num.
 	 */

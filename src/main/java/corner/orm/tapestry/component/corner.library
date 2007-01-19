@@ -40,5 +40,6 @@
   <component-type type="CaptchaImage" specification-path="captcha/CaptchaImage.jwc"/>
   <component-type type="PageQueryDialog" specification-path="textfield/PageQueryDialog.jwc"/>
   <component-type type="DirectQueryDialog" specification-path="textfield/DirectQueryDialog.jwc"/>
+  <component-type type="DropdownDatePicker" specification-path="date/DropdownDatePicker.jwc"/>
   
 </library-specification>
