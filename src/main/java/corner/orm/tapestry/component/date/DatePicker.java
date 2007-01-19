@@ -15,6 +15,7 @@ package corner.orm.tapestry.component.date;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -29,7 +30,6 @@ import org.apache.tapestry.form.AbstractFormComponent;
 import org.apache.tapestry.form.TranslatedField;
 import org.apache.tapestry.form.TranslatedFieldSupport;
 import org.apache.tapestry.form.ValidatableFieldSupport;
-import org.apache.tapestry.form.translator.StringTranslator;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -163,6 +163,9 @@ public abstract class DatePicker extends AbstractFormComponent implements
 		writer.beginEmpty("input");
 		writer.attribute("type", "text");
 		writer.attribute("name", name);
+		if(isCurrentDate() && (value == null || value.length()<1)){
+			value = new SimpleDateFormat(getPattern()).format(new Date());
+		}
 		writer.attribute("value", value);
 		writer.attribute("title", title);
 
