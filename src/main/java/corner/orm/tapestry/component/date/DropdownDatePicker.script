@@ -8,11 +8,13 @@
     <body>
         <unique>
 			dojo.require("corner.widget.DropdownDatePicker");
-			dojo.require("dojo.widget.*");
-			dojo.require("dojo.widget.DropdownDatePicker");
+			dojo.require("dojo.html.*");
         </unique>
     </body>
     <initialization>
+    	var sourceNode = dojo.byId("${clientId}");
         tapestry.widget.synchronizeWidgetState("${clientId}", "corner:DropdownDatePicker", ${props});
+        var targetNode = dojo.widget.byId("${clientId}");
+        dojo.html.copyStyle(targetNode, sourceNode);
     </initialization>
 </script>

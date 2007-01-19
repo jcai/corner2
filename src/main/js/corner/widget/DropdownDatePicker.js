@@ -3,7 +3,6 @@
  */
 dojo.provide("corner.widget.DropdownDatePicker");
 dojo.require("dojo.widget.DropdownDatePicker");
-dojo.require("dojo.widget.*");
 //定义一个DropdownDatePicker的widget.
 dojo.widget.defineWidget("corner.widget.DropdownDatePicker");
 

@@ -1,0 +1,44 @@
+<span jwcid="@DemoBorder">
+<style>
+	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+	background-color: #FFFDEC;
+	border: 1px solid #CCCCCC;
+	width: 98%;
+	}
+	.input-form-99{
+		width: 99%;
+	}
+.right-td-width-bg,.right-td-width,.right-td-width-readonly{
+	color: #000066;
+	background-color: #ffffff;
+	width: 35%;
+	line-height: 22px;
+	text-align: center;
+}
+
+.wrapper{
+	text-align:left;
+}
+</style>
+    <a jwcid="@PageLink" page="one/AList">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" /><input jwcid="passwordField"/>colors:<input jwcid="colorsField"/>
+          </td>
+        </tr>
+		  <tr>
+	  		  <td colspan="2"><input class="input-form-ajax-99" jwcid="bornDateField"/></td>
+		  </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+</span>

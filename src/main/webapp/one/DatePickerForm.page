@@ -27,4 +27,22 @@
     <binding value="translator:vector" name="translator"/>
     <binding value="ognl:entity.colors" name="value"/>
   </component>
+  <!--
+<component type="corner:DropdownDatePicker" id="birthdayField">
+    <binding value="message:colors" name="displayName"/>
+    <binding value="ognl:entity.birthday" name="value"/>
+  </component>
+<component type="DropdownTimePicker" id="parkTimeField">
+    <binding value="message:colors" name="displayName"/>
+    <binding value="translator:date,pattern=hh-mm-ss" name="translator"/>
+    <binding name="iconAlt" value="literal:请选择时间" />
+    <binding name="disabled" value="true"/>
+    <binding value="ognl:entity.parkTime" name="value"/>
+  </component>
+-->
+<component type="corner:DatePicker" id="bornDateField">
+    <binding value="message:colors" name="displayName"/>
+    <binding value="ognl:entity.bornDate" name="value"/>
+    <binding name="disabled" value="false"/>
+</component>
 </page-specification>

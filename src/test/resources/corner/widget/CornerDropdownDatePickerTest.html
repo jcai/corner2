@@ -14,22 +14,45 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript">
-	dojo.require("corner.widget.DropdownDatePicker");
-	dojo.require("dojo.widget.*");
+
 	dojo.require("dojo.widget.DropdownDatePicker");
 </script>
+<style>
+	.input-form,.input-form-99,.input-form-ajax,.input-form-readonly,.input-form-ajax-99{
+	font-size: 12px;
+	line-height: 18px;
+	color: #000066;
+	background-color: #FFFDEC;
+	border: 1px solid #CCCCCC;
+	width: 98%;
+	}
+	.input-form-99{
+		width: 99%;
+	}
+.right-td-width-bg,.right-td-width,.right-td-width-readonly{
+	color: #000066;
+	background-color: #ffffff;
+	width: 35%;
+	line-height: 22px;
+	text-align: center;
+}
+
+.wrapper{
+	text-align:left;
+}
+</style>
 </head>
 
 <body>
 <table>
 	<tr>
 		<td class="right-td-width">
-			<span id="tab"/>
+			<input type="text" class="input-form-ajax-99" readonly="true" id="tab"/>
 		</td>
 	</tr>
 </table>	
 </body>
 		<script language="javascript">
-			dojo.widget.createWidget("corner:DropdownDatePicker",null,dojo.byId("tab"));
+			dojo.widget.createWidget("DropdownDatePicker",null,dojo.byId("tab"));
 		</script>
 </html>

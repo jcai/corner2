@@ -7,8 +7,9 @@ dojo.require("dojo.ns");
 	var map = {
 		html: {
 			"Selector": "corner.widget.Selector",
-			"TextAreaBox":"corner.widget.TextAreaBox"
-			"QueryBox":"corner.widget.QueryBox"
+			"TextAreaBox":"corner.widget.TextAreaBox",
+			"QueryBox":"corner.widget.QueryBox",
+			"DropdownDatePicker":"corner.widget.DropdownDatePicker"
 		}
 	};
 	

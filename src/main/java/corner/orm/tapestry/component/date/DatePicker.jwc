@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+
+<component-specification class="corner.orm.tapestry.component.date.DatePicker" allow-body="no">
+  
+  <description>
+    Provides a form Date field component for selecting dates.
+    DatePicker presents a drop down monthly calendar for users to select dates from.
+  </description>
+ 
+  <parameter name="value" required="yes"/>
+  <parameter name="disabled"/>
+  <parameter name="includeWeek"/>
+  <parameter name="icon" default-value="asset:defaultIcon"/>
+  <!-- 是否自动带有默认日期: true:带有,false:不带 -->
+  <parameter name="currentDate" default-value="true"/>
+  <!-- 录入日期的格式 -->
+  <parameter name="pattern" default-value="literal:yyyy-MM-dd"/>
+  
+  <parameter name="displayName"/>
+  <parameter name="translator" default-value="translator:string"/>
+  <parameter name="validators"/>
+  <parameter name="id" property="idParameter" default-value="id"/>
+  <parameter name="title"/>
+  <parameter name="imageClass" default-value="literal:datePickerImg" />
+  
+  <asset name="defaultIcon" path="DatePickerIcon.png"/>
+  
+  <reserved-parameter name="name"/>
+  <reserved-parameter name="type"/>  
+       
+  <inject property="script" type="script" object="DatePicker.script"/>
+  <inject property="translatedFieldSupport" object="service:tapestry.form.TranslatedFieldSupport"/>
+  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
+    
+</component-specification>

@@ -40,20 +40,19 @@ public class A extends AbstractModel implements IBlobModel {
 	private double num;
 	private double maxnum;
 	private double plusnum;
-	private String birthday;
-	private Date parkTime;
+	private String bornDate;
 	/**
-	 * @return Returns the birthday.
+	 * @return Returns the bornDate.
 	 */
-	public String getBirthday() {
-		return birthday;
+	public String getBornDate() {
+		return bornDate;
 	}
 
 	/**
-	 * @param birthday The birthday to set.
+	 * @param bornDate The bornDate to set.
 	 */
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setBornDate(String bornDate) {
+		this.bornDate = bornDate;
 	}
 
 	/**
@@ -157,19 +156,5 @@ public class A extends AbstractModel implements IBlobModel {
 
 	public void setPlusnum(double plusnum) {
 		this.plusnum = plusnum;
-	}
-
-	/**
-	 * @return Returns the parkTime.
-	 */
-	public Date getParkTime() {
-		return parkTime;
-	}
-
-	/**
-	 * @param parkTime The parkTime to set.
-	 */
-	public void setParkTime(Date parkTime) {
-		this.parkTime = parkTime;
 	}
 }
