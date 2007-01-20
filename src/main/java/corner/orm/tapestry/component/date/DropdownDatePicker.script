@@ -7,14 +7,16 @@
 <input-symbol key="props" required="yes" />
     <body>
         <unique>
-			dojo.require("corner.widget.DropdownDatePicker");
-			dojo.require("dojo.html.*");
+           dojo.require("dojo.widget.Manager");
+           dojo.require("tapestry.widget.Widget");
+		   dojo.require("corner.widget.DropdownDatePicker");
+		   dojo.require("dojo.html.*");
         </unique>
     </body>
     <initialization>
     	var sourceNode = dojo.byId("${clientId}");
         tapestry.widget.synchronizeWidgetState("${clientId}", "corner:DropdownDatePicker", ${props});
-        var targetNode = dojo.widget.byId("${clientId}");
+        var targetNode = dojo.byId("${clientId}");
         dojo.html.copyStyle(targetNode, sourceNode);
     </initialization>
 </script>
