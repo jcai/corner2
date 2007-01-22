@@ -111,6 +111,9 @@ public abstract class DropdownDatePicker extends AbstractFormWidget implements
 		json.put("inputName", getName());
 		json.put("iconAlt", getIconAlt());
 		json.put("displayFormat", getPattern());
+		
+		//需要copyClasses
+		json.put("copyClasses", true);
 
 		if (getValue() != null) {
 			try {

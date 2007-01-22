@@ -12,10 +12,6 @@
         </unique>
     </body>
     <initialization>
-    	var sourceNode = dojo.byId("${clientId}");
         tapestry.widget.synchronizeWidgetState("${clientId}", "DropdownDatePicker", ${props});
-        var targetNode = dojo.byId("${clientId}");
-        targetNode.readOnly="true";
-        dojo.html.copyStyle(targetNode, sourceNode);
     </initialization>
 </script>
