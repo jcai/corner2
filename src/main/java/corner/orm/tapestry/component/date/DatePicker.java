@@ -196,6 +196,8 @@ public abstract class DatePicker extends AbstractFormComponent implements
 		writer.attribute("alt", getMessages().getMessage("alt"));
 		writer.attribute("border", 0);
 		writer.attribute("class", getImageClass());
+		//让图片与input对其的style
+		writer.attribute("align", "absbottom");
 
 		if (!disabled)
 			writer.end();
