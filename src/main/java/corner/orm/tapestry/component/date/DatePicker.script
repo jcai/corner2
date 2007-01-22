@@ -53,7 +53,7 @@ var ${calendarObject};
 ${calendarObject} = new Calendar();
 </if>
 <if expression="value != null">
-${calendarObject} = new Calendar(${value.time});
+${calendarObject} = new Calendar(${value});
 </if>	
 ${calendarObject}.initialize([${monthNames}],
   [${shortMonthNames}],
