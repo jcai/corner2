@@ -237,10 +237,10 @@
 	<!-- ================================= 
 	target: 部署
 	================================= -->
-		<target name="deploy" description="部署jar以及javadoc到目录" depends="install,javadoc">
-			  <copy todir="${deploy.dir}">
-			    <fileset dir="${dist.dir}"/>
-			  </copy>
+		<target name="deploy" description="部署jar以及javadoc到目录"  depends="install,javadoc">
+			<exec  executable="scp" >
+			  <arg line=" -r ${dist.dir} jcai@168.168.168.205:public_html/projs/corner/"/>
+			</exec>
 		</target>
 	
 	<!-- ================================= 
