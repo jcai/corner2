@@ -38,5 +38,7 @@ public class HanziUtilsTest extends Assert {
 		assertEquals("za asdf",HanziUtils.getPinyin("长a asdf"));
 		assertEquals("za nh",HanziUtils.getPinyin("长a 你好"));
 		assertEquals("za 　nh",HanziUtils.getPinyin("长a 　你好"));
+		assertEquals(" ",HanziUtils.getPinyin(" "));
+		
 	}
 }
