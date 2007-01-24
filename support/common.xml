@@ -218,6 +218,30 @@
 		<echo
 			message="project ${ant.project.name} released with version ${revision}"/>
 	</target>
+	<!-- ================================= 
+	target: 生成JavaDoc
+	================================= -->
+		<target name="javadoc" description="创建Javadoc文档">
+			<mkdir dir="${dist.dir}/docs/api"/>
+			<javadoc sourcepath="${project.src.java.dir}" splitindex="true"
+				use="true" version="true" destdir="${dist.dir}/docs/api"
+				encoding="utf-8" charset="utf-8" source="1.5" linksource="yes"
+				packagenames="corner.*"
+				classpathref="build.compile.classpath"
+				windowtitle="${ant.project.name} API"
+				>
+				<doctitle><![CDATA[<h1>${ant.project.name} ${project.version} API</h1>]]></doctitle>
+				<bottom><![CDATA[<i>Copyright &#169; 2006-2007 Beijing Maxinfo Technology Ltd. All Rights Reserved.</i>]]></bottom>
+			</javadoc>
+		</target>
+	<!-- ================================= 
+	target: 部署
+	================================= -->
+		<target name="deploy" description="部署jar以及javadoc到目录" depends="install,javadoc">
+			  <copy todir="${deploy.dir}">
+			    <fileset dir="${dist.dir}"/>
+			  </copy>
+		</target>
 	
 	<!-- ================================= 
 	target: 清除              
