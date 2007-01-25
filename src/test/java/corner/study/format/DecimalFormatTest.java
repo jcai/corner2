@@ -1,14 +1,12 @@
 package corner.study.format;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.Format;
 import java.text.ParseException;
 import java.util.Locale;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.testng.annotations.Test;
 
 public class DecimalFormatTest {
