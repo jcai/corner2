@@ -39,15 +39,23 @@ public class CaptchaServiceTest extends BaseComponentTestCase{
 		WebRequest request = newRequest();
 		WebSession session=newMock(WebSession.class);
 		
-		EasyMock.expect(request.getSession(true)).andReturn(session);
-		EasyMock.expect(session.getId()).andReturn("sessionid");
+//		EasyMock.expect(request.getSession(true)).andReturn(session);
+		
+//		EasyMock.expect(session.getId()).andReturn("sessionid");
 		
 		response.setContentLength(EasyMock.anyInt());
 		FileOutputStream out=new FileOutputStream(new File("target/test.jpg"));
 		EasyMock.expect(response.getOutputStream( EasyMock.isA(ContentType.class))).andReturn(out);
 		
 		replay();
-		CaptchaService service=new CaptchaService();
+		CaptchaService service=new CaptchaService(){
+
+			@Override
+			protected void recordRandomString(String randomStr) {
+				//do nothing
+			}
+			
+		};
 		service.setResponse(response);
 		service.setRequest(request);
 		
