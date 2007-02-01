@@ -94,14 +94,18 @@ public class CaptchaService implements IEngineService {
 		_response.setContentLength(bytes.length);
 		final OutputStream out = _response.getOutputStream(new ContentType(mimeType));
 		out.write(bytes);
+		recordRandomString(randomStr);
 	}
 	
 	private String createAndSaveRandomId() {
-		final WebSession session = _request.getSession(true);
 		String randomStr=RandomUtil.generateUUIDString();
 		String randomCode=RandomUtil.encodeStr(randomStr);
-		session.setAttribute(SESSION_ATTRIBUTE_ID, randomStr);
 		return randomCode;
+	}
+	protected void recordRandomString(String randomStr){
+		final WebSession session = _request.getSession(true);
+		session.setAttribute(SESSION_ATTRIBUTE_ID, randomStr);
+		
 	}
 
 	BufferedImage createCaptch(String code) {
