@@ -12,7 +12,7 @@
 
 package corner.orm.tapestry.component;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.hivemind.ApplicationRuntimeException;
@@ -41,14 +41,7 @@ public class CornerSelectModel implements ISelectModel {
     	
     }
 	
-	/**
-	 * 从给定的对象集合中查找出符合条件的对象
-	 * @see org.apache.tapestry.dojo.form.IAutocompleteModel#filterValues(java.lang.String)
-	 */
-	@SuppressWarnings("unchecked")
-	public Map filterValues(String match) {
-		return this.filter.filterValues(match);
-	}
+
 
 	/**
 	 * 得到cnlabelField的值
@@ -105,6 +98,10 @@ public class CornerSelectModel implements ISelectModel {
 	public void setFilter(ISelectFilter filter) {
 		this.filter=filter;
 		
+	}
+
+	public List getValues(String match) {
+		return this.filter.filterValues(match);
 	}
 
 }

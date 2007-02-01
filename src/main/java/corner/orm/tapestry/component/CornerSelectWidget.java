@@ -14,6 +14,7 @@ package corner.orm.tapestry.component;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.tapestry.IMarkupWriter;
@@ -114,12 +115,12 @@ public abstract class CornerSelectWidget extends Autocompleter {
         if (model == null)
             throw Tapestry.createRequiredParameterException(this, "model");
         
-        Map filteredValues = model.filterValues(getFilter());
+        List filteredValues = model.getValues(getFilter());
         
         if (filteredValues == null)
             return;
         
-        Iterator it = filteredValues.keySet().iterator();
+        Iterator it = filteredValues.iterator();
         Object key = null;
         
         JSONObject json = writer.object();
@@ -127,8 +128,7 @@ public abstract class CornerSelectWidget extends Autocompleter {
         while (it.hasNext()) {
             
             key = it.next();
-            
-            json.put(this.getDataSqueezer().squeeze(key).toString(), filteredValues.get(key));
+            json.put(this.getDataSqueezer().squeeze(key).toString(), model.getLabelFor(key));
         }
 	}	
 	/**

@@ -12,7 +12,7 @@
 
 package corner.orm.tapestry.component.select;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * 对字符串进行查询的过滤器.
@@ -31,12 +31,18 @@ public interface ISelectFilter {
 	 * @param model 选择器的模型.
 	 * @return 一个供选择的map。
 	 */
-	Map query(String match,IPoSelectorModel model);
+	List query(String match,IPoSelectorModel model);
+	
 
 	/**
 	 * 返回label字段名称.
 	 * @return label字段名称.
 	 */
 	public String getLabelField();
+	/**
+	 * 得到返回值的字段
+	 * @return 返回值的返回字段.
+	 */
+	public String[] getReturnValueFields();
 
 }

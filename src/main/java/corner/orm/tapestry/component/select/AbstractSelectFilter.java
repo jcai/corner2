@@ -1,8 +1,8 @@
 package corner.orm.tapestry.component.select;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	/**
 	 * @see corner.orm.tapestry.component.select.ISelectFilter#query(java.lang.String)
 	 */
-	public Map query(final String match, final IPoSelectorModel model) {
+	public List query(final String match, final IPoSelectorModel model) {
 		this.model=model;
 		List list=((HibernateDaoSupport) model.getEntityService().getObjectRelativeUtils()).getHibernateTemplate().executeFind(new HibernateCallback(){
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -45,7 +45,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 				c.setMaxResults(20); //设定默认选取记录 TODO 转换为参数
 				return c.list();
 			}});
-		return convertListAsMap(list); //把查询到的list转换为map.
+		return list; //把查询到的list转换为map.
 		
 	}
 	/**
@@ -53,8 +53,9 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * @param list 查到的实体列表。
 	 * @return 字符串hashMap.
 	 */
-	protected Map convertListAsMap(List list) {
-		Map<Object,Object> map=new HashMap<Object,Object>();
+	@Deprecated
+	protected List<Object> convertListAsMap(List list) {
+		List<Object> rlist=new ArrayList<Object>();
 		
 		String [] returnValueFields=model.getReturnValueFields();
 		String [] updateFields=model.getUpdateFields();
@@ -89,13 +90,13 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 						arr.put(getReturnObject(returnValueFields[i],obj,false));
 					}
 				}
-				map.put(label, arr.join(","));
+				rlist.add(arr.join(","));
 			}
 			else if(len==1){//仅仅一个字段
-				map.put(label,getReturnObject(returnValueFields[0],obj,true));
+				rlist.add(getReturnObject(returnValueFields[0],obj,true));
 			}
 		}
-		return map;
+		return rlist;
 	}
 	/**
 	 * 返回label字段名称.
@@ -118,6 +119,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 * @param isSqueeze  是否需要序列化
 	 * @return 字符串。
 	 */
+	@Deprecated
 	protected Object getReturnObject(String pro, Object obj, boolean isSqueeze) {
 		Object value=obj;
 		if(!Criteria.ROOT_ALIAS.equals(pro)){ 
@@ -154,5 +156,11 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	protected Criteria createCriteria(Session session) {
 		return session.createCriteria(model.getPoClass());
 	}
-
+	/**
+	 * 
+	 * @see corner.orm.tapestry.component.select.ISelectFilter#getReturnValueFields()
+	 */
+	public String[] getReturnValueFields() {
+		return null;
+	}
 }

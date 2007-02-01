@@ -12,8 +12,10 @@
 
 package corner.orm.tapestry.component.select;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.hivemind.Registry;
@@ -65,15 +67,14 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 		
 		
 		String match="阿";
-		Map filteredValues=model.filterValues(match);
+		List filteredValues=model.getValues(match);
 		assertNotNull(filteredValues);
 		assertTrue(filteredValues.size()>0);
 		
-		Iterator it = filteredValues.keySet().iterator();
+		Iterator it = filteredValues.iterator();
 		while(it.hasNext()){
-			String key=(String) it.next();
-			key.startsWith(match);
-			assertEquals(filteredValues.get(key),key);
+			Object value1=(Object) it.next();
+			assertEquals(model.getLabelFor(value1),value);
 		}
 		EasyMock.verify(squeezer);
 	}
@@ -101,19 +102,21 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 		
 		//test render
 		A value=a;
-		assertEquals(model.getPrimaryKey(value),value);
+		assertEquals(model.getPrimaryKey(value),serialStr);
 		assertEquals(model.getLabelFor(value),"阿菜");
 		
 		String match="阿";
-		Map filteredValues=model.filterValues(match);
+		List filteredValues=model.getValues(match);
 		assertNotNull(filteredValues);
 		assertTrue(filteredValues.size()>0);
 		
-		Iterator it = filteredValues.keySet().iterator();
+		Iterator it = filteredValues.iterator();
 		while(it.hasNext()){
-			String key=(String) it.next();
-			key.startsWith(match);
-			assertEquals(squeezer.unsqueeze((String) filteredValues.get(key)),a);
+			Object value1= it.next();
+			String key=(String) model.getPrimaryKey(value1);
+			String Label=model.getLabelFor(value);
+			assertTrue(Label.startsWith(match));
+			assertEquals(squeezer.unsqueeze((String) key),a);
 		}
 		EasyMock.verify(squeezer);
 	}
@@ -123,6 +126,7 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 		A a=new A();
 		a.setCnName("阿菜");
 		a.save();
+		EntityService entityService=(EntityService) SpringContainer.getInstance().getApplicationContext().getBean("entityService");
 		
         IRequestCycle cycle = newMock(IRequestCycle.class);
         DataSqueezer ds = newMock(DataSqueezer.class);
@@ -131,19 +135,20 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
         
         IPoSelectorModel model=new SelectorModel();
 		model.setPoClass(A.class);
-		model.setEntityService((EntityService) SpringContainer.getInstance().getApplicationContext().getBean("entityService"));
-		model.setLabelField("cnName");
-		model.setReturnValueFields(Criteria.ROOT_ALIAS);
+		model.setEntityService(entityService);
 		
+		model.setReturnValueFields(Criteria.ROOT_ALIAS);
 		model.setDataSqueezer(ds);
         
 		
-        Autocompleter component = newInstance(Autocompleter.class, new Object[]
+        Autocompleter component = newInstance(Selector.class, new Object[]
         { "name", "fred", "model",  model,
-            "filter", "阿", "dataSqueezer", ds });
+            "filter", "阿", "dataSqueezer", ds,"queryClassName",A.class.getName() ,"entityService",entityService,"labelField","cnName"});
         
         String serialStr="HB:corner.orm.A:testid";
         EasyMock.expect(ds.squeeze(EasyMock.isA(A.class))).andReturn(serialStr).anyTimes();
+        EasyMock.expect(ds.squeeze("HB:corner.orm.A:testid")).andReturn(serialStr).anyTimes();
+        
         EasyMock.expect(ds.squeeze("阿菜")).andReturn("阿菜").anyTimes();
         
         replay();
@@ -158,16 +163,21 @@ public class PoAutoCompletorModelTest extends BaseComponentTestCase{
 		IPoSelectorModel model=new SelectorModel();
 		model.setSelectFilter(new ISelectFilter(){
 
-			public Map query(String match, IPoSelectorModel model) {
+			public List query(String match, IPoSelectorModel model) {
 				// TODO Auto-generated method stub
-				return new HashMap();
+				return new ArrayList();
 			}
 
 			public String getLabelField() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+			public String[] getReturnValueFields() {
+				// TODO Auto-generated method stub
+				return null;
 			}});
-		model.filterValues("asdf");
+		model.getValues("asdf");
 		assertTrue(model.getReturnValueFields()==null);
 	}
 	@Test

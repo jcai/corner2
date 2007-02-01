@@ -12,9 +12,8 @@
 
 package corner.orm.tapestry.component;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Ghost
@@ -29,8 +28,8 @@ public class ObjectSelectFilter extends DefaultSelectFilter {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map filterValues(String match) {
-		Map ret = new HashMap();
+	public List filterValues(String match) {
+		List ret = new ArrayList();
         
         if (match == null)
             return ret;
@@ -45,8 +44,9 @@ public class ObjectSelectFilter extends DefaultSelectFilter {
 
         	//需要保存关联的时候使用
         	Object label = obj;
-        	String cnlabel = this.getCnLabelFor(obj);
-        	ret.put(label, cnlabel);
+//        	String cnlabel = this.getCnLabelFor(obj);
+        	ret.add(label);
+//        	ret.put(label, cnlabel);
         }
         return ret;
 	}

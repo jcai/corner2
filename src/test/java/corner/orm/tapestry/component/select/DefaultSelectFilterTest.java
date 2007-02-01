@@ -27,7 +27,7 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 			 *      corner.orm.tapestry.component.select.IPoSelectorModel)
 			 */
 			@Override
-			public Map query(String match, IPoSelectorModel model) {
+			public List query(String match, IPoSelectorModel model) {
 				this.model = model;
 				List<A> list = new ArrayList<A>();
 				A a = new A();
@@ -52,11 +52,11 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 
 		replay();
 
-		Map map = filter.query(name, model);
+		List map = filter.query(name, model);
 
 		assertEquals(map.size(), 1);
 
-		assertEquals(map.get(name), "S" + name);
+		assertEquals(map.get(0), "S" + name);
 
 		verify();
 
@@ -77,7 +77,7 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 			 *      corner.orm.tapestry.component.select.IPoSelectorModel)
 			 */
 			@Override
-			public Map query(String match, IPoSelectorModel model) {
+			public List query(String match, IPoSelectorModel model) {
 				this.model = model;
 				List<A> list = new ArrayList<A>();
 
@@ -122,11 +122,11 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 
 		replay();
 
-		Map map = filter.query(name, model);
+		List map = filter.query(name, model);
 
 		assertEquals(map.size(), 1);
 
-		assertEquals(map.get(name),"\"HB:classa:id\",\""+name+"\",\"hello\"");
+		assertEquals(map.get(0),"\"HB:classa:id\",\""+name+"\",\"hello\"");
 
 		verify();
 		
@@ -149,7 +149,7 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 			 *      corner.orm.tapestry.component.select.IPoSelectorModel)
 			 */
 			@Override
-			public Map query(String match, IPoSelectorModel model) {
+			public List query(String match, IPoSelectorModel model) {
 				this.model = model;
 				List<A> list = new ArrayList<A>();
 
@@ -196,11 +196,11 @@ public class DefaultSelectFilterTest extends BaseComponentTestCase {
 
 		replay();
 
-		Map map = filter.query(name, model);
+		List map = filter.query(name, model);
 
 		assertEquals(map.size(), 1);
 
-		assertEquals(map.get(name),"\"HB:classa:id\",\""+name+"\",\"Spassword\"");
+		assertEquals(map.get(0),"\"HB:classa:id\",\""+name+"\",\"Spassword\"");
 
 		verify();
 		

@@ -14,6 +14,7 @@ package corner.orm.tapestry.component.select;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.tapestry.IMarkupWriter;
@@ -100,21 +101,27 @@ public abstract class Selector extends Autocompleter {
 		if (model == null)
 			throw Tapestry.createRequiredParameterException(this, "model");
 
-		Map filteredValues = model.filterValues(getFilter());
+		List<Object> filteredValues = model.getValues(getFilter());
 
 		if (filteredValues == null)
 			return;
 
-		Iterator it = filteredValues.keySet().iterator();
+		Iterator it = filteredValues.iterator();
+		Object value = null;
 		Object key = null;
-
+	    String label = null;
+	        
 		JSONObject json = writer.object();
 
 		while (it.hasNext()) {
 
-			key = it.next();
-
-			json.put(key.toString(), filteredValues.get(key)); // json.put(getDataSqueezer().squeeze(key), filteredValues.get(key));
+			value = it.next();
+			key = model.getPrimaryKey(value);//相当于供选择的内容.
+            label = model.getLabelFor(value);//标签文字
+            
+            json.put(label,key.toString());
+            
+//			json.put(model.getLabelFor(value), value); // json.put(getDataSqueezer().squeeze(key), filteredValues.get(key));
 		}
 
 	}

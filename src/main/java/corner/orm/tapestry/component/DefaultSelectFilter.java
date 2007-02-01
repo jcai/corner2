@@ -13,9 +13,8 @@
 package corner.orm.tapestry.component;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.hivemind.ApplicationRuntimeException;
@@ -140,8 +139,8 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see corner.orm.tapestry.component.ISelectFilter#filterValues(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public Map filterValues(String match) {
-		Map ret = new HashMap();
+	public List filterValues(String match) {
+		List ret = new ArrayList();
         
         if (match == null)
             return ret;
@@ -154,11 +153,9 @@ public class DefaultSelectFilter implements ISelectFilter {
         List _values = this.listAllMatchedValue(filter);
         for(Object obj:_values){
 
-        	//需要保存关联的时候使用
-        	//Object label = obj;
-        	Object label = this.getCnLabelFor(obj);
+        	
         	String cnlabel = this.getCnLabelFor(obj);
-        	ret.put(label, cnlabel);
+        	ret.add(cnlabel);
         }
         return ret;
 	}
@@ -205,18 +202,7 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @see org.apache.tapestry.dojo.form.IAutocompleteModel#getLabelFor(java.lang.Object)
 	 */
 	public String getLabelFor(Object value) {
-        try {
-            
-            if(value instanceof String){
-            	return value.toString();
-            }
-            else{
-            	return PropertyUtils.getProperty(value, TapestryHtmlFormatter.lowerFirstLetter(labelField)).toString();
-            }
-            
-        } catch (Exception e) {
-            throw new ApplicationRuntimeException(e);
-        }
+		return getCnLabelFor(value);
 	}	
 	
 	/**

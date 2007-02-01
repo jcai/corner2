@@ -12,7 +12,7 @@
 
 package corner.orm.tapestry.component;
 
-import java.util.Map;
+import java.util.List;
 
 import corner.service.EntityService;
 
@@ -40,7 +40,7 @@ public interface ISelectFilter {
 	 * @param match
 	 * @return
 	 */
-	public Map filterValues(String match) ;
+	public List filterValues(String match) ;
 	
 	/**
 	 * 设置EntityService

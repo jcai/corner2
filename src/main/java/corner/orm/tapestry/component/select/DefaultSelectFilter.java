@@ -20,5 +20,7 @@ package corner.orm.tapestry.component.select;
  * @since 2.2.1
  */
 public class DefaultSelectFilter extends AbstractSelectFilter {
+
+	
 	
 }
