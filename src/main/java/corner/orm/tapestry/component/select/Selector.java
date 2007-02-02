@@ -118,8 +118,8 @@ public abstract class Selector extends Autocompleter {
 			value = it.next();
 			key = model.getPrimaryKey(value);//相当于供选择的内容.
             label = model.getLabelFor(value);//标签文字
-            
-            json.put(label,key.toString());
+            if(label!=null) //label不能为空
+            	json.put(label,key.toString());
             
 //			json.put(model.getLabelFor(value), value); // json.put(getDataSqueezer().squeeze(key), filteredValues.get(key));
 		}

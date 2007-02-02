@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
-import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
@@ -27,6 +26,7 @@ import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.service.blob.BlobAsset;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
+import corner.orm.tapestry.state.IContextAccessible;
 import corner.service.EntityService;
 import corner.util.CornerUtils;
 
@@ -42,7 +42,7 @@ import corner.util.CornerUtils;
  *            当前抽象的实体。
  */
 public abstract class AbstractEntityPage<T> extends BasePage implements
-		EntityPage<T>,IBlobPage {
+		EntityPage<T>,IBlobPage,IContextAccessible {
 	/** 对日期类型的格式化 * */
 	private SimpleDateFormat _dateFormat;
 

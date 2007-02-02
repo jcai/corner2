@@ -1,0 +1,10 @@
+<module id="corner.state" version="1.0.0">
+	<contribution configuration-id="hivemind.FactoryDefaults">
+	   <default symbol="corner.state.object.class" value="corner.orm.tapestry.state.MockContext"/>
+	</contribution>
+	<contribution configuration-id="tapestry.state.ApplicationObjects">
+		<state-object name="context" scope="session">
+			<create-instance class="${corner.state.object.class}"/>
+		</state-object>
+	</contribution>
+</module>
