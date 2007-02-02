@@ -22,5 +22,5 @@ import org.apache.tapestry.annotations.InjectState;
  */
 public interface IContextAccessible {
 	@InjectState("context")
-	public IContext getContext();
+	public <T extends IContext> T getContext();
 }
