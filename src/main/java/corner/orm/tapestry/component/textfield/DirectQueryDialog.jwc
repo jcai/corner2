@@ -13,9 +13,5 @@
     </description>
     
     
-    <parameter name="backgroundColor" default-value="literal:black" />
-    
-    <parameter name="opacity" default-value="0.4" />   
-    
 
 </component-specification>

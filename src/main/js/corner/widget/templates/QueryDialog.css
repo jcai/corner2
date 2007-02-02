@@ -33,3 +33,11 @@
     position:relative;
     bottom:0em;
 }
+.titleDiv{
+	margin: 0 80px 0 0;
+}
+.btnDiv{
+	float: right;
+	width: 50px;
+	margin: 0;
+}

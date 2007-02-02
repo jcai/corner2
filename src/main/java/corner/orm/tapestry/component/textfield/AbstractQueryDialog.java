@@ -30,8 +30,11 @@ public abstract class AbstractQueryDialog extends AbstractWidget {
 	 */
 	@Parameter
 	public abstract String getOnSelectFunName();
+	@Parameter
+	public abstract String getTitle();
+	@Parameter(defaultValue="literal:black")
 	public abstract String getBackgroundColor();
-
+	@Parameter(defaultValue="0.4")
 	public abstract float getOpacity();
 
 	/**
@@ -55,9 +58,9 @@ public abstract class AbstractQueryDialog extends AbstractWidget {
 	            json.put("bgColor", getBackgroundColor());
 	            json.put("bgOpacity", getOpacity());
 	            json.put("selectFun",getOnSelectFunName());
+	            if(this.getTitle()!=null)
+	            	json.put("titleText",this.getTitle());
 	            
-	            
-	//            json.put("url",this.getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL());
 	            json.put("url",getUrl());
 	            
 	
