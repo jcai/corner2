@@ -4,6 +4,8 @@ http://www.bjmaxinfo.com
 
 changes in version 2.3 	(unreleased)
 ------------------------------------------
+* 升级Tapestry到4.1.1
+* 调整对AutoCompleter的支持，纠正升级带来的不兼容.
 package corner.widget
 * 纠正TextAreaBox的rows和cols的错误.
 package corner.orm.tapestry.validator
