@@ -31,7 +31,7 @@
     <binding name="editBlob" value="editBlob"/>
     <binding name="imageFile" value="true"/>
     <!--binding name="fileValidators" value="validators:required"/-->
-    <binding name="fileValidators" value="validators:pictureSize={1000:1000}"/>
+    <binding name="fileValidators" value="validators:pictureSize={10:10},fileType={.exe}"/>
     <binding name="imgInputClass" value="literal:test-style"/>
     <binding name="imgWidth" value="literal:50"/>
     <binding name="imgHeight" value="literal:100"/>

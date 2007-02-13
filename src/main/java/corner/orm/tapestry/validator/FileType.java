@@ -7,6 +7,7 @@ import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
+import org.apache.tapestry.request.IUploadFile;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -31,7 +32,8 @@ public class FileType extends BaseValidator{
 	 * @see org.apache.tapestry.form.validator.Validator#validate(org.apache.tapestry.form.IFormComponent, org.apache.tapestry.form.ValidationMessages, java.lang.Object)
 	 */
 	public void validate(IFormComponent field, ValidationMessages messages, Object object) throws ValidatorException {
-		String postfix = (String)object;
+		
+		String postfix = ((IUploadFile)object).getFileName();
 		
 		postfix = postfix.substring(postfix.lastIndexOf('.'),postfix.length());
 		

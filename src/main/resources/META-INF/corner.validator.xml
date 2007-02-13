@@ -8,7 +8,9 @@
 		<validator name="fieldMin" class="FieldMin"/>
 		<validator name="fieldPlusEq" class="FieldPlusEq"/>
 		<validator name="pictureSize" class="PictureSize"/>
+		<validator name="fileType" class="FileType"/>
 		<validator name="personID" class="PersonID" configurable="false"/>
 		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
+		
 	</contribution>
 </module>
