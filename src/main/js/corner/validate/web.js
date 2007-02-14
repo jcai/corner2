@@ -7,9 +7,42 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isFileType = function(/*String*/value, /*Object?*/flags){
+//summary:
+// 将flags传进来的ID数组中对应的数值与value比对，相等返回true
+	dojo.debug("value :" + value);
+	dojo.debug("fields.length :" + flags.fields.length);
+	
+	var postfix = value.substr(value.lastIndexOf('.'),value.length);
+	value.lastIndexOf('.');
+	
+	postfix = postfix.toLocaleLowerCase();
+	
+	dojo.debug("postfix :" + postfix);
+	
+	var returnVar;
+	var temp;
+	
+	for (var i in flags.fields){
+		temp = (flags.fields[i]).toLocaleLowerCase();
+		
+		if(postfix == temp){
+			returnVar = temp;
+			break;
+		}
+	}
+	
+	if(postfix != returnVar){
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+
 corner.validate.isPictureSize = function(/*String*/value, /*Object?*/flags){
 //summary:
-// 将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true
+// 将flags传进来的ID数组width,height对比，相当返回true
 	dojo.debug("value :" + value);
 	dojo.debug("flags[width] :" + flags['width']);
 	dojo.debug("flags[height] :" + flags['height']);

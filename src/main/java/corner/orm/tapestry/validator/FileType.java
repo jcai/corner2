@@ -1,5 +1,7 @@
 package corner.orm.tapestry.validator;
 
+import java.text.DecimalFormatSymbols;
+
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
@@ -7,7 +9,10 @@ import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
+import org.apache.tapestry.json.JSONLiteral;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.request.IUploadFile;
+import org.apache.tapestry.valid.ValidationConstants;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -19,6 +24,8 @@ import org.apache.tapestry.valid.ValidatorException;
 public class FileType extends BaseValidator{
 	
 	private String type;
+	
+	private String [] types;
 	
 	public FileType() {
 		super();
@@ -46,7 +53,25 @@ public class FileType extends BaseValidator{
 	 */
 	@Override
 	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle, FormComponentContributorContext context, IFormComponent field) {
+		context.addInitializationScript(field,"dojo.require(\"corner.validate.web\");");
+
+		JSONObject profile = context.getProfile();
 		
+		if (!profile.has(ValidationConstants.CONSTRAINTS)) {
+			profile.put(ValidationConstants.CONSTRAINTS, new JSONObject());
+		}
+		JSONObject cons = profile.getJSONObject(ValidationConstants.CONSTRAINTS);
+		
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(context.getLocale());
+		
+		accumulateProperty(cons, field.getClientId(), new JSONLiteral(
+				"[corner.validate.isFileType,{" + "\"fields\":["
+						+ toFieldString(types) + "]," + "decimal:"
+						+ JSONObject.quote(symbols.getDecimalSeparator())
+						+ "}]"));
+		
+		accumulateProfileProperty(field, profile,
+				ValidationConstants.CONSTRAINTS, buildMessage(context,field));
 	}
 	
 	/**
@@ -57,7 +82,7 @@ public class FileType extends BaseValidator{
 		//去掉大括号
 		type = type.substring(1,type.length() - 1);
 		
-		String [] types = type.split(";");
+		types = type.split(";");
 		
 		int counter = 0;
 		for(String s : types){
@@ -71,7 +96,20 @@ public class FileType extends BaseValidator{
 		}else{
 			exceptionAdvertiser(type);
 		}
-		
+	}
+	
+	/**
+	 * 返回用双引号扩起来，用逗号分割的字符串
+	 * @param fields 需要处理的数组
+	 * @return 返回字符串
+	 */
+	public String toFieldString(String[] fields) {
+		StringBuffer temp = new StringBuffer();
+		for (String t : fields) {
+			temp.append("\"").append(t).append("\",");
+		}
+		String str = temp.toString();
+		return str.substring(0, str.length() - 1);
 	}
 	
 	/**

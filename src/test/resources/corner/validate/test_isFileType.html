@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test FieldPlusEq validator</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+field 1 <input type="file" id="blobDataField" /><br>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+dojo.require("corner.validate.web");
+
+dojo.event.connect(dojo.byId("blobDataField"),"onchange",this,"val");
+val=function(evt){
+	dojo.debug(corner.validate.isFileType(dojo.byId("blobDataField").value,{"fields":[".exe",".jPG",".txt"]}));
+}
+	
+//-->
+</SCRIPT>
+	
+</body>
+
+</html>
