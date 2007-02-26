@@ -26,7 +26,6 @@ import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-
 import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.util.PaginationBean;
@@ -255,5 +254,41 @@ public class EntityService {
 	public<T> List<T> findAll(Class<T> clazz) {
 		return ((HibernateObjectRelativeUtils) getObjectRelativeUtils()).getHibernateTemplate().find("from "+clazz.getName());
 		
+	}
+	
+	/**
+	 * 使用HQL实现对关联实体的批量删除
+	 * 
+	 * @param clazz
+	 *            被删除的实体Class
+	 * @param propertyName
+	 *            与被删除的实体关联的属性名称
+	 * @param entity
+	 *            与被删除实体关联的实体
+	 * @return 被删除的记录数量
+	 */
+	public <T> int doDeleteBatchRelativeEntityAction(final Class clazz,
+			final String propertyName, final T entity) {
+		if (entity != null && isPersistent(entity)) {
+			return ((Integer) ((HibernateObjectRelativeUtils) this
+					.getObjectRelativeUtils()).getHibernateTemplate().execute(
+					new HibernateCallback() {
+						public Object doInHibernate(Session session)
+								throws HibernateException, SQLException {
+							StringBuffer buffer = new StringBuffer("delete ");
+							buffer.append(clazz.getName());
+							buffer.append(" clazz ");
+							buffer.append(" where clazz.");
+							buffer.append(propertyName);
+							buffer.append("=:");
+							buffer.append(propertyName);
+							return session.createQuery(buffer.toString())
+									.setEntity(propertyName, entity)
+									.executeUpdate();
+						}
+					})).intValue();
+		} else {
+			return 0;
+		}
 	}
 }
