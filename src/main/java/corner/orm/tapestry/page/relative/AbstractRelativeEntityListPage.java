@@ -36,6 +36,17 @@ public abstract class AbstractRelativeEntityListPage<T,E> extends AbstractEntity
 	public  IBasicTableModel getSource(String relativePropertyName){
 		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),this.getRootedObject(),relativePropertyName,this.getRequestCycle().isRewinding(),this);
 	}
+	
+	/**
+	 * 得到列表的source,得到和当前实体关联的对象的列表。
+	 * @param relativePropertyName 关联的属性名字，通常为复数，譬如：groups,users等。
+	 * @param rootedObject 父类
+	 * @return table model
+	 */
+	public  IBasicTableModel getSource(T rootedObject,String relativePropertyName){
+		return new RelativePersistentBasicTableModel<T>(this.getEntityService(),rootedObject,relativePropertyName,this.getRequestCycle().isRewinding(),this);
+	}
+	
 
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityListPage#getSource()
