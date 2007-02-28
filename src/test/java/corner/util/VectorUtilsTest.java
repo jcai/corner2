@@ -23,6 +23,8 @@ import junit.framework.TestCase;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.Test;
 
+import corner.orm.hibernate.v3.MatrixRow;
+
 @Test
 public class VectorUtilsTest extends TestCase {
 
@@ -49,6 +51,37 @@ public class VectorUtilsTest extends TestCase {
 		v.add("1.258");
 		assertEquals(5.458, VectorUtils.sum(v));
 
+	}
+	
+	/**
+	 * 向量相减 
+	 */
+	@Test
+	public void testMinus(){
+		
+		MatrixRow<String> m1 = new MatrixRow<String>();
+		m1.add("-1");
+		m1.add("2");
+		m1.add("3");
+		m1.add("4");
+		m1.add("5");
+		
+		MatrixRow<String> m2 = new MatrixRow<String>();
+		m2.add("-1");
+		m2.add("2");
+		m2.add("3");
+		m2.add("4");
+		m2.add("5");
+		
+		MatrixRow<String> m = VectorUtils.minus(m1, m2);
+		
+		StringBuffer v = new StringBuffer();
+		
+		for(String s : m){
+			v.append(s).append(",");
+		}
+		
+		assertEquals("0.0,0.0,0.0,0.0,0.0,",v.toString());
 	}
 
 	@Test
