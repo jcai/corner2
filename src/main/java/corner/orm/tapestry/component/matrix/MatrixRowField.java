@@ -85,8 +85,10 @@ public abstract class MatrixRowField extends BaseComponent implements
 		if (getValue().size() > star) {
 			ValidationMessages messages = new ValidationMessagesImpl(this, this
 					.getPage().getLocale());
-			return this.getTranslator().parse(this, messages,
-					 getValue().get(star++).toString());
+			Object obj=getValue().get(star++);
+			
+			return obj==null?null:this.getTranslator().parse(this, messages,
+					 obj.toString());
 			// return getValue().get(star++);
 		} else {
 			return null;
