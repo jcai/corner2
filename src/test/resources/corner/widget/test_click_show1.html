@@ -17,39 +17,18 @@ djConfig = { isDebug: true
 </head>
 
 <body>
+<form id="aaaaaa">
 <table id='myTable' border=1>
-<tr flag="old" onMouseOver="moveOver()" onMouseOut="moveOut()">
+<tr flag="old">
 <td>AAA</td>
 <td>BBB</td>
 <td>CCC</td>
 </tr>
 </table>
 <input type="button" value="add row" onClick="foo()">
-<script>
-function foo(){
-	
-	var oTr = dojo.byId('myTable').firstChild.firstChild.cloneNode(true);
-	oTr.flag = "new";
-	myTable.firstChild.appendChild(oTr);
-}
-function moveOver(){
-	var oTr = event.srcElement;
-	while(oTr.tagName != "TR"){
-		oTr = oTr.parentElement;
-	}
-	if(oTr.flag == "new")
-		oTr.style.backgroundColor='blue';
-}
-function moveOut(){
-	var oTr = event.srcElement;
-	while(oTr.tagName != "TR"){
-		oTr = oTr.parentElement;
-	}
-	if(oTr.flag == "new")
-		oTr.style.backgroundColor='';
-}
-</script>
-
+<div id="test"></div>
+</form>
+<script src="show1.js"/>
 	
 </body>
 
