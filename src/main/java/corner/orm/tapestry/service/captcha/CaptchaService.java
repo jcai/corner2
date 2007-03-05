@@ -94,11 +94,12 @@ public class CaptchaService implements IEngineService {
 		_response.setContentLength(bytes.length);
 		final OutputStream out = _response.getOutputStream(new ContentType(mimeType));
 		out.write(bytes);
-		recordRandomString(randomStr);
+		
 	}
 	
 	private String createAndSaveRandomId() {
 		String randomStr=RandomUtil.generateUUIDString();
+		recordRandomString(randomStr);
 		String randomCode=RandomUtil.encodeStr(randomStr);
 		return randomCode;
 	}
