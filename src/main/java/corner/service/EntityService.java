@@ -20,9 +20,11 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
@@ -290,5 +292,28 @@ public class EntityService {
 		} else {
 			return 0;
 		}
+	}
+	
+	/**
+	 * 获得一个组结果，带条件的
+	 * @param clazzName 类名
+	 * @param criterion	条件
+	 * @return
+	 */
+	public List getExistRelativeList(final String clazzName,
+			final Criterion criterion) {
+		return (List) ((HibernateObjectRelativeUtils) this
+				.getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Criteria criteria = session.createCriteria(clazzName);
+						
+						criteria.add(criterion);
+						
+						return criteria.list();
+					}
+				});
 	}
 }
