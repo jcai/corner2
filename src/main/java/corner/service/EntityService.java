@@ -296,6 +296,17 @@ public class EntityService {
 	
 	/**
 	 * 获得一个组结果，带条件的
+	 * @param clazz 类
+	 * @param criterion	条件
+	 * @return
+	 */
+	public List getExistRelativeList(final Class clazz,
+			final Criterion criterion) {
+		return this.getExistRelativeList(clazz.getName(), criterion);
+	}
+	
+	/**
+	 * 获得一个组结果，带条件的
 	 * @param clazzName 类名
 	 * @param criterion	条件
 	 * @return
