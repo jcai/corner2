@@ -1,5 +1,7 @@
 package corner.orm.hibernate.expression;
 
+import java.util.Date;
+
 import junit.framework.TestCase;
 
 import org.easymock.EasyMock;
@@ -76,6 +78,7 @@ public class NewExpressionExampleTest extends TestCase {
 		 String [] expectParameterValues={};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
+	
 	public void testMultiSql(){
 		 A a=new A();
 		 String[] pros={"userName","password"};
@@ -84,6 +87,17 @@ public class NewExpressionExampleTest extends TestCase {
 		 
 		 String expectSql="(   user_name=? and (password>? and password<?))";
 		 String [] expectParameterValues={"acai","20050607","20090805"};
+		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
+	}
+	public void testDateQuery(){
+		 A a=new A();
+		 String[] pros={"userName","testp"};
+		 String [] columns={"user_name","testp"};
+		 Date v=new Date();
+		 Object [] proValues={"acai",v};
+		 
+		 String expectSql="(   user_name=? and testp=?)";
+		 Object [] expectParameterValues={"acai",v};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
 	public void testMultipositionSql(){
@@ -96,7 +110,7 @@ public class NewExpressionExampleTest extends TestCase {
 		 String [] expectParameterValues={"20050607","20090805","acai"};
 		 doTest(a,pros,columns,proValues,expectSql,expectParameterValues);
 	}
-	private void doTest(Object obj,String[]pros,String[]columns,String[]proValues,String expectSql,String[]expectParameterValues) {
+	private void doTest(Object obj,String[]pros,String[]columns,Object[]proValues,String expectSql,Object[]expectParameterValues) {
 		Type[] types=new Type[pros.length];
 		for(int i=0;i<types.length;i++){
 			 types[i]=Hibernate.STRING;

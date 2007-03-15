@@ -124,6 +124,8 @@ public class NewExpressionExample extends Example {
 					}
 					
 				}
+			}else{
+				super.addPropertyTypedValue(value,type,list);
 			}
 		}
 	}

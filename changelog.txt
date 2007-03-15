@@ -15,6 +15,7 @@ package corner.orm.tapestry.component
 * 调整MatrixRowHead也采用Input的方式来显示元素.
 package corner.orm.hibernate
 * 删除expression表达式的antlr方式，采用新版本的正则表达式。
+* 更正了查询时候，对其他类型的查询，采取普通的方式进行查询。
 
 package corner.orm.taepstry
 * 增加了动态生成组件的Worker，根据模型来动态自动产生组件.
