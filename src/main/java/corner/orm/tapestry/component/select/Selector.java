@@ -209,11 +209,12 @@ public abstract class Selector extends Autocompleter {
 			throw Tapestry.createRequiredParameterException(this, "model");
 
 		Object value = getValue();
+		//此key已经经过序列化
 		Object key = value != null ? model.getPrimaryKey(value) : null;
 
 		if (value != null && key != null) {
 
-			json.put("value", getDataSqueezer().squeeze(key));
+			json.put("value", key);
 			json.put("label", model.getLabelFor(value));
 		}
 
