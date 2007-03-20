@@ -45,6 +45,7 @@ public interface IPageRooted<T,E> extends IPage{
 	/**
 	 * 取得关联的对象
 	 * @return E 关联对象
+	 * @since 2.3.7
 	 */
 	public abstract E getEntity();
 	
