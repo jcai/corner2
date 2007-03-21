@@ -51,6 +51,7 @@ public class NewExpressionExample extends Example {
 
 	private Object entity;
 
+	private boolean isBlurEnabled=false;
 
 
 	/**
@@ -119,8 +120,14 @@ public class NewExpressionExample extends Example {
 					}
 				}else{
 					List<ExpPair> values=ExpressionParser.parseStringExpression((String) value);
+					Object v;
 					for(ExpPair p:values){
-						super.addPropertyTypedValue(p.value, type, list);
+						v=p.value;
+						
+						if(v!=null&&isLikeEnabled&&isBlurEnabled)
+							v = "%"+p.value.toString()+"%"; //自动加上模糊的匹配符
+						
+						super.addPropertyTypedValue(v, type, list);
 					}
 					
 				}
@@ -147,7 +154,8 @@ public class NewExpressionExample extends Example {
 				crit = new DateExpression(propertyName, (String) propertyValue);
 			}else if(qt==QueryType.String||isString){//字符串
 				String op = isLikeEnabled && isString ? " like " : "=";
-				crit = new StringExpression(propertyName, propertyValue.toString(),
+				
+				crit = new StringExpression(propertyName,propertyValue.toString(),
 						op, isIgnoreCaseEnabled && isString);
 			}else{//其他类型
 				crit=Restrictions.eq(propertyName, propertyValue);
@@ -174,6 +182,10 @@ public class NewExpressionExample extends Example {
 		return this;
 	}
 
+	public Example enableBlur(){
+		this.isBlurEnabled=true;
+		return this;
+	}
 	/**
 	 * 
 	 * @see org.hibernate.criterion.Example#ignoreCase()
