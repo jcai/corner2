@@ -42,5 +42,6 @@
   <component-type type="DirectQueryDialog" specification-path="textfield/DirectQueryDialog.jwc"/>
   <component-type type="DropdownDatePicker" specification-path="date/DropdownDatePicker.jwc"/>
   <component-type type="DatePicker" specification-path="date/DatePicker.jwc"/>
+  <component-type type="TablePages" specification-path="/corner/orm/tapestry/table/TablePages.jwc"/>
   
 </library-specification>
