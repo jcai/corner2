@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+        "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+        "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+	
+<component-specification class="corner.orm.tapestry.table.TablePages" 
+	allow-body="no" allow-informal-parameters="yes">
+	
+	<description>
+        A low level Table component that renders the pages in the table. 
+        This component must be wrapped by TableView. 
+	</description>
+  
+	<parameter name="pagesDisplayed" 
+		required="no"
+
+    	default-value="11">
+		<description>
+            Determines the maximum number of pages to be displayed in the page list 
+            when the table has more than one page. 
+        </description>
+    </parameter>
+
+	<component id="informal" type="Any" inherit-informal-parameters="yes"/>
+  
+	<component id="condCurrent" type="If">
+		<binding name="condition" value="condCurrent"/>
+	</component>
+  
+	<component id="condOther" type="Else">
+	</component>
+  
+	<component id="iterPage" type="For">
+		<binding name="source" value="pageList"/>
+		<binding name="value" value="displayPage"/>
+	</component>
+
+	<component id="insertCurrentPage" type="Insert">
+	    <binding name="value" value="displayPage"/>
+	</component>
+
+	<component id="insertOtherPage" type="Insert">
+	    <binding name="value" value="displayPage"/>
+	</component>
+
+	<component id="linkPage" type="DirectLink">
+	    <binding name="listener" value="listeners.changePage"/>
+	    <binding name="parameters" value="displayPageContext"/>
+	</component>
+
+	<component id="linkFirst" type="DirectLink">
+	    <binding name="listener" value="listeners.changePage"/>
+	    <binding name="parameters" value="firstPageContext"/>
+	    <binding name="disabled" value="!condBack"/>
+	</component>
+
+	<component id="linkBack" type="DirectLink">
+	    <binding name="listener" value="listeners.changePage"/>
+	    <binding name="parameters" value="backPageContext"/>
+	    <binding name="disabled" value="!condBack"/>
+	</component>
+
+	<component id="linkFwd" type="DirectLink">
+	    <binding name="listener" value="listeners.changePage"/>
+	    <binding name="parameters" value="fwdPageContext"/>
+	    <binding name="disabled" value="!condFwd"/>
+	</component>
+	
+	<component id="linkLast" type="DirectLink">
+	    <binding name="listener" value="listeners.changePage"/>
+	    <binding name="parameters" value="lastPageContext"/>
+	    <binding name="disabled" value="!condFwd"/>
+	</component>
+    <!-- query form -->
+	<component id="queryPageForm" type="Form">
+        <binding name="success" value="listener:goPage" />
+        <binding name="focus" value="ognl:false" />
+        <binding name="clientValidationEnabled" value="ognl:true"/>
+	</component>
+    
+	<component id="PageNumField" type="TextField">
+        <binding name="displayName" value="literal:页数"/>
+        <binding name="value" value="ognl:pn"/>
+        <binding name="defaultValue" value="ognl:currentPage"/>
+        <binding name="size" value="4"/> 
+        <binding name="translator" value="translator:number,pattern=####"/>
+	</component>
+</component-specification>
