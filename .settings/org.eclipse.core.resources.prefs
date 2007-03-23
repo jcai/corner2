@@ -1,5 +1,6 @@
-#Wed Dec 20 10:03:29 CST 2006
+#Fri Mar 23 14:21:34 CST 2007
 eclipse.preferences.version=1
+encoding//src/main/java/corner/util/CornerStrings.properties=UTF-8
 encoding//src/main/webapp/many2many/ABList.page=UTF-8
 encoding//src/main/webapp/many2many2/ABForm.page=UTF-8
 encoding//src/main/webapp/many2many2/ABList.page=UTF-8

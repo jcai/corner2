@@ -20,6 +20,7 @@ package corner.orm.hibernate
 package corner.orm.taepstry
 * 增加了动态生成组件的Worker，根据模型来动态自动产生组件.
 * 增加了QueryBox组件.
+* 增加了对分页组件的扩展展示 
 changes in version 2.2.2 	(2006-10-29)
 ------------------------------------------
 package corner.widget

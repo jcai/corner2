@@ -11,11 +11,12 @@
 package corner.orm.tapestry.table;
 
 import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.contrib.table.model.common.TableModelHook;
 import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.util.ComponentAddress;
+
+import corner.util.CornerMessages;
 
 
 
@@ -27,18 +28,28 @@ import org.apache.tapestry.util.ComponentAddress;
  */
 public abstract class TablePages extends org.apache.tapestry.contrib.table.components.TablePages{
 
+	/** 得到页数 **/
 	public int getPageCount(){
 		return this.getTableModelSource().getTableModel().getPageCount();
 	}
+	/** 得到给定的样式**/
 	public String getFirstLinkClass(){
 		return this.getCondBack()?"nextpage":"disablepage";
 	}
 	public String getLastLinkClass(){
 		return this.getCondFwd()?"nextpage":"disablepage";
 	}
-	public int getRowCount(){
+	/**
+	 * 得到行数的消息
+	 * @return 得到行数
+	 */
+	public String getRowCountMessage(){
+		return CornerMessages.totalPage(getRowCount());
+	}
+	int getRowCount(){
 		return TableModelHook.getAboutRowCount(this.getTableModelSource().getTableModel());
 	}
+	/** 记录前端输入多少页数 **/
 	public  abstract Integer getPn();
 	
 	public abstract String getComponentAddress();
@@ -46,10 +57,15 @@ public abstract class TablePages extends org.apache.tapestry.contrib.table.compo
 	@InjectObject("service:tapestry.data.DataSqueezer")
 	public abstract DataSqueezer getDataSqueezer();
 	
+	/**
+	 * 记录组件地址
+	 * @return
+	 */
 	public String getDefaultComponentAddress(){
 		ComponentAddress objAddress = new ComponentAddress(getTableModelSource());
 		return getDataSqueezer().squeeze(objAddress);
 	}
+	/** 响应前端点击GO **/
 	public void goPage(IRequestCycle objCycle){
 		objCycle.setListenerParameters(new Object[]{getDataSqueezer().unsqueeze(getComponentAddress()),getPn()});
 		super.changePage(objCycle);
