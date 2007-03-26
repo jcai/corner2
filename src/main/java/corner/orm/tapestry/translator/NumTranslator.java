@@ -200,7 +200,7 @@ public class NumTranslator extends AbstractTranslator {
 		this.validatePattern = srcPattern.replaceAll(DEFINE_PATTERN,getReplaceString());
 		int places = Integer.parseInt(srcPattern.replaceAll(DEFINE_PATTERN,
 				"$2"));
-		formatPattern = "#";
+		formatPattern = "0";
 		if (places > 0) {
 			formatPattern += ".";
 		}

@@ -135,4 +135,20 @@ public class NumTranslatorTest extends BaseValidatorTestCase{
 		assertEquals("21.2300",str);
 		verify();
 	}
+	
+	@Test
+	public void test_format_zero() throws ValidatorException{
+		NumTranslator translator=new NumTranslator();
+		translator.setPattern("{6:4}");
+		
+		IFormComponent field=newField();
+		
+		
+		Locale locale=Locale.getDefault();
+		Object object=new Double(0.01);
+		replay();
+		String str=translator.format(field, locale, object);
+		assertEquals("0.0100",str);
+		verify();
+	}
 }
