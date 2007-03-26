@@ -83,6 +83,7 @@
         <binding name="value" value="ognl:pn"/>
         <binding name="defaultValue" value="ognl:currentPage"/>
         <binding name="size" value="4"/> 
-        <binding name="translator" value="translator:number,pattern=####"/>
+       <binding name="translator" value="translator:number,pattern=####"/>
+        <binding name="validators" value="validators:required,max=2147483647"/>
 	</component>
 </component-specification>

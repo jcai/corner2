@@ -3,7 +3,7 @@
 <div class="pagination">
 	
 <ul>
-<li jwcid="@Any" class="ognl:firstLinkClass"><a jwcid="linkFirst">&lt;&lt;</a></li>
+<li jwcid="@Any" class="ognl:firstLinkClass"><a jwcid="linkFirst">1</a></li>
 <li jwcid="@Any" class="ognl:firstLinkClass"><a jwcid="linkBack">&lt;</a></li>
 <span jwcid="iterPage">
 	<span jwcid="condCurrent">
@@ -14,7 +14,7 @@
 	</span>
 </span>
 <li jwcid="@Any" class="ognl:lastLinkClass"><a jwcid="linkFwd">&gt;</a></li>
-<li jwcid="@Any" class="ognl:lastLinkClass"><a jwcid="linkLast">&gt;&gt;</a></li>
+<li jwcid="@Any" class="ognl:lastLinkClass"><a jwcid="linkLast"><span jwcid="@Insert" value="ognl:getPageCount()"/></a></a></li>
 <li>&nbsp;<form jwcid="queryPageForm"><div style="display:none"><input jwcid="@TextField"  defaultValue="ognl:getDefaultComponentAddress()" value="ognl:componentAddress"/></div><input jwcid="PageNumField"/>&nbsp;<input type="submit"  class="pagesubmit" value="GO"/></form></li>
 <li><span jwcid="@Insert" value="ognl:getRowCountMessage()"/></li>
 </ul>
