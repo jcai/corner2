@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.dojo.html.Dialog;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.services.DataSqueezer;
 
@@ -43,11 +44,30 @@ import corner.util.CornerUtils;
  */
 public abstract class AbstractEntityPage<T> extends BasePage implements
 		EntityPage<T>,IBlobPage,IContextAccessible {
-	/** 对日期类型的格式化 * */
-	private SimpleDateFormat _dateFormat;
+	
+	/**
+	 * @see corner.orm.tapestry.page.IDialogAction#isDoDialogAction(java.lang.Object)
+	 */
+	public boolean isDoDialogAction(T entity) {
+		return false;
+	}
 
-
-
+	/**
+	 * @see corner.orm.tapestry.page.IDialogAction#doDialogAction(java.lang.Object)
+	 */
+	public IPage doDialogAction(T entity) {
+		this.isDoDialogAction(entity);
+		this.showDialog();
+		return this;
+	}
+	
+	/**
+	 * @see corner.orm.tapestry.page.IDialogAction#showDialog()
+	 */
+	public void showDialog() {
+		Dialog dlg = (Dialog) getComponent("showMessage");
+		dlg.show();
+	}
 
 	/**
 	 * 保存和更新实体。
@@ -190,5 +210,8 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 						.getEntityService(),ifNullDelete);
 		delegate.save();
 	}
+	
+	/** 对日期类型的格式化 * */
+	private SimpleDateFormat _dateFormat;
 
 }

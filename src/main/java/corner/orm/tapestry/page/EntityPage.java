@@ -24,7 +24,7 @@ import corner.service.EntityService;
  * @since 0.1
  * @param <T> 实体类
  */
-public interface EntityPage<T  > extends IPage {
+public interface EntityPage<T  > extends IPage, IDialogAction<T> {
 	/**
 	 * 得到实体。
 	 * @return 实体。
@@ -36,7 +36,6 @@ public interface EntityPage<T  > extends IPage {
 	 */
 	public abstract  void  setEntity(T entity);
 
-	
 	/**
 	 * 得到EntityService.
 	 * <p>提供基本的操作.
@@ -54,7 +53,7 @@ public interface EntityPage<T  > extends IPage {
 	 * @return 实体页面
 	 * @since 2.1
 	 */
-	public <E> EntityPage<E> goEntityPage(E e,String pageName);
+	public <E> IDialogAction<E> goEntityPage(E e,String pageName);
 	
 	
 	/**
@@ -65,7 +64,7 @@ public interface EntityPage<T  > extends IPage {
 	 * @return 实体页面
 	 * @since 2.1
 	 */
-	public <E> EntityPage<E> goEntityPageByPage(E e,EntityPage<E> page);
+	public <E> IDialogAction<E> goEntityPageByPage(E e,EntityPage<E> page);
 	
 
 }
