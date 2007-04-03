@@ -26,7 +26,8 @@
 					<map attribute="className" property="providerClassName"/>
 				</conversion>
 			</element>
-		</schema> </configuration-point>
+		</schema> 
+	</configuration-point>
   
   <!-- 提供一个tapestry的服务 -->
   <contribution configuration-id="tapestry.services.ApplicationServices">
@@ -51,6 +52,4 @@
 		</invoke-factory>
 	</service-point>
 <!-- contribution -->
-
-
 </module>
