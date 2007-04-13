@@ -34,4 +34,9 @@ public interface IDialogAction<T> {
 	 * 显示Dialog
 	 */
 	public abstract void showDialog();
+	
+	/**
+	 * 根据给定的Componnet的名称来显示Dialog
+	 */
+	public abstract void showDialog(String componentId);
 }
