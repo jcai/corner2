@@ -65,7 +65,15 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * @see corner.orm.tapestry.page.IDialogAction#showDialog()
 	 */
 	public void showDialog() {
-		Dialog dlg = (Dialog) getComponent("showMessage");
+		showDialog("showMessage");
+	}
+	
+	/**
+	 * 
+	 * @see corner.orm.tapestry.page.IDialogAction#showDialog(java.lang.String)
+	 */
+	public void showDialog(String componentId){
+		Dialog dlg = (Dialog) getComponent("componentId");
 		dlg.show();
 	}
 
