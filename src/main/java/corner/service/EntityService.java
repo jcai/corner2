@@ -25,6 +25,7 @@ import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
@@ -324,6 +325,41 @@ public class EntityService {
 						criteria.add(criterion);
 						
 						return criteria.list();
+					}
+				});
+	}
+	
+	/**
+	 * 获得一个组结果的个数，带条件的
+	 * @param clazz 类
+	 * @param criterion	条件
+	 * @return
+	 */
+	public Integer getExistRelativeRowCount(final Class clazz,
+			final Criterion criterion) {
+		return this.getExistRelativeRowCount(clazz.getName(), criterion);
+	}
+	
+	/**
+	 * 获得一个组结果的个数，带条件的
+	 * @param clazzName 类名
+	 * @param criterion	条件
+	 * @return
+	 */
+	public Integer getExistRelativeRowCount(final String clazzName,
+			final Criterion criterion) {
+		return (Integer) ((HibernateObjectRelativeUtils) this
+				.getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Criteria criteria = session.createCriteria(clazzName);
+						
+						criteria.add(criterion);
+						criteria.setProjection(Projections.rowCount());
+						
+						return criteria.list().iterator().next();
 					}
 				});
 	}
