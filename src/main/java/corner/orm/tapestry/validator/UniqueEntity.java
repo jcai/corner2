@@ -72,9 +72,11 @@ public class UniqueEntity extends BaseValidator {
 
 		// 判断是否为更新操作.
 		if (getEntityService().isPersistent(obj)) {// 是否为持久化
-			Object properyValue = BeanUtils.getProperty(obj, this.property);
-			if (object.equals(properyValue)) {// 加入属性没变化，则不进行校验.
-				return;
+			if(this.property != null){//修正了当没有提供属性字段时，发生异常的bug
+				Object properyValue = BeanUtils.getProperty(obj, this.property);
+				if (object.equals(properyValue)) {// 加入属性没变化，则不进行校验.
+					return;
+				}
 			}
 		}
 		// 得到行数.
