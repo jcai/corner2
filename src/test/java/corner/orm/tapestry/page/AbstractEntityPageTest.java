@@ -12,7 +12,6 @@
 
 package corner.orm.tapestry.page;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
