@@ -29,7 +29,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	@Override
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		Object defaultValue = this.getDefaultValue();
-		boolean isReadOnly = this.getReadOnly() != null ?this.getReadOnly().booleanValue():false; 
+		boolean isReadOnly = this.getOnlyRead() != null ?this.getOnlyRead().booleanValue():false; 
 		if(isReadOnly){
 			String value = null;
 			if(defaultValue==null || defaultValue.toString().trim().length()<1){
@@ -75,14 +75,12 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 		} else{
 			if(defaultValue==null || defaultValue.toString().trim().length()<1){
 				super.renderFormComponent(writer, cycle);
-			}
-			else{
-				
+			} else{
 				String value = getTranslatedFieldSupport().format(this, getValue());
 		        if(value != null && value.trim().length()>0){
 		        	super.renderFormComponent(writer, cycle);
 		        }
-		        else{//TODO  为什么不能直接使用 setValue(getDefaultValue()) 这样岂不更简单？
+		        else{
 		        	this.setValue(this.getDefaultValue());
 		        	super.renderFormComponent(writer, cycle);
 		        }
@@ -101,5 +99,5 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 * true:该TextField为readonly;false:该TextField不是readonly
 	 * @return
 	 */
-	public abstract Boolean getReadOnly();
+	public abstract Boolean getOnlyRead();
 }
