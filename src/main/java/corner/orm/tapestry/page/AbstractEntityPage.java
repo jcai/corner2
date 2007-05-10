@@ -29,6 +29,7 @@ import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
 import corner.orm.tapestry.state.IContextAccessible;
 import corner.service.EntityService;
+import corner.util.BeanUtils;
 import corner.util.CornerUtils;
 
 /**
@@ -217,6 +218,19 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 				EntityService.getEntityClass(blobEntity), getUploadFile(), blobEntity, this
 						.getEntityService(),ifNullDelete);
 		delegate.save();
+	}
+	/**
+	 * 得到对象的属性值，主要提供在页面的调用.
+	 * @param rootObject 根对象.
+	 * @param pro 属性名.
+	 * @return 属性值
+	 * @since 2.3.7
+	 */
+	public final Object getPropertyValue(Object rootObject,String pro){
+		if(rootObject == null){
+			return null;
+		}
+		return BeanUtils.getProperty(rootObject,pro);
 	}
 	
 	/** 对日期类型的格式化 * */
