@@ -12,11 +12,12 @@
 
 package corner.test;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,6 +94,9 @@ public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResu
 
 	}
 
+	protected String getOutputFilename(){
+		return "target/results.html";
+	}
 	@Test
 	public void testFunction() throws Exception {
 
@@ -107,13 +111,8 @@ public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResu
 		 // long end = Integer.MAX_VALUE;
 		        
 		        
-
-		// if (outputFile != null) {
-		// FileWriter fw = new FileWriter(outputFile);
-		// results.write(fw);
-		// fw.close();
-		// }
-		//        
+		 
+		        
 /*
 		List<String> list = new ArrayList<String>();
 		list.add("-htmlSuite");
@@ -138,12 +137,19 @@ public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResu
 		}
 		launcher.close();
 		
+		File outputFile = new File(getOutputFilename());
+		 if (outputFile != null) {
+		 FileWriter fw = new FileWriter(outputFile);
+		 results.write(fw);
+		 fw.close();
+	 }
+		 
 		String failNum = results.getNumTestFailures();
 
 		if (failNum != null && !failNum.equals("0")) {
 			fail("功能测试失败,共测试[" + results.getNumTotalTests() + "] 成功：["
 					+ results.getNumTestPasses() + "] 失败:["
-					+ results.getNumTestFailures() + "]");
+					+ results.getNumTestFailures() + "],请查看结果文件:"+this.getOutputFilename());
 
 		} else {
 			System.out.println("功能测试失成功,共测试[" + results.getNumTotalTests()

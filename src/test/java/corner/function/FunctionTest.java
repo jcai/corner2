@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import corner.test.BaseFunctionTestCase;
 @Test
-public class FunctionTest /*extends BaseFunctionTestCase*/
+public class FunctionTest extends BaseFunctionTestCase
 {
 
 	/**
