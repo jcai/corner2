@@ -12,6 +12,8 @@
 
 package corner.orm.tapestry.state;
 
+import org.apache.tapestry.services.DataSqueezer;
+
 /**
  * 一个mock的context
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
@@ -20,4 +22,8 @@ package corner.orm.tapestry.state;
  */
 public class MockContext implements IContext {
 
+	public void setDataSqueezer(DataSqueezer squeezer) {
+		//do nothing
+		System.out.println(this);
+	}
 }
