@@ -12,7 +12,6 @@
 
 package corner.orm.tapestry.state;
 
-import org.apache.tapestry.services.DataSqueezer;
 
 /**
  * 定义一个上下文.
@@ -22,5 +21,4 @@ import org.apache.tapestry.services.DataSqueezer;
  */
 public interface IContext {
 
-	public void setDataSqueezer(DataSqueezer squeezer);
 }
