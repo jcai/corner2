@@ -1,21 +1,10 @@
-<module id="corner.state" version="1.0.0" >
+<module id="corner.state" version="1.0.0">
 	<contribution configuration-id="hivemind.FactoryDefaults">
 	   <default symbol="corner.state.object.class" value="corner.orm.tapestry.state.MockContext"/>
 	</contribution>
 	<contribution configuration-id="tapestry.state.ApplicationObjects">
 		<state-object name="context" scope="session">
-				<invoke-factory object="service:PersistASOFactory"/>
+			<create-instance class="${corner.state.object.class}"/>
 		</state-object>
 	</contribution>
-	
-	<service-point id="PersistASOFactory" interface="org.apache.tapestry.engine.state.StateObjectFactory">
-    <invoke-factory>
-         <construct class="corner.orm.tapestry.state.PersistStateObjectFactory">
-                  <set-object property="dataSqueezer"
-							value="service:tapestry.data.DataSqueezer"/>
-					<set property="stateObjectClassName"
-					value="${corner.state.object.class}"/>			 
-         </construct>
-   </invoke-factory>  
-</service-point>
 </module>
