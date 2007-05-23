@@ -63,7 +63,7 @@
 		<dependency org="c3p0" name="c3p0" rev="0.9.0.4" conf="test->*"/>
 		<dependency org="jetty"	name="jasper-runtime" rev="4.2.20RC0" conf="test->*"/>
 		<dependency org="jetty"	name="jasper-compiler" rev="4.2.20RC0" conf="test->*"/>
-		<dependency org="hsqldb" name="hsqldb" rev="1.8.0.1" conf="test->*"/>
+		<dependency org="hsqldb" name="hsqldb" rev="1.8.0.7" conf="test->*"/>
 		
 		<dependency org="testng" name="testng" rev="5.0.2-jdk15" conf="ant->*"/>
 		<dependency org="apache" name="antlr" rev="2.7.6" conf="ant->*"/>
