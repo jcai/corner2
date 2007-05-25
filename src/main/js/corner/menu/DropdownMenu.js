@@ -118,8 +118,8 @@ corner.menu.DropdownMenu={
 				dojo.html.setClass(this.menus.item(i),"menu-normal");
 			dojo.html.setClass(node,"menu-selected");
 			index=this.menus.indexOf(node);
-			if(index>0){
-				dojo.html.setClass(this.menus.item(index-1),"menu-selected-before");
+			if(index>=0 && (index+1)<this.menus.count){
+				dojo.html.setClass(this.menus.item(index+1),"menu-selected-after");
 			}
 		}
 	}
