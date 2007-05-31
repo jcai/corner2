@@ -29,7 +29,6 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
-import corner.util.BeanUtils;
 import corner.util.PaginationBean;
 
 /**
@@ -353,63 +352,6 @@ public class EntityService {
 		} else {
 			return 0;
 		}
-	}
-
-	/**
-	 * 使用HQL实现对关联实体的批量更新
-	 * 
-	 * example: 目标:更新所有id为1的实体中name属性为 A a = new A(); a.setId("1");
-	 * this.doDeleteBatchRelativeEntityAction(A.class,"id",a);
-	 * 此时将删除所有DB中id属性为1的A记录
-	 * 
-	 * @param clazz
-	 *            被更新的实体Class
-	 * @param updatePropertyName
-	 *            被更新的属性名称
-	 * @param conditionPropertyName
-	 *            被更新的实体满足的条件属性名称
-	 * @param entity
-	 *            一个被更新的实体的instance,设置好,updatePropertyName,conditionPropertyName属性的参数
-	 * @return 被更新的记录数量
-	 */
-	public <T> int doUpdateBatchRelativeEntityAction(final Class clazz,
-			final String updatePropertyName,
-			final String conditionPropertyName, final T entity) {
-//		if (entity != null) {
-//			return ((Integer) ((HibernateObjectRelativeUtils) this
-//					.getObjectRelativeUtils()).getHibernateTemplate().execute(
-//					new HibernateCallback() {
-//						public Object doInHibernate(Session session)
-//								throws HibernateException, SQLException {
-//							StringBuffer buffer = new StringBuffer("update ");
-//							buffer.append(clazz.getName());
-//							buffer.append(" clazz ");
-//							buffer.append(" set clazz.");
-//							buffer.append(updatePropertyName);
-//							buffer.append("=:");
-//							buffer.append(updatePropertyName);
-//							buffer.append(" where clazz.");
-//							buffer.append(conditionPropertyName);
-//							buffer.append("=:");
-//							buffer.append(conditionPropertyName);
-//							return session
-//									.createQuery(buffer.toString())
-//									.setString(
-//											updatePropertyName,
-//											(String) BeanUtils.getProperty(
-//													entity, updatePropertyName))
-//									.setString(
-//											conditionPropertyName,
-//											(String) BeanUtils.getProperty(
-//													entity,
-//													conditionPropertyName))
-//									.executeUpdate();
-//						}
-//					})).intValue();
-//		} else {
-//			return 0;
-//		}
-		return 0;
 	}
 
 	/**
