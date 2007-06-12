@@ -61,7 +61,7 @@ public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResu
 	protected void setUp() throws Exception {
 		super.setUp();
 		System.setProperty("org.mortbay.http.HttpRequest.maxFormContentSize",
-				"1000000");
+				"10000000");
 		server = new Server();
 
 		SocketListener socketListener = new SocketListener();
