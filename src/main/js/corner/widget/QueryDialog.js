@@ -48,7 +48,9 @@ dojo.widget.defineWidget(
 		var r = dojo.render.html;
 		var ifrstr = ((r.ie)&&(dojo.render.os.win)) ? "<iframe frameborder='0' scrolling='auto' onLoad='"+onloadstr+"'  >" : "iframe";
 		this.frameNode = document.createElement(ifrstr);
-		
+		this.frameNode.id=this.widgetId+"iframe";
+		this.frameNode.name=this.widgetId+"iframe";
+		dojo.debug(this.frameNode.name);
 		this.dlgDiv.appendChild(this.frameNode);		
 		dojo.html.setClass(this.frameNode,"frameClass");
 		if(this.url!=null){
