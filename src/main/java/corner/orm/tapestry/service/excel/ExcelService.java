@@ -212,9 +212,9 @@ public class ExcelService implements IEngineService {
 			// 向该row中添加数据
 			// TODO 此处所有的属性全部实用反射得到，如果数据量很大，性能开销是个问题
 			for (int j = 0; j < cellNumber; j++) {
+				Object obj = BeanUtils.getProperty(excel,displayColumns[j]);
 				row.createCell((short) j).setCellValue(
-						new HSSFRichTextString(BeanUtils.getProperty(excel,
-								displayColumns[j]).toString()));
+						new HSSFRichTextString(obj!=null?obj.toString():""));
 			}
 			i++;
 		}
