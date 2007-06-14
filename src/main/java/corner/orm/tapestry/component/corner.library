@@ -44,4 +44,8 @@
   <component-type type="DatePicker" specification-path="date/DatePicker.jwc"/>
   <component-type type="TablePages" specification-path="/corner/orm/tapestry/table/TablePages.jwc"/>
   
+  <component-type type="ExcelServiceFullLink" specification-path="/corner/orm/tapestry/service/excel/ExcelServiceFullLink.jwc"/>
+  <component-type type="ExcelServicePageLink" specification-path="/corner/orm/tapestry/service/excel/ExcelServicePageLink.jwc"/>
+ 
+  
 </library-specification>

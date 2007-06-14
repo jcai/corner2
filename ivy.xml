@@ -24,6 +24,10 @@
 		<dependency org="apache" name="commons-lang" rev="2.1" conf="compile->*" />
 		
 
+				<!-- poi -->
+		<dependency org="poi" name="poi" rev="3.0-rc4-20070503" conf="runtime->*"/>
+		<dependency org="poi" name="poi-contrib" rev="3.0-rc4-20070503" conf="runtime->*"/>
+		<dependency org="poi" name="poi-scratchpad" rev="3.0-rc4-20070503" conf="runtime->*"/>
 		
 		<dependency org="apache" name="antlr" rev="2.7.6" conf="runtime->*"/>
 		<dependency org="apache" name="hivemind" rev="1.1.1" conf="runtime->*"/>

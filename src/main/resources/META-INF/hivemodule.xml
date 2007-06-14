@@ -45,5 +45,6 @@
 	<sub-module descriptor="corner.page.xml"/>
 	<sub-module descriptor="corner.service.xml"/>
 	<sub-module descriptor="corner.state.xml"/>
+	<sub-module descriptor="corner.excel.xml"/>
 	
 </module>

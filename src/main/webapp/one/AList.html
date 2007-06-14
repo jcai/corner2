@@ -10,7 +10,11 @@
 			<input type="submit"/>
 		</form>
 	</center>
-    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+	<br/>
+<a href="" jwcid="@corner:ExcelServicePageLink" tableViewName="testTableView"  downloadFileName="国家">显示当前页Excel</a>
+	<a href="" jwcid="@corner:ExcelServiceFullLink" tableViewName="testTableView" downloadFileName="国家" disableTitle="ognl:false">显示全部Excel</a>
+	<br/>
+    <div jwcid="testTableView@contrib:TableView" columns="name,password" element="div" source="ognl:source" persist="client">
       <table>
         <tr>
           <td>

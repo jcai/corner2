@@ -1,0 +1,20 @@
+<module id="corner.excel" version="1.0.0" package="corner.orm.tapestry.service.excel">  
+  <!-- 提供一个tapestry的服务 -->
+  <contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="excel" object="service:ExcelService"/>
+  </contribution>
+  
+	<service-point id="ExcelService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="ExcelService">
+				<set-object property="response" value="infrastructure:response"/>
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+<!-- contribution -->
+</module>
