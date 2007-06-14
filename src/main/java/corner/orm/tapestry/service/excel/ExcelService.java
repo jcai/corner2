@@ -108,7 +108,8 @@ public class ExcelService implements IEngineService {
 
 		// 取得TableView组件
 		TableView comp = (TableView) page.getComponent(tableviewId);
-		if (ComponentResponseUtils.EXCEL_DATA_GENERATE_TYPE_FULL.equals(genType)) {// 展示所有数据
+		if (ComponentResponseUtils.EXCEL_DATA_GENERATE_TYPE_FULL
+				.equals(genType)) {// 展示所有数据
 			comp.getTableModel().getPagingState().setCurrentPage(0);
 			comp.getTableModel().getPagingState()
 					.setPageSize(Integer.MAX_VALUE);// 改变当前页，和最大值
@@ -212,8 +213,8 @@ public class ExcelService implements IEngineService {
 			// TODO 此处所有的属性全部实用反射得到，如果数据量很大，性能开销是个问题
 			for (int j = 0; j < cellNumber; j++) {
 				row.createCell((short) j).setCellValue(
-						new HSSFRichTextString((String) BeanUtils.getProperty(
-								excel, displayColumns[j])));
+						new HSSFRichTextString(BeanUtils.getProperty(excel,
+								displayColumns[j]).toString()));
 			}
 			i++;
 		}
