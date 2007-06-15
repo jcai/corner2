@@ -8,11 +8,15 @@
 package corner.orm.tapestry.utils;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.net.URLCodec;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.web.WebResponse;
 
@@ -24,7 +28,7 @@ import org.apache.tapestry.web.WebResponse;
  * @since 0.8.5.1
  */
 public class ComponentResponseUtils {
-	
+	private static final Log log=LogFactory.getLog(ComponentResponseUtils.class);
 	/**
 	 * 生成Excel时候，指定数据的生成类型
 	 * 
@@ -44,17 +48,23 @@ public class ComponentResponseUtils {
 	// 参考：http://eddysheng.javaeye.com/blog/50414
 	private static String processFileName(String fileName, String agent)
 			throws IOException {
-		String codedfilename = null;
+		String codedfilename = fileName;
 		if (null != agent && -1 != agent.indexOf("MSIE")) {// IE
-			codedfilename = URLEncoder.encode(fileName, "UTF-8");
+			
+			//采用apache的codeC，见:
+			//http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6437829
+			URLCodec codec=new URLCodec("UTF-8");
+			try {
+				codedfilename = codec.encode(fileName);
+			} catch (EncoderException e) {
+				log.warn(e);
+			}
 		} else if (null != agent && -1 != agent.indexOf("Mozilla")) { // Mozilla
 			// firefox
 			codedfilename = String
 					.format(MOZILLA_DOWNLOAD_FILE_NAME, new String(Base64
 							.encodeBase64(fileName.getBytes("UTF-8"))));
-		} else {
-			codedfilename = fileName;
-		}
+		} 
 		return codedfilename;
 	}
 	
