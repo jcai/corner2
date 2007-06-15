@@ -9,6 +9,7 @@ package corner.orm.tapestry.utils;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.codec.binary.Base64;
@@ -64,10 +65,9 @@ public class ComponentResponseUtils {
 	 * @throws IOException
 	 */
 	public static void constructResponse(String fileName, String extensionName, IRequestCycle requestCycle, WebResponse response) throws IOException {
-
 		if (fileName == null || fileName.length() == 0) {// 如果没有定义文件名称，使用时间作为文件名称
-			Date date = new Date();
-			fileName = String.valueOf(date.getTime());
+			Calendar c=Calendar.getInstance();
+			fileName=String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS%1$tL",c);
 		}
 		// 加上后缀
 		fileName += extensionName;
