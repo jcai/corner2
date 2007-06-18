@@ -9,10 +9,8 @@ package corner.orm.tapestry.service.excel;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -25,7 +23,6 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.contrib.table.components.TableView;
-import org.apache.tapestry.contrib.table.model.ITableColumn;
 import org.apache.tapestry.contrib.table.model.ITableModel;
 import org.apache.tapestry.contrib.table.model.simple.SimpleTableColumn;
 import org.apache.tapestry.engine.IEngineService;
