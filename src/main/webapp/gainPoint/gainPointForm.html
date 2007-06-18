@@ -1,0 +1,28 @@
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
+    <form jwcid="BForm" action="BList.html">
+      <table>
+		  <div jwcid="GainPointField" >
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input jwcid="nameField"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input jwcid="nameField2@TextField" value="ognl:entity.name"/>
+			</td>
+		</tr>
+			  </div>
+      </table>
+		
+		<input jwcid="nameField3@TextField" value="ognl:entity.name"/>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+</span>

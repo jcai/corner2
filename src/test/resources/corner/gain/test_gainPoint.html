@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test gainPoint</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+	
+	<!--
+function test(){
+	
+	dojo.debug("fkdlsajfkldjsakfjdkls");
+	var flags = "{'reNames':['field1','field2','field3']}";
+											
+	var myJsonObj2 = eval('(' + flags + ')');
+	
+	var elementName = "aaaaa";
+	
+	for (var i in myJsonObj2.reNames){
+		
+		dojo.byId(myJsonObj2.reNames[i]).name = elementName;
+		
+		dojo.debug(dojo.byId(myJsonObj2.reNames[i]).name);
+		
+	}
+		
+		
+}
+	
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+field 1 <input id="field1" name ="111"	/> field 2 <input id="field2" name ="222"/> field 3 <input id="field3" name ="333"/><br/>
+<a href=# onclick=" test()">test</a><br />
+
+<SCRIPT LANGUAGE="JavaScript">
+	
+
+</SCRIPT>
+	
+</body>
+
+</html>

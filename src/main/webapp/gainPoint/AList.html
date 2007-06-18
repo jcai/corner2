@@ -1,0 +1,38 @@
+<span jwcid="@DemoBorder">
+    <center>
+      <a listener="listener:doNewEntityAction" jwcid="@DirectLink" href="AForm.html">
+        <span key="link.add">add</span>
+      </a>
+    </center>
+    <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <span key="link.edit">edit</span>
+          </td>
+          <td>
+            <span key="link.delete">delete</span>
+          </td>
+        </tr>
+        <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.name">name</span>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html">
+              <span key="link.edit">Edit</span>
+            </a>
+          </td>
+          <td>
+            <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
+              <span key="link.delete">Delete</span>
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div jwcid="@contrib:TablePages" element="div"/>
+    </div>
+</span>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+	
+<component-specification class="corner.orm.tapestry.component.gain.GainFence" allow-body="no" allow-informal-parameters="yes">
+
+  <description>
+    A row component
+  </description>
+ 
+
+  <parameter name="displayName">
+    <description>
+      The name of the field, which may be used by a FieldLabel.
+    </description>
+  </parameter>
+    
+   <parameter name="tdClass">
+        <description>
+            展示时候的每格的样式.
+        </description>
+    </parameter>
+   <parameter name="inputClass">
+        <description>
+            展示输入框时候的样式
+        </description>
+    </parameter>
+
+  <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
+</component-specification>
