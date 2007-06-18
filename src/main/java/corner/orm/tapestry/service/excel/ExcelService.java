@@ -27,6 +27,7 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.contrib.table.components.TableView;
 import org.apache.tapestry.contrib.table.model.ITableColumn;
 import org.apache.tapestry.contrib.table.model.ITableModel;
+import org.apache.tapestry.contrib.table.model.simple.SimpleTableColumn;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.services.LinkFactory;
@@ -35,7 +36,6 @@ import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
 import corner.orm.tapestry.utils.ComponentResponseUtils;
-import corner.util.BeanUtils;
 
 /**
  * 实现生成Excel的Service
@@ -100,7 +100,7 @@ public class ExcelService implements IEngineService {
 
 		String genType = (String) parameters[2];
 
-		boolean disableTitle = (Boolean) parameters[3];
+		boolean enableTitle = (Boolean) parameters[3];
 
 		IPage page = cycle.getPage(activePageName);
 
@@ -116,7 +116,7 @@ public class ExcelService implements IEngineService {
 		}
 
 		if (page != null) {
-			HSSFWorkbook workbook = generateExcelData(page, disableTitle, comp
+			HSSFWorkbook workbook = generateExcelData(page, enableTitle, comp
 					.getTableModel());
 
 			OutputStream output = _response.getOutputStream(new ContentType(
@@ -137,25 +137,15 @@ public class ExcelService implements IEngineService {
 	 * 
 	 * @param page
 	 *            调用当前Service的Page类
-	 * @param disableTitle
-	 *            是否显示excel的title
+	 * @param enableTitle            是否显示excel的title
 	 * @param model
 	 *            当前页面中TableView组件的{@link ITableModel}
 	 * @return 一个{@link HSSFWorkbook}的实例
 	 */
-	protected HSSFWorkbook generateExcelData(IPage page, boolean disableTitle,
+	protected HSSFWorkbook generateExcelData(IPage page, boolean enableTitle,
 			ITableModel model) {
 
-		/**
-		 * 判断该实体是否包含有Title true:有title false:无title
-		 */
-		boolean hasTitle = false;
 
-		String[] displayColumns = this.getDisplayColumns(page, model);
-		Iterator it = model.getCurrentPageRows();
-		if (it == null) {
-			return null;
-		}
 		// create workbook
 		HSSFWorkbook wb = new HSSFWorkbook();
 
@@ -163,24 +153,18 @@ public class ExcelService implements IEngineService {
 		HSSFSheet sheet1 = wb.createSheet("sheet");
 
 		// create title
-		if (disableTitle) {
-			String[] titles = this.getDisplayTitle(page, displayColumns);
-			if (titles != null && titles.length > 0) {
-				hasTitle = true;
-				createExcelTitle(wb, sheet1, titles, titles.length);
-			}
+		if (enableTitle) {
+			createExcelTitleRow(wb,sheet1,model.getColumnModel().getColumns());
 		}
 		// create excel body
-		createExcelRows(wb, sheet1, it, displayColumns, hasTitle);
-
+		createExcelDataRows(wb, sheet1, model, enableTitle);
 		return wb;
 	}
 
 	/**
 	 * 创建Excel文件的Title部分
 	 */
-	void createExcelTitle(HSSFWorkbook wb, HSSFSheet sheet, String[] titles,
-			int cellNumber) {
+	void createExcelTitleRow(HSSFWorkbook wb, HSSFSheet sheet,Iterator columns) {
 		HSSFRow row = sheet.createRow((short) 0);
 		HSSFCellStyle titleStyle = wb.createCellStyle();
 		titleStyle.setTopBorderColor(HSSFColor.BLACK.index);
@@ -188,33 +172,43 @@ public class ExcelService implements IEngineService {
 		// FIXME 定义标题字体--目前只是把标题设置成加粗
 		HSSFFont font = wb.createFont();
 		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-
-		for (int i = 0; i < cellNumber; i++) {
-			HSSFRichTextString title = new HSSFRichTextString(titles[i]);
+	
+		
+		short i=0;
+		while(columns.hasNext()){
+			SimpleTableColumn column=(SimpleTableColumn) columns.next();
+			HSSFRichTextString title = new HSSFRichTextString(column.getDisplayName());
 			title.applyFont(font);
-			row.createCell((short) i).setCellValue(title);
+			row.createCell(i).setCellValue(title);
+			i++;
 		}
 	}
 
 	/**
 	 * 创建Excel的数据
 	 */
-	void createExcelRows(HSSFWorkbook wb, HSSFSheet sheet, Iterator it,
-			String[] displayColumns, boolean hasTitle) {
-		int cellNumber = displayColumns.length;
-		int i = 0;
-		while (it.hasNext()) {
-			Object excel = it.next();
+	void createExcelDataRows(HSSFWorkbook wb, HSSFSheet sheet, ITableModel model, boolean hasTitle) {
+		Iterator rows = model.getCurrentPageRows();
+		short i=0; //行数
+		if(hasTitle){
+			i++;
+		}
+		short j=0;//列数
+		Iterator columns;
+		while (rows.hasNext()) {
+			Object rowObj = rows.next();
 			// 创建一个row 如果有title，第0行就是title，如果没有，则从第0行开始
-			HSSFRow row = hasTitle ? sheet.createRow((short) (i + 1)) : sheet
-					.createRow((short) (i));
+			HSSFRow row = sheet.createRow(i);
 
 			// 向该row中添加数据
-			// TODO 此处所有的属性全部实用反射得到，如果数据量很大，性能开销是个问题
-			for (int j = 0; j < cellNumber; j++) {
-				Object obj = BeanUtils.getProperty(excel,displayColumns[j]);
-				row.createCell((short) j).setCellValue(
-						new HSSFRichTextString(obj!=null?obj.toString():""));
+			columns = model.getColumnModel().getColumns();
+			SimpleTableColumn column;
+			j=0;
+			while(columns.hasNext()){
+				column=(SimpleTableColumn) columns.next();
+				Object obj=column.getColumnValue(rowObj);
+				row.createCell(j).setCellValue(new HSSFRichTextString(obj!=null?obj.toString():""));
+				j++;
 			}
 			i++;
 		}
@@ -223,6 +217,7 @@ public class ExcelService implements IEngineService {
 	/**
 	 * 构造Excel的title部分
 	 */
+	@Deprecated
 	String[] getDisplayTitle(IPage page, String[] columnNames) {
 		String[] titles = new String[columnNames.length];
 		for (int i = 0; i < columnNames.length; i++) {
@@ -234,6 +229,7 @@ public class ExcelService implements IEngineService {
 	/**
 	 * 返回ITableModel中的column定义
 	 */
+	@Deprecated
 	String[] getDisplayColumns(IPage page, ITableModel model) {
 		List<String> columnList = new ArrayList<String>();
 		Iterator it = model.getColumnModel().getColumns();

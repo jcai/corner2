@@ -43,12 +43,12 @@ public abstract class AbstractExcelServiceLink extends AbstractLinkComponent {
 
 
 	/**
-	 * 是否包含title true:显示 0:不显示
+	 * 是否展示表格的标题  true:展示  false:不展示
 	 * 
 	 * @return true或者false,标识是否显示excel的title
 	 */
 	@Parameter(defaultValue = "true")
-	public abstract boolean getDisableTitle();
+	public abstract boolean getEnableTitle();
 
 	@InjectObject("engine-service:excel")
 	public abstract IEngineService getExcelService();
@@ -62,7 +62,7 @@ public abstract class AbstractExcelServiceLink extends AbstractLinkComponent {
 		parameters[0] = this.getTableViewName();
 		parameters[1] = this.getDownloadFileName();
 		parameters[2] = this.getGenerateType();
-		parameters[3] = this.getDisableTitle();
+		parameters[3] = this.getEnableTitle();
 		return this.getExcelService().getLink(true, parameters);
 	}
 	
