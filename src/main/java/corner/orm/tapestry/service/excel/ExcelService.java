@@ -213,32 +213,6 @@ public class ExcelService implements IEngineService {
 			i++;
 		}
 	}
-
-	/**
-	 * 构造Excel的title部分
-	 */
-	@Deprecated
-	String[] getDisplayTitle(IPage page, String[] columnNames) {
-		String[] titles = new String[columnNames.length];
-		for (int i = 0; i < columnNames.length; i++) {
-			titles[i] = page.getMessages().getMessage(columnNames[i]);
-		}
-		return titles;
-	}
-
-	/**
-	 * 返回ITableModel中的column定义
-	 */
-	@Deprecated
-	String[] getDisplayColumns(IPage page, ITableModel model) {
-		List<String> columnList = new ArrayList<String>();
-		Iterator it = model.getColumnModel().getColumns();
-		while (it.hasNext()) {
-			columnList.add(((ITableColumn) it.next()).getColumnName());
-		}
-		return columnList.toArray(new String[0]);
-	}
-
 	/**
 	 * @param cycle
 	 *            The _requestCycle to set.
