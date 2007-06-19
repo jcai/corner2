@@ -8,9 +8,7 @@
 package corner.orm.tapestry.utils;
 
 import java.io.IOException;
-
 import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.Base64;
@@ -21,13 +19,14 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.web.WebResponse;
 
 /**
- * 提供piano-core中自定义组件的一些通用的工具方法
+ * 提供corner中自定义组件的一些通用的工具方法
  * 
  * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
  * @version $Revision$
  * @since 0.8.5.1
  */
 public class ComponentResponseUtils {
+	
 	private static final Log log=LogFactory.getLog(ComponentResponseUtils.class);
 	/**
 	 * 生成Excel时候，指定数据的生成类型
