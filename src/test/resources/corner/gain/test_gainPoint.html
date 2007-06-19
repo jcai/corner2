@@ -11,12 +11,12 @@ djConfig = { isDebug: true
           };
 
 //-->
-	
-	<!--
-function test(){
+
+<!--
+function reName(){
 	
 	dojo.debug("fkdlsajfkldjsakfjdkls");
-	var flags = "{'reNames':['field1','field2','field3']}";
+	var flags = "{'reNames':['field1']}";
 											
 	var myJsonObj2 = eval('(' + flags + ')');
 	
@@ -29,24 +29,42 @@ function test(){
 		dojo.debug(dojo.byId(myJsonObj2.reNames[i]).name);
 		
 	}
-		
-		
 }
-	
 //-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="test_gainPoint.js"></script>
 </head>
 
 <body>
-field 1 <input id="field1" name ="111"	/> field 2 <input id="field2" name ="222"/> field 3 <input id="field3" name ="333"/><br/>
-<a href=# onclick=" test()">test</a><br />
-
-<SCRIPT LANGUAGE="JavaScript">
 	
+<form id="BForm">
+      <table>
+		  
+		<tr>
+			<td>
+				name <a href=# onclick="addRow('t1')">add</a><br/>
+			</td>
+			<td>
+				<div jwcid="GainPointField" >
+				<table id ="t1">
+					<tr>
+						<td>
+							field 1 <input id="field1" name ="111"	/><input type="button" id="testAdd" value="删除" onclick="dellRow('t1',this.parentNode.parentNode.rowIndex)"/><br/>
+						</td>
+					</tr>
+				</table>
+					</div>
+			</td>
+		</tr>
+			  
+      </table>
+		
+    </form>
 
-</SCRIPT>
+<a href=# onclick=" reName()">reName</a><br />
+
 	
 </body>
 
