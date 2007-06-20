@@ -1,23 +1,23 @@
 function addRow(id){
-	var tblObj = document.getElementById(id);
+	var tblObj = dojo.byId(id);
 	if(tblObj.rows){
 		dojo.debug(tblObj.rows.length);
 	}else{
 		dojo.debug('aaa');
 	}
 	//追加行
-	var newRow = tblObj.insertRow();
+	var newRow = tblObj.insertRow(-1);
 	newRow.style.display = "";
 	var cellNum = tblObj.rows[0].cells.length;
 	
 	//追加列
 	for(colIndex = 0; colIndex < cellNum; colIndex++){
-		var newCell = newRow.insertCell();
+		var newCell = newRow.insertCell(-1);
 		initTblCell(newCell,id);
 	}
 }
 function initTblCell(cell,id){
-	var lastCell = document.getElementById(id).rows[0].cells[cell.cellIndex];
+	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
 	dojo.debug("1111111111111111");
@@ -50,7 +50,7 @@ function buttonFun(){
 	}
 }
 function dellRow(pid,id){
-	var obj = document.getElementById(pid);
+	var obj = dojo.byId(pid);
 	dojo.debug("del "  + id);
 	obj.deleteRow(id);
 }

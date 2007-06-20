@@ -2,25 +2,26 @@
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
     <form jwcid="BForm" action="BList.html">
       <table>
-		  <div jwcid="GainPointField" >
+		  
 		<tr>
 			<td>
+				name <a href=# onclick="addRow('t1')">add</a><br/>
 			</td>
 			<td>
-				<input jwcid="nameField"/>
+				<div jwcid="GainPointField" >
+				<table id ="t1">
+					<tr>
+						<td>
+							field 1 <input name="inName" id="nameField1" ><input type="button" id="testAdd" value="删除" onclick="dellRow('t1',this.parentNode.parentNode.rowIndex)"/><br/>
+						</td>
+					</tr>
+				</table>
+				</div>
 			</td>
 		</tr>
-		<tr>
-			<td>
-			</td>
-			<td>
-				<input jwcid="nameField2@TextField" value="ognl:entity.name"/>
-			</td>
-		</tr>
-			  </div>
+			  
       </table>
 		
-		<input jwcid="nameField3@TextField" value="ognl:entity.name"/>
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
       <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>

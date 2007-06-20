@@ -4,6 +4,8 @@
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 
+<include-script resource-path="/corner/orm/tapestry/component/gain/GainPoint.js" />
+
 <input-symbol key="gpid"     	required="yes" />
 <input-symbol key="elementName"     required="yes" />
 <input-symbol key="reNames"     	required="yes" />
