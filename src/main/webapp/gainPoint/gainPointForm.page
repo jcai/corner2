@@ -20,6 +20,4 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
-  <component type="corner:GainPoint" id="GainPointField">
-  </component>
 </page-specification>

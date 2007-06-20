@@ -47,10 +47,10 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 * @param cycle
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle){
-		String sl[] = cycle.getParameters("inName");
+		String sl[] = cycle.getParameters(getElementName());
 		
 		for(String s : sl){
-			System.out.println(s);
+			System.out.println(getElementName() + " " + s);
 		}
 	}
 	
@@ -152,7 +152,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	/**
 	 * 
 	 */
-	@Parameter(defaultValue = "literal:aaa")
+	@Parameter(required = true)
 	public abstract String getElementName();
 	
 	/**

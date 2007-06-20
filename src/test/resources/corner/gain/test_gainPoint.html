@@ -40,28 +40,42 @@ function reName(){
 <body>
 	
 <form id="BForm">
-      <table>
-		  
+	name <a href=# onclick="addRow('t')">add</a><br/>
+      <table id="t">
 		<tr>
 			<td>
-				name <a href=# onclick="addRow('t1')">add</a><br/>
+				
 			</td>
 			<td>
-				<div jwcid="GainPointField" >
+				<div jwcid="GainPointField" elementName="inName">
 				<table id ="t1">
 					<tr>
 						<td>
-							field 1 <input id="field1" name ="111"	/><input type="button" id="testAdd" value="删除" onclick="dellRow('t1',this.parentNode.parentNode.rowIndex)"/><br/>
+							field 1 <input id="field1" name ="inName"/>
 						</td>
+					</tr>
+				</table>
+			    </div>
+			</td>
+			<td>
+				<div jwcid="GainPointField" elementName="Name2">
+				<table id ="t1">
+					<tr>
+						<td>
+							field 2 <input id="field1" name ="Name2" />
+						<td>
 					</tr>
 				</table>
 					</div>
 			</td>
+			<td>
+				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))"/>
+			</td>							
 		</tr>
 			  
       </table>
 		
-    </form>
+</form>
 
 <a href=# onclick=" reName()">reName</a><br />
 

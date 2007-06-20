@@ -1,4 +1,14 @@
+/*
+	Copyright (c) Beijing Maxinfo Technology Co.,Ltd.
+	All Rights Reserved.
+*/
+function getTrIndex(obj){
+	return obj.parentNode.parentNode.rowIndex;
+}
+
 function addRow(id){
+//summary:
+// 传入ID，获得要增加行的table
 	var tblObj = dojo.byId(id);
 	if(tblObj.rows){
 		dojo.debug(tblObj.rows.length);
@@ -17,6 +27,8 @@ function addRow(id){
 	}
 }
 function initTblCell(cell,id){
+//summary:
+// 传入复制的样子和ID，增加新的一行
 	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
@@ -43,13 +55,9 @@ function initTblCell(cell,id){
 	cell.height = lastCell.height;
 }
 
-function buttonFun(){
-	var obj = document.getElementsByName("text4");
-	for(i = 1;i<obj.length;i++){
-		dojo.debug(obj[i].value);
-	}
-}
 function dellRow(pid,id){
+//summary:
+// 删除指定table的指定行
 	var obj = dojo.byId(pid);
 	dojo.debug("del "  + id);
 	obj.deleteRow(id);
