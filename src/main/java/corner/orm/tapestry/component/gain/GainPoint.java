@@ -12,8 +12,10 @@
 
 package corner.orm.tapestry.component.gain;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,7 +51,11 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle){
 		String sl[] = cycle.getParameters(getElementName());
 		
-		for(String s : sl){
+		if(this.getElements() == null){
+			this.setElements(Arrays.asList(sl));
+		}
+		
+		for(String s : getElements()){
 			System.out.println(getElementName() + " " + s);
 		}
 	}
@@ -126,25 +132,31 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 				renderBody(writer, cycle);
 		} if (!cycle.isRewinding()){
 			super.renderComponent(writer, cycle);
+			
+			/**
+			 * 原来的处理name
+			 */
+			PageRenderSupport pageRenderSupport = TapestryUtils
+					.getPageRenderSupport(cycle, this);
+
+			Map<String, Object> scriptParms = new HashMap<String, Object>();
+
+			scriptParms.put("gpid", this.getClientId());
+			scriptParms.put("elementName", this.getElementName());
+			scriptParms.put("reNames", reNames);
+
+			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
         }
-
-		/**
-		 * 原来的处理name
-		 */
-		PageRenderSupport pageRenderSupport = TapestryUtils
-				.getPageRenderSupport(cycle, this);
-
-		Map<String, Object> scriptParms = new HashMap<String, Object>();
-
-		scriptParms.put("gpid", this.getClientId());
-		scriptParms.put("elementName", this.getElementName());
-		scriptParms.put("reNames", reNames);
-
-		getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 	}
 
 	/**
-	 * @return
+	 * 输入的元素
+	 */
+	public abstract List<String> getElements();
+	public abstract void setElements(List<String> l);
+	
+	/**
+	 * 写入js
 	 */
 	@InjectScript("GainPoint.script")
 	public abstract IScript getScript();
