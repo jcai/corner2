@@ -183,7 +183,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 	 * 输入的元素
 	 */
 	@Parameter(required = true)
-	public abstract <T> T getEntity();
+	public abstract Object getEntity();
 	
 	/**
 	 * 
