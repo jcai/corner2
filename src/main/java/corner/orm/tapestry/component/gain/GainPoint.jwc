@@ -14,22 +14,5 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   </description>
  
 
-  <parameter name="displayName">
-    <description>
-      The name of the field, which may be used by a FieldLabel.
-    </description>
-  </parameter>
-    
-   <parameter name="tdClass">
-        <description>
-            展示时候的每格的样式.
-        </description>
-    </parameter>
-   <parameter name="inputClass">
-        <description>
-            展示输入框时候的样式
-        </description>
-    </parameter>
-
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
 </component-specification>

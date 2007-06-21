@@ -16,7 +16,7 @@
     </form>
     <br/>
     
-    <div jwcid="@contrib:TableView" element="span" columns="name,!EditRelative,!DeleteRelative"
+    <div jwcid="@contrib:TableView" element="span" columns="name,cnName,!DeleteRelative"
      source="ognl:getSource('bs')" pageSize="5" persist="client">
    <fieldset>
    <legend>A-B one-to-many,A关联的B列表 <a parameters="ognl:{entity,'gainPoint/gainPointForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="gainPointForm.html">Add A to B</a></legend> 
@@ -27,6 +27,8 @@
 		</tr>
 		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
 			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><span jwcid="@Insert" value="ognl:relativeObject.cnName" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" listener="listener:doDeleteRelativeEntityAction"><span key="doDeleteRelativeAction" /></a></td>
 		</tr>
 	</table>
     </fieldset>

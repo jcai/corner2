@@ -3,27 +3,28 @@
     <form jwcid="BForm" action="BList.html">
 		name <a href=# onclick="addRow('t')">add</a><br/>
       <table id="t">
+		 
 		<tr>
 			<td>
 				
 			</td>
 			<td>
-				<div jwcid="GainPointField@corner:GainPoint" elementName="inName">
+				<div jwcid="GainPointField@corner:GainPoint" elementName="name">
 				<table id ="t1">
 					<tr>
 						<td>
-							field 1 <input id="field1" name ="inName"	/>
+							name <input id="field1" name ="name"	/>
 							</td>
 					</tr>
 				</table>
 			    </div>
 			</td>
 			<td>
-				<div jwcid="GainPointaaField@corner:GainPoint" elementName="Name2">
+				<div jwcid="GainPointaaField@corner:GainPoint" elementName="cnName">
 				<table id ="t1">
 					<tr>
 						<td>
-							field 2 <input id="field2" name ="Name2"	/>
+							cnName <input id="field2" name ="cnName"	/>
 						<td>
 					</tr>
 				</table>
@@ -33,6 +34,7 @@
 				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',this.parentNode.parentNode.rowIndex)"/>
 			</td>							
 		</tr>
+		<input type="heddin" jwcid="GainFenceField" />
 			  
       </table>
 		

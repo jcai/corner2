@@ -3,32 +3,5 @@
 	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
-
 <include-script resource-path="/corner/orm/tapestry/component/gain/GainPoint.js" />
-
-<input-symbol key="gpid"     	required="yes" />
-<input-symbol key="elementName"     required="yes" />
-<input-symbol key="reNames"     	required="yes" />
-
-
-<initialization>
-    
-    dojo.debug("run Change");
-    (function ${gpid}Change() {
-		var flags = eval('(' + '${reNames}' + ')');
-		
-		dojo.debug(flags);
-		
-		for (var i in flags.reNames){
-			
-			dojo.debug(dojo.byId(flags.reNames[i]).name);
-			
-			dojo.byId(flags.reNames[i]).name = '${elementName}';
-			
-			dojo.debug(dojo.byId(flags.reNames[i]).name);
-			
-		}
-	})()
-	
-</initialization>
 </script>

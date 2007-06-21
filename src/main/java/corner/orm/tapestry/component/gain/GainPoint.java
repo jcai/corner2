@@ -14,10 +14,8 @@ package corner.orm.tapestry.component.gain;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IForm;
@@ -29,7 +27,6 @@ import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
-import org.apache.tapestry.form.Submit;
 import org.apache.tapestry.valid.IValidationDelegate;
 
 /**
@@ -55,9 +52,11 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			this.setElements(Arrays.asList(sl));
 		}
 		
-		for(String s : getElements()){
-			System.out.println(getElementName() + " " + s);
-		}
+		this.setElementLength(sl.length);
+		
+//		for(String s : getElements()){
+//			System.out.println(getElementName() + " " + s);
+//		}
 	}
 	
 	/**
@@ -66,38 +65,6 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
-
-		Set entries = cycle.getPage().getComponents().entrySet();
-
-		Iterator iter = entries.iterator();
-
-		StringBuffer reNameTemps = new StringBuffer("{\\\"reNames\\\": [");
-
-		String reNames = null;
-
-		while (iter.hasNext()) {
-			Map.Entry entry = (Map.Entry) iter.next();
-			// Object key = entry.getKey();
-
-			if (!(entry.getValue() instanceof IFormComponent)) {
-				continue;
-			}
-			
-			if((entry.getValue() instanceof Submit) || (entry.getValue() instanceof GainPoint)){
-				continue;
-			}
-
-			IFormComponent component = (IFormComponent) entry.getValue();
-
-			// if(cc.getBinding("id").equals(this.getClientId()) ){
-			reNameTemps.append("\\\"").append(component.getClientId()).append(
-					"\\\",");
-			// }
-		}
-
-		reNames = reNameTemps.toString().substring(0, reNameTemps.length() - 1);
-
-		reNames += "]}";
 
 		
 		/**
@@ -134,21 +101,23 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			super.renderComponent(writer, cycle);
 			
 			/**
-			 * 原来的处理name
+			 * 加入js
 			 */
 			PageRenderSupport pageRenderSupport = TapestryUtils
 					.getPageRenderSupport(cycle, this);
 
 			Map<String, Object> scriptParms = new HashMap<String, Object>();
 
-			scriptParms.put("gpid", this.getClientId());
-			scriptParms.put("elementName", this.getElementName());
-			scriptParms.put("reNames", reNames);
-
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
         }
 	}
 
+	/**
+	 * 元素长度
+	 */
+	public abstract int getElementLength();
+	public abstract void setElementLength(int length);
+	
 	/**
 	 * 输入的元素
 	 */

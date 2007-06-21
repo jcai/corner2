@@ -12,17 +12,9 @@
 
 package corner.demo.page.gainPoint;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.Map.Entry;
 
-import org.apache.tapestry.IComponent;
-import org.apache.tapestry.form.IFormComponent;
-
-import corner.demo.model.one2many.B;
+import corner.orm.tapestry.component.gain.GainFence;
 import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 
 /**
@@ -34,71 +26,14 @@ import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 
 	/**
-	 * 装配页面中的entity到entitys中
-	 */
-	private void assembleEntitys() {
-		
-		if(this.getEntitys() == null){
-			this.setEntitys(new HashSet());
-		}
-		
-		Set co = this.getComponents().entrySet();
-		Iterator list = co.iterator();
-		IComponent c = null;
-		String entityComponentId = null;
-		
-		List entityPropertys = new ArrayList();
-		entityPropertys.add("name");
-		
-		
-		
-		String entityProperty = (String) entityPropertys.iterator().next();
-		entityComponentId = entityProperty + "Field";
-		
-		Class clazz = this.getEntity().getClass();
-		
-		
-		
-		while(list.hasNext()){
-			Entry entity  = (Entry) list.next();
-			c = (IComponent) entity.getValue();
-			
-			
-			if(c instanceof IFormComponent && c.getId().indexOf(entityComponentId) != -1){
-				
-				
-				org.apache.tapestry.form.TextField fc = (org.apache.tapestry.form.TextField)c;
-				
-				B b = null;
-				
-				try {
-					 b = (B) clazz.newInstance();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				b.setName((String) fc.getValue());
-				
-				this.getEntitys().add(b);
-			}
-		}
-	}
-	
-
-	/**
 	 * @see corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage#saveOrUpdateEntity()
 	 */
 	@Override
 	protected void saveOrUpdateEntity() {
-		assembleEntitys();
-		Iterator list = this.getEntitys().iterator();
+		GainFence gf  = (GainFence) this.getPage().getComponent("GainFenceField");
 		
-		while(list.hasNext()){
-			this.setEntity(list.next());
+		for(Object e : gf.getEntitys()){
+			this.setEntity(e);
 			super.saveOrUpdateEntity();
 		}
 	}

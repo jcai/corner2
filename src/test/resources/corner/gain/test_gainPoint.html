@@ -42,6 +42,7 @@ function reName(){
 <form id="BForm">
 	name <a href=# onclick="addRow('t')">add</a><br/>
       <table id="t">
+		  <div jwcid="GainFenceField@corner:GainFence">
 		<tr>
 			<td>
 				
@@ -58,7 +59,7 @@ function reName(){
 			    </div>
 			</td>
 			<td>
-				<div jwcid="GainPointField" elementName="Name2">
+				<div jwcid="GainPointField2" elementName="Name2">
 				<table id ="t1">
 					<tr>
 						<td>
@@ -72,7 +73,7 @@ function reName(){
 				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))"/>
 			</td>							
 		</tr>
-			  
+		</div>
       </table>
 		
 </form>
