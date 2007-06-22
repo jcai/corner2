@@ -64,7 +64,6 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 
-		
 		/**
 		 * 处理form
 		 */
@@ -106,10 +105,45 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 
 			Map<String, Object> scriptParms = new HashMap<String, Object>();
 			
-			System.out.println(this.getElements());
-
+			//
+			String JSONElementValues = getJSONElementValues(this.getElements());
+			
+			scriptParms.put("tableId", this.getTableId());	//循环的表名，只使用一次
+			
+			scriptParms.put("elementSize", this.getElements().size());	//tr循环的次数，只使用一次
+			
+			scriptParms.put("gpid", this.getClientId());	//怕重复使用gpid
+			
+			scriptParms.put("elementName", this.getElementName());	//循环显示的名称,使用byNames
+			
+			scriptParms.put("elementValues", JSONElementValues);
+			
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
         }
+	}
+	
+	
+
+
+	/**
+	 * 获得json串
+	 * @param elements
+	 */
+	private String getJSONElementValues(List<String> elements) {
+		
+		StringBuffer jsonElementValues = new StringBuffer("{\\\"elementValues\\\": [");
+		
+		for(String s : elements){
+			jsonElementValues.append("\\\"").append(s).append("\\\",");
+		}
+		
+		jsonElementValues = new StringBuffer(jsonElementValues.toString().substring(0, jsonElementValues.length() - 1));
+
+		jsonElementValues.append("]}");
+		
+//		System.out.println(jsonElementValues.toString());
+		
+		return jsonElementValues.toString();
 	}
 
 	/**
@@ -135,6 +169,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	@Parameter(required = true)
 	public abstract String getElementName();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	public abstract String getTableId();
+	public abstract void setTableId(String s);
 	
 	/**
 	 * 

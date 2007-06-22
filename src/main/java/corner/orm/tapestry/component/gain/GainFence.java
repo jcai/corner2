@@ -51,6 +51,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 			for(GainPoint gp : this.getGainPoints()){
 				if(gp.getElements() == null){
 					gp.setElements(new ArrayList<String>());
+					gp.setTableId(this.getTableId());
 				}
 				
 				try {
@@ -226,6 +227,12 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 	 */
 	@Parameter(required = true)
 	public abstract String getEntityClass();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(required = true)
+	public abstract String getTableId();
 	
 	/**
 	 * 

@@ -4,4 +4,37 @@
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 <include-script resource-path="/corner/orm/tapestry/component/gain/GainPoint.js" />
+
+<input-symbol key="tableId"     	required="yes" />
+<input-symbol key="elementSize"     	required="yes" />
+<input-symbol key="gpid"     	required="yes" />
+<input-symbol key="elementName"     required="yes" />
+<input-symbol key="elementValues"     	required="yes" />
+
+
+<initialization>
+	<unique>
+		addRows(${elementSize},'${tableId}');
+	</unique>
+
+    dojo.debug("run Change");
+    (function ${gpid}Change() {
+		var flags = eval('(' + '${elementValues}' + ')');
+		
+		dojo.debug(flags);
+		
+		var elements = document.getElementsByName('${elementName}');
+	
+		dojo.debug("elements.length " + elements.length);
+		
+		for (var i in elements){
+
+			elements[i].value = flags.elementValues[i];
+			
+			dojo.debug(flags.elementValues[i]);
+			
+		}
+	})()
+	
+</initialization>
 </script>

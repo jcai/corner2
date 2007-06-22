@@ -13,20 +13,25 @@ djConfig = { isDebug: true
 //-->
 
 <!--
-function reName(){
+function reElementValues(){
 	
 	dojo.debug("fkdlsajfkldjsakfjdkls");
-	var flags = "{'reNames':['field1']}";
+	var flags = "{'elementValues':['value1','value2','value3','value4']}";
 											
 	var myJsonObj2 = eval('(' + flags + ')');
 	
-	var elementName = "aaaaa";
+	var elementName = "inName";
 	
-	for (var i in myJsonObj2.reNames){
+	var elements = document.getElementsByName(elementName);
+	
+	dojo.debug("elements.length " + elements.length);
+	
+	for (var i in elements){
 		
-		dojo.byId(myJsonObj2.reNames[i]).name = elementName;
 		
-		dojo.debug(dojo.byId(myJsonObj2.reNames[i]).name);
+		elements[i].value = myJsonObj2.elementValues[i];
+		
+		dojo.debug(myJsonObj2.elementValues[i]);
 		
 	}
 }
@@ -41,44 +46,129 @@ function reName(){
 	
 <form id="BForm">
 	name <a href=# onclick="addRow('t')">add</a><br/>
+	<a href=# onclick="addRows(5,'t')">adds</a><br/>
       <table id="t">
-		  <div jwcid="GainFenceField@corner:GainFence">
-		<tr>
+		  <tbody><tr>
 			<td>
 				
 			</td>
 			<td>
-				<div jwcid="GainPointField" elementName="inName">
-				<table id ="t1">
-					<tr>
+				<div jwcid="GainPointField" elementname="inName">
+				<table id="t1">
+					<tbody><tr>
+
 						<td>
-							field 1 <input id="field1" name ="inName"/>
+							field 1 <input id="field1" name="inName"/>
 						</td>
 					</tr>
-				</table>
+				</tbody></table>
 			    </div>
 			</td>
 			<td>
-				<div jwcid="GainPointField2" elementName="Name2">
-				<table id ="t1">
-					<tr>
+
+				<div jwcid="GainPointField2" elementname="Name2">
+				<table id="t1">
+					<tbody><tr>
 						<td>
-							field 2 <input id="field1" name ="Name2" />
-						<td>
-					</tr>
-				</table>
+							field 2 <input id="field1" name="cnName"/>
+						</td><td>
+					</td></tr>
+				</tbody></table>
+
 					</div>
 			</td>
 			<td>
-				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))"/>
+				<input id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))" type="button">
 			</td>							
 		</tr>
-		</div>
-      </table>
+		
+      <tr><td class="" align="left" height="">
+				
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField" elementname="inName">
+
+				<table id="t1">
+					<tbody><tr>
+						<td>
+							field 1 <input id="field1" name="inName"/>
+						</td>
+					</tr>
+				</tbody></table>
+			    </div>
+
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField2" elementname="Name2">
+				<table id="t1">
+					<tbody><tr>
+						<td>
+							field 2 <input id="field1" name="cnName"/>
+						</td><td>
+					</td></tr>
+
+				</tbody></table>
+					</div>
+			</td><td class="" align="left" height="">
+				<input id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))" type="button">
+			</td></tr><tr><td class="" align="left" height="">
+				
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField" elementname="inName">
+				<table id="t1">
+					<tbody><tr>
+
+						<td>
+							field 1 <input id="field1" name="inName"/>
+						</td>
+					</tr>
+				</tbody></table>
+			    </div>
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField2" elementname="Name2">
+
+				<table id="t1">
+					<tbody><tr>
+						<td>
+							field 2 <input id="field1" name="cnName"/>
+						</td><td>
+					</td></tr>
+				</tbody></table>
+					</div>
+
+			</td><td class="" align="left" height="">
+				<input id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))" type="button">
+			</td></tr><tr><td class="" align="left" height="">
+				
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField" elementname="inName">
+				<table id="t1">
+					<tbody><tr>
+						<td>
+							field 1 <input id="field1" name="inName"/>
+
+						</td>
+					</tr>
+				</tbody></table>
+			    </div>
+			</td><td class="" align="left" height="">
+				<div jwcid="GainPointField2" elementname="Name2">
+				<table id="t1">
+					<tbody><tr>
+						<td>
+
+							field 2 <input id="field1" name="cnName"/>
+						</td><td>
+					</td></tr>
+				</tbody></table>
+					</div>
+			</td><td class="" align="left" height="">
+				<input id="testAdd" value="删除" onclick="dellRow('t',getTrIndex(this))" type="button">
+			</td></tr></tbody>
+		</table>
+
 		
 </form>
 
-<a href=# onclick=" reName()">reName</a><br />
+<a href=# onclick=" reElementValues()">reElementValues</a><br />
 
 	
 </body>

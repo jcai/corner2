@@ -2,6 +2,14 @@
 	Copyright (c) Beijing Maxinfo Technology Co.,Ltd.
 	All Rights Reserved.
 */
+function addRows(size,id){
+//summary:
+// 传入循环次数和tableID，批量增加
+	for(var i=0 ; i < size-1;i++){
+		addRow(id);
+	}
+}
+
 function getTrIndex(obj){
 	return obj.parentNode.parentNode.rowIndex;
 }
