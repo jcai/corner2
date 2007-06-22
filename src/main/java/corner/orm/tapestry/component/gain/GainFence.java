@@ -26,8 +26,6 @@ import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IValidationDelegate;
 
-import corner.util.BeanUtils;
-
 /**
  * 
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -64,15 +62,30 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		
 		int Size = gp.getElementLength();
 		
+		Class entityClass = null;
+		try {
+			entityClass = Class.forName(getEntityClass());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		this.setEntitys(new ArrayList<T>());
+		
 		for(int i=0; i < Size ;i++){
-			try {
-				entity = getEntityClass().newInstance();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			if(i < this.getSource().size()){  //有可能打乱顺序
+				entity = this.getSource().get(i);
+			}else{
+				try {
+					entity = entityClass.newInstance();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			for(GainPoint g :this.getGainPoints()){
@@ -90,19 +103,13 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 				}
 			}
 			
-			if(this.getEntitys() == null){
-				this.setEntitys(new ArrayList<T>());
-			}
-			
 			this.getEntitys().add(entity);
 		}
 		
-		this.getEntitys();
-		
-		for(Object o : this.getEntitys()){
-			System.out.println("name  " + BeanUtils.getProperty(o, "name"));
-			System.out.println("cnName  " + BeanUtils.getProperty(o, "cnName"));
-		}
+//		for(Object o : this.getEntitys()){
+//			System.out.println("name  " + BeanUtils.getProperty(o, "name"));
+//			System.out.println("cnName  " + BeanUtils.getProperty(o, "cnName"));
+//		}
 	}
 
 	/**
@@ -117,8 +124,6 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		for(String s : GainPointFields){
 			this.getGainPoints().add((GainPoint) cycle.getPage().getComponent(s));
 		}
-		
-		this.setEntityClass(this.getEntity().getClass());
 	}
 	
 	/**
@@ -169,17 +174,14 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 	public abstract <T> List<T> getEntitys();
 	public abstract <T> void setEntitys(List<T> l);
 	
+	@Parameter
+	public abstract <T> List<T> getSource();
+	
 	/**
 	 * 输入的元素
 	 */
 	public abstract List<GainPoint> getGainPoints();
 	public abstract void setGainPoints(List<GainPoint> l);
-	
-	/**
-	 * 类名
-	 */
-	public abstract Class getEntityClass();
-	public abstract void setEntityClass(Class clazz);
 	
 	/**
 	 * 与相连的GainPoint用分号(;)隔开
@@ -191,7 +193,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 	 * 输入的元素
 	 */
 	@Parameter(required = true)
-	public abstract Object getEntity();
+	public abstract String getEntityClass();
 	
 	/**
 	 * 

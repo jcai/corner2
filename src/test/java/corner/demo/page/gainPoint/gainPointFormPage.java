@@ -12,8 +12,10 @@
 
 package corner.demo.page.gainPoint;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.List;
 
+import corner.demo.model.one2many.A;
 import corner.orm.tapestry.component.gain.GainFence;
 import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 
@@ -38,10 +40,12 @@ public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 		}
 	}
 	
-	/**
-	 * 当前也所有的set
-	 */
-	public abstract HashSet getEntitys();
-	public abstract void setEntitys(HashSet sets);
+	public List getSource(){
+//		((A)this.getRootedObject()).getBs();
+//		
+//		HashSet set = new HashSet();
+		
+		return  ((A)this.getRootedObject()).getBs();
+	}
 }
 

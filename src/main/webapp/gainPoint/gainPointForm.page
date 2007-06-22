@@ -22,7 +22,8 @@
   </component>
   <component type="corner:GainFence" id="GainFenceField">
     <binding value="literal:GainPointField;GainPointaaField" name="gainPointFields"/>
-    <binding value="ognl:new corner.demo.model.one2many.B()" name="entity"/>
+    <binding value="literal:corner.demo.model.one2many.B" name="entityClass"/>
+    <binding value="source" name="source"/>
   </component>
   
   
