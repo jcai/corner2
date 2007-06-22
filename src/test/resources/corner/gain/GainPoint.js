@@ -43,11 +43,21 @@ function initTblCell(cell,id){
 	dojo.debug("1111111111111111");
 	
 	dojo.debug(cell.innerHTML);
-	if(cell.children != null && cell.children.length > 0){
-		for(childIndex = 0;childIndex < cell.children.length; childIndex++){
-			var child = cell.children[childIndex];
+	
+	if(cell.childNodes != null && cell.childNodes.length > 0){
+		dojo.debug("cell.childNodes  " + cell.childNodes);
+		
+		for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){
+			var child = cell.childNodes[childIndex];
+			
+			dojo.debug("child  " + child);
+			
+			dojo.debug("child.type  " + child.type);
 			
 			switch(child.type){
+			case "hidden":
+				 child.value = "";
+				 break;
 			case "text":
 				 child.value = "";
 				 break;
@@ -58,6 +68,9 @@ function initTblCell(cell,id){
 			}
 		}
 	}
+	
+	dojo.debug(cell.innerHTML);
+	
 	cell.className = lastCell.className;
 	cell.align = lastCell.align;
 	cell.height = lastCell.height;
