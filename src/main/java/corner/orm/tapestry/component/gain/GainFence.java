@@ -23,6 +23,8 @@ import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.event.PageBeginRenderListener;
+import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IValidationDelegate;
 
@@ -32,10 +34,41 @@ import org.apache.tapestry.valid.IValidationDelegate;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class GainFence extends BaseComponent implements IFormComponent {
+public abstract class GainFence extends BaseComponent implements IFormComponent,PageBeginRenderListener {
 	
 	
-	
+	/**
+	 * @see org.apache.tapestry.event.PageBeginRenderListener#pageBeginRender(org.apache.tapestry.event.PageEvent)
+	 */
+	public void pageBeginRender(PageEvent event) {
+		
+		initData(event.getRequestCycle());
+		
+		//制作初始化信息
+		for(int i=0 ; i< this.getSource().size() ;i++){
+			Object entity = this.getSource().get(i);
+			
+			for(GainPoint gp : this.getGainPoints()){
+				if(gp.getElements() == null){
+					gp.setElements(new ArrayList<String>());
+				}
+				
+				try {
+					gp.getElements().add((String) PropertyUtils.getProperty(entity, gp.getElementName()));
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
 	 * rewind the component. If the component is
@@ -48,7 +81,6 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		initData(cycle);
 		
 		entityWorkshop();
-		
 	}
 	
 	/**
@@ -148,7 +180,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		delegate.setFormComponent(this);
 
 		setName(form);
-
+		
 		/**
 		 * 当提交时和为显示时
 		 */

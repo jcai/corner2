@@ -48,9 +48,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle){
 		String sl[] = cycle.getParameters(getElementName());
 		
-		if(this.getElements() == null){
-			this.setElements(Arrays.asList(sl));
-		}
+		this.setElements(Arrays.asList(sl));
 		
 		this.setElementLength(sl.length);
 		
@@ -107,6 +105,8 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 					.getPageRenderSupport(cycle, this);
 
 			Map<String, Object> scriptParms = new HashMap<String, Object>();
+			
+			System.out.println(this.getElements());
 
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
         }
