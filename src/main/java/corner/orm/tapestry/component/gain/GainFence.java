@@ -66,7 +66,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		
 		for(int i=0; i < Size ;i++){
 			try {
-				entity = this.getEntity().getClass().newInstance();
+				entity = getEntityClass().newInstance();
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -117,6 +117,8 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 		for(String s : GainPointFields){
 			this.getGainPoints().add((GainPoint) cycle.getPage().getComponent(s));
 		}
+		
+		this.setEntityClass(this.getEntity().getClass());
 	}
 	
 	/**
@@ -172,6 +174,12 @@ public abstract class GainFence extends BaseComponent implements IFormComponent 
 	 */
 	public abstract List<GainPoint> getGainPoints();
 	public abstract void setGainPoints(List<GainPoint> l);
+	
+	/**
+	 * 类名
+	 */
+	public abstract Class getEntityClass();
+	public abstract void setEntityClass(Class clazz);
 	
 	/**
 	 * 与相连的GainPoint用分号(;)隔开
