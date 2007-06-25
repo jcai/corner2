@@ -18,34 +18,36 @@ djConfig = { isDebug: true
 	
 function reElementValues(){
 	
+	dojo.require("dojo.json");
 	dojo.debug("fkdlsajfkldjsakfjdkls");
 	
-	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
+//	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
+	var tempflags = "{'inName':['value1','value2','value3','value4'],'cnName':['value5','value6','value7','value8']}";
 	
-	var flags = eval('(' + tempflags + ')');
+	var flags=dojo.json.evalJson(tempflags);
 
-	dojo.debug("flags.attribute.length " + flags.attributes.length);
+	dojo.debug("flags.length " + flags.szie);
 	
-	for(var propertyId in flags.attributes){
+	for(var key in jsonVar){
 	
-		var elementName = flags.attributes[propertyId].property;
-	
-		var elements = document.getElementsByName(elementName);
+		var elements = document.getElementsByName(key);
 	
 		dojo.debug("elements.length " + elements.length);
 	
 
 		for (var i in elements){
 		
-			elements[i].value = flags.attributes[propertyId].elementValues[i];
+			elements[i].value = flags[key][i];
 		
-			dojo.debug(flags.attributes[propertyId].elementValues[i]);
+			dojo.debug(flags[key][i]);
 		
 		}
 
 	}
 	
 }
+	
+	
 //-->
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
@@ -56,6 +58,16 @@ function reElementValues(){
 	function getPersistentId(){
 			return 'id';
 		}
+	
+	dojo.require("dojo.json");
+	var tempflags = "{'inName':['value1','value2','value3','value4'],'cnName':['value5','value6','value7','value8']}";
+	jsonVar=dojo.json.evalJson(tempflags);
+	for(var key in jsonVar){
+	 dojo.debug(key);
+      var arr = jsonVar[key];
+	  dojo.debug(arr.length);
+	}
+	
 	//-->
 </SCRIPT>
 </head>
