@@ -44,16 +44,16 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 		
 		initData(event.getRequestCycle());
 		
-		//制作初始化信息
+		for(GainPoint gp : this.getGainPoints()){	//初始化gp
+			gp.setElements(new ArrayList<String>());
+			gp.setTableId(this.getTableId());
+		}
+		
+		//初始化gp赋值
 		for(int i=0 ; i< this.getSource().size() ;i++){
 			Object entity = this.getSource().get(i);
 			
 			for(GainPoint gp : this.getGainPoints()){
-				if(gp.getElements() == null){
-					gp.setElements(new ArrayList<String>());
-					gp.setTableId(this.getTableId());
-				}
-				
 				try {
 					gp.getElements().add((String) PropertyUtils.getProperty(entity, gp.getElementName()));
 				} catch (IllegalAccessException e) {
@@ -105,6 +105,8 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 		
 		this.setEntitys(new ArrayList<T>());
 		
+		String temp = null;
+		
 		for(int i=0; i < Size ;i++){
 			
 			if(i < this.getSource().size()){  //有可能打乱顺序
@@ -123,7 +125,12 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 			
 			for(GainPoint g :this.getGainPoints()){
 				try {
-					PropertyUtils.setProperty(entity, g.getElementName(), g.getElements().get(i));
+					temp = g.getElements().get(i);
+					
+					if(temp != null && !temp.equals("")){
+						PropertyUtils.setProperty(entity, g.getElementName(), temp);
+					}
+					
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

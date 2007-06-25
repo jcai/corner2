@@ -6,29 +6,19 @@
 		 
 		<tr>
 			<td>
-				
+				<div jwcid="GainPointIdField@corner:GainPoint" elementName="id">
+				id <input type="hidden" id="id" name ="id" value=""	/>
+			    </div>
 			</td>
 			<td>
 				<div jwcid="GainPointField@corner:GainPoint" elementName="name">
-				<table id ="t1">
-					<tr>
-						<td>
-							name <input id="field1" name ="name"	/>
-							</td>
-					</tr>
-				</table>
+				name <input type="text" id="field1" name ="name"	/>
 			    </div>
 			</td>
 			<td>
 				<div jwcid="GainPointaaField@corner:GainPoint" elementName="cnName">
-				<table id ="t1">
-					<tr>
-						<td>
-							cnName <input id="field2" name ="cnName"	/>
-						<td>
-					</tr>
-				</table>
-					</div>
+				cnName <input type="text" id="field2" name ="cnName"	/>
+				</div>
 			</td>
 			<td>
 				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',this.parentNode.parentNode.rowIndex)"/>

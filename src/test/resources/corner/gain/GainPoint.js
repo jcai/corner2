@@ -33,6 +33,9 @@ function addRow(id){
 		var newCell = newRow.insertCell(-1);
 		initTblCell(newCell,id);
 	}
+	
+	//删除最后一个增加的id
+    (document.getElementsByName("id")[document.getElementsByName("id").length -1]).value = "";
 }
 function initTblCell(cell,id){
 //summary:
@@ -41,33 +44,6 @@ function initTblCell(cell,id){
 	cell.innerHTML = lastCell.innerHTML;
 	
 	dojo.debug("1111111111111111");
-	
-	dojo.debug(cell.innerHTML);
-	
-	if(cell.childNodes != null && cell.childNodes.length > 0){
-		dojo.debug("cell.childNodes  " + cell.childNodes);
-		
-		for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){
-			var child = cell.childNodes[childIndex];
-			
-			dojo.debug("child  " + child);
-			
-			dojo.debug("child.type  " + child.type);
-			
-			switch(child.type){
-			case "hidden":
-				 child.value = "";
-				 break;
-			case "text":
-				 child.value = "";
-				 break;
-			case "checkbox":
-				 child.value = "";
-				 child.checked = false;
-				 break;
-			}
-		}
-	}
 	
 	dojo.debug(cell.innerHTML);
 	
