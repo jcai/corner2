@@ -33,9 +33,13 @@ public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 	protected void saveOrUpdateEntity() {
 		GainFence gf  = (GainFence) this.getPage().getComponent("GainFenceField");
 		
-		for(Object e : gf.getEntitys()){
+		for(Object e : gf.getSaveOrUpdateEntitys()){
 			this.setEntity(e);
 			super.saveOrUpdateEntity();
+		}
+		
+		for(Object e : gf.getDeleteEntitys()){
+			this.getEntityService().deleteEntities(e);
 		}
 	}
 	

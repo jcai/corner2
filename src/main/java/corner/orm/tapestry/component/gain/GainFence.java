@@ -28,34 +28,39 @@ import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IValidationDelegate;
 
+import corner.orm.spring.SpringContainer;
+import corner.service.EntityService;
+
 /**
  * 
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class GainFence extends BaseComponent implements IFormComponent,PageBeginRenderListener {
-	
-	
+public abstract class GainFence extends BaseComponent implements
+		IFormComponent, PageBeginRenderListener {
+
 	/**
 	 * @see org.apache.tapestry.event.PageBeginRenderListener#pageBeginRender(org.apache.tapestry.event.PageEvent)
 	 */
 	public void pageBeginRender(PageEvent event) {
-		
+
 		initData(event.getRequestCycle());
-		
-		for(GainPoint gp : this.getGainPoints()){	//初始化gp
+
+		for (GainPoint gp : this.getGainPoints()) { // 初始化gp
 			gp.setElements(new ArrayList<String>());
 			gp.setTableId(this.getTableId());
 		}
-		
-		//初始化gp赋值
-		for(int i=0 ; i< this.getSource().size() ;i++){
+
+		// 初始化gp赋值
+		for (int i = 0; i < this.getSource().size(); i++) {
 			Object entity = this.getSource().get(i);
-			
-			for(GainPoint gp : this.getGainPoints()){
+
+			for (GainPoint gp : this.getGainPoints()) {
 				try {
-					gp.getElements().add((String) PropertyUtils.getProperty(entity, gp.getElementName()));
+					gp.getElements().add(
+							(String) PropertyUtils.getProperty(entity, gp
+									.getElementName()));
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -78,23 +83,23 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 	 * @param writer
 	 * @param cycle
 	 */
-	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle){
+	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		initData(cycle);
-		
+
 		entityWorkshop();
 	}
-	
+
 	/**
 	 * 整理entity
 	 */
 	private <T> void entityWorkshop() {
-		
+
 		Object entity = null;
-		
+
 		GainPoint gp = this.getGainPoints().iterator().next();
-		
+
 		int Size = gp.getElementLength();
-		
+
 		Class entityClass = null;
 		try {
 			entityClass = Class.forName(getEntityClass());
@@ -102,16 +107,16 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		this.setEntitys(new ArrayList<T>());
-		
+
+		neatenPersistentEntity(); //整理持久化类
+
 		String temp = null;
-		
-		for(int i=0; i < Size ;i++){
-			
-			if(i < this.getSource().size()){  //有可能打乱顺序
-				entity = this.getSource().get(i);
-			}else{
+
+		for (int i = 0; i < Size; i++) {
+
+			if (i < this.getPersistentSize()) { // 有可能打乱顺序
+				entity = this.getEntitys().get(i);
+			} else {
 				try {
 					entity = entityClass.newInstance();
 				} catch (InstantiationException e) {
@@ -122,15 +127,16 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 					e.printStackTrace();
 				}
 			}
-			
-			for(GainPoint g :this.getGainPoints()){
+
+			for (GainPoint g : this.getGainPoints()) {
 				try {
 					temp = g.getElements().get(i);
-					
-					if(temp != null && !temp.equals("")){
-						PropertyUtils.setProperty(entity, g.getElementName(), temp);
+
+					if (temp != null && !temp.equals("")) {
+						PropertyUtils.setProperty(entity, g.getElementName(),
+								temp);
 					}
-					
+
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -143,29 +149,75 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 				}
 			}
 			
-			this.getEntitys().add(entity);
+			this.getSaveOrUpdateEntitys().add(entity);
 		}
+	}
+
+	/**
+	 * 获得已经持久化的类
+	 */
+	private int getPersistentSize() {
+		return this.getEntitys().size();
+	}
+
+	/**
+	 * 整理已经持久化的entity
+	 */
+	private <T> void neatenPersistentEntity() {
 		
-//		for(Object o : this.getEntitys()){
-//			System.out.println("name  " + BeanUtils.getProperty(o, "name"));
-//			System.out.println("cnName  " + BeanUtils.getProperty(o, "cnName"));
-//		}
+		this.setSaveOrUpdateEntitys(new ArrayList<T>());
+
+		this.setDeleteEntitys(new ArrayList<T>());
+		
+		this.setEntitys(new ArrayList<Object>());
+
+		GainPoint gp = (GainPoint) this.getPage().getComponent(
+				"GainPointIdField");
+
+		String id = null;
+
+		for (Object entity : this.getSource()) { // 获得需要更新的entity
+			try {
+				id = (String) PropertyUtils.getProperty(entity, gp
+						.getElementName());
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			this.getDeleteEntitys().add(entity); // 删除的先加入
+
+			for (String s : gp.getElements()) {
+				if (id.equals(s)) {
+					this.getDeleteEntitys().remove(
+							this.getDeleteEntitys().size() - 1); // 如果相同则减少删除的
+					this.getEntitys().add(entity);
+				}
+			}
+		}
 	}
 
 	/**
 	 * 初始化信息
 	 */
-	private void initData(IRequestCycle cycle){
+	private void initData(IRequestCycle cycle) {
 		String GainPointFields[] = this.getGainPointFields().split(";");
-		if(this.getGainPoints() == null){
+		if (this.getGainPoints() == null) {
 			this.setGainPoints(new ArrayList<GainPoint>());
 		}
-		
-		for(String s : GainPointFields){
-			this.getGainPoints().add((GainPoint) cycle.getPage().getComponent(s));
+
+		for (String s : GainPointFields) {
+			this.getGainPoints().add(
+					(GainPoint) cycle.getPage().getComponent(s));
 		}
 	}
-	
+
 	/**
 	 * @see org.apache.tapestry.form.AbstractFormComponent#renderFormComponent(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle)
@@ -188,7 +240,7 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 		delegate.setFormComponent(this);
 
 		setName(form);
-		
+
 		/**
 		 * 当提交时和为显示时
 		 */
@@ -203,44 +255,70 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 
 			if (getRenderBodyOnRewind())
 				renderBody(writer, cycle);
-		} if (!cycle.isRewinding()){
+		}
+		if (!cycle.isRewinding()) {
 			super.renderComponent(writer, cycle);
-        }
+		}
+	}
+
+	private List<Object> entitys;
+	
+	/**
+	 * @return Returns the entitys.
+	 */
+	private List<Object> getEntitys() {
+		return entitys;
 	}
 
 	/**
-	 * 整理好的Entitys
+	 * @param entitys The entitys to set.
 	 */
-	public abstract <T> List<T> getEntitys();
-	public abstract <T> void setEntitys(List<T> l);
-	
+	private void setEntitys(List<Object> entitys) {
+		this.entitys = entitys;
+	}
+
+	/**
+	 * 需要增加或更新的Entitys
+	 */
+	public abstract <T> List<T> getSaveOrUpdateEntitys();
+
+	public abstract <T> void setSaveOrUpdateEntitys(List<T> l);
+
+	/**
+	 * 需要删除的的Entitys
+	 */
+	public abstract <T> List<T> getDeleteEntitys();
+
+	public abstract <T> void setDeleteEntitys(List<T> l);
+
 	@Parameter
 	public abstract <T> List<T> getSource();
-	
+
 	/**
 	 * 输入的元素
 	 */
 	public abstract List<GainPoint> getGainPoints();
+
 	public abstract void setGainPoints(List<GainPoint> l);
-	
+
 	/**
 	 * 与相连的GainPoint用分号(;)隔开
 	 */
 	@Parameter(required = true)
 	public abstract String getGainPointFields();
-	
+
 	/**
 	 * 输入的元素
 	 */
 	@Parameter(required = true)
 	public abstract String getEntityClass();
-	
+
 	/**
 	 * 相应的tableId,由gf赋值
 	 */
 	@Parameter(required = true)
 	public abstract String getTableId();
-	
+
 	/**
 	 * 
 	 */
@@ -254,5 +332,10 @@ public abstract class GainFence extends BaseComponent implements IFormComponent,
 
 	protected void setName(IForm form) {
 		setName(form.getElementId(this));
+	}
+
+	protected EntityService getEntityService() {
+		return (EntityService) SpringContainer.getInstance()
+				.getApplicationContext().getBean("entityService");
 	}
 }
