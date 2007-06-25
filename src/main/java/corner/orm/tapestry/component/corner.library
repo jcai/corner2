@@ -49,4 +49,7 @@
  
   <component-type type="GainFence" specification-path="gain/GainFence.jwc"/>  
   <component-type type="GainPoint" specification-path="gain/GainPoint.jwc"/>
+  
+  <component-type type="MulitUpload" specification-path="mulitupload/MulitUpload.jwc"/>
+
 </library-specification>
