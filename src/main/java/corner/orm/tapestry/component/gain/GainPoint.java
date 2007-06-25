@@ -110,6 +110,8 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			
 			scriptParms.put("tableId", this.getTableId());	//循环的表名，只使用一次
 			
+			scriptParms.put("persistentId", this.getPersistentId());	//持久化id
+			
 			scriptParms.put("elementSize", this.getElements().size());	//tr循环的次数，只使用一次
 			
 			scriptParms.put("gpid", this.getClientId());	//怕重复使用gpid
@@ -175,6 +177,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	public abstract String getTableId();
 	public abstract void setTableId(String s);
+	
+	/**
+	 * 相应的id,由gf赋值
+	 */
+	public abstract String getPersistentId();
+	public abstract void setPersistentId(String s);
 	
 	/**
 	 * 

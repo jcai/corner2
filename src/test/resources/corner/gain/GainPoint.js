@@ -35,8 +35,15 @@ function addRow(id){
 	}
 	
 	//删除最后一个增加的id
-    (document.getElementsByName("id")[document.getElementsByName("id").length -1]).value = "";
+    (document.getElementsByName(getPersistentId())[document.getElementsByName(getPersistentId()).length -1]).value = "";
 }
+
+function getPersistentId(){
+//summary:
+// 获得持久化ID
+	return 'id';
+}
+
 function initTblCell(cell,id){
 //summary:
 // 传入复制的样子和ID，增加新的一行

@@ -50,6 +50,7 @@ public abstract class GainFence extends BaseComponent implements
 		for (GainPoint gp : this.getGainPoints()) { // 初始化gp
 			gp.setElements(new ArrayList<String>());
 			gp.setTableId(this.getTableId());
+			gp.setPersistentId(this.getPersistentId());
 		}
 
 		// 初始化gp赋值
@@ -114,7 +115,7 @@ public abstract class GainFence extends BaseComponent implements
 
 		for (int i = 0; i < Size; i++) {
 
-			if (i < this.getPersistentSize()) { // 有可能打乱顺序
+			if (i < this.getPersistentSize()) {
 				entity = this.getEntitys().get(i);
 			} else {
 				try {
@@ -151,6 +152,15 @@ public abstract class GainFence extends BaseComponent implements
 			
 			this.getSaveOrUpdateEntitys().add(entity);
 		}
+	}
+
+	/**
+	 * @see org.apache.tapestry.AbstractComponent#cleanupAfterRender(org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void cleanupAfterRender(IRequestCycle cycle) {
+		super.cleanupAfterRender(cycle);
+		this.setEntitys(null);
 	}
 
 	/**
@@ -318,6 +328,12 @@ public abstract class GainFence extends BaseComponent implements
 	 */
 	@Parameter(required = true)
 	public abstract String getTableId();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(defaultValue = "literal:id")
+	public abstract String getPersistentId();
 
 	/**
 	 * 

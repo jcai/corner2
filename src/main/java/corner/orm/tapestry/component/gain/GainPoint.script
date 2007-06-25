@@ -7,6 +7,7 @@
 
 <input-symbol key="tableId"     	required="yes" />
 <input-symbol key="elementSize"     	required="yes" />
+<input-symbol key="persistentId"     	required="yes" />
 <input-symbol key="gpid"     	required="yes" />
 <input-symbol key="elementName"     required="yes" />
 <input-symbol key="elementValues"     	required="yes" />
@@ -15,6 +16,9 @@
 <initialization>
 	<unique>
 		addRows(${elementSize},'${tableId}');
+		function getPersistentId(){
+			return '${persistentId}';
+		}
 	</unique>
 
     dojo.debug("run Change");
