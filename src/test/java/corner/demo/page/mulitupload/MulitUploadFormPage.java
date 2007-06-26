@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.apache.tapestry.request.IUploadFile;
 
-import corner.demo.model.one.A;
 import corner.orm.hibernate.v3.MatrixRow;
 import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
@@ -29,7 +28,7 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  * @version $Revision: 2408 $
  * @since 2.2.1
  */
-public abstract class MulitUploadFormPage extends AbstractEntityFormPage<A> {
+public abstract class MulitUploadFormPage extends AbstractEntityFormPage<TestMany> {
 
 	
 	/**
@@ -56,8 +55,8 @@ public abstract class MulitUploadFormPage extends AbstractEntityFormPage<A> {
 //		super.saveOrUpdateEntity();
 
 		if (isEditBlob()) {
-			IBlobPageDelegate<A> delegate = new SqueezeBlobPageDelegate<A>(
-					A.class, getUploadFile(), this.getEntity(), this
+			IBlobPageDelegate<TestMany> delegate = new SqueezeBlobPageDelegate<TestMany>(
+					TestMany.class, getUploadFile(), this.getEntity(), this
 							.getEntityService());
 			delegate.save();
 		} else{
@@ -66,9 +65,9 @@ public abstract class MulitUploadFormPage extends AbstractEntityFormPage<A> {
 				List<IUploadFile> fs = getFiles();
 				for(int i=0;i<fs.size();i++){
 					try {
-						A a = (A)clazz.newInstance();
-						IBlobPageDelegate<A> delegate = new SqueezeBlobPageDelegate<A>(
-								A.class, fs.get(i), a, this
+						TestMany a = (TestMany)clazz.newInstance();
+						IBlobPageDelegate<TestMany> delegate = new SqueezeBlobPageDelegate<TestMany>(
+								TestMany.class, fs.get(i), a, this
 										.getEntityService());
 						delegate.save();
 					} catch (InstantiationException e) {

@@ -13,14 +13,21 @@
 package corner.orm.tapestry.component.mulitupload;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.IScript;
+import org.apache.tapestry.PageRenderSupport;
+import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.form.AbstractFormComponent;
 import org.apache.tapestry.form.ValidatableField;
 import org.apache.tapestry.form.ValidatableFieldSupport;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.multipart.MultipartDecoder;
 import org.apache.tapestry.request.IUploadFile;
 import org.apache.tapestry.valid.ValidatorException;
@@ -50,8 +57,11 @@ public abstract class MulitUpload extends AbstractFormComponent implements
 
 		form.setEncodingType("multipart/form-data");
 
-		writer.beginEmpty("input type=\"file\" name=\"file1\" id=\"file1\"");
-		writer.beginEmpty("input type=\"file\" name=\"file2\" id=\"file2\"");
+		Map<String, Object> scriptParms = new HashMap<String, Object>();
+		PageRenderSupport pageRenderSupport = TapestryUtils
+		.getPageRenderSupport(cycle, this);
+		
+		getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 	}
 
 	/**
@@ -77,6 +87,9 @@ public abstract class MulitUpload extends AbstractFormComponent implements
 			getForm().getDelegate().record(e);
 		}
 	}
+	
+	@InjectScript("MulitUpload.script")
+	public abstract IScript getScript();
 
 	/**
 	 * Injected.

@@ -6,7 +6,7 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 <component-specification class="corner.orm.tapestry.component.mulitupload.MulitUpload"
-    allow-body="no">
+    allow-body="yes" allow-informal-parameters="yes">
     <description>
         Allows a file to be uploaded as part of a form.
     </description>
