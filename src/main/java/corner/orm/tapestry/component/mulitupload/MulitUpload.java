@@ -27,7 +27,6 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.form.AbstractFormComponent;
 import org.apache.tapestry.form.ValidatableField;
 import org.apache.tapestry.form.ValidatableFieldSupport;
-import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.multipart.MultipartDecoder;
 import org.apache.tapestry.request.IUploadFile;
 import org.apache.tapestry.valid.ValidatorException;
@@ -56,7 +55,10 @@ public abstract class MulitUpload extends AbstractFormComponent implements
 		IForm form = getForm();
 
 		form.setEncodingType("multipart/form-data");
-
+		writer.beginEmpty("input type=\"button\" onclick=\"add();\" value=\"add file\"");
+		writer.beginEmpty("input type=\"button\" onclick=\"removeAll();\" value=\"delete all\"");
+		writer.beginEmpty("input type=\"hidden\" name=\"filecounter\" id=\"filecounter\" value=\"0\"");
+		writer.beginEmpty("div id=\"files\"");
 		Map<String, Object> scriptParms = new HashMap<String, Object>();
 		PageRenderSupport pageRenderSupport = TapestryUtils
 		.getPageRenderSupport(cycle, this);

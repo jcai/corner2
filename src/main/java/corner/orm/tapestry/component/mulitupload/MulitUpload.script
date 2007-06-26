@@ -4,4 +4,9 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 <include-script resource-path="/corner/orm/tapestry/component/mulitupload/mulitupload.js"/>
+<body>
+
+</body>
+<initialization>
+</initialization>
 </script>
