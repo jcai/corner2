@@ -15,7 +15,7 @@ package corner.demo.page.gainPoint;
 import java.util.List;
 
 import corner.demo.model.one2many.A;
-import corner.orm.tapestry.component.gain.GainFence;
+import corner.orm.tapestry.component.gain.GainPoint;
 import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 
 /**
@@ -31,23 +31,19 @@ public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 	 */
 	@Override
 	protected void saveOrUpdateEntity() {
-		GainFence gf  = (GainFence) this.getPage().getComponent("GainFenceField");
+		GainPoint gp  = (GainPoint) this.getPage().getComponent("GainPointField");
 		
-		for(Object e : gf.getSaveOrUpdateEntitys()){
+		for(Object e : gp.getSaveOrUpdateEntitys()){
 			this.setEntity(e);
 			super.saveOrUpdateEntity();
 		}
 		
-		for(Object e : gf.getDeleteEntitys()){
+		for(Object e : gp.getDeleteEntitys()){
 			this.getEntityService().deleteEntities(e);
 		}
 	}
 	
 	public List getSource(){
-//		((A)this.getRootedObject()).getBs();
-//		
-//		HashSet set = new HashSet();
-		
 		return  ((A)this.getRootedObject()).getBs();
 	}
 }

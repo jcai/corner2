@@ -20,7 +20,7 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
-  <component type="corner:GainFence" id="GainFenceField">
+  <component type="corner:GainPoint" id="GainPointField">
     <binding value="literal:id,name,cnName" name="showPropertys"/>
     <binding value="literal:corner.demo.model.one2many.B" name="entityClass"/>
     <binding value="literal:t" name="tableId"/>

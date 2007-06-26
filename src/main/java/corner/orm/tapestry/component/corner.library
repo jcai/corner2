@@ -47,7 +47,6 @@
   <component-type type="ExcelServiceFullLink" specification-path="/corner/orm/tapestry/service/excel/ExcelServiceFullLink.jwc"/>
   <component-type type="ExcelServicePageLink" specification-path="/corner/orm/tapestry/service/excel/ExcelServicePageLink.jwc"/>
  
-  <component-type type="GainFence" specification-path="gain/GainFence.jwc"/>  
   <component-type type="GainPoint" specification-path="gain/GainPoint.jwc"/>
   
   <component-type type="MulitUpload" specification-path="mulitupload/MulitUpload.jwc"/>
