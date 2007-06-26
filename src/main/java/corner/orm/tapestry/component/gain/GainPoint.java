@@ -326,14 +326,14 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	/**
 	 * @return Returns the entitys.
 	 */
-	private List<Object> getEntitys() {
+	protected List<Object> getEntitys() {
 		return entitys;
 	}
 
 	/**
 	 * @param entitys The entitys to set.
 	 */
-	private void setEntitys(List<Object> entitys) {
+	protected void setEntitys(List<Object> entitys) {
 		this.entitys = entitys;
 	}
 
@@ -413,28 +413,28 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	/**
 	 * @return Returns the foregroundEntitys.
 	 */
-	public List<List> getForegroundEntitys() {
+	protected List<List> getForegroundEntitys() {
 		return foregroundEntitys;
 	}
 
 	/**
 	 * @param foregroundEntitys The foregroundEntitys to set.
 	 */
-	public void setForegroundEntitys(List<List> foregroundEntitys) {
+	protected void setForegroundEntitys(List<List> foregroundEntitys) {
 		this.foregroundEntitys = foregroundEntitys;
 	}
 
 	/**
 	 * @return Returns the foregroundLength.
 	 */
-	public int getForegroundLength() {
+	protected int getForegroundLength() {
 		return foregroundLength;
 	}
 
 	/**
 	 * @param foregroundLength The foregroundLength to set.
 	 */
-	public void setForegroundLength(int foregroundLength) {
+	protected void setForegroundLength(int foregroundLength) {
 		this.foregroundLength = foregroundLength;
 	}
 }
