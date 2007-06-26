@@ -4,7 +4,7 @@
 <page-specification class="corner.demo.page.mulitupload.MulitUploadFormPage">
   <description>corner.demo.model.one.A Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property persist="entity" initial-value="new corner.demo.model.one.A()" name="entity"/>
+  <property persist="entity" initial-value="new corner.demo.page.mulitupload.TestOne()" name="entity"/>
 
   <component type="Form" id="AForm">
     <binding value="ognl:beans.delegate" name="delegate"/>

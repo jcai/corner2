@@ -75,15 +75,17 @@ public abstract class MulitUpload extends AbstractFormComponent implements
 		List<IUploadFile> files = null;
 		
 		try {
-			cycle.getParameter("tes");
-			IUploadFile file1 = getDecoder().getFileUpload("file1");
-            getValidatableFieldSupport().validate(this, writer, cycle, file1);
-			IUploadFile file2 = getDecoder().getFileUpload("file2");
-            getValidatableFieldSupport().validate(this, writer, cycle, file2);
+			String fileCounterStr = cycle.getParameter("filecounter");
+			int fileCounter = Integer.parseInt(fileCounterStr);
 			files = new ArrayList<IUploadFile>();
-			files.add(file1);
-			files.add(file2);
-			
+			for(int i=1;i<=fileCounter;i++){
+				String key = "file"+i;
+				IUploadFile file = getDecoder().getFileUpload(key);
+				if(file != null){
+					getValidatableFieldSupport().validate(this, writer, cycle, file);	
+					files.add(file);
+				}
+			}
 			this.setValue(files);
 		} catch (ValidatorException e) {
 			getForm().getDelegate().record(e);

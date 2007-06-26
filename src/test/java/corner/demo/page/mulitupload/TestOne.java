@@ -32,7 +32,11 @@ import corner.demo.model.AbstractModel;
 
 @Entity(name="TestOne")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public abstract class TestOne extends AbstractModel {
+public class TestOne extends AbstractModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<TestMany> tms;
 
 	/**
