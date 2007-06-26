@@ -54,11 +54,11 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		
-		initData();
+		initData(); //初始化
 
-		setup(cycle);
+		setup(cycle); 	//初始化页面信息
 		
-		entityWorkshop();
+		entityWorkshop();	//整理entity
 	}
 
 	/**
@@ -82,7 +82,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 
 		Object entity = null;
 
-		int Size = this.foregroundLength;
+		int Size = this.getForegroundLength();
 
 		Class entityClass = null;
 		try {
@@ -263,8 +263,6 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			scriptParms.put("elementSize", this.getSource().size());	//tr循环的次数，只使用一次
 			
 			scriptParms.put("gpid", this.getClientId());	//怕重复使用gpid
-			
-			System.out.println(JSONElementValues.toString());
 			
 			scriptParms.put("elementValues", JSONElementValues.toString());	//
 			
