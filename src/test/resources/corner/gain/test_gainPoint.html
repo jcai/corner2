@@ -23,33 +23,30 @@ function reElementValues(){
 	
 //	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
 	
-	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"]});
+	var flags = dojo.json.evalJson({"id":[],"name":[],"cnName":[]});
+	
+//	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"]});
 
+	
+	var temp;
 	for(var key in flags){
-	
-		dojo.debug("key " + key);	
-	
-		dojo.debug("flags[key] " + flags[key]);
-	
-		var elements = document.getElementsByName(key);
-	
-		var values = flags[key];
-	
 		
+			var elements = document.getElementsByName(key);
 		
+			dojo.debug("elements.length " + elements.length);
+		
+			for (var i in elements){
 	
-		dojo.debug("values[0] " + values[0]);
+				temp = 	flags[key][i];
 	
-		dojo.debug("elements.length " + elements.length);
-	
-		for (var i in elements){
-		
-			elements[i].value = values[i];
-		
-			dojo.debug(values[i]);
-		
-		}
-
+				if(temp){
+				 elements[i].value = flags[key][i];
+				}
+			
+				
+			
+				dojo.debug(flags[key][i]);
+			}
 	}
 	
 }

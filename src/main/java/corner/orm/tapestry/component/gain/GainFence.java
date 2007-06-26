@@ -14,22 +14,26 @@ package corner.orm.tapestry.component.gain;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.IScript;
+import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
-import org.apache.tapestry.event.PageBeginRenderListener;
-import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IFormComponent;
+import org.apache.tapestry.json.JSONArray;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.IValidationDelegate;
-
-import corner.orm.spring.SpringContainer;
-import corner.service.EntityService;
 
 /**
  * 
@@ -37,44 +41,7 @@ import corner.service.EntityService;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class GainFence extends BaseComponent implements
-		IFormComponent, PageBeginRenderListener {
-
-	/**
-	 * @see org.apache.tapestry.event.PageBeginRenderListener#pageBeginRender(org.apache.tapestry.event.PageEvent)
-	 */
-	public void pageBeginRender(PageEvent event) {
-
-		initData(event.getRequestCycle());
-
-		for (GainPoint gp : this.getGainPoints()) { // 初始化gp
-			gp.setElements(new ArrayList<String>());
-			gp.setTableId(this.getTableId());
-			gp.setPersistentId(this.getPersistentId());
-		}
-
-		// 初始化gp赋值
-		for (int i = 0; i < this.getSource().size(); i++) {
-			Object entity = this.getSource().get(i);
-
-			for (GainPoint gp : this.getGainPoints()) {
-				try {
-					gp.getElements().add(
-							(String) PropertyUtils.getProperty(entity, gp
-									.getElementName()));
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+public abstract class GainFence extends BaseComponent implements IFormComponent {
 
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
@@ -85,9 +52,23 @@ public abstract class GainFence extends BaseComponent implements
 	 * @param cycle
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
-		initData(cycle);
+		
+		initData();
 
+		setup(cycle);
+		
 		entityWorkshop();
+	}
+
+	private void setup(IRequestCycle cycle) {
+		this.setForegroundEntitys(new ArrayList<List>());
+		
+		for(String s : this.getEntityPropertys()){
+			String sl[] = cycle.getParameters(s);
+			
+			this.getForegroundEntitys().add(Arrays.asList(sl));
+			this.setForegroundLength(sl.length);
+		}
 	}
 
 	/**
@@ -97,9 +78,7 @@ public abstract class GainFence extends BaseComponent implements
 
 		Object entity = null;
 
-		GainPoint gp = this.getGainPoints().iterator().next();
-
-		int Size = gp.getElementLength();
+		int Size = this.foregroundLength;
 
 		Class entityClass = null;
 		try {
@@ -111,7 +90,9 @@ public abstract class GainFence extends BaseComponent implements
 
 		neatenPersistentEntity(); //整理持久化类
 
-		String temp = null;
+		Object temp = null;
+		
+		Iterator FEList = null;
 
 		for (int i = 0; i < Size; i++) {
 
@@ -129,12 +110,18 @@ public abstract class GainFence extends BaseComponent implements
 				}
 			}
 
-			for (GainPoint g : this.getGainPoints()) {
+			FEList = this.getForegroundEntitys().iterator();
+			
+			for (int j =0; j<this.getForegroundEntitys().size() ;j++) {
+				
+				
+				List foregroundEntity = (List) FEList.next();
+				
 				try {
-					temp = g.getElements().get(i);
+					temp = foregroundEntity.get(i);
 
 					if (temp != null && !temp.equals("")) {
-						PropertyUtils.setProperty(entity, g.getElementName(),
+						PropertyUtils.setProperty(entity, this.getEntityPropertys().get(j),
 								temp);
 					}
 
@@ -161,6 +148,7 @@ public abstract class GainFence extends BaseComponent implements
 	protected void cleanupAfterRender(IRequestCycle cycle) {
 		super.cleanupAfterRender(cycle);
 		this.setEntitys(null);
+		this.setForegroundEntitys(null);
 	}
 
 	/**
@@ -181,15 +169,13 @@ public abstract class GainFence extends BaseComponent implements
 		
 		this.setEntitys(new ArrayList<Object>());
 
-		GainPoint gp = (GainPoint) this.getPage().getComponent(
-				"GainPointIdField");
-
+		String foregroundList[] = this.getPage().getRequestCycle().getParameters(this.getPersistentId());
+		
 		String id = null;
 
 		for (Object entity : this.getSource()) { // 获得需要更新的entity
 			try {
-				id = (String) PropertyUtils.getProperty(entity, gp
-						.getElementName());
+				id = (String) PropertyUtils.getProperty(entity, this.getPersistentId());
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -203,7 +189,7 @@ public abstract class GainFence extends BaseComponent implements
 
 			this.getDeleteEntitys().add(entity); // 删除的先加入
 
-			for (String s : gp.getElements()) {
+			for (String s : foregroundList) {
 				if (id.equals(s)) {
 					this.getDeleteEntitys().remove(
 							this.getDeleteEntitys().size() - 1); // 如果相同则减少删除的
@@ -216,16 +202,9 @@ public abstract class GainFence extends BaseComponent implements
 	/**
 	 * 初始化信息
 	 */
-	private void initData(IRequestCycle cycle) {
-		String GainPointFields[] = this.getGainPointFields().split(";");
-		if (this.getGainPoints() == null) {
-			this.setGainPoints(new ArrayList<GainPoint>());
-		}
-
-		for (String s : GainPointFields) {
-			this.getGainPoints().add(
-					(GainPoint) cycle.getPage().getComponent(s));
-		}
+	private void initData() {
+		String entityPropertys[] = this.getShowPropertys().split(",");
+		this.setEntityPropertys(Arrays.asList(entityPropertys));
 	}
 
 	/**
@@ -268,9 +247,99 @@ public abstract class GainFence extends BaseComponent implements
 		}
 		if (!cycle.isRewinding()) {
 			super.renderComponent(writer, cycle);
+			
+			this.initData();
+			
+			/**
+			 * 加入js
+			 */
+			PageRenderSupport pageRenderSupport = TapestryUtils
+					.getPageRenderSupport(cycle, this);
+
+			Map<String, Object> scriptParms = new HashMap<String, Object>();
+			
+			//获得json串
+			JSONObject JSONElementValues = getJSONElementValues();
+			
+			scriptParms.put("tableId", this.getTableId());	//循环的表名，只使用一次
+			
+			scriptParms.put("persistentId", this.getPersistentId());	//持久化id
+			
+			scriptParms.put("elementSize", this.getSource().size());	//tr循环的次数，只使用一次
+			
+			scriptParms.put("gpid", this.getClientId());	//怕重复使用gpid
+			
+			System.out.println(JSONElementValues.toString());
+			
+			scriptParms.put("elementValues", JSONElementValues.toString());	//
+			
+			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
+			
 		}
 	}
+	
+	
+//	
+	/**
+	 * 获得json串
+	 * @param elements
+	 */
+	private JSONObject getJSONElementValues() {
+		
+		JSONObject json = new JSONObject();
+		
+		JSONArray elementValues = null;
+		
+		for(String propertyName : this.getEntityPropertys()){	//遍历，获得属性名
+			
+			elementValues = new JSONArray();
+			
+			for(Object entity : this.getSource()){
+				try {
+					elementValues.put(PropertyUtils.getProperty(entity, propertyName));
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			json.put(propertyName, elementValues);
+		}
+		
+		return json;
+	}
 
+//	/**
+//	 * 元素长度
+//	 */
+//	public abstract int getElementLength();
+//	public abstract void setElementLength(int length);
+//	
+//	/**
+//	 * 输入的元素
+//	 */
+//	public abstract List<String> getElements();
+//	public abstract void setElements(List<String> l);
+	
+	/**
+	 * 写入js
+	 */
+	@InjectScript("GainPoint.script")
+	public abstract IScript getScript();
+
+	
+//	
+
+	/**
+	 * 前台entity
+	 */
+	private List<List> foregroundEntitys;
+	
+	private int foregroundLength;
+	
 	private List<Object> entitys;
 	
 	/**
@@ -288,6 +357,13 @@ public abstract class GainFence extends BaseComponent implements
 	}
 
 	/**
+	 * 要显示的属性列表
+	 */
+	public abstract List<String> getEntityPropertys();
+	public abstract void setEntityPropertys(List<String> ls);
+	
+	
+	/**
 	 * 需要增加或更新的Entitys
 	 */
 	public abstract <T> List<T> getSaveOrUpdateEntitys();
@@ -301,6 +377,9 @@ public abstract class GainFence extends BaseComponent implements
 
 	public abstract <T> void setDeleteEntitys(List<T> l);
 
+	/**
+	 * 
+	 */
 	@Parameter
 	public abstract <T> List<T> getSource();
 
@@ -312,10 +391,10 @@ public abstract class GainFence extends BaseComponent implements
 	public abstract void setGainPoints(List<GainPoint> l);
 
 	/**
-	 * 与相连的GainPoint用分号(;)隔开
+	 * 要显示的对象属性,用分号(;)隔开
 	 */
 	@Parameter(required = true)
-	public abstract String getGainPointFields();
+	public abstract String getShowPropertys();
 
 	/**
 	 * 输入的元素
@@ -343,15 +422,38 @@ public abstract class GainFence extends BaseComponent implements
 	public abstract void setForm(IForm form);
 
 	protected boolean getRenderBodyOnRewind() {
-		return true;
+		return false;
 	}
 
 	protected void setName(IForm form) {
 		setName(form.getElementId(this));
 	}
 
-	protected EntityService getEntityService() {
-		return (EntityService) SpringContainer.getInstance()
-				.getApplicationContext().getBean("entityService");
+	/**
+	 * @return Returns the foregroundEntitys.
+	 */
+	public List<List> getForegroundEntitys() {
+		return foregroundEntitys;
+	}
+
+	/**
+	 * @param foregroundEntitys The foregroundEntitys to set.
+	 */
+	public void setForegroundEntitys(List<List> foregroundEntitys) {
+		this.foregroundEntitys = foregroundEntitys;
+	}
+
+	/**
+	 * @return Returns the foregroundLength.
+	 */
+	public int getForegroundLength() {
+		return foregroundLength;
+	}
+
+	/**
+	 * @param foregroundLength The foregroundLength to set.
+	 */
+	public void setForegroundLength(int foregroundLength) {
+		this.foregroundLength = foregroundLength;
 	}
 }

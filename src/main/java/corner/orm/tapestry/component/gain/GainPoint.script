@@ -9,12 +9,12 @@
 <input-symbol key="elementSize"     	required="yes" />
 <input-symbol key="persistentId"     	required="yes" />
 <input-symbol key="gpid"     	required="yes" />
-<input-symbol key="elementName"     required="yes" />
 <input-symbol key="elementValues"     	required="yes" />
 
 
 <initialization>
 	<unique>
+	dojo.require("dojo.json");
 		addRows(${elementSize},'${tableId}');
 		function getPersistentId(){
 			return '${persistentId}';
@@ -23,21 +23,31 @@
 
     dojo.debug("run Change");
     (function ${gpid}Change() {
-		var flags = eval('(' + '${elementValues}' + ')');
-		
-		dojo.debug(flags);
-		
-		var elements = document.getElementsByName('${elementName}');
-	
-		dojo.debug("elements.length " + elements.length);
-		
-		for (var i in elements){
+    	
+    	var flags = dojo.json.evalJson(${elementValues});
 
-			elements[i].value = flags.elementValues[i];
+		dojo.debug("flags.length " + flags.szie);
+		
+		var temp;
+		
+		for(var key in flags){
+		
+			var elements = document.getElementsByName(key);
+		
+			dojo.debug("elements.length " + elements.length);
+		
+			for (var i in elements){
 			
-			dojo.debug(flags.elementValues[i]);
+				temp = 	flags[key][i];
+	
+				if(temp){
+					elements[i].value = temp;
+				}
 			
+				dojo.debug(temp);
+			}
 		}
+		
 	})()
 	
 </initialization>

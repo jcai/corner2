@@ -4,27 +4,20 @@
 		name <a href=# onclick="addRow('t')">add</a><br/>
       <table id="t">
 		 
-		<tr>
+		<tr jwcid="GainFenceField">
 			<td>
-				<div jwcid="GainPointIdField@corner:GainPoint" elementName="id">
 				id <input type="hidden" id="id" name ="id" value=""	/>
-			    </div>
 			</td>
 			<td>
-				<div jwcid="GainPointField@corner:GainPoint" elementName="name">
 				name <input type="text" id="field1" name ="name"	/>
-			    </div>
 			</td>
 			<td>
-				<div jwcid="GainPointaaField@corner:GainPoint" elementName="cnName">
 				cnName <input type="text" id="field2" name ="cnName"	/>
-				</div>
 			</td>
 			<td>
 				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',this.parentNode.parentNode.rowIndex)"/>
 			</td>							
 		</tr>
-		<input type="heddin" jwcid="GainFenceField" />
 			  
       </table>
 		
