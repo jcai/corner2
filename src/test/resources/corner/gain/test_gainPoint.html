@@ -22,24 +22,31 @@ function reElementValues(){
 	dojo.debug("fkdlsajfkldjsakfjdkls");
 	
 //	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
-	var tempflags = "{'inName':['value1','value2','value3','value4'],'cnName':['value5','value6','value7','value8']}";
 	
-	var flags=dojo.json.evalJson(tempflags);
+	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"]});
 
-	dojo.debug("flags.length " + flags.szie);
+	for(var key in flags){
 	
-	for(var key in jsonVar){
+		dojo.debug("key " + key);	
+	
+		dojo.debug("flags[key] " + flags[key]);
 	
 		var elements = document.getElementsByName(key);
 	
+		var values = flags[key];
+	
+		
+		
+	
+		dojo.debug("values[0] " + values[0]);
+	
 		dojo.debug("elements.length " + elements.length);
 	
-
 		for (var i in elements){
 		
-			elements[i].value = flags[key][i];
+			elements[i].value = values[i];
 		
-			dojo.debug(flags[key][i]);
+			dojo.debug(values[i]);
 		
 		}
 
@@ -53,23 +60,6 @@ function reElementValues(){
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 
-	<SCRIPT LANGUAGE="JavaScript">
-<!--
-	function getPersistentId(){
-			return 'id';
-		}
-	
-	dojo.require("dojo.json");
-	var tempflags = "{'inName':['value1','value2','value3','value4'],'cnName':['value5','value6','value7','value8']}";
-	jsonVar=dojo.json.evalJson(tempflags);
-	for(var key in jsonVar){
-	 dojo.debug(key);
-      var arr = jsonVar[key];
-	  dojo.debug(arr.length);
-	}
-	
-	//-->
-</SCRIPT>
 </head>
 
 <body>
@@ -83,7 +73,7 @@ function reElementValues(){
 				id<input type="hidden" id="id" name ="id" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
 			</td>
 			<td>
-				field 1 <input id="field1" name="inName"/>
+				field 1 <input id="field1" name="name"/>
 			</td>
 			<td>
 				field 2 <input id="field1" name="cnName"/>
@@ -97,7 +87,7 @@ function reElementValues(){
 				id<input type="hidden" id="id" name ="id" value=""	/>
 			</td>
 			<td>
-				field 1 <input id="field1" name="inName"/>
+				field 1 <input id="field1" name="name"/>
 			</td>
 			<td>
 				field 2 <input id="field1" name="cnName"/>
@@ -111,7 +101,7 @@ function reElementValues(){
 				id<input type="hidden" id="id" name ="id" value=""	/>
 			</td>
 			<td>
-				field 1 <input id="field1" name="inName"/>
+				field 1 <input id="field1" name="name"/>
 			</td>
 			<td>
 				field 2 <input id="field1" name="cnName"/>
@@ -125,7 +115,7 @@ function reElementValues(){
 				id<input type="hidden" id="id" name ="id" value=""	/>
 			</td>
 			<td>
-				field 1 <input id="field1" name="inName"/>
+				field 1 <input id="field1" name="name"/>
 			</td>
 			<td>
 				field 2 <input id="field1" name="cnName"/>
