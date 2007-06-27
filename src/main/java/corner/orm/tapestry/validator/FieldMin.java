@@ -42,8 +42,8 @@ public class FieldMin extends Min {
 	public void validate(IFormComponent field, ValidationMessages messages,
 			Object object) throws ValidatorException {
 		// 获得指定field的值
-		double otherValue = Double.parseDouble(field.getPage()
-				.getRequestCycle().getParameter(_minField));
+		String otherFieldValue = field.getPage().getRequestCycle().getParameter(_minField);
+		double otherValue = Double.parseDouble(otherFieldValue != null ? otherFieldValue : "0");	//如果是null赋值为0
 		this.setMin(otherValue);
 		super.validate(field, messages, object);
 	}
