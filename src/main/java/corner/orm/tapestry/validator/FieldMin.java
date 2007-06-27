@@ -43,7 +43,12 @@ public class FieldMin extends Min {
 			Object object) throws ValidatorException {
 		// 获得指定field的值
 		String otherFieldValue = field.getPage().getRequestCycle().getParameter(_minField);
-		double otherValue = Double.parseDouble(otherFieldValue != null ? otherFieldValue : "0");	//如果是null赋值为0
+		
+		if(otherFieldValue == null || otherFieldValue.equals("")){
+			otherFieldValue = "0";
+		}
+		
+		double otherValue = Double.parseDouble(otherFieldValue);	//如果是null赋值为0
 		this.setMin(otherValue);
 		super.validate(field, messages, object);
 	}
