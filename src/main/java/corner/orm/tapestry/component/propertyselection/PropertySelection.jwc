@@ -16,26 +16,12 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   </description>
 
   <parameter name="value" required="yes"/>
-  
   <parameter name="model" required="yes"/>
-  
-  <parameter name="isSelect" default-value="ognl:false"/>
-  
-  <parameter name="optionName" default-value="literal:全部" />
-  	
   <parameter name="disabled"/>
-    
-  <parameter name="submitOnChange" deprecated="true">
-  	<description>
-  	Enables logic to submit containing form when value changes.
-  	</description>
-  </parameter>
-  
   <parameter name="displayName"/>
   <parameter name="validators"/>
-  
   <parameter name="id" property="idParameter" default-value="id"/>
-
+  <parameter name="optionRenderer" default-value="ognl:@corner.orm.tapestry.component.propertyselection.CornerOptionRenderer@DEFAULT_OPTION_RENDERER" cache="no" />
   <reserved-parameter name="name"/>
 
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
