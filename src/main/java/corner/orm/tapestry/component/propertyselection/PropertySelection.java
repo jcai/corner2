@@ -19,7 +19,9 @@ import org.apache.tapestry.form.IPropertySelectionModel;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
- * @author Ghost
+ * 给PropertySelection增加全选的功能
+ * 
+ * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
  * @version $Revision$
  * @since 2.2.1
  */
@@ -40,9 +42,6 @@ public abstract class PropertySelection extends
 	        
 	        if (isDisabled())
 	            writer.attribute("disabled", "disabled");
-	        
-	        if (getSubmitOnChange())
-	            writer.attribute("onchange", "javascript: this.form.events.submit();");
 	        
 	        renderIdAttribute(writer, cycle);
 	        
