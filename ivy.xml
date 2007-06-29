@@ -14,7 +14,8 @@
 	<dependencies>
 		<dependency org="apache" name="commons-logging" rev="1.0.4" conf="runtime->*"/>
 		<dependency org="org.hibernate" name="hibernate" rev="3.2.4.sp1" conf="runtime->*"/>
-		<dependency org="org.hibernate" name="hibernate-annotations" rev="3.2.1.ga" conf="runtime->*"/>
+		<dependency org="org.hibernate" name="hibernate-annotations" rev="3.3.0.ga" conf="runtime->*"/>
+		<dependency org="org.hibernate" name="hibernate-commons-annotations" rev="3.3.0.ga" conf="runtime->*"/>
 		<dependency org="spring" name="spring" rev="1.2.9" conf="runtime->*"/>
 		
 		<dependency org="tapestry" name="tapestry-framework" rev="4.1.2" conf="compile->*"/>

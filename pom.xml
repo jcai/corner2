@@ -1,65 +1,78 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>com.bjmaxinfo</groupId>
-		<artifactId>common</artifactId>
-		<version>0.2.1</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bjmaxinfo.corner</groupId>
 	<artifactId>corner</artifactId>
 	<name>corner</name>
-	<version>2.2</version>
+	<version>2.4</version>
 	<packaging>jar</packaging>
 	<description>Provides some core function</description>
-
+	<inceptionYear>2006,2007</inceptionYear>
+	<organization>
+		<name>Beijing Maxinfo Technology Ltd.</name>
+		<url>http://www.bjmaxinfo.com/</url>
+	</organization>
+	<issueManagement>
+		<system>trac</system>
+		<url>http://dev.bjmaxinfo.com/projects/corner/newticket</url>
+	</issueManagement>
+	<developers>
+		<developer>
+			<id>jcai</id>
+			<name>Jun Tsai</name>
+			<email>Jun.Tsai@bjmaxinfo.com</email>
+			<organization>Beijing Maxinfo</organization>
+			<roles>
+				<role>Team Leader</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>ghostbb</id>
+			<name>Xin Zhao</name>
+			<email>ghostbb@bjmaxinfo.com</email>
+			<organization>Beijing Maxinfo</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	
 	<scm>
-		<connection>
-			scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
+		<connection> scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>
 		<url> http://dev.bjmaxinfo.com/projects/corner/browser/trunk/corner</url>
 	</scm>
-
+	
 	<build>
 		<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <!-- <resource>
-                <directory>src/main/js/dojo</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <targetPath>dojo</targetPath>
-            </resource> -->
-            <resource>
-                <directory>src/main/js</directory>
-                <includes>
-                    <include>corner/**/*</include>
-                </includes>
-            </resource>
-        </resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/js</directory>
+				<includes>
+					<include>corner/**/*</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antlr-plugin</artifactId>
 				<configuration>
-					<grammars>
-						/corner/orm/hibernate/expression/grammer/query-expression.g,
-						/corner/expression/calc/calc.g</grammars>
-					<outputDirectory>${basedir}/src/main/antlr</outputDirectory>	
+					<grammars>/corner/expression/calc/calc.g</grammars>
+					<outputDirectory>${basedir}/src/main/antlr</outputDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -69,263 +82,169 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.0</version>
-		</plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<optimize>true</optimize>
+				</configuration>
+			</plugin>
+			
 		</plugins>
-		<extensions>
-	      <extension>
-	        <groupId>hsqldb</groupId>
-	        <artifactId>hsqldb</artifactId>
-	        <version>1.8.0.1</version>
-	      </extension>
-
-    	</extensions>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>bjmaxifo</name>
-			<url>http://downloads.planetmirror.com/pub/maven2</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>codehaus</id>
-			<name>codehaus</name>
-			<url>http://repository.codehaus.org</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-
-		</pluginRepository>
-		<pluginRepository>
-            <id>tapestry.javaforge</id>
-            <url>http://howardlewisship.com/repository</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-        </pluginRepository>
-		 <pluginRepository>
-		    <id>Codehaus Snapshots</id>
-		    <url>http://snapshots.repository.codehaus.org/</url>
-		    <snapshots>
-		      <enabled>true</enabled>
-		    </snapshots>
-		    <releases>
-		      <enabled>false</enabled>
-		    </releases>
-		  </pluginRepository>
-	</pluginRepositories>
-	<repositories>
-		<repository>
-			<id>central</id>
-			<name>bjmaxinfo</name>
-			<url>http://downloads.planetmirror.com/pub/maven2</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>bjmaxinfo-repo</id>
-			<name>bjmaxinfo</name>
-			<url>http://downloads.planetmirror.com/pub/maven2</url>
-		</repository>
-		<repository>
-            <id>tapestry.javaforge</id>
-            <url>http://howardlewisship.com/repository</url>
-        </repository>
-        <repository>
-            <id>apache.snapshots</id>
-            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-        </repository>
-	</repositories>
 	<dependencies>
+		<!-- runtime -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>1.2.9</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>mail</artifactId>
+					<groupId>javax.mail</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.4.ga</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jta</artifactId>
+					<groupId>javax.transaction</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.3.0.ga</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>3.3.0.ga</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-javamail_1.3.1_spec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- compile -->
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-framework</artifactId>
-			<version>4.1.1-SNAPSHOT</version>
-			<scope>compile</scope>
+			<version>${tapestry-release-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-annotations</artifactId>
-			<version>4.1.1-SNAPSHOT</version>
+			<version>${tapestry-release-version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-contrib</artifactId>
-			<version>4.1.1-SNAPSHOT</version>
+			<version>${tapestry-release-version}</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-			<version>1.9.1</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>lucene</groupId>
-			<artifactId>lucene-analyzers</artifactId>
-			<version>1.9.1</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>lucene</groupId>
-			<artifactId>lucene-highlighter</artifactId>
-			<version>1.9.1</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>2.7.6</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.3</version>
-			<optional>true</optional>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.7.0</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>2.2</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>springmodules</groupId>
-			<artifactId>springmodules-lucene</artifactId>
-			<version>1.0-dev-20060328110632</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>1.2.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-mock</artifactId>
-			<version>1.2.8</version>
-			<optional>true</optional>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.2.0.cr1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>3.2.0.cr2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>ejb</artifactId>
-			<version>3.0-public-draft-20060502</version>
-		</dependency>
-		<!-- for test -->
-		
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.0.4</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.1</version>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.openqa.selenium.server</groupId>
-			<artifactId>selenium-server</artifactId>
-			<version>0.8.1</version>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>5.1</version>
+			<version>5.5</version>
 			<classifier>jdk15</classifier>
-			<scope>test</scope>
-			<exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
+			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
-            <groupId>org.apache.tapestry</groupId>
-            <artifactId>tapestry-test</artifactId>
-            <version>4.1.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-		<dependency>
-            <groupId>com.javaforge.tapestry</groupId>
-            <artifactId>tapestry-testng</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-		
-		
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.8</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jetty</groupId>
-			<artifactId>org.mortbay.jetty</artifactId>
-			<version>5.1.10</version>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.0-FINAL</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>jetty</groupId>
-			<artifactId>jasper-runtime</artifactId>
-			<version>4.2.20RC0</version>
+			<groupId>org.openqa.selenium.server</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>0.9.0</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-mock</artifactId>
+			<version>1.2.9</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<!-- provided -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- test -->
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jetty</groupId>
-			<artifactId>jasper-compiler</artifactId>
-			<version>4.2.20RC0</version>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tapestry</groupId>
+			<artifactId>tapestry-test</artifactId>
+			<version>${tapestry-release-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
 	</dependencies>
+
+
+	
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>ibiblio</name>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+		</repository>
+		
+		<repository>
+			<id>openqa</id>
+			<name>openqa</name>
+			<url>http://maven.openqa.org/</url>
+		</repository>
+		
+		
+	</repositories>
 	<distributionManagement>
 		<site>
 			<id>maxinfo</id>
@@ -333,4 +252,7 @@
 			<name>jcai</name>
 		</site>
 	</distributionManagement>
+	<properties>
+		<tapestry-release-version>4.1.2</tapestry-release-version>
+	</properties>
 </project>

@@ -1,7 +1,6 @@
 package corner.orm.tapestry.worker;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +18,9 @@ import org.apache.tapestry.spec.IContainedComponent;
 import org.apache.tapestry.spec.IPropertySpecification;
 import org.apache.tapestry.spec.PropertySpecification;
 import org.easymock.EasyMock;
-import org.hibernate.reflection.XProperty;
-import org.hibernate.reflection.java.JavaXFactory;
+import org.hibernate.annotations.common.reflection.ReflectionManager;
+import org.hibernate.annotations.common.reflection.XProperty;
+import org.hibernate.annotations.common.reflection.java.JavaReflectionManager;
 import org.testng.annotations.Test;
 
 public class MagicFieldWorkerTest extends BaseComponentTestCase {
@@ -65,7 +65,7 @@ public class MagicFieldWorkerTest extends BaseComponentTestCase {
 	@Test
 	public void test_get_properties() {
 		MagicFieldWorker worker = new MagicFieldWorker();
-		JavaXFactory reflectionManager = new JavaXFactory();
+		ReflectionManager reflectionManager = new JavaReflectionManager();
 
 		List<XProperty> list = new ArrayList<XProperty>();
 		worker.getElementsToProcess(reflectionManager

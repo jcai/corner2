@@ -36,10 +36,10 @@ import org.apache.tapestry.spec.IComponentSpecification;
 import org.apache.tapestry.spec.IContainedComponent;
 import org.apache.tapestry.spec.IPropertySpecification;
 import org.apache.tapestry.util.DescribedLocation;
-import org.hibernate.reflection.ReflectionManager;
-import org.hibernate.reflection.XClass;
-import org.hibernate.reflection.XProperty;
-import org.hibernate.reflection.java.JavaXFactory;
+import org.hibernate.annotations.common.reflection.ReflectionManager;
+import org.hibernate.annotations.common.reflection.XClass;
+import org.hibernate.annotations.common.reflection.XProperty;
+import org.hibernate.annotations.common.reflection.java.JavaReflectionManager;
 
 /**
  * 对tapestry的根据模型自动产生Component
@@ -55,7 +55,7 @@ public class MagicFieldWorker implements SecondaryAnnotationWorker {
 	/**
 	 * 反射管理器。thanks hibernate
 	 */
-	private ReflectionManager reflectionManager = new JavaXFactory();
+	private ReflectionManager reflectionManager = new JavaReflectionManager();
 
 	/** 从初始化值中得到类的名称 * */
 	private static final String GET_CLASS_NAME_REG = "\\s([\\w\\.]+)\\s*\\(\\)";
