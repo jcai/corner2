@@ -4,9 +4,18 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 <include-script resource-path="/corner/orm/tapestry/component/mulitupload/mulitupload.js"/>
+<input-symbol key="add_image"/>
+<input-symbol key="delete_image"/>
 <body>
-
+asdfasdfasdfasdfasdf
 </body>
 <initialization>
+	dojo.event.connect("after","window","addOnLoad",
+	function(){
+		var addNode = dojo.byId("mulitupload_add");
+		addNode.src="${add_image}";
+		dojo.debug(addNode+"asdfjlasdjfl;asjdf");
+	});
+
 </initialization>
 </script>
