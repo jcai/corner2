@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
@@ -24,7 +25,7 @@ import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
-import org.apache.tapestry.form.AbstractFormComponent;
+import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidatableField;
 import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.multipart.MultipartDecoder;
@@ -36,8 +37,8 @@ import org.apache.tapestry.valid.ValidatorException;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class MulitUpload extends AbstractFormComponent implements
-		ValidatableField {
+public abstract class MulitUpload extends BaseComponent implements
+		ValidatableField,IFormComponent {
 
 	/**
 	 * 设置全部的文件
@@ -55,10 +56,11 @@ public abstract class MulitUpload extends AbstractFormComponent implements
 		IForm form = getForm();
 
 		form.setEncodingType("multipart/form-data");
-		writer.beginEmpty("input type=\"button\" onclick=\"add();\" value=\"add file\"");
-		writer.beginEmpty("input type=\"button\" onclick=\"removeAll();\" value=\"delete all\"");
-		writer.beginEmpty("input type=\"hidden\" name=\"filecounter\" id=\"filecounter\" value=\"0\"");
-		writer.beginEmpty("div id=\"files\"");
+		super.render(writer, cycle);
+//		writer.beginEmpty("input type=\"button\" onclick=\"add();\" value=\"add file\"");
+//		writer.beginEmpty("input type=\"button\" onclick=\"removeAll();\" value=\"delete all\"");
+//		writer.beginEmpty("input type=\"hidden\" name=\"filecounter\" id=\"filecounter\" value=\"0\"");
+//		writer.beginEmpty("div id=\"files\"");
 		Map<String, Object> scriptParms = new HashMap<String, Object>();
 		PageRenderSupport pageRenderSupport = TapestryUtils
 		.getPageRenderSupport(cycle, this);

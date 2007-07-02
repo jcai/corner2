@@ -34,6 +34,13 @@ public abstract class DirectQueryDialog extends AbstractQueryDialog implements
 		IDirect {
 	@Parameter(required = true)
 	public abstract IActionListener getListener();
+	
+	/**
+	 * @see org.apache.tapestry.AbstractComponent#isStateful()
+	 */
+	@Override
+	@Parameter(defaultValue="true")
+	public abstract boolean isStateful();
 
 	@Parameter
 	public abstract Object getParameters();
@@ -46,6 +53,8 @@ public abstract class DirectQueryDialog extends AbstractQueryDialog implements
 
 	@InjectObject("service:tapestry.services.Direct")
 	public abstract IEngineService getDirectService();
+	
+	
 
 	/**
 	 * @see org.apache.tapestry.IDirect#trigger(org.apache.tapestry.IRequestCycle)
