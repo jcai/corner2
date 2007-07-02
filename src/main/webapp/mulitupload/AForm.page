@@ -12,6 +12,14 @@
     <binding value="listener:doSaveEntityAction" name="success"/>
   </component>
   
+  <component type="TextField" id="nameField">
+    <binding name="value" value="entity.name"/>
+  </component>
+  
+  <component type="TextField" id="cnNameField">
+    <binding name="value" value="entity.cnName"/>
+  </component>
+  
   <component type="corner:MulitUpload" id="updateField">
     <binding name="value" value="files"/>
   </component>

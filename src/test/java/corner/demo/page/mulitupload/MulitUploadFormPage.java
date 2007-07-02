@@ -19,7 +19,6 @@ import org.apache.tapestry.request.IUploadFile;
 
 import corner.demo.model.mulitupload.TestMany;
 import corner.demo.model.mulitupload.TestOne;
-import corner.model.IBlobModel;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
@@ -32,25 +31,9 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  * @since 2.2.1
  */
 public abstract class MulitUploadFormPage extends
-		ReflectMultiManyEntityFormPage {
-
-	/**
-	 * 设置上传文件
-	 */
-	public abstract void setFiles(List<IUploadFile> files);
-
-	/**
-	 * 取得所有上传的文件
-	 * 
-	 * @return 一个封装了{@link IUploadFile}的{@link List}
-	 */
-	public abstract List<IUploadFile> getFiles();
+		ReflectMultiManyEntityFormPage implements IMulitUpload {
 
 	public abstract List<TestMany> getManys();
-
-	public abstract IBlobModel getBlobModel();
-
-	public abstract void setBlobModel(IBlobModel model);
 
 	public abstract void setMany(List<TestMany> manys);
 

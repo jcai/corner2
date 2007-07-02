@@ -21,14 +21,8 @@
             <span key="name">name</span>
           </td>
           <td>
-            <span key="password">password</span>
+            <span key="cnName">cnName</span>
           </td>
-          <td>
-            <span key="colors">colors</span>
-          </td>
-		  <td>
-			blob
-		  </td>
           <td>
             <span key="link.edit">edit</span>
           </td>
@@ -38,7 +32,10 @@
         </tr>
         <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
           <td>
-            <span jwcid="@Insert" value="ognl:entity.id">name</span>
+            <span jwcid="@Insert" value="ognl:entity.name">name</span>
+          </td>
+          <td>
+            <span jwcid="@Insert" value="ognl:entity.cnName">cnName</span>
           </td>
           <td>
             <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">

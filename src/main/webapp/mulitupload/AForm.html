@@ -4,13 +4,17 @@
       <table>
         <tr>
           <td>
-            <span key="name">name</span>
+            <span key="name" jwcid="nameField">name</span>
           </td>
-
-		  <td>
+	      <td>
+            <span key="name" jwcid="cnNameField">cnName</span>
+          </td>
+        </tr>
+		<tr>
+		  <td colspan="2">
 			 <input type="file" name="uploadfile" id="uploadfile" jwcid="updateField"/>
 		  </td>
-        </tr>
+		</tr>
       </table>
 		<table width="200" jwcid="@contrib:TableView" columns="!checkbox,name,!file" element="table" 
 			persist="client" source="ognl:getSource('tms')" pageSize="5" border="1" align="center">
