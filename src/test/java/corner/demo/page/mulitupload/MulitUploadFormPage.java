@@ -12,12 +12,15 @@
 
 package corner.demo.page.mulitupload;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tapestry.request.IUploadFile;
 
-import corner.orm.hibernate.v3.MatrixRow;
-import corner.orm.tapestry.page.AbstractEntityFormPage;
+import corner.demo.model.mulitupload.TestMany;
+import corner.demo.model.mulitupload.TestOne;
+import corner.model.IBlobModel;
+import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
 
@@ -28,66 +31,61 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  * @version $Revision: 2408 $
  * @since 2.2.1
  */
-public abstract class MulitUploadFormPage extends AbstractEntityFormPage<TestMany> {
+public abstract class MulitUploadFormPage extends
+		ReflectMultiManyEntityFormPage {
 
-	
 	/**
 	 * 设置上传文件
 	 */
 	public abstract void setFiles(List<IUploadFile> files);
-	
+
 	/**
 	 * 取得所有上传的文件
 	 * 
 	 * @return 一个封装了{@link IUploadFile}的{@link List}
 	 */
 	public abstract List<IUploadFile> getFiles();
-	
-	public abstract void setFile(IUploadFile file);
-	public abstract IUploadFile getFile();
-	
+
+	public abstract List<TestMany> getManys();
+
+	public abstract IBlobModel getBlobModel();
+
+	public abstract void setBlobModel(IBlobModel model);
+
+	public abstract void setMany(List<TestMany> manys);
+
+	public boolean isSelected() {
+		return false;
+	}
+
+	public void setSelected(boolean selected) {
+		if (selected) {
+			this.getEntityService().deleteEntities(this.getBlobModel());
+		}
+	}
+
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityPage#saveOrUpdateEntity()
 	 */
 	@Override
 	protected void saveOrUpdateEntity() {
 
-//		super.saveOrUpdateEntity();
+		super.saveOrUpdateEntity();// 保存one端实体
+		TestOne one = (TestOne) this.getEntity();
 
-		if (isEditBlob()) {
-			IBlobPageDelegate<TestMany> delegate = new SqueezeBlobPageDelegate<TestMany>(
-					TestMany.class, getUploadFile(), this.getEntity(), this
-							.getEntityService());
-			delegate.save();
-		} else{
-			if(getFiles() != null && getFiles().size()>0){
-				Class clazz = this.getEntity().getClass();
-				List<IUploadFile> fs = getFiles();
-				for(int i=0;i<fs.size();i++){
-					try {
-						TestMany a = (TestMany)clazz.newInstance();
-						IBlobPageDelegate<TestMany> delegate = new SqueezeBlobPageDelegate<TestMany>(
-								TestMany.class, fs.get(i), a, this
-										.getEntityService());
-						delegate.save();
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+		if (this.getFiles() != null && this.getFiles().size() > 0) {
+			List<TestMany> list = new ArrayList<TestMany>();
+			for (IUploadFile file : this.getFiles()) {
+				TestMany many = new TestMany();
+				this.getEntityService().saveEntity(many);
+				many.setTestOne(one);
+				IBlobPageDelegate<TestMany> delegate = new SqueezeBlobPageDelegate<TestMany>(
+						TestMany.class, file, many, this.getEntityService());
+
+				delegate.save();
+				list.add(many);
 			}
 		}
-	}
-	
-	public MatrixRow getRefVector(){
-//		only for test
-		MatrixRow<String> matrix=new MatrixRow<String>();
-		matrix.add("L");
-		matrix.add("XL");
-		return matrix;
 	}
 
 }

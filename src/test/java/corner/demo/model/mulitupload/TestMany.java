@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.demo.page.mulitupload;
+package corner.demo.model.mulitupload;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -21,6 +21,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 
+import corner.demo.model.AbstractModel;
 import corner.model.IBlobModel;
 
 /**
@@ -31,7 +32,7 @@ import corner.model.IBlobModel;
 
 @Entity(name = "TestMany")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TestMany implements IBlobModel {
+public class TestMany extends AbstractModel implements IBlobModel {
 
 	private TestOne testOne;
 
@@ -39,7 +40,7 @@ public class TestMany implements IBlobModel {
 	 * @return Returns the testOne.
 	 */
 	@ManyToOne
-	@JoinColumn(name = "TEST_ONE")
+	@JoinColumn(name = "testOne")
 	public TestOne getTestOne() {
 		return testOne;
 	}
@@ -68,32 +69,28 @@ public class TestMany implements IBlobModel {
 	@Lob
 	@Type(type = "org.springframework.orm.hibernate3.support.BlobByteArrayType")
 	public byte[] getBlobData() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.blobData;
 	}
 
 	/**
 	 * @see corner.model.IBlobModel#getContentType()
 	 */
 	public String getContentType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.contentType;
 	}
 
 	/**
 	 * @see corner.model.IBlobModel#setBlobData(byte[])
 	 */
 	public void setBlobData(byte[] blobData) {
-		// TODO Auto-generated method stub
-
+		this.blobData = blobData;
 	}
 
 	/**
 	 * @see corner.model.IBlobModel#setContentType(java.lang.String)
 	 */
 	public void setContentType(String contentType) {
-		// TODO Auto-generated method stub
-
+		this.contentType = contentType;
 	}
 
 }

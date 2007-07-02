@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.demo.page.mulitupload;
+package corner.demo.model.mulitupload;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class TestOne extends AbstractModel {
 	/**
 	 * @return Returns the bs.
 	 */
-	@OneToMany(mappedBy="TEST_ONE")
+	@OneToMany(mappedBy="testOne")
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	public List<TestMany> getTms() {
 		return tms;

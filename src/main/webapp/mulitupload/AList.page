@@ -4,8 +4,8 @@
 <page-specification class="corner.orm.tapestry.page.PoListPage">
   <description>corner.demo.model.one.A Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
-  <property initial-value="new corner.demo.model.one.A()" name="entity"/>
-  <property persist="client" initial-value="new corner.demo.model.one.A()" name="queryEntity"/>
+  <property initial-value="new corner.demo.model.mulitupload.TestOne()" name="entity"/>
+  <property persist="client" initial-value="new corner.demo.model.mulitupload.TestOne()" name="queryEntity"/>
   <component type="Form" id="AQueryForm">
     <binding value="listener:doQueryEntityAction" name="listener"/>
     <binding value="ognl:beans.delegate" name="delegate"/>

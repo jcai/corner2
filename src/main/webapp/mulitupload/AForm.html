@@ -12,6 +12,24 @@
 		  </td>
         </tr>
       </table>
+		<table width="200" jwcid="@contrib:TableView" columns="!checkbox,name,!file" element="table" 
+			persist="client" source="ognl:getSource('tms')" pageSize="5" border="1" align="center">
+		  <tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		  </tr>
+		  <tr jwcid="@contrib:TableRows" elment="tr" row="ognl:blobModel">
+		  	<th align="center"><input jwcid="@Checkbox" value="ognl:selected" /></th>
+			<td align="center"><span jwcid="@Insert" value="ognl:blobModel.id" /></td>
+			<td align="center">
+				<span jwcid="@If" condition="ognl:blobModel.id != null">
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobModel}">查看</a>
+				</span>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6" align="center"><div jwcid="@contrib:TablePages" /></td>
+		  </tr>
+		</table><br/><br/>
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
     </form>
 </span>
