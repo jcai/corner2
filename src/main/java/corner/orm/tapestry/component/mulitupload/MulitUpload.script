@@ -9,9 +9,5 @@
 <body>
 </body>
 <initialization>
-	dojo.event.connect("after",window,"onload",function(){
-		var addNode = dojo.byId("mulitupload_add");
-		addNode.setAttribute("src","${add_image}");
-	});
 </initialization>
 </script>
