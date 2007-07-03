@@ -1,7 +1,7 @@
 	/**
 	 * 增加一个节点
 	 */
-	function add()
+	function add(image_url)
 		{
 			var displayArea = dojo.byId("files");
 			var fileCounter = dojo.byId("filecounter");
@@ -11,7 +11,7 @@
 			dojo.debug("currentValue:"+currentValue);
 
 			var innerData = "<input type='file' name='file"+currentValue+"' id='file"+currentValue
-							+"'/><input type='button' name='button"+currentValue+"' id='button"
+							+"'/><img scr=\"\" border=\"0\" name='img"+currentValue+"' id='img"
 							+currentValue+"' onclick=\"remove('"+currentValue+"')\" value=\"删除\"/>";
 			
 			var divNode=document.createElement("div");

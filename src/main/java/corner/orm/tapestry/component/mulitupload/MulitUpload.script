@@ -7,15 +7,11 @@
 <input-symbol key="add_image"/>
 <input-symbol key="delete_image"/>
 <body>
-asdfasdfasdfasdfasdf
 </body>
 <initialization>
-	dojo.event.connect("after","window","addOnLoad",
-	function(){
+	dojo.event.connect("after",window,"onload",function(){
 		var addNode = dojo.byId("mulitupload_add");
-		addNode.src="${add_image}";
-		dojo.debug(addNode+"asdfjlasdjfl;asjdf");
+		addNode.setAttribute("src","${add_image}");
 	});
-
 </initialization>
 </script>
