@@ -14,6 +14,16 @@
   <contribution configuration-id="tapestry.services.ApplicationServices">
 		<service name="captcha" object="service:CaptchaService"/>
   </contribution>
-  
+  <implementation service-id="tapestry.services.PrototypeResponseContributor">
+        <invoke-factory>
+            <construct class="corner.orm.tapestry.component.prototype.PrototypeResponseContributorImpl" >
+                <set-service property="localeManager" service-id="tapestry.request.RequestLocaleManager"/>
+                <set-object property="markupWriterSource"  value="infrastructure:markupWriterSource"/>
+                <set-object property="webResponse" value="infrastructure:response"/>
+                <set-object property="webRequest" value="infrastructure:request"/>
+                <set-object property="assetFactory" value="infrastructure:assetFactory" />
+            </construct>
+        </invoke-factory>
+	</implementation>
 
 </module>
