@@ -15,6 +15,7 @@ package corner.orm.hibernate;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.poi.hssf.record.formula.functions.T;
 import org.springframework.dao.DataAccessException;
 
 import corner.util.PaginationBean;
@@ -185,6 +186,14 @@ public interface ObjectRelativeUtils {
      * @throws DataAccessException 假如发生数据库操作错误.
      */
     public <T> void delete(T obj) throws DataAccessException;
+    /**
+     * 获得该实体持久化之后的状态
+     * <p>通常是为了得到id
+     * @param <T>
+     * @param obj
+     * @return T 当前传入的对象
+     */
+    public <T> T merge(T obj);
    
     
 }

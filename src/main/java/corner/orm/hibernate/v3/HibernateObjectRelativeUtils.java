@@ -180,4 +180,14 @@ public class HibernateObjectRelativeUtils extends HibernateDaoSupport implements
 		 
 	}
 
+	/**
+	 * @see corner.orm.hibernate.ObjectRelativeUtils#merge(java.lang.Object)
+	 */
+	public <T> T merge(final T obj) {
+		 return ((T)getHibernateTemplate().execute(new HibernateCallback(){
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				return session.merge(obj);
+			}}));
+	}
+
 }
