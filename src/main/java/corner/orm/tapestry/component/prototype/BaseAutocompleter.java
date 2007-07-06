@@ -344,7 +344,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	 * Script
 	 * 
 	 */
-	@InjectScript("Autocompleter.script")
+	@InjectScript("classpath:Autocompleter.script")
 	public abstract IScript getScript();
 
 	@Asset("classpath:indicator.gif")
