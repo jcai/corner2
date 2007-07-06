@@ -52,5 +52,9 @@
   <component-type type="MulitUpload" specification-path="mulitupload/MulitUpload.jwc"/>
   
   <component-type type="CoolestPicker" specification-path="calendar/coolest/CoolestCalendar.jwc"/>
+  
+  <component-type type="CodeAC" specification-path="prototype/CodeModelAutocompleter.jwc"/>
+  <component-type type="AutoEva" specification-path="prototype/AutoEvaluateModelAutocompleter.jwc"/>
+  <component-type type="AssAC" specification-path="prototype/AssociateAutocompleter.jwc"/>
 
 </library-specification>
