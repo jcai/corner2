@@ -50,5 +50,7 @@
   <component-type type="GainPoint" specification-path="gain/GainPoint.jwc"/>
   
   <component-type type="MulitUpload" specification-path="mulitupload/MulitUpload.jwc"/>
+  
+  <component-type type="CoolestPicker" specification-path="calendar/coolest/CoolestCalendar.jwc"/>
 
 </library-specification>

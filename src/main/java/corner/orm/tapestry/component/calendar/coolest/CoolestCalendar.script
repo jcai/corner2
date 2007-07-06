@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/sc-17-proto-15-compressed.js" />
+<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar.js" />
+<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar-setup.js" />
+<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js" />
+
+<input-symbol key="baseUrl"     required="yes" />
+
+<input-symbol key="jsFileName"     required="yes" />
+
+<input-symbol key="inputField"     required="yes" />
+<input-symbol key="displayArea"    required="no" />
+<input-symbol key="button"         required="no" />
+<input-symbol key="eventName"      required="no" />
+<input-symbol key="ifFormat"       required="no" />
+<input-symbol key="daFormat"       required="no" />
+<input-symbol key="singleClick"    required="no" />
+<input-symbol key="disableFunc"    required="no" />
+<input-symbol key="dateText"       required="no" />
+<input-symbol key="firstDay"       required="no" />
+<input-symbol key="align"          required="no" />
+<input-symbol key="range"          required="no" />
+<input-symbol key="weekNumbers"    required="no" />
+<input-symbol key="flatCallback"   required="no" />
+<input-symbol key="onSelect"       required="no" />
+<input-symbol key="onClose"        required="no" />
+<input-symbol key="onUpdate"       required="no" />
+<input-symbol key="date"           required="no" />
+<input-symbol key="showsTime"      required="no" />
+<input-symbol key="timeFormat"     required="no" />
+<input-symbol key="electric"       required="no" />
+<input-symbol key="step"           required="no" />
+<input-symbol key="position"       required="no" />
+<input-symbol key="cache"          required="no" />
+<input-symbol key="showOthers"     required="no" />
+<input-symbol key="multiple"       required="no" />
+
+<!--
+	<input-symbol key="flat"           required="no" />
+-->
+
+
+
+<initialization>
+	<unique>
+		var x = document.createElement("SCRIPT");
+
+		x.src = "${baseUrl}/css/coolestCalendar/lang/${jsFileName}";
+
+		x.defer = true;
+		document.getElementsByTagName("HEAD")[0].appendChild(x);
+	</unique>
+	
+	Calendar.setup({
+        inputField		:		"${inputField}",
+        displayArea		:		"${displayArea}",
+        button			:		"${button}",
+        eventName		:		"${eventName}",
+        ifFormat		:		"${ifFormat}",
+        daFormat		:		"${daFormat}",
+        singleClick		:		${singleClick},
+        disableFunc		:		"${disableFunc}",
+        dateText		:		"${dateText}",
+        firstDay		:		${firstDay},
+        weekNumbers		:		${weekNumbers},
+        align			:		"${align}",
+        range			:		${range},
+        flatCallback	:		"${flatCallback}",
+        onSelect		:		"${onSelect}",
+        onClose			:		"${onClose}",
+        onUpdate		:		"${onUpdate}",
+        date			:		"${date}",
+        showsTime		:		${showsTime},
+        timeFormat		:		"${timeFormat}",
+        electric		:		${electric},
+        step			:		${step},
+        position		:		"${position}",
+        cache			:		${cache},
+        showOthers		:		${showOthers},
+        multiple		:		"${multiple}"
+
+
+<!--
+        flat			:		"${flat}",
+-->
+    });
+</initialization>
+</script>

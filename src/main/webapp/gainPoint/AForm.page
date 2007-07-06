@@ -12,9 +12,9 @@
     <binding value="listener:doCancelEntityAction" name="cancel"/>
     <binding value="listener:false" name="focus"/>
   </component>
-  <component type="TextField" id="nameField">
+  <component type="corner:CoolestPicker" id="nameField">
     <binding value="message:name" name="displayName"/>
-    <binding value="translator:string" name="translator"/>
+    <binding name="currentDate" value="false" />
     <binding value="ognl:entity.name" name="value"/>
   </component>
 </page-specification>
