@@ -344,10 +344,10 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	 * Script
 	 * 
 	 */
-	@InjectScript("classpath:Autocompleter.script")
+	@InjectScript("/corner/orm/tapestry/component/prototype/Autocompleter.script")
 	public abstract IScript getScript();
 
-	@Asset("classpath:indicator.gif")
+	@Asset("classpath:/corner/orm/tapestry/component/prototype/indicator.gif")
 	public abstract IAsset getIndicatorAsset();
 
 	@InjectObject("spring:entityService")
