@@ -56,5 +56,7 @@
   <component-type type="CodeAC" specification-path="prototype/CodeModelAutocompleter.jwc"/>
   <component-type type="AutoEva" specification-path="prototype/AutoEvaluateModelAutocompleter.jwc"/>
   <component-type type="AssAC" specification-path="prototype/AssociateAutocompleter.jwc"/>
+  
+  <component-type type="Submit" specification-path="form/Submit.jwc"/>
 
 </library-specification>
