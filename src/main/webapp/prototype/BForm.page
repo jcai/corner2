@@ -19,11 +19,16 @@
     <binding value="message:name" name="displayName"/>
     <binding name="queryClassName" value="literal:corner.demo.model.one2many.A"/>
     <binding name="labelFields" value="literal:name"/>
-    <binding name="updateFields" value="literal:{cnNameField:returnTemplates_0}"/>
-    <binding name="returnTemplates" value="literal:{id$name:'测试1:%1$s\n测试2:%2$s'}"/>
+    <binding name="updateFields" value="literal:{cnNameField:returnTemplates_0,cncnNameField:returnTemplates_1}"/>
+    <binding name="returnTemplates" value="literal:{id$name:'测试1:%1$s\n测试2:%2$s',name:'测试3:%1$s'}"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
   <component type="TextArea" id="cnNameField">
+    <binding value="message:cnName" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.cnName" name="value"/>
+  </component>
+  <component type="TextArea" id="cncnNameField">
     <binding value="message:cnName" name="displayName"/>
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.cnName" name="value"/>
