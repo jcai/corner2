@@ -62,7 +62,13 @@ public abstract class AutoEvaluateModelAutocompleter extends BaseAutocompleter {
 	protected ISelectModel constructSelectModel() {
 		IAutoEvaluateSelectModel model=this.getSelectModel();
 		model.parseParameter(this.getQueryFieldName(),
-				this.getLabelFields(), this.getUpdateFields());
+				this.getLabelFields(), this.getUpdateFields(),this.getReturnTemplates());
 		return model;
 	}
+	
+	/**
+	 * 返回模版 {'&lt;span class=&quot;selectme&quot;&gt;%1$s&lt;/span&gt;/%2$s':id|name}
+	 */
+	@Parameter
+	public abstract String getReturnTemplates();
 }

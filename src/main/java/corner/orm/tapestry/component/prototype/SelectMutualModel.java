@@ -6,6 +6,8 @@
  */
 package corner.orm.tapestry.component.prototype;
 
+import java.util.List;
+
 /**
  * 选择组建的bean类
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -27,6 +29,22 @@ class SelectMutualModel {
 	 * 是否序列化，如果需要序列化返回true
 	 */
 	private boolean isSequence;
+	
+	/**
+	 * 是否使用返回模板
+	 */
+	private boolean isTemplate;
+	
+	/**
+	 * 要处理的字段
+	 */
+	private List<String> returnVolumes;
+	
+	/**
+	 * 返回时用到的模板
+	 */
+	private String returnTemplate;
+	
 
 	/**
 	 * @return Returns the isSequence.
@@ -68,5 +86,47 @@ class SelectMutualModel {
 	 */
 	public void setUpdateField(String updateField) {
 		this.updateField = updateField;
+	}
+
+	/**
+	 * @return Returns the isTemplate.
+	 */
+	public boolean isTemplate() {
+		return isTemplate;
+	}
+
+	/**
+	 * @param isTemplate The isTemplate to set.
+	 */
+	public void setTemplate(boolean isTemplate) {
+		this.isTemplate = isTemplate;
+	}
+
+	/**
+	 * @return Returns the returnTemplate.
+	 */
+	public String getReturnTemplate() {
+		return returnTemplate;
+	}
+
+	/**
+	 * @param returnTemplate The returnTemplate to set.
+	 */
+	public void setReturnTemplate(String returnTemplate) {
+		this.returnTemplate = returnTemplate;
+	}
+
+	/**
+	 * @return Returns the returnVolumes.
+	 */
+	public List<String> getReturnVolumes() {
+		return returnVolumes;
+	}
+
+	/**
+	 * @param returnVolumes The returnVolumes to set.
+	 */
+	public void setReturnVolumes(List<String> returnVolumes) {
+		this.returnVolumes = returnVolumes;
 	}
 }

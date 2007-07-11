@@ -92,7 +92,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 			}
 		}
 		model.parseParameter(this.getQueryFieldName(),
-				this.getLabelFields(), updateFields);
+				this.getLabelFields(), updateFields, this.getReturnTemplates());
 		return model;
 		
 	}

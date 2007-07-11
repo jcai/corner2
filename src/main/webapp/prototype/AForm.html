@@ -1,0 +1,37 @@
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
+    <form jwcid="AForm" action="AList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="nameField" />
+          </td>
+        </tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+    <br/>
+    
+    <div jwcid="@contrib:TableView" element="span" columns="name,!EditRelative,!DeleteRelative"
+     source="ognl:getSource('bs')" pageSize="5" persist="client">
+   <fieldset>
+   <legend>A-B one-to-many,A关联的B列表 <a parameters="ognl:{entity,'prototype/BForm'}" listener="listener:doNewRelativeAction" jwcid="@DirectLink" href="BForm.html">Add A to B</a></legend> 
+   
+	<table width="100%" align="center" border="1">
+		<tr>
+			<span jwcid="@contrib:TableColumns" element="th"/>
+		</tr>
+		<tr jwcid="@contrib:TableRows" element="tr" row="ognl:relativeObject">
+			<td><span jwcid="@Insert" value="ognl:relativeObject.name" /></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{entity,relativeObject,'prototype/BForm'}" listener="listener:doEditRelativeEntityAction"><span key="doEditRelativeAction" /></a></td>
+			<td><a href="#" jwcid="@DirectLink" parameters="ognl:{relativeObject}" listener="listener:doDeleteRelativeEntityAction"><span key="doDeleteRelativeAction" /></a></td>
+		</tr>
+		
+	</table>
+    </fieldset>
+</div>
+</span>

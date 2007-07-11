@@ -22,8 +22,9 @@ public interface IAutoEvaluateSelectModel extends ISelectModel{
 	 * @param queryFieldName 查询字段的名称。
 	 * @param labelFields 显示字段的定义，该字符串是以逗号分隔的字符串。
 	 * @param updateFields 更新字符串，该串是一个json的字符串。
+	 * @param returnTemplates 更新时使用的模板和字段的名值对组，后将用json整理
 	 * 
 	 */
-	public void parseParameter(String queryFieldName, String labelFields, String updateFields);
+	public void parseParameter(String queryFieldName, String labelFields, String updateFields, String returnTemplates);
 	
 }

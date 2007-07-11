@@ -9,6 +9,7 @@ package corner.orm.tapestry.component.prototype;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-
 
 import corner.orm.tapestry.state.IContext;
 import corner.util.BeanUtils;
@@ -61,14 +61,20 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 			JSONObject returnValue = new JSONObject();
 
 			for (SelectMutualModel model : updates) {
-				showValue = this.getReturnObject(model.getReturnVolume(),
-						entity); // 获得值
+				
+				
+				if(model.isTemplate()){	//如果是使用模板的
+					showValue = this.getReturnObject(model,entity);
+				}else{
+					showValue = this.getReturnObject(model.getReturnVolume(),
+							entity); // 获得值
+				}
 
 				if (model.isSequence()
 						|| "this".equalsIgnoreCase(model.getReturnVolume())) { // 序列化
 					showValue = squeezer.squeeze(showValue);
 				}
-
+				
 				returnValue.put(model.getUpdateField(), showValue == null ? ""
 						: showValue.toString());
 			}
@@ -83,18 +89,42 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 
 			writer.end("span");
 		}
+		
 		/**
 		 * 显示的结果集合
 		 */
-		ArrayList<String> LValues = new ArrayList<String>();
+		writer.printRaw(this.getTemplatedString(template,Arrays.asList(labels),entity));
 		
-		for (String label : labels) {
+	}
+	
+
+	/**
+	 * 显示的结果集合
+	 * @param template 模板
+	 * @param volumes 显示的字段列表
+	 * @param entity 要从中提取的实体
+	 * @return
+	 */
+	private String getTemplatedString(String template, Iterable<String> volumes,Object entity) {
+		Object showValue = null;
+		ArrayList<String> LValues = new ArrayList<String>();
+		for (String label : volumes) {
 			showValue = this.getReturnObject(label, entity);
 			LValues.add(escapeHtml(showValue));
 		}
 		
-		writer.printRaw(String.format(template, LValues.toArray()));
-		
+		return String.format(template, LValues.toArray());
+	}
+
+	/**
+	 * 使用模板返回值时才调用此方法
+	 * 
+	 * @param model 要处理的selectModel
+	 * @param entity 查询出来的值
+	 * @return 已经配合模板整理好的字符串
+	 */
+	protected Object getReturnObject(SelectMutualModel model, Object entity) {
+		return this.getTemplatedString(model.getReturnTemplate(),model.getReturnVolumes(),entity);
 	}
 
 	/**
@@ -171,7 +201,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	 * @see corner.orm.tapestry.component.prototype.IAutoEvaluateSelectModel#parseParameter(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void parseParameter(String queryFieldName, String labelFields,
-			String updateFields) {
+			String updateFields,String returnTemplates) {
 		this.queryName = queryFieldName;
 
 		if (labelFields != null) {
@@ -193,6 +223,8 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 			SelectMutualModel selectMutualModel = null;
 
 			JSONObject json = null;
+			JSONObject returnTemplateJson = null;
+			
 			try {
 				json = new JSONObject(updateFields); // 使用json
 			} catch (ParseException e) {
@@ -207,14 +239,38 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 				selectMutualModel.setUpdateField(key);
 
 				String value = json.getString(key); // 获得key对应的值
+				
+				selectMutualModel.setTemplate(value.toLowerCase().startsWith("returntemplates_"));
 
 				selectMutualModel.setSequence(value.toLowerCase().startsWith(
 						"s_"));
 
-				if (selectMutualModel.isSequence()) {
-					selectMutualModel.setReturnVolume(value.substring(2));
-				} else {
-					selectMutualModel.setReturnVolume(value);
+				if(selectMutualModel.isTemplate()){
+					
+					try {
+						returnTemplateJson = new JSONObject(returnTemplates);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					
+					int index = 0;
+					
+					for (Iterator rtit = returnTemplateJson.keys(); rtit.hasNext();) { // 遍历
+						key = (String) rtit.next();
+						if(("returnTemplates_"+index).equals(value)){
+							String revalue = returnTemplateJson.getString(key);
+							selectMutualModel.setReturnVolumes(Arrays.asList(key.trim().split("\\$")));
+							selectMutualModel.setReturnTemplate(revalue);
+						}
+						index++;
+					}
+					
+				}else{
+					if (selectMutualModel.isSequence()) {
+						selectMutualModel.setReturnVolume(value.substring(2));
+					} else {
+						selectMutualModel.setReturnVolume(value);
+					}
 				}
 
 				updates.add(selectMutualModel);
