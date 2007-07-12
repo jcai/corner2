@@ -93,7 +93,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 		/**
 		 * 显示的结果集合
 		 */
-		writer.printRaw(this.getTemplatedString(template,Arrays.asList(labels),entity));
+		writer.printRaw(this.getTemplatedString(template,Arrays.asList(labels),entity,true));
 		
 	}
 	
@@ -105,12 +105,12 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	 * @param entity 要从中提取的实体
 	 * @return
 	 */
-	private String getTemplatedString(String template, Iterable<String> volumes,Object entity) {
+	private String getTemplatedString(String template, Iterable<String> volumes,Object entity,boolean isEscape) {
 		Object showValue = null;
 		ArrayList<String> LValues = new ArrayList<String>();
 		for (String label : volumes) {
 			showValue = this.getReturnObject(label, entity);
-			LValues.add(escapeHtml(showValue));
+			LValues.add(isEscape ? escapeHtml(showValue):showValue.toString());
 		}
 		
 		return String.format(template, LValues.toArray());
@@ -124,7 +124,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	 * @return 已经配合模板整理好的字符串
 	 */
 	protected Object getReturnObject(SelectMutualModel model, Object entity) {
-		return this.getTemplatedString(model.getReturnTemplate(),model.getReturnVolumes(),entity);
+		return this.getTemplatedString(model.getReturnTemplate(),model.getReturnVolumes(),entity,false);
 	}
 
 	/**
