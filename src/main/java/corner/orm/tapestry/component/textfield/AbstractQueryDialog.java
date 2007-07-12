@@ -36,6 +36,8 @@ public abstract class AbstractQueryDialog extends AbstractWidget {
 	public abstract String getBackgroundColor();
 	@Parameter(defaultValue="0.4")
 	public abstract float getOpacity();
+	@Parameter
+	public abstract String getBtnImage();
 
 	/**
 	 * {@inheritDoc}
@@ -55,6 +57,7 @@ public abstract class AbstractQueryDialog extends AbstractWidget {
 	        
 	        if (!cycle.isRewinding()) {
 	            JSONObject json = new JSONObject();
+	            json.put("queryButtonNodeSrc", getBtnImage());
 	            json.put("bgColor", getBackgroundColor());
 	            json.put("bgOpacity", getOpacity());
 	            json.put("selectFun",getOnSelectFunName());

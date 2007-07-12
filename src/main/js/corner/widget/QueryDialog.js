@@ -21,7 +21,7 @@ dojo.widget.defineWidget(
 	url:null,
 	selectFun:null,
 	titleText:null,
-	
+	queryButtonNodeSrc:null,
 	dialogClass:"alertDialog",
 	contentClass:"alertContent",
 	buttonClass:"alertButton",
@@ -30,7 +30,8 @@ dojo.widget.defineWidget(
 
 	fillInTemplate: function(args, frag){
 		corner.widget.QueryDialog.superclass.fillInTemplate.apply(this, arguments);
-		dojo.debug(this.titleText+this.titleNode);
+		if(this.queryButtonNodeSrc!=null)
+			this.queryButtonNode.src=this.queryButtonNodeSrc;
 		if(this.titleText!=null)
 			this.titleNode.appendChild(document.createTextNode(this.titleText));
 	},
