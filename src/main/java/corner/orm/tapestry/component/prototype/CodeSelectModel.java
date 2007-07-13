@@ -15,12 +15,8 @@ import org.apache.tapestry.services.DataSqueezer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-
-import  corner.util.StringUtils;
 
 import corner.orm.tapestry.state.IContext;
 
@@ -29,49 +25,12 @@ import corner.orm.tapestry.state.IContext;
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
+ * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
  * @version $Revision$
  * @since 2.3.7
  */
-public class CodeSelectModel extends AbstractSelectModel implements
-		ISelectModel {
+public class CodeSelectModel extends AbstractSelectModel {
 
-	/**
-	 * 用于Autocompleter的拼音检索
-	 */
-	public static final String ABC_STR = "[a-z]";
-	
-	/**
-	 * 拼音字段名称
-	 */
-	public static final String ABC_Field = "abcCode";
-	
-	/**
-	 * 用于Autocompleter的中文检索
-	 */
-	public static final String CHN_STR = "[\u4e00-\u9fa5]";
-	
-	/**
-	 * 中文字段名称
-	 */
-	public static final String CHN_Field = "chnName";
-	
-	/**
-	 * 字典表中,各种字典实体的简写码
-	 */
-	public static final String INDEX_CODE_STR = "[A-Z]";
-	
-	public static final String INDEX_CODE_FIELD = "indexCode";
-	
-	/**
-	 * 用于Autocompleter的数字检索
-	 */
-	public static final String NUM_STR = "[0-9]";
-	
-	/**
-	 * 数字字段名称
-	 */
-	public static final String NUM_Field = "numCode";
-	
 	/**
 	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate,
 	 *      java.lang.String, java.lang.String, java.lang.String,
@@ -84,13 +43,11 @@ public class CodeSelectModel extends AbstractSelectModel implements
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(queryClassName);
-				criteria.setProjection(Projections.projectionList().add(
-						Projections.property("indexCode")).add(
-						Projections.property("engName")).add(
-						Projections.property("chnName")));
 				
-				appendContext(criteria,searchString,context);
-				
+				appendProjection(criteria);
+
+				appendContext(criteria, searchString, context);
+
 				appendCriteria(criteria, searchString, squeezer,
 						dependFieldsValue);
 				criteria.setMaxResults(20);// 最多显示20个
@@ -98,15 +55,13 @@ public class CodeSelectModel extends AbstractSelectModel implements
 			}
 		});
 	}
-	
+
 	/**
 	 * 自定义条件
 	 */
-	protected void appendContext(Criteria criteria, String searchString, IContext context) {
-//		if (isCompanyModel() && context.getCompany() != null) {
-//			criteria.add(Restrictions.eq(AbstractCompanywareModel.COMPANY_PRO_NAME, context
-//					.getCompany()));
-//		}
+	protected void appendContext(Criteria criteria, String searchString,
+			IContext context) {
+		// do nothing
 	}
 
 	/**
@@ -149,33 +104,5 @@ public class CodeSelectModel extends AbstractSelectModel implements
 	 */
 	public void setComponent(IComponent component) {
 		this.component = component;
-	}
-
-	/**
-	 * 智能查询方法-根据用户的输入字符的Unicode来判断字符类型，从而选择不同的字段进行查询
-	 * 
-	 * @param criteria
-	 * @param match
-	 */
-	public static void intelligenceAppendCriteria(Criteria criteria,
-			String match) {
-		if (match == null || match.trim().length() == 0) {
-			return;
-		} else {
-			String matchField = null;
-			if (StringUtils.comparedCharacter(match, ABC_STR)) {// 如果是拼音检索，需要去掉'#'
-				matchField = ABC_Field;
-			} else if (StringUtils.comparedCharacter(match, CHN_STR)) {
-				matchField = CHN_Field;
-			} else if (StringUtils.comparedCharacter(match,	INDEX_CODE_STR)) {
-				matchField = INDEX_CODE_FIELD;
-
-			} else if (StringUtils.comparedCharacter(match, NUM_STR)) {
-				matchField = NUM_Field;
-			}
-			if (matchField != null)
-				criteria.add(Restrictions.like(matchField, match.trim() + "%"));
-		}
-
 	}
 }

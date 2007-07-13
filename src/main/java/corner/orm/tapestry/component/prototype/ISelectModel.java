@@ -18,10 +18,40 @@ import corner.orm.tapestry.state.IContext;
 /**
  * 一个选择的过滤器
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
+ * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
  * @version $Revision$
  * @since 2.3.7
  */
 public interface ISelectModel {
+	/**
+	 * 用于Autocompleter的拼音检索的正则表达式
+	 */
+	public static final String ABC_STR = "[a-z]";
+	/**
+	 * 默认的拼音字段名称
+	 */
+	public static final String ABC_FIELD = "abcCode";
+	/**
+	 * 用于Autocompleter的中文检索的正则表达式
+	 */
+	public static final String CHN_STR = "[\u4e00-\u9fa5]";
+	/**
+	 * 默认的中文字段名称
+	 */
+	public static final String CHN_FIELD = "chnName";
+	/**
+	 * 字典表中,各种字典实体的简写码
+	 */
+	public static final String INDEX_CODE_STR = "[A-Z]";
+	public static final String INDEX_CODE_FIELD = "indexCode";
+	/**
+	 * 用于Autocompleter的数字检索的正则表达式
+	 */
+	public static final String NUM_STR = "[0-9]";
+	/**
+	 * 默认的数字字段名称
+	 */
+	public static final String NUM_FIELD = "numCode";
 	/**
 	 * 搜索
 	 * @param ht Hibernate查询模板实体
