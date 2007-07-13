@@ -58,7 +58,7 @@ public abstract class AbstractSelectModel implements ISelectModel {
 	 * 定义需要检索的字段
 	 * @param criteria
 	 */
-	public void appendProjection(Criteria criteria){
+	protected void appendProjection(Criteria criteria){
 		criteria.setProjection(Projections.projectionList().add(
 				Projections.property(INDEX_CODE_FIELD)).add(
 				Projections.property(ABC_FIELD)).add(
