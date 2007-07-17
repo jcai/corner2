@@ -110,7 +110,8 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 		ArrayList<String> LValues = new ArrayList<String>();
 		for (String label : volumes) {
 			showValue = this.getReturnObject(label, entity);
-			LValues.add(isEscape ? escapeHtml(showValue):showValue.toString());
+			
+			LValues.add(isEscape ? escapeHtml(showValue) : showValue == null ? "  " : showValue.toString());
 		}
 		
 		return String.format(template, LValues.toArray());
