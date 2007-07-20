@@ -12,7 +12,6 @@ package corner.orm.tapestry.table;
 
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
-import org.apache.tapestry.contrib.table.model.common.TableModelHook;
 import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.util.ComponentAddress;
 
@@ -47,7 +46,7 @@ public abstract class TablePages extends org.apache.tapestry.contrib.table.compo
 		return CornerMessages.totalPage(getRowCount());
 	}
 	int getRowCount(){
-		return TableModelHook.getAboutRowCount(this.getTableModelSource().getTableModel());
+		return this.getTableModelSource().getTableModel().getRowCount();
 	}
 	/** 记录前端输入多少页数 **/
 	public  abstract Integer getPn();
