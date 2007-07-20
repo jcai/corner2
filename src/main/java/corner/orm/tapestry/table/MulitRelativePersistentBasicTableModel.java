@@ -22,6 +22,7 @@ import corner.service.EntityService;
 
 /**
  * 扩展了RelativePersistentBasicTableModel,使得返回的每行值是一个List,返回的行数等于纪录总数/每行List里的元素个数
+ * 
  * @author Ghost
  * @version $Revision$
  * @since 2.2.1
@@ -33,19 +34,23 @@ public class MulitRelativePersistentBasicTableModel extends
 	 * 每行显示的纪录数量
 	 */
 	private static final int OBJ_PERPAGE_INT = 3;
-	
+
 	/**
 	 * 对本也的行书进行缓存
 	 */
 	private int rowCount = -1;
-	
+
 	/**
 	 * 是否为提交
 	 */
-	private boolean isRewinding=false;	
-	
+	private boolean isRewinding = false;
+
+	// 查询结果的缓存
+	private List resultList = null;
+
 	/**
 	 * 实现父类的构造方法
+	 * 
 	 * @param entityService
 	 * @param rootedObj
 	 * @param relativeProName
@@ -59,67 +64,80 @@ public class MulitRelativePersistentBasicTableModel extends
 
 	/**
 	 * 取出本页显示的全部纪录进行封装，按照指定的每行显示的数量
-	 * @see corner.orm.tapestry.table.RelativePersistentBasicTableModel#getCurrentPageRows(int, int, org.apache.tapestry.contrib.table.model.ITableColumn, boolean)
+	 * 
+	 * @see corner.orm.tapestry.table.RelativePersistentBasicTableModel#getCurrentPageRows(int,
+	 *      int, org.apache.tapestry.contrib.table.model.ITableColumn, boolean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Iterator getCurrentPageRows(int nFirst, int nPageSize, ITableColumn column, boolean sort) {
-		Iterator<Object> rowIterator =  super.getCurrentPageRows(nFirst, nPageSize, column, sort);
-		if(rowIterator != null && rowIterator.hasNext()){
-			List<List> returnList = new ArrayList<List>();
-			List<Object> objList = new ArrayList<Object>();
-			int i=1;
-			while(rowIterator.hasNext()){
-				if(i>OBJ_PERPAGE_INT && i%OBJ_PERPAGE_INT==1){
-					objList = new ArrayList<Object>();
-				}
-				Object obj = rowIterator.next();
-				objList.add(obj);
-				if(!rowIterator.hasNext() || i%OBJ_PERPAGE_INT==0){
-					if(!rowIterator.hasNext()){
-						if(i%OBJ_PERPAGE_INT!=0){
-							try {
-								int loopCount = OBJ_PERPAGE_INT - (i%OBJ_PERPAGE_INT);
-								for(int k=0;k<loopCount ;k++){
-									objList.add(EntityService.getEntityClass(obj).newInstance());
-								}
-							} catch (InstantiationException e) {
-								e.printStackTrace();
-							} catch (IllegalAccessException e) {
-								e.printStackTrace();
-							}
-														
-						}
+	public Iterator getCurrentPageRows(int nFirst, int nPageSize,
+			ITableColumn column, boolean sort) {
+		if (resultList == null) {
+			Iterator<Object> rowIterator = super.getCurrentPageRows(nFirst,
+					nPageSize, column, sort);
+			if (rowIterator != null && rowIterator.hasNext()) {
+				List<List> returnList = new ArrayList<List>();
+				List<Object> objList = new ArrayList<Object>();
+				int i = 1;
+				while (rowIterator.hasNext()) {
+					if (i > OBJ_PERPAGE_INT && i % OBJ_PERPAGE_INT == 1) {
+						objList = new ArrayList<Object>();
 					}
-					returnList.add(objList);
+					Object obj = rowIterator.next();
+					objList.add(obj);
+					if (!rowIterator.hasNext() || i % OBJ_PERPAGE_INT == 0) {
+						if (!rowIterator.hasNext()) {
+							if (i % OBJ_PERPAGE_INT != 0) {
+								try {
+									int loopCount = OBJ_PERPAGE_INT
+											- (i % OBJ_PERPAGE_INT);
+									for (int k = 0; k < loopCount; k++) {
+										objList.add(EntityService
+												.getEntityClass(obj)
+												.newInstance());
+									}
+								} catch (InstantiationException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+
+							}
+						}
+						returnList.add(objList);
+					}
+					i++;
+					resultList = returnList;
 				}
-				i++;
 			}
-			return returnList.iterator();
+			if (resultList == null) {
+				resultList = new ArrayList();
+			}
+
 		}
-		
-		return null;
+		return resultList.iterator();
 	}
 
 	/**
 	 * 根据每行显示的数量计算出本页显示的行数
+	 * 
 	 * @see corner.orm.tapestry.table.RelativePersistentBasicTableModel#getRowCount()
 	 */
 	@Override
 	public int getRowCount() {
-		if(isRewinding){
+		if (isRewinding) {
 			return rowCount;
 		}
-		if(rowCount == -1){
+		if (rowCount == -1) {
 			int originalCount = super.getRowCount();
-			if(originalCount>OBJ_PERPAGE_INT){
-				rowCount =  originalCount%OBJ_PERPAGE_INT==0?originalCount/OBJ_PERPAGE_INT:originalCount/OBJ_PERPAGE_INT+1;
-			}
-			else{
+			if (originalCount > OBJ_PERPAGE_INT) {
+				rowCount = originalCount % OBJ_PERPAGE_INT == 0 ? originalCount
+						/ OBJ_PERPAGE_INT : originalCount / OBJ_PERPAGE_INT + 1;
+			} else {
 				rowCount = 1;
 			}
 		}
 		return rowCount;
 	}
-	
+
 }

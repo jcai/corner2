@@ -5,6 +5,7 @@ package corner.orm.tapestry.table;
 
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +44,9 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 	private int rows = -1;
 
 	private boolean isRewinding=false;
+	
+	//查询结果的缓存
+	private List  resultList=null;
 
 	/**
 	 * 根据EntityService还有一个可查询的回掉类来构造一个table model.
@@ -109,9 +113,9 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 
 			return null;
 		}
-			return((Iterator) ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate()
-				.execute(new HibernateCallback(){
+		if(this.resultList==null){
+			resultList =  ((HibernateObjectRelativeUtils) this.entityService
+				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(new HibernateCallback(){
 
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						Criteria criteria=callback.createCriteria(session);
@@ -127,8 +131,10 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
 
-						return criteria.list().iterator();
-					}}));
+						return criteria.list();
+					}});
+		}
+		return resultList.iterator();
 
 	}
 

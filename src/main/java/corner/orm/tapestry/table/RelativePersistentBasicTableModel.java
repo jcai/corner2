@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.tapestry.contrib.table.model.IBasicTableModel;
 import org.apache.tapestry.contrib.table.model.ITableColumn;
@@ -50,6 +51,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 	private boolean isRewinding;
 
 	private IPersistentQueriable callback;
+	
+	//查询结果的缓存
+	private List  resultList=null;
 
 	/**
 	 * @deprecated Use {@link #RelativePersistentBasicTableModel(EntityService,T,String,boolean)} instead
@@ -140,8 +144,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			return Collections.EMPTY_LIST.iterator();
 		}
 
-		return ((Iterator) ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate().execute(
+		if(resultList == null){
+			resultList = ((HibernateObjectRelativeUtils) this.entityService
+				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(
 				new HibernateCallback() {
 
 					public Object doInHibernate(Session session)
@@ -158,9 +163,11 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 						query.setFirstResult(nFirst);
 						query.setMaxResults(nPageSize);
 
-						return query.iterate();
+						return query.list();
 					}
-				}));
+				});
+		}
+		return resultList.iterator();
 	}
 	//提供对关联列表的查询
 	private Query  createQuery(Session session,Collection c,String selectStr,String orderStr){
