@@ -3,7 +3,6 @@
 	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
-<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/sc-17-proto-15-compressed.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar-setup.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js" />
