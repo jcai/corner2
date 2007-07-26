@@ -71,7 +71,7 @@
         flatCallback	:		"${flatCallback}",
         onSelect		:		"${onSelect}",
         onClose			:		"${onClose}",
-        onUpdate		:		"${onUpdate}",
+        onUpdate		:		${onUpdate},
         date			:		"${date}",
         showsTime		:		${showsTime},
         timeFormat		:		"${timeFormat}",

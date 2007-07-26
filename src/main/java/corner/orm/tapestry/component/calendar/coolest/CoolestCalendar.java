@@ -204,7 +204,7 @@ public abstract class CoolestCalendar extends TextField{
 	/**
 	 * @return
 	 */
-	@Parameter
+	@Parameter(defaultValue = "literal:function catcalc(cal) {}")
 	public abstract String getOnUpdate();
 	
 	/**
