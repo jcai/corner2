@@ -101,7 +101,8 @@ public abstract class StringCheckbox extends AbstractFormComponent implements Va
      * @return
      */
     private boolean isSelected(){
-    	return SELECTED_STR.equalsIgnoreCase(getValue());
+    	if(getValue()==null) return false;
+    	return SELECTED_STR.equalsIgnoreCase(getValue().trim());
     }
     /**
      * Injected.

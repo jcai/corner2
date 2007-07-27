@@ -53,6 +53,7 @@ public abstract class RadioGroup extends org.apache.tapestry.form.RadioGroup {
 	@Override
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		_selection = getBinding("selected").getObject();
+		getBinding("selected").setObject(_selection==null?null:_selection.toString().trim());
 		super.renderFormComponent(writer, cycle);
 	}
 	
