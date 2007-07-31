@@ -63,11 +63,9 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 	 */
 	protected abstract IPdfTableModel<Object> getDisplayTableModel();
 
+
 	/**
-	 * 
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.components.AbstractColumnText#renderColumnText(com.lowagie.text.pdf.ColumnText,
-	 *      com.bjmaxinfo.piano.tapestry.pdf.PdfWriterDelegate,
-	 *      com.lowagie.text.Document)
+	 * @see corner.orm.tapestry.pdf.components.AbstractColumnText#renderColumnText(com.lowagie.text.pdf.ColumnText, corner.orm.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
 	 */
 	@Override
 	protected void renderColumnText(ColumnText ct, PdfWriterDelegate writer,

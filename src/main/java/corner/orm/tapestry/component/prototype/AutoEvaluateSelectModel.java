@@ -129,8 +129,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	}
 
 	/**
-	 * 
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, com.bjmaxinfo.piano.model.system.Company)
+	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
 	public List search(HibernateTemplate ht, final String queryClassName,
 			final String searchString, final IContext context,final DataSqueezer squeezer,final String [] dependFieldsValue) {

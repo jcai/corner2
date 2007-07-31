@@ -21,7 +21,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import corner.orm.tapestry.state.IContext;
 
 /**
- * 默认的filter，主要是对piano中的代码类进行检索
+ * 默认的filter，主要是对拼音,数字，汉字 代码类进行检索
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -32,9 +32,7 @@ import corner.orm.tapestry.state.IContext;
 public class CodeSelectModel extends AbstractSelectModel {
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate,
-	 *      java.lang.String, java.lang.String, java.lang.String,
-	 *      com.bjmaxinfo.piano.model.system.Company)
+	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
 	public List search(HibernateTemplate ht, final String queryClassName,
 			final String searchString, final IContext context,

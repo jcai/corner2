@@ -38,8 +38,7 @@ public abstract class PageFragment extends AbstractPdfComponent {
 	public abstract int getPageNum();
 
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.components.AbstractPdfComponent#renderPdf(com.bjmaxinfo.piano.tapestry.pdf.PdfWriterDelegate,
-	 *      com.lowagie.text.Document)
+	 * @see corner.orm.tapestry.pdf.components.AbstractPdfComponent#renderPdf(corner.orm.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
 	 */
 	public void renderPdf(PdfWriterDelegate writer, Document doc) {
 		doc.newPage();
@@ -49,8 +48,7 @@ public abstract class PageFragment extends AbstractPdfComponent {
 	}
 
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.components.AbstractPdfComponent#renderComponent(org.apache.tapestry.IMarkupWriter,
-	 *      org.apache.tapestry.IRequestCycle)
+	 * @see corner.orm.tapestry.pdf.components.AbstractPdfComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		Defense.isAssignable(writer, PdfWriterDelegate.class, "writer");

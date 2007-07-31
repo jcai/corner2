@@ -42,6 +42,6 @@ public interface IPdfComponent extends IComponent{
 	@Parameter
 	public abstract String getRectangle();
 	public abstract void setRectangle(String rec);
-	@InjectObject("service:piano.pdf.FieldCreator")
+	@InjectObject("service:corner.pdf.FieldCreator")
 	public abstract IFieldCreator getFieldCreator();
 }

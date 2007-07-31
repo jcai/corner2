@@ -74,8 +74,7 @@ public abstract class PdfDirectLink extends AbstractLinkComponent implements
 	}
 
 	/**
-	 * 
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.IPdfDirect#trigger(org.apache.tapestry.IRequestCycle)
+	 * @see corner.orm.tapestry.pdf.IPdfDirect#trigger(org.apache.tapestry.IRequestCycle)
 	 */
 	public void trigger(IRequestCycle cycle) {
 		IActionListener listener = getListener();

@@ -28,8 +28,7 @@ import corner.orm.tapestry.pdf.service.PdfResponseBuilder;
  */
 public abstract class AbstractPdfComponent extends AbstractComponent implements IPdfComponent{
 	/**
-	 * 
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.IPdfComponent#renderPdf(com.lowagie.text.pdf.PdfWriterDelegate, com.lowagie.text.Document)
+	 * @see corner.orm.tapestry.pdf.IPdfComponent#renderPdf(corner.orm.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
 	 */
 	public void renderPdf(PdfWriterDelegate writer,Document doc){
 		

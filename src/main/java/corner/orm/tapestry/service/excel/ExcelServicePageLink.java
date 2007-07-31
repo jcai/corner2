@@ -23,7 +23,7 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
 public abstract class ExcelServicePageLink extends AbstractExcelServiceLink {
 
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.excel.AbstractExcelServiceLink#getGenerateType()
+	 * @see corner.orm.tapestry.service.excel.AbstractExcelServiceLink#getGenerateType()
 	 */
 	@Override
 	public String getGenerateType() {

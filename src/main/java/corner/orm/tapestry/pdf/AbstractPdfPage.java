@@ -33,8 +33,7 @@ public abstract class AbstractPdfPage extends AbstractPage implements IPdfPage{
 
 	/**
 	 * 逐一的渲染组件.
-	 * 
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.IPdfComponent#renderPdf(com.lowagie.text.pdf.PdfWriterDelegate, com.lowagie.text.Document)
+	 * @see corner.orm.tapestry.pdf.IPdfComponent#renderPdf(corner.orm.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
 	 */
 	@SuppressWarnings("unchecked")
 	public void renderPdf(PdfWriterDelegate writer,Document doc){

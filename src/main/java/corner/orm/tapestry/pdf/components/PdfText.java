@@ -45,8 +45,7 @@ public abstract class PdfText extends AbstractPdfComponent {
 	
 	
 	/**
-	 * 
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.components.AbstractPdfComponent#renderPdf(com.bjmaxinfo.piano.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
+	 * @see corner.orm.tapestry.pdf.components.AbstractPdfComponent#renderPdf(corner.orm.tapestry.pdf.PdfWriterDelegate, com.lowagie.text.Document)
 	 */
 	@Override
 	public void renderPdf(PdfWriterDelegate writer,Document doc)  {

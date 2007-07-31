@@ -18,7 +18,7 @@ package corner.orm.tapestry.pdf.components;
  */
 public abstract class TemplatePageFragment extends PageFragment {
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.components.AbstractPdfComponent#isTemplateFragment()
+	 * @see corner.orm.tapestry.pdf.components.AbstractPdfComponent#isTemplateFragment()
 	 */
 	public boolean isTemplateFragment() {
 		return true;

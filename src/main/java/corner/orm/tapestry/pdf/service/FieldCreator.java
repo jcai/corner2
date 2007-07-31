@@ -30,7 +30,7 @@ public class FieldCreator implements IFieldCreator {
 	private List<String> alreadyExistFields=new ArrayList<String>();
 	
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.service.IFieldCreator#createTextField(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Rectangle, java.lang.String)
+	 * @see corner.orm.tapestry.pdf.service.IFieldCreator#createTextField(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Rectangle, java.lang.String)
 	 */
 	public TextField createTextField(PdfWriter writer,Rectangle rec,String name){
 		Defense.notNull(name, "field name");
@@ -43,7 +43,7 @@ public class FieldCreator implements IFieldCreator {
 		return textField;
 	}
 	/**
-	 * @see com.bjmaxinfo.piano.tapestry.pdf.service.IFieldCreator#createTextField(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Rectangle)
+	 * @see corner.orm.tapestry.pdf.service.IFieldCreator#createTextField(com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Rectangle)
 	 */
 	public TextField createTextField(PdfWriter writer,Rectangle rec){
 		return createTextField(writer,rec,createUniqueName());

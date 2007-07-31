@@ -11,11 +11,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 保存piano-core中常用的String工具类
+ * 保存corner中常用的String工具类
  * 
- * @author <a href=mailto:ghostbb@bjmaxinfo.com>Ghostbb</a>
- * @version $Revision: 6599 $
- * @since 0.7.5
+ * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
+ * @version $Revision$
+ * @since 2.3.7
  */
 public class StringUtils {
 
