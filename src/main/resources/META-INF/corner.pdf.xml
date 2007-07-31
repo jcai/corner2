@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	Copyright 2007 The Beijing Maxinfo Technology Ltd. 
+	site:http://www.bjmaxinfo.com
+	file : $Id: corner.pdf.xml 7037 2007-07-09 07:27:00Z jcai $
+	created at:2007-04-09
+-->
+<module id="corner.pdf" version="2.3.7"
+	package="corner.orm.tapestry.pdf">
+
+	<!-- pdf entity link service -->
+	<service-point id="PdfEntityLinkService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="service.PdfEntityLinkService">
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+				<set-object property="response" value="infrastructure:response"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	<!-- pdf direct link service -->
+	<service-point id="PdfDirectLinkService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="service.PdfDirectLinkService">
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+				<set-object property="response" value="infrastructure:response"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<!-- contribution  pdf service -->
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="pdfe" object="service:PdfEntityLinkService"/>
+		<service name="pdfd" object="service:PdfDirectLinkService"/>
+	</contribution>
+
+	<!-- contribution pdf response -->	
+	<service-point id="PdfResponseContributor"
+		interface="org.apache.tapestry.services.ResponseContributor">
+		定义了Pdf的操作响应类，用来渲染PDF文档。
+		<invoke-factory>
+			<construct
+				class="service.PdfResponseContributorImpl">
+				<set-object property="webResponse"
+					value="infrastructure:response"/>
+				<set-object property="assetFactory"
+					value="infrastructure:assetFactory"/>
+                <set-object property="webRequest" value="infrastructure:request"/>
+			</construct>
+		</invoke-factory> 
+	</service-point>
+	<!-- 增加pdf渲染 -->
+	<contribution configuration-id="tapestry.services.ResponseContributors">
+		<invoker object="service:PdfResponseContributor"/> 
+	</contribution>
+	
+	<!--  增加 对PDF定义的查找代理 -->
+	<implementation service-id="tapestry.page.SpecificationResolverDelegate">
+                <invoke-factory>
+                        <construct class="PdfSpecificationResolverDelegate">
+							<set-object property="assetSource" value="service:tapestry.asset.AssetSource"/>
+						</construct>
+                </invoke-factory>
+        </implementation>
+	<!-- 增加对PDF模板的查找代理，此代理用来动态构造pdf文档的模板文件  -->
+	<implementation service-id="tapestry.parse.TemplateSourceDelegate">
+                <invoke-factory>
+                        <construct class="PdfTemplateSourceDelegate">
+						</construct>
+                </invoke-factory>
+        </implementation>
+	
+	<!-- 提供创建TextField,注意的是此类是线程级的  -->
+	<service-point id="FieldCreator" interface="service.IFieldCreator">
+    Parses a template into a series of tokens that are used to construct a component's body.
+    <invoke-factory model="threaded">
+      <construct class="service.FieldCreator">
+      </construct>
+    </invoke-factory>
+  </service-point>
+	
+</module>

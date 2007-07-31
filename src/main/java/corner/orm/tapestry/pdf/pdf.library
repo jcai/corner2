@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	Copyright 2007 The Beijing Maxinfo Technology Ltd. 
+	site:http://www.bjmaxinfo.com
+	file : $Id: pdf.library 7037 2007-07-09 07:27:00Z jcai $
+	created at:2007-04-08
+-->
+<!DOCTYPE library-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+	
+<library-specification>
+
+  <meta key="org.apache.tapestry.component-class-packages" value="corner.orm.tapestry.pdf"/>
+
+  <component-type type="PdfText" specification-path="components/PdfText.jwc"/>
+  <component-type type="PageFragment" specification-path="components/PageFragment.jwc"/>
+  <component-type type="TemplatePageFragment" specification-path="components/TemplatePageFragment.jwc"/>
+  <component-type type="ColumnText" specification-path="components/PdfColumnText.jwc"/>
+  <component-type type="PdfTable" specification-path="components/PdfTable.jwc"/>
+  <component-type type="PdfOvTable" specification-path="components/PdfOvTable.jwc"/>
+  <component-type type="PdfDisplayArea" specification-path="components/PdfDisplayArea.jwc"/>
+  <component-type type="PdfImage" specification-path="components/PdfImage.jwc"/>
+  
+  <component-type type="EntityLink" specification-path="link/PdfEntityLink.jwc"/>
+  <component-type type="DirectLink" specification-path="link/PdfDirectLink.jwc"/>
+  
+<!--  <component-type type="PdfLink" specification-path="/com/bjmaxinfo/piano/tapestry/service/pdf/PdfLink.jwc"/> -->
+  
+</library-specification>

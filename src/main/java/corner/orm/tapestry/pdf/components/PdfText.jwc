@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	Copyright 2007 The Beijing Maxinfo Technology Ltd. 
+	site:http://www.bjmaxinfo.com
+	file : $Id: PdfText.jwc 7037 2007-07-09 07:27:00Z jcai $
+	created at:2007-04-08
+-->
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+	
+<component-specification class="corner.orm.tapestry.pdf.components.PdfText" allow-body="no">
+</component-specification>
