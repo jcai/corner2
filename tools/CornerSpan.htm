@@ -3,40 +3,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>Corner Span</title>
+
+</head>
 <script language="JavaScript">
-
-function isDOMRequired() { 
-	// Return false, indicating that this object is available in code view.
-	return false;
-}
-
-function objectTag() {
-	var insertTag="";
-	var objectName = "";
- 	
-	if (document.insertTagform.insertTag.value != ""){
-		insertTag = document.insertTagform.insertTag.value;
-	}
-	else {
-		insertTag='Id'; 
+	function isDOMRequired() { 
+		// Return false, indicating that this object is available in code view.
+		return false;
 	}
 
-	if (document.insertTagform.objectName.value != ""){
-		objectName=document.insertTagform.objectName.value;
-	}
-	else {
-		objectName='entity'; 
-	}
-	
-	var dom = dw.getDocumentDOM();
-	//if (dw.getFocus() == 'textView' || dw.getFocus(true) == 'html'){
-          // Manually wrap tags around selection.                 
-          	dom.source.wrapSelection("<span id=\""+insertTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+insertTag+"\">","</span>");
-          	return;        
-    //} else{
-    	return "<span id=\""+insertTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+insertTag+"\">";
-    //}
-	
+	function objectTag() {
+		//属性名称，用于生成id标签例如:entity.id中的id
+		var insertTag="";
+		//包含改属性的实体的名称,录入:entity.id中的entity
+		var objectName = "";
+		if (document.insertTagform.insertTag.value != ""){
+			insertTag = document.insertTagform.insertTag.value;
+		}
+		else {
+			insertTag='id'; 
+		}
+		if (document.insertTagform.objectName.value != ""){
+			objectName=document.insertTagform.objectName.value;
+		}
+		else {
+			objectName='entity'; 
+		}
+		
+		//手动实现再选中的文本外围增加span标签
+		var dom = dw.getDocumentDOM();               
+		dom.source.wrapSelection("<span id=\""+insertTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+insertTag+"\">","</span>");
+		return;        
+		
 
 	}
 
@@ -44,8 +41,6 @@ function objectTag() {
 		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
 	}
 </script>
-</head>
-
 <body>
 <form action="" method="post" name="insertTagform" id="insertTagform">
  <table width="380" border="0" cellspacing="3" cellpadding="2" align="center">

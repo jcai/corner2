@@ -1,8 +1,8 @@
 <macromedia-extension
     name="Corner Span"
-    version="1.0.0"
+    version="1.0.1"
     type="object">
-<author name="Ghost" />
+<author name="Ghostbb" />
 
 <products> 
     <product name="Dreamweaver" version="6" primary="true" />
