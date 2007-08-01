@@ -1,0 +1,1 @@
+Dreamweaver的plug-in,可以方便的生成带有Tapestry标记的span,input标签
