@@ -124,8 +124,8 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 
 						if (column != null) {
 
-							criteria.addOrder(sort ? Order.asc(column.getColumnName()) : Order
-									.desc(column.getColumnName()));
+							criteria.addOrder(sort ? Order.desc(column.getColumnName()) : Order
+									.asc(column.getColumnName()));
 						}
 
 						criteria.setFirstResult(nFirst);

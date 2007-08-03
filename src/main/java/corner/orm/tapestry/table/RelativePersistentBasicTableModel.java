@@ -156,7 +156,7 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 						if (column != null) {
 
 							orderStr = "order by " + column.getColumnName()
-									+ (sort ? " " : " desc");
+									+ (sort ? " desc" : " ");
 						}
 						Query query = createQuery(session,c,null,orderStr);
 
