@@ -26,4 +26,23 @@ public class Constants {
 	 */
 	public static final String PDFIMAGE_COMPONENT_SCALE_TYPE_PERCENT = "percent";
 	public static final String PDFIMAGE_COMPONENT_SCALE_TYPE_BORDER = "border";
+	
+	/**
+	 * {@link AbstractPdfPage}显示StringCheckbox组件的时候，使用的常量
+	 */
+	public static final String PDF_PAGE_STRING_CHECKBOX_TRUE_FLAG = "1";
+	public static final String PDF_PAGE_STRING_CHECKBOX_FALSE_FLAG = "0";
+	
+	/**
+	 * {@link AbstractPdfPage}显示Checkbox组件的时候，使用的常量
+	 */
+	public static final boolean PDF_PAGE_BOOLEAN_CHECKBOX_TRUE_FLAG = true;
+	public static final boolean PDF_PAGE_BOOLEAN_CHECKBOX_FALSE_FLAG = false;
+	
+	/**
+	 * {@link org.apache.tapestry.form.Checkbox}和{@link StringCheckbox}使用的回显字符串
+	 */
+	public static final String PDF_PAGE_CHECKBOX_TRUE_STR = "是";
+	public static final String PDF_PAGE_CHECKBOX_FALSE_STR = "否";
+	
 }
