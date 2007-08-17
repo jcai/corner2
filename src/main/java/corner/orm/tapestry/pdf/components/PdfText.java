@@ -14,6 +14,7 @@ import org.apache.tapestry.annotations.Parameter;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.TextField;
 
@@ -40,6 +41,9 @@ public abstract class PdfText extends AbstractPdfComponent {
 
 	@Parameter(defaultValue = "0")
 	public abstract float getFontSize();
+	
+	@Parameter(defaultValue ="false")
+	public abstract boolean isAlignCenter();
 
 
 	
@@ -59,6 +63,10 @@ public abstract class PdfText extends AbstractPdfComponent {
 
 		if (isMultiline()) {
 			tf.setOptions(TextField.MULTILINE);
+		}
+		
+		if(isAlignCenter()){
+			tf.setAlignment(Element.ALIGN_CENTER);
 		}
 		if (getValue() != null) {// 设定文字
 			tf.setFont(PdfUtils.createSongLightBaseFont());
