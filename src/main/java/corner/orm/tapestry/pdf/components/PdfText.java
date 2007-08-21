@@ -61,6 +61,8 @@ public abstract class PdfText extends AbstractPdfComponent {
 		
 		TextField tf = getFieldCreator().createTextField(writer.getPdfWriter(), r,this.getId());
 
+		tf.setOptions(TextField.READ_ONLY);
+		
 		if (isMultiline()) {
 			tf.setOptions(TextField.MULTILINE);
 		}
