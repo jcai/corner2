@@ -91,8 +91,8 @@ public abstract class AbstractBlobService implements IEngineService {
 			if(blob==null){ //纠正blob对象为空的NPE异常
 				return;
 			}
-//			outputStream(blob.getContentType(),blob.getBlobData());
 			ComponentResponseUtils.constructResponse(blob.getBlobName(),null,cycle,_response);
+			outputStream(blob.getContentType(),blob.getBlobData());
 			return;
 		}
 		String tableType = cycle.getParameter(TABLE_TYPE_VAR);
@@ -136,8 +136,7 @@ public abstract class AbstractBlobService implements IEngineService {
 			return;
 		}
 
-		OutputStream output = _response
-		.getOutputStream(new ContentType(contentType));
+		OutputStream output = _response.getOutputStream(new ContentType(contentType));
 		output.write(data);
 	}
 	public String getName() {
