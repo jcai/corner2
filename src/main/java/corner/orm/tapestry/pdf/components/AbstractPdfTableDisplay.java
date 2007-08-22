@@ -225,8 +225,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 		table.setTotalWidth(this.getCurrentColumnTextWidth());
 		beginTableHeader(table);
 		try {
-			table
-					.setWidths(this.getDisplayTableModel()
+			table.setWidths(this.getDisplayTableModel()
 							.getColumPercentWidths());
 		} catch (DocumentException e) {
 			throw new PdfSystemException(e);
@@ -250,7 +249,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 				// TODO 标题文字设置大小问题，讨论标题字号
 				PdfPCell cell = new PdfPCell(
 						new Phrase(getDisplayTableModel().getHeaders()[i],
-								PdfUtils.createHeaderSongLightFont(8)));
+								PdfUtils.createHeaderSongLightFont(10)));
 
 				cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);// 设置水平居中
 				cell.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);// 设置竖直居中
@@ -275,7 +274,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 				// TODO 标题文字设置大小问题，讨论标题字号
 				PdfPCell cell = new PdfPCell(
 						new Phrase(key,
-								PdfUtils.createHeaderSongLightFont(8)));
+								PdfUtils.createHeaderSongLightFont(10)));
 				cell.setColspan(getDisplayTableModel().getColumnCount());
 				cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);// 设置水平对齐方式
 				cell.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);// 设置竖直居中
@@ -291,7 +290,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 		for (int i = 0; i < columnCount; i++) {
 			// 加入一个空的句子，目的是使得TableRow能够自动计算出来这个高度.
 			PdfPCell cell = new PdfPCell(new Phrase("　", PdfUtils
-					.createSongLightFont(12)));
+					.createSongLightFont(9)));
 			// 设定事件，列值.
 			cell.setCellEvent(new CreateTextFieldCellEvent(writer,
 					getDisplayTableModel().getCurrentColumnValue(obj, i)));
@@ -309,8 +308,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 		table.setTotalWidth(this.getCurrentColumnTextWidth());
 		beginTableHeader(table);// 增加TableHeader
 		try {
-			table
-					.setWidths(this.getDisplayTableModel()
+			table.setWidths(this.getDisplayTableModel()
 							.getColumPercentWidths());
 		} catch (DocumentException e) {
 			throw new PdfSystemException(e);
