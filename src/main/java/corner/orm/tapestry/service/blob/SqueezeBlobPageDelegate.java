@@ -111,6 +111,9 @@ public class SqueezeBlobPageDelegate <T extends IBlobModel> implements IBlobPage
 		//设定content类型.
 		blob.setContentType(this.uploadFile.getContentType());
 		
+		//设定Blob的名称
+		blob.setBlobName(this.uploadFile.getFileName());
+		
 		//执行回调函数,进行额外数据的操作.
 		if(callback!=null){
 			callback.doBeforeSaveBlob(blob);

@@ -28,6 +28,7 @@ import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
 import corner.model.IBlobModel;
+import corner.orm.tapestry.utils.ComponentResponseUtils;
 import corner.service.EntityService;
 
 /**
@@ -90,7 +91,8 @@ public abstract class AbstractBlobService implements IEngineService {
 			if(blob==null){ //纠正blob对象为空的NPE异常
 				return;
 			}
-			outputStream(blob.getContentType(),blob.getBlobData());
+//			outputStream(blob.getContentType(),blob.getBlobData());
+			ComponentResponseUtils.constructResponse(blob.getBlobName(),null,cycle,_response);
 			return;
 		}
 		String tableType = cycle.getParameter(TABLE_TYPE_VAR);

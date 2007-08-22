@@ -79,7 +79,9 @@ public class ComponentResponseUtils {
 			fileName=String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS%1$tL",c);
 		}
 		// 加上后缀
-		fileName += extensionName;
+		if(extensionName != null && extensionName.trim().length()>0){
+			fileName += extensionName;
+		}
 		// 得到用户的agent,用来判断浏览器的类型
 		String userAgent = requestCycle.getInfrastructure().getRequest()
 				.getHeader("USER-AGENT");

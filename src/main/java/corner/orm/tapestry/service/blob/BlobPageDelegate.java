@@ -84,6 +84,9 @@ public class BlobPageDelegate <T extends IBlobModel> implements IBlobPageDelegat
 		//设定content类型.
 		blob.setContentType(this.uploadFile.getContentType());
 		
+		//保存文件名称
+		blob.setBlobName(this.uploadFile.getFileName());
+		
 		//执行回调函数,进行额外数据的操作.
 		if(callback!=null){
 			callback.doBeforeSaveBlob(blob);

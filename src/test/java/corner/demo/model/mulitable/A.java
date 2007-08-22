@@ -131,4 +131,23 @@ public class A extends AbstractModel implements IBlobModel {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+	
+	/**
+	 * 文件名称
+	 */
+	private String blobName;
+
+	/**
+	 * @return Returns the blobName.
+	 */
+	public String getBlobName() {
+		return blobName;
+	}
+
+	/**
+	 * @param blobName The blobName to set.
+	 */
+	public void setBlobName(String blobName) {
+		this.blobName = blobName;
+	}
 }
