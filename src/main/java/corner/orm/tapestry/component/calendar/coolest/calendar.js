@@ -605,6 +605,13 @@ Calendar.cellClick = function(el, ev) {
 			cal.callCloseHandler();
 			return;
 		}
+		if (el.navtype == 350) {
+			var p = cal.params;
+			p.inputField.value="";
+			Calendar.removeClass(el, "hilite");
+			cal.callCloseHandler();
+			return;
+		}
 		date = new Date(cal.date);
 		if (el.navtype == 0)
 			date.setDateOnly(new Date()); // TODAY
@@ -765,18 +772,28 @@ Calendar.prototype.create = function (_par) {
 	};
 
 	row = Calendar.createElement("tr", thead);
-	var title_length = 6;
+	
+	var title_length = 5;
 	(this.isPopup) && --title_length;
 	(this.weekNumbers) && ++title_length;
 
 	hh("?", 1, 400).ttip = Calendar._TT["INFO"];
 	this.title = hh("", title_length, 300);
 	this.title.className = "title";
+	
+	if (this.isPopup) {
+		this.title.ttip = "清除";
+		this.title.style.cursor = "clear";
+		hh("C", 1, 350).ttip = "clear";
+	}
+	
 	if (this.isPopup) {
 		this.title.ttip = Calendar._TT["DRAG_TO_MOVE"];
 		this.title.style.cursor = "move";
 		hh("&#x00d7;", 1, 200).ttip = Calendar._TT["CLOSE"];
 	}
+	
+	
 
 	row = Calendar.createElement("tr", thead);
 	row.className = "headrow";
