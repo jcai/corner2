@@ -115,6 +115,7 @@ Calendar._TT["DAY_FIRST"] = "將 %s 顯示在前";
 // means Monday, etc.
 Calendar._TT["WEEKEND"] = "0,6";
 
+Calendar._TT["CLEAR"] = "清除";
 Calendar._TT["CLOSE"] = "關閉";
 Calendar._TT["TODAY"] = "今日";
 Calendar._TT["TIME_PART"] = "點擊or拖曳可改變時間(同時按Shift為減)";

@@ -784,7 +784,7 @@ Calendar.prototype.create = function (_par) {
 	if (this.isPopup) {
 		this.title.ttip = "清除";
 		this.title.style.cursor = "clear";
-		hh("&sect;", 1, 350).ttip = "clear";
+		hh("&sect;", 1, 350).ttip = Calendar._TT["CLEAR"];
 	}
 	
 	if (this.isPopup) {

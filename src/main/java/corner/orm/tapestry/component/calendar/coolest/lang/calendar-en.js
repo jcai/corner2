@@ -115,6 +115,7 @@ Calendar._TT["DAY_FIRST"] = "Display %s first";
 // means Monday, etc.
 Calendar._TT["WEEKEND"] = "0,6";
 
+Calendar._TT["CLEAR"] = "Clear";
 Calendar._TT["CLOSE"] = "Close";
 Calendar._TT["TODAY"] = "Today";
 Calendar._TT["TIME_PART"] = "(Shift-)Click or drag to change value";
