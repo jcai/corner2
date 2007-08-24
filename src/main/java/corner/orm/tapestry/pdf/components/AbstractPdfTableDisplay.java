@@ -17,6 +17,7 @@ import org.apache.tapestry.annotations.InjectObject;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.ColumnText;
@@ -231,7 +232,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 			throw new PdfSystemException(e);
 		}
 		for (int i = 0; i < source.size(); i++) {
-			createTableRow(writer, table, source.get(i), columnCount);
+			createTableRow(writer, table, source.get(i), columnCount, getDisplayTableModel());
 		}
 		return table;
 	}
@@ -244,12 +245,15 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 	protected void beginTableHeader(PdfPTable table) {
 		// 增加头
 		if (this.getDisplayTableModel().getHeaders() != null) {
+			Font headerFont = this.getDisplayTableModel().getHeadersFont();
+			if(headerFont == null){//默认footer字体
+				headerFont = PdfUtils.createHeaderSongLightFont(10);
+			}
 			for (int i = 0; i < getDisplayTableModel().getColumnCount(); i++) {
 
 				// TODO 标题文字设置大小问题，讨论标题字号
 				PdfPCell cell = new PdfPCell(
-						new Phrase(getDisplayTableModel().getHeaders()[i],
-								PdfUtils.createHeaderSongLightFont(10)));
+						new Phrase(getDisplayTableModel().getHeaders()[i],headerFont));
 
 				cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);// 设置水平居中
 				cell.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);// 设置竖直居中
@@ -268,13 +272,16 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 	protected void beginTableFooter(PdfPTable table, PdfWriter writer) {
 		if (this.getDisplayTableModel().getFooters() != null) {
 				List<String> cells = this.getDisplayTableModel().getFooters();
+				Font footerFont = this.getDisplayTableModel().getFootersFont();
+				if(footerFont == null){//默认footer字体
+					footerFont = PdfUtils.createHeaderSongLightFont(10);
+				}
 				Iterator<String> it = cells.iterator();
 				while(it.hasNext()){
 				String key = it.next();
 				// TODO 标题文字设置大小问题，讨论标题字号
 				PdfPCell cell = new PdfPCell(
-						new Phrase(key,
-								PdfUtils.createHeaderSongLightFont(10)));
+						new Phrase(key,footerFont));
 				cell.setColspan(getDisplayTableModel().getColumnCount());
 				cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);// 设置水平对齐方式
 				cell.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);// 设置竖直居中
@@ -286,11 +293,14 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 
 	// 创建一行的数据
 	protected void createTableRow(PdfWriter writer, PdfPTable table,
-			Object obj, int columnCount) {
+			Object obj, int columnCount, IPdfTableModel model) {
+		Font contentFont = model.getContentFont();
+		if(contentFont == null){//如果model没有提供字体，默认使用的字体
+			contentFont = PdfUtils.createSongLightFont(10);
+		}
 		for (int i = 0; i < columnCount; i++) {
 			// 加入一个空的句子，目的是使得TableRow能够自动计算出来这个高度.
-			PdfPCell cell = new PdfPCell(new Phrase("　", PdfUtils
-					.createSongLightFont(9)));
+			PdfPCell cell = new PdfPCell(new Phrase("　", contentFont));
 			// 设定事件，列值.
 			cell.setCellEvent(new CreateTextFieldCellEvent(writer,
 					getDisplayTableModel().getCurrentColumnValue(obj, i)));
@@ -315,7 +325,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 		}
 
 		for (int i = start; i < start + rows && i < source.size(); i++) {
-			createTableRow(pdfWriter, table, source.get(i), columnCount);
+			createTableRow(pdfWriter, table, source.get(i), columnCount, getDisplayTableModel());
 		}
 		return table;
 	}

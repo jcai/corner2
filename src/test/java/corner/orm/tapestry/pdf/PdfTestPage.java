@@ -10,6 +10,8 @@ package corner.orm.tapestry.pdf;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lowagie.text.Font;
+
 import corner.demo.model.pdf.A;
 import corner.orm.tapestry.pdf.components.IPdfTableModel;
 
@@ -54,6 +56,18 @@ public abstract class PdfTestPage extends PdfEntityPage {
 				cells.add("Ghost1");
 				cells.add("Ghost2");
 				return cells;
+			}
+
+			public Font getFootersFont() {
+				return PdfUtils.createHeaderSongLightFont(10);
+			}
+
+			public Font getHeadersFont() {
+				return PdfUtils.createHeaderSongLightFont(10);
+			}
+
+			public Font getContentFont() {
+				return PdfUtils.createSongLightFont(10);
 			};
 		};
 	}

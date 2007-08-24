@@ -9,6 +9,8 @@ package corner.orm.tapestry.pdf.components;
 
 import java.util.List;
 
+import com.lowagie.text.Font;
+
 /**
  * PDF表格的模型定义.
  * 
@@ -25,6 +27,12 @@ public interface IPdfTableModel<T> {
 	 * @return 表格头部文字说明
 	 */
 	public String[] getHeaders();
+	
+	/**
+	 * 取得表头不分的字体
+	 * @return
+	 */
+	public Font getHeadersFont();
 
 	/**
 	 * 得到总共列的数目。
@@ -50,6 +58,12 @@ public interface IPdfTableModel<T> {
 	 * @return 当前类的值.
 	 */
 	public String getCurrentColumnValue(T obj, int seq);
+	
+	/**
+	 * 取得表内容部分的字体
+	 * @return
+	 */
+	public Font getContentFont();
 
 	/**
 	 * 得到结尾的文字说明
@@ -57,4 +71,11 @@ public interface IPdfTableModel<T> {
 	 * @return
 	 */
 	public List<String> getFooters();
+	
+	/**
+	 * 取得表尾部分的字体
+	 * @return
+	 */
+	public Font getFootersFont();
+	
 }
