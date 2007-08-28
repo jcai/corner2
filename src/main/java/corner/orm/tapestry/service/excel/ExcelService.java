@@ -45,21 +45,21 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
 public class ExcelService implements IEngineService {
 
 	/** The content type for an Excel response */
-	private static final String CONTENT_TYPE = "application/vnd.ms-excel";
+	protected static final String CONTENT_TYPE = "application/vnd.ms-excel";
 
-	private static final String SERVICE_NAME = "excel";
+	protected static final String SERVICE_NAME = "excel";
 
 	/** link factory */
-	private LinkFactory _linkFactory;
+	protected LinkFactory _linkFactory;
 
 	/** response */
-	private WebResponse _response;
+	protected WebResponse _response;
 
 	/** request cycle * */
-	private IRequestCycle _requestCycle;
+	protected IRequestCycle _requestCycle;
 
 	/** excel 文件后缀的文件名 * */
-	private final static String EXCLE_FILE_EXTENSION_NAME = ".xls";
+	protected final static String EXCLE_FILE_EXTENSION_NAME = ".xls";
 
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean,
