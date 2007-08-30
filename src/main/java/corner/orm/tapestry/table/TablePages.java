@@ -43,7 +43,7 @@ public abstract class TablePages extends org.apache.tapestry.contrib.table.compo
 	 * @return 得到行数
 	 */
 	public String getRowCountMessage(){
-		return CornerMessages.totalPage(getRowCount());
+		return "共"+getRowCount()+"条";
 	}
 	int getRowCount(){
 		return this.getTableModelSource().getTableModel().getRowCount();
