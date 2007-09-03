@@ -13,13 +13,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.contrib.table.components.TableView;
@@ -161,22 +161,12 @@ public class ExcelService implements IEngineService {
 	/**
 	 * 创建Excel文件的Title部分
 	 */
-	void createExcelTitleRow(HSSFWorkbook wb, HSSFSheet sheet,Iterator columns) {
-		HSSFRow row = sheet.createRow((short) 0);
-		HSSFCellStyle titleStyle = wb.createCellStyle();
-		titleStyle.setTopBorderColor(HSSFColor.BLACK.index);
-
-		// FIXME 定义标题字体--目前只是把标题设置成加粗
-		HSSFFont font = wb.createFont();
-		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-	
-		
-		short i=0;
+	protected void createExcelTitleRow(HSSFWorkbook wb, HSSFSheet sheet,Iterator columns) {
+		HSSFRow row = sheet.createRow((short) 0);	
+		int i=0;
 		while(columns.hasNext()){
 			SimpleTableColumn column=(SimpleTableColumn) columns.next();
-			HSSFRichTextString title = new HSSFRichTextString(column.getDisplayName());
-			title.applyFont(font);
-			row.createCell(i).setCellValue(title);
+			this.createTitleCell(wb, row, i, column.getDisplayName());
 			i++;
 		}
 	}
@@ -184,13 +174,13 @@ public class ExcelService implements IEngineService {
 	/**
 	 * 创建Excel的数据
 	 */
-	void createExcelDataRows(HSSFWorkbook wb, HSSFSheet sheet, ITableModel model, boolean hasTitle) {
+	protected void createExcelDataRows(HSSFWorkbook wb, HSSFSheet sheet, ITableModel model, boolean hasTitle) {
 		Iterator rows = model.getCurrentPageRows();
 		short i=0; //行数
 		if(hasTitle){
 			i++;
 		}
-		short j=0;//列数
+		int j=0;//列数
 		Iterator columns;
 		while (rows.hasNext()) {
 			Object rowObj = rows.next();
@@ -204,12 +194,70 @@ public class ExcelService implements IEngineService {
 			while(columns.hasNext()){
 				column=(SimpleTableColumn) columns.next();
 				Object obj=column.getColumnValue(rowObj);
-				row.createCell(j).setCellValue(new HSSFRichTextString(obj!=null?obj.toString():""));
+				String cellValue = obj!=null?obj.toString():"";
+				this.createContentCell(wb, row, j, cellValue);
 				j++;
 			}
 			i++;
 		}
 	}
+	
+	/**
+	 * 取得title使用的Style
+	 * 
+	 * @return
+	 */
+	protected HSSFCellStyle getTitleStyle(HSSFWorkbook wb) {
+		// create title Style
+		HSSFCellStyle titleRowStyle = wb.createCellStyle();
+		titleRowStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		HSSFFont titleFont = wb.createFont();
+		titleFont.setFontHeightInPoints((short) 12);
+		titleFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		titleRowStyle.setFont(titleFont);
+		return titleRowStyle;
+	}
+	
+	/**
+	 * 构造excel的title内容
+	 * 
+	 * @param wb
+	 * @param row
+	 * @param index
+	 * @param cellValue
+	 */
+	protected void createTitleCell(HSSFWorkbook wb, HSSFRow row, int index,
+			String cellValue) {
+		HSSFCell titlecell = row.createCell((short) index);
+		titlecell.setCellStyle(this.getTitleStyle(wb));
+		titlecell.setCellValue(new HSSFRichTextString(cellValue));
+	}
+	
+	/**
+	 * 构造excel的content内容
+	 * 
+	 * @param wb
+	 * @param row
+	 * @param index
+	 * @param cellValue
+	 */
+	protected void createContentCell(HSSFWorkbook wb, HSSFRow row, int index,
+			String cellValue) {
+		HSSFCell contentcell = row.createCell((short) index);
+		contentcell.setCellStyle(this.getContentCellStyle(wb));
+		contentcell.setCellValue(new HSSFRichTextString(cellValue));
+	}
+	
+	/**
+	 * 构造contentCell的样式,默认是不带任何样式
+	 * @param wb
+	 * @return {@link HSSFCellStyle}
+	 */
+	protected HSSFCellStyle getContentCellStyle(HSSFWorkbook wb){
+		HSSFCellStyle contentRowStyle = wb.createCellStyle();
+		return contentRowStyle;
+	}
+	
 	/**
 	 * @param cycle
 	 *            The _requestCycle to set.
