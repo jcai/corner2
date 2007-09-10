@@ -13,6 +13,9 @@ package corner.orm.tapestry.page;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
@@ -45,6 +48,17 @@ import corner.util.CornerUtils;
  */
 public abstract class AbstractEntityPage<T> extends BasePage implements
 		EntityPage<T>,IBlobPage,IContextAccessible {
+	
+	/**
+	 * 将一个对象包装成一个集合
+	 * @param entity 对象
+	 * @return 返回集合
+	 */
+	public Collection getCollection(T entity){
+		List<T> rs = new ArrayList<T>();
+		rs.add(entity);
+		return rs;
+	}
 	
 	/**
 	 * @see corner.orm.tapestry.page.IDialogAction#isDoDialogAction(java.lang.Object)
