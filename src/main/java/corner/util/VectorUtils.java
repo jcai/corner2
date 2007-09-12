@@ -13,7 +13,9 @@
 package corner.util;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -162,5 +164,16 @@ public final class VectorUtils {
 			
 			return Arrays.asList(StringUtils.splitPreserveAllTokens(str, ","));
 		}
+	}
+	
+	/**
+	 * 将一个对象包装成一个集合
+	 * @param entity 对象
+	 * @return 返回集合
+	 */
+	public static Collection getCollection(Object entity){
+		List<Object> rs = new ArrayList<Object>();
+		rs.add(entity);
+		return rs;
 	}
 }
