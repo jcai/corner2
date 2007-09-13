@@ -35,6 +35,7 @@ public class SqueezeBlobPageDelegateTest extends BaseComponentTestCase {
 		IUploadFile file=EasyMock.createMock(IUploadFile.class);
 		EasyMock.expect(file.getStream()).andReturn(new ByteArrayInputStream("string".getBytes()));
 		EasyMock.expect(file.getContentType()).andReturn("text/plain");
+		EasyMock.expect(file.getFileName()).andReturn("filename");
 		
 		final Registry reg = buildFrameworkRegistry(new String[]{});
 		SpringBeanFactoryHolder spring=(SpringBeanFactoryHolder) reg.getService("hivemind.lib.DefaultSpringBeanFactoryHolder",SpringBeanFactoryHolder.class);

@@ -25,36 +25,36 @@ import org.testng.annotations.Test;
  * @version $Revision$
  * @since 2.3.7
  */
-class Currency{
-	private String chnName;
-	private String engName;
-	/**
-	 * @return Returns the chnName.
-	 */
-	public String getChnName() {
-		return chnName;
-	}
-	/**
-	 * @param chnName The chnName to set.
-	 */
-	public void setChnName(String chnName) {
-		this.chnName = chnName;
-	}
-	/**
-	 * @return Returns the engName.
-	 */
-	public String getEngName() {
-		return engName;
-	}
-	/**
-	 * @param engName The engName to set.
-	 */
-	public void setEngName(String engName) {
-		this.engName = engName;
-	}
-}
 
 public class AutoEvaluateSelectModelTest extends Assert{
+	public static class Currency{
+		private String chnName;
+		private String engName;
+		/**
+		 * @return Returns the chnName.
+		 */
+		public String getChnName() {
+			return chnName;
+		}
+		/**
+		 * @param chnName The chnName to set.
+		 */
+		public void setChnName(String chnName) {
+			this.chnName = chnName;
+		}
+		/**
+		 * @return Returns the engName.
+		 */
+		public String getEngName() {
+			return engName;
+		}
+		/**
+		 * @param engName The engName to set.
+		 */
+		public void setEngName(String engName) {
+			this.engName = engName;
+		}
+	}
 
 	private CharArrayWriter _writer;
 	@Test

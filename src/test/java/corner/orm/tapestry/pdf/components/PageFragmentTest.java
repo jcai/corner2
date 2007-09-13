@@ -341,8 +341,14 @@ public class PageFragmentTest extends BaseComponentTestCase {
 
 	}
 
+	/**
+	 * 总计生成4个页面的PDF文件
+	 * @param pageNum
+	 * @return
+	 * @throws Exception
+	 */
 	private byte[] createPdfTemplateData(int pageNum) throws Exception {
-		// 创建一个pdf文档
+		// 创建一个pdf文档,前两个1和2
 		Document document = new Document();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PdfWriter writer = PdfWriter.getInstance(document, baos);
@@ -353,6 +359,7 @@ public class PageFragmentTest extends BaseComponentTestCase {
 		}
 		// 增加两个模板页面
 
+		// page:3
 		// page: pageNum+1
 		document.newPage();
 		document.add(new Phrase("page:" + (pageNum + 1)));
@@ -366,6 +373,7 @@ public class PageFragmentTest extends BaseComponentTestCase {
 
 		writer.addAnnotation(displayTable.getTextField());
 
+		// page:4
 		// page: pageNum+2
 		document.newPage();
 		document.add(new Phrase("page:" + (pageNum + 2)));
@@ -398,7 +406,7 @@ public class PageFragmentTest extends BaseComponentTestCase {
 
 	private Object getOvTableSource() {
 		List<A> list = new ArrayList<A>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 120; i++) {
 			A c = new A();
 			c.setCnName(i + "蔡蔡蔡蔡蔡蔡蔡蔡");
 			c.setName(i + "君君君君君君君君君君君");

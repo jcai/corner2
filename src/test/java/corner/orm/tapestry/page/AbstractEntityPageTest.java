@@ -40,6 +40,7 @@ public class AbstractEntityPageTest extends BaseComponentTestCase{
 		
 		EasyMock.expect(file.getStream()).andReturn(stream);
 		EasyMock.expect(file.getContentType()).andReturn("image/jpeg");
+		EasyMock.expect(file.getFileName()).andReturn("filename");
 		replay();
 		A a=new A();
 		page.saveBlobData(a, true);
@@ -84,6 +85,7 @@ public class AbstractEntityPageTest extends BaseComponentTestCase{
 		
 		EasyMock.expect(file.getStream()).andReturn(stream);
 		EasyMock.expect(file.getContentType()).andReturn("image/jpeg");
+		EasyMock.expect(file.getFileName()).andReturn("filename");
 		replay();
 		A a=new A();
 		page.saveBlobData(a, false);
