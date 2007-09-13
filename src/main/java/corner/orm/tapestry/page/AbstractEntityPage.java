@@ -13,9 +13,6 @@ package corner.orm.tapestry.page;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IPage;
