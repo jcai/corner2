@@ -342,4 +342,9 @@ public class PdfResponseBuilder implements ResponseBuilder {
 		
 	}
 
+	public void addScriptAfterInitialization(IComponent arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
