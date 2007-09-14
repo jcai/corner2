@@ -12,9 +12,7 @@
 <input-symbol key="popMenuDivId"  class="java.lang.String" required="yes"/>
 <input-symbol key="selected"  class="java.lang.Boolean" required="yes"/>
 <body>
-<unique>
-dojo.require("corner.menu.DropdownMenu");
-</unique>
+<unique>dojo.require("corner.menu.DropdownMenu");</unique>
 </body>
 <initialization>
 corner.menu.DropdownMenu.registerMenu('${menuId}','${popMenuDivId}');
