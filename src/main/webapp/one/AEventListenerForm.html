@@ -1,0 +1,31 @@
+<span jwcid="@DemoBorder">
+    <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AEventListenerList.html">Return A List</a>
+    <form jwcid="AForm" action="AEventListenerList.html">
+      <table>
+        <tr>
+          <td>
+            <span key="name">name</span>
+          </td>
+          <td>
+            <input jwcid="SheetCateField"/>
+          </td>
+		</tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+    </form>
+  <form name="SheetCateForm" jwcid="SheetCateForm@Form">
+  	<input type="hidden" jwcid="sheetCateHidden@Hidden"  id="sheetCateHidden" value="ognl:sheetCateType" onchange="{'theAnswer':42}"/>
+  </form>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	
+	var triggerable= function(obj){
+		dojo.debug("fdsakfjdsk");
+	}
+	
+//-->
+</SCRIPT>
+	
+	<div id="debug">f</div>
+</span>

@@ -12,8 +12,14 @@
 
 package corner.demo.page.one;
 
+import org.apache.tapestry.annotations.EventListener;
+import org.apache.tapestry.annotations.Persist;
+import org.apache.tapestry.event.BrowserEvent;
+import org.apache.tapestry.form.IPropertySelectionModel;
+
 import corner.demo.model.one.A;
 import corner.orm.hibernate.v3.MatrixRow;
+import corner.orm.tapestry.component.propertyselection.PropertySelectionModel;
 import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
@@ -27,8 +33,24 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  */
 public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 
+	@Persist("client")
+	public abstract String getSheetCateType();
 	
+	@EventListener(events="onchange", targets={ "sheetCateHidden" }, elements = { "SheetCateField" })
+	public void onTriggered( BrowserEvent event )
+	{
+		System.out.println(getSheetCateType());
+		event.getMethodArguments();
+		
+//	   System.out.println(event.getMethodArguments().getJSONObject(0).getInt("theAnswer"));
+	}
 	
+	/**
+	 * @return
+	 */
+	public IPropertySelectionModel getSheetCatePageModel() {
+		return new PropertySelectionModel("1,2,3,4,5".split(","));
+	}
 	
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityPage#saveOrUpdateEntity()
