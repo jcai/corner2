@@ -2,4 +2,16 @@
 	<contribution configuration-id="tapestry.asset.UnprotectedAssets" if="class org.apache.tapestry.asset.ResourceMatcher">
 	 	<unprotected-resource contains="corner/*" />
 	</contribution>
+	
+	<contribution configuration-id="tapestry.asset.AssetFactories">
+		<factory prefix="database" object="service:DatabaseAssetFactory"/>
+	</contribution>
+	
+	<service-point id="DatabaseAssetFactory" interface="org.apache.tapestry.asset.AssetFactory">
+		<invoke-factory>
+            <construct class="DatabaseAssetFactory">
+                <set-object property="assetService" value="engine-service:asset"/>
+            </construct>
+        </invoke-factory>
+    </service-point>
 </module>

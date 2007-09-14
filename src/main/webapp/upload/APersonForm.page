@@ -32,6 +32,7 @@
     <binding name="imageFile" value="true"/>
     <!--binding name="fileValidators" value="validators:required"/-->
     <binding name="fileValidators" value="validators:pictureSize={10:10},fileType={.exe;.jpg}"/>
+    <binding name="fileInputClass" value="literal:input-form-99" />
     <binding name="imgInputClass" value="literal:test-style"/>
     <binding name="imgWidth" value="literal:50"/>
     <binding name="imgHeight" value="literal:100"/>

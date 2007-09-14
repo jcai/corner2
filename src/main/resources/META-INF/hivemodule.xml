@@ -47,5 +47,6 @@
 	<sub-module descriptor="corner.state.xml"/>
 	<sub-module descriptor="corner.excel.xml"/>
 	<sub-module descriptor="corner.pdf.xml"/>
+	<sub-module descriptor="corner.jasper.xml"/>
 	
 </module>
