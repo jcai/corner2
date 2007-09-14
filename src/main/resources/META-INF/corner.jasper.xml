@@ -1,4 +1,4 @@
-<module id="corner.jasper" version="1.0.0" package="corner.orm.tapestry.jasper.service.JasperEntityLinkService">  
+<module id="corner.jasper" version="1.0.0" package="corner.orm.tapestry.jasper.service">  
   <!-- 提供一个tapestry的服务 -->
   <contribution configuration-id="tapestry.services.ApplicationServices">
 		<service name="jasper" object="service:JasperEntityLinkService"/>
