@@ -7,6 +7,7 @@
 
 package corner.orm.tapestry.jasper.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -35,8 +36,6 @@ import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.JREntityDataSource;
 import corner.orm.tapestry.jasper.TaskType;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
-import corner.orm.tapestry.service.blob.BlobAsset;
-import corner.orm.tapestry.service.blob.BlobService;
 import corner.orm.tapestry.utils.ComponentResponseUtils;
 import corner.util.VectorUtils;
 
@@ -98,7 +97,7 @@ public class JasperEntityLinkService implements IEngineService{
 		try {
 			
 			//判断是从那里读取流
-			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(page,templateEntity);
+			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(templateEntity);
 			
 			JasperPrint jasperPrint = getJasperPrint(is,page);
 			
@@ -130,9 +129,9 @@ public class JasperEntityLinkService implements IEngineService{
 	 * @param templateEntity 存放文件的entity
 	 * @return
 	 */
-	private InputStream getAssetStream(IPage page, IBlobModel templateEntity) {
-		BlobAsset asset = new BlobAsset(blobService,page.getRequestCycle(),templateEntity);
-		return asset.getResourceAsStream();
+	private InputStream getAssetStream(IBlobModel templateEntity) {
+		byte[] data=templateEntity.getBlobData();
+		return new ByteArrayInputStream(data);
 	}
 
 	/**
@@ -180,12 +179,6 @@ public class JasperEntityLinkService implements IEngineService{
 	private BindingSource bindingSource;
 	
 	/**
-	 * 得到blob服务。
-	 * @return blob服务
-	 */
-	private BlobService blobService;
-
-	/**
 	 * @param linkFactory The linkFactory to set.
 	 */
 	public void setLinkFactory(LinkFactory linkFactory) {
@@ -213,19 +206,10 @@ public class JasperEntityLinkService implements IEngineService{
 		this.assetSource = assetSource;
 	}
 
-
-
 	/**
 	 * @param bindingSource The bindingSource to set.
 	 */
 	public void setBindingSource(BindingSource bindingSource) {
 		this.bindingSource = bindingSource;
-	}
-
-	/**
-	 * @param blobService The blobService to set.
-	 */
-	public void setBlobService(BlobService blobService) {
-		this.blobService = blobService;
 	}
 }

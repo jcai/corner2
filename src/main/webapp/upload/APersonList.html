@@ -22,6 +22,9 @@
           <td>
             <span key="colors">colors</span>
           </td>
+		  <td>
+            <span key="pdf">pdf</span>
+          </td>
           <td>
             <span key="link.edit">edit</span>
           </td>
@@ -38,6 +41,9 @@
           </td>
           <td>
             <span jwcid="@Insert" value="ognl:entity.colors">colors</span>
+          </td>
+		  <td>
+            <a jwcid="@corner:JasperEntityLink" downloadFileName="文件名" taskType="pdf" templatePath="context:/jasper/A.jasper" >pdf</a>
           </td>
           <td>
             <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">
