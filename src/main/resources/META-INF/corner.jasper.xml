@@ -14,6 +14,7 @@
 				<set-object property="requestCycle"
 					value="infrastructure:requestCycle"/>
 				<set-object property="assetSource" value="service:tapestry.asset.AssetSource"/>
+				<set-object property="blobService" value="service:corner.blob.BlobService"/>
 			</construct>
 		</invoke-factory>
 	</service-point>

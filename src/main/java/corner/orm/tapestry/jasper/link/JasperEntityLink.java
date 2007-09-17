@@ -26,16 +26,20 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	 */
 	@Override
 	public ILink getLink(IRequestCycle cycle) {
-		Object[] parameters = new Object[3];
+		Object[] parameters = new Object[4];
 		parameters[0] = getDownloadFileName();
 		parameters[1] = getTaskType().toLowerCase();
-		parameters[2] = getTemplate();
+		parameters[2] = getTemplatePath();
+		parameters[3] = getTemplateEntity();
 		
 		return this.getJasperService().getLink(true, parameters);
 	}
 	
-	@Parameter(required = true)
-	public abstract String getTemplate();
+	@Parameter
+	public abstract String getTemplatePath();
+	
+	@Parameter
+	public abstract Object getTemplateEntity();
 	
 	/**
 	 * 指定下载的文件名称

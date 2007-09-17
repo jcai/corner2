@@ -9,9 +9,7 @@ package corner.orm.tapestry.jasper.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
@@ -21,6 +19,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.hivemind.ApplicationRuntimeException;
+import org.apache.hivemind.util.Defense;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.asset.AssetSource;
@@ -32,10 +31,14 @@ import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
+import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.JREntityDataSource;
 import corner.orm.tapestry.jasper.TaskType;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
+import corner.orm.tapestry.service.blob.BlobAsset;
+import corner.orm.tapestry.service.blob.BlobService;
 import corner.orm.tapestry.utils.ComponentResponseUtils;
+import corner.util.VectorUtils;
 
 /**
  * 导出实体的服务类.
@@ -51,11 +54,19 @@ public class JasperEntityLinkService implements IEngineService{
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)
 	 */
 	public ILink getLink(boolean post, Object parameter) {
+		
+		Defense.isAssignable(parameter, Object[].class, "参数");
+		Object[] ps = (Object[]) parameter;
+		
+		if(ps[2] == null && ps[3] == null){
+			Defense.notNull(ps[2], "模板");
+		}
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(ServiceConstants.PAGE, this.requestCycle.getPage()
 				.getPageName());
 		parameters.put(ServiceConstants.PARAMETER, parameter);
-
+		
 		return linkFactory.constructLink(this, post, parameters, true);
 	}
 
@@ -73,25 +84,30 @@ public class JasperEntityLinkService implements IEngineService{
 		
 		String downloadFileName = (String) parameters[0];
 		String taskType = (String) parameters[1];
-		String template = (String) parameters[2];
+		String templatePath = (String) parameters[2];
+		IBlobModel templateEntity = null;
+		
+		boolean isUsetemplatePath = true;
+		
+		if(templatePath == null){
+			templateEntity = (IBlobModel) parameters[3];
+			isUsetemplatePath = false;
+		}
+		
 		IJasperExporter jasperAction = TaskType.valueOf(taskType).newInstance();
 		try {
 			
-			String [] templates =  template.split(";");
+			//判断是从那里读取流
+			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(page,templateEntity);
 			
-			List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
-			
-			//获得jasperPrintList
-			for(String tmp : templates){
-				jasperPrintList.add( getJasperPrint(getAssetStream(page,tmp),page));
-			}
+			JasperPrint jasperPrint = getJasperPrint(is,page);
 			
 			JRExporter exporter = jasperAction.getExporter();
 			//初始化
 			jasperAction.setupExporter(exporter);
 			
 			//准备参数
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, VectorUtils.getCollection(jasperPrint));
 			
 			//设定下载文件名
 			ComponentResponseUtils.constructResponse(downloadFileName, jasperAction.getSuffix(),cycle, response);
@@ -108,7 +124,16 @@ public class JasperEntityLinkService implements IEngineService{
 		
 	}
 	
-
+	/**
+	 * 读取数据库流
+	 * @param page 要返回的页面
+	 * @param templateEntity 存放文件的entity
+	 * @return
+	 */
+	private InputStream getAssetStream(IPage page, IBlobModel templateEntity) {
+		BlobAsset asset = new BlobAsset(blobService,page.getRequestCycle(),templateEntity);
+		return asset.getResourceAsStream();
+	}
 
 	/**
 	 * 从配置中classpath/context/database中获得jasper
@@ -153,6 +178,12 @@ public class JasperEntityLinkService implements IEngineService{
 	
 	/** binding source **/
 	private BindingSource bindingSource;
+	
+	/**
+	 * 得到blob服务。
+	 * @return blob服务
+	 */
+	private BlobService blobService;
 
 	/**
 	 * @param linkFactory The linkFactory to set.
@@ -190,5 +221,11 @@ public class JasperEntityLinkService implements IEngineService{
 	public void setBindingSource(BindingSource bindingSource) {
 		this.bindingSource = bindingSource;
 	}
-	
+
+	/**
+	 * @param blobService The blobService to set.
+	 */
+	public void setBlobService(BlobService blobService) {
+		this.blobService = blobService;
+	}
 }
