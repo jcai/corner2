@@ -14,14 +14,19 @@
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
       <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>
-  <form name="SheetCateForm" jwcid="SheetCateForm@Form">
-  	<input type="hidden" jwcid="sheetCateHidden@Hidden"  id="sheetCateHidden" value="ognl:sheetCateType" onchange="{'theAnswer':42}"/>
-  </form>
+  
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-	function onchange(){
-		return {"theAnswer":42};
+	testId=new Object();
+	SheetCateField.trigger=function(data){
+		alert(data);
+		return true;
 	}
+	dojo.event.connect(dojo.byId("SheetCateField"),"onchange",function(){
+		alert("okay");
+		data={"theAnswer":42}
+		dojo.byId("SheetCateField").trigger(data);
+	});
 //-->
 </SCRIPT>
 	

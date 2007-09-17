@@ -36,13 +36,12 @@ public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 	@Persist("client")
 	public abstract String getSheetCateType();
 	
-	@EventListener(events="onchange", targets={ "sheetCateHidden" }, elements = { "SheetCateField" })
+	@EventListener(events="trigger", elements={ "SheetCateField" })
 	public void onTriggered( BrowserEvent event )
 	{
-		System.out.println(getSheetCateType());
-		event.getMethodArguments();
+		System.out.println("call this method !!!!!!!!");
 		
-//	   System.out.println(event.getMethodArguments().getJSONObject(0).getInt("theAnswer"));
+	   System.out.println(event.getMethodArguments().getJSONObject(0).getInt("theAnswer"));
 	}
 	
 	/**
