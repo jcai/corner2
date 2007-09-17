@@ -19,11 +19,9 @@
 <!--
 	testId=new Object();
 	SheetCateField.trigger=function(data){
-		alert(data);
 		return true;
 	}
 	dojo.event.connect(dojo.byId("SheetCateField"),"onchange",function(){
-		alert("okay");
 		data={"theAnswer":42}
 		dojo.byId("SheetCateField").trigger(data);
 	});
