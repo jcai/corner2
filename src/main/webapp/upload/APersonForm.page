@@ -19,24 +19,20 @@
     <binding value="message:num" name="displayName"/>
     <binding value="ognl:entity.password" name="value"/>
   </component>
-  <component type="TextField" id="colorsField">
-    <binding value="message:colors" name="displayName"/>
-    <binding value="ognl:entity.colors" name="value"/>
-  </component>
 	
   <component type="corner:UploadBox" id="updateField">
     <binding name="displayName" value="message:UploadBox"/>
     <binding name="uploadFile" value="uploadFile"/>
     <binding name="blobEntity" value="entity"/>
     <binding name="editBlob" value="editBlob"/>
-    <binding name="imageFile" value="true"/>
-    <!--binding name="fileValidators" value="validators:required"/-->
+    <binding name="imageFile" value="false"/>
+    <!--binding name="fileValidators" value="validators:required"/>
     <binding name="fileValidators" value="validators:pictureSize={10:10},fileType={.exe;.jpg}"/>
     <binding name="fileInputClass" value="literal:input-form-99" />
     <binding name="imgInputClass" value="literal:test-style"/>
     <binding name="imgWidth" value="literal:50"/>
     <binding name="imgHeight" value="literal:100"/>
-    <binding name="imgBorder" value="literal:5"/>
+    <binding name="imgBorder" value="literal:5"/-->
   </component>
   
     
