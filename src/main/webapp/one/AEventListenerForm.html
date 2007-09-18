@@ -17,13 +17,15 @@
   
 <SCRIPT LANGUAGE="JavaScript">
 <!--
+	var nodeId = "SheetCateField";
 	testId=new Object();
 	SheetCateField.trigger=function(data){
 		return true;
 	}
-	dojo.event.connect(dojo.byId("SheetCateField"),"onchange",function(){
-		data={"theAnswer":42}
-		dojo.byId("SheetCateField").trigger(data);
+	dojo.event.connect(dojo.byId(nodeId),"onchange",function(){
+		var value = dojo.byId(nodeId).value;
+		data={"selected": value}
+		dojo.byId(nodeId).trigger(data);
 	});
 //-->
 </SCRIPT>
