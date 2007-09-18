@@ -8,6 +8,11 @@
           </td>
           <td>
             <input jwcid="SheetCateField"/>
+			<div jwcid="selectLinkDiv@Any">
+				<span jwcid="@If" condition="ognl:show">
+				  	<span jwcid="passwordField" type="text" />
+				</span>
+			</div>
           </td>
 		</tr>
       </table>
@@ -19,7 +24,7 @@
 <!--
 	var nodeId = "SheetCateField";
 	testId=new Object();
-	SheetCateField.trigger=function(data){
+	dojo.byId(nodeId).trigger=function(data){
 		return true;
 	}
 	dojo.event.connect(dojo.byId(nodeId),"onchange",function(){

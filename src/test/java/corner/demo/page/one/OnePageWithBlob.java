@@ -12,8 +12,8 @@
 
 package corner.demo.page.one;
 
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.EventListener;
-import org.apache.tapestry.annotations.Persist;
 import org.apache.tapestry.event.BrowserEvent;
 import org.apache.tapestry.form.IPropertySelectionModel;
 
@@ -32,18 +32,62 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  * @since 2.2.1
  */
 public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
-
-	@Persist("client")
-	public abstract String getSheetCateType();
 	
+	
+	private int SheetCateField;
+	
+	/**
+	 * 是否显示，如果可以显示返回true
+	 */
+	public boolean isShow(){
+		
+		if(SheetCateField==5){
+			return false;
+		}
+		
+		if(SheetCateField==1){
+			return false;
+		}
+		
+		return true;
+	}
+
 	@EventListener(events="trigger", elements={ "SheetCateField" })
 	public void onTriggered( BrowserEvent event )
 	{
 		System.out.println("call this method !!!!!!!!");
 		
-	   System.out.println(event.getMethodArguments().getJSONObject(0).getInt("theAnswer"));
+		SheetCateField = event.getMethodArguments().getJSONObject(0).getInt("selected");
+		
+		System.out.println(SheetCateField);
+		
+		this.getRequestCycle().getResponseBuilder().updateComponent(
+		"selectLinkDiv");
 	}
 	
+	/**
+     * @see org.apache.tapestry.AbstractPage#cleanupAfterRender(org.apache.tapestry.IRequestCycle)
+     */
+    @Override
+    protected void cleanupAfterRender(IRequestCycle cycle) {
+        super.cleanupAfterRender(cycle);
+        SheetCateField = 0;
+    }
+	
+	/**
+	 * @return Returns the sheetCateField.
+	 */
+	public int getSheetCateField() {
+		return SheetCateField;
+	}
+
+	/**
+	 * @param sheetCateField The sheetCateField to set.
+	 */
+	public void setSheetCateField(int sheetCateField) {
+		SheetCateField = sheetCateField;
+	}
+
 	/**
 	 * @return
 	 */

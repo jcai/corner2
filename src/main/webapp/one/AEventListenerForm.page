@@ -11,6 +11,11 @@
     <binding value="listener:doSaveEntityAction" name="success"/>
     <binding value="listener:doCancelEntityAction" name="cancel"/>
   </component>
+  <component type="TextField" id="passwordField">
+    <binding value="message:num" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.password" name="value"/>
+  </component>
   <component type="PropertySelection" id="SheetCateField">
     <binding name="displayName" value="message:SheetCate" />
     <binding name="isSelect" value="ognl:false" />
