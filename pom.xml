@@ -6,7 +6,7 @@
 	<version>2.4</version>
 	<packaging>jar</packaging>
 	<description>Provides some core function</description>
-	<inceptionYear>2006,2007</inceptionYear>
+	<inceptionYear>2005-2007</inceptionYear>
 	<organization>
 		<name>Beijing Maxinfo Technology Ltd.</name>
 		<url>http://www.bjmaxinfo.com/</url>
@@ -111,7 +111,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
-			<version>3.2.4.ga</version>
+			<version>3.2.4.sp1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>jta</artifactId>
@@ -171,11 +171,23 @@
 			<classifier>jdk15</classifier>
 			<scope>compile</scope>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.0-FINAL</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.0.5</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>2.0.1</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -222,29 +234,44 @@
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-test</artifactId>
 			<version>${tapestry-release-version}</version>
-			<scope>compile</scope>
+			<scope>test</scope>
 		</dependency>
 		
 	</dependencies>
-
-
 	
-
 	<repositories>
 		<repository>
 			<id>central</id>
-			<name>ibiblio</name>
-			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+			<name>maxinfo</name>
+			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
 		</repository>
 		
 		<repository>
-			<id>openqa</id>
-			<name>openqa</name>
-			<url>http://maven.openqa.org/</url>
+			<id>snapshots</id>
+			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
 		</repository>
 		
-		
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>snapshots</id>
+			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	
 	<distributionManagement>
 		<site>
 			<id>maxinfo</id>
