@@ -14,6 +14,7 @@ package corner.demo.page.one;
 
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.EventListener;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.event.BrowserEvent;
 import org.apache.tapestry.form.IPropertySelectionModel;
 
@@ -55,12 +56,16 @@ public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 
 	@InjectGuice(A.class)
 	public abstract A getTestA();
+	@InjectObject("guice:corner.demo.model.one.A")
+	public abstract A getTestA1();
 	
 	@EventListener(events="trigger", elements={ "SheetCateField" })
 	public void onTriggered( BrowserEvent event )
 	{
 		System.out.println("call this method !!!!!!!!");
 		System.out.println("get test A class:"+this.getTestA());
+		System.out.println("get injectobject A class:"+this.getTestA1());
+		
 		SheetCateField = event.getMethodArguments().getJSONObject(0).getInt("selected");
 		
 		System.out.println(SheetCateField);

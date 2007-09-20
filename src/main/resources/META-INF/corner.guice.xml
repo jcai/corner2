@@ -1,9 +1,5 @@
 <module id="corner.guice" version="1.0.0"
 	package="corner.orm.guice">
-	
-
-	
-	
 		<configuration-point id="Module"> 
 			对guicemodule进行贡献.
 		<schema>
@@ -24,6 +20,16 @@
 			</construct>
 		</invoke-factory>
 	</service-point>
+		<service-point id="GuiceObjectProvider" interface="org.apache.hivemind.service.ObjectProvider">
+			<invoke-factory>
+				<construct class="GuiceObjectProvider">
+					<set-object property="injector" value="service:Injector"/>
+				</construct>
+			</invoke-factory>
+		</service-point>
 	
+  <contribution configuration-id="hivemind.ObjectProviders">
+    <provider prefix="guice" service-id="GuiceObjectProvider"/>
+  </contribution>	
 	
 </module>
