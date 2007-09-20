@@ -1,0 +1,29 @@
+<module id="corner.guice" version="1.0.0"
+	package="corner.orm.guice">
+	
+
+	
+	
+		<configuration-point id="Module"> 
+			对guicemodule进行贡献.
+		<schema>
+			<element name="module">
+				<attribute name="class" required="true" unique="true">
+					一个blob服务的提供者的名字。 </attribute>
+				<conversion class="ModuleContribution">
+					<map attribute="class" property="moduleClassName"/>
+				</conversion>
+			</element>
+		</schema> 
+	</configuration-point>
+	<service-point id="Injector"
+		interface="com.google.inject.Injector">
+		<invoke-factory>
+			<construct class="GuiceDelegate">
+				<set-configuration property="moduleContributions" configuration-id="Module"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	
+</module>

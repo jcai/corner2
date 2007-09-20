@@ -1,8 +1,20 @@
 <module id="corner.worker" version="1.0.0"
 	package="corner.orm.tapestry.worker">
 	
+	<service-point id="GuiceWorker"
+		interface="org.apache.tapestry.annotations.SecondaryAnnotationWorker">
+		<invoke-factory>
+			<construct class="InjectGuiceWorker">
+				<set-object property="injector"
+					value="service:corner.guice.Injector"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
 	<!--  generic worker -->
 	<contribution configuration-id="tapestry.annotation.SecondaryAnnotationWorkers" if="class org.apache.tapestry.annotations.SecondaryAnnotationWorker"> 
 		<worker object="instance:MagicFieldWorker"/>
+		<worker object="service:GuiceWorker"/>
+		
 	</contribution>
 </module>

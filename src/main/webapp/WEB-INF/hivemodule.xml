@@ -19,4 +19,7 @@
             </construct>
     </invoke-factory>
 	</implementation> -->
+	<contribution configuration-id="corner.guice.Module">
+		<module class="corner.demo.TestModule"/>
+	</contribution>
 </module>

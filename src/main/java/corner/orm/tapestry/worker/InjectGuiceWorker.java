@@ -18,11 +18,14 @@ import java.lang.reflect.Modifier;
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.Resource;
 import org.apache.hivemind.service.MethodSignature;
+import org.apache.hivemind.util.Defense;
 import org.apache.tapestry.annotations.AnnotationUtils;
 import org.apache.tapestry.annotations.SecondaryAnnotationWorker;
 import org.apache.tapestry.enhance.EnhanceUtils;
 import org.apache.tapestry.enhance.EnhancementOperation;
 import org.apache.tapestry.spec.IComponentSpecification;
+
+import com.google.inject.Injector;
 
 /**
  * 对InjectGuice进行增强.
@@ -33,6 +36,7 @@ import org.apache.tapestry.spec.IComponentSpecification;
  */
 public class InjectGuiceWorker implements SecondaryAnnotationWorker{
 
+	private Injector injector;
 	/**
 	 * 
 	 * @see org.apache.tapestry.annotations.SecondaryAnnotationWorker#canEnhance(java.lang.reflect.Method)
@@ -40,22 +44,18 @@ public class InjectGuiceWorker implements SecondaryAnnotationWorker{
 	public boolean canEnhance(Method method) {
 		return method.getAnnotation(InjectGuice.class) != null;
 	}
+	public void setInjector(Injector injector){
+		this.injector=injector;
+	}
 	/**
 	 * 
 	 * @see org.apache.tapestry.annotations.SecondaryAnnotationWorker#peformEnhancement(org.apache.tapestry.enhance.EnhancementOperation, org.apache.tapestry.spec.IComponentSpecification, java.lang.reflect.Method, org.apache.hivemind.Resource)
 	 */
 	public void peformEnhancement(EnhancementOperation op, IComponentSpecification spec, Method method, Resource classResource) {
 		
-		//TODO
-		/*
-		 * 利用hivemind中contrib对所有的module进行contribution，
-		 * 利用InjectGuice对service中的类进行统一调用.
-		 * 
-		 * 
-		 */
+		Defense.notNull(this.injector,"guice容器");
 		
 		InjectGuice io = method.getAnnotation(InjectGuice.class);
-
         Class<?> object = io.value();
 
         String propertyName = AnnotationUtils.getPropertyName(method);
@@ -64,8 +64,8 @@ public class InjectGuiceWorker implements SecondaryAnnotationWorker{
             propertyType = Object.class;
 
         op.claimReadonlyProperty(propertyName);
-        //TODO 从guice容器中获得对象.
-        Object injectedValue =null;//_provider.obtainValue(objectReference, location);
+        
+        Object injectedValue =injector.getInstance(object);
 
         if (injectedValue == null)
             throw new ApplicationRuntimeException("不能从guice中获得对象",spec.getLocation(), null);

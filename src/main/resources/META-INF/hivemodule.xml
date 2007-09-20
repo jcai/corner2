@@ -48,5 +48,7 @@
 	<sub-module descriptor="corner.excel.xml"/>
 	<sub-module descriptor="corner.pdf.xml"/>
 	<sub-module descriptor="corner.jasper.xml"/>
+	<!-- for guice container -->
+	<sub-module descriptor="corner.guice.xml"/>
 	
 </module>

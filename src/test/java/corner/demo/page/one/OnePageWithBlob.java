@@ -23,6 +23,7 @@ import corner.orm.tapestry.component.propertyselection.PropertySelectionModel;
 import corner.orm.tapestry.page.AbstractEntityFormPage;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
 import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
+import corner.orm.tapestry.worker.InjectGuice;
 
 /**
  * 对blob的处理
@@ -52,11 +53,14 @@ public abstract class OnePageWithBlob extends AbstractEntityFormPage<A> {
 		return true;
 	}
 
+	@InjectGuice(A.class)
+	public abstract A getTestA();
+	
 	@EventListener(events="trigger", elements={ "SheetCateField" })
 	public void onTriggered( BrowserEvent event )
 	{
 		System.out.println("call this method !!!!!!!!");
-		
+		System.out.println("get test A class:"+this.getTestA());
 		SheetCateField = event.getMethodArguments().getJSONObject(0).getInt("selected");
 		
 		System.out.println(SheetCateField);
