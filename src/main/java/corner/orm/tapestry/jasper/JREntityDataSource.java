@@ -7,6 +7,9 @@
 
 package corner.orm.tapestry.jasper;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -27,9 +30,19 @@ public class JREntityDataSource implements JRDataSource{
 	private int i=0;
 	private BindingSource bindingSource;
 	private IPage page;
+	private Iterator source;
+	private String objRefer;
 	public JREntityDataSource(BindingSource source,IPage page){
 		this.bindingSource=source;
 		this.page = page;
+	}
+	public JREntityDataSource(BindingSource source,IPage page,String sourceRefer,String rowObjectRefer){
+		this.bindingSource=source;
+		IBinding binding = bindingSource.createBinding(page,"source ognl",sourceRefer,BindingConstants.OGNL_PREFIX,page.getLocation());
+		this.source = ((Collection) binding.getObject()).iterator();
+		this.objRefer = rowObjectRefer;
+		this.page = page;
+		
 	}
 	/**
 	 * 
@@ -48,6 +61,17 @@ public class JREntityDataSource implements JRDataSource{
 	 * @see net.sf.jasperreports.engine.JRDataSource#next()
 	 */
 	public boolean next() throws JRException {
-		return i++==0;
+		if(source == null ){
+			return i++==0;
+		}
+		if(!this.source.hasNext()){
+			return false;
+		}
+		Object obj = this.source.next();
+		if(this.objRefer!=null){
+			IBinding binding = bindingSource.createBinding(page,"row object reference", objRefer,BindingConstants.OGNL_PREFIX,page.getLocation());
+			binding.setObject(obj);
+		}
+		return true;
 	}
 }

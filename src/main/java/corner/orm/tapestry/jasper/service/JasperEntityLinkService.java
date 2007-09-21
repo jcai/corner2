@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -61,6 +62,11 @@ public class JasperEntityLinkService implements IEngineService{
 			Defense.notNull(ps[2], "模板");
 		}
 		
+		//如果细节配置不完全
+		if((ps[4] != null && ps[5] == null)||(ps[4] == null && ps[5] != null)){
+			Defense.notNull(ps[4], "细节设置不充分");
+		}
+		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(ServiceConstants.PAGE, this.requestCycle.getPage()
 				.getPageName());
@@ -93,13 +99,16 @@ public class JasperEntityLinkService implements IEngineService{
 			isUsetemplatePath = false;
 		}
 		
+		String detailEntity = (String) parameters[4];
+		String detailCollection = (String) parameters[5];
+		
 		IJasperExporter jasperAction = TaskType.valueOf(taskType).newInstance();
 		try {
 			
 			//判断是从那里读取流
 			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(templateEntity);
 			
-			JasperPrint jasperPrint = getJasperPrint(is,page);
+			JasperPrint jasperPrint = getJasperPrint(is,page,detailEntity,detailCollection);
 			
 			JRExporter exporter = jasperAction.getExporter();
 			//初始化
@@ -146,15 +155,38 @@ public class JasperEntityLinkService implements IEngineService{
 
 	/**
 	 * 获得JasperPrint
+	 * @param detailCollection 细节的计划名称
+	 * @param detailEntity 循环用的entity geter
 	 * @param objects
 	 * @throws JRException 
 	 */
-	private JasperPrint getJasperPrint(InputStream jasperInStream,IPage page) throws JRException{
+	private JasperPrint getJasperPrint(InputStream jasperInStream,IPage page, String detailEntity, String detailCollection) throws JRException{
 		JasperPrint jasperPrint = null;
-		jasperPrint = JasperFillManager.fillReport(jasperInStream, null, new JREntityDataSource(bindingSource,page));
+		jasperPrint = JasperFillManager.fillReport(jasperInStream, null, getDataSource(page,detailCollection,detailEntity));
 		return jasperPrint;
 	}
 	
+	/**
+	 * 获得数据源
+	 * @param page
+	 * @param detailCollection
+	 * @param detailEntity
+	 * @return
+	 */
+	private JRDataSource getDataSource(IPage page, String detailCollection, String detailEntity) {
+		JREntityDataSource dataSource = null;
+		
+		if(detailEntity == null){
+			dataSource = new JREntityDataSource(bindingSource,page);
+		}else{
+			dataSource = new JREntityDataSource(bindingSource,page,detailCollection,detailEntity);
+		}
+		
+		return dataSource;
+	}
+
+
+
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getName()
 	 */
