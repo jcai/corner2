@@ -38,13 +38,12 @@ public class JREntityDataSource implements JRDataSource{
 	}
 	public JREntityDataSource(BindingSource source,IPage page,String sourceRefer,String rowObjectRefer){
 		this.bindingSource=source;
+		this.objRefer = rowObjectRefer;
+		this.page = page;
 		if(sourceRefer != null){
 			IBinding binding = getOrCreateBinding("source ognl",sourceRefer);
 			this.source = ((Collection) binding.getObject()).iterator();
 		}
-		this.objRefer = rowObjectRefer;
-		this.page = page;
-		
 	}
 	/**
 	 * 
