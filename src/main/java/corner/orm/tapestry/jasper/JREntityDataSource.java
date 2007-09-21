@@ -1,7 +1,7 @@
 /*		
  * Copyright 2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- * file : $Id: JREntityDataSource.java 3757 2007-09-13 10:13:14Z jcai $
+ * file : $Id: JREntityDataSource.java 3772 2007-09-21 03:49:31Z jcai $
  * created at:2007-9-13
  */
 
@@ -21,9 +21,9 @@ import org.apache.tapestry.binding.BindingSource;
 
 /**
  * 利用ognl来实现的Jasper的datasource.
+ * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
- * @version $Revision$
+ * @version $Revision: 3772 $
  * @since 2.3.7
  */
 public class JREntityDataSource implements JRDataSource{
@@ -38,8 +38,10 @@ public class JREntityDataSource implements JRDataSource{
 	}
 	public JREntityDataSource(BindingSource source,IPage page,String sourceRefer,String rowObjectRefer){
 		this.bindingSource=source;
-		IBinding binding = bindingSource.createBinding(page,"source ognl",sourceRefer,BindingConstants.OGNL_PREFIX,page.getLocation());
-		this.source = ((Collection) binding.getObject()).iterator();
+		if(sourceRefer != null){
+			IBinding binding = getOrCreateBinding("source ognl",sourceRefer);
+			this.source = ((Collection) binding.getObject()).iterator();
+		}
 		this.objRefer = rowObjectRefer;
 		this.page = page;
 		
@@ -49,13 +51,19 @@ public class JREntityDataSource implements JRDataSource{
 	 * @see net.sf.jasperreports.engine.JRDataSource#getFieldValue(net.sf.jasperreports.engine.JRField)
 	 */
 	public Object getFieldValue(JRField jrField) throws JRException {
-		//TODO 
-		//1. 采用缓存的方式
-		//2. location采用组件的location，这样可以方便提示错误信息.
-	  IBinding binding = bindingSource.createBinding(page,jrField.getName(), jrField.getDescription(),BindingConstants.OGNL_PREFIX,page.getLocation());
+	 IBinding binding = getOrCreateBinding(jrField.getName(),jrField.getDescription());
 	  return binding.getObject();
 	}
-
+	private IBinding getOrCreateBinding(String description,String reference){
+		
+		IBinding binding = page.getBinding(reference);
+		if(binding == null){
+			binding = bindingSource.createBinding(page,description,reference,BindingConstants.OGNL_PREFIX,page.getLocation());
+			//缓存此binding.
+			page.setBinding(reference, binding);
+		}
+		return binding;
+	}
 	/**
 	 * 
 	 * @see net.sf.jasperreports.engine.JRDataSource#next()
@@ -69,7 +77,7 @@ public class JREntityDataSource implements JRDataSource{
 		}
 		Object obj = this.source.next();
 		if(this.objRefer!=null){
-			IBinding binding = bindingSource.createBinding(page,"row object reference", objRefer,BindingConstants.OGNL_PREFIX,page.getLocation());
+			IBinding binding = getOrCreateBinding("row object reference", objRefer);
 			binding.setObject(obj);
 		}
 		return true;
