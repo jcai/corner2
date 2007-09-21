@@ -22,6 +22,8 @@ import java.math.BigDecimal;
  * @since 2.2.2
  */
 public class CurrencyUtils {
+	/** 初始除法的精度 **/
+	private static final int DEFAULT_SCALE = 0;
 	/** 默认为四舍五入方法* */
 	private static int DEFAULT_ROUND_PATTERN = BigDecimal.ROUND_HALF_UP;
 
@@ -97,9 +99,7 @@ public class CurrencyUtils {
 	 * @return 除法后的结果.
 	 */
 	public static double div(double v1, double v2) {
-		BigDecimal b1 = BigDecimal.valueOf(v1);
-		BigDecimal b2 = BigDecimal.valueOf(v2);
-		return b1.divide(b2).doubleValue();
+		return div(v1,v2,DEFAULT_SCALE);
 	}
 
 	/**

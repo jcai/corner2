@@ -54,12 +54,18 @@ public class CurrencyUtilsTest {
 	public void testDiv(){
 		double v1=2.4;
 		double v2=2.0;
-		Assert.assertEquals(CurrencyUtils.div(v1, v2),1.2);
+		Assert.assertEquals(CurrencyUtils.div(v1, v2,1),1.2);
 		Assert.assertEquals(CurrencyUtils.div(v1, v2,0),(double)1);
 		
 		double qutnum= 12000.0;
 		double totalsum= 83454.55;
 		Assert.assertEquals(CurrencyUtils.div(totalsum, qutnum,6),6.954546);
+	}
+	@Test
+	public void testDiv2(){
+		double v1=10.0;
+		double v2=6.0;
+		CurrencyUtils.div(v1,v2,2);
 	}
 	@Test
 	public void testMult(){
