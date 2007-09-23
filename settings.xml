@@ -1,0 +1,7 @@
+<servers>
+    <server>
+        <id>maxinfo-snapshot</id>
+        <username>maven</username>
+        <password>maven</password>
+    </server>
+</servers>
