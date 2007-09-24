@@ -11,6 +11,30 @@
 				value="${antlr.dir}/corner/expression/calc/calc.g"/>
 		</java>
 	</target>
+	<!-- jra的库路径 -->
+	<path id="jra.classpath">
+		<fileset dir="${support.lib.dir}/jasper">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<!-- 生成jasper文件 -->
+	<target name="jrc" description="Compiles the XML report design and produces the .jasper file.">
+		<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask"> 
+			<classpath refid="jra.classpath"/>
+		</taskdef>
+		<jrc>
+			<src>
+				<fileset dir="${project.test.resources.dir}">
+					<include name="**/*.jrxml"/>
+				</fileset>
+				<fileset dir="${project.test.java.dir}">
+					<include name="**/*.jrxml"/>
+				</fileset>
+			</src>
+			<classpath refid="jra.classpath"/>
+		</jrc> 
+	</target>
+	
 	<!-- assemble resource files -->
 	<target name="afterCompile">
 		<copy todir="${build.classes.dir}">
