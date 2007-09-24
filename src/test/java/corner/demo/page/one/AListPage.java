@@ -12,19 +12,21 @@
 
 package corner.demo.page.one;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.annotations.Asset;
 
 import corner.demo.model.one.A;
+import corner.orm.tapestry.jasper.IJasperParameter;
 import corner.orm.tapestry.page.PoListPage;
 
 /**
@@ -32,7 +34,7 @@ import corner.orm.tapestry.page.PoListPage;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class AListPage extends PoListPage{
+public abstract class AListPage extends PoListPage implements IJasperParameter{
 	
 	
 	@Asset("classpath:/jasper/Atest.jasper")
@@ -41,20 +43,32 @@ public abstract class AListPage extends PoListPage{
 	@Asset("classpath:/jasper/Btest.jasper")
 	public abstract IAsset getJasperBAsset();
 	
+//	/**
+//	 * @return
+//	 */
+//	public InputStream getReportStream(){
+//		return this.getJasperAsset().getResourceAsStream();
+//	}
+	
 	/**
-	 * @return
+	 * @throws JRException 
+	 * @see corner.orm.tapestry.jasper.IJasperParameter#getJasperParameters()
 	 */
-	public InputStream getReportStream(){
-		return this.getJasperAsset().getResourceAsStream();
+	public Map getJasperParameters() throws JRException {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("jasperSubReport", getJasperReport());
+		m.put("subdataSource",new JRBeanCollectionDataSource(getCollection()));
+		return m;
 	}
+	
+	
 	
 	/**
 	 * @return
 	 * @throws JRException
 	 */
-	public JasperPrint getJasperPrint() throws JRException{
-		List bowlerInfo = getCollection();
-		return JasperFillManager.fillReport(getJasperBAsset().getResourceAsStream(), null, new JRBeanCollectionDataSource(bowlerInfo));
+	public JasperReport getJasperReport() throws JRException{
+		return (JasperReport)JRLoader.loadObject(getJasperBAsset().getResourceAsStream());
 	}
 	
 	private List getCollection() {

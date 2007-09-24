@@ -24,9 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 
-	<field name="id" class="java.lang.String">
-		<fieldDescription><![CDATA[ognl:atest.name]]></fieldDescription>
-	</field>
+	
 
 		<background>
 			<band height="44"  isSplitAllowed="true" >

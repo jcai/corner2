@@ -34,6 +34,7 @@ import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
 import corner.model.IBlobModel;
+import corner.orm.tapestry.jasper.IJasperParameter;
 import corner.orm.tapestry.jasper.JREntityDataSource;
 import corner.orm.tapestry.jasper.TaskType;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
@@ -162,7 +163,15 @@ public class JasperEntityLinkService implements IEngineService{
 	 */
 	private JasperPrint getJasperPrint(InputStream jasperInStream,IPage page, String detailEntity, String detailCollection) throws JRException{
 		JasperPrint jasperPrint = null;
-		jasperPrint = JasperFillManager.fillReport(jasperInStream, null, getDataSource(page,detailCollection,detailEntity));
+		
+		Map parameters = null;
+		
+		//如果要传递参数
+		if(page instanceof IJasperParameter){
+			parameters = ((IJasperParameter)page).getJasperParameters();
+		}
+		
+		jasperPrint = JasperFillManager.fillReport(jasperInStream, parameters, getDataSource(page,detailCollection,detailEntity));
 		return jasperPrint;
 	}
 	

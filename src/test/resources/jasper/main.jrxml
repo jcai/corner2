@@ -23,13 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-
-	<field name="reportStream" class="java.io.InputStream">
-		<fieldDescription><![CDATA[ognl:reportStream]]></fieldDescription>
-	</field>
-	<field name="jasperPrint" class="net.sf.jasperreports.engine.JasperReport">
-		<fieldDescription><![CDATA[ognl:jasperPrint]]></fieldDescription>
-	</field>
+	<parameter name="jasperSubReport" isForPrompting="true" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="subdataSource" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
 
 		<background>
 			<band height="500"  isSplitAllowed="true" >
@@ -40,7 +35,8 @@
 						width="407"
 						height="194"
 						key="subreport-2"/>
-					<subreportExpression  class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$F{jasperPrint}]]></subreportExpression>
+					<dataSourceExpression><![CDATA[$P{subdataSource}]]></dataSourceExpression>
+					<subreportExpression  class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{jasperSubReport}]]></subreportExpression>
 				</subreport>
 			</band>
 		</background>
