@@ -24,20 +24,10 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 
-	
+	<field name="name" class="java.lang.String"/>
 
 		<background>
-			<band height="44"  isSplitAllowed="true" >
-				<rectangle>
-					<reportElement
-						x="49"
-						y="3"
-						width="131"
-						height="36"
-						backcolor="#0000CC"
-						key="rectangle-1"/>
-					<graphicElement stretchType="NoStretch"/>
-				</rectangle>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</background>
 		<title>
@@ -53,7 +43,20 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="30"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="18"
+						y="8"
+						width="67"
+						height="19"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>

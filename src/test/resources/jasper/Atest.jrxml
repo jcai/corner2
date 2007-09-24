@@ -24,9 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 
-	<field name="id" class="java.lang.String">
-		<fieldDescription><![CDATA[ognl:atest.name]]></fieldDescription>
-	</field>
+	<field name="name" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -46,10 +44,20 @@
 		</columnHeader>
 		<detail>
 			<band height="49"  isSplitAllowed="true" >
+				<ellipse>
+					<reportElement
+						x="140"
+						y="6"
+						width="165"
+						height="33"
+						backcolor="#CC66FF"
+						key="ellipse-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</ellipse>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="10"
-						y="8"
+						x="181"
+						y="11"
 						width="89"
 						height="26"
 						key="textField-1"/>
@@ -57,7 +65,7 @@
 					<textElement>
 						<font/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{id}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

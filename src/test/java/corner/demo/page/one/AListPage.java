@@ -58,6 +58,8 @@ public abstract class AListPage extends PoListPage implements IJasperParameter{
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("jasperSubReport", getJasperReport());
 		m.put("subdataSource",new JRBeanCollectionDataSource(getCollection()));
+		m.put("jasperSubReportA", getJasperAsset().getResourceLocation().getResourceURL());
+		m.put("subdataSourceA",new JRBeanCollectionDataSource(getCollectionTest()));
 		return m;
 	}
 	
@@ -75,7 +77,14 @@ public abstract class AListPage extends PoListPage implements IJasperParameter{
 		List<Object> rs = new ArrayList<Object>();
 		A c = new A();
 		c.setName("beijing");
+		rs.add(c);
 		
+		c = new A();
+		c.setName("shanghai");
+		rs.add(c);
+		
+		c = new A();
+		c.setName("tanjing");
 		rs.add(c);
 		return rs;
 	}

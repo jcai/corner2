@@ -25,6 +25,8 @@
 
 	<parameter name="jasperSubReport" isForPrompting="true" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="subdataSource" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="jasperSubReportA" isForPrompting="true" class="java.net.URL"/>
+	<parameter name="subdataSourceA" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
 
 		<background>
 			<band height="500"  isSplitAllowed="true" >
@@ -38,6 +40,25 @@
 					<dataSourceExpression><![CDATA[$P{subdataSource}]]></dataSourceExpression>
 					<subreportExpression  class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{jasperSubReport}]]></subreportExpression>
 				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="65"
+						y="29"
+						width="406"
+						height="186"
+						key="subreport-3"/>
+					<dataSourceExpression><![CDATA[$P{subdataSourceA}]]></dataSourceExpression>
+					<subreportExpression  class="java.net.URL"><![CDATA[$P{jasperSubReportA}]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="10"
+						y="235"
+						width="505"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 			</band>
 		</background>
 		<title>
