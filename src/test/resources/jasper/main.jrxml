@@ -26,7 +26,11 @@
 	<parameter name="jasperSubReport" isForPrompting="true" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="subdataSource" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="jasperSubReportA" isForPrompting="true" class="java.net.URL"/>
-	<parameter name="subdataSourceA" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
+<!--	<parameter name="subdataSourceA" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+
+	<field name="subdataSourceA" class="net.sf.jasperreports.engine.JRDataSource">
+		<fieldDescription><![CDATA[ognl:subdataSourceA]]></fieldDescription>
+	</field>
 
 		<background>
 			<band height="500"  isSplitAllowed="true" >
@@ -47,7 +51,7 @@
 						width="406"
 						height="186"
 						key="subreport-3"/>
-					<dataSourceExpression><![CDATA[$P{subdataSourceA}]]></dataSourceExpression>
+					<dataSourceExpression><![CDATA[$F{subdataSourceA}]]></dataSourceExpression>
 					<subreportExpression  class="java.net.URL"><![CDATA[$P{jasperSubReportA}]]></subreportExpression>
 				</subreport>
 				<line direction="TopDown">

@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -50,6 +51,10 @@ public abstract class AListPage extends PoListPage implements IJasperParameter{
 //		return this.getJasperAsset().getResourceAsStream();
 //	}
 	
+	public JRDataSource getSubdataSourceA(){
+		return new JRBeanCollectionDataSource(getCollectionTest());
+	}
+	
 	/**
 	 * @throws JRException 
 	 * @see corner.orm.tapestry.jasper.IJasperParameter#getJasperParameters()
@@ -59,7 +64,7 @@ public abstract class AListPage extends PoListPage implements IJasperParameter{
 		m.put("jasperSubReport", getJasperReport());
 		m.put("subdataSource",new JRBeanCollectionDataSource(getCollection()));
 		m.put("jasperSubReportA", getJasperAsset().getResourceLocation().getResourceURL());
-		m.put("subdataSourceA",new JRBeanCollectionDataSource(getCollectionTest()));
+//		m.put("subdataSourceA",new JRBeanCollectionDataSource(getCollectionTest()));
 		return m;
 	}
 	
