@@ -1,18 +1,17 @@
 package corner.orm.hibernate.expression;
 
-import junit.framework.TestCase;
-
 import org.easymock.EasyMock;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.type.Type;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 @Test
 
-public class StringExpressionTest extends TestCase {
+public class StringExpressionTest extends Assert {
 	Criteria criteria;
 	CriteriaQuery criteriaQuery;
 	private SessionFactoryImplementor factory; 
@@ -21,7 +20,6 @@ public class StringExpressionTest extends TestCase {
 	 */
 	@BeforeMethod
 	protected void setUp() throws Exception {
-		super.setUp();
 		criteria=EasyMock.createMock(Criteria.class);
 		criteriaQuery=EasyMock.createMock(CriteriaQuery.class);
 		factory=EasyMock.createMock(SessionFactoryImplementor.class);

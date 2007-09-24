@@ -2,15 +2,14 @@ package corner.expression.calc;
 
 import java.io.StringReader;
 
-import junit.framework.TestCase;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import antlr.collections.AST;
 @Test
-public class CalcParserTest extends TestCase {
+public class CalcParserTest extends Assert {
 	public void testExpr() throws RecognitionException, TokenStreamException{
 		expr("-2000+2",-1998);
 		expr("1+1",2);

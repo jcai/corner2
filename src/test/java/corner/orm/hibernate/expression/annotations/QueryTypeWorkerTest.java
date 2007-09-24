@@ -12,13 +12,12 @@
 
 package corner.orm.hibernate.expression.annotations;
 
-import junit.framework.TestCase;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
 @Test
-public class QueryTypeWorkerTest extends TestCase {
+public class QueryTypeWorkerTest extends Assert {
 
 	/**
 	 * Test method for {@link corner.orm.hibernate.expression.annotations.QueryTypeWorker#getQueryTypeByPropertyName(java.lang.String)}.

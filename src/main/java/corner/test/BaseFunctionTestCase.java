@@ -23,8 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-import junit.framework.TestCase;
-
 import org.mortbay.http.HttpContext;
 import org.mortbay.http.HttpException;
 import org.mortbay.http.HttpHandler;
@@ -39,6 +37,7 @@ import org.openqa.selenium.server.browserlaunchers.AsyncExecute;
 import org.openqa.selenium.server.browserlaunchers.FirefoxCustomProfileLauncher;
 import org.openqa.selenium.server.htmlrunner.HTMLResultsListener;
 import org.openqa.selenium.server.htmlrunner.HTMLTestResults;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,7 +50,7 @@ import org.testng.annotations.Test;
  * @version $Revision$
  * @since 2.1
  */
-public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResultsListener 
+public abstract class BaseFunctionTestCase extends Assert implements		HTMLResultsListener 
 {
 	private org.mortbay.jetty.Server server = null;
 
@@ -59,7 +58,7 @@ public abstract class BaseFunctionTestCase extends TestCase implements		HTMLResu
 
 	@BeforeMethod
 	protected void setUp() throws Exception {
-		super.setUp();
+		
 		System.setProperty("org.mortbay.http.HttpRequest.maxFormContentSize",
 				"10000000");
 		server = new Server();

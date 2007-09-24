@@ -14,13 +14,12 @@ package corner.orm.hibernate.expression;
 
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import corner.orm.hibernate.expression.ExpressionParser.ExpPair;
 @Test
-public class ExpressionParserTest extends TestCase {
+public class ExpressionParserTest extends Assert {
 
 	/**
 	 * Test method for

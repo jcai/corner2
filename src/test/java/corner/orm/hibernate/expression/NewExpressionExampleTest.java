@@ -2,8 +2,6 @@ package corner.orm.hibernate.expression;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
-
 import org.easymock.EasyMock;
 import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
@@ -14,6 +12,7 @@ import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.engine.TypedValue;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.Type;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,7 +20,7 @@ import corner.orm.hibernate.expression.annotations.QueryDefinition;
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
 @Test
 
-public class NewExpressionExampleTest extends TestCase {
+public class NewExpressionExampleTest extends Assert {
 	Criteria criteria;
 	CriteriaQuery criteriaQuery;
 	private SessionFactoryImplementor factory;
@@ -31,7 +30,6 @@ public class NewExpressionExampleTest extends TestCase {
 	 */
 	@BeforeMethod
 	protected void setUp() throws Exception {
-		super.setUp();
 		criteria=EasyMock.createMock(Criteria.class);
 		criteriaQuery=EasyMock.createMock(CriteriaQuery.class);
 		factory=EasyMock.createMock(SessionFactoryImplementor.class);

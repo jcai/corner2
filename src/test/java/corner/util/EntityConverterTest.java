@@ -1,11 +1,10 @@
 package corner.util;
 
-import junit.framework.TestCase;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 @Test
 
-public class EntityConverterTest extends TestCase {
+public class EntityConverterTest extends Assert {
 
 	public void testConvertName() {
 		assertEquals("TestTasdf",EntityConverter.convertName("test_tasdf", false));

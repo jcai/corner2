@@ -3,14 +3,13 @@ package corner.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
 @Test
 
-public class BeanUtilsTest extends TestCase {
+public class BeanUtilsTest extends Assert {
 
 	public void testSetProperty() {
 		A a=new A();

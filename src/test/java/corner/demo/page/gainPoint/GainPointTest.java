@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tapestry.json.JSONObject;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.javaforge.tapestry.testng.TestBase;
 
 /**
  * 
@@ -26,7 +25,7 @@ import com.javaforge.tapestry.testng.TestBase;
  * @version $Revision$
  * @since 2.3.7
  */
-public class GainPointTest  extends TestBase{
+public class GainPointTest  extends Assert{
 	
 	@Test
 	public void testJsonObject(){

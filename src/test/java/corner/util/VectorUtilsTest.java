@@ -18,15 +18,14 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang.StringUtils;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import corner.orm.hibernate.v3.MatrixRow;
 
 @Test
-public class VectorUtilsTest extends TestCase {
+public class VectorUtilsTest extends Assert {
 
 	private static final String[] COMMAEND_ARR = { ",a,b,", ",", ",,,", "a,b," };
 
