@@ -119,7 +119,6 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						Criteria criteria=callback.createCriteria(session);
-						callback.appendOrder(criteria);//增加排序 since 2.2.1
 						callback.appendCriteria(criteria);
 
 						if (column != null) {
@@ -128,6 +127,8 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 									.asc(column.getColumnName()));
 						}
 
+						callback.appendOrder(criteria);//增加排序 since 2.2.1
+						
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
 
