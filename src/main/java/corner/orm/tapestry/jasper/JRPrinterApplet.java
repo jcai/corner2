@@ -35,8 +35,7 @@ public class JRPrinterApplet extends Applet {
 		String strUrl = "http://168.168.168.65/jasperPrinter.svc?page=upload%2FAPersonList&sp=X&sp=X&sp=X&sp=HB%3Acorner.demo.model.one.A%3A%3AS282828c11351b340011351b40a9d0001&sp=Satest&sp=ScollectionTest";
 		if (strUrl != null) {
 			try {
-				System.out.println(getCodeBase());
-				url = new URL(getCodeBase(), strUrl);// 从获得html参数中获得报表URL
+				url = new URL(strUrl);// 从获得html参数中获得报表URL
 				System.out.println(url);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -51,7 +50,6 @@ public class JRPrinterApplet extends Applet {
 			try {
 //				JOptionPane.showMessageDialog(this, url);
 				Object obj = JRLoader.loadObject(url);// 发送对象请求，获得JasperPrint对象
-				System.out.println(obj);
 				JasperPrintManager.printReport((JasperPrint) obj, true);// 调用方法打印所获得的JasperPrint对象
 			} catch (Exception e) {
 				e.printStackTrace();
