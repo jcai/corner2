@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>打印窗口</title>
+</head>
+<script language="javascript">
+<!--
+function openApp()
+{
+var url = "http://168.168.168.65/jasper.svc?page=upload%2FAPersonList&sp=S%E6%96%87%E4%BB%B6%E5%90%8D&sp=Spdf&sp=X&sp=HB%3Acorner.demo.model.one.A%3A%3AS282828c11351b340011351b40a9d0001&sp=Satest&sp=ScollectionTest";
+document.write('<APPLET ID="JrPrt" codebase = "." CODE = "JRPrinterApplet.class" ARCHIVE = "jasperreports-2.0.1.jar" WIDTH = "0" HEIGHT = "0">');
+document.write('<PARAM NAME = "type" VALUE="application/x-java-applet;version=1.2.2">');
+document.write('<PARAM NAME = "scriptable" VALUE="false">');
+document.write('<PARAM NAME = "REPORT_URL" VALUE ="'+url+'">');
+document.write('</APPLET>');
+}
+
+-->
+	
+
+</script>
+<body bgcolor="#FFFFFF">
+<input type="button" value="测试打印" onclick="openApp();">
+
+</body>
+</html>

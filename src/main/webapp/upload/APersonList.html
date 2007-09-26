@@ -44,6 +44,8 @@
           </td>
 		  <td>
             <a jwcid="@corner:JasperEntityLink" downloadFileName="文件名" taskType="pdf" templateEntity="ognl:entity" detailCollection="collectionTest" detailEntity="atest" >pdf</a>
+			  &nbsp;
+			<a jwcid="@corner:JasperPrinterLink" templateEntity="ognl:entity" detailCollection="collectionTest" detailEntity="atest" >print</a>
           </td>
           <td>
             <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">

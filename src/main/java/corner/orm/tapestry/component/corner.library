@@ -48,6 +48,7 @@
   <component-type type="ExcelServicePageLink" specification-path="/corner/orm/tapestry/service/excel/ExcelServicePageLink.jwc"/>
   
   <component-type type="JasperEntityLink" specification-path="/corner/orm/tapestry/jasper/link/JasperEntityLink.jwc"/>
+  <component-type type="JasperPrinterLink" specification-path="/corner/orm/tapestry/jasper/link/JasperPrinterLink.jwc"/>
   
   <component-type type="GainPoint" specification-path="gain/GainPoint.jwc"/>
   
