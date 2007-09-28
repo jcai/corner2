@@ -110,7 +110,7 @@
 						<value>en_US</value>
 					</property>
 				</systemProperties>
-				<excludedGroups>integration</excludedGroups>
+				<!-- excludedGroups>integration</excludedGroups -->
 			</configuration>
 		</plugin>
     </plugins>
@@ -248,12 +248,21 @@
       <version>2.0.1</version>
       <optional>true</optional>
     </dependency>
+
+    <dependency>
+      <groupId>org.openqa.selenium.client-drivers</groupId>
+      <artifactId>selenium-java-client-driver</artifactId>
+      <version>0.8.1</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>org.openqa.selenium.server</groupId>
       <artifactId>selenium-server</artifactId>
-      <version>0.9.0</version>
-      <optional>true</optional>
+      <version>0.8.1</version>
+      <scope>compile</scope>
     </dependency>
+	  
+	  
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-mock</artifactId>

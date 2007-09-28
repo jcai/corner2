@@ -67,14 +67,12 @@ public abstract class BaseFunctionTestCase extends Assert implements		HTMLResult
 		socketListener.setPort(this.getListenerPort());
 		server.addListener(socketListener);
 
-		WebApplicationContext context = new WebApplicationContext();
-		context.setContextPath("/");
-		context.setWAR(this.getWebappDirectory());
+		WebApplicationContext context = server.addWebApplication("/",this.getWebappDirectory());
+		context.setDefaultsDescriptor("src/test/conf/webdefault.xml");
 		SeleniumHTMLRunnerResultsHandler postResultsHandler = new SeleniumHTMLRunnerResultsHandler();
 		context.addHandler(postResultsHandler);
 		postResultsHandler.addListener(this);
-
-		server.addContext(context);
+		
 
 		server.start();
 
@@ -104,7 +102,7 @@ public abstract class BaseFunctionTestCase extends Assert implements		HTMLResult
 		 FirefoxCustomProfileLauncher launcher=new
 		 FirefoxCustomProfileLauncher(8888,sessionId);
 		 launcher.launchHTMLSuite("../../"+this.getSeleinumTestSuitel(),
-		 "http://localhost:"+getListenerPort(), false);
+		 "http://localhost:"+getListenerPort());
 		 //.launch(this.getSeleinumTestUrl());
 		 // long now = System.currentTimeMillis();
 		 // long end = Integer.MAX_VALUE;
@@ -212,8 +210,7 @@ class SeleniumHTMLRunnerResultsHandler implements HttpHandler {
 
 		List<String> testTables = createTestTables(request, numTotalTests);
 
-		HTMLTestResults results = new HTMLTestResults(seleniumVersion,
-				seleniumRevision, result, totalTime, numTestPasses,
+		HTMLTestResults results = new HTMLTestResults( result, totalTime, numTestPasses,
 				numTestFailures, numCommandPasses, numCommandFailures,
 				numCommandErrors, suite, testTables);
 
