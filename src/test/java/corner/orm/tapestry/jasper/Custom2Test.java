@@ -57,7 +57,7 @@ public class Custom2Test extends Assert{
 	 * 测试生成rtf
 	 * @throws JRException 
 	 */
-//	@Test
+	@Test
 	public void testMakeRtf() throws JRException{
 		
 		JRRtfExporter exporter = new JRRtfExporter();
