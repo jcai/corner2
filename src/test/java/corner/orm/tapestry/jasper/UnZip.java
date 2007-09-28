@@ -15,6 +15,7 @@ package corner.orm.tapestry.jasper;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,10 +54,61 @@ public class UnZip extends BaseModelTestCase{
 	
 	static final int BUFFER = 2048;
 	
+	
 	/**
 	 * 
 	 */
 	@Test(groups="model")
+	public void testUnZipBlobSingleFile(){
+		A main = null;
+		main = (A) this.load(A.class, "282828c1154a53a501154a54c4780001");
+
+		InputStream bos = new ByteArrayInputStream(main.getBlobData());
+
+		ZipInputStream zis = new ZipInputStream(bos);
+		BufferedOutputStream dest = null;
+		ZipEntry entry = null;
+		
+		String fileName = "Test/Atest.jasper";
+		
+		try {
+			while ((entry = zis.getNextEntry()) != null) {
+				
+				if(entry.getName().equals(fileName)){
+					System.out.println("Extracting: " + entry.getName() + "\t"
+							+ entry.getSize() + "\t" + entry.getCompressedSize());
+					
+					int count;
+					byte data[] = new byte[BUFFER];
+	
+					File file = new File(tmpdir + entry.getName());
+					
+					// write the files to the disk
+					ByteArrayOutputStream fos = new ByteArrayOutputStream((int)entry.getSize());
+					dest = new BufferedOutputStream(fos, BUFFER);
+					while ((count = zis.read(data, 0, BUFFER)) != -1) {
+						dest.write(data, 0, count);
+					}
+					
+					dest.flush();
+					dest.close();
+					
+					byte [] b = fos.toByteArray();
+					
+					System.out.println("length  " + b.length);
+				}
+			}
+			zis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 
+	 */
+//	@Test(groups="model")
 	public void testUnZipBlob(){
 		A main = null;
 //		main.setName("a");
@@ -68,31 +120,39 @@ public class UnZip extends BaseModelTestCase{
 
 		InputStream bos = new ByteArrayInputStream(main.getBlobData());
 
-		ZipInputStream zis = null;
-		zis = new ZipInputStream(bos);
+		ZipInputStream zis = new ZipInputStream(bos);
 		BufferedOutputStream dest = null;
 		ZipEntry entry = null;
 		try {
 			while ((entry = zis.getNextEntry()) != null) {
+				//会把目录作为一个file读出一次，所以只建立目录就可以，之下的文件还会被迭代到。
 				if (entry.isDirectory()) {
 					new File(tmpdir + entry.getName()).mkdirs();
 					continue;
 				}
 				
-				System.out.println("Extracting: " + entry);
-				int count;
-				byte data[] = new byte[BUFFER];
-
-				File file = new File(tmpdir + entry.getName());
+//				if(entry.getName().equals("Test/Atest.jasper")){
 				
-				// write the files to the disk
-				FileOutputStream fos = new FileOutputStream(file);
-				dest = new BufferedOutputStream(fos, BUFFER);
-				while ((count = zis.read(data, 0, BUFFER)) != -1) {
-					dest.write(data, 0, count);
-				}
-				dest.flush();
-				dest.close();
+				
+					System.out.println("Extracting: " + entry.getName() + "\t"
+							+ entry.getSize() + "\t" + entry.getCompressedSize());
+					
+					int count;
+					byte data[] = new byte[BUFFER];
+	
+					File file = new File(tmpdir + entry.getName());
+					
+					// write the files to the disk
+					FileOutputStream fos = new FileOutputStream(file);
+					dest = new BufferedOutputStream(fos, BUFFER);
+					while ((count = zis.read(data, 0, BUFFER)) != -1) {
+						dest.write(data, 0, count);
+					}
+					
+					dest.flush();
+					dest.close();
+				
+//				}
 			}
 			zis.close();
 		} catch (Exception e) {
