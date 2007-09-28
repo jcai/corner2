@@ -34,15 +34,19 @@ public class UnZip extends Assert{
 	@Test
 	public void testUnZip() {
 		try {
-			String fileName = "d:\\temp\\Test.zip";
-			String filePath = "d:\\temp\\";
+			//解压缩的文件
+			String fileName = System.getProperty("user.dir") + "\\src\\test\\resources\\jasper\\Test.zip";
+			
+			//获得系统的临时目录路径
+			String tmpdir = System.getProperty("java.io.tmpdir");
 			ZipFile zipFile = new ZipFile(fileName);
 			Enumeration emu = zipFile.entries();
+			
 			while (emu.hasMoreElements()) {
 				ZipEntry entry = (ZipEntry) emu.nextElement();
 				// 会把目录作为一个file读出一次，所以只建立目录就可以，之下的文件还会被迭代到。
 				if (entry.isDirectory()) {
-					new File(filePath + entry.getName()).mkdirs();
+					new File(tmpdir + entry.getName()).mkdirs();
 					continue;
 				}
 				
@@ -51,7 +55,7 @@ public class UnZip extends Assert{
 				
 				BufferedInputStream bis = new BufferedInputStream(zipFile
 						.getInputStream(entry));
-				File file = new File(filePath + entry.getName());
+				File file = new File(tmpdir + entry.getName());
 				// 加入这个的原因是zipfile读取文件是随机读取的，这就造成可能先读取一个文件
 				// 而这个文件所在的目录还没有出现过，所以要建出目录来。
 				File parent = file.getParentFile();
