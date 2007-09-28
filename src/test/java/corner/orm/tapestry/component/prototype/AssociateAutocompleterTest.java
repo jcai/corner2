@@ -171,7 +171,7 @@ public class AssociateAutocompleterTest extends BaseFormComponentTestCase{
 
 		trainGetForm(cycle, form);
 		trainWasPrerendered(form, writer, component, false);
-		trainGetDelegate(form, delegate);
+//		trainGetDelegate(form, delegate);
 
 		delegate.setFormComponent(component);
 		
@@ -236,7 +236,7 @@ public class AssociateAutocompleterTest extends BaseFormComponentTestCase{
 		
 		trainGetForm(cycle, form);
 		trainWasPrerendered(form, writer, component, false);
-		trainGetDelegate(form, delegate);
+//		trainGetDelegate(form, delegate);
 
 		delegate.setFormComponent(component);
 
