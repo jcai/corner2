@@ -69,20 +69,20 @@ public class UnZip extends BaseModelTestCase{
 		BufferedOutputStream dest = null;
 		ZipEntry entry = null;
 		
-		String fileName = "Test/Atest.jasper";
+		String fileName = "Atest.jasper".toLowerCase();
 		
 		try {
 			while ((entry = zis.getNextEntry()) != null) {
 				
-				if(entry.getName().equals(fileName)){
+				String entryName = entry.getName().toLowerCase();
+				
+				if(entryName.endsWith(fileName)){
 					System.out.println("Extracting: " + entry.getName() + "\t"
 							+ entry.getSize() + "\t" + entry.getCompressedSize());
 					
 					int count;
 					byte data[] = new byte[BUFFER];
 	
-					File file = new File(tmpdir + entry.getName());
-					
 					// write the files to the disk
 					ByteArrayOutputStream fos = new ByteArrayOutputStream((int)entry.getSize());
 					dest = new BufferedOutputStream(fos, BUFFER);

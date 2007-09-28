@@ -12,11 +12,15 @@
 
 package corner.orm.tapestry.jasper.service;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -45,6 +49,11 @@ import corner.orm.tapestry.jasper.JREntityDataSource;
  * @since 2.3.7
  */
 public abstract class JasperLinkService implements IEngineService{
+	
+	private static final String MAIN_REPORT = "main.jasper";
+	private static final int BUFFER = 2048;
+	private static final String ZIP_SUFFIX = ".zip";
+	
 
 
 	/**
@@ -119,8 +128,15 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @return
 	 */
 	protected InputStream getAssetStream(IBlobModel templateEntity) {
-		byte[] data=templateEntity.getBlobData();
-		return new ByteArrayInputStream(data);
+		byte[] data = templateEntity.getBlobData();
+		
+		InputStream is = new ByteArrayInputStream(data);
+		
+		if(templateEntity.getBlobName().toLowerCase().endsWith(ZIP_SUFFIX)){
+			is = this.getZipMainReportInputStream(is, MAIN_REPORT);
+		}
+		
+		return is;
 	}
 
 	/**
@@ -130,7 +146,62 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @return
 	 */
 	protected InputStream getAssetStream(IPage page, String template) {
-		return assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
+		
+		InputStream is = assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
+		
+		if(template.toLowerCase().endsWith(ZIP_SUFFIX)){
+			is = getZipMainReportInputStream(is,MAIN_REPORT);
+		}
+		
+		return is;
+	}
+
+	/**
+	 * 获得制定zip名称的输入流
+	 * @param is zip的输入流
+	 * @param reportName 要获得的zip输入流名称
+	 * @return 流
+	 */
+	protected InputStream getZipMainReportInputStream(InputStream is, String reportName) {
+		
+		ZipInputStream zis = new ZipInputStream(is);
+		BufferedOutputStream dest = null;
+		ZipEntry entry = null;
+		
+		String fileName = reportName.toLowerCase();
+		
+		ByteArrayOutputStream fos = null;
+		
+		try {
+			while ((entry = zis.getNextEntry()) != null) {
+				
+				String entryName = entry.getName().toLowerCase();
+				
+				
+				if(entryName.endsWith(fileName)){
+					System.out.println("Extracting: " + entry.getName() + "\t"
+							+ entry.getSize() + "\t" + entry.getCompressedSize());
+					
+					int count;
+					byte data[] = new byte[BUFFER];
+	
+					// write the files to the disk
+					fos = new ByteArrayOutputStream((int)entry.getSize());
+					dest = new BufferedOutputStream(fos, BUFFER);
+					while ((count = zis.read(data, 0, BUFFER)) != -1) {
+						dest.write(data, 0, count);
+					}
+					
+					dest.flush();
+					dest.close();
+				}
+			}
+			zis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ByteArrayInputStream(fos.toByteArray());
 	}
 
 	/**
