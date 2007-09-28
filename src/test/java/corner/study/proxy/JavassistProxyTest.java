@@ -12,14 +12,19 @@
 
 package corner.study.proxy;
 
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
+import java.lang.reflect.Method;
+
+import javassist.util.proxy.MethodFilter;
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 import org.testng.annotations.Test;
 
 import corner.study.proxy.model.Foo;
 import corner.study.proxy.model.FooImpl;
+
+
 
 /**
  * 基于Javassist的代理
@@ -32,26 +37,30 @@ import corner.study.proxy.model.FooImpl;
  */
 public class JavassistProxyTest {
 
-	public static class JavassistProxy {
-
-		public static Object createProxy(Class clazz) throws Throwable {
-			ClassPool pool = ClassPool.getDefault();
-			CtClass cc = pool.getAndRename(clazz.getName(), clazz.getName()+"$Proxy");
-			CtMethod cm = cc.getDeclaredMethod("getSayHello", new CtClass[0]);
-			
-			//方法前的操作.
-			cm.insertBefore("{ System.out.println(\"before\"); }");
-			//方法后的操作.
-			cm.insertAfter("{ System.out.println(\"after\"); }");
-			
-			return cc.toClass().newInstance();
-
-		}
-	}
+	
 
 	@Test
 	public void test_javassistProxy() throws Throwable {
-		Foo foo = (Foo) JavassistProxy.createProxy(FooImpl.class);
-		foo.getSayHello();
+		ProxyFactory f = new ProxyFactory();
+		 f.setSuperclass(FooImpl.class);
+		 MethodHandler mi = new MethodHandler() {
+		     public Object invoke(Object self, Method m, Method proceed,
+		                          Object[] args) throws Throwable {
+		         System.out.println("Name: " + m.getName());
+		         return proceed.invoke(self, args);  // execute the original method.
+		     }
+		 };
+		 f.setFilter(new MethodFilter() {
+		     public boolean isHandled(Method m) {
+		         // ignore finalize()
+		         return !m.getName().equals("finalize");
+		     }
+		 });
+		 Class c = f.createClass();
+		 Foo foo = (Foo)c.newInstance();
+		 ((ProxyObject)foo).setHandler(mi);
+		 foo.getSayHello();
 	}
+
+
 }
