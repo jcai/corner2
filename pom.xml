@@ -11,6 +11,22 @@
     <url>http://dev.bjmaxinfo.com/projects/corner/newticket</url>
   </issueManagement>
   <inceptionYear>2005-2007</inceptionYear>
+	<ciManagement>
+		<system>continuum</system>
+		<notifiers>
+			<notifier>
+				<type>jabber</type>
+				<configuration>
+					<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com,xf@bjmaxinfo.com,lsq@bjmaxinfo.com</address>
+					<port>5222</port>
+					<from-password>maven</from-password>
+					<host>dev.bjmaxinfo.com</host>
+					<from-address>maven</from-address>
+					<sslConnection>false</sslConnection>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
   <developers>
     <developer>
       <id>jcai</id>
