@@ -48,10 +48,10 @@ public class CustomTest extends Assert{
 	 * 测试直接打印
 	 * @throws JRException 
 	 */
-	@Test
-	public void testMakePrint() throws JRException{
-		JasperPrintManager.printReport(getJasperPrint(), true);
-	}
+//	@Test
+//	public void testMakePrint() throws JRException{
+//		JasperPrintManager.printReport(getJasperPrint(), true);
+//	}
 	
 	/**
 	 * 测试生成rtf
@@ -94,7 +94,7 @@ public class CustomTest extends Assert{
 		
 //		File f = new File("");
 
-		path = System.getProperty("user.dir") + "/target/jasper/";
+		path = "target/jasper/";
 		
 		File nF = new File(path);
 		
