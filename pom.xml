@@ -20,7 +20,7 @@
 					<address>jcai@bjmaxinfo.com,ghostbb@bjmaxinfo.com,xf@bjmaxinfo.com,lsq@bjmaxinfo.com</address>
 					<port>5222</port>
 					<from-password>maven</from-password>
-					<host>dev.bjmaxinfo.com</host>
+					<host>bjmaxinfo.com</host>
 					<from-address>maven</from-address>
 					<sslConnection>false</sslConnection>
 				</configuration>
