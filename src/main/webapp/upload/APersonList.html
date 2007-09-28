@@ -14,6 +14,9 @@
     <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
       <table>
         <tr>
+		  <td>
+            <span key="id">id</span>
+          </td>
           <td>
             <span key="name">name</span>
           </td>
@@ -34,6 +37,9 @@
           </td>
         </tr>
         <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+		  <td>
+            <span jwcid="@Insert" value="ognl:entity.id">id</span>
+          </td>
           <td>
             <span jwcid="@Insert" value="ognl:entity.name">name</span>
           </td>
