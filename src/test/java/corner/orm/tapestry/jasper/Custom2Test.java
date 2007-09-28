@@ -94,7 +94,7 @@ public class Custom2Test extends Assert{
 		
 //		File f = new File("");
 
-		path = System.getProperty("user.dir") + "/target/jasper/";
+		path =  "target/jasper/";
 		
 		File nF = new File(path);
 		
@@ -109,8 +109,7 @@ public class Custom2Test extends Assert{
 		parameters.put("pic1", entity.getResourceAsStream("/corner/orm/tapestry/jasper/ciq/pic/CIQ_2_01.gif"));
 		parameters.put("pic2", entity.getResourceAsStream("/corner/orm/tapestry/jasper/ciq/pic/CIQ_2_03.gif"));
 		
-		String picPath = this.getClass().getResource("").getPath();
-		picPath = picPath.substring(1);
+	
 		
 		return jasperPrint = JasperFillManager.fillReport(entity.getResourceAsStream(simpleName + ".jasper"), parameters, new JRBeanCollectionDataSource(bowlerInfo));
 	}
