@@ -98,7 +98,7 @@ public class JasperReportTest extends Assert{
 //	@Test
 	public void testMakeHtml() throws JRException{
 		// Export to Html file.
-		JasperExportManager.exportReportToHtmlFile(getJasperPrint(),
+		JasperExportManager.exportReportToHtmlFile(getJasperPrint(),"target/"+
 				simpleName + ".html");
 	}
 	
@@ -111,7 +111,7 @@ public class JasperReportTest extends Assert{
 	@Test
 	public void testMakePdf() throws JRException{
 		// Export to PDF file.
-		JasperExportManager.exportReportToPdfFile(getJasperPrint(),
+		JasperExportManager.exportReportToPdfFile(getJasperPrint(),"target/"+
 				simpleName + ".pdf");
 	}
 	
