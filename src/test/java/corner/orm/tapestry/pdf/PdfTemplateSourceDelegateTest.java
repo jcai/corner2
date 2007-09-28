@@ -50,7 +50,7 @@ public class PdfTemplateSourceDelegateTest extends BaseComponentTestCase {
 
 		
 		EasyMock.expect(spc.getPageFieldsMap()).andReturn(fieldMap);
-		EasyMock.expect(spc.getNumberOfPage()).andReturn(1).anyTimes();
+//		EasyMock.expect(spc.getNumberOfPage()).andReturn(1).anyTimes();
 
 		replay();
 		String str = delegate.parsePdfTemplate(spc);
@@ -79,7 +79,7 @@ public class PdfTemplateSourceDelegateTest extends BaseComponentTestCase {
 		blocks.add(block1);
 
 		EasyMock.expect(spc.getPageFieldsMap()).andReturn(fieldMap);
-		EasyMock.expect(spc.getNumberOfPage()).andReturn(1).anyTimes();
+//		EasyMock.expect(spc.getNumberOfPage()).andReturn(1).anyTimes();
 
 		replay();
 		String str = delegate.parsePdfTemplate(spc);
@@ -126,7 +126,7 @@ public class PdfTemplateSourceDelegateTest extends BaseComponentTestCase {
 		for (int i = 0; i < 4; i++) {
 			EasyMock.expect(spc.getPageFieldsMap()).andReturn(fieldMap);
 
-			EasyMock.expect(spc.getNumberOfPage()).andReturn(4);
+//			EasyMock.expect(spc.getNumberOfPage()).andReturn(4);
 
 		}
 
