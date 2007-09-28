@@ -96,7 +96,7 @@ public abstract class BaseFunctionTestCase extends Assert implements		HTMLResult
 	protected String getOutputFilename(){
 		return "target/results.html";
 	}
-	@Test
+	@Test(groups="integration")
 	public void testFunction() throws Exception {
 
 		 String sessionId = Long.toString(System.currentTimeMillis() %
