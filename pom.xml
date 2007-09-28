@@ -80,6 +80,23 @@
         </includes>
       </resource>
     </resources>
+   <testResources>
+	   <testResource>
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+   	   </testResource>
+	   <testResource>
+		   <directory>src/test/resources</directory>
+		   <includes>
+          <include>**</include>
+        </includes>
+	   </testResource>
+	  </testResources>
     <plugins>
       <plugin>
         <artifactId>maven-antlr-plugin</artifactId>
