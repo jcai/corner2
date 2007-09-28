@@ -10,6 +10,7 @@
 			<input type="submit"/>
 		</form>
 	</center>
+	&nbsp;&nbsp;<a jwcid="@corner:JasperEntityLink" downloadFileName="文件名" taskType="rtf" templatePath="context:jasper/ADetailTest.jasper" detailCollection="collectionTest" detailEntity="atest" >pdf</a>
     <div jwcid="@contrib:TableView" columns="shortName" element="div" source="ognl:source" persist="client">
       <table>
         <tr>
@@ -43,9 +44,11 @@
             <span jwcid="@Insert" value="ognl:entity.colors">colors</span>
           </td>
 		  <td>
-            <a jwcid="@corner:JasperEntityLink" downloadFileName="文件名" taskType="pdf" templateEntity="ognl:entity" detailCollection="collectionTest" detailEntity="atest" >pdf</a>
+            <a jwcid="@corner:JasperEntityLink" downloadFileName="文件名" taskType="rtf" templateEntity="ognl:entity" detailCollection="collectionTest" detailEntity="atest" >pdf</a>
 			  &nbsp;
 			<a jwcid="@corner:JasperPrinterLink" templateEntity="ognl:entity" detailCollection="collectionTest" detailEntity="atest" >print</a>
+			  &nbsp;
+			<a href="JRPrintTest.html" >js</a>
           </td>
           <td>
             <a parameters="ognl:entity" listener="listener:doEditEntityAction" jwcid="@DirectLink" href="AForm.html" id="editAction">

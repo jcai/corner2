@@ -105,7 +105,7 @@ public abstract class AListPage extends PoListPage implements IJasperParameter{
 	public List getCollectionTest() {
 		List<Object> rs = new ArrayList<Object>();
 		A c = new A();
-		c.setName("a");
+		c.setName("中文");
 		rs.add(c);
 		
 		c = new A();

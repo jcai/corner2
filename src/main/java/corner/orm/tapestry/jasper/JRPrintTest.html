@@ -8,7 +8,7 @@
 function openApp()
 {
 var url = "http://168.168.168.65/jasperPrinter.svc?page=upload%2FAPersonList&sp=X&sp=X&sp=X&sp=HB%3Acorner.demo.model.one.A%3A%3AS282828c11351b340011351b40a9d0001&sp=Satest&sp=ScollectionTest";
-document.write('<APPLET ID="JrPrt" codebase = "." CODE = "JRPrinterApplet.class"  ARCHIVE = "jasper-api.jar,corner.jar" WIDTH = "0" HEIGHT = "0">');
+document.write('<APPLET ID="JrPrt"  CODE = JRPrinterApplet.class  WIDTH = "0" HEIGHT = "0">');
 document.write('<PARAM NAME = "type" VALUE="application/x-java-applet;version=1.2.2">');
 document.write('<PARAM NAME = "scriptable" VALUE="false">');
 document.write('<PARAM NAME = "REPORT_URL" VALUE ="'+url+'">');

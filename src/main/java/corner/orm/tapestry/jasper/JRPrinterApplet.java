@@ -31,8 +31,8 @@ public class JRPrinterApplet extends Applet {
 	private URL url = null;
 
 	public void init() {
-//		String strUrl = getParameter("REPORT_URL");
-		String strUrl = "http://168.168.168.65/jasperPrinter.svc?page=upload%2FAPersonList&sp=X&sp=X&sp=X&sp=HB%3Acorner.demo.model.one.A%3A%3AS282828c11351b340011351b40a9d0001&sp=Satest&sp=ScollectionTest";
+		String strUrl = getParameter("REPORT_URL");
+//		String strUrl = "http://168.168.168.65/jasperPrinter.svc?page=upload%2FAPersonList&sp=X&sp=X&sp=X&sp=HB%3Acorner.demo.model.one.A%3A%3AS282828c11351b340011351b40a9d0001&sp=Satest&sp=ScollectionTest";
 		if (strUrl != null) {
 			try {
 				url = new URL(strUrl);// 从获得html参数中获得报表URL
