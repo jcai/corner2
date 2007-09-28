@@ -23,8 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="mypic" isForPrompting="true" class="java.lang.String"/>
-	<parameter name="signin" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="mypic" isForPrompting="true" class="java.io.InputStream"/>
+	<parameter name="signin" isForPrompting="true" class="java.io.InputStream"/>
 
 	<field name="port" class="java.lang.String"/>
 	<field name="test" class="java.lang.String"/>
@@ -41,7 +41,7 @@
 						isPrintRepeatedValues="false"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["D:\\workspace\\poison-preplan\\src\\test\\java\\poison\\preplan\\tapestry\\jasper\\ciq\\pic\\CIQ.jpg"]]></imageExpression>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{mypic}]]></imageExpression>
 				</image>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -78,7 +78,7 @@
 						key="image-2"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{signin}]]></imageExpression>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{signin}]]></imageExpression>
 				</image>
 			</band>
 		</background>

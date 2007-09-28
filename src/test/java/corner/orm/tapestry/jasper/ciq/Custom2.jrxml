@@ -17,7 +17,7 @@
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
-	<property name="ireport.scriptlethandling" value="1" />
+	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
@@ -25,6 +25,8 @@
 
 	<parameter name="port" isForPrompting="true" class="java.lang.String"/>
 	<parameter name="test" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="pic1" isForPrompting="true" class="java.io.InputStream"/>
+	<parameter name="pic2" isForPrompting="true" class="java.io.InputStream"/>
 
 	<field name="text" class="java.lang.String"/>
 
@@ -43,7 +45,7 @@
 						key="image-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["D:\\workspace\\poison-preplan\\src\\test\\java\\poison\\preplan\\tapestry\\jasper\\ciq\\pic\\CIQ_2_01.gif"]]></imageExpression>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{pic1}]]></imageExpression>
 				</image>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -94,13 +96,13 @@
 				<image  scaleImage="FillFrame" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
-						y="1"
+						y="0"
 						width="595"
-						height="331"
+						height="332"
 						key="image-2"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["D:\\workspace\\poison-preplan\\src\\test\\java\\poison\\preplan\\tapestry\\jasper\\ciq\\pic\\CIQ_2_03.gif"]]></imageExpression>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{pic2}]]></imageExpression>
 				</image>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

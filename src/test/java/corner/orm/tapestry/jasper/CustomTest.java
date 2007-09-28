@@ -110,8 +110,8 @@ public class CustomTest extends Assert{
 		String picPath = this.getClass().getResource("").getPath();
 		picPath = picPath.substring(1);
 		
-		parameters.put("mypic", picPath +"ciq/pic/CIQ_03.gif");
-		parameters.put("signin", picPath + "ciq/pic/signin.gif");
+		parameters.put("mypic", entity.getResourceAsStream("/corner/orm/tapestry/jasper/ciq/pic/CIQ.jpg"));
+		parameters.put("signin", entity.getResourceAsStream("/corner/orm/tapestry/jasper/ciq/pic/signin.gif"));
 		
 		
 		return jasperPrint = JasperFillManager.fillReport(entity.getResourceAsStream(simpleName + ".jasper"), parameters, new JRBeanCollectionDataSource(bowlerInfo));
