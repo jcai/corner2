@@ -54,6 +54,8 @@
 		document.getElementsByTagName("HEAD")[0].appendChild(x);
 	</unique>
 	
+	dojo.byId("${inputField}").setAttribute('readonly','true');
+	
 	Calendar.setup({
         inputField		:		"${inputField}",
         displayArea		:		"${displayArea}",
