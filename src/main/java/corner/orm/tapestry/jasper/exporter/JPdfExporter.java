@@ -21,7 +21,7 @@ public class JPdfExporter extends AbstractJasperExporter{
 	 * @see poison.preplan.tapestry.jasper.exporter.AbstractJasperExporter#getRExporter()
 	 */
 	public JRExporter getExporter() {
-		return new JRPdfExporter();
+		return new CornerPdfExporter();
 	}
 
 	/**

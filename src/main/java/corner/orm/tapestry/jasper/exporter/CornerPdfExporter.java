@@ -13,6 +13,8 @@ package corner.orm.tapestry.jasper.exporter;
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.jasperreports.engine.JRAlignment;
 import net.sf.jasperreports.engine.JRElement;
@@ -39,6 +41,15 @@ import corner.orm.tapestry.pdf.PdfUtils;
  */
 public class CornerPdfExporter extends JRPdfExporter {
 
+	public static final String FIELD_NAME_PREFIX="FIELD";
+	private int i=0;
+	private List<String> alreadyExistFields=new ArrayList<String>();
+	
+	String createUniqueName(){
+		i+=1;
+		return FIELD_NAME_PREFIX+i;
+	}
+	
 	/**
 	 * @see net.sf.jasperreports.engine.export.JRPdfExporter#exportText(net.sf.jasperreports.engine.JRPrintText)
 	 */
@@ -238,7 +249,12 @@ public class CornerPdfExporter extends JRPdfExporter {
 					x + width - rightPadding,
 					jasperPrint.getPageHeight()- y- height+ bottomPadding
 				);
-			TextField tf = new TextField(pdfContentByte.getPdfWriter(),r,text.getKey());
+			String key = text.getKey();//PdfText的唯一id
+			if(alreadyExistFields.contains(key)){ //已经有了
+				key=createUniqueName();
+			}
+			alreadyExistFields.add(key);
+			TextField tf = new TextField(pdfContentByte.getPdfWriter(),r,key);
 			tf.setAlignment(horizontalAlignment);
 			tf.setText(text.getText());
 			tf.setFont(PdfUtils.createSongLightBaseFont());
