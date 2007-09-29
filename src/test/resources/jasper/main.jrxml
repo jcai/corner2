@@ -23,11 +23,14 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="jasperSubReport" isForPrompting="true" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="subdataSource" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<parameter name="jasperSubReportA" isForPrompting="true" class="java.net.URL"/>
-<!--	<parameter name="subdataSourceA" isForPrompting="true" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+	<parameter name="entity" isForPrompting="true" class="java.lang.String"/>
 
+	<parameter name="Atest.jasper" class="java.io.InputStream"/>
+	<parameter name="Btest.jasper" class="java.io.InputStream"/>
+
+	<field name="subdataSource" class="net.sf.jasperreports.engine.JRDataSource">
+		<fieldDescription><![CDATA[ognl:subdataSource]]></fieldDescription>
+	</field>
 	<field name="subdataSourceA" class="net.sf.jasperreports.engine.JRDataSource">
 		<fieldDescription><![CDATA[ognl:subdataSourceA]]></fieldDescription>
 	</field>
@@ -41,8 +44,8 @@
 						width="407"
 						height="194"
 						key="subreport-2"/>
-					<dataSourceExpression><![CDATA[$P{subdataSource}]]></dataSourceExpression>
-					<subreportExpression  class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{jasperSubReport}]]></subreportExpression>
+					<dataSourceExpression><![CDATA[$F{subdataSource}]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{Atest.jasper}]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
@@ -52,7 +55,7 @@
 						height="186"
 						key="subreport-3"/>
 					<dataSourceExpression><![CDATA[$F{subdataSourceA}]]></dataSourceExpression>
-					<subreportExpression  class="java.net.URL"><![CDATA[$P{jasperSubReportA}]]></subreportExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{Btest.jasper}]]></subreportExpression>
 				</subreport>
 				<line direction="TopDown">
 					<reportElement

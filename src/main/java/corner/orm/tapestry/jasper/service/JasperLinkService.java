@@ -54,6 +54,7 @@ public abstract class JasperLinkService implements IEngineService{
 	private static final int BUFFER = 2048;
 	private static final String ZIP_SUFFIX = ".zip";
 	
+	private String templateType = null;
 
 
 	/**
@@ -133,7 +134,9 @@ public abstract class JasperLinkService implements IEngineService{
 		InputStream is = new ByteArrayInputStream(data);
 		
 		if(templateEntity.getBlobName().toLowerCase().endsWith(ZIP_SUFFIX)){
-			is = this.getZipMainReportInputStream(is, MAIN_REPORT);
+			templateType = ZIP_SUFFIX;
+		}else{
+			templateType = null;
 		}
 		
 		return is;
@@ -150,58 +153,53 @@ public abstract class JasperLinkService implements IEngineService{
 		InputStream is = assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
 		
 		if(template.toLowerCase().endsWith(ZIP_SUFFIX)){
-			is = getZipMainReportInputStream(is,MAIN_REPORT);
+			templateType = ZIP_SUFFIX;
+		}else{
+			templateType = null;
 		}
 		
 		return is;
 	}
-
+	
 	/**
 	 * 获得制定zip名称的输入流
 	 * @param is zip的输入流
 	 * @param reportName 要获得的zip输入流名称
 	 * @return 流
 	 */
-	protected InputStream getZipMainReportInputStream(InputStream is, String reportName) {
+	public static void getZipReportInputStreamMap(InputStream is, Map parameters) {
 		
 		ZipInputStream zis = new ZipInputStream(is);
 		BufferedOutputStream dest = null;
 		ZipEntry entry = null;
-		
-		String fileName = reportName.toLowerCase();
 		
 		ByteArrayOutputStream fos = null;
 		
 		try {
 			while ((entry = zis.getNextEntry()) != null) {
 				
-				String entryName = entry.getName().toLowerCase();
+				System.out.println("Extracting: " + entry.getName() + "\t"
+						+ entry.getSize() + "\t" + entry.getCompressedSize());
 				
-				
-				if(entryName.endsWith(fileName)){
-					System.out.println("Extracting: " + entry.getName() + "\t"
-							+ entry.getSize() + "\t" + entry.getCompressedSize());
-					
-					int count;
-					byte data[] = new byte[BUFFER];
-	
-					// write the files to the disk
-					fos = new ByteArrayOutputStream((int)entry.getSize());
-					dest = new BufferedOutputStream(fos, BUFFER);
-					while ((count = zis.read(data, 0, BUFFER)) != -1) {
-						dest.write(data, 0, count);
-					}
-					
-					dest.flush();
-					dest.close();
+				int count;
+				byte data[] = new byte[BUFFER];
+
+				// write the files to the disk
+				fos = new ByteArrayOutputStream((int)entry.getSize());
+				dest = new BufferedOutputStream(fos, BUFFER);
+				while ((count = zis.read(data, 0, BUFFER)) != -1) {
+					dest.write(data, 0, count);
 				}
+				
+				dest.flush();
+				dest.close();
+				
+				parameters.put(entry.getName(), new ByteArrayInputStream(fos.toByteArray()));
 			}
 			zis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return new ByteArrayInputStream(fos.toByteArray());
 	}
 
 	/**
@@ -211,7 +209,7 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param objects
 	 * @throws JRException 
 	 */
-	protected JasperPrint getJasperPrint(InputStream jasperInStream,IPage page, String detailEntity, String detailCollection) throws JRException{
+	protected JasperPrint getJasperPrint(InputStream jasperInStream,IPage page,Object templateEntity ,String detailEntity, String detailCollection) throws JRException{
 		JasperPrint jasperPrint = null;
 		
 		Map parameters = null;
@@ -221,10 +219,19 @@ public abstract class JasperLinkService implements IEngineService{
 			parameters = ((IJasperParameter)page).getJasperParameters();
 		}
 		
+		if(parameters == null){
+			parameters = new HashMap();
+		}
+		
+		if(templateType != null && templateType.equals(ZIP_SUFFIX)){
+			getZipReportInputStreamMap(jasperInStream, parameters);
+			jasperInStream = (InputStream) parameters.get(MAIN_REPORT);
+		}
+		
 		jasperPrint = JasperFillManager.fillReport(jasperInStream, parameters, getDataSource(page,detailCollection,detailEntity));
 		return jasperPrint;
 	}
-	
+
 	/**
 	 * 获得数据源
 	 * @param page
