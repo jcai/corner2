@@ -8,7 +8,6 @@
 package corner.orm.tapestry.jasper.exporter;
 
 import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -21,7 +20,7 @@ public class JPdfExporter extends AbstractJasperExporter{
 	 * @see poison.preplan.tapestry.jasper.exporter.AbstractJasperExporter#getRExporter()
 	 */
 	public JRExporter getExporter() {
-		return new JRPdfExporter();
+		return new CornerPdfExporter();
 	}
 
 	/**
