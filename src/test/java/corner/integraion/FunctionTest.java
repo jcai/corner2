@@ -12,6 +12,7 @@
 
 package corner.integraion;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -19,12 +20,12 @@ import org.testng.annotations.Test;
  * @version $Revision$
  * @since 2.3.7
  */
-public class FirstTest extends AbstractIntegrationTestCase{
+public class FunctionTest extends AbstractIntegrationTestCase{
 
 	/**
 	 * 
 	 */
-	public FirstTest() {
+	public FunctionTest() {
 		super("src/main/webapp");
 
 	}
@@ -38,7 +39,7 @@ public class FirstTest extends AbstractIntegrationTestCase{
 		this.type("nameField", "test");
 		this.click("Submit");
 		this.waitForPageToLoad("30000");
-		this.assertTrue(this.isTextPresent("test"));
+		Assert.assertTrue(this.isTextPresent("test"));
 		this.click("link=[LINK.EDIT]");
 		this.waitForPageToLoad("30000");
 		this.type("nameField", "test2");
