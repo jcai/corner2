@@ -178,10 +178,6 @@ public abstract class JasperLinkService implements IEngineService{
 		
 		try {
 			while ((entry = zis.getNextEntry()) != null) {
-				
-				System.out.println("Extracting: " + entry.getName() + "\t"
-						+ entry.getSize() + "\t" + entry.getCompressedSize());
-				
 				int count;
 				byte data[] = new byte[BUFFER];
 
