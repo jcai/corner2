@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
+import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.util.Defense;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
@@ -198,7 +199,7 @@ public abstract class JasperLinkService implements IEngineService{
 			}
 			zis.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new ApplicationRuntimeException(e);
 		}
 	}
 
