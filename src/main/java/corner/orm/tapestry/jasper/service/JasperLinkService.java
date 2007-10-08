@@ -128,13 +128,14 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param page 要返回的页面
 	 * @param templateEntity 存放文件的entity
 	 * @return
+	 * @throws IOException 
 	 */
-	protected InputStream getAssetStream(IBlobModel templateEntity) {
+	protected InputStream getAssetStream(IBlobModel templateEntity) throws IOException {
 		byte[] data = templateEntity.getBlobData();
 		
 		InputStream is = new ByteArrayInputStream(data);
 		
-		if(templateEntity.getBlobName().toLowerCase().endsWith(ZIP_SUFFIX)){
+		if(isZipFile(is)){
 			templateType = ZIP_SUFFIX;
 		}else{
 			templateType = null;
@@ -148,12 +149,13 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param page 要返回的页面
 	 * @param template 模板
 	 * @return
+	 * @throws IOException 
 	 */
-	protected InputStream getAssetStream(IPage page, String template) {
+	protected InputStream getAssetStream(IPage page, String template) throws IOException {
 		
 		InputStream is = assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
 		
-		if(template.toLowerCase().endsWith(ZIP_SUFFIX)){
+		if(isZipFile(is)){
 			templateType = ZIP_SUFFIX;
 		}else{
 			templateType = null;
@@ -163,9 +165,30 @@ public abstract class JasperLinkService implements IEngineService{
 	}
 	
 	/**
+	 * 通过输入流判断是否是zip文件
+	 * @param readStream
+	 * @return
+	 * @throws IOException
+	 */
+	public static boolean isZipFile(InputStream readStream) throws IOException {
+		byte[] magic = new byte[2];
+		if (readStream.read(magic) > 1) {
+			if ((magic[0] == 'P') && (magic[1] == 'K')) {
+				readStream.reset();
+				return true;
+			}
+		}
+		readStream.reset();
+		return false;
+	}
+	
+	/**
 	 * 获得制定zip名称的输入流
-	 * @param is zip的输入流
-	 * @param reportName 要获得的zip输入流名称
+	 * 
+	 * @param is
+	 *            zip的输入流
+	 * @param reportName
+	 *            要获得的zip输入流名称
 	 * @return 流
 	 */
 	public static void getZipReportInputStreamMap(InputStream is, Map parameters) {
