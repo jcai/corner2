@@ -1,0 +1,83 @@
+diff -uNr source/src/net/sf/jasperreports/engine/fill/JRFillTextElement.java dest/src/net/sf/jasperreports/engine/fill/JRFillTextElement.java
+--- source/src/net/sf/jasperreports/engine/fill/JRFillTextElement.java	2007-06-22 21:35:43.000000000 +0800
++++ dest/src/net/sf/jasperreports/engine/fill/JRFillTextElement.java	2007-09-29 11:46:54.000000000 +0800
+@@ -40,6 +40,7 @@
+ import net.sf.jasperreports.engine.JRReportFont;
+ import net.sf.jasperreports.engine.JRStyle;
+ import net.sf.jasperreports.engine.JRTextElement;
++import net.sf.jasperreports.engine.JRTextField;
+ import net.sf.jasperreports.engine.util.JRFontUtil;
+ import net.sf.jasperreports.engine.util.JRStyleResolver;
+ import net.sf.jasperreports.engine.util.JRStyledText;
+@@ -51,6 +52,10 @@
+ 
+ /**
+  * @author Teodor Danciu (teodord@users.sourceforge.net)
++ * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
++ * <p>扩展了 JRFillTextElement 当使用JRTextField类型的属性显示的时候，会根据isStretchWithOverflow属性来判断
++ * 是否需要自动缩小字体
++ * true:自动缩小字体 false:自动截断文字
+  * @version $Id: JRFillTextElement.java 1768 2007-06-22 13:35:43Z lucianc $
+  */
+ public abstract class JRFillTextElement extends JRFillElement implements JRTextElement
+@@ -79,6 +84,11 @@
+ 	protected TextChopper textChopper = null;
+ 	
+ 	protected final JRReportFont reportFont;
++	
++	/**
++	 * 得到当前操作的element
++	 */
++	private JRTextElement element;
+ 
+ 	/**
+ 	 *
+@@ -90,7 +100,7 @@
+ 		)
+ 	{
+ 		super(filler, textElement, factory);
+-
++		this.element = textElement;
+ 		reportFont = factory.getReportFont(textElement.getReportFont());
+ 		
+ 		/*   */
+@@ -101,7 +111,7 @@
+ 	protected JRFillTextElement(JRFillTextElement textElement, JRFillCloneFactory factory)
+ 	{
+ 		super(textElement, factory);
+-		
++		this.element = textElement;
+ 		reportFont = textElement.reportFont;
+ 
+ 		createTextChopper();
+@@ -540,17 +550,20 @@
+ 			);
+ 		
+ 		isLeftToRight = textMeasurer.isLeftToRight();
+-		setTextHeight(textMeasurer.getTextHeight());
+-		if (getRotation() == ROTATION_NONE)
+-		{
+-			setStretchHeight((int)getTextHeight() + getTopPadding() + getBottomPadding());
+-		}
+-		else
+-		{
+-			setStretchHeight(getHeight());
+-		}
++		setTextHeight(getHeight());
++		setStretchHeight(getHeight());
+ 		setTextStart(getTextEnd());
+-		setTextEnd(textMeasurer.getTextOffset());
++		//判断当前的element是否为JRTextField,因此只对JRTextField类型的属性有效
++		if(element instanceof JRTextField){//如果是 JRTextField
++			JRTextField jRelement = (JRTextField)element;
++			if(jRelement.isStretchWithOverflow()){//如果设置了isStretchWithOverflow 为true
++				setTextEnd(tmpStyledText.length());
++			} else{
++				setTextEnd(textMeasurer.getTextOffset());
++			}
++		} else {// other
++			setTextEnd(tmpStyledText.length());
++		}
+ 		setLineSpacingFactor(textMeasurer.getLineSpacingFactor());
+ 		setLeadingOffset(textMeasurer.getLeadingOffset());
+ 	}
