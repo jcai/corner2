@@ -53,11 +53,7 @@ public abstract class JasperLinkService implements IEngineService{
 	
 	private static final String MAIN_REPORT = "main.jasper";
 	private static final int BUFFER = 2048;
-	private static final String ZIP_SUFFIX = ".zip";
 	
-	private String templateType = null;
-
-
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)
 	 */
@@ -128,20 +124,10 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param page 要返回的页面
 	 * @param templateEntity 存放文件的entity
 	 * @return
-	 * @throws IOException 
 	 */
-	protected InputStream getAssetStream(IBlobModel templateEntity) throws IOException {
+	protected InputStream getAssetStream(IBlobModel templateEntity) {
 		byte[] data = templateEntity.getBlobData();
-		
-		InputStream is = new ByteArrayInputStream(data);
-		
-		if(isZipFile(is)){
-			templateType = ZIP_SUFFIX;
-		}else{
-			templateType = null;
-		}
-		
-		return is;
+		return new ByteArrayInputStream(data);
 	}
 
 	/**
@@ -149,36 +135,35 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param page 要返回的页面
 	 * @param template 模板
 	 * @return
-	 * @throws IOException 
 	 */
-	protected InputStream getAssetStream(IPage page, String template) throws IOException {
-		
-		InputStream is = assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
-		
-		if(isZipFile(is)){
-			templateType = ZIP_SUFFIX;
-		}else{
-			templateType = null;
-		}
-		
-		return is;
+	protected InputStream getAssetStream(IPage page, String template) {
+		return assetSource.findAsset(page.getLocation().getResource(), template, page.getLocale(), page.getLocation()).getResourceAsStream();
 	}
 	
 	/**
 	 * 通过输入流判断是否是zip文件
 	 * @param readStream
 	 * @return
-	 * @throws IOException
 	 */
-	public static boolean isZipFile(InputStream readStream) throws IOException {
+	public static boolean isZipFile(InputStream readStream) {
 		byte[] magic = new byte[2];
-		if (readStream.read(magic) > 1) {
-			if ((magic[0] == 'P') && (magic[1] == 'K')) {
+		try {
+			if (readStream.read(magic) > 1) {
+				if ((magic[0] == 'P') && (magic[1] == 'K')) {
+					return true;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			//最终重置流状态
+			try {
 				readStream.reset();
-				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-		readStream.reset();
+		
 		return false;
 	}
 	
@@ -228,6 +213,7 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param detailEntity 循环用的entity geter
 	 * @param objects
 	 * @throws JRException 
+	 * @throws IOException 
 	 */
 	protected JasperPrint getJasperPrint(InputStream jasperInStream,IPage page,Object templateEntity ,String detailEntity, String detailCollection) throws JRException{
 		JasperPrint jasperPrint = null;
@@ -243,7 +229,7 @@ public abstract class JasperLinkService implements IEngineService{
 			parameters = new HashMap();
 		}
 		
-		if(templateType != null && templateType.equals(ZIP_SUFFIX)){
+		if(isZipFile(jasperInStream)){
 			getZipReportInputStreamMap(jasperInStream, parameters);
 			jasperInStream = (InputStream) parameters.get(MAIN_REPORT);
 		}
