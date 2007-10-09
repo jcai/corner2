@@ -15,6 +15,8 @@ package corner.orm.tapestry.component.textfield;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 
+import corner.util.StringUtils;
+
 /**
  * 复写Tapestry的TextField,提供指定TextField默认值的能力
  * 
@@ -84,7 +86,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 			} else {
 				String value = getTranslatedFieldSupport().format(this,
 						getValue());
-				if (value != null && value.trim().length() > 0) {
+				if (value != null && value.trim().length() > 0 && !isUseDefValue()) {
 					super.renderFormComponent(writer, cycle);
 				} else {
 					this.setValue(this.getDefaultValue());
@@ -93,7 +95,31 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 			}
 		}
 	}
-
+	
+	/**
+	 * 如果refValue类型为Number(long,double等等),而defValue也是Number类型
+	 * 那么:
+	 * true:1.refValue=0 同时 defValue!=0 此时属于新增状态，使用defValue 
+	 * false:2.refValue>0 此时属于编辑状态，此时使用refValue
+	 * @return boolean值
+	 */
+	private boolean isUseDefValue(){
+		Object defValue = getDefaultValue();//默认值
+		Object refValue = getValue();//字段已经保存的值
+		if(StringUtils.isNumber(defValue,refValue)){
+			double defV = Double.valueOf(defValue.toString());
+			double refV = Double.valueOf(refValue.toString());
+			if(refV == 0 && defV!=0){
+				return true;
+			} else{
+				return false;
+			}
+		} else{
+			return false;
+		}
+		
+	}
+	
 	/**
 	 * 取得默认值
 	 * 
