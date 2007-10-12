@@ -13,13 +13,19 @@
 package corner.util;
 
 /**
- * 数字转换为英文书写的类
+ * 数字转换为英文书写，中文书写格式的类
+ * 英文书写格式ＡＮＤ的语法规则：在几十几与百位间加上ＡＮＤ
  * @author lsq
  * @version $Revision$
  * @since 2.5
  */
 public class MoneyUnil {
 
+	/**
+	 * 将数字转换为英文大写格式．
+	 * @param x
+	 * @return　英文大写格式
+	 */
 	public static String parse(String x) {
 	    int z = x.indexOf("."); // 取小数点位置
 	    String lstr = "", rstr = "";
@@ -44,12 +50,9 @@ public class MoneyUnil {
 	    for (int i = 0; i < lstrrev.length() / 3; i++) {
 	     a[i] = reverse(lstrrev.substring(3 * i, 3 * i + 3)); // 截取第一个叁位
 	     if (!a[i].equals("000")) { // 用来避免这种情况：1000000 = one million thousand only
-	      if (i != 0){
-	    	  if(a[i].substring(1, 2).equals("0")){
-	    		  lm = transThree(a[i]) + " AND " + parseMore(String.valueOf(i)) + " " + lm; // 加: thousand、million、billion
-	    	  }else{
-	       lm = transThree(a[i]) + " " + parseMore(String.valueOf(i)) + " " + lm; // 加: thousand、million、billion
-	    	  }
+	      if (i != 0){  
+	        
+	    	  lm = transThree(a[i]) + " " + parseMore(String.valueOf(i)) + " " + lm; // 加: thousand、million、billion
 	      }
 	      else
 	       lm = transThree(a[i]); // 防止i=0时， 在多加两个空格.
