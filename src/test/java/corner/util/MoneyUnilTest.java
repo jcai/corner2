@@ -37,4 +37,24 @@ public class MoneyUnilTest extends Assert {
 		assertEquals("柒佰肆拾元整", MoneyUnil.changeToBig("740.00"));
 		assertEquals("壹亿零壹仟元整", MoneyUnil.changeToBig("100001000.00"));
 	}
+	
+	/**
+	 * 测试数字变成英文大写
+	 */
+	@Test
+	public void testChangeToEnglishBig(){
+		
+		assertEquals("ONE ONLY", MoneyUnil.parse("01"));
+		assertEquals("ELEVEN ONLY", MoneyUnil.parse("11"));
+		assertEquals("NINETY ONLY", MoneyUnil.parse("90"));
+		assertEquals("NINETY NINE ONLY", MoneyUnil.parse("99"));
+		assertEquals("ONE HUNDRED ONLY", MoneyUnil.parse("100"));
+		assertEquals("ONE THOUSAND ONLY", MoneyUnil.parse("1000"));
+		assertEquals("TEN THOUSAND ONLY", MoneyUnil.parse("10000"));
+		assertEquals("ONE HUNDRED THOUSAND ONLY", MoneyUnil.parse("100000"));
+		assertEquals("ONE MILLION ONLY", MoneyUnil.parse("1000000"));
+		assertEquals("ONE HUNDRED AND TWENTY ONE ONLY", MoneyUnil.parse("121"));
+		assertEquals("ONE THOUSAND ONE ONLY", MoneyUnil.parse("1001"));
+		assertEquals("ONE HUNDRED AND TWENTY THREE AND CENTS FORTY FIVE ONLY", MoneyUnil.parse("123.456"));
+	}
 }
