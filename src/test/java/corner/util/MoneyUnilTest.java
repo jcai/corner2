@@ -54,7 +54,8 @@ public class MoneyUnilTest extends Assert {
 		assertEquals("ONE HUNDRED THOUSAND ONLY", MoneyUnil.parse("100000"));
 		assertEquals("ONE MILLION ONLY", MoneyUnil.parse("1000000"));
 		assertEquals("ONE HUNDRED AND TWENTY ONE ONLY", MoneyUnil.parse("121"));
-		assertEquals("ONE THOUSAND ONE ONLY", MoneyUnil.parse("1001"));
+		assertEquals("ONE THOUSAND AND ONE ONLY", MoneyUnil.parse("1001"));
+		assertEquals("ONE THOUSAND AND TEN ONLY", MoneyUnil.parse("1010"));
 		assertEquals("ONE HUNDRED AND TWENTY THREE AND CENTS FORTY FIVE ONLY", MoneyUnil.parse("123.456"));
 	}
 }
