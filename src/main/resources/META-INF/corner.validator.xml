@@ -11,6 +11,6 @@
 		<validator name="fileType" class="FileType"/>
 		<validator name="personID" class="PersonID" configurable="false"/>
 		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
-		
+		<validator name="relationAss" class="RelationAss" configurable="false"/>
 	</contribution>
 </module>
