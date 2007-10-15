@@ -12,10 +12,17 @@
 
 package corner.orm.tapestry.validator;
 
+import java.text.DecimalFormatSymbols;
+
+import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.form.FormComponentContributorContext;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidator;
+import org.apache.tapestry.json.JSONLiteral;
+import org.apache.tapestry.json.JSONObject;
+import org.apache.tapestry.valid.ValidationConstants;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -46,6 +53,40 @@ public class RelationAss extends BaseValidator{
 		if(Value.equals("X") || Value.length() == 0)
 			throw new ValidatorException(buildMessage(messages, field));
 	}
+	
+	/**
+	 * @see org.apache.tapestry.form.validator.BaseValidator#renderContribution(org.apache.tapestry.IMarkupWriter,
+	 *      org.apache.tapestry.IRequestCycle,
+	 *      org.apache.tapestry.form.FormComponentContributorContext,
+	 *      org.apache.tapestry.form.IFormComponent)
+	 */
+	@Override
+	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
+			FormComponentContributorContext context, IFormComponent field) {
+
+		context.addInitializationScript(field,
+				"dojo.require(\"corner.validate.web\");");
+
+		JSONObject profile = context.getProfile();
+
+		if (!profile.has(ValidationConstants.CONSTRAINTS)) {
+			profile.put(ValidationConstants.CONSTRAINTS, new JSONObject());
+		}
+		JSONObject cons = profile
+				.getJSONObject(ValidationConstants.CONSTRAINTS);
+
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(context
+				.getLocale());
+
+		accumulateProperty(cons, field.getClientId(), new JSONLiteral(
+				"[corner.validate.isRelationAss,{" + "\"fields\":["
+						+ field.getClientId() + ASSOCIATE_SUFFIX + "]," + "decimal:"
+						+ JSONObject.quote(symbols.getDecimalSeparator())
+						+ "}]"));
+
+		accumulateProfileProperty(field, profile,
+				ValidationConstants.CONSTRAINTS, buildMessage(context,field));
+	}
 
 	/**
 	 * 构建message
@@ -57,13 +98,4 @@ public class RelationAss extends BaseValidator{
 		return messages.formatValidationMessage("没有获得关联对象。", null,
 				new Object[] { field.getDisplayName() });
 	}
-	
-//	/**
-//	 * 从page页面读入的配置信息
-//	 * @param relationValidator
-//	 *            需要相加后与本field判断的组建
-//	 */
-//	public void setRelationValidator(String relationValidator) {
-//		showText = relationValidator;
-//	}
 }

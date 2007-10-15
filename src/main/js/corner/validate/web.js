@@ -7,6 +7,25 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isRelationAss = function(/*String*/value, /*Object?*/flags){
+//summary:
+// 将flags传进来的ID，如果获得管理对象返回true
+	dojo.debug("value :" + value);
+	dojo.debug("fields.length :" + flags.fields.length);
+	
+	dojo.debug("fieldID :" + flags.fields[0]);
+	
+	var value = dojo.byId(flags.fields[0]).value;
+	
+	
+	if(value == "" || value == "X"){
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+
 corner.validate.isFileType = function(/*String*/value, /*Object?*/flags){
 //summary:
 // 将flags传进来的ID数组中对应的数值与value比对，相等返回true

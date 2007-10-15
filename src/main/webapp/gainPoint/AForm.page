@@ -12,9 +12,11 @@
     <binding value="listener:doCancelEntityAction" name="cancel"/>
     <binding value="listener:false" name="focus"/>
   </component>
-  <component type="corner:AutoEva" id="nameField">
+  <component type="corner:AssAC" id="nameField">
     <binding name="queryClassName" value="literal:corner.demo.model.one.A" />
     <binding name="labelFields" value="literal:password" />
     <binding value="ognl:entity.name" name="value"/>
+    <binding name="validators" value="validators:relationAss"/>
+    <binding name="showField" value="literal:chnName"/>
   </component>
 </page-specification>
