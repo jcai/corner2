@@ -54,8 +54,13 @@ public class MoneyUnil {
 	        
 	    	  lm = transThree(a[i]) + " " + parseMore(String.valueOf(i)) + " " + lm; // 加: thousand、million、billion
 	      }
-	      else
-	       lm = transThree(a[i]); // 防止i=0时， 在多加两个空格.
+	      else if(Integer.parseInt(a[i]) <  100 && lstrrev.length() > 3){
+	              //判断个,十,百三位小于100 且要转换的数字大于1000时要加AND 
+	    	     // 如:1001 应该为:ONE THOUSAND AND ONE ONLY 要加AND 而不是ONE THOUSAND ONE ONLY
+	    	       lm = "AND " + transThree(a[i]); 
+	           }else{
+	        	   lm = transThree(a[i]); // 防止i=0时， 在多加两个空格.
+	           }
 	      } else
 	      lm += transThree(a[i]);
 	     }
