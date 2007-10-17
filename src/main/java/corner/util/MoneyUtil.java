@@ -19,7 +19,7 @@ package corner.util;
  * @version $Revision$
  * @since 2.5
  */
-public class MoneyUnil {
+public class MoneyUtil {
 
 	/**
 	 * 将数字转换为英文大写格式．
