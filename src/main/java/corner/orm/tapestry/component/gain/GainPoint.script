@@ -25,8 +25,8 @@
     (function ${gpid}Change() {
     	
     	var flags = dojo.json.evalJson(${elementValues});
-
-		dojo.debug("flags.length " + flags.szie);
+    	
+    	dojo.debug("flags " + flags);
 		
 		var temp;
 		

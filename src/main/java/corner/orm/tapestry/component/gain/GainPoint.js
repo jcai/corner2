@@ -50,8 +50,6 @@ function initTblCell(cell,id){
 	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
-	dojo.debug("1111111111111111");
-	
 	dojo.debug(cell.innerHTML);
 	
 	cell.className = lastCell.className;
