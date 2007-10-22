@@ -96,6 +96,8 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 		Object temp = null;	//临时变量
 		
 		Iterator FEList = null;
+		
+		String epname = null;
 
 		for (int i = 0; i < Size; i++) {
 
@@ -122,7 +124,14 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 					temp = foregroundEntity.get(i);
 
 					if (temp != null && !temp.equals("")) {
-						PropertyUtils.setProperty(entity, this.getEntityPropertys().get(j),
+						
+						epname = this.getEntityPropertys().get(j);
+						
+						if(getPagePersistentId().equals(epname)){	//如果是页面定义持久化id的话变成数据库id
+							epname = getPersistentId();
+						}
+						
+						PropertyUtils.setProperty(entity, epname,
 								temp);
 					}
 
@@ -167,7 +176,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 		
 		this.setEntitys(new ArrayList<Object>());
 
-		String foregroundList[] = this.getPage().getRequestCycle().getParameters(this.getPersistentId());
+		String foregroundList[] = this.getPage().getRequestCycle().getParameters(this.getPagePersistentId());
 		
 		String id = null;
 
@@ -258,7 +267,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			
 			scriptParms.put("tableId", this.getTableId());	//循环的表名，只使用一次
 			
-			scriptParms.put("persistentId", this.getPersistentId());	//持久化id
+			scriptParms.put("pagePersistentId", this.getPagePersistentId());	//持久化id
 			
 			scriptParms.put("elementSize", this.getSource().size());	//tr循环的次数，只使用一次
 			
@@ -283,13 +292,19 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 		
 		JSONArray elementValues = null;
 		
+		String tpn = null;
+		
 		for(String propertyName : this.getEntityPropertys()){	//遍历，获得属性名
 			
 			elementValues = new JSONArray();
 			
 			for(Object entity : this.getSource()){
 				try {
-					elementValues.put(PropertyUtils.getProperty(entity, propertyName));
+					tpn = propertyName;
+					if(getPagePersistentId().equals(propertyName)){
+						tpn = getPersistentId();
+					}
+					elementValues.put(PropertyUtils.getProperty(entity, tpn));
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				} catch (InvocationTargetException e) {
@@ -310,7 +325,6 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	@InjectScript("GainPoint.script")
 	public abstract IScript getScript();
-
 	
 	/**
 	 * 前台entity
@@ -386,6 +400,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	@Parameter(required = true)
 	public abstract String getTableId();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(defaultValue = "literal:poid")
+	public abstract String getPagePersistentId();
 	
 	/**
 	 * 相应的tableId,由gf赋值

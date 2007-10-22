@@ -7,7 +7,7 @@
 
 <input-symbol key="tableId"     	required="yes" />
 <input-symbol key="elementSize"     	required="yes" />
-<input-symbol key="persistentId"     	required="yes" />
+<input-symbol key="pagePersistentId"     	required="yes" />
 <input-symbol key="gpid"     	required="yes" />
 <input-symbol key="elementValues"     	required="yes" />
 
@@ -16,8 +16,8 @@
 	<unique>
 	dojo.require("dojo.json");
 		addRows(${elementSize},'${tableId}');
-		function getPersistentId(){
-			return '${persistentId}';
+		function getPagePersistentId(){
+			return '${pagePersistentId}';
 		}
 	</unique>
 

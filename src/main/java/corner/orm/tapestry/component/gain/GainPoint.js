@@ -35,7 +35,7 @@ function addRow(id){
 	}
 	
 	//删除最后一个增加的id
-	var values = document.getElementsByName(getPersistentId());
+	var values = document.getElementsByName(getPagePersistentId());
 	dojo.debug('values.length: ' + values.length);
 	
 	if(values.length - 1 <= 0){ //如果是0
@@ -48,14 +48,12 @@ function addRow(id){
 	dojo.debug('field old value: ' + field.value);
 	
 	field.value="";
-	
-//    (document.getElementsByName(getPersistentId())[document.getElementsByName(getPersistentId()).length -1]).value = "";
 }
 
-function getPersistentId(){
+function getPagePersistentId(){
 //summary:
 // 获得持久化ID
-	return 'id';
+	return 'poid';
 }
 
 function initTblCell(cell,id){

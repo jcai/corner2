@@ -21,7 +21,7 @@
     <binding value="ognl:entity.name" name="value"/>
   </component>
   <component type="corner:GainPoint" id="GainPointField">
-    <binding value="literal:id,name,cnName" name="showPropertys"/>
+    <binding value="literal:poid,name,cnName" name="showPropertys"/>
     <binding value="literal:corner.demo.model.one2many.B" name="entityClass"/>
     <binding value="literal:t" name="tableId"/>
     <binding value="source" name="source"/>
