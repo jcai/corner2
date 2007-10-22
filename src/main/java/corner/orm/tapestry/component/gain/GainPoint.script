@@ -24,7 +24,7 @@
     dojo.debug("run Change");
     (function ${gpid}Change() {
     	
-    	var flags = dojo.json.evalJson(${elementValues});
+    	var flags = eval(${elementValues});;
     	
     	dojo.debug("flags " + flags);
 		
@@ -35,8 +35,10 @@
 			var elements = document.getElementsByName(key);
 		
 			dojo.debug("elements.length " + elements.length);
+			
+			var len = elements.length;
 		
-			for (var i in elements){
+			for (var i=0;i&lt;len;i++){
 			
 				temp = 	flags[key][i];
 	
