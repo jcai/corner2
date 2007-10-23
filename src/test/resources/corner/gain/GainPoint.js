@@ -35,7 +35,21 @@ function addRow(id){
 	}
 	
 	//删除最后一个增加的id
-    (document.getElementsByName(getPersistentId())[document.getElementsByName(getPersistentId()).length -1]).value = "";
+	var values = document.getElementsByName(getPersistentId());
+	dojo.debug('values.length: ' + values.length);
+	
+	if(values.length - 1 <= 0){ //如果是0
+		return;
+	}
+	
+	var field = values[values.length - 1];
+	dojo.debug('field: ' + field);
+	
+	dojo.debug('field old value: ' + field.value);
+	
+	field.value="";
+	
+//    (document.getElementsByName(getPersistentId())[document.getElementsByName(getPersistentId()).length -1]).value = "";
 }
 
 function getPersistentId(){
@@ -50,9 +64,23 @@ function initTblCell(cell,id){
 	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
-	dojo.debug("1111111111111111");
-	
 	dojo.debug(cell.innerHTML);
+	
+	if(cell.children != null && cell.children.length > 0){
+		for(childIndex = 0;childIndex < cell.children.length; childIndex++){
+			var child = cell.children[childIndex];
+			
+			switch(child.type){
+			case "text":
+				 child.value = "";
+				 break;
+			case "checkbox":
+				 child.value = "";
+				 child.checked = false;
+				 break;
+			}
+		}
+	}
 	
 	cell.className = lastCell.className;
 	cell.align = lastCell.align;

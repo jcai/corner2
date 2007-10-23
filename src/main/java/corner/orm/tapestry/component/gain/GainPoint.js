@@ -64,6 +64,22 @@ function initTblCell(cell,id){
 	
 	dojo.debug(cell.innerHTML);
 	
+	if(cell.children != null && cell.children.length > 0){
+		for(childIndex = 0;childIndex < cell.children.length; childIndex++){
+			var child = cell.children[childIndex];
+			
+			switch(child.type){
+			case "text":
+				 child.value = "";
+				 break;
+			case "checkbox":
+				 child.value = "";
+				 child.checked = false;
+				 break;
+			}
+		}
+	}
+	
 	cell.className = lastCell.className;
 	cell.align = lastCell.align;
 	cell.height = lastCell.height;
