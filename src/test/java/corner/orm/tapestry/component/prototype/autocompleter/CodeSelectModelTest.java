@@ -7,7 +7,7 @@
 
 
 
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;

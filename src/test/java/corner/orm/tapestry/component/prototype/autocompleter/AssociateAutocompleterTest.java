@@ -7,7 +7,7 @@
 
 
 
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.util.Map;
 

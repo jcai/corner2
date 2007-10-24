@@ -4,7 +4,7 @@
  * file : $Id: AutoEvaluateSelectModel.java 6829 2007-06-21 09:03:09Z jcai $
  * created at:2007-04-25
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -43,7 +43,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	public static final String ROOT_ENTITY_ALIAS = "ro_";
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#renderResultRow(org.apache.tapestry.IMarkupWriter, java.lang.Object, java.lang.String, org.apache.tapestry.services.DataSqueezer)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#renderResultRow(org.apache.tapestry.IMarkupWriter, java.lang.Object, java.lang.String, org.apache.tapestry.services.DataSqueezer)
 	 */
 	public void renderResultRow(IMarkupWriter writer, Object entity,
 			String template, DataSqueezer squeezer) {
@@ -129,7 +129,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
 	public List search(HibernateTemplate ht, final String queryClassName,
 			final String searchString, final IContext context,final DataSqueezer squeezer,final String [] dependFieldsValue) {
@@ -198,7 +198,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 
 	/**
 	 * 
-	 * @see corner.orm.tapestry.component.prototype.IAutoEvaluateSelectModel#parseParameter(java.lang.String, java.lang.String, java.lang.String)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.IAutoEvaluateSelectModel#parseParameter(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void parseParameter(String queryFieldName, String labelFields,
 			String updateFields,String returnTemplates) {
@@ -291,14 +291,14 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	private IComponent component;
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#getComponent()
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#getComponent()
 	 */
 	public IComponent getComponent() {
 		return component;
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#setComponent(org.apache.tapestry.IComponent)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#setComponent(org.apache.tapestry.IComponent)
 	 */
 	public void setComponent(IComponent component) {
 		this.component = component;

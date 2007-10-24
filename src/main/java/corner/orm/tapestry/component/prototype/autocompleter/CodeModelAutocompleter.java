@@ -4,7 +4,7 @@
  * file : $Id: CodeModelAutocompleter.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-24
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import org.apache.tapestry.annotations.Parameter;
 
@@ -23,7 +23,7 @@ public abstract class CodeModelAutocompleter extends BaseAutocompleter {
 
     
 	/** 选择的过滤器 **/
-	@Parameter(defaultValue="ognl:new corner.orm.tapestry.component.prototype.CodeSelectModel()")
+	@Parameter(defaultValue="ognl:new corner.orm.tapestry.component.prototype.autocompleter.CodeSelectModel()")
 	public abstract ISelectModel getSelectModel();
 	
 	/**

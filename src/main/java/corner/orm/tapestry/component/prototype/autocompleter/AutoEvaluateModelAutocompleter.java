@@ -4,7 +4,7 @@
  * file : $Id: AutoEvaluateModelAutocompleter.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-25
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import org.apache.tapestry.annotations.Parameter;
 
@@ -27,7 +27,7 @@ import org.apache.tapestry.annotations.Parameter;
 public abstract class AutoEvaluateModelAutocompleter extends BaseAutocompleter {
 
 	/** 选择的过滤器 * */
-	@Parameter(defaultValue = "ognl:new corner.orm.tapestry.component.prototype.AutoEvaluateSelectModel()")
+	@Parameter(defaultValue = "ognl:new corner.orm.tapestry.component.prototype.autocompleter.AutoEvaluateSelectModel()")
 	public abstract IAutoEvaluateSelectModel getSelectModel();
 
 	@Parameter(defaultValue = "literal:{select:'selectme',afterUpdateElement:ac.evaluate}")

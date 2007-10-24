@@ -4,7 +4,7 @@
  * file : $Id: AbstractSelectModel.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-27
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.Criteria;

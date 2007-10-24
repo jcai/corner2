@@ -4,7 +4,7 @@
  * file : $Id: CodeSelectModel.java 6829 2007-06-21 09:03:09Z jcai $
  * created at:2007-04-24
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,7 +32,7 @@ import corner.orm.tapestry.state.IContext;
 public class CodeSelectModel extends AbstractSelectModel {
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
 	public List search(HibernateTemplate ht, final String queryClassName,
 			final String searchString, final IContext context,
@@ -72,7 +72,7 @@ public class CodeSelectModel extends AbstractSelectModel {
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#renderResultRow(org.apache.tapestry.IMarkupWriter,
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#renderResultRow(org.apache.tapestry.IMarkupWriter,
 	 *      java.lang.Object, java.lang.String[])
 	 */
 	public void renderResultRow(IMarkupWriter writer, Object entity,
@@ -91,14 +91,14 @@ public class CodeSelectModel extends AbstractSelectModel {
 	private IComponent component;
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#getComponent()
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#getComponent()
 	 */
 	public IComponent getComponent() {
 		return component;
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.ISelectModel#setComponent(org.apache.tapestry.IComponent)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#setComponent(org.apache.tapestry.IComponent)
 	 */
 	public void setComponent(IComponent component) {
 		this.component = component;

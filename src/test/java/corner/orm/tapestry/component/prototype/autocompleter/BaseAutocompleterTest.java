@@ -5,7 +5,7 @@
  *	created at:2007-4-28
  */
 
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;

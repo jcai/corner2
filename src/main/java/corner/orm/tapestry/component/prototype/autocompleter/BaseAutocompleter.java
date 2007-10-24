@@ -4,7 +4,7 @@
  * file : $Id: BaseAutocompleter.java 6997 2007-06-29 07:35:06Z jcai $
  * created at:2007-04-27
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -344,10 +344,10 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	 * Script
 	 * 
 	 */
-	@InjectScript("/corner/orm/tapestry/component/prototype/Autocompleter.script")
+	@InjectScript("/corner/orm/tapestry/component/prototype/autocompleter/Autocompleter.script")
 	public abstract IScript getScript();
 
-	@Asset("classpath:/corner/orm/tapestry/component/prototype/indicator.gif")
+	@Asset("classpath:/corner/orm/tapestry/component/prototype/autocompleter/indicator.gif")
 	public abstract IAsset getIndicatorAsset();
 
 	@InjectObject("spring:entityService")

@@ -4,7 +4,7 @@
  * file : $Id: ISelectModel.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-24
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.util.List;
 

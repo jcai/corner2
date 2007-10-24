@@ -4,7 +4,7 @@
  * file : $Id: AssociateAutocompleter.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-30
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 import java.text.ParseException;
 
@@ -39,7 +39,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 	public abstract String getAssociateProperty();
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.BaseAutocompleter#appendField(org.apache.tapestry.IMarkupWriter, java.lang.Object)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.BaseAutocompleter#appendField(org.apache.tapestry.IMarkupWriter, java.lang.Object)
 	 */
 	@Override
 	protected void appendField(IMarkupWriter writer, Object value) {
@@ -72,7 +72,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.AutoEvaluateModelAutocompleter#constructSelectModel()
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.AutoEvaluateModelAutocompleter#constructSelectModel()
 	 */
 	@Override
 	protected ISelectModel constructSelectModel() {
@@ -98,7 +98,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.BaseAutocompleter#formatValue(java.lang.Object)
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.BaseAutocompleter#formatValue(java.lang.Object)
 	 */
 	@Override
 	protected Object formatValue(Object value) {

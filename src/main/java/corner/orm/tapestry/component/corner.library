@@ -56,8 +56,8 @@
   
   <component-type type="CoolestPicker" specification-path="calendar/coolest/CoolestCalendar.jwc"/>
   
-  <component-type type="CodeAC" specification-path="prototype/CodeModelAutocompleter.jwc"/>
-  <component-type type="AutoEva" specification-path="prototype/AutoEvaluateModelAutocompleter.jwc"/>
-  <component-type type="AssAC" specification-path="prototype/AssociateAutocompleter.jwc"/>
+  <component-type type="CodeAC" specification-path="prototype/autocompleter/CodeModelAutocompleter.jwc"/>
+  <component-type type="AutoEva" specification-path="prototype/autocompleter/AutoEvaluateModelAutocompleter.jwc"/>
+  <component-type type="AssAC" specification-path="prototype/autocompleter/AssociateAutocompleter.jwc"/>
 
 </library-specification>

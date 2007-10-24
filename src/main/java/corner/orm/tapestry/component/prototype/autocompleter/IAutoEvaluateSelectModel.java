@@ -4,7 +4,7 @@
  * file : $Id: IAutoEvaluateSelectModel.java 6057 2007-05-29 02:26:25Z jcai $
  * created at:2007-04-25
  */
-package corner.orm.tapestry.component.prototype;
+package corner.orm.tapestry.component.prototype.autocompleter;
 
 
 /**
