@@ -10,15 +10,11 @@ dojo.require("dojo.validate.common");
 corner.validate.isRelationAss = function(/*String*/value, /*Object?*/flags){
 //summary:
 // 将flags传进来的ID，如果获得管理对象返回true
-	dojo.debug("value :" + value);
-	dojo.debug("fields.length :" + flags.fields.length);
 	
-	dojo.debug("fieldID :" + flags.fields[0]);
-	
-	var value = dojo.byId(flags.fields[0]).value;
+	var value = dojo.byId(flags.ass_id).value;
 	
 	
-	if(value == "" || value == "X"){
+	if(value==null||value == "" || value == "X"){
 		return false;
 	}else{
 		return true;

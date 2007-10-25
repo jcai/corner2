@@ -31,7 +31,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 	@Parameter (required = true)
 	public abstract String getShowField();
 	
-	protected static final String ASSOCIATE_SUFFIX="_ASS";
+	public static final String ASSOCIATE_SUFFIX="_ASS";
 	/** 
 	 * 展示关联对象时候的属性，如果未指定，则调用关联对象的toString方法
 	 */
