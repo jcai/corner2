@@ -88,7 +88,7 @@ public class RelationAss extends BaseValidator{
 	 */
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
-		return messages.formatValidationMessage("没有获得关联对象。", null,
+		return messages.formatValidationMessage("没有关联的{0}。", null,
 				new Object[] { field.getDisplayName() });
 	}
 }
