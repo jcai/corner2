@@ -48,9 +48,8 @@
 	showDebug();
 
 
-	win3 = new Window('dialog3', {className: "alphacube", title: "google",
-								  url: "http://www.google.com/"})	
-	win3.show();
+	winwinDialog = new Window({"className":"alphacube","title":"google","url":"http://www.google.com/"});
+	winwinDialog.show()
 	
 	function openDialog() {
 	  Dialog.alert({url: "haha.html", options: {method: 'get'}}, {className: "alphacube", width:540, okLabel: "Close"})

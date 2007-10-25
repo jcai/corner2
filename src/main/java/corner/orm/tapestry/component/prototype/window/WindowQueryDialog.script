@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+
+<script>
+<include-script resource-path="/corner/prototype/window/javascripts/prototype.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/effects.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window_effects.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/debug.js" />
+
+
+<input-symbol key="component" required="yes" />
+<input-symbol key="props" required="yes" />
+    <initialization>
+    
+    win${component.clientId} = new Window(${props});
+    win${component.clientId}.setSize(500, 300);
+	win${component.clientId}.showCenter();
+	
+    </initialization>
+</script>

@@ -15,6 +15,11 @@
 	  <binding value="literal:widget/SelectionListPage" name="parameters"/>
 	    <binding value="literal:selectRecord" name="onSelectFunName"/>
   </component>
+  <component type="corner:WindowQueryDialog" id="winDialog">
+		<binding value="listener:doPopQueryPage" name="listener"/>
+	  <binding value="literal:widget/SelectionListPage" name="parameters"/>
+	    <binding value="literal:selectRecord" name="onSelectFunName"/>
+  </component>
   <component type="corner:PageQueryDialog" id="dialog2">
 	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
   </component>
