@@ -76,15 +76,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         
         if (!cycle.isRewinding()) {
             JSONObject json = initWindow();
-            
-            
-//            json.put("selectFun",getOnSelectFunName());
-//            if(this.getTitle()!=null)
-//            	json.put("title",this.getTitle());
-            
-//            json.put("url",getPageUrl());
-            
-
             Map<String,Object> parms = new HashMap<String,Object>();
             parms.put("component", this);
             parms.put("props", json.toString());
@@ -100,11 +91,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 创建一个按钮
 	 */
 	private void setWindowShowButton(IMarkupWriter writer) {
-		
-//		<img src="image/infoQuery.gif" width="108" height="110" border="0" />
-		
 		String button = "_button";
-		
 		writer.beginEmpty("img");
 		writer.attribute("name",getPrefix() + this.getClientId() + button);
 		writer.attribute("id",getPrefix() + this.getClientId() + button);
@@ -160,7 +147,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * @return
 	 */
-	protected String getPageUrl() {
+	protected String getUrl() {
 		Object[] serviceParameters = DirectLink
 				.constructServiceParameters(getParameters());
 
@@ -180,8 +167,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	public abstract String getClassName();
 	@Parameter(defaultValue = "literal:none")
 	public abstract String getTitle();
-	@Parameter(defaultValue = "literal:none")
-	public abstract String getUrl();
+//	@Parameter(defaultValue = "literal:none")
+//	public abstract String getUrl();
 	@Parameter(defaultValue = "literal:body")
 	public abstract String getParent();
 	@Parameter(defaultValue = "literal:top:0")

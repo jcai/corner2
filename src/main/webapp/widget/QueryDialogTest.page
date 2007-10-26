@@ -16,11 +16,9 @@
 	    <binding value="literal:selectRecord" name="onSelectFunName"/>
   </component>
   <component type="corner:WindowQueryDialog" id="winDialog">
-	<binding value="listener:doPopQueryPage" name="listener"/>
-	<binding value="literal:widget/SelectionListPage" name="parameters"/>
+	<binding value="listener:doWinPopQueryPage" name="listener"/>
 	<binding value="literal:selectRecord" name="onSelectFunName"/>
     <binding value="literal:google" name="title"/>
-    <binding value="literal:SelectionListPage.page" name="url"/>
   </component>
   <component type="corner:PageQueryDialog" id="dialog2">
 	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
