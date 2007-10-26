@@ -1,1 +1,50 @@
-fjdklsajfldsjalfk
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></SCRIPT>
+</HEAD>
+<body>
+<span jwcid="@DemoBorder">
+<br/>
+	<form action="http://dev.bjmaxinfo.com">
+		<input type="text">
+
+		<input type="submit"/>
+	</form>
+			list:<br/>
+	<table>
+		<tr>
+			<td>	<input type="radio" id="testRadio" jwcid="testRadio@corner:WinSelectedField" label="label" asdf="asdf" fdsa="fdsa" />r1</td><td bgcolor="red">222222</td>
+		</tr>
+	</table>
+<script>
+<!--
+
+
+winSelectRecord=function(evt){
+	var src=dojo.html.getEventTarget(evt);
+	parent.selectRecord(src);
+	parent.pwin_winDialog.close();
+}
+dojo.event.connect(dojo.byId("testRadio"),"onclick","winSelectRecord");
+
+//-->
+</script>
+
+</span>
+</body>	
+</html>
