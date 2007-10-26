@@ -81,8 +81,21 @@ function selectRecord(obj){
 <br/>
 <span>Version:0.0.1  $Revision: 2023 $ $Date: 2006-07-22 13:23:08Z $ </span>
 <script type="text/javascript"><!--
+test1=function(){
+		dojo.debug("frame on load!");
+		frameW=dojo.html.iframeContentWindow(pwin_winDialog.getContent());
+		if(frameW){
+			frameW.queryBox=pwin_winDialog;
+	}
 
-pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google","url":"haha.html","top ":"top:0","right":"left:0","width":"500","height":"300","maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300","resizable":"true","closable":"true","minimizable":"true","maximizable":"true","draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none","opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false","destroyOnClose":"false","all callbacks":"none"});
+}
+pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
+								   "url":"haha.html","top ":"top:0","right":"left:0","width":"500","height":"300",
+								   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
+								   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
+								   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
+								   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
+								   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
 //	pwin_winDialog.setCloseCallback(selectRecord);
 
 // --></script></body>
