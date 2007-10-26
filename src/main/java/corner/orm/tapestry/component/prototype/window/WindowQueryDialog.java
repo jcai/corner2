@@ -16,12 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry.IActionListener;
+import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.Asset;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
@@ -64,6 +66,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
             renderInformalParameters(writer, cycle);
         }
         
+		setWindowShowButton(writer);
+		
         renderBody(writer, cycle);
         
         if (!cycle.isRewinding()) {
@@ -71,66 +75,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         }
         
         if (!cycle.isRewinding()) {
-//        	{className: 'alphacube', title: 'google',
-//				  url: 'http://www.google.com/'}
-        	
-        	
-            JSONObject json = new JSONObject();
+            JSONObject json = initWindow();
             
-            
-            json.put("id", getId());
-            json.put("className", getClassName());
-            json.put("title", getTitle());
-            json.put("url", getUrl());
-            json.put("top ", getTop ());
-            json.put("right", getLeft());
-            json.put("width", getWidth());
-            json.put("height", getHeight());
-            json.put("maxWidth", getMaxWidth());
-            json.put("maxHeight", getMaxHeight());
-            json.put("minWidth ", getMinWidth ());
-            json.put("minHeight", getMinHeight());
-            json.put("resizable", getResizable());
-            json.put("closable", getClosable());
-            json.put("minimizable", getMinimizable());
-            json.put("maximizable", getMaximizable());
-            json.put("draggable", getDraggable());
-            json.put("showEffectOptions", getShowEffectOptions());
-            json.put("hideEffectOptions", getHideEffectOptions());
-            json.put("effectOptions", getEffectOptions());
-            json.put("opacity", getOpacity());
-            json.put("recenterAuto", getRecenterAuto());
-            json.put("gridX", getGridX());
-            json.put("gridY", getGridY());
-            json.put("wiredDrag", getWiredDrag());
-            json.put("destroyOnClose", getDestroyOnClose());
-            json.put("all callbacks", getAllCallbacks());
-            
-            
-//          json.put("parent", getParent());
-//          json.put("showEffect", getShowEffect());
-//          json.put("hideEffect", getHideEffect());
-//          json.put("onload", getOnload());
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            json.put("className", "alphacube");
-//            json.put("title", "google");
-//            json.put("url", "http://www.google.com/");
-//            json.put("minWidth",500);
-//            json.put("minHeight",300);
-            
-             
             
 //            json.put("selectFun",getOnSelectFunName());
 //            if(this.getTitle()!=null)
@@ -142,11 +88,75 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
             Map<String,Object> parms = new HashMap<String,Object>();
             parms.put("component", this);
             parms.put("props", json.toString());
+            parms.put("prefix", getPrefix());
+            parms.put("closeCallback", getOnSelectFunName());
+            
             getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
         }
 	}
 	
 	
+	/**
+	 * 创建一个按钮
+	 */
+	private void setWindowShowButton(IMarkupWriter writer) {
+		
+//		<img src="image/infoQuery.gif" width="108" height="110" border="0" />
+		
+		String button = "_button";
+		
+		writer.beginEmpty("img");
+		writer.attribute("name",getPrefix() + this.getClientId() + button);
+		writer.attribute("id",getPrefix() + this.getClientId() + button);
+		writer.attribute("src", getIndicatorAsset().buildURL());
+		writer.attribute("border","0");
+		writer.attribute("onclick", getPrefix() + this.getClientId() + ".showCenter();");
+	}
+
+
+	/**
+	 * 初始化窗体属性
+	 */
+	private JSONObject initWindow() {
+		JSONObject json =new JSONObject();
+        json.put("id", getWinId());
+        json.put("className", getClassName());
+        json.put("title", getTitle());
+        json.put("url", getUrl());
+        json.put("top ", getTop ());
+        json.put("right", getLeft());
+        json.put("width", getWidth());
+        json.put("height", getHeight());
+        json.put("maxWidth", getMaxWidth());
+        json.put("maxHeight", getMaxHeight());
+        json.put("minWidth ", getMinWidth ());
+        json.put("minHeight", getMinHeight());
+        json.put("resizable", getResizable());
+        json.put("closable", getClosable());
+        json.put("minimizable", getMinimizable());
+        json.put("maximizable", getMaximizable());
+        json.put("draggable", getDraggable());
+        json.put("showEffectOptions", getShowEffectOptions());
+        json.put("hideEffectOptions", getHideEffectOptions());
+        json.put("effectOptions", getEffectOptions());
+        json.put("opacity", getOpacity());
+        json.put("recenterAuto", getRecenterAuto());
+        json.put("gridX", getGridX());
+        json.put("gridY", getGridY());
+        json.put("wiredDrag", getWiredDrag());
+        json.put("destroyOnClose", getDestroyOnClose());
+        json.put("all callbacks", getAllCallbacks());
+         
+        //未知的功能，放开就报错
+//      json.put("parent", getParent()); 
+//      json.put("showEffect", getShowEffect());
+//      json.put("hideEffect", getHideEffect());
+//      json.put("onload", getOnload());
+		
+		return json;
+	}
+
+
 	/**
 	 * @return
 	 */
@@ -161,15 +171,11 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		return url;
 	}
 	
-	
-	
-	
-	
 	/**
 	 * window 需要的参数
 	 */
 	@Parameter(defaultValue = "literal:generated")
-	public abstract String getId();
+	public abstract String getWinId();
 	@Parameter(defaultValue = "literal:alphacube")
 	public abstract String getClassName();
 	@Parameter(defaultValue = "literal:none")
@@ -233,30 +239,24 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	
 	
-	
-	
-	
-	
-	
-	
     /**
 	 * 当选中某一条记录的时候，响应的js函数
 	 * @return
 	 */
 	@Parameter
 	public abstract String getOnSelectFunName();
-	@Parameter(defaultValue="literal:black")
-	public abstract String getBackgroundColor();
-	@Parameter
-	public abstract String getBtnImage();
-    
-	
-	
-	@InjectObject("service:tapestry.services.Direct")
-	public abstract IEngineService getDirectService();
 	
 	@Parameter
 	public abstract Object getParameters();
+	
+	@Parameter(defaultValue = "literal:pwin_")
+	public abstract String getPrefix();
+	
+	@Asset("classpath:/corner/widget/templates/dic.gif")
+	public abstract IAsset getIndicatorAsset();
+	
+	@InjectObject("service:tapestry.services.Direct")
+	public abstract IEngineService getDirectService();
 	
 	/**
 	 * 监听调用函数

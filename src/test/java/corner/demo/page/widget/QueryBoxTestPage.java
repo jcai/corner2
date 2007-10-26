@@ -11,4 +11,8 @@ public abstract class QueryBoxTestPage extends BasePage{
 	public IPage doPopQueryPage(String pageName){
 		return this.getRequestCycle().getPage(pageName);
 	}
+	
+	public IPage doWinPopQueryPage(){
+		return this.getRequestCycle().getPage("widget/SelectionListPage");
+	}
 }
