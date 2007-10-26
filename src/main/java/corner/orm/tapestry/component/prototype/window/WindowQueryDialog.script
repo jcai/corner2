@@ -15,9 +15,8 @@
 <input-symbol key="props" required="yes" />
     <initialization>
     
-    win${component.clientId} = new Window(${props});
-    win${component.clientId}.setSize(500, 300);
-	win${component.clientId}.showCenter();
+    winDiaLog${component.clientId} = new Window('diaLog${component.clientId}',${props});
+	winDiaLog${component.clientId}.showCenter();
 	
     </initialization>
 </script>

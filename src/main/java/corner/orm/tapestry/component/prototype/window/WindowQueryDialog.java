@@ -76,14 +76,67 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         	
         	
             JSONObject json = new JSONObject();
-            json.put("className", "alphacube");
-            json.put("title", "google");
-            json.put("url", "http://www.google.com/");
+            
+            
+            json.put("id", getId());
+            json.put("className", getClassName());
+            json.put("title", getTitle());
+            json.put("url", getUrl());
+            json.put("top ", getTop ());
+            json.put("right", getLeft());
+            json.put("width", getWidth());
+            json.put("height", getHeight());
+            json.put("maxWidth", getMaxWidth());
+            json.put("maxHeight", getMaxHeight());
+            json.put("minWidth ", getMinWidth ());
+            json.put("minHeight", getMinHeight());
+            json.put("resizable", getResizable());
+            json.put("closable", getClosable());
+            json.put("minimizable", getMinimizable());
+            json.put("maximizable", getMaximizable());
+            json.put("draggable", getDraggable());
+            json.put("showEffectOptions", getShowEffectOptions());
+            json.put("hideEffectOptions", getHideEffectOptions());
+            json.put("effectOptions", getEffectOptions());
+            json.put("opacity", getOpacity());
+            json.put("recenterAuto", getRecenterAuto());
+            json.put("gridX", getGridX());
+            json.put("gridY", getGridY());
+            json.put("wiredDrag", getWiredDrag());
+            json.put("destroyOnClose", getDestroyOnClose());
+            json.put("all callbacks", getAllCallbacks());
+            
+            
+//          json.put("parent", getParent());
+//          json.put("showEffect", getShowEffect());
+//          json.put("hideEffect", getHideEffect());
+//          json.put("onload", getOnload());
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//            json.put("className", "alphacube");
+//            json.put("title", "google");
+//            json.put("url", "http://www.google.com/");
+//            json.put("minWidth",500);
+//            json.put("minHeight",300);
+            
+             
+            
 //            json.put("selectFun",getOnSelectFunName());
 //            if(this.getTitle()!=null)
 //            	json.put("title",this.getTitle());
             
-//            json.put("url",getUrl());
+//            json.put("url",getPageUrl());
             
 
             Map<String,Object> parms = new HashMap<String,Object>();
@@ -97,7 +150,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * @return
 	 */
-	protected String getUrl() {
+	protected String getPageUrl() {
 		Object[] serviceParameters = DirectLink
 				.constructServiceParameters(getParameters());
 
@@ -108,18 +161,92 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		return url;
 	}
 	
+	
+	
+	
+	
+	/**
+	 * window 需要的参数
+	 */
+	@Parameter(defaultValue = "literal:generated")
+	public abstract String getId();
+	@Parameter(defaultValue = "literal:alphacube")
+	public abstract String getClassName();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getTitle();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getUrl();
+	@Parameter(defaultValue = "literal:body")
+	public abstract String getParent();
+	@Parameter(defaultValue = "literal:top:0")
+	public abstract String getTop ();
+	@Parameter(defaultValue = "literal:left:0")
+	public abstract String getLeft();
+	@Parameter(defaultValue = "literal:500")
+	public abstract String getWidth();
+	@Parameter(defaultValue = "literal:300")
+	public abstract String getHeight();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getMaxWidth();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getMaxHeight();
+	@Parameter(defaultValue = "literal:500")
+	public abstract String getMinWidth ();
+	@Parameter(defaultValue = "literal:300")
+	public abstract String getMinHeight();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getResizable();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getClosable();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getMinimizable();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getMaximizable();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getDraggable();
+	@Parameter(defaultValue = "literal:Effect.Appear")
+	public abstract String getShowEffect();
+	@Parameter(defaultValue = "literal:Effect.Fade")
+	public abstract String getHideEffect();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getShowEffectOptions();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getHideEffectOptions();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getEffectOptions();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getOnload();
+	@Parameter(defaultValue = "ognl:1")
+	public abstract int getOpacity();
+	@Parameter(defaultValue = "ognl:true")
+	public abstract String getRecenterAuto();
+	@Parameter(defaultValue = "ognl:1")
+	public abstract int getGridX();
+	@Parameter(defaultValue = "ognl:1")
+	public abstract int getGridY();
+	@Parameter(defaultValue = "ognl:false")
+	public abstract String getWiredDrag();
+	@Parameter(defaultValue = "ognl:false")
+	public abstract String getDestroyOnClose();
+	@Parameter(defaultValue = "literal:none")
+	public abstract String getAllCallbacks();
+	
+	
+	
+	
+	
+	
+	
+	
+	
     /**
 	 * 当选中某一条记录的时候，响应的js函数
 	 * @return
 	 */
 	@Parameter
 	public abstract String getOnSelectFunName();
-	@Parameter
-	public abstract String getTitle();
 	@Parameter(defaultValue="literal:black")
 	public abstract String getBackgroundColor();
-	@Parameter(defaultValue="0.4")
-	public abstract float getOpacity();
 	@Parameter
 	public abstract String getBtnImage();
     
