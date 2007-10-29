@@ -176,13 +176,13 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 前台生成的onLoad脚本
 	 */
 	public String getOnloadFun() {
-		return 	"function(){ " +
-				"dojo.debug('frame on load!');"+
-				"frameW=dojo.html.iframeContentWindow("+getDialogName()+".getContent());" +
-				"	if(frameW){"+
-				"		frameW.queryBox="+getDialogName()+";" +
-				"	}" +
-				"}";
+		return 	"function(){ \n" +
+				"dojo.debug('frame on load!');\n"+
+				"frameW=dojo.html.iframeContentWindow("+getDialogName()+".getContent());\n" +
+				"	if(frameW){\n"+
+				"		frameW.queryBox="+getDialogName()+";\n" +
+				"	}\n" +
+				"}\n";
 	}
 
 

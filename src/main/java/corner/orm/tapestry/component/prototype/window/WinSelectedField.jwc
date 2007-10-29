@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
+<component-specification class="corner.orm.tapestry.component.prototype.window.WinSelectedField" allow-body="no">
+
+  <description>
+  Dynamically emulates any element, including attributes (provided as
+  informal parameters).
+  </description>
+  
+  <parameter name="element" default-value="ognl:templateTag">
+  	<description>
+  	The element to emulate.
+  	</description>
+  </parameter>
+  
+  <parameter name="templateTag">
+  	<description>
+  	The tag used to add this component in a template.
+  	</description>
+  </parameter>
+  
+</component-specification>

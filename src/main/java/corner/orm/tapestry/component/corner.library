@@ -61,6 +61,7 @@
   <component-type type="AssAC" specification-path="prototype/autocompleter/AssociateAutocompleter.jwc"/>
   
   <component-type type="WindowQueryDialog" specification-path="prototype/window/WindowQueryDialog.jwc"/>
+  <component-type type="WinSelectedField" specification-path="prototype/window/WinSelectedField.jwc"/>
   
 
 </library-specification>
