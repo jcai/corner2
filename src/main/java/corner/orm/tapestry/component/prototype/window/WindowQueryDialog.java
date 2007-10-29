@@ -94,6 +94,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 创建一个按钮
 	 */
 	private void setWindowShowButton(IMarkupWriter writer) {
+		addDialogCss(writer);	//加入css
+		
 		writer.beginEmpty("img");
 		writer.attribute("name",getDialogButtonName());
 		writer.attribute("id",getDialogButtonName());
@@ -101,6 +103,26 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		writer.attribute("border","0");
 	}
 	
+	/**
+	 * @param writer
+	 */
+	private void addDialogCss(IMarkupWriter writer) {
+		String [] csList = csss.split(",");
+		
+		String url = getAssetCss().buildURL();
+		
+		for(String css : csList){
+			url = getAssetCss().buildURL().replace("alphacube", css);
+			
+			writer.beginEmpty("link");
+			writer.attribute("rel", "stylesheet");
+			writer.attribute("type", "text/css");
+			writer.attribute("href", url);
+		}
+		
+	}
+
+
 	/**
 	 * 获得调用的方法名称
 	 */
@@ -203,6 +225,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		return url;
 	}
 	
+	public static String csss="default,theme1,mac_os_x,alphacube,darkX,spread,alert,alert_lite";
+	
 	/**
 	 * window 需要的参数
 	 */
@@ -270,6 +294,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	public abstract String getAllCallbacks();
 	
 	
+	@Asset("classpath:/corner/prototype/window/themes/alphacube.css")
+	public abstract IAsset getAssetCss();
+	
 	
     /**
 	 * 当选中某一条记录的时候，响应的js函数
@@ -289,6 +316,13 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	@InjectObject("service:tapestry.services.Direct")
 	public abstract IEngineService getDirectService();
+	
+	/**
+	 * @see org.apache.tapestry.AbstractComponent#isStateful()
+	 */
+	@Override
+	@Parameter(defaultValue="true")
+	public abstract boolean isStateful();
 	
 	/**
 	 * 监听调用函数
