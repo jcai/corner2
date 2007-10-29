@@ -21,8 +21,10 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.components.Any;
+import org.apache.tapestry.services.LinkFactory;
 
 
 /**
@@ -60,7 +62,9 @@ public abstract class WinSelectedField extends Any {
                 renderIdAttribute(writer, cycle);
         }
         
+        Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
         
+        String onSelectFunName = (String) parameters[0];
         
         if (!rewinding)
         {
@@ -70,7 +74,11 @@ public abstract class WinSelectedField extends Any {
 		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("id", this.getClientId());
+		parms.put("onSelectFunName", onSelectFunName);
 		getScript().execute(this, cycle, prs, parms);
 	}
+	
+	@InjectObject("infrastructure:linkFactory")
+	public abstract LinkFactory getLinkFactory();
 
 }

@@ -190,8 +190,11 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * @return
 	 */
 	protected String getUrl() {
+		
+		Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
+		
 		Object[] serviceParameters = DirectLink
-				.constructServiceParameters(getParameters());
+				.constructServiceParameters(parameters);
 
 		DirectServiceParameter dsp = new DirectServiceParameter(this,
 				serviceParameters);
@@ -272,7 +275,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 当选中某一条记录的时候，响应的js函数
 	 * @return
 	 */
-	@Parameter
+	@Parameter(required = true)
 	public abstract String getOnSelectFunName();
 	
 	@Parameter

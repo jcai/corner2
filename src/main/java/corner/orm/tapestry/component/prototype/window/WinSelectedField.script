@@ -4,10 +4,11 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 <input-symbol key="id" required="yes" />
+<input-symbol key="onSelectFunName" required="yes" />
 <initialization>
 dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 	var src=dojo.html.getEventTarget(evt);
-	parent.selectRecord(src);
+	parent.${onSelectFunName}(src);
 	queryBox.close();
 }); 
 </initialization>
