@@ -275,7 +275,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 当选中某一条记录的时候，响应的js函数
 	 * @return
 	 */
-	@Parameter(required = true)
+	@Parameter(defaultValue = "literal:onSelectFunName")
 	public abstract String getOnSelectFunName();
 	
 	@Parameter
