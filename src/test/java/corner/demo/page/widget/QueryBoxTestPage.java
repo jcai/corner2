@@ -13,6 +13,6 @@ public abstract class QueryBoxTestPage extends BasePage{
 	}
 	
 	public IPage doWinPopQueryPage(){
-		return this.getRequestCycle().getPage("widget/SelectionListPage");
+		return this.getRequestCycle().getPage("widget/WinSelectionListPage");
 	}
 }

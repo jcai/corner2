@@ -14,14 +14,22 @@
 
 <input-symbol key="component" required="yes" />
 <input-symbol key="props" required="yes" />
-<input-symbol key="prefix" required="yes" />
 
-<input-symbol key="closeCallback" />
-    <initialization>
-    
-    ${prefix}${component.clientId} = new Window('${prefix}${component.clientId}',${props});
-//    winDiaLog${component.clientId}.setCloseCallback(${closeCallback});
-//	winDiaLog${component.clientId}.showCenter();
+<initialization>
+
+	${component.dialogScriptOnLoadName}=${component.onloadFun}
 	
-    </initialization>
+	var ${component.dialogName};
+									   
+	${component.dialogScriptFunName}=function(){
+	
+	   if(!${component.dialogName}){
+						   								   
+		   ${component.dialogName} = new Window('${component.dialogName}',${props});
+		}								   
+		${component.dialogName}.showCenter();
+	}
+	dojo.event.connect(dojo.byId("${component.dialogButtonName}"),"onclick","${component.dialogScriptFunName}");
+
+</initialization>
 </script>
