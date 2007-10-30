@@ -21,7 +21,6 @@ import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
-import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.Asset;
 import org.apache.tapestry.annotations.InjectObject;
@@ -51,7 +50,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		IActionListener listener = getListener();
 
 		if (listener == null)
-			throw Tapestry.createRequiredParameterException(this, "listener");
+			return;
+//			throw Tapestry.createRequiredParameterException(this, "listener");
 
 		getListenerInvoker().invokeListener(listener, this, cycle);
 	}
@@ -212,16 +212,24 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * @return
 	 */
 	protected String getUrl() {
+		String url = null;
 		
-		Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
+//		getRequestCycle().getPage("widget/WinSelectionListPage")
 		
-		Object[] serviceParameters = DirectLink
-				.constructServiceParameters(parameters);
+		if(this.getQueryPageName() != null){
+			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
+		}else{
+			Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
+			
+			Object[] serviceParameters = DirectLink
+					.constructServiceParameters(parameters);
 
-		DirectServiceParameter dsp = new DirectServiceParameter(this,
-				serviceParameters);
-
-		String url = getDirectService().getLink(false, dsp).getAbsoluteURL();
+			DirectServiceParameter dsp = new DirectServiceParameter(this,
+					serviceParameters);
+			
+			url = getDirectService().getLink(false, dsp).getAbsoluteURL();
+		}
+		
 		return url;
 	}
 	
@@ -297,12 +305,15 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	@Asset("classpath:/corner/prototype/window/themes/alphacube.css")
 	public abstract IAsset getAssetCss();
 	
+	@Parameter
+	public abstract String getQueryPageName();
+	
 	
     /**
 	 * 当选中某一条记录的时候，响应的js函数
 	 * @return
 	 */
-	@Parameter(defaultValue = "literal:onSelectFunName")
+	@Parameter(defaultValue = "literal:selectRecord")
 	public abstract String getOnSelectFunName();
 	
 	@Parameter
@@ -327,7 +338,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * 监听调用函数
 	 */
-	@Parameter(required = true)
+	@Parameter
 	public abstract IActionListener getListener();
 	
 	/**
@@ -340,4 +351,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	@InjectScript("WindowQueryDialog.script")
 	public abstract IScript getScript();
 	
+	@InjectObject("service:tapestry.services.Page")
+	public abstract IEngineService getPageService();
 }
