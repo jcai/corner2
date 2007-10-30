@@ -26,6 +26,7 @@
 	   if(!${component.dialogName}){
 						   								   
 		   ${component.dialogName} = new Window('${component.dialogName}',${props});
+		   ${component.dialogName}.setSize(document.body.clientWidth * 0.75,document.body.clientHeight * 0.75);
 		}								   
 		${component.dialogName}.showCenter();
 	}
