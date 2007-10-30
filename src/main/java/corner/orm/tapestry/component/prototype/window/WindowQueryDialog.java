@@ -21,6 +21,7 @@ import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
+import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.Asset;
 import org.apache.tapestry.annotations.InjectObject;
@@ -49,9 +50,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	public void trigger(IRequestCycle cycle) {
 		IActionListener listener = getListener();
 
-		if (listener == null)
-			return;
-//			throw Tapestry.createRequiredParameterException(this, "listener");
+		if (listener == null  && getQueryPageName() == null)
+			throw Tapestry.createRequiredParameterException(this, "listener or QueryPageName");
 
 		getListenerInvoker().invokeListener(listener, this, cycle);
 	}
@@ -119,7 +119,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 			writer.attribute("type", "text/css");
 			writer.attribute("href", url);
 		}
-		
 	}
 
 
