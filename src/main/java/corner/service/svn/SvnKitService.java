@@ -12,6 +12,8 @@
 
 package corner.service.svn;
 
+import java.util.List;
+
 
 /**
  * Svn服务包
@@ -31,7 +33,7 @@ public class SvnKitService<T extends ISvnModel>{
 	/**
 	 * 
 	 */
-	public void saveOrUpdateSvn(T o){
+	public void saveOrUpdateSvn(T t, List svnList){
 		System.out.println(svnurl);
 		System.out.println(username);
 		System.out.println(password);

@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.svn;
+package corner.service.svn;
 
 import java.io.ByteArrayInputStream;
 
