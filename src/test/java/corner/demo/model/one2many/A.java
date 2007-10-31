@@ -21,6 +21,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
+import corner.orm.tapestry.service.svn.ISvnModel;
 
 /**
  * @author jcai
@@ -32,7 +33,7 @@ import corner.demo.model.AbstractModel;
  */
 @Entity(name="one2manyA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class A extends AbstractModel{
+public class A extends AbstractModel implements ISvnModel{
 
 	/**
 	 * 

@@ -12,17 +12,20 @@
 
 package corner.demo.page.gainPoint;
 
+import java.io.IOException;
+
 import org.apache.tapestry.IPage;
 
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
+import corner.orm.tapestry.service.svn.ISvnKitProvider;
 
 /**
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class AFormPage extends ReflectMultiManyEntityFormPage{
+public abstract class AFormPage extends ReflectMultiManyEntityFormPage implements ISvnKitProvider{
 	
 	/**
 	 * 编辑实体操作.
@@ -38,5 +41,18 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage{
 		page.setRootedObject(this.getEntity());
 		
 		return page;
+	}
+	
+	/**
+	 * @see corner.orm.tapestry.page.AbstractEntityPage#saveOrUpdateEntity()
+	 */
+	@Override
+	protected void saveOrUpdateEntity() {
+		super.saveOrUpdateEntity();
+		try {
+			this.getSvnKitService().service(this.getRequestCycle());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

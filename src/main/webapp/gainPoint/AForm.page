@@ -12,11 +12,17 @@
     <binding value="listener:doCancelEntityAction" name="cancel"/>
     <binding value="listener:false" name="focus"/>
   </component>
-  <component type="corner:AssAC" id="nameField">
+  <component type="corner:AssAC" id="nameField12231">
     <binding name="queryClassName" value="literal:corner.demo.model.one.A" />
     <binding name="labelFields" value="literal:password" />
     <binding value="ognl:entity.name" name="value"/>
     <binding name="validators" value="validators:relationAss"/>
     <binding name="showField" value="literal:chnName"/>
+  </component>
+  <component type="TextField" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="translator:string" name="translator"/>
+    <binding value="ognl:entity.name" name="value"/>
+    <binding name="validators" value="validators:required"/>    
   </component>
 </page-specification>
