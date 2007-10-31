@@ -47,6 +47,15 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>xiafei</id>
+			<name>Fei Xia</name>
+			<email>xf@bjmaxinfo.com</email>
+			<organization>Beijing Maxinfo</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
 	</developers>
 	<scm>
 		<connection>scm:svn:http://dev.bjmaxinfo.com/svn/corner/trunk/corner</connection>

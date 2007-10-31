@@ -8,6 +8,5 @@
 	<classpathentry output="target/test-classes" kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry sourcepath="/svnkit-projects/svnkit" kind="lib" path="support/lib/svnkit.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

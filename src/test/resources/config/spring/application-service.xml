@@ -24,5 +24,20 @@
 		</property>
 	</bean>-->
 
+	<bean id="svnKitService" parent="baseServiceObject">
+		<property name="target">
+			<bean class="corner.service.svn.SvnKitService">
+				<property name="svnurl">
+					<value>http://dev.bjmaxinfo.com/svn/svn-test/</value>
+				</property>
+				<property name="username">
+					<value>xf</value>
+				</property>
+				<property name="password">
+					<value>123456</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
 	
 </beans>

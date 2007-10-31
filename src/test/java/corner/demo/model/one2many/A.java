@@ -21,7 +21,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
-import corner.orm.tapestry.service.svn.ISvnModel;
+import corner.service.svn.ISvnModel;
 
 /**
  * @author jcai
