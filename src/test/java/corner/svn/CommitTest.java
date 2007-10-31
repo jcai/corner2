@@ -17,8 +17,6 @@ import java.io.ByteArrayInputStream;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.tmatesoft.svn.core.SVNCommitInfo;
-import org.tmatesoft.svn.core.SVNErrorCode;
-import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNNodeKind;
 import org.tmatesoft.svn.core.SVNURL;
@@ -39,8 +37,8 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
  */
 public class CommitTest extends Assert{
 	
-//	@Test
-	public void addFile() throws SVNException{
+	@Test
+	public void SaveOrUpdateFile() throws SVNException{
 		setupLibrary(); //初始化
 		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
 		
@@ -48,8 +46,11 @@ public class CommitTest extends Assert{
         String userPassword = "123456";
         
         String svnPath = "svnKitTest";
+        String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
         byte[] contents = "第一次增加".getBytes();	//文件内容
         byte[] modifiedContents = "修改的内容".getBytes();
+        
+        System.out.println("fileName :" + fileName);
         
         
         SVNRepository repository = SVNRepositoryFactory.create(url);//连接
@@ -66,17 +67,50 @@ public class CommitTest extends Assert{
         
         SVNCommitInfo commitInfo = null;
         
-        commitInfo = addDir(editor, svnPath, "add2.txt", contents,nodeKind);
+        commitInfo = addDir(editor, svnPath, fileName, contents,nodeKind);
         System.out.println("The directory was added: " + commitInfo);
         
-        editor = repository.getCommitEditor("file contents changed", null);
-        commitInfo = modifyFile(editor, "test", "test/file.txt", contents, modifiedContents);
+        editor = repository.getCommitEditor("改变"+fileName, null);
+        commitInfo = modifyFile(editor, svnPath, svnPath +"/" + fileName, contents, modifiedContents);
         System.out.println("The file was changed: " + commitInfo);
-        
-//        editor = repository.getCommitEditor("删除", null);
-//        commitInfo = deleteFile(editor, "svnPath/add1.txt");
-//        System.out.println("The directory was deleted: " + commitInfo);
 	}
+	
+	@Test
+	public void DelectFile() throws SVNException{
+		setupLibrary(); //初始化
+		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
+		
+		String userName = "xf";
+        String userPassword = "123456";
+        
+        String svnPath = "svnKitTest";
+        String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
+        byte[] contents = "第一次增加".getBytes();	//文件内容
+        
+        System.out.println("fileName :" + fileName);
+        
+        SVNRepository repository = SVNRepositoryFactory.create(url);//连接
+		
+        ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(userName, userPassword);	//密码
+        repository.setAuthenticationManager(authManager);	//连接加入秘密
+        
+        SVNNodeKind nodeKind = repository.checkPath(svnPath, -1);	//最后版本和位置
+        
+        long latestRevision = repository.getLatestRevision();	//获得最后一个版本号
+        System.out.println("最后一个版本号: " + latestRevision);
+        
+        ISVNEditor editor = repository.getCommitEditor("测试增加", null);	//增加时的一些话
+        
+        SVNCommitInfo commitInfo = null;
+        
+        commitInfo = addDir(editor, svnPath, fileName, contents,nodeKind);
+        System.out.println("The directory was added: " + commitInfo);
+        
+        editor = repository.getCommitEditor("删除" + fileName, null);
+        commitInfo = deleteFileOrDir(editor, svnPath +"/" + fileName);
+        System.out.println("The directory was deleted: " + commitInfo);
+	}
+	
 	
 	/*
      * This method performs committing file modifications.
@@ -152,7 +186,10 @@ public class CommitTest extends Assert{
     }
 	
 	
-	private SVNCommitInfo deleteFile(ISVNEditor editor, String dirPath) throws SVNException {
+	/**
+	 * 删除文件或文件夹
+	 */
+	private SVNCommitInfo deleteFileOrDir(ISVNEditor editor, String dirPath) throws SVNException {
 		editor.openRoot(-1);
 		
 		editor.deleteEntry(dirPath, -1);
@@ -161,38 +198,6 @@ public class CommitTest extends Assert{
 		return editor.closeEdit();
 	}
 
-
-	/*
-     * This method performs committing a deletion of a directory.
-     */
-    private static SVNCommitInfo deleteDir(ISVNEditor editor, String dirPath) throws SVNException {
-        /*
-         * Always called first. Opens the current root directory. It  means  all
-         * modifications will be applied to this directory until  a  next  entry
-         * (located inside the root) is opened/added.
-         * 
-         * -1 - revision is HEAD
-         */
-        editor.openRoot(-1);
-        /*
-         * Deletes the subdirectory with all its contents.
-         * 
-         * dirPath is relative to the root directory.
-         */
-        editor.deleteEntry(dirPath, -1);
-        /*
-         * Closes the root directory.
-         */
-        editor.closeDir();
-        /*
-         * This is the final point in all editor handling. Only now all that new
-         * information previously described with the editor's methods is sent to
-         * the server for committing. As a result the server sends the new
-         * commit information.
-         */
-        return editor.closeEdit();
-    }
-	
 	/*
      * This method performs commiting an addition of a  directory  containing  a
      * file.
@@ -219,8 +224,6 @@ public class CommitTest extends Assert{
          * (the 3rd) parameter is set to  -1  since  the  directory is not added 
          * with history (is not copied, in other words).
          */
-        
-        
         
         if (nodeKind == SVNNodeKind.NONE) {
         	editor.addDir(dirPath,null ,-1);
