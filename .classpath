@@ -4,9 +4,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry excluding="dojo/*|tapestry/*" kind="src" path="src/main/js"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry output="target/test-classes" kind="src" path="src/test/java"/>
+	<classpathentry output="target/test-classes" kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry sourcepath="/svnkit-projects/svnkit" kind="lib" path="support/lib/svnkit.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
