@@ -51,6 +51,4 @@
 	<!-- for guice container -->
 	<sub-module descriptor="corner.guice.xml"/>
 	
-	<sub-module descriptor="corner.svn.xml"/>
-	
 </module>
