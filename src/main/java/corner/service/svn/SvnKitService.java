@@ -12,6 +12,7 @@
 
 package corner.service.svn;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,6 +32,7 @@ import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.io.ISVNEditor;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
+import org.tmatesoft.svn.core.io.diff.SVNDeltaGenerator;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 
@@ -57,72 +59,50 @@ public class SvnKitService<T extends ISvnModel>{
 	 */
 	public void saveOrUpdateSvn(T entiy, List svnList){
 		
-		SVNRepository repository = setupSvnRepository();
-		
-		int addNum = getAddSvnPathPlace(repository,entiy);
-		
-		debugInfo(addNum);
-		
-		ISVNEditor editor = null;
-		
-		try {
-			editor = repository.getCommitEditor("测试修改时增加", null); //增加时的一些话
-		} catch (SVNException e) {
-			e.printStackTrace();
-		}
-		
 		byte[] contents = "第一次增加".getBytes();	//文件内容
 		String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
 		
-        
-        SVNCommitInfo commitInfo = null;
-        
-        commitInfo = addDir(editor, entiy,addNum, fileName, contents);
-        debugInfo("svn增加成功: " + commitInfo);
+		SVNRepository repository = setupSvnRepository();
 		
-//		try {
-//			listEntries(repository, "");
-//		} catch (SVNException e) {
-//			e.printStackTrace();
-//		}
-	}
-	
-	private SVNCommitInfo addDir(ISVNEditor editor, T entiy, int addNum, String fileName, byte[] contents) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 获得需要增加的路径位置
-	 * @param repository 
-	 */
-	private int getAddSvnPathPlace(SVNRepository repository, T entiy) {
-		String noncePath = "";
+		String entityPath = entiy.getClass().getName();
+		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
 		
-		List<String> paths = getEntityPaths(entiy);
+		DirectoryFacade facade = null;
 		
-		Iterator it = paths.iterator();
-		
-		String path = null;
-		
-		int i=0;
+		ISVNEditor editor = null;
+		SVNCommitInfo commitInfo = null;
 		
 		try {
-			for(;i<paths.size();i++){
-				path = (String) it.next();
-				noncePath = noncePath + path + "/";
-				debugInfo("URL操作: " + url + noncePath);
-				
-				if (repository.checkPath(noncePath, -1) == SVNNodeKind.NONE) {
-					return i;
-		        }
-			}
+			facade = new DirectoryFacade(repository,entityPath);
+			editor = repository.getCommitEditor("测试修改时增加", null); //增加时的一些话
+			commitInfo = addAndModifyFile(editor, entiy,facade, fileName, contents);
 		} catch (SVNException e) {
 			e.printStackTrace();
 		}
 		
-		return i;
+        debugInfo("svn增加成功: " + commitInfo);
 	}
+	
+	/**
+	 * 增加和修改文件
+	 */
+	private SVNCommitInfo addAndModifyFile(ISVNEditor editor, T entiy, DirectoryFacade facade, String fileName, byte[] contents) throws SVNException {
+		editor.openRoot(-1);
+		
+		facade.openPath(editor);
+		
+		editor.addFile(fileName, null, -1);
+		editor.applyTextDelta(fileName, null);
+		
+		SVNDeltaGenerator deltaGenerator = new SVNDeltaGenerator();
+        String checksum = deltaGenerator.sendDelta(fileName, new ByteArrayInputStream(contents), editor, true);
+        editor.closeFile(fileName, checksum);
+        
+        facade.closePath(editor);
+		
+        return editor.closeEdit();
+	}
+
 	
 	/**
 	 * 活动路径数组

@@ -31,7 +31,7 @@ class DirectoryFacade {
 	/** 记录所有的目录callback **/
 	private List<DirectoryCallback> pathList;
 	/** 资源库路径的分割符**/
-	private final static String SVN_PATH_SEPERATOR="/";
+	protected final static String SVN_PATH_SEPERATOR="/";
 	/**
 	 * 创建一个目录的facade.
 	 * @param repository 资源路径.
