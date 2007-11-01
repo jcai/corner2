@@ -12,8 +12,12 @@
 
 package corner.util;
 
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import corner.service.EntityService;
 import corner.util.ognl.OgnlUtil;
 
 /**
@@ -39,6 +43,25 @@ public class BeanUtils {
 
 	}
 
+	/**
+	 * 获得对象中的可用的get方面名称集合
+	 * @param bean 处理的对象
+	 */
+	public static List getPropertyMethodNames(Object bean){
+		
+		Class ObjectClass = EntityService.getEntityClass(bean);
+		
+		List<String> propertys = new ArrayList<String>();
+		
+		PropertyDescriptor[] pds = org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptors(ObjectClass);
+		
+		for(PropertyDescriptor pd : pds){
+			propertys.add(pd.getDisplayName());
+		}
+		
+		return propertys;
+	}
+	
 	/**
 	 * 设定属性
 	 * 

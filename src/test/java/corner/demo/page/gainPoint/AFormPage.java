@@ -20,6 +20,7 @@ import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
 import corner.service.svn.ISvnKitProvider;
 import corner.service.svn.ISvnModel;
+import corner.util.BeanUtils;
 
 /**
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -50,6 +51,6 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage implement
 	@Override
 	protected void saveOrUpdateEntity() {
 		super.saveOrUpdateEntity();
-		this.getSvnKitService().saveOrUpdateSvn((ISvnModel) this.getEntity(),null,Arrays.asList("name".split(",")));
+		this.getSvnKitService().saveOrUpdateSvn((ISvnModel) this.getEntity(),null,BeanUtils.getPropertyMethodNames(this.getEntity()));
 	}
 }
