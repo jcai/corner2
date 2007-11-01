@@ -27,7 +27,7 @@
 	<bean id="svnKitService" parent="baseServiceObject">
 		<property name="target">
 			<bean class="corner.service.svn.SvnKitService">
-				<property name="svnurl">
+				<property name="url">
 					<value>http://dev.bjmaxinfo.com/svn/svn-test/</value>
 				</property>
 				<property name="username">
