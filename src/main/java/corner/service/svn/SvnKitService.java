@@ -41,6 +41,7 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 
+import corner.service.EntityService;
 import corner.util.BeanUtils;
 
 
@@ -66,29 +67,38 @@ public class SvnKitService<T extends ISvnModel>{
 	 * 增加和修改svn
 	 * @throws SVNException 
 	 */
-	public void saveOrUpdateSvn(T entiy, List<String> svnPropertyList){
-		
-		//获得文件名
-		String fileName = BeanUtils.getProperty(entiy, FILE_NAME) + ".txt";
+	public void saveOrUpdateSvn(T entiy,String massage, List<String> svnPropertyList){
 		
 		/*
 		 * 使用XStream获得json串
 		 */
 		XStream xstream = new XStream(new JettisonMappedXmlDriver());
-        xstream.alias(entiy.getClass().getSimpleName(), entiy.getClass());
+		
+		Class entityClass = EntityService.getEntityClass(entiy);
+        xstream.alias(entityClass.getSimpleName(), entityClass.getClass());
         
-        String jsonSvn = xstream.toXML(entiy);
+        /*
+         * 整理entity数据，变成map
+         */
+        Map map = new HashMap();
+        for(String property : svnPropertyList){
+        	map.put(property, BeanUtils.getProperty(entiy, property));
+        }
+        
+        String jsonSvn = xstream.toXML(map);
 		debugInfo(jsonSvn);
+		
+		SVNRepository repository = setupSvnRepository();
 		
 		//文件内容
 		byte[] contents = jsonSvn.getBytes();
 		
-		SVNRepository repository = setupSvnRepository();
-		
-		String entityPath = entiy.getClass().getName();
+		//获得文件名
+		String fileName = BeanUtils.getProperty(entiy, FILE_NAME) + ".txt";
+		String entityPath = entityClass.getName();
 		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
 		
-		String filePath = entityPath +"/" + fileName;	//文件路径
+		String filePath = entityPath +"/" + fileName;	//文件路径;
 		
 		DirectoryFacade facade = null;
 		
@@ -96,9 +106,9 @@ public class SvnKitService<T extends ISvnModel>{
 		SVNCommitInfo commitInfo = null;
 		
 		try {
-			byte[] oldContents = getOldContent(repository,filePath);
+			byte[] oldContents = getOldContent(repository,filePath, -1);
 			facade = new DirectoryFacade(repository,entityPath);
-			editor = repository.getCommitEditor("测试修改时增加", null); //增加时的一些话
+			editor = repository.getCommitEditor(massage, null); //增加时的一些话
 			commitInfo = addAndModifyFile(editor, entiy,facade,filePath, oldContents,contents);
 		} catch (SVNException e) {
 			e.printStackTrace();
@@ -111,14 +121,13 @@ public class SvnKitService<T extends ISvnModel>{
 	 * 获得最后一个版本信息
 	 * @throws SVNException 
 	 */
-	private byte[] getOldContent(SVNRepository repository, String filePath) throws SVNException {
-		
+	private byte[] getOldContent(SVNRepository repository, String filePath,long revision) throws SVNException {
 		debugInfo("filePath " + filePath);
 		
 		Map fileProperties = new HashMap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		SVNNodeKind nodeKind = repository.checkPath(filePath , -1);
+		SVNNodeKind nodeKind = repository.checkPath(filePath , revision);
         
         if (nodeKind == SVNNodeKind.NONE) {
             debugInfo("没有找到Url: '" + url + "'");
@@ -129,14 +138,49 @@ public class SvnKitService<T extends ISvnModel>{
         	return null;
         }
         
-        repository.getFile(filePath, -1, fileProperties, baos);
+        repository.getFile(filePath, revision, fileProperties, baos);
+        
+        debugInfo("json---- " + baos);
         
 		return baos.toByteArray();
+	}
+	
+	/**
+	 * 获得相应的版本
+	 */
+	public String getEntityRevision(T entiy,long revision){
+		//获得文件名
+		String fileName = BeanUtils.getProperty(entiy, FILE_NAME) + ".txt";
+		
+		Class entityClass = EntityService.getEntityClass(entiy);
+		
+		String entityPath = entityClass.getName();
+		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
+		
+		String filePath = entityPath +"/" + fileName;	//文件路径
+		
+		SVNRepository repository = setupSvnRepository();
+		
+		ByteArrayInputStream bis = null;
+		try {
+			bis = new ByteArrayInputStream(getOldContent(repository, filePath, revision));
+		} catch (SVNException e) {
+			e.printStackTrace();
+		}
+		
+		String json = bis.toString();
+		
+		debugInfo(json);
+		
+//		XStream xstream = new XStream(new JettisonMappedXmlDriver());
+//        xstream.alias(entiy.getClass().getSimpleName(), entiy.getClass());
+//		T entity = (T)xstream.fromXML(json);
+		
+		return json;
 	}
 
 	/**
 	 * 增加和修改文件
-	 * @param fileName2 
 	 */
 	private SVNCommitInfo addAndModifyFile(ISVNEditor editor, T entiy, DirectoryFacade facade, String filePath, byte[] oldContents, byte[] contents) throws SVNException {
 		

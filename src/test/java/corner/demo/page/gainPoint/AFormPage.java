@@ -12,7 +12,7 @@
 
 package corner.demo.page.gainPoint;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.tapestry.IPage;
 
@@ -50,6 +50,6 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage implement
 	@Override
 	protected void saveOrUpdateEntity() {
 		super.saveOrUpdateEntity();
-		this.getSvnKitService().saveOrUpdateSvn((ISvnModel) this.getEntity(),new ArrayList());
+		this.getSvnKitService().saveOrUpdateSvn((ISvnModel) this.getEntity(),null,Arrays.asList("name".split(",")));
 	}
 }

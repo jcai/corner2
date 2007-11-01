@@ -27,6 +27,20 @@ import edu.emory.mathcs.backport.java.util.Arrays;
  * @since 2.5
  */
 public class SvnKitServiceTest extends Assert{
+	
+	@Test
+	public void testEntityRevision(){
+		SvnKitService service = constructSvnKitService();
+		
+		A entity = new A();
+		entity.setId("test01");
+		
+		String s = service.getEntityRevision(entity, -1);
+	}
+	
+	/**
+	 * 增和改的测试
+	 */
 	@Test
 	public void testSaveOrUpdateSvn(){
 		SvnKitService service = constructSvnKitService();
@@ -35,11 +49,11 @@ public class SvnKitServiceTest extends Assert{
 		entity.setId("test01");
 		entity.setName("中国");
 		
-		String propertys = "cnName";
+		String propertys = "name";
 		
 		List ls = Arrays.asList(propertys.split(","));
 		
-		service.saveOrUpdateSvn(entity, ls);
+		service.saveOrUpdateSvn(entity,"增加的", ls);
 	}
 	
 	private SvnKitService constructSvnKitService(){
