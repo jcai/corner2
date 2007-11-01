@@ -24,27 +24,20 @@ import org.apache.tapestry.IRequestCycle;
 public abstract class Insert extends org.apache.tapestry.components.Insert {
 
 	
-	/**
-	 * @see org.apache.tapestry.components.Insert#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
-	 */
 	@Override
-	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+	protected void printText(IMarkupWriter writer, IRequestCycle cycle, String value) {
 		String inputValue = this.getValue()!=null?this.getValue().toString().trim():null;
 		if(inputValue != null && inputValue.length()>0 &&
 				this.getLength()>0 &&
 				inputValue.length()>this.getLength()){//指定的长度小于value的长度
 			StringBuffer buffer = new StringBuffer(inputValue.substring(0, this.getLength()));
 			buffer.append("...");
-			this.setValue(buffer.toString());
+			inputValue=buffer.toString();
 		}
-		super.renderComponent(writer, cycle);
+		
+		super.printText(writer, cycle, inputValue);
 	}
 
-	/**
-	 * 设置取得的value值
-	 * @param value
-	 */
-	public abstract void setValue(Object value);
 	
 	/**
 	 * 取得指定该字段显示的长度
