@@ -13,10 +13,13 @@
 package corner.service.svn;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,13 +62,17 @@ public class SvnKitService<T extends ISvnModel>{
 	 */
 	public void saveOrUpdateSvn(T entiy, List svnList){
 		
-		byte[] contents = "第一次增加".getBytes();	//文件内容
-		String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
+		byte[] contents = "第2次增加".getBytes();	//文件内容
+//		String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
+		
+		String fileName = "test222.txt";
 		
 		SVNRepository repository = setupSvnRepository();
 		
 		String entityPath = entiy.getClass().getName();
 		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
+		
+		String filePath = entityPath +"/" + fileName;	//文件路径
 		
 		DirectoryFacade facade = null;
 		
@@ -73,9 +80,10 @@ public class SvnKitService<T extends ISvnModel>{
 		SVNCommitInfo commitInfo = null;
 		
 		try {
+			byte[] oldContents = getOldContent(repository,filePath);
 			facade = new DirectoryFacade(repository,entityPath);
 			editor = repository.getCommitEditor("测试修改时增加", null); //增加时的一些话
-			commitInfo = addAndModifyFile(editor, entiy,facade, fileName, contents);
+			commitInfo = addAndModifyFile(editor, entiy,facade,filePath, oldContents,contents);
 		} catch (SVNException e) {
 			e.printStackTrace();
 		}
@@ -84,19 +92,60 @@ public class SvnKitService<T extends ISvnModel>{
 	}
 	
 	/**
-	 * 增加和修改文件
+	 * 获得最后一个版本信息
+	 * @throws SVNException 
 	 */
-	private SVNCommitInfo addAndModifyFile(ISVNEditor editor, T entiy, DirectoryFacade facade, String fileName, byte[] contents) throws SVNException {
+	private byte[] getOldContent(SVNRepository repository, String filePath) throws SVNException {
+		
+		debugInfo("filePath " + filePath);
+		
+		Map fileProperties = new HashMap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		SVNNodeKind nodeKind = repository.checkPath(filePath , -1);
+        
+        if (nodeKind == SVNNodeKind.NONE) {
+            debugInfo("没有找到Url: '" + url + "'");
+            return null;
+        } else if (nodeKind == SVNNodeKind.DIR) {
+        	debugInfo("Url地址是一个文件夹 '" + url
+                    + "'");
+        	return null;
+        }
+        
+        repository.getFile(filePath, -1, fileProperties, baos);
+        
+		return baos.toByteArray();
+	}
+
+	/**
+	 * 增加和修改文件
+	 * @param fileName2 
+	 */
+	private SVNCommitInfo addAndModifyFile(ISVNEditor editor, T entiy, DirectoryFacade facade, String filePath, byte[] oldContents, byte[] contents) throws SVNException {
+		
 		editor.openRoot(-1);
 		
 		facade.openPath(editor);
 		
-		editor.addFile(fileName, null, -1);
-		editor.applyTextDelta(fileName, null);
+		if(oldContents == null || oldContents.length ==0){
+			editor.addFile(filePath, null, -1);
+		}else{
+			editor.openFile(filePath, -1);
+		}
+		editor.applyTextDelta(filePath, null);
 		
 		SVNDeltaGenerator deltaGenerator = new SVNDeltaGenerator();
-        String checksum = deltaGenerator.sendDelta(fileName, new ByteArrayInputStream(contents), editor, true);
-        editor.closeFile(fileName, checksum);
+		
+		String checksum = null;
+		
+		if(oldContents == null || oldContents.length ==0){
+			checksum = deltaGenerator.sendDelta(filePath, new ByteArrayInputStream(contents), editor, true);
+		}else{
+			checksum = deltaGenerator.sendDelta(filePath, new ByteArrayInputStream(oldContents), 0, new ByteArrayInputStream(contents), editor, true);
+		}
+        
+        editor.closeFile(filePath, checksum);
         
         facade.closePath(editor);
 		
