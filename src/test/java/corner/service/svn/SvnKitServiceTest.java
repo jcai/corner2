@@ -32,8 +32,10 @@ public class SvnKitServiceTest extends Assert{
 		SvnKitService service = constructSvnKitService();
 		
 		A entity = new A();
+		entity.setId("test01");
+		entity.setName("中国");
 		
-		String propertys = "id,cnName";
+		String propertys = "cnName";
 		
 		List ls = Arrays.asList(propertys.split(","));
 		

@@ -38,6 +38,11 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.io.diff.SVNDeltaGenerator;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+
+import corner.util.BeanUtils;
+
 
 /**
  * Svn服务包
@@ -48,6 +53,7 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 public class SvnKitService<T extends ISvnModel>{
 	
 	private static final Log logger = LogFactory.getLog(SvnKitService.class);
+	private static final String FILE_NAME = "id";
 	
 	/**
 	 * svn信息
@@ -60,12 +66,22 @@ public class SvnKitService<T extends ISvnModel>{
 	 * 增加和修改svn
 	 * @throws SVNException 
 	 */
-	public void saveOrUpdateSvn(T entiy, List svnList){
+	public void saveOrUpdateSvn(T entiy, List<String> svnPropertyList){
 		
-		byte[] contents = "第2次增加".getBytes();	//文件内容
-//		String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
+		//获得文件名
+		String fileName = BeanUtils.getProperty(entiy, FILE_NAME) + ".txt";
 		
-		String fileName = "test222.txt";
+		/*
+		 * 使用XStream获得json串
+		 */
+		XStream xstream = new XStream(new JettisonMappedXmlDriver());
+        xstream.alias(entiy.getClass().getSimpleName(), entiy.getClass());
+        
+        String jsonSvn = xstream.toXML(entiy);
+		debugInfo(jsonSvn);
+		
+		//文件内容
+		byte[] contents = jsonSvn.getBytes();
 		
 		SVNRepository repository = setupSvnRepository();
 		
@@ -151,6 +167,18 @@ public class SvnKitService<T extends ISvnModel>{
 		
         return editor.closeEdit();
 	}
+	
+//	private String showDifferences(){
+//		
+//		String returnVal = null;
+//		
+//		SVNDiffClient theDiff = ourClientManager.getDiffClient();
+//		ByteArrayOutputStream diffStream =
+//			new ByteArrayOutputStream();	
+//		theDiff.doDiff(svnUrl, SVNRevision.create(-1), url, 
+//			SVNRevision.create(-2), false, false, diffStream);
+//		returnVal = new String(diffStream.toByteArray());	
+//	}
 
 	
 	/**
