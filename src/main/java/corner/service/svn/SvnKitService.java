@@ -75,7 +75,7 @@ public class SvnKitService<T extends ISvnModel>{
 		XStream xstream = new XStream(new JettisonMappedXmlDriver());
 		
 		Class entityClass = EntityService.getEntityClass(entiy);
-        xstream.alias(entityClass.getSimpleName(), entityClass.getClass());
+        xstream.alias(entityClass.getSimpleName(), entityClass);
         
         /*
          * 整理entity数据，变成map
