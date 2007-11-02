@@ -62,7 +62,7 @@
 		<url>http://dev.bjmaxinfo.com/projects/corner/browser/trunk/corner</url>
 	</scm>
 	<organization>
-		<name>Beijing Maxinfo Technology Ltd.</name>
+		<name>Beijing Maxinfo Technology Ltd</name>
 		<url>http://www.bjmaxinfo.com/</url>
 	</organization>
 	<build>
