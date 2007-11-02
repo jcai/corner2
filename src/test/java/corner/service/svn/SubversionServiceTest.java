@@ -15,6 +15,16 @@ public class SubversionServiceTest extends Assert{
 		service.checkin(a);
 		service.delete(a);
 	}
+	@Test
+	public void test_fetchObjectAsJson() throws Exception{
+		IVersionService service = constructService();
+		A a=new A();
+		a.setId("id");
+		service.checkin(a);
+		String str=service.fetchObjectAsJson(a,-1);
+		assertEquals("{\"entity\":{\"id\":\"id\"}}",str);
+		
+	}
 	
 	private IVersionService constructService() throws Exception{
 		SubversionService service=new SubversionService();
