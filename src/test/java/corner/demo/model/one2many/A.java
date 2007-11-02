@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
 import corner.service.svn.ISvnModel;
+import corner.service.svn.IVersionable;
 
 /**
  * @author jcai
@@ -33,7 +35,7 @@ import corner.service.svn.ISvnModel;
  */
 @Entity(name="one2manyA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class A extends AbstractModel implements ISvnModel{
+public class A extends AbstractModel implements IVersionable{
 
 	/**
 	 * 
@@ -63,6 +65,11 @@ public class A extends AbstractModel implements ISvnModel{
 	 */
 	public void setBs(List<B> bs) {
 		this.bs = bs;
+	}
+
+	@Transient
+	public String[] getNeedVersionableProperties() {
+		return new String[]{"id","name"};
 	}
 
 }

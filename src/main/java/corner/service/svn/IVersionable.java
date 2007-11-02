@@ -19,5 +19,10 @@ package corner.service.svn;
  * @since 2.5
  */
 public interface IVersionable {
-
+	/**
+	 * 得到需要进行版本控制的属性数组列表.
+	 * @return 需要版本控制的属性数组列表.
+	 */
+	public String[]  getNeedVersionableProperties();
+	
 }
