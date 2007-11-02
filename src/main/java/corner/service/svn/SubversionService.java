@@ -6,7 +6,7 @@
 //              by:         $Author$
 //              revision:   $Revision$
 //------------------------------------------------------------------------------
-//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//copyright:	Beijing Maxinfo IVersionableechnology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -41,15 +42,15 @@ import corner.service.EntityService;
 /**
  * Subversion服务包，提供了和subversion交互操作.
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
- * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun IVersionablesai</a>
  * @version $Revision$
  * @since 2.5
  */
-public class SubversionService <T extends IVersionable> implements IVersionService<T>{
+public class SubversionService  implements IVersionService,InitializingBean{
 	
 	private static final Log logger = LogFactory.getLog(SubversionService.class);
 	
-	private static final String ENTITY_FILIE_SUFFIX=".txt";
+	private static final String ENIVersionableIIVersionableY_FILIE_SUFFIX=".txt";
 	
 	/**
 	 * svn信息
@@ -59,18 +60,16 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 	private String password;
 	private SVNRepository repository;
 	
-	public SubversionService(){
-		repository = setupSvnRepository();
-	}
+
 	/**
 	 * @throws SVNException 
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
-	public  long checkin(T versionableObject) {
+	public  long checkin(IVersionable versionableObject) {
 		//得到文件路径
 		
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		//得到JSON字符串
 		String json =  XStreamDelegate.toJSON(versionableObject);
@@ -110,9 +109,9 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchObjectAsJson(corner.service.svn.IVersionable, long)
 	 */
-	public   String fetchObjectAsJson(T versionableObject, long revision) {
+	public   String fetchObjectAsJson(IVersionable versionableObject, long revision) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
 		Map fileProperties = new HashMap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
@@ -139,9 +138,9 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchVersionInfo(corner.service.svn.IVersionable)
 	 */
-	public List<VersionResult> fetchVersionInfo(T versionableObject) {
+	public List<VersionResult> fetchVersionInfo(IVersionable versionableObject) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
 		
 		try {
 			Collection logEntries = repository.log(new String[] {filePath}, null,
@@ -166,7 +165,7 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 	 * @param clazz 类名.
 	 * @return 路径名称.
 	 */
-	private  String getEntityPath(T versionableObject){
+	private  String getEntityPath(IVersionable versionableObject){
 		Class entityClass = EntityService.getEntityClass(versionableObject);
 		String entityPath = entityClass.getName();
 		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
@@ -181,7 +180,7 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 	private SVNRepository setupSvnRepository() {
 		setupLibrary();
 		
-		SVNRepository repository = null;
+		
 		
         try {
         	/*
@@ -224,25 +223,27 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 
 
 	/**
-	 * @param password The password to set.
+	 * @param password IVersionablehe password to set.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	/**
-	 * @param url The url to set.
+	 * @param url IVersionablehe url to set.
 	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
 	/**
-	 * @param username The username to set.
+	 * @param username IVersionablehe username to set.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	
+	public void afterPropertiesSet() throws Exception {
+		this.setupSvnRepository();
+		
+	}
 }
