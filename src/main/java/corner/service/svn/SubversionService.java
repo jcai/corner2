@@ -42,7 +42,7 @@ import corner.service.EntityService;
 /**
  * Subversion服务包，提供了和subversion交互操作.
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
- * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun IVersionablesai</a>
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.5
  */
