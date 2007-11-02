@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test sun</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /> field 3 <input id="field3"/><br/>
+	num<input id="num"/>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+dojo.event.connect(window,"onload",this,"val");
+val=function(evt){
+	
+	var postfix = "";
+	
+	var entityName = "A";
+	
+	var flags = eval({"A":{"id":"test01","name":"中国aaa"}});
+	
+	var temp;
+	
+	var array;
+	
+	var fieldId;
+	
+	var field;
+	
+	var entrys = flags[entityName];
+	
+	//alert(entrys);
+	
+	for(var key in entrys){
+	
+		fieldId = key + postfix;
+	
+		field = dojo.byId(fieldId);
+	
+		if(field != null){
+			field.value = field.value + "," + entrys[key];
+		}
+	}
+}
+
+//-->
+</SCRIPT>
+	
+</body>
+
+</html>

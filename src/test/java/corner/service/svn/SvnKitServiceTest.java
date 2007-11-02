@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 
 import corner.demo.model.one2many.A;
 import corner.util.BeanUtils;
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * svn测试
@@ -36,12 +37,15 @@ public class SvnKitServiceTest extends Assert{
 		
 		List<String> s =  BeanUtils.getPropertyMethodNames(entity);
 		
+		
 		for(String name : s){
 			System.out.println(name);
 		}
 	}
 	
-	@Test
+	
+	
+//	@Test
 	public void testEntityRevision(){
 		SvnKitService service = constructSvnKitService();
 		
@@ -60,9 +64,13 @@ public class SvnKitServiceTest extends Assert{
 		
 		A entity = new A();
 		entity.setId("test01");
-		entity.setName("中国");
+		entity.setName("中国aaa");
 		
-		service.saveOrUpdateSvn(entity,"增加的", BeanUtils.getPropertyMethodNames(entity));
+		String propertys = "id,name";
+		
+		List ls = Arrays.asList(propertys.split(","));
+		
+		service.saveOrUpdateSvn(entity,"增加的", ls);
 	}
 	
 	private SvnKitService constructSvnKitService(){

@@ -67,26 +67,18 @@ public class SvnKitService<T extends ISvnModel>{
 	 * 增加和修改svn
 	 * @throws SVNException 
 	 */
-	public void saveOrUpdateSvn(T entiy,String massage, List<String> svnPropertyList){
+	public void saveOrUpdateSvn(T entity,String massage, List<String> svnPropertyList){
 		
 		/*
 		 * 使用XStream获得json串
 		 */
 		XStream xstream = new XStream(new JettisonMappedXmlDriver());
 		
-		Class entityClass = EntityService.getEntityClass(entiy);
+		Class entityClass = EntityService.getEntityClass(entity);
         xstream.alias(entityClass.getSimpleName(), entityClass);
         
-        /*
-         * 整理entity数据，变成map
-         */
-        Map map = new HashMap();
-        for(String property : svnPropertyList){
-        	map.put(property, BeanUtils.getProperty(entiy, property));
-        }
-        
-        String jsonSvn = xstream.toXML(map);
-		debugInfo(jsonSvn);
+        String jsonSvn = xstream.toXML(entity);
+		debugInfo("json new ---- " + jsonSvn);
 		
 		SVNRepository repository = setupSvnRepository();
 		
@@ -94,7 +86,7 @@ public class SvnKitService<T extends ISvnModel>{
 		byte[] contents = jsonSvn.getBytes();
 		
 		//获得文件名
-		String fileName = BeanUtils.getProperty(entiy, FILE_NAME) + ".txt";
+		String fileName = BeanUtils.getProperty(entity, FILE_NAME) + ".txt";
 		String entityPath = entityClass.getName();
 		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
 		
@@ -109,7 +101,7 @@ public class SvnKitService<T extends ISvnModel>{
 			byte[] oldContents = getOldContent(repository,filePath, -1);
 			facade = new DirectoryFacade(repository,entityPath);
 			editor = repository.getCommitEditor(massage, null); //增加时的一些话
-			commitInfo = addAndModifyFile(editor, entiy,facade,filePath, oldContents,contents);
+			commitInfo = addAndModifyFile(editor, entity,facade,filePath, oldContents,contents);
 		} catch (SVNException e) {
 			e.printStackTrace();
 		}
@@ -140,7 +132,7 @@ public class SvnKitService<T extends ISvnModel>{
         
         repository.getFile(filePath, revision, fileProperties, baos);
         
-        debugInfo("json---- " + baos);
+        debugInfo("json old ---- " + baos);
         
 		return baos.toByteArray();
 	}
