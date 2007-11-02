@@ -16,6 +16,9 @@
           <td>
             <span key="link.delete">delete</span>
           </td>
+		  <td>
+            <span key="History">History</span>
+          </td>
         </tr>
         <tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
           <td>
@@ -29,6 +32,11 @@
           <td>
             <a parameters="ognl:entity" listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#">
               <span key="link.delete">Delete</span>
+            </a>
+          </td>
+		  <td>
+            <a parameters="ognl:entity" listener="listener:doVersionPage" jwcid="@DirectLink" href="#">
+              <span key="History">History</span>
             </a>
           </td>
         </tr>
