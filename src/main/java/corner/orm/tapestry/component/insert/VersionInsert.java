@@ -37,15 +37,15 @@ public abstract class VersionInsert extends org.apache.tapestry.components.Inser
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		super.renderComponent(writer, cycle);
-		PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 		
-		Map<String, Object> parms = new HashMap<String, Object>();
-		parms.put("component", this);
-//		parms.put("showProperty", getShowProperty());
-//		parms.put("jsonName", getJsonName());
-//		parms.put("entityName", getEntityName());
-		
-		getScript().execute(this, cycle, pageRenderSupport, parms);
+		if (!cycle.isRewinding()) {
+			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
+			
+			Map<String, Object> parms = new HashMap<String, Object>();
+			parms.put("component", this);
+			
+			getScript().execute(this, cycle, pageRenderSupport, parms);
+		}
 	}
 	
 	/**

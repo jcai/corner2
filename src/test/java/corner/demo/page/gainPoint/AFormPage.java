@@ -50,6 +50,6 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage implement
 	protected void saveOrUpdateEntity() {
 		super.saveOrUpdateEntity();
 		
-		this.getSvnKitService().checkin((IVersionable) this.getEntity());
+		this.getSubversionService().checkin((IVersionable) this.getEntity());
 	}
 }

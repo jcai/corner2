@@ -26,7 +26,6 @@
   <component-type type="PropertySelection" specification-path="propertyselection/PropertySelection.jwc"/>
   <component-type type="GoAnchor" specification-path="anchor/GoAnchor.jwc"/>
   <component-type type="Insert" specification-path="insert/Insert.jwc"/>
-  <component-type type="VInsert" specification-path="insert/VersionInsert.jwc"/>
   <component-type type="Selector" specification-path="select/Selector.jwc"/>
 
   <component-type type="MatrixHead" specification-path="matrix/MatrixHead.jwc"/>
@@ -64,5 +63,7 @@
   <component-type type="WindowQueryDialog" specification-path="prototype/window/WindowQueryDialog.jwc"/>
   <component-type type="WinSelectedField" specification-path="prototype/window/WinSelectedField.jwc"/>
   
+  <component-type type="VInsert" specification-path="insert/VersionInsert.jwc"/>
+  <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
 
 </library-specification>
