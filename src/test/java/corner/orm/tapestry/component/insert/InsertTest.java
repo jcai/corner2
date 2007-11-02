@@ -58,7 +58,7 @@ public class InsertTest extends BaseComponentTestCase {
 
 		expect(cycle.renderStackPush(insert)).andReturn(insert);
 
-		writer.print("1         ", false);
+		writer.print("1", false);
 
 		expect(cycle.renderStackPop()).andReturn(insert);
 
