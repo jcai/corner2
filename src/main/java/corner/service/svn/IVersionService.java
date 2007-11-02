@@ -50,4 +50,10 @@ public interface IVersionService {
 	 * @return json字符串.
 	 */
 	public  String fetchObjectAsJson(IVersionable versionableObject,long revision);
+	/**
+	 * 删除一个版本
+	 * 
+	 * @param versionableObject 待版本化的对象.
+	 */
+	public void delete(IVersionable versionableObject);
 }

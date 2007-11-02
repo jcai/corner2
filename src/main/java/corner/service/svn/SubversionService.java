@@ -161,6 +161,33 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		}
 	}
 	/**
+	 * 
+	 * @see corner.service.svn.IVersionService#delete(corner.service.svn.IVersionable)
+	 */
+	public void delete(IVersionable versionableObject) {
+		String entityPath = getEntityPath(versionableObject);
+		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
+		logger.debug(filePath);
+		try {
+			
+			if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
+				return;
+			}
+			
+			ISVNEditor editor = repository.getCommitEditor(versionableObject.getComment(), null); //增加时的一些话
+			//open root dir
+			editor.openRoot(-1);
+
+			editor.deleteEntry(filePath, -1);
+			editor.closeDir();
+			
+			editor.closeEdit();
+		} catch (SVNException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
 	 * 通过给定的类名来产生一个文件的路径名称.
 	 * @param clazz 类名.
 	 * @return 路径名称.
@@ -246,4 +273,5 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		this.setupSvnRepository();
 		
 	}
+	
 }

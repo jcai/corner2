@@ -13,7 +13,9 @@ public class SubversionServiceTest extends Assert{
 		A a=new A();
 		a.setId("id");
 		service.checkin(a);
+		service.delete(a);
 	}
+	
 	private IVersionService constructService() throws Exception{
 		SubversionService service=new SubversionService();
 		service.setUsername("xf");
