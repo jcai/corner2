@@ -10,7 +10,7 @@
 		<system>trac</system>
 		<url>http://dev.bjmaxinfo.com/projects/corner/newticket</url>
 	</issueManagement>
-	<inceptionYear>2005-2007</inceptionYear>
+	<inceptionYear>2005</inceptionYear>
 	<ciManagement>
 		<system>continuum</system>
 		<notifiers>
