@@ -24,9 +24,9 @@
 		</property>
 	</bean>-->
 
-	<bean id="svnKitService" parent="baseServiceObject">
+	<bean id="versionService" parent="baseServiceObject">
 		<property name="target">
-			<bean class="corner.service.svn.SvnKitService">
+			<bean class="corner.service.svn.SubversionService">
 				<property name="url">
 					<value>http://dev.bjmaxinfo.com/svn/svn-test/</value>
 				</property>

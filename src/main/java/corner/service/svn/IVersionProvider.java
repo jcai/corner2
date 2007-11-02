@@ -19,7 +19,7 @@ import org.apache.tapestry.annotations.InjectObject;
  * @version $Revision$
  * @since 2.5
  */
-public interface ISvnKitProvider {
-	@InjectObject("spring:svnKitService")
+public interface IVersionProvider {
+	@InjectObject("spring:versionService")
     public abstract SubversionService getSvnKitService();
 }

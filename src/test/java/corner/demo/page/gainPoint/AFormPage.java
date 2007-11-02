@@ -16,7 +16,7 @@ import org.apache.tapestry.IPage;
 
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
-import corner.service.svn.ISvnKitProvider;
+import corner.service.svn.IVersionProvider;
 import corner.service.svn.IVersionable;
 import corner.util.BeanUtils;
 
@@ -25,7 +25,7 @@ import corner.util.BeanUtils;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class AFormPage extends ReflectMultiManyEntityFormPage implements ISvnKitProvider{
+public abstract class AFormPage extends ReflectMultiManyEntityFormPage implements IVersionProvider{
 	
 	/**
 	 * 编辑实体操作.
