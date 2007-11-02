@@ -12,14 +12,12 @@
 
 package corner.demo.page.gainPoint;
 
-import java.util.Arrays;
-
 import org.apache.tapestry.IPage;
 
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
 import corner.service.svn.ISvnKitProvider;
-import corner.service.svn.ISvnModel;
+import corner.service.svn.IVersionable;
 import corner.util.BeanUtils;
 
 /**
@@ -51,6 +49,7 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage implement
 	@Override
 	protected void saveOrUpdateEntity() {
 		super.saveOrUpdateEntity();
-		this.getSvnKitService().saveOrUpdateSvn((ISvnModel) this.getEntity(),null,BeanUtils.getPropertyMethodNames(this.getEntity()));
+		
+		this.getSvnKitService().checkin((IVersionable) this.getEntity());
 	}
 }

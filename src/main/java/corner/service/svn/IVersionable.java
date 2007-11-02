@@ -12,17 +12,24 @@
 
 package corner.service.svn;
 
+import corner.orm.hibernate.IPersistModel;
+
 /**
  * 可进行版本控制的model接口.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.5
  */
-public interface IVersionable {
+public interface IVersionable extends IPersistModel{
 	/**
 	 * 得到需要进行版本控制的属性数组列表.
 	 * @return 需要版本控制的属性数组列表.
 	 */
 	public String[]  getNeedVersionableProperties();
+	/**
+	 * 得到提交时候的注释.
+	 * @return 注释信息
+	 */
+	public String getComment();
 	
 }

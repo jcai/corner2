@@ -22,7 +22,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
-import corner.service.svn.ISvnModel;
+
 import corner.service.svn.IVersionable;
 
 /**
@@ -70,6 +70,11 @@ public class A extends AbstractModel implements IVersionable{
 	@Transient
 	public String[] getNeedVersionableProperties() {
 		return new String[]{"id","name"};
+	}
+
+	@Transient
+	public String getComment() {
+		return null;
 	}
 
 }

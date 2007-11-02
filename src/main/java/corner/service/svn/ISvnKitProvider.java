@@ -21,5 +21,5 @@ import org.apache.tapestry.annotations.InjectObject;
  */
 public interface ISvnKitProvider {
 	@InjectObject("spring:svnKitService")
-    public abstract SvnKitService getSvnKitService();
+    public abstract SubversionService getSvnKitService();
 }
