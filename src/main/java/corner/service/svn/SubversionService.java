@@ -12,21 +12,16 @@
 
 package corner.service.svn;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.tmatesoft.svn.core.SVNCommitInfo;
-import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -38,14 +33,9 @@ import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.io.ISVNEditor;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
-import org.tmatesoft.svn.core.io.diff.SVNDeltaGenerator;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-
 import corner.service.EntityService;
-import corner.util.BeanUtils;
 
 
 /**
@@ -81,6 +71,7 @@ public class SubversionService <T extends IVersionable> implements IVersionServi
 		
 		String entityPath = getEntityPath(versionableObject);
 		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		logger.debug(filePath);
 		//得到JSON字符串
 		String json =  XStreamDelegate.toJSON(versionableObject);
 		
