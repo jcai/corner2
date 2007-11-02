@@ -17,20 +17,26 @@ djConfig = { isDebug: true
 </head>
 
 <body>
-id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /> field 3 <input id="field3"/><br/>
-	num<input id="num"/>
+id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /><br/>	
+<span id ="nameee" >dsadsa</span>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
+var flags = eval({"entity":{"id":"test01","name":"中国aaa"}});
+	
+dojo.event.connect(window,"onload",this,"aaa");
+aaa=function(evt){
+	dojo.byId("nameee").innerHTML = flags["entity"]["name"];
+}
 
 dojo.event.connect(window,"onload",this,"val");
 val=function(evt){
 	
-	var postfix = "";
+	var postfix = "Field";
 	
-	var entityName = "A";
+	var entityName = "entity";
 	
-	var flags = eval({"A":{"id":"test01","name":"中国aaa"}});
+	var flags = eval({"entity":{"id":"test01","name":"中国aaa"}});
 	
 	var temp;
 	
