@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+
+<input-symbol key="component" required="yes" />
+
+<initialization>
+	dojo.event.connect(window,"onload","val");
+	val=function(evt){
+		$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
+	}
+</initialization>
+</script>

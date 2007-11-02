@@ -25,4 +25,11 @@
     <binding value="ognl:entity.name" name="value"/>
     <binding name="validators" value="validators:required"/>    
   </component>
+  
+  <component type="corner:VInsert" id="nameVInsertField">
+    <binding value="literal:name" name="showProperty"/>
+    <binding value="literal:flags" name="jsonName"/>
+    <binding value="ognl:entity.name" name="value"/>
+  </component>
+  
 </page-specification>
