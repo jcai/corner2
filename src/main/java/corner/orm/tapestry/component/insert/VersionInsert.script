@@ -5,12 +5,16 @@
 <script>
 
 <include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/corner/orm/tapestry/component/insert/prototip/prototip.js" />
 
 <input-symbol key="component" required="yes" />
 
 <initialization>
-	dojo.event.connect(window,"onload","val");
-	val=function(evt){
+	
+	if(${component.jsonName}["${component.entityName}"]["${component.showProperty}"] != ${component.jsonOtherName}["${component.entityName}"]["${component.showProperty}"]){
+		$("${component.clientId}").update( &quot;&lt;font color='#FF0000'&gt;&quot; + ${component.jsonName}["${component.entityName}"]["${component.showProperty}"] + &quot;&lt;/font&gt;&quot;);
+		new Tip($("${component.clientId}"), ${component.jsonOtherName}["${component.entityName}"]["${component.showProperty}"]);
+	}else{
 		$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
 	}
 </initialization>

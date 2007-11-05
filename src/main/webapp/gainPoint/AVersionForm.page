@@ -9,11 +9,13 @@
   <component type="corner:VInsert" id="nameVInsertField">
     <binding value="literal:name" name="showProperty"/>
     <binding value="literal:flags" name="jsonName"/>
+    <binding value="literal:flags2" name="jsonOtherName"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
   <component type="corner:VInsert" id="idVInsertField">
     <binding value="literal:id" name="showProperty"/>
     <binding value="literal:flags" name="jsonName"/>
+    <binding value="literal:flags2" name="jsonOtherName"/>
     <binding value="ognl:entity.id" name="value"/>
   </component>
   

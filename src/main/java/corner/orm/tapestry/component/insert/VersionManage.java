@@ -67,12 +67,37 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			EntityPage page = (EntityPage)getPage().getRequestCycle().getPage();
 			
 			Object entity = page.getEntity();
-			long v = ((IVersionProvider)page).getVersionNum();
+			long v1 = ((IVersionProvider)page).getVersionNum();
 			
-			if(v == 0) {v = -1;}
+			long v2 = ((IVersionProvider)page).getOtherVersionNum();
 			
-			parms.put("json", getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v):NULL_JSON);
+			if(v1 == 0) {v1 = -1;}
+			
+			if(v2 == 0) {v2 = -1;}
+			
+			String json1 = getJsonVersion(entity,v1);
+			
+			String json2 = getJsonVersion(entity,v2);
+			
+//			if((json1.split("\"")).length < (json2.split("\"")).length);{
+//				String t = json1;
+//				json1 = json2;
+//				json2 = t;
+//			}
+			
+			parms.put("json", json1);
+			parms.put("json2", json2);
 			getScript().execute(this, cycle, prs, parms);
 		}
+	}
+
+	/**
+	 * 获得相应版本的json串
+	 * @param entity 实体
+	 * @param v 版本号
+	 * @return 返回的json串
+	 */
+	private String getJsonVersion(Object entity, long v) {
+		return getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v):NULL_JSON;
 	}
 }

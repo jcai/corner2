@@ -5,8 +5,10 @@
 <script>
 
 <input-symbol key="json" required="yes" />
+<input-symbol key="json2" required="yes" />
 
 <initialization>
 	var flags = eval(${json});
+	var flags2 = eval(${json2});
 </initialization>
 </script>

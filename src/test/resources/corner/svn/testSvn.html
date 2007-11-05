@@ -12,53 +12,32 @@ djConfig = { isDebug: true
 
 //-->
 </SCRIPT>
+	
+<link rel="stylesheet" type="text/css" media="all" href="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.css" />
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.js"></script>
+
 </head>
 
 <body>
+
 id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /><br/>	
 <span id ="nameee" >dsadsa</span>
+	
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-var flags = eval({"entity":{"id":"test01","name":"中国aaa"}});
+var flags = eval({"entity":{"id":"test01","name":"中国111"}});
+	
+var flags2 = eval({"entity":{"id":"test01","name":"中国222"}});
 	
 dojo.event.connect(window,"onload",this,"aaa");
 aaa=function(evt){
-	dojo.byId("nameee").innerHTML = flags["entity"]["name"];
-}
-
-dojo.event.connect(window,"onload",this,"val");
-val=function(evt){
-	
-	var postfix = "Field";
-	
-	var entityName = "entity";
-	
-	var flags = eval({"entity":{"id":"test01","name":"中国aaa"}});
-	
-	var temp;
-	
-	var array;
-	
-	var fieldId;
-	
-	var field;
-	
-	var entrys = flags[entityName];
-	
-	//alert(entrys);
-	
-	for(var key in entrys){
-	
-		fieldId = key + postfix;
-	
-		field = dojo.byId(fieldId);
-	
-		if(field != null){
-			field.value = field.value + "," + entrys[key];
-		}
+	if(flags["entity"]["name"] != flags2["entity"]["name"]){
+		$("nameee").update(flags["entity"]["name"] );
+		new Tip($("nameee"), flags2["entity"]["name"]);
 	}
 }
 
