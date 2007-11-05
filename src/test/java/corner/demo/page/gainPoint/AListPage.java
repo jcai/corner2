@@ -40,7 +40,7 @@ public abstract class AListPage extends PoListPage implements IVersionProvider{
 	@Override
 	public IPage doDeleteEntityAction(Object entity) {
 		IPage page =  super.doDeleteEntityAction(entity);
-		this.getSubversionService().delete((IVersionable) this.getEntity());
-		return page;
+		this.getSubversionService().delete((IVersionable) entity);
+		return this;
 	}
 }
