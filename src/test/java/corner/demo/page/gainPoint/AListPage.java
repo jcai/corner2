@@ -14,7 +14,6 @@ package corner.demo.page.gainPoint;
 
 import org.apache.tapestry.IPage;
 
-import corner.orm.tapestry.page.EntityPage;
 import corner.orm.tapestry.page.PoListPage;
 import corner.service.svn.IVersionable;
 

@@ -49,8 +49,13 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		if (!cycle.isRewinding()) {
 			PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 			Map<String, String> parms = new HashMap<String, String>();
-			Object entity = ((EntityPage)getPage().getRequestCycle().getPage()).getEntity();
-			parms.put("json", this.getSubversionService().fetchObjectAsJson((IVersionable) entity, -1));
+			
+			EntityPage page = (EntityPage)getPage().getRequestCycle().getPage();
+			
+			Object entity = page.getEntity();
+			long v = ((IVersionProvider)page).getVersionNum();
+			
+			parms.put("json", this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v));
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}

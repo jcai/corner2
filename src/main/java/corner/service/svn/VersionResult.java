@@ -12,6 +12,7 @@
 
 package corner.service.svn;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,8 +21,14 @@ import java.util.Date;
  * @version $Revision$
  * @since 2.5
  */
-public class VersionResult {
+public class VersionResult implements Serializable{
+	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6494057726673233107L;
+	
 	/** 版本号 **/
 	private long versionNum;
 	/** 作者 **/

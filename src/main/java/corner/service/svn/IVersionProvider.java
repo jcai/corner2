@@ -22,4 +22,15 @@ import org.apache.tapestry.annotations.InjectObject;
 public interface IVersionProvider {
 	@InjectObject("spring:versionService")
     public abstract SubversionService getSubversionService();
+	
+	/**
+	 * 得到实体。
+	 * @return 实体。
+	 */
+	public abstract long getVersionNum();
+	/***
+	 * 设定实体。
+	 * @param entity 实体。
+	 */
+	public abstract  void  setVersionNum(long versionNum);
 }
