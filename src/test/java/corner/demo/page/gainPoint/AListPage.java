@@ -15,6 +15,7 @@ package corner.demo.page.gainPoint;
 import org.apache.tapestry.IPage;
 
 import corner.orm.tapestry.page.PoListPage;
+import corner.service.svn.IVersionProvider;
 import corner.service.svn.IVersionable;
 
 /**
@@ -22,7 +23,7 @@ import corner.service.svn.IVersionable;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class AListPage extends PoListPage{
+public abstract class AListPage extends PoListPage implements IVersionProvider{
 	/**
 	 * @param entity
 	 * @return
@@ -30,6 +31,16 @@ public abstract class AListPage extends PoListPage{
 	public IPage doVersionPage(Object entity){
 		AVersionListPage page = (AVersionListPage) this.getRequestCycle().getPage("gainPoint/AVersionList");
 		page.setVersionEntity((IVersionable) entity);
+		return page;
+	}
+
+	/**
+	 * @see corner.orm.tapestry.page.AbstractEntityListPage#doDeleteEntityAction(java.lang.Object)
+	 */
+	@Override
+	public IPage doDeleteEntityAction(Object entity) {
+		IPage page =  super.doDeleteEntityAction(entity);
+		this.getSubversionService().delete((IVersionable) this.getEntity());
 		return page;
 	}
 }

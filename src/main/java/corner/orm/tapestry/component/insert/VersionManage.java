@@ -21,10 +21,12 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.form.IFormComponent;
 
 import corner.orm.tapestry.page.EntityPage;
+import corner.service.EntityService;
 import corner.service.svn.IVersionProvider;
 import corner.service.svn.IVersionable;
 
@@ -38,6 +40,18 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	
 	@InjectScript("VersionManage.script")
 	public abstract IScript getScript();
+	
+	
+	private static String NULL_JSON = "{\"entity\":{\"id\":\"\"}}";
+	
+	/**
+	 * 得到EntityService.
+	 * <p>提供基本的操作.
+	 * @return entityService 实体服务类
+	 * @since 2.0
+	 */
+	@InjectObject("spring:entityService")
+	public abstract EntityService getEntityService();
 	
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
@@ -55,7 +69,9 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			Object entity = page.getEntity();
 			long v = ((IVersionProvider)page).getVersionNum();
 			
-			parms.put("json", this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v));
+			if(v == 0) {v = -1;}
+			
+			parms.put("json", getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v):NULL_JSON);
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}
