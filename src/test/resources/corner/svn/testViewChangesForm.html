@@ -1,11 +1,29 @@
-<span jwcid="@DemoBorder">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test FieldPlusEq validator</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+</head>
+<body>
+
     <center>
       <a jwcid="@PageLink" page="gainPoint/AList"><span key="GainPoint" /></a>
     </center>
 	
 	<form jwcid="AViewChangesForm" action="AList.html">
 	  <input type="hidden" name="compare" jwcid="compareField" id="compareField"/>
-      <input jwcid="@Submit" type="Submit" value="message:button.Okay" id="viewChangesField" onclick="return checkup();" />
+      <input type="Submit" id="viewChangesField" onclick="return checkup();"  />
     </form>
 	
       <table>
@@ -28,8 +46,28 @@
         </tr>
         <tr jwcid="@For" source="ognl:versionInfo" value="ognl:entity" element="tr">
 		  <td>
-			<input type="radio" name="old" jwcid="@Any" value="ognl:entity.versionNum" />
-			<input type="radio" name="new" jwcid="@Any" value="ognl:entity.versionNum" />
+			<input type="radio" name="old" jwcid="@Any" value="321" />
+			<input type="radio" name="new" jwcid="@Any" value="321" />
+          </td>
+          <td>
+			<a parameters="ognl:entity" listener="listener:doDifferencePage" jwcid="@DirectLink" href="#">
+              <span jwcid="@Insert" value="ognl:entity.versionNum">versionNum</span>
+            </a>
+          </td>
+		  <td>
+            <span jwcid="@Insert" value="ognl:entity.author">author</span>
+          </td>
+		  <td>
+            <span jwcid="@Insert" value="ognl:entity.comment">comment</span>
+          </td>
+		  <td>
+            <span jwcid="@Insert" value="ognl:entity.createDate">createDate</span>
+          </td>
+        </tr>
+		<tr jwcid="@For" source="ognl:versionInfo" value="ognl:entity" element="tr">
+		  <td>
+			<input type="radio" name="old" jwcid="@Any" value="5645" />
+			<input type="radio" name="new" jwcid="@Any" value="5645" />
           </td>
           <td>
 			<a parameters="ognl:entity" listener="listener:doDifferencePage" jwcid="@DirectLink" href="#">
@@ -71,9 +109,9 @@ function checkup(){
 	
 	var newField =  getRadioValue('new');
 	
-	dojo.byId('compareField').value= "S" + oldField + "," + newField;
+	dojo.byId('compareField').value= oldField + "," + newField;
 	
-	if (oldField || newField){
+	if (dojo.byId('compareField').value){
 	  return true;
 	}else{
 	  return false;
@@ -83,4 +121,7 @@ function checkup(){
 
 //-->
 </SCRIPT>
-</span>
+	
+</body>
+
+</html>

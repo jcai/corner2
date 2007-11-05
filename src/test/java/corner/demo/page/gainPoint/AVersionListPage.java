@@ -50,4 +50,16 @@ public  abstract class AVersionListPage extends PoListPage implements IVersionPr
 		page.setVersionNum(entity.getVersionNum());
 		return page;
 	}
+	
+	public IPage doViewChanges(){
+		String [] ver = getCompare().split(",");
+		AFormPage page = (AFormPage) this.getRequestCycle().getPage("gainPoint/AVersionForm");
+		page.setEntity(getVersionEntity());
+		page.setVersionNum(Long.valueOf(ver[0]));
+		page.setOtherVersionNum(Long.valueOf(ver[1]));
+		return page;
+	}
+	
+	public abstract String getCompare();
+	public abstract void setCompare(String compare);
 }

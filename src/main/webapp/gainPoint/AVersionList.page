@@ -5,4 +5,14 @@
   <description>corner.demo.model.one2many.A Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <property initial-value="new corner.service.svn.VersionResult()" name="entity"/>
+  <component type="Form" id="AViewChangesForm">
+    <binding value="ognl:beans.delegate" name="delegate"/>
+    <binding value="ognl:true" name="clientValidationEnabled"/>
+    <binding value="listener:doViewChanges" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+  </component>
+  <component type="Hidden" id="compareField">
+    <binding name="value" value="ognl:compare"/>
+  </component>
+  
 </page-specification>

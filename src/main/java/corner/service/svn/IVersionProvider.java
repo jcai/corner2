@@ -24,13 +24,22 @@ public interface IVersionProvider {
     public abstract SubversionService getSubversionService();
 	
 	/**
-	 * 得到实体。
-	 * @return 实体。
+	 * 要显示的版本号1
 	 */
 	public abstract long getVersionNum();
+	
 	/***
-	 * 设定实体。
-	 * @param entity 实体。
+	 * 要显示的版本号1
 	 */
 	public abstract  void  setVersionNum(long versionNum);
+	
+	/**
+	 * 要显示的版本号2
+	 */
+	public abstract long getOtherVersionNum();
+	
+	/***
+	 * 要显示的版本号2
+	 */
+	public abstract  void  setOtherVersionNum(long versionNum);
 }
