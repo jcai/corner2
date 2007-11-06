@@ -10,16 +10,16 @@
 <input-symbol key="component" required="yes" />
 
 <initialization>
-	dojo.debug($("${component.clientId}"));
-	
 	if(${component.jsonOtherName}["${component.entityName}"]["${component.showProperty}"] == null){
-		$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
+		if(${component.jsonName}["${component.entityName}"]["${component.showProperty}"] != null)
+			$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
 	}else{
 		if(${component.jsonName}["${component.entityName}"]["${component.showProperty}"] != ${component.jsonOtherName}["${component.entityName}"]["${component.showProperty}"]){
 			$("${component.clientId}").update( &quot;&lt;font color='#FF0000'&gt;&quot; + ${component.jsonName}["${component.entityName}"]["${component.showProperty}"] + &quot;&lt;/font&gt;&quot;);
 			new Tip($("${component.clientId}"), ${component.jsonOtherName}["${component.entityName}"]["${component.showProperty}"]);
 		}else{
-			$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
+			if(${component.jsonName}["${component.entityName}"]["${component.showProperty}"] != null)
+				$("${component.clientId}").update(${component.jsonName}["${component.entityName}"]["${component.showProperty}"]);
 		}
 	}
 </initialization>
