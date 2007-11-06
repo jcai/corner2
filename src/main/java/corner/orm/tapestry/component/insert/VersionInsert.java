@@ -85,6 +85,7 @@ public abstract class VersionInsert extends org.apache.tapestry.components.Inser
 	/**
 	 * 设置的json名字
 	 */
+	@Parameter(defaultValue = "literal:flags")
 	public abstract String getJsonName();
 	
 	/**
