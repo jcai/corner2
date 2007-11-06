@@ -15,13 +15,11 @@ package corner.orm.tapestry.component.insert;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
-import org.apache.tapestry.annotations.Asset;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 
@@ -38,12 +36,10 @@ public abstract class VersionInsert extends org.apache.tapestry.components.Inser
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		writer.begin("span");
+		writer.attribute("id", this.getClientId());
 		super.renderComponent(writer, cycle);
-		
-		writer.beginEmpty("link");
-		writer.attribute("rel", "stylesheet");
-		writer.attribute("type", "text/css");
-		writer.attribute("href", getIndicatorAsset().buildURL());
+		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
@@ -53,20 +49,8 @@ public abstract class VersionInsert extends org.apache.tapestry.components.Inser
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
+		
 	}
-	
-	/**
-	 * @see org.apache.tapestry.components.Insert#printText(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle, java.lang.String)
-	 */
-	@Override
-	protected void printText(IMarkupWriter writer, IRequestCycle cycle, String value) {
-		writer.beginEmpty("span");
-		writer.attribute("id", this.getClientId());
-		super.printText(writer, cycle, value);
-	}
-
-	@Asset("classpath:/corner/orm/tapestry/component/insert/prototip/prototip.css")
-	public abstract IAsset getIndicatorAsset();
 
 	@InjectScript("VersionInsert.script")
 	public abstract IScript getScript();

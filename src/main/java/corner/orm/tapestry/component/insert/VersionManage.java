@@ -73,8 +73,6 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			
 			if(v1 == 0) {v1 = -1;}
 			
-			if(v2 == 0) {v2 = -1;}
-			
 			String json1 = getJsonVersion(entity,v1);
 			
 			String json2 = getJsonVersion(entity,v2);
@@ -98,6 +96,11 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	 * @return 返回的json串
 	 */
 	private String getJsonVersion(Object entity, long v) {
+		
+		if(v == 0){
+			return NULL_JSON;
+		}
+		
 		return getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v):NULL_JSON;
 	}
 }
