@@ -26,12 +26,6 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   	</description>
   </parameter>
   
-  <parameter name="jsonName">
-  </parameter>
-  
-  <parameter name="showProperty">
-  </parameter>
-  
   <parameter name="raw">
   	<description>
   	If false (the default), then HTML characters in the value are escaped.  If
