@@ -23,4 +23,8 @@
   <component type="corner:PageQueryDialog" id="dialog2">
 	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
   </component>
+  <component type="corner:WindowQueryDialog" id="popText">
+      <binding value="literal:widget/pop" name="queryPageName"/>
+      <binding value="ognl:false" name="autoReSize"/>
+  </component>
 </page-specification>

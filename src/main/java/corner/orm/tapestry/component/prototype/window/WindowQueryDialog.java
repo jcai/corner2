@@ -307,6 +307,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	@Parameter
 	public abstract String getQueryPageName();
 	
+	@Parameter(defaultValue = "ognl:true")
+	public abstract boolean getAutoReSize();
+	
 	
     /**
 	 * 当选中某一条记录的时候，响应的js函数

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+
+<script>
+
+
+<input-symbol key="component" required="yes" />
+
+<initialization>
+	${component.clientId}SelectRecord=function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		parent.selectRecord(src);
+	}
+	dojo.event.connect(dojo.byId("${component.clientId}"),"onkeypress","${component.clientId}SelectRecord");
+</initialization>
+</script>
