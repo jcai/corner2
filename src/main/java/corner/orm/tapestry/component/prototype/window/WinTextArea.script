@@ -13,6 +13,6 @@
 		var src=dojo.html.getEventTarget(evt);
 		parent.selectRecord(src);
 	}
-	dojo.event.connect(dojo.byId("${component.clientId}"),"onkeypress","${component.clientId}SelectRecord");
+	dojo.event.connect(dojo.byId("${component.clientId}"),"onkeydown","${component.clientId}SelectRecord");
 </initialization>
 </script>

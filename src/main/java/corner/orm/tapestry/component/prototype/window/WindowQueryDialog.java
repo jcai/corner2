@@ -94,6 +94,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 创建一个按钮
 	 */
 	private void setWindowShowButton(IMarkupWriter writer) {
+		
+		addWindowShowButtonText(writer);
+		
 		addDialogCss(writer);	//加入css
 		
 		writer.beginEmpty("img");
@@ -103,6 +106,15 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		writer.attribute("border","0");
 	}
 	
+	/**
+	 * 增加文字
+	 */
+	private void addWindowShowButtonText(IMarkupWriter writer) {
+		if(getWindowShowButtonText()!=null && getWindowShowButtonText().length()!=0){
+			writer.print(getWindowShowButtonText());
+		}
+	}
+
 	/**
 	 * @param writer
 	 */
@@ -208,12 +220,10 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 
 
 	/**
-	 * @return
+	 * 返回url
 	 */
 	protected String getUrl() {
 		String url = null;
-		
-//		getRequestCycle().getPage("widget/WinSelectionListPage")
 		
 		if(this.getQueryPageName() != null){
 			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
@@ -309,6 +319,12 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	@Parameter(defaultValue = "ognl:true")
 	public abstract boolean getAutoReSize();
+	
+	/**
+	 * 按钮上的文字
+	 */
+	@Parameter
+	public abstract String getWindowShowButtonText();
 	
 	
     /**
