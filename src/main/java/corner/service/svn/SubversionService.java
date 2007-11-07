@@ -26,6 +26,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
+import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
@@ -66,6 +67,14 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
 	public  long checkin(IVersionable versionableObject) {
+		return this.checkin(versionableObject,null);
+	}
+	
+	/**
+	 * 
+	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable, java.lang.String)
+	 */
+	public  long checkin(IVersionable versionableObject,String commitor) {
 		//得到文件路径
 		
 		String entityPath = getEntityPath(versionableObject);
@@ -81,8 +90,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		
 		try {
 			facade = new DirectoryFacade(repository,entityPath);
-		
+			
 			FileSender sender=new FileSender(repository,json,filePath);
+			
 			editor = repository.getCommitEditor(versionableObject.getComment(), null); //增加时的一些话
 			{
 				//打开根目录.
@@ -99,7 +109,20 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				//关闭根目录.
 				editor.closeDir();
 				//返回新的版本号
-		        return editor.closeEdit().getNewRevision();
+		        
+		        long SVNRevision=editor.closeEdit().getNewRevision();
+		        /**
+		         * 设定提交人信息,此项操作需要两个条件:
+		         *    1: 连接版本库必须是 "file" or "svn+ssh" 两种协议 
+		         *    2: 版本控制库实现了pre-revprop-change hook script.同时注意修改此程序中的svn:log,为svn:author
+		         *  see http://www.subversion.org.cn/svnbook/1.2/svn.reposadmin.create.html#svn.reposadmin.create.hooks
+		         *  http://www.nabble.com/Doing-a-commit-with-svn%3Aauthor-different-from-authenticated-user--t4335217.html#a12366459
+		         */
+		        
+		        if(commitor!=null){
+		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, commitor);
+		        }
+		        return SVNRevision;
 			}
 		} catch (SVNException e) {
 			throw new RuntimeException(e);
@@ -214,15 +237,16 @@ public class SubversionService  implements IVersionService,InitializingBean{
         	 * 获得svnurl
         	 */
             repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
+            /*
+             * 设置用户和密码
+             */
+            ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(username, password);
+            repository.setAuthenticationManager(authManager);
+            repository.testConnection(); 
         } catch (SVNException e) {
         	throw new RuntimeException(e);
         }
         
-        /*
-         * 设置用户和密码
-         */
-        ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(username, password);
-        repository.setAuthenticationManager(authManager);
        
         return repository;
 		

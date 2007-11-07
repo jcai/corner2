@@ -47,7 +47,7 @@ class DirectoryCallback {
 		if(noExist){
 			editor.addDir(path,null,-1);
 		}else{
-			editor.openDir(path,-1);
+//			editor.openDir(path,-1);
 		}
 	}
 	/**

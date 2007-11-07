@@ -43,10 +43,12 @@ class DirectoryFacade {
 	     String [] paths=path.split(SVN_PATH_SEPERATOR);
 	     pathList = new ArrayList<DirectoryCallback>();
 	     StringBuffer sb=new StringBuffer();
+	     sb.append("/");
 	     for(String tmp:paths){
-	    	 sb.append(tmp).append(SVN_PATH_SEPERATOR);
+	    	 sb.append(tmp);
 	    	 DirectoryCallback callback=new DirectoryCallback(repository,sb.toString());
 	    	 pathList.add(callback);
+	    	 sb.append(SVN_PATH_SEPERATOR);
 	     }
 	}
 
