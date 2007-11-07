@@ -2,7 +2,7 @@
  * 显示字体
  */
 function showText(clientId,json,jsonOther,entityName,showProperty){
-	dojo.debug("ClientId： " + clientId + " Json: " + json + " JsonOther: " + jsonOther + " EntityName: " + entityName + " ShowProperty: " + showProperty);
+//	dojo.debug("ClientId： " + clientId + " Json: " + json + " JsonOther: " + jsonOther + " EntityName: " + entityName + " ShowProperty: " + showProperty);
 	
 	var ver = showVerNum("otherVer_hid");
 	
