@@ -46,7 +46,8 @@ Tip.prototype = {
       fixed: false,						// follow the mouse if false
       target: this.element,				// or another element
       title: false,
-      viewport: true					// keep within viewport if mouse is followed
+      viewport: true,					// keep within viewport if mouse is followed
+      footer:'MAXINFO'
     }, arguments[2] || {});
 
     this.target = $(this.options.target);
@@ -126,8 +127,15 @@ Tip.prototype = {
 
     // content
     this.tip = this.tooltip.appendChild(document.createElement('div'));
-    this.tip.className = 'content';
+    this.tip.className = 'commentbox';
     Element.update(this.tip, this.content);
+    
+    //footer
+    this.tip = this.tooltip.appendChild(document.createElement('div'));
+    this.tip.className = 'commentfooter';
+    Element.update(this.tip, this.options.footer);
+    
+    
 
     // add wrapper to the body
     document.body.appendChild(this.wrapper);

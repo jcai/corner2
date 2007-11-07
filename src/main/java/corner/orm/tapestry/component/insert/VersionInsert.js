@@ -12,7 +12,7 @@ function showText(clientId,json,jsonOther,entityName,showProperty){
 	}else{
 		if(json[entityName][showProperty] != jsonOther[entityName][showProperty]){
 			$(clientId).update("<font color='#FF0000'> "+ json[entityName][showProperty] + "</font>");
-			new Tip($(clientId), jsonOther[entityName][showProperty] + ver);
+			new Tip($(clientId), jsonOther[entityName][showProperty],{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
 		}else{
 			if(json[entityName][showProperty] != null)
 				$(clientId).update(json[entityName][showProperty]);
@@ -27,8 +27,8 @@ function showVerNum(verFieldName){
 	var ver = $(verFieldName).value;
 	
 	if(ver){
-		return "  (Ver:" + ver + ")";
+		return " Revision:" + ver ;
 	}else{
-		return "";
+		return "MAXINFO";
 	}
 }
