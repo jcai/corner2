@@ -51,7 +51,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	
 	private static final Log logger = LogFactory.getLog(SubversionService.class);
 	
-	private static final String ENIVersionableIIVersionableY_FILIE_SUFFIX=".txt";
+	private static final String ENTITY_FILIE_SUFFIX=".txt";
 	
 	/**
 	 * svn信息
@@ -59,7 +59,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	private String url;
 	private String username;
 	private String password;
-	private SVNRepository repository;
+	
 	
 
 	/**
@@ -78,7 +78,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		//得到文件路径
 		
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		//得到JSON字符串
 		String json =  XStreamDelegate.toJSON(versionableObject);
@@ -89,11 +89,22 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		ISVNEditor editor = null;
 		
 		try {
+			SVNRepository repository=createSvnRepository();
 			facade = new DirectoryFacade(repository,entityPath);
 			
 			FileSender sender=new FileSender(repository,json,filePath);
 			
-			editor = repository.getCommitEditor(versionableObject.getComment(), null); //增加时的一些话
+			/*
+			 * 此处增加默认的空注释，
+			 * 当且仅当ssh连接的时候,comment为空的时候抛出 svn: 210002: Network connection closed unexpectedly
+			 * 其他方式的连接无此问题，找了一天，才知道这个原因. ~_~ // Jun Tsai
+			 */
+			String comment = versionableObject.getComment();
+			if(comment == null){
+				comment = "";
+			}
+			
+			editor = repository.getCommitEditor(comment, null); 
 			{
 				//打开根目录.
 				editor.openRoot(-1);
@@ -134,11 +145,11 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public   String fetchObjectAsJson(IVersionable versionableObject, long revision) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		Map fileProperties = new HashMap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-    		
+        	SVNRepository repository=createSvnRepository();
 			SVNNodeKind nodeKind = repository.checkPath(filePath , revision);
 	        
 	        if (nodeKind == SVNNodeKind.NONE || nodeKind == SVNNodeKind.DIR) {
@@ -163,9 +174,10 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public List<VersionResult> fetchVersionInfo(IVersionable versionableObject) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		
 		try {
+			SVNRepository repository=createSvnRepository();
 			Collection logEntries = repository.log(new String[] {filePath}, null,
 			        0, -1, true, true);
 			List<VersionResult> list = new ArrayList<VersionResult>();
@@ -189,10 +201,10 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public void delete(IVersionable versionableObject) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENIVersionableIIVersionableY_FILIE_SUFFIX;
+		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		try {
-			
+			SVNRepository repository=createSvnRepository();
 			if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
 				return;
 			}
@@ -227,12 +239,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	/**
 	 * 初始化svn
 	 */
-	private SVNRepository setupSvnRepository() {
-		setupLibrary();
-		
-		
-		
-        try {
+	SVNRepository createSvnRepository() {
+        SVNRepository repository;
+		try {
         	/*
         	 * 获得svnurl
         	 */
@@ -246,10 +255,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
         } catch (SVNException e) {
         	throw new RuntimeException(e);
         }
-        
-       
         return repository;
-		
 	}
 
 	/**
@@ -294,7 +300,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		this.username = username;
 	}
 	public void afterPropertiesSet() throws Exception {
-		this.setupSvnRepository();
+		setupLibrary();
 		
 	}
 	
