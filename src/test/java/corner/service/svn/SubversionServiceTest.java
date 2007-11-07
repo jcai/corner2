@@ -29,27 +29,27 @@ public class SubversionServiceTest extends Assert{
 		for(VersionResult r:list){
 			System.out.println(r.getAuthor());
 		}
-//		service.delete(a);
+		service.delete(a);
 	}
-//	@Test
-//	public void test_fetchObjectAsJson() throws Exception{
-//		IVersionService service = constructService();
-//		A a=new A();
-//		a.setId("id");
-//		service.checkin(a);
-//		String str=service.fetchObjectAsJson(a,-1);
-//		assertEquals("{\"entity\":{\"id\":\"id\"}}",str);
-//		
-//	}
-//	@Test
-//	public void test_fetchVersionInfo() throws Exception{
-//		IVersionService service = constructService();
-//		A a=new A();
-//		a.setId("id");
-//		service.checkin(a);
-//		List<VersionResult> list = service.fetchVersionInfo(a);
-//		System.out.println(list);
-//	}
+	@Test
+	public void test_fetchObjectAsJson() throws Exception{
+		IVersionService service = constructService();
+		A a=new A();
+		a.setId("id");
+		service.checkin(a);
+		String str=service.fetchObjectAsJson(a,-1);
+		assertEquals("{\"entity\":{\"id\":\"id\"}}",str);
+		
+	}
+	@Test
+	public void test_fetchVersionInfo() throws Exception{
+		IVersionService service = constructService();
+		A a=new A();
+		a.setId("id");
+		service.checkin(a);
+		List<VersionResult> list = service.fetchVersionInfo(a);
+		System.out.println(list);
+	}
 	
 	private IVersionService constructService() throws Exception{
 		SubversionService service=new SubversionService();

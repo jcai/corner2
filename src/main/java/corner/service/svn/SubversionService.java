@@ -208,8 +208,11 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
 				return;
 			}
-			
-			ISVNEditor editor = repository.getCommitEditor(versionableObject.getComment(), null); //增加时的一些话
+			String comment = versionableObject.getComment();
+			if(comment == null){
+				comment = "";
+			}
+			ISVNEditor editor = repository.getCommitEditor(comment, null); //增加时的一些话
 			//open root dir
 			editor.openRoot(-1);
 
