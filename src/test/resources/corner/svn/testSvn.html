@@ -18,6 +18,7 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/VersionInsert.js"></script>
 
 </head>
 
@@ -25,7 +26,7 @@ djConfig = { isDebug: true
 
 id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /><br/>	
 <span id ="nameee" >dsadsa</span>
-	
+<input id="otherVer_hid" type="hidden" value="555"/>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
@@ -35,10 +36,7 @@ var flags2 = eval({"entity":{"id":"test01","name":"中国222"}});
 	
 dojo.event.connect(window,"onload",this,"aaa");
 aaa=function(evt){
-	if(flags["entity"]["name"] != flags2["entity"]["name"]){
-		$("nameee").update(flags["entity"]["name"] );
-		new Tip($("nameee"), flags2["entity"]["name"]);
-	}
+	showText("nameee",flags,flags2,"entity","name");
 }
 
 //-->

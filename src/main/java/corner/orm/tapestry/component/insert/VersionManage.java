@@ -74,14 +74,19 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			if(v1 == 0) {v1 = -1;}
 			
 			String json1 = getJsonVersion(entity,v1);
-			
 			String json2 = getJsonVersion(entity,v2);
 			
-//			if((json1.split("\"")).length < (json2.split("\"")).length);{
-//				String t = json1;
-//				json1 = json2;
-//				json2 = t;
-//			}
+			writer.begin("input");
+			writer.attribute("type", "hidden");
+			writer.attribute("id", "ver_hid");
+			writer.attribute("value", String.valueOf(v1));
+			writer.end("input");
+			
+			writer.begin("input");
+			writer.attribute("type", "hidden");
+			writer.attribute("id", "otherVer_hid");
+			writer.attribute("value", v2 == 0 ? "" : String.valueOf(v2));
+			writer.end("input");
 			
 			parms.put("json", json1);
 			parms.put("json2", json2);
