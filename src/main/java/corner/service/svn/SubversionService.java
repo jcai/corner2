@@ -67,14 +67,6 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
 	public  long checkin(IVersionable versionableObject) {
-		return this.checkin(versionableObject,null);
-	}
-	
-	/**
-	 * 
-	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable, java.lang.String)
-	 */
-	public  long checkin(IVersionable versionableObject,String commitor) {
 		//得到文件路径
 		
 		String entityPath = getEntityPath(versionableObject);
@@ -99,7 +91,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			 * 当且仅当ssh连接的时候,comment为空的时候抛出 svn: 210002: Network connection closed unexpectedly
 			 * 其他方式的连接无此问题，找了一天，才知道这个原因. ~_~ // Jun Tsai
 			 */
-			String comment = versionableObject.getComment();
+			String comment = versionableObject.getSvnLog();
 			if(comment == null){
 				comment = "";
 			}
@@ -130,8 +122,8 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		         *  http://www.nabble.com/Doing-a-commit-with-svn%3Aauthor-different-from-authenticated-user--t4335217.html#a12366459
 		         */
 		        
-		        if(commitor!=null){
-		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, commitor);
+		        if(versionableObject.getSvnAuthor()!=null){
+		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
 		        }
 		        return SVNRevision;
 			}
@@ -139,6 +131,8 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
 	/**
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchObjectAsJson(corner.service.svn.IVersionable, long)
@@ -208,7 +202,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
 				return;
 			}
-			String comment = versionableObject.getComment();
+			String comment = versionableObject.getSvnLog();
 			if(comment == null){
 				comment = "";
 			}
@@ -219,7 +213,12 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			editor.deleteEntry(filePath, -1);
 			editor.closeDir();
 			
-			editor.closeEdit();
+			long SVNRevision = editor.closeEdit().getNewRevision();
+			
+			//修改作者信息
+			 if(versionableObject.getSvnAuthor()!=null){
+		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
+		       }
 		} catch (SVNException e) {
 			throw new RuntimeException(e);
 		}

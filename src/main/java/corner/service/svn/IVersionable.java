@@ -30,6 +30,11 @@ public interface IVersionable extends IPersistModel{
 	 * 得到提交时候的注释.
 	 * @return 注释信息
 	 */
-	public String getComment();
+	public String getSvnLog();
+	/**
+	 * 得到提交时候的作者信息.
+	 * @return 作者信息
+	 */
+	public String getSvnAuthor();
 	
 }

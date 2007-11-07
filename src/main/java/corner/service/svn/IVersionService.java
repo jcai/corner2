@@ -32,16 +32,7 @@ public interface IVersionService {
 	 * @return 版本号
 	 */
 	public long checkin(IVersionable versionableObject);
-	/**
-	 * 对一个需要进行版本控制的对象进行版本化.
-	 *  <p>使用此方法，需要满足两个条件.
-	 *   1: 版本的协议必须是 file 或者 svn+ssh 方式.
-	 *   2: 版本库打开了 pre-revprop-change hook.
-	 * @param versionableObject 待版本化的对象.
-	 * @param commitor 提交版本的人.
-	 * @return 版本号
-	 */
-	public long checkin(IVersionable versionableObject,String commitor);
+
 	
 	
 	/**

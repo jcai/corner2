@@ -73,8 +73,12 @@ public class A extends AbstractModel implements IVersionable{
 	}
 
 	@Transient
-	public String getComment() {
+	public String getSvnLog() {
 		return null;
+	}
+
+	public String getSvnAuthor() {
+		return "jcai";
 	}
 
 }

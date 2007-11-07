@@ -24,7 +24,7 @@ public class SubversionServiceTest extends Assert{
 		A a=new A();
 		a.setId("id2");
 		
-		long revision=service.checkin(a,"jcai");
+		long revision=service.checkin(a);
 		List<VersionResult> list = service.fetchVersionInfo(a);
 		for(VersionResult r:list){
 			System.out.println(r.getAuthor());
