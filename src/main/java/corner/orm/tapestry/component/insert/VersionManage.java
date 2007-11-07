@@ -76,22 +76,40 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			String json1 = getJsonVersion(entity,v1);
 			String json2 = getJsonVersion(entity,v2);
 			
-			writer.begin("input");
-			writer.attribute("type", "hidden");
-			writer.attribute("id", "ver_hid");
-			writer.attribute("value", String.valueOf(v1));
-			writer.end("input");
-			
-			writer.begin("input");
-			writer.attribute("type", "hidden");
-			writer.attribute("id", "otherVer_hid");
-			writer.attribute("value", v2 == 0 ? "" : String.valueOf(v2));
-			writer.end("input");
+			appendShowElement(writer,v1,v2);
 			
 			parms.put("json", json1);
 			parms.put("json2", json2);
 			getScript().execute(this, cycle, prs, parms);
 		}
+	}
+
+	/**
+	 * 加入信息
+	 * @param writer
+	 * @param v1
+	 * @param v2
+	 */
+	private void appendShowElement(IMarkupWriter writer, long v1, long v2) {
+		
+		if(v2 == 0){
+			writer.print("版本:" + v1);
+		}else{
+			writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
+		}
+		
+		writer.begin("input");
+		writer.attribute("type", "hidden");
+		writer.attribute("id", "ver_hid");
+		writer.attribute("value", String.valueOf(v1));
+		writer.end("input");
+		
+		writer.begin("input");
+		writer.attribute("type", "hidden");
+		writer.attribute("id", "otherVer_hid");
+		writer.attribute("value", v2 == 0 ? "" : String.valueOf(v2));
+		writer.end("input");
+		
 	}
 
 	/**
