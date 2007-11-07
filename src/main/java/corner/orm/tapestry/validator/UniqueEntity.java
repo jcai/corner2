@@ -80,8 +80,8 @@ public class UniqueEntity extends BaseValidator {
 			}
 		}
 		// 得到行数.
-		int rowCount = this.getRowCount(field, object, getEntityClassName(),
-				getPropertyName());
+		int rowCount = this.getRowCount(field, object, entityClassName,
+				property);
 		// 抛出验证异常
 		if (rowCount > 0) {
 			throw new ValidatorException(messages.formatValidationMessage(
@@ -114,37 +114,15 @@ public class UniqueEntity extends BaseValidator {
 
 	}
 
-	/**
-	 * 设定待查询的类名
-	 * 
-	 * @param entityClassName
-	 */
-	public void setEntityClassName(String entityClassName) {
-		this.entityClassName = entityClassName;
-	}
 
-	/**
-	 * 设定查询的属性名称。
-	 * 
-	 * @param property
-	 *            属性名称.
-	 */
-	public void setCriterionProName(String property) {
-		this.property = property;
-	}
+
 
 	protected EntityService getEntityService() {
 		return (EntityService) SpringContainer.getInstance()
 				.getApplicationContext().getBean("entityService");
 	}
 
-	String getEntityClassName() {
-		return this.entityClassName;
-	}
 
-	String getPropertyName() {
-		return this.property;
-	}
 
 	/**
 	 * 查询给定条件的实体是否存在(这个方法可以方便用户自己扩展自己的查询条件)
@@ -177,10 +155,12 @@ public class UniqueEntity extends BaseValidator {
 				+ uniqueStr + "'不对，应该为'{className:propertyName}'");
 	}
 
-	/**
-	 * @param uniqueStr The uniqueStr to set.
-	 */
-	public void setUniqueStr(String uniqueStr) {
-		this.uniqueStr = uniqueStr;
+	String getEntityClassName() {
+		return this.entityClassName;
 	}
+	
+	String getPropertyName() {
+		return this.property;
+	}
+
 }
