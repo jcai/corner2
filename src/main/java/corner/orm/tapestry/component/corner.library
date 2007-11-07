@@ -62,6 +62,7 @@
   
   <component-type type="WindowQueryDialog" specification-path="prototype/window/WindowQueryDialog.jwc"/>
   <component-type type="WinSelectedField" specification-path="prototype/window/WinSelectedField.jwc"/>
+  <component-type type="WinTextArea" specification-path="prototype/window/WinTextArea.jwc"/>
   
   <component-type type="VInsert" specification-path="insert/VersionInsert.jwc"/>
   <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
