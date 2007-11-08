@@ -41,4 +41,15 @@ public interface IVersionable extends IPersistModel{
 	 */
 	public boolean isSvnCommit();
 	
+	//-------------------  以下属性需要保存到数据库中
+	/**
+	 * 版本号属性，此属性需要保存到数据库中
+	 */
+	public long getRevision();
+	/**
+	 * 设定版本号.
+	 * @param revison
+	 */
+	public void setRevision(long revison);
+	
 }

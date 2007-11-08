@@ -41,8 +41,9 @@ public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventList
 		event.getResultId();
 		if(obj instanceof IVersionable){
 			IVersionService service=(IVersionService) SpringContainer.getInstance().getApplicationContext().getBean(IVersionProvider.VERSION_SPRING_BEAN_NAME);
-			service.checkin((IVersionable) obj);
+			long revision = service.checkin((IVersionable) obj);
+			((IVersionable) obj).setRevision(revision);
 		}
-		
 	}
+	
 }

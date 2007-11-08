@@ -50,6 +50,8 @@ public class A extends AbstractModel implements IVersionable{
 	 */
 	
 	private List<B> bs;
+	
+	private long revision;
 
 	/**
 	 * @return Returns the bs.
@@ -83,6 +85,20 @@ public class A extends AbstractModel implements IVersionable{
 	@Transient
 	public boolean isSvnCommit() {
 		return true;
+	}
+
+	/**
+	 * @return Returns the revision.
+	 */
+	public long getRevision() {
+		return revision;
+	}
+
+	/**
+	 * @param revision The revision to set.
+	 */
+	public void setRevision(long revision) {
+		this.revision = revision;
 	}
 
 }
