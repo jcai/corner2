@@ -15,7 +15,7 @@ package corner.service.svn;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.tmatesoft.svn.core.ISVNLogEntryHandler;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -210,18 +211,20 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		return (List<VersionResult>) this.execute(new ISvnCallback(){
 
 			public Object doInRepository(SVNRepository repository) throws SVNException {
-				Collection logEntries = repository.log(new String[] {filePath}, null,
-				        0, -1, true, true);
-				List<VersionResult> list = new ArrayList<VersionResult>();
-				for(Object obj:logEntries){
-					SVNLogEntry logEntry = (SVNLogEntry) obj;
-					VersionResult result = new VersionResult();
-					result.setAuthor(logEntry.getAuthor());
-					result.setComment(logEntry.getMessage());
-					result.setCreateDate(logEntry.getDate());
-					result.setVersionNum(logEntry.getRevision());
-					list.add(result);
-				}
+				final ArrayList<VersionResult> list = new ArrayList<VersionResult>();
+				repository.log(new String[] {filePath}, 
+				        0, -1, true, true,new ISVNLogEntryHandler(){
+
+							public void handleLogEntry(SVNLogEntry logEntry) throws SVNException {
+								VersionResult result = new VersionResult();
+								result.setAuthor(logEntry.getAuthor());
+								result.setComment(logEntry.getMessage());
+								result.setCreateDate(logEntry.getDate());
+								result.setVersionNum(logEntry.getRevision());
+								list.add(result);			
+								
+							}});
+				Collections.sort(list);
 				return list;
 
 			}});

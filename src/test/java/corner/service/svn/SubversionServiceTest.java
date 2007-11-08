@@ -25,9 +25,10 @@ public class SubversionServiceTest extends Assert{
 		a.setId("id2");
 		
 		long revision=service.checkin(a);
+		service.checkin(a);
 		List<VersionResult> list = service.fetchVersionInfo(a);
 		for(VersionResult r:list){
-			System.out.println(r.getAuthor());
+			System.out.println(r.getVersionNum());
 		}
 		service.delete(a);
 	}

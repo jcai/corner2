@@ -21,7 +21,7 @@ import java.util.Date;
  * @version $Revision$
  * @since 2.5
  */
-public class VersionResult implements Serializable{
+public class VersionResult implements Comparable<VersionResult>, Serializable{
 	
 
 	/**
@@ -84,5 +84,13 @@ public class VersionResult implements Serializable{
 	 */
 	public void setVersionNum(long versionNum) {
 		this.versionNum = versionNum;
+	}
+	public int compareTo(VersionResult o) {
+		if(o.versionNum>this.versionNum){
+			return 1;
+		}else{
+			return -1;
+		}
+		
 	}
 }
