@@ -143,6 +143,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 获得调用的方法名称
 	 */
 	public String getDialogScriptFunName(){
+		
+		
 		return getDialogName() + "Show";
 	}
 	

@@ -19,14 +19,16 @@
 
 	${component.dialogScriptOnLoadName}=${component.onloadFun}
 	
-	var ${component.dialogName};
-									   
-	${component.dialogScriptFunName}=function(){
+	var ${component.dialogName} = init${component.dialogName}();
 	
-	   if(!${component.dialogName}){
-						   								   
+	function init${component.dialogName}(){
+		if(!${component.dialogName}){
 		   ${component.dialogName} = new Window('${component.dialogName}',${props});
 		}
+		return ${component.dialogName};
+	}
+									   
+	${component.dialogScriptFunName}=function(){
 		
 		if(${component.autoReSize}){
 			${component.dialogName}.setSize(document.body.clientWidth * 0.75,document.body.clientHeight * 0.75);
@@ -34,6 +36,8 @@
 		
 		${component.dialogName}.showCenter();
 	}
+	
+	
 	dojo.event.connect(dojo.byId("${component.eventId}"),"onclick","${component.dialogScriptFunName}");
 
 </initialization>

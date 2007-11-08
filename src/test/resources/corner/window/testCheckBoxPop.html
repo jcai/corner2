@@ -81,7 +81,7 @@ function check(){
 		return true;
 	else
 		return false;
-} 
+}
 
 test1=function(){
 		dojo.debug("frame on load!");
@@ -91,13 +91,10 @@ test1=function(){
 	}
 
 }
-var pwin_winDialog;
-
-ddd = function(evt){
-
-	if(check()){
-	   if(!pwin_winDialog){
-														   
+var pwin_winDialog = initpwin_winDialog();
+									   
+function initpwin_winDialog(){
+	if(!pwin_winDialog){									   
 	   pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
 									   "url":"pop.html","top ":"top:0","right":"left:0","width":"500","height":"300",
 									   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
@@ -105,14 +102,23 @@ ddd = function(evt){
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
 									   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
-		}
+	}
+	return pwin_winDialog;
+}
+
+chk = function(evt){
+	if(check()){
 		pwin_winDialog.showCenter();
 	}else{
 		pwin_winDialog.close();
 	}
 }
 
-dojo.event.connect(dojo.byId("pwin_winDialog_button"),"onclick",this,"ddd");
+ddd = function(evt){
+		pwin_winDialog.showCenter();
+}
+
+dojo.event.connect(dojo.byId("pwin_winDialog_button"),"onclick",this,"chk");
 
 // --></script></body>
 </html>

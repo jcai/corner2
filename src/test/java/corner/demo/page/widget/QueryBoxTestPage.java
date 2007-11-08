@@ -15,4 +15,14 @@ public abstract class QueryBoxTestPage extends BasePage{
 	public IPage doWinPopQueryPage(){
 		return this.getRequestCycle().getPage("widget/WinSelectionListPage");
 	}
+	
+	public abstract String getSvnAuthorValue();
+	
+	public abstract void setSvnAuthorValue(String svnAuthorValue);
+	
+	public abstract String getSvnLog();
+	
+	public abstract void setSvnLog(String svnLog);
+	
+	public abstract boolean isSvnCommit();
 }

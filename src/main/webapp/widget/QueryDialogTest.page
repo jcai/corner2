@@ -23,9 +23,10 @@
   <component type="corner:PageQueryDialog" id="dialog2">
 	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
   </component>
-  <component type="corner:WindowQueryDialog" id="popText">
+  <component type="corner:VersionCommentBox" id="popText">
       <binding value="literal:widget/pop" name="queryPageName"/>
-      <binding value="ognl:false" name="autoReSize"/>
-      <binding value="literal:touch" name="eventHeaderId"/>
+      <binding value="ognl:svnAuthorValue" name="svnAuthorValue"/>
+      <binding value="ognl:svnLog" name="svnLog"/>
+      <binding value="ognl:svnCommit" name="svnCommit"/>
   </component>
 </page-specification>
