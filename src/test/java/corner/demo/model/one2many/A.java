@@ -82,8 +82,7 @@ public class A extends AbstractModel implements IVersionable{
 	}
 	@Transient
 	public boolean isSvnCommit() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
