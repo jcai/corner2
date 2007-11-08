@@ -51,7 +51,7 @@ dojo.require("tapestry.namespace")
 <input type="hidden" name="submitmode" value="" />
 <input type="hidden" name="submitname" value="" />
 </div>
-	<span id="winDialog"><input type="checkbox" name="pwin_winDialog_button" id="pwin_winDialog_button" onClick="ddd();" /></span>
+	<span id="winDialog"><input type="checkbox" name="pwin_winDialog_button" id="pwin_winDialog_button"/></span>
 	
   <br/>
 	<input id="test"/>
@@ -93,7 +93,7 @@ test1=function(){
 }
 var pwin_winDialog;
 
-function ddd(){
+ddd = function(evt){
 
 	if(check()){
 	   if(!pwin_winDialog){
@@ -111,6 +111,8 @@ function ddd(){
 		pwin_winDialog.close();
 	}
 }
+
+dojo.event.connect(dojo.byId("pwin_winDialog_button"),"onclick",this,"ddd");
 
 // --></script></body>
 </html>
