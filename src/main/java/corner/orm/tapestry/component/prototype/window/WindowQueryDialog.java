@@ -224,6 +224,18 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 				"	}\n" +
 				"}\n";
 	}
+	
+	
+	public String getShowFun(){
+		
+		if(this.getShowFunc() != null && this.getShowFunc().length() != 0){
+			return this.getShowFunc();
+		}
+	 return "if(" + getAutoReSize()+"){\n" +
+			getDialogName()+".setSize(document.body.clientWidth * 0.75,document.body.clientHeight * 0.75);\n" +
+			"}\n" +
+			getDialogName()+".showCenter();";
+	}
 
 
 	/**
@@ -323,6 +335,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	@Parameter
 	public abstract String getQueryPageName();
+	
+	@Parameter
+	public abstract String getShowFunc();
 	
 	@Parameter(defaultValue = "ognl:true")
 	public abstract boolean getAutoReSize();

@@ -8,7 +8,13 @@
 <input-symbol key="component" required="yes" />
 
 <initialization>
-
-
+	<unique>
+		function check(){ 
+		if (dojo.byId("${component.eventHeaderId}").checked)
+			return true;
+		else
+			return false;
+		}
+	</unique>
 </initialization>
 </script>

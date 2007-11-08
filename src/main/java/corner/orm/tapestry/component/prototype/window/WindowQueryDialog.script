@@ -29,14 +29,8 @@
 	}
 									   
 	${component.dialogScriptFunName}=function(){
-		
-		if(${component.autoReSize}){
-			${component.dialogName}.setSize(document.body.clientWidth * 0.75,document.body.clientHeight * 0.75);
-		}
-		
-		${component.dialogName}.showCenter();
+		${component.showFun}
 	}
-	
 	
 	dojo.event.connect(dojo.byId("${component.eventId}"),"onclick","${component.dialogScriptFunName}");
 

@@ -8,6 +8,14 @@
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 	
 <component-specification class="corner.orm.tapestry.component.prototype.window.VersionCommentBox" allow-body="no" allow-informal-parameters="yes">
-
-  
+  <component type="WindowQueryDialog" id="WindowQueryDialogField">
+      <binding value="ognl:queryPageName" name="queryPageName"/>
+      <binding value="ognl:svnAuthorValue" name="svnAuthorValue"/>
+      <binding value="ognl:svnLog" name="svnLog"/>
+      <binding value="ognl:svnCommit" name="svnCommit"/>
+      <binding value="ognl:autoReSize" name="autoReSize"/>
+      <binding value="ognl:eventHeaderId" name="eventHeaderId"/>
+      <binding value="ognl:windowShowButtonText" name="windowShowButtonText"/>
+      <binding name="showFunc" value="ognl:showFunc"/>
+  </component>
 </component-specification>

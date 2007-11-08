@@ -52,6 +52,14 @@ public abstract class VersionCommentBox extends BaseComponent implements IFormCo
         }
 	}
 	
+	public String getShowFunc(){
+		return "if(check()){\n"+
+				"pwin_WindowQueryDialogField.showCenter(); \n"+
+				"}else{ \n" +
+				"pwin_WindowQueryDialogField.close();\n" +
+				"}";
+	}
+	
 	@Parameter
 	public abstract String getQueryPageName();
 	
