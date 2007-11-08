@@ -15,12 +15,15 @@ package corner.service.svn;
 import org.apache.tapestry.annotations.InjectObject;
 
 /**
+ * 提供版本服务类.
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
  * @version $Revision$
  * @since 2.5
  */
 public interface IVersionProvider {
-	@InjectObject("spring:versionService")
+	/** 提供版本服务的spring的bean的名称 **/
+	public final static String VERSION_SPRING_BEAN_NAME="versionService";
+	@InjectObject("spring:"+VERSION_SPRING_BEAN_NAME)
     public abstract SubversionService getSubversionService();
 	
 	/**

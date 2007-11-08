@@ -48,7 +48,5 @@ public abstract class AFormPage extends ReflectMultiManyEntityFormPage implement
 	@Override
 	protected void saveOrUpdateEntity() {
 		super.saveOrUpdateEntity();
-		
-		this.getSubversionService().checkin((IVersionable) this.getEntity());
 	}
 }

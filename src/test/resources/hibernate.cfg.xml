@@ -8,5 +8,11 @@
         <property name="hibernate.cglib.use_reflection_optimizer">true</property>
         <property name="default-lazy">true</property>
         <property name="hibernate.show_sql">true</property>
+		<event type="save-update">
+			<listener class="corner.service.svn.VersionSaveUpdateEventListener"/>
+		</event>
+		<event type="post-delete">
+			<listener class="corner.service.svn.VersionDeleteEventListener"/>
+		</event>
     </session-factory>
 </hibernate-configuration>

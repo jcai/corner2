@@ -107,7 +107,9 @@
 				${hibernate.mapping.locations}
 			</value>
 		</property>
-		
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
 		<property name="lobHandler" ref="${database.lobHandler}"/>
 	</bean>
 	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
