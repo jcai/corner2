@@ -26,6 +26,7 @@ import corner.orm.spring.SpringContainer;
  */
 public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventListener {
 
+	private final static  String UNREVISION_VERSION="*";
 	/**
 	 * 
 	 */
@@ -40,9 +41,15 @@ public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventList
 		Object obj=event.getEntity();
 		event.getResultId();
 		if(obj instanceof IVersionable){
+			IVersionable tmpObj=(IVersionable) obj;
 			IVersionService service=(IVersionService) SpringContainer.getInstance().getApplicationContext().getBean(IVersionProvider.VERSION_SPRING_BEAN_NAME);
-			long revision = service.checkin((IVersionable) obj);
-			((IVersionable) obj).setRevision(revision);
+			long revision = service.checkin(tmpObj);
+			if(revision>0){ //当为大于0的版本
+				tmpObj.setRevision(String.valueOf(revision));
+			}else if(tmpObj.getRevision()!=null&&tmpObj.getRevision().indexOf(UNREVISION_VERSION)>-1){
+				//当且仅当有了版本号而没有*的时候特别处理一下.
+				tmpObj.setRevision(tmpObj.getRevision().trim()+UNREVISION_VERSION);
+			}
 		}
 	}
 	

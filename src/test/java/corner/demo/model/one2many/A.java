@@ -51,7 +51,7 @@ public class A extends AbstractModel implements IVersionable{
 	
 	private List<B> bs;
 	
-	private long revision;
+	private String revision;
 
 	/**
 	 * @return Returns the bs.
@@ -90,14 +90,14 @@ public class A extends AbstractModel implements IVersionable{
 	/**
 	 * @return Returns the revision.
 	 */
-	public long getRevision() {
+	public String getRevision() {
 		return revision;
 	}
 
 	/**
 	 * @param revision The revision to set.
 	 */
-	public void setRevision(long revision) {
+	public void setRevision(String revision) {
 		this.revision = revision;
 	}
 
