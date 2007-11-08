@@ -49,6 +49,23 @@ import corner.service.EntityService;
  */
 public class SubversionService  implements IVersionService,InitializingBean{
 	
+	/**
+	 * 供repository回掉使用.
+	 * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+	 * @version $Revision$
+	 * @since 2.5
+	 */
+	public interface ISvnCallback {
+		/**
+		 * 在资源库中的进行一些其他操作.
+		 * @param repository 资源库.
+		 * @return 返回对象.
+		 * @throws SVNException 加入发生资源库操作.
+		 */
+		public Object doInRepository(SVNRepository repository) throws SVNException;
+		
+	}
+	
 	private static final Log logger = LogFactory.getLog(SubversionService.class);
 	
 	private static final String ENTITY_FILIE_SUFFIX=".txt";
@@ -66,94 +83,110 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @throws SVNException 
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
-	public  long checkin(IVersionable versionableObject) {
+	public  long checkin(final IVersionable versionableObject) {
 		//得到文件路径
-		
-		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final String entityPath = getEntityPath(versionableObject);
+		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		//得到JSON字符串
-		String json =  XStreamDelegate.toJSON(versionableObject);
+		final String json =  XStreamDelegate.toJSON(versionableObject);
 		
-		//目录遍历器
-		DirectoryFacade facade = null;
-		//subversion 编辑器.
-		ISVNEditor editor = null;
-		
-		try {
-			SVNRepository repository=createSvnRepository();
-			facade = new DirectoryFacade(repository,entityPath);
-			
-			FileSender sender=new FileSender(repository,json,filePath);
-			
-			/*
-			 * 此处增加默认的空注释，
-			 * 当且仅当ssh连接的时候,comment为空的时候抛出 svn: 210002: Network connection closed unexpectedly
-			 * 其他方式的连接无此问题，找了一天，才知道这个原因. ~_~ // Jun Tsai
-			 */
-			String comment = versionableObject.getSvnLog();
-			if(comment == null){
-				comment = "";
+		return (Long) this.execute(new ISvnCallback(){
+
+			public Object doInRepository(SVNRepository repository) throws SVNException {
+//				目录遍历器
+				DirectoryFacade facade = null;
+				//subversion 编辑器.
+				ISVNEditor editor = null;
+				facade = new DirectoryFacade(repository,entityPath);
+				
+				FileSender sender=new FileSender(repository,json,filePath);
+				
+				/*
+				 * 此处增加默认的空注释，
+				 * 当且仅当ssh连接的时候,comment为空的时候抛出 svn: 210002: Network connection closed unexpectedly
+				 * 其他方式的连接无此问题，找了一天，才知道这个原因. ~_~ // Jun Tsai
+				 */
+				String comment = versionableObject.getSvnLog();
+				if(comment == null){
+					comment = "";
+				}
+				
+				editor = repository.getCommitEditor(comment, null); 
+				{
+					//打开根目录.
+					editor.openRoot(-1);
+					//遍历目录
+					facade.openPath(editor);
+					
+					//发送文件.
+					sender.sendFile(editor);
+					
+					//关闭遍历的目录.
+					facade.closePath(editor);
+					
+					//关闭根目录.
+					editor.closeDir();
+					//返回新的版本号
+			        
+			        long SVNRevision=editor.closeEdit().getNewRevision();
+			        /**
+			         * 设定提交人信息,此项操作需要两个条件:
+			         *    1: 连接版本库必须是 "file" or "svn+ssh" 两种协议 
+			         *    2: 版本控制库实现了pre-revprop-change hook script.同时注意修改此程序中的svn:log,为svn:author
+			         *  see http://www.subversion.org.cn/svnbook/1.2/svn.reposadmin.create.html#svn.reposadmin.create.hooks
+			         *  http://www.nabble.com/Doing-a-commit-with-svn%3Aauthor-different-from-authenticated-user--t4335217.html#a12366459
+			         */
+			        
+			        if(versionableObject.getSvnAuthor()!=null){
+			        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
+			        }
+			        return SVNRevision;
+				
+				}
 			}
-			
-			editor = repository.getCommitEditor(comment, null); 
-			{
-				//打开根目录.
-				editor.openRoot(-1);
-				//遍历目录
-				facade.openPath(editor);
-				
-				//发送文件.
-				sender.sendFile(editor);
-				
-				//关闭遍历的目录.
-				facade.closePath(editor);
-				
-				//关闭根目录.
-				editor.closeDir();
-				//返回新的版本号
-		        
-		        long SVNRevision=editor.closeEdit().getNewRevision();
-		        /**
-		         * 设定提交人信息,此项操作需要两个条件:
-		         *    1: 连接版本库必须是 "file" or "svn+ssh" 两种协议 
-		         *    2: 版本控制库实现了pre-revprop-change hook script.同时注意修改此程序中的svn:log,为svn:author
-		         *  see http://www.subversion.org.cn/svnbook/1.2/svn.reposadmin.create.html#svn.reposadmin.create.hooks
-		         *  http://www.nabble.com/Doing-a-commit-with-svn%3Aauthor-different-from-authenticated-user--t4335217.html#a12366459
-		         */
-		        
-		        if(versionableObject.getSvnAuthor()!=null){
-		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
-		        }
-		        return SVNRevision;
-			}
-		} catch (SVNException e) {
-			throw new RuntimeException(e);
-		}
+		});
 	}
 	
-	
+	private Object execute(ISvnCallback callback){
+		SVNRepository repository = null;
+		try {
+			repository=createSvnRepository();
+			return callback.doInRepository(repository);
+		}catch (SVNException e) {
+			throw new RuntimeException(e);
+		}finally{
+			try {
+				if(repository!=null){
+					repository.closeSession();
+				}
+			} catch (SVNException e) {
+				logger.warn(e.getMessage());
+			}
+		}
+	}
 	/**
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchObjectAsJson(corner.service.svn.IVersionable, long)
 	 */
-	public   String fetchObjectAsJson(IVersionable versionableObject, long revision) {
-		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
-		Map fileProperties = new HashMap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-        	SVNRepository repository=createSvnRepository();
-			SVNNodeKind nodeKind = repository.checkPath(filePath , revision);
-	        
-	        if (nodeKind == SVNNodeKind.NONE || nodeKind == SVNNodeKind.DIR) {
-	        	throw new RuntimeException("未发现文件");
-	        }
-	        
-	        repository.getFile(filePath, revision, fileProperties, baos);
-		} catch (SVNException e) {
-			throw new RuntimeException(e);
-		}
+	public   String fetchObjectAsJson(IVersionable versionableObject, final long revision) {
+		final String entityPath = getEntityPath(versionableObject);
+		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final Map fileProperties = new HashMap();
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        this.execute(new ISvnCallback(){
+
+			public Object doInRepository(SVNRepository repository) throws SVNException {
+				SVNNodeKind nodeKind = repository.checkPath(filePath , revision);
+		        
+		        if (nodeKind == SVNNodeKind.NONE || nodeKind == SVNNodeKind.DIR) {
+		        	throw new RuntimeException("未发现文件");
+		        }
+		        
+		        repository.getFile(filePath, revision, fileProperties, baos);
+		        
+		        return null;
+			}});
         
         try {
 			return new String(baos.toByteArray(),FileSender.FILE_ENCODING);
@@ -166,62 +199,62 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchVersionInfo(corner.service.svn.IVersionable)
 	 */
+	@SuppressWarnings("unchecked")
 	public List<VersionResult> fetchVersionInfo(IVersionable versionableObject) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
-		
-		try {
-			SVNRepository repository=createSvnRepository();
-			Collection logEntries = repository.log(new String[] {filePath}, null,
-			        0, -1, true, true);
-			List<VersionResult> list = new ArrayList<VersionResult>();
-			for(Object obj:logEntries){
-				SVNLogEntry logEntry = (SVNLogEntry) obj;
-				VersionResult result = new VersionResult();
-				result.setAuthor(logEntry.getAuthor());
-				result.setComment(logEntry.getMessage());
-				result.setCreateDate(logEntry.getDate());
-				result.setVersionNum(logEntry.getRevision());
-				list.add(result);
-			}
-			return list;
-		} catch (SVNException e) {
-			throw new RuntimeException(e);
-		}
+		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		return (List<VersionResult>) this.execute(new ISvnCallback(){
+
+			public Object doInRepository(SVNRepository repository) throws SVNException {
+				Collection logEntries = repository.log(new String[] {filePath}, null,
+				        0, -1, true, true);
+				List<VersionResult> list = new ArrayList<VersionResult>();
+				for(Object obj:logEntries){
+					SVNLogEntry logEntry = (SVNLogEntry) obj;
+					VersionResult result = new VersionResult();
+					result.setAuthor(logEntry.getAuthor());
+					result.setComment(logEntry.getMessage());
+					result.setCreateDate(logEntry.getDate());
+					result.setVersionNum(logEntry.getRevision());
+					list.add(result);
+				}
+				return list;
+
+			}});
 	}
 	/**
 	 * 
 	 * @see corner.service.svn.IVersionService#delete(corner.service.svn.IVersionable)
 	 */
-	public void delete(IVersionable versionableObject) {
+	public void delete(final IVersionable versionableObject) {
 		String entityPath = getEntityPath(versionableObject);
-		String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
-		try {
-			SVNRepository repository=createSvnRepository();
-			if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
-				return;
-			}
-			String comment = versionableObject.getSvnLog();
-			if(comment == null){
-				comment = "";
-			}
-			ISVNEditor editor = repository.getCommitEditor(comment, null); //增加时的一些话
-			//open root dir
-			editor.openRoot(-1);
+		 this.execute(new ISvnCallback(){
 
-			editor.deleteEntry(filePath, -1);
-			editor.closeDir();
-			
-			long SVNRevision = editor.closeEdit().getNewRevision();
-			
-			//修改作者信息
-			 if(versionableObject.getSvnAuthor()!=null){
-		        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
-		       }
-		} catch (SVNException e) {
-			throw new RuntimeException(e);
-		}
+			public Object doInRepository(SVNRepository repository) throws SVNException {
+				if(repository.checkPath(filePath,-1) == SVNNodeKind.NONE){
+					return null;
+				}
+				String comment = versionableObject.getSvnLog();
+				if(comment == null){
+					comment = "";
+				}
+				ISVNEditor editor = repository.getCommitEditor(comment, null); //增加时的一些话
+				//open root dir
+				editor.openRoot(-1);
+
+				editor.deleteEntry(filePath, -1);
+				editor.closeDir();
+				
+				long SVNRevision = editor.closeEdit().getNewRevision();
+				
+				//修改作者信息
+				 if(versionableObject.getSvnAuthor()!=null){
+			        	repository.setRevisionPropertyValue(SVNRevision,SVNRevisionProperty.AUTHOR, versionableObject.getSvnAuthor());
+			       }
+				return null;
+			}});
 	}
 	
 	/**
