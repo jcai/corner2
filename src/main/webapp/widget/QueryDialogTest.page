@@ -25,8 +25,9 @@
   </component>
   <component type="corner:VersionCommentBox" id="popText">
       <binding value="literal:widget/pop" name="queryPageName"/>
-      <binding value="ognl:svnAuthorValue" name="svnAuthorValue"/>
+      <binding value="ognl:svnAuthorValue" name="svnAuthor"/>
       <binding value="ognl:svnLog" name="svnLog"/>
       <binding value="ognl:svnCommit" name="svnCommit"/>
+      <binding value="literal:admin" name="svnAuthorDefaultValue"/>
   </component>
 </page-specification>

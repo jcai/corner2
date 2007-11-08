@@ -9,10 +9,14 @@
 	
 <component-specification class="corner.orm.tapestry.component.prototype.window.VersionCommentBox" allow-body="no" allow-informal-parameters="yes">
   <component type="WindowQueryDialog" id="WindowQueryDialogField">
-      <binding value="ognl:queryPageName" name="queryPageName"/>
-      <binding value="ognl:autoReSize" name="autoReSize"/>
-      <binding value="ognl:eventHeaderId" name="eventHeaderId"/>
-      <binding value="ognl:windowShowButtonText" name="windowShowButtonText"/>
-      <binding name="showFunc" value="ognl:showFunc"/>
+    <binding name="queryPageName" value="ognl:queryPageName"/>
+    <binding name="autoReSize" value="ognl:autoReSize"/>
+    <binding name="eventHeaderId" value="ognl:eventHeaderId"/>
+    <binding name="windowShowButtonText" value="ognl:windowShowButtonText"/>
+    <binding name="showFunc" value="ognl:showFunc"/>
+  </component>
+  <component type="Hidden" id="svnAuthor">
+    <binding name="defaultValue" value="ognl:svnAuthorDefaultValue"/>
+    <binding name="value" value="ognl:svnAuthor"/>
   </component>
 </component-specification>

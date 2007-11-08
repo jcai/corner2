@@ -73,6 +73,9 @@ public abstract class VersionCommentBox extends BaseComponent implements IFormCo
 	public abstract String getSvnAuthor();
 	
 	@Parameter
+	public abstract String getSvnAuthorDefaultValue();
+	
+	@Parameter
 	public abstract String getSvnLog();
 	
 	/**
