@@ -84,6 +84,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
 	public  long checkin(final IVersionable versionableObject) {
+		if(!versionableObject.isSvnCommit()){
+			return -1;
+		}
 		//得到文件路径
 		final String entityPath = getEntityPath(versionableObject);
 		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
@@ -170,6 +173,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#fetchObjectAsJson(corner.service.svn.IVersionable, long)
 	 */
 	public   String fetchObjectAsJson(IVersionable versionableObject, final long revision) {
+		
 		final String entityPath = getEntityPath(versionableObject);
 		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		final Map fileProperties = new HashMap();
@@ -227,6 +231,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#delete(corner.service.svn.IVersionable)
 	 */
 	public void delete(final IVersionable versionableObject) {
+		
 		String entityPath = getEntityPath(versionableObject);
 		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
