@@ -80,5 +80,10 @@ public class A extends AbstractModel implements IVersionable{
 	public String getSvnAuthor() {
 		return "jcai";
 	}
+	@Transient
+	public boolean isSvnCommit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

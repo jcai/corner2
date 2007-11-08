@@ -36,5 +36,9 @@ public interface IVersionable extends IPersistModel{
 	 * @return 作者信息
 	 */
 	public String getSvnAuthor();
+	/**
+	 * 是否提交
+	 */
+	public boolean isSvnCommit();
 	
 }
