@@ -67,8 +67,16 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
             renderIdAttribute(writer, cycle); // render id="" client id
             renderInformalParameters(writer, cycle);
         }
-        
-		setWindowShowButton(writer);
+		
+		addWindowShowButtonText(writer);
+		
+		addDialogCss(writer);	//加入css
+		
+		if(getEventHeaderId() == null || getEventHeaderId().length() == 0)
+			setWindowShowButton(writer);
+		else{
+			setEventId(getEventHeaderId());
+		}
 		
         renderBody(writer, cycle);
         
@@ -94,16 +102,13 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 * 创建一个按钮
 	 */
 	private void setWindowShowButton(IMarkupWriter writer) {
-		
-		addWindowShowButtonText(writer);
-		
-		addDialogCss(writer);	//加入css
-		
 		writer.beginEmpty("img");
 		writer.attribute("name",getDialogButtonName());
 		writer.attribute("id",getDialogButtonName());
 		writer.attribute("src", getIndicatorAsset().buildURL());
 		writer.attribute("border","0");
+		
+		setEventId(getDialogButtonName());
 	}
 	
 	/**
@@ -319,6 +324,14 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	@Parameter(defaultValue = "ognl:true")
 	public abstract boolean getAutoReSize();
+	
+	/**
+	 * 获得需要定义控制事件的Id
+	 */
+	@Parameter
+	public abstract String getEventHeaderId();
+	public abstract String getEventId();
+	public abstract void setEventId(String id);
 	
 	/**
 	 * 按钮上的文字

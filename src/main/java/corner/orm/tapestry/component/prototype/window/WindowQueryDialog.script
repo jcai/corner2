@@ -34,7 +34,7 @@
 		
 		${component.dialogName}.showCenter();
 	}
-	dojo.event.connect(dojo.byId("${component.dialogButtonName}"),"onclick","${component.dialogScriptFunName}");
+	dojo.event.connect(dojo.byId("${component.eventId}"),"onclick","${component.dialogScriptFunName}");
 
 </initialization>
 </script>

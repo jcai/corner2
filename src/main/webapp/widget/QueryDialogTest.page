@@ -26,5 +26,6 @@
   <component type="corner:WindowQueryDialog" id="popText">
       <binding value="literal:widget/pop" name="queryPageName"/>
       <binding value="ognl:false" name="autoReSize"/>
+      <binding value="literal:touch" name="eventHeaderId"/>
   </component>
 </page-specification>
