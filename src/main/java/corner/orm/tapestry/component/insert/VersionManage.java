@@ -29,6 +29,7 @@ import corner.orm.tapestry.page.EntityPage;
 import corner.service.EntityService;
 import corner.service.svn.IVersionProvider;
 import corner.service.svn.IVersionable;
+import corner.service.svn.XStreamDelegate;
 
 /**
  * 版本管理器，用来返回相应的版本json串
@@ -66,17 +67,27 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			
 			EntityPage page = (EntityPage)getPage().getRequestCycle().getPage();
 			
-			Object entity = page.getEntity();
-			long v1 = ((IVersionProvider)page).getVersionNum();
+			IVersionable entity = (IVersionable) page.getEntity();
 			
-			long v2 = ((IVersionProvider)page).getOtherVersionNum();
+			IVersionProvider conf = (IVersionProvider)page;
+			
+			long v1 = conf.getVersionNum();
+			long v2 = conf.getOtherVersionNum();
 			
 			if(v1 == 0) {v1 = -1;}
 			
-			String json1 = getJsonVersion(entity,v1);
-			String json2 = getJsonVersion(entity,v2);
+			String json1 = null;
+			String json2 = null;
 			
-			appendShowElement(writer,v1,v2);
+			if(conf.isCompareLastVer()){
+				json1 = XStreamDelegate.toJSON(entity);
+				json2 = getJsonVersion(entity,Long.valueOf(entity.getRevision()));
+			}else{
+				json1 = getJsonVersion(entity,v1);
+				json2 = getJsonVersion(entity,v2);
+			}
+			
+			appendShowElement(writer, entity, conf, v1, v2);
 			
 			parms.put("json", json1);
 			parms.put("json2", json2);
@@ -90,12 +101,19 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	 * @param v1
 	 * @param v2
 	 */
-	private void appendShowElement(IMarkupWriter writer, long v1, long v2) {
+	private void appendShowElement(IMarkupWriter writer,IVersionable entity, IVersionProvider conf , long v1, long v2) {
+		
+		String v2show = null;
 		
 		if(v2 == 0){
 			writer.print("版本:" + v1);
+			v2show = "";
+		}else if(conf.isCompareLastVer()){
+			writer.print("当前 版本 与  版本: " + entity.getRevision() + " 对比");
+			v2show = entity.getRevision();
 		}else{
 			writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
+			v2show = String.valueOf(v2);
 		}
 		
 		writer.begin("input");
@@ -107,7 +125,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		writer.begin("input");
 		writer.attribute("type", "hidden");
 		writer.attribute("id", "otherVer_hid");
-		writer.attribute("value", v2 == 0 ? "" : String.valueOf(v2));
+		writer.attribute("value", v2show);
 		writer.end("input");
 		
 	}
@@ -118,12 +136,12 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	 * @param v 版本号
 	 * @return 返回的json串
 	 */
-	private String getJsonVersion(Object entity, long v) {
+	private String getJsonVersion(IVersionable entity, long v) {
 		
 		if(v == 0){
 			return NULL_JSON;
 		}
 		
-		return getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson((IVersionable) entity, v):NULL_JSON;
+		return getEntityService().isPersistent(entity)? this.getSubversionService().fetchObjectAsJson(entity, v):NULL_JSON;
 	}
 }

@@ -45,4 +45,14 @@ public interface IVersionProvider {
 	 * 要显示的版本号2
 	 */
 	public abstract  void  setOtherVersionNum(long versionNum);
+	
+	/**
+	 * 与不提交的版本对比
+	 */
+	public abstract boolean isCompareLastVer();
+	
+	/**
+	 * 与不提交的版本对比
+	 */
+	public abstract void setCompareLastVer(boolean b);
 }
