@@ -29,7 +29,9 @@ import corner.orm.tapestry.page.EntityPage;
 import corner.service.EntityService;
 import corner.service.svn.IVersionProvider;
 import corner.service.svn.IVersionable;
+import corner.service.svn.VersionSaveUpdateEventListener;
 import corner.service.svn.XStreamDelegate;
+import corner.util.StringUtils;
 
 /**
  * 版本管理器，用来返回相应的版本json串
@@ -80,8 +82,12 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			String json2 = null;
 			
 			if(conf.isCompareLastVer()){
+				v2 = Long.valueOf(StringUtils.replace(
+						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
+						);
+				
 				json1 = XStreamDelegate.toJSON(entity);
-				json2 = getJsonVersion(entity,Long.valueOf(entity.getRevision()));
+				json2 = getJsonVersion(entity,v2);
 			}else{
 				json1 = getJsonVersion(entity,v1);
 				json2 = getJsonVersion(entity,v2);
@@ -103,17 +109,17 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	 */
 	private void appendShowElement(IMarkupWriter writer,IVersionable entity, IVersionProvider conf , long v1, long v2) {
 		
-		String v2show = null;
+		String v2show = String.valueOf(v2);
 		
-		if(v2 == 0){
-			writer.print("版本:" + v1);
-			v2show = "";
-		}else if(conf.isCompareLastVer()){
-			writer.print("当前 版本 与  版本: " + entity.getRevision() + " 对比");
-			v2show = entity.getRevision();
-		}else{
-			writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
-			v2show = String.valueOf(v2);
+		if(conf.isCompareLastVer()){
+			writer.print("当前 版本 与  版本: " + v2 + " 对比");
+		}else {
+			if(v2 == 0){
+				writer.print("版本:" + v1);
+				v2show = "";
+			}else{
+				writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
+			}
 		}
 		
 		writer.begin("input");

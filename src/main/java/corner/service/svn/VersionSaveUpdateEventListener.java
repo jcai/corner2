@@ -26,7 +26,7 @@ import corner.orm.spring.SpringContainer;
  */
 public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventListener {
 
-	private final static  String UNREVISION_VERSION="*";
+	public final static  String UNREVISION_VERSION="*";
 	/**
 	 * 
 	 */
