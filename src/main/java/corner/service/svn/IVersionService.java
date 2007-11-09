@@ -18,7 +18,7 @@ import java.util.List;
  * 提供版本服务的类.
  * <p>
  * 提供和subversion版本控制服务器进行交互的类.
- * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun IVersionablesai</a>
+ * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun tsai</a>
  * @version $Revision$
  * @since 2.5
  * 
