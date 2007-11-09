@@ -2,6 +2,9 @@
 /** 自动完成 **/
 @import url("autocompleter.css");
 
+@import url("windowThemes/default.css");
+@import url("windowThemes/alphacube.css");
+
 .alertButton {
 	width: auto;
 	border: none;
