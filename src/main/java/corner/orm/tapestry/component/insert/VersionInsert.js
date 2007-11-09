@@ -11,12 +11,24 @@ function showText(clientId,json,jsonOther,entityName,showProperty){
 			$(clientId).update(json[entityName][showProperty]);
 	}else{
 		if(json[entityName][showProperty] != jsonOther[entityName][showProperty]){
-			$(clientId).update("<font color='#FF0000'> "+ json[entityName][showProperty] + "</font>");
+			showFieldText(clientId,json[entityName][showProperty]);
 			new Tip($(clientId), jsonOther[entityName][showProperty],{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
 		}else{
 			if(json[entityName][showProperty] != null)
 				$(clientId).update(json[entityName][showProperty]);
 		}
+	}
+}
+
+/*  
+ * 显示更新显示文字
+ * 未记入svn的用蓝色表示，改变的用红色表示
+ */
+function showFieldText(clientId,date){
+	if(date == null){
+		$(clientId).update("<font color='#0000FF'> "+ $(clientId).innerHTML + "</font>");
+	}else{
+		$(clientId).update("<font color='#FF0000'> "+ date + "</font>");
 	}
 }
 
