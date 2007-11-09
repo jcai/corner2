@@ -70,8 +70,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		
 		addWindowShowButtonText(writer);
 		
-		addDialogCss(writer);	//加入css
-		
 		if(getEventHeaderId() == null || getEventHeaderId().length() == 0)
 			setWindowShowButton(writer);
 		else{
@@ -119,25 +117,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 			writer.print(getWindowShowButtonText());
 		}
 	}
-
-	/**
-	 * @param writer
-	 */
-	private void addDialogCss(IMarkupWriter writer) {
-		String [] csList = csss.split(",");
-		
-		String url = getAssetCss().buildURL();
-		
-		for(String css : csList){
-			url = getAssetCss().buildURL().replace("alphacube", css);
-			
-			writer.beginEmpty("link");
-			writer.attribute("rel", "stylesheet");
-			writer.attribute("type", "text/css");
-			writer.attribute("href", url);
-		}
-	}
-
 
 	/**
 	 * 获得调用的方法名称
@@ -261,7 +240,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		return url;
 	}
 	
-	public static String csss="default,theme1,mac_os_x,alphacube,darkX,spread,alert,alert_lite";
+//	public static String csss="default,theme1,mac_os_x,alphacube,darkX,spread,alert,alert_lite";
 	
 	/**
 	 * window 需要的参数
