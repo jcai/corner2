@@ -34,23 +34,40 @@ djConfig = { isDebug: true
    </dl>
   </div>
  </div>
+<br><br><br><br><br>
+增加：<span id ="addField" >dsadsa</span><br>
+增加：<span id ="editField" >dsadsa</span><br>
+增加：<span id ="delField" >dsadsa</span><br>
 
-
-id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /><br/>	
-	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>
-<span id ="nameee" >dsadsa</span>
 <input id="otherVer_hid" type="hidden" value="555"/>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 var flags = eval({"entity":{"id":"test01"}});
-	
 var flags2 = eval({"entity":{"id":"test01","name":"中国222"}});
 	
-dojo.event.connect(window,"onload",this,"aaa");
-aaa=function(evt){
-	showText("nameee",flags,flags2,"entity","name");
+dojo.event.connect(window,"onload",this,"add");
+add=function(evt){
+	showText("addField",flags,flags2,"entity","name");
 }
+
+var editflags = eval({"entity":{"id":"test01","name":"中国111"}});
+var editflags2 = eval({"entity":{"id":"test01","name":"中国222"}});
+	
+dojo.event.connect(window,"onload",this,"edit");
+edit=function(evt){
+	showText("editField",editflags,editflags2,"entity","name");
+}
+
+
+var deleflags = eval({"entity":{"id":"test01","name":"中国111"}});
+var deleflags2 = eval({"entity":{"id":"test01"}});
+	
+dojo.event.connect(window,"onload",this,"del");
+del=function(evt){
+	showText("delField",deleflags,deleflags2,"entity","name");
+}
+
 
 //-->
 </SCRIPT>

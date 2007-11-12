@@ -6,29 +6,30 @@ function showText(clientId,json,jsonOther,entityName,showProperty){
 	
 	var ver = showVerNum("otherVer_hid");
 	
-	if(jsonOther[entityName][showProperty] == null){
-		if(json[entityName][showProperty] != null)
-			$(clientId).update(json[entityName][showProperty]);
-	}else{
-		if(json[entityName][showProperty] != jsonOther[entityName][showProperty]){
-			showFieldText(clientId,json[entityName][showProperty]);
-			new Tip($(clientId), jsonOther[entityName][showProperty],{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
-		}else{
-			if(json[entityName][showProperty] != null)
-				$(clientId).update(json[entityName][showProperty]);
-		}
-	}
+	var date1 = json[entityName][showProperty];
+	var date2 = jsonOther[entityName][showProperty];
+	
+	if(date1!=null && date2==null){	//删除
+		$(clientId).update("<font color='#88f'> "+ date1 + "</font>");
+	}else{	//改、增
+		showFieldText(clientId,date1,date2);
+		new Tip($(clientId), date2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
+	} 
 }
 
 /*  
  * 显示更新显示文字
- * 未记入svn的用蓝色表示，改变的用红色表示
+ * 未记入svn的用#bfb表示，改变的用#fd8表示
  */
-function showFieldText(clientId,date){
-	if(date == null){
-		$(clientId).update("<font color='#0000FF'> "+ $(clientId).innerHTML + "</font>");
+function showFieldText(clientId,date1,date2){
+	
+	dojo.debug("date1: " + date1);
+	dojo.debug("date2: " + date2);
+	
+	if(date1 == null && date2 != null){
+		$(clientId).update("<font color='#bfb'> "+ $(clientId).innerHTML + "</font>");
 	}else{
-		$(clientId).update("<font color='#FF0000'> "+ date + "</font>");
+		$(clientId).update("<font color='#fd8'> "+ date1 + "</font>");
 	}
 }
 
