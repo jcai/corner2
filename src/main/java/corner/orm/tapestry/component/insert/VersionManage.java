@@ -45,7 +45,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	public abstract IScript getScript();
 	
 	
-	private static String NULL_JSON = "{\"entity\":{\"id\":\"\"}}";
+	private static String NULL_JSON = "{\"entity\":{}}";
 	
 	/**
 	 * 得到EntityService.
@@ -97,6 +97,9 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			
 			parms.put("json", json1);
 			parms.put("json2", json2);
+			
+			parms.put("type", v2 == 0 ?"show":"compare");	//记录是显示还是比较
+			
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}

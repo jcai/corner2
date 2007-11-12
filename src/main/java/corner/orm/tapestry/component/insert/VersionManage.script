@@ -6,9 +6,11 @@
 
 <input-symbol key="json" required="yes" />
 <input-symbol key="json2" required="yes" />
+<input-symbol key="type" required="yes" />
 
 <initialization>
 	var flags = eval(${json});
 	var flags2 = eval(${json2});
+	var type = "${type}";
 </initialization>
 </script>

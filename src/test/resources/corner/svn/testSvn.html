@@ -43,30 +43,15 @@ djConfig = { isDebug: true
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-var flags = eval({"entity":{"id":"test01"}});
+var flags = eval({"entity":{"id":"test01","name":"中国111"}});
 var flags2 = eval({"entity":{"id":"test01","name":"中国222"}});
+var type ="show";
 	
 dojo.event.connect(window,"onload",this,"add");
 add=function(evt){
-	showText("addField",flags,flags2,"entity","name");
+	showText("addField",flags,flags2,"entity","name",type);
 }
 
-var editflags = eval({"entity":{"id":"test01","name":"中国111"}});
-var editflags2 = eval({"entity":{"id":"test01","name":"中国222"}});
-	
-dojo.event.connect(window,"onload",this,"edit");
-edit=function(evt){
-	showText("editField",editflags,editflags2,"entity","name");
-}
-
-
-var deleflags = eval({"entity":{"id":"test01","name":"中国111"}});
-var deleflags2 = eval({"entity":{"id":"test01"}});
-	
-dojo.event.connect(window,"onload",this,"del");
-del=function(evt){
-	showText("delField",deleflags,deleflags2,"entity","name");
-}
 
 
 //-->
