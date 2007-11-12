@@ -14,6 +14,7 @@ djConfig = { isDebug: true
 </SCRIPT>
 	
 <link rel="stylesheet" type="text/css" media="all" href="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.css" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/sandbox.css" />
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"></script>
@@ -23,6 +24,17 @@ djConfig = { isDebug: true
 </head>
 
 <body>
+	
+ <div class="diff">
+  <div id="legend">
+   <dl>
+    <dt class="add"></dt><dd>Added</dd>
+    <dt class="mod"></dt><dd>Modified</dd>
+    <dt class="cp"></dt><dd>Copied or renamed</dd>
+   </dl>
+  </div>
+ </div>
+
 
 id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldName" /><br/>	
 	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>
@@ -31,7 +43,7 @@ id: <input id="idField" value="oldId"/> name <input id="nameField" value="oldNam
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-var flags = eval({"entity":{"id":"test01","name":"中国111"}});
+var flags = eval({"entity":{"id":"test01"}});
 	
 var flags2 = eval({"entity":{"id":"test01","name":"中国222"}});
 	

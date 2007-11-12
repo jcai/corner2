@@ -5,6 +5,8 @@
 @import url("windowThemes/default.css");
 @import url("windowThemes/alphacube.css");
 
+@import url("svn.css");
+
 .alertButton {
 	width: auto;
 	border: none;

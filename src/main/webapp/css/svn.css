@@ -1,0 +1,32 @@
+/* Colors for change types */
+#chglist .edit, #overview .mod, .diff #legend .mod { background: #fd8 }
+#chglist .add, #overview .add, .diff #legend .add { background: #bfb }
+#chglist .copy, #overview .cp, .diff #legend .cp { background: #88f }
+
+/* Legend for diff colors */
+.diff #legend {
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	padding: 0em;
+	width: 50%;
+	margin-top: 0em;
+	margin-right: 0.5em;
+	margin-bottom: 0em;
+	margin-left: 0em;
+}
+.diff #legend dt {
+ background: #fff;
+ border: 1px solid #999;
+ float: left;
+ margin: .1em .5em .1em 2em;
+ overflow: hidden;
+ width: .8em; height: .8em;
+}
+.diff #legend dl, .diff #legend dd {
+	display: block;
+	float: left;
+	clear: right;
+	padding: 0;
+	margin: 0;
+}

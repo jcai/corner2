@@ -122,6 +122,35 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			}
 		}
 		
+		writer.begin("div");
+		writer.attribute("class", "diff");
+			writer.begin("div");
+			writer.attribute("id", "legend");
+				writer.begin("dl");
+					writer.begin("dt");
+					writer.attribute("class", "add");
+					writer.end("dt");
+					writer.begin("dd");
+					writer.print("Add");
+					writer.end("dd");
+					
+					writer.begin("dt");
+					writer.attribute("class", "mod");
+					writer.end("dt");
+					writer.begin("dd");
+					writer.print("Edit");
+					writer.end("dd");
+					
+					writer.begin("dt");
+					writer.attribute("class", "cp");
+					writer.end("dt");
+					writer.begin("dd");
+					writer.print("Delete");
+					writer.end("dd");
+				writer.end("dl");
+			writer.end("div");
+		writer.end("div");
+		
 		writer.begin("input");
 		writer.attribute("type", "hidden");
 		writer.attribute("id", "ver_hid");
