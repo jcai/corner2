@@ -1,7 +1,7 @@
 /* Colors for change types */
 #chglist .edit, #overview .mod, .diff #legend .mod { background: #fd8 }
 #chglist .add, #overview .add, .diff #legend .add { background: #bfb }
-#chglist .copy, #overview .cp, .diff #legend .cp { background: #88f }
+#chglist .copy, #overview .cp, .diff #legend .cp { background: #FF3E3E }
 
 /* Legend for diff colors */
 .diff #legend {

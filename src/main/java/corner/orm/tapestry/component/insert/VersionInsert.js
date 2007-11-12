@@ -28,12 +28,12 @@ function showFieldText(clientId,date1,date2){
 	
 	var ver = showVerNum("otherVer_hid");
 	
-	if(date1!=null && date2==null){	//增加
-		$(clientId).update("<font color='#bfb'> "+ date1 + "</font>");
+	if(date1!=null && date2==null){	//删除
+		$(clientId).update("<font color='#FF3E3E'> "+ date1  + "</font>");
 	}
 	
-	if(date1==null && date2!=null){	//删除
-		$(clientId).update("<font color='#88f'> "+ date2  + "</font>");
+	if(date1==null && date2!=null){	//增加
+		$(clientId).update("<font color='#bfb'> "+ date2 + "</font>");
 	}
 	
 	if(date1!=null && date2!=null && date1 != date2){	//修改
