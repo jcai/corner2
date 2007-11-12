@@ -29,7 +29,13 @@ function showFieldText(clientId,date1,date2){
 	var ver = showVerNum("otherVer_hid");
 	
 	if(date1!=null && date2==null){	//删除
-		$(clientId).update("<font color='#FF3E3E'><s>"+ date1  + "</s></font>");
+		$(clientId).setStyle({
+		  backgroundColor: '#FF3E3E',
+		  fontSize: '12px',
+			'text-decoration': 'line-through',
+			color:'white'
+		});
+		$(clientId).update(date1);
 	}
 	
 	if(date1==null && date2!=null){	//增加
