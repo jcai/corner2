@@ -19,6 +19,7 @@ public interface IPersistModel {
 	 * @return Returns the id.
 	 */
 	public abstract String getId();
+	public abstract void setId(String id);
 	/** 用于关联查询时候，对集成类的查询 **/
 	public static final String CLASS_PRO_NAME = "class";
 }

@@ -16,8 +16,21 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import corner.demo.model.one2many.A;
+import corner.demo.model.one2many.B;
 
 public class SubversionServiceTest extends Assert{
+	@Test
+	public void test_checkin2()throws Exception{
+		IVersionService service = constructService();
+		A a=new A();
+		a.setId("check2");
+		
+		long revision=service.checkin(a);
+		List<VersionResult> version = service.fetchVersionInfo(a);
+		String jsonStr = service.fetchObjectAsJson(a, revision);
+		
+	}
+	
 	@Test
 	public void test_checkin() throws Exception{
 		IVersionService service = constructService();

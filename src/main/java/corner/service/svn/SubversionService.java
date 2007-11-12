@@ -14,7 +14,6 @@ package corner.service.svn;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -209,15 +208,20 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#fetchVersionInfo(corner.service.svn.IVersionable)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<VersionResult> fetchVersionInfo(IVersionable versionableObject) {
+	public List<VersionResult> fetchVersionInfo(final IVersionable versionableObject) {
 		final StringBuffer groupPath = getGroupPath(versionableObject);
-		 
+		
 		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
+		
 		return (List<VersionResult>) this.execute(new ISvnCallback(){
 
 			public Object doInRepository(SVNRepository repository) throws SVNException {
 				final ArrayList<VersionResult> list = new ArrayList<VersionResult>();
-				repository.log(new String[] {filePath}, 
+				String svnPath = filePath;
+				if(isGroupClass(versionableObject)){
+					svnPath = groupPath.toString();
+				}
+				repository.log(new String[] {svnPath}, 
 				        0, -1, true, true,new ISVNLogEntryHandler(){
 
 							public void handleLogEntry(SVNLogEntry logEntry) throws SVNException {

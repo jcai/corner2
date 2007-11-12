@@ -32,7 +32,7 @@ public @interface VersionGroup {
 	 * 
 	 * @return
 	 */
-	Class<?> groupClass();
+	Class<? extends IVersionable> groupClass();
 	/**
 	 * 
 	 */
