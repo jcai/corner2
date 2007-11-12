@@ -33,11 +33,11 @@ function showFieldText(clientId,date1,date2){
 	}
 	
 	if(date1==null && date2!=null){	//删除
-		$(clientId).update("<font color='#88f'> "+ date1 + "</font>");
+		$(clientId).update("<font color='#88f'> "+ date2  + "</font>");
 	}
 	
 	if(date1!=null && date2!=null && date1 != date2){	//修改
-		$(clientId).update("<font color='#88f'> "+ date1 + "</font>");
+		$(clientId).update("<font color='#fd8'> "+ date1 + "</font>");
 		new Tip($(clientId), date2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
 	}
 	
