@@ -23,7 +23,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
 
+import corner.orm.hibernate.IPersistModel;
 import corner.service.svn.IVersionable;
+import corner.service.svn.VersionGroup;
 
 /**
  * @author jcai
@@ -35,6 +37,7 @@ import corner.service.svn.IVersionable;
  */
 @Entity(name="one2manyA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@VersionGroup(groupClass=A.class)
 public class A extends AbstractModel implements IVersionable{
 
 	/**

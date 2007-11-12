@@ -14,6 +14,7 @@ package corner.service.svn;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import corner.service.EntityService;
+import corner.util.BeanUtils;
 
 
 /**
@@ -89,8 +91,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			return -1;
 		}
 		//得到文件路径
-		final String entityPath = getEntityPath(versionableObject);
-		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final StringBuffer groupPath = getGroupPath(versionableObject);
+		 
+		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		//得到JSON字符串
 		final String json =  XStreamDelegate.toJSON(versionableObject);
@@ -102,7 +105,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				DirectoryFacade facade = null;
 				//subversion 编辑器.
 				ISVNEditor editor = null;
-				facade = new DirectoryFacade(repository,entityPath);
+				facade = new DirectoryFacade(repository,groupPath.toString());
 				
 				FileSender sender=new FileSender(repository,json,filePath);
 				
@@ -175,8 +178,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public   String fetchObjectAsJson(IVersionable versionableObject, final long revision) {
 		
-		final String entityPath = getEntityPath(versionableObject);
-		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final StringBuffer groupPath = getGroupPath(versionableObject);
+		 
+		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
 		final Map fileProperties = new HashMap();
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         this.execute(new ISvnCallback(){
@@ -206,8 +210,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<VersionResult> fetchVersionInfo(IVersionable versionableObject) {
-		String entityPath = getEntityPath(versionableObject);
-		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final StringBuffer groupPath = getGroupPath(versionableObject);
+		 
+		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
 		return (List<VersionResult>) this.execute(new ISvnCallback(){
 
 			public Object doInRepository(SVNRepository repository) throws SVNException {
@@ -235,8 +240,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public void delete(final IVersionable versionableObject) {
 		
-		String entityPath = getEntityPath(versionableObject);
-		final String filePath = entityPath +"/" + versionableObject.getId()+ENTITY_FILIE_SUFFIX;
+		final StringBuffer groupPath = getGroupPath(versionableObject);
+		 
+		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
 		 this.execute(new ISvnCallback(){
 
@@ -251,8 +257,12 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				ISVNEditor editor = repository.getCommitEditor(comment, null); //增加时的一些话
 				//open root dir
 				editor.openRoot(-1);
-
-				editor.deleteEntry(filePath, -1);
+				
+				if(isGroupClass(versionableObject)){
+					editor.deleteEntry(groupPath.toString(), -1);
+				}else{
+					editor.deleteEntry(filePath, -1);
+				}
 				editor.closeDir();
 				
 				long SVNRevision = editor.closeEdit().getNewRevision();
@@ -270,11 +280,30 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @param clazz 类名.
 	 * @return 路径名称.
 	 */
-	private  String getEntityPath(IVersionable versionableObject){
-		Class entityClass = EntityService.getEntityClass(versionableObject);
-		String entityPath = entityClass.getName();
-		entityPath = entityPath.replaceAll("\\.", DirectoryFacade.SVN_PATH_SEPERATOR);
+	private  StringBuffer getGroupPath(IVersionable versionableObject){
+		Class<?> entityClass = EntityService.getEntityClass(versionableObject);
+		VersionGroup versionGroup=entityClass.getAnnotation(VersionGroup.class);
+		StringBuffer entityPath=new StringBuffer();
+		
+		if(versionGroup!=null){
+			entityPath.append(versionGroup.groupClass().getName().replaceAll("\\.",DirectoryFacade.SVN_PATH_SEPERATOR));
+			String groupId=(String) BeanUtils.getProperty(versionableObject,versionGroup.groupIdExp());
+			entityPath.append("/");
+			entityPath.append(groupId);
+		}else{
+			entityPath.append(entityClass.getName().replaceAll("\\.",DirectoryFacade.SVN_PATH_SEPERATOR));
+		}
+		
 		return entityPath;
+	}
+	private boolean isGroupClass(IVersionable versionableObject){
+		Class<?> entityClass = EntityService.getEntityClass(versionableObject);
+		VersionGroup versionGroup=entityClass.getAnnotation(VersionGroup.class);
+		return versionGroup!=null&&entityClass.equals(versionGroup.groupClass());
+	}
+	private String getFilePath(IVersionable versionableObject){
+		Class<?> entityClass = EntityService.getEntityClass(versionableObject);
+		return entityClass.getSimpleName()+"_"+versionableObject.getId();
 	}
 
 	
