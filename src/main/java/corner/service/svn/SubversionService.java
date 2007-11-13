@@ -89,6 +89,11 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		if(!versionableObject.isSvnCommit()){
 			return -1;
 		}
+		
+		if(equals(versionableObject)){
+			return -1;
+		}
+		
 		//得到文件路径
 		final StringBuffer groupPath = getGroupPath(versionableObject);
 		 
@@ -171,6 +176,19 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			}
 		}
 	}
+	
+	/**
+	 * 判断是否相同
+	 * @param versionableObject 需要比对的对象
+	 * @return 如果有差异返回true，如果没有差异返回false;
+	 */
+	public boolean equals(IVersionable versionableObject){
+		String newVer = XStreamDelegate.toJSON(versionableObject);
+		String oldVer = fetchObjectAsJson(versionableObject, -1);
+		
+		return newVer.equals(oldVer);
+	}
+	
 	/**
 	 * 
 	 * @see corner.service.svn.IVersionService#fetchObjectAsJson(corner.service.svn.IVersionable, long)
