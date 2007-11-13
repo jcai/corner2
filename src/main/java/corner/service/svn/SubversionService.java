@@ -184,7 +184,14 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 */
 	public boolean equals(IVersionable versionableObject){
 		String newVer = XStreamDelegate.toJSON(versionableObject);
-		String oldVer = fetchObjectAsJson(versionableObject, -1);
+		
+		String oldVer = null;
+		
+		try{
+			oldVer = fetchObjectAsJson(versionableObject, -1);
+		}catch(RuntimeException e){
+			oldVer = "";
+		}
 		
 		return newVer.equals(oldVer);
 	}
