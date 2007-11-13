@@ -39,7 +39,12 @@ function showFieldText(clientId,date1,date2){
 	}
 	
 	if(date1==null && date2!=null){	//增加
-		$(clientId).update("<font color='#bfb'>"+ date2 + "</font>");
+		$(clientId).setStyle({
+		  backgroundColor: '#bfb',
+		  'line-height':'150%'
+		});
+		$(clientId).update("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+		new Tip($(clientId), date2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
 	}
 	
 	if(date1!=null && date2!=null && date1 != date2){	//修改
