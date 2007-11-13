@@ -84,9 +84,6 @@ public abstract class VersionCommentBox extends BaseComponent implements IFormCo
 	@Parameter
 	public abstract String getWindowShowButtonText();
 	
-	@Parameter(defaultValue = "ognl:false")
-	public abstract boolean getAutoReSize();
-	
 	/**
 	 * 获得需要定义控制事件的Id
 	 */

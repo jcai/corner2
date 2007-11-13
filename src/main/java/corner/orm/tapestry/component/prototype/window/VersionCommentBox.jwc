@@ -10,7 +10,6 @@
 <component-specification class="corner.orm.tapestry.component.prototype.window.VersionCommentBox" allow-body="no" allow-informal-parameters="yes">
   <component type="WindowQueryDialog" id="WindowQueryDialogField">
     <binding name="queryPageName" value="ognl:queryPageName"/>
-    <binding name="autoReSize" value="ognl:autoReSize"/>
     <binding name="eventHeaderId" value="ognl:eventHeaderId"/>
     <binding name="windowShowButtonText" value="ognl:windowShowButtonText"/>
     <binding name="showFunc" value="ognl:showFunc"/>

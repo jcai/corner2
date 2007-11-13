@@ -210,10 +210,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		if(this.getShowFunc() != null && this.getShowFunc().length() != 0){
 			return this.getShowFunc();
 		}
-	 return "if(" + getAutoReSize()+"){\n" +
-			getDialogName()+".setSize(document.body.clientWidth * 0.75,document.body.clientHeight * 0.75);\n" +
-			"}\n" +
-			getDialogName()+".showCenter();";
+		
+		return getDialogName()+".showCenter();";
+	 
 	}
 
 
@@ -317,9 +316,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	
 	@Parameter
 	public abstract String getShowFunc();
-	
-	@Parameter(defaultValue = "ognl:true")
-	public abstract boolean getAutoReSize();
 	
 	/**
 	 * 获得需要定义控制事件的Id
