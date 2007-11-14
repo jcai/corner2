@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id: SelectedField.java 2407 2006-12-04 05:09:51Z jcai $
+// file :       $Id$
 // project:     corner
 //
-// last change: date:       $Date: 2006-12-04 05:09:51Z $
-//              by:         $Author: jcai $
-//              revision:   $Revision: 2407 $
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
@@ -32,7 +32,7 @@ import org.apache.tapestry.services.LinkFactory;
  * 一个用来处理被选择的实体.
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 2407 $
+ * @version $Revision$
  * @since 2.3
  */
 

@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: AssociateAutocompleterTest.java 7032 2007-07-06 10:16:06Z xf $
+ *	file : $Id$
  *	created at:2007-4-30
  */
 

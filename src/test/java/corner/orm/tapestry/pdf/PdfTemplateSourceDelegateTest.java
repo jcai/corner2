@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfTemplateSourceDelegateTest.java 5432 2007-05-08 09:15:58Z jcai $
+ *	file : $Id$
  *	created at:2007-5-8
  */
 

@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: AutoEvaluateSelectModelTest.java 7044 2007-07-12 03:46:48Z xf $
+ *	file : $Id$
  *	created at:2007-4-27
  */
 

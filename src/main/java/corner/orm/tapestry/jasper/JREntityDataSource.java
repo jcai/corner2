@@ -1,7 +1,7 @@
 /*		
  * Copyright 2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- * file : $Id: JREntityDataSource.java 3772 2007-09-21 03:49:31Z jcai $
+ * file : $Id$
  * created at:2007-9-13
  */
 
@@ -23,7 +23,7 @@ import org.apache.tapestry.binding.BindingSource;
  * 利用ognl来实现的Jasper的datasource.
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 3772 $
+ * @version $Revision$
  * @since 2.3.7
  */
 public class JREntityDataSource implements JRDataSource{

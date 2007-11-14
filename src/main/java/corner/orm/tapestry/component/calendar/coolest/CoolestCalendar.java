@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- * file : $Id: CoolestCalendar.java 6795 2007-06-21 04:10:16Z jcai $
+ * file : $Id$
  * created at:2007-6-12
  */
 
@@ -26,7 +26,7 @@ import corner.orm.tapestry.component.textfield.TextField;
 /**
  * Coolest时间控件
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
- * @version $Revision: 6795 $
+ * @version $Revision$
  * @since 0.8.5.1
  */
 public abstract class CoolestCalendar extends TextField{

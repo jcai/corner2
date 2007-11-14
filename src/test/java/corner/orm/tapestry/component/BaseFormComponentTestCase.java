@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: BaseFormComponentTestCase.java 5370 2007-04-28 02:36:29Z jcai $
+ *	file : $Id$
  *	created at:2007-4-28
  */
 

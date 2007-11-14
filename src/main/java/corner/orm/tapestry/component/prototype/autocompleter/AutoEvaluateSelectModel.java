@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site: http://www.bjmaxinfo.com
- * file : $Id: AutoEvaluateSelectModel.java 6829 2007-06-21 09:03:09Z jcai $
+ * file : $Id$
  * created at:2007-04-25
  */
 package corner.orm.tapestry.component.prototype.autocompleter;

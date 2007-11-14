@@ -2,9 +2,9 @@
 //file :        BlobImageService.java
 //project:      poison-system
 //
-//last change:	date:       $Date: 2006-06-15 03:53:52Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 1140 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")
@@ -29,7 +29,7 @@ import corner.model.IBlobModel;
  * 提供了对blob的显示服务.
  * 
  * @author <a href="http://wiki.java.net/bin/view/People/JunTsai">Jun Tsai</a>
- * @version $Revision: 1140 $
+ * @version $Revision$
  * @since 2006-1-19
  * @see IEngineService
  */

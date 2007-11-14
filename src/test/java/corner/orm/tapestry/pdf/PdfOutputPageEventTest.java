@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfOutputPageEventTest.java 5440 2007-05-08 09:56:41Z jcai $
+ *	file : $Id$
  *	created at:2007-4-11
  */
 

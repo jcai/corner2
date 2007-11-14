@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PageFragmentTest.java 6287 2007-06-05 09:05:39Z ghostbb $
+ *	file : $Id$
  *	created at:2007-5-8
  */
 

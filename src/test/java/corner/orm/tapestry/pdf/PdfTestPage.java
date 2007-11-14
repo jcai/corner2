@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfTestPage.java 6293 2007-06-06 03:55:25Z ghostbb $
+ *	file : $Id$
  *	created at:2007-4-11
  */
 

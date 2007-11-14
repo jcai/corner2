@@ -2,9 +2,9 @@
 //file :        GoAnchor.java
 //project:      corner
 //
-//last change:	date:       $Date: 2006-06-15 03:53:52Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 1140 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")

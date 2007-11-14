@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id: AbstractEntityFormPageTest.java 1872 2006-09-23 15:28:59Z jcai $
+// file :       $Id$
 // project:     corner
 //
-// last change: date:       $Date: 2006-09-23 15:28:59Z $
-//              by:         $Author: jcai $
-//              revision:   $Revision: 1872 $
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
@@ -24,7 +24,7 @@ import corner.demo.model.one.A;
 
 /**
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 1872 $
+ * @version $Revision$
  * @since 2.2.1
  */
 public class PoFormPageTest extends CornerPageTestCase {

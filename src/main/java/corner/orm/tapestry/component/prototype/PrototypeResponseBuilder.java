@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site: http://www.bjmaxinfo.com
- * file : $Id: PrototypeResponseBuilder.java 7001 2007-07-02 01:01:16Z jcai $
+ * file : $Id$
  * created at:2007-04-23
  */
 package corner.orm.tapestry.component.prototype;

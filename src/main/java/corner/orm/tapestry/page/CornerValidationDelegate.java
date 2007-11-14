@@ -1,9 +1,9 @@
 //==============================================================================
 //file :        ValidationDelegate.java
 //
-//last change:	date:       $Date: 2006-11-16 10:08:48Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 2242 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
@@ -21,7 +21,7 @@ import org.apache.tapestry.valid.ValidationDelegate;
  * 
  * 对验证的窗体回填信息的代理类.
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 2242 $
+ * @version $Revision$
  * @since 2.3
  */
 public class CornerValidationDelegate extends ValidationDelegate{

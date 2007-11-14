@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id: UniqueEntity.java 2106 2006-10-26 10:19:02Z jcai $
+// file :       $Id$
 // project:     corner
 //
-// last change: date:       $Date: 2006-10-26 10:19:02Z $
-//              by:         $Author: jcai $
-//              revision:   $Revision: 2106 $
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")

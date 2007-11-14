@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: BaseAutocompleterTest.java 6997 2007-06-29 07:35:06Z jcai $
+ *	file : $Id$
  *	created at:2007-4-28
  */
 

@@ -1,7 +1,7 @@
 /*		
  * Copyright 2007 The Beijing Maxinfo Technology Ltd. 
  * site: http://www.bjmaxinfo.com
- * file: $Id: AbstractPdfTableDisplay.java 7039 2007-07-09 07:44:26Z jcai $
+ * file: $Id$
  * created at:2007-05-10
  */
 
@@ -177,7 +177,7 @@ public abstract class AbstractPdfTableDisplay extends AbstractColumnText {
 	 * 创建TextField的事件.
 	 * 
 	 * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
-	 * @version $Revision: 7039 $
+	 * @version $Revision$
 	 * @since 0.7.5
 	 */
 	private class CreateTextFieldCellEvent implements PdfPCellEvent {

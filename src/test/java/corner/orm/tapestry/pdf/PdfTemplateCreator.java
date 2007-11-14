@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfTemplateCreator.java 5444 2007-05-08 10:08:51Z jcai $
+ *	file : $Id$
  *	created at:2007-5-8
  */
 

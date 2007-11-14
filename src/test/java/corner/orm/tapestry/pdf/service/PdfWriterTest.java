@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfWriterTest.java 4821 2007-04-11 05:28:09Z jcai $
+ *	file : $Id$
  *	created at:2007-4-6
  */
 

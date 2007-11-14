@@ -1,10 +1,10 @@
 //==============================================================================
-// file :       $Id: MulitUploadFormPage.java 2408 2006-12-04 09:12:52Z xf $
+// file :       $Id$
 // project:     corner
 //
-// last change: date:       $Date: 2006-12-04 17:12:52 +0800 (星期一, 04 十二月 2006) $
-//              by:         $Author: xf $
-//              revision:   $Revision: 2408 $
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //License:      the Apache License, Version 2.0 (the "License")
@@ -27,7 +27,7 @@ import corner.orm.tapestry.service.blob.SqueezeBlobPageDelegate;
  * 对blob的处理
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 2408 $
+ * @version $Revision$
  * @since 2.2.1
  */
 public abstract class MulitUploadFormPage extends

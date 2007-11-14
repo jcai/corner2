@@ -2,9 +2,9 @@
 //file :        UpdateSelect.java
 //project:      poison-system
 //
-//last change:	date:       $Date: 2006-08-28 06:40:32Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 1286 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	China Java Users Group http://cnjug.dev.java.net
 //License:      the Apache License, Version 2.0 (the "License")

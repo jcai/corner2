@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site: http://www.bjmaxinfo.com
- * file : $Id: AbstractSelectModel.java 6057 2007-05-29 02:26:25Z jcai $
+ * file : $Id$
  * created at:2007-04-27
  */
 package corner.orm.tapestry.component.prototype.autocompleter;

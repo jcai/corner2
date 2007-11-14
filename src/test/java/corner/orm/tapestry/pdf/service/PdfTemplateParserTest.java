@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: PdfTemplateParserTest.java 4857 2007-04-12 09:21:12Z jcai $
+ *	file : $Id$
  *	created at:2007-4-7
  */
 

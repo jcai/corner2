@@ -1,9 +1,9 @@
 //==============================================================================
 //file :        TabContainer.java
 //
-//last change:	date:       $Date: 2006-08-21 01:35:57Z $
-//           	by:         $Author: jcai $
-//           	revision:   $Revision: 795 $
+//last change:	date:       $Date$
+//           	by:         $Author$
+//           	revision:   $Revision$
 //------------------------------------------------------------------------------
 //copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
 //==============================================================================
@@ -28,7 +28,7 @@ import org.apache.tapestry.json.JSONObject;
  * 实现一个tab container组件。
  * 
  * @author jcai
- * @version $Revision: 795 $
+ * @version $Revision$
  * @since 0.2.1
  */
 public abstract class TabContainer extends BaseComponent {

@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: CreatePdf.java 4838 2007-04-11 09:50:32Z jcai $
+ *	file : $Id$
  *	created at:2007-4-10
  */
 

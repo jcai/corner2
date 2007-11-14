@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- *	file : $Id: CodeSelectModelTest.java 6599 2007-06-14 08:09:34Z ghostbb $
+ *	file : $Id$
  *	created at:2007-4-27
  */
 

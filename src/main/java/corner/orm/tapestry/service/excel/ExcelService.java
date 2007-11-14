@@ -1,7 +1,7 @@
 /*		
  * Copyright 2006-2007 The Beijing Maxinfo Technology Ltd. 
  * site:http://www.bjmaxinfo.com
- * file : $Id: ExcelService.java 6585 2007-06-14 04:31:01Z ghostbb $
+ * file : $Id$
  * created at:2007-6-8
  */
 
@@ -39,7 +39,7 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
  * 
  * @author <a href=mailto:Ghostbb@bjmaxinfo.com>Ghostbb</a>
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
- * @version $Revision: 6585 $
+ * @version $Revision$
  * @since 0.8.5.1
  */
 public class ExcelService implements IEngineService {
