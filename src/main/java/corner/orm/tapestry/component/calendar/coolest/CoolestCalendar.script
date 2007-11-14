@@ -38,56 +38,14 @@
 <input-symbol key="showOthers"     required="no" />
 <input-symbol key="multiple"       required="no" />
 
-<!--
-	<input-symbol key="flat"           required="no" />
--->
-
-
-
 <initialization>
 	<unique>
 		var x = document.createElement("SCRIPT");
-
 		x.src = "${baseUrl}/css/coolestCalendar/lang/${jsFileName}";
-
 		x.defer = true;
 		document.getElementsByTagName("HEAD")[0].appendChild(x);
 	</unique>
-	
 	dojo.byId("${inputField}").setAttribute('readonly','true');
-	
-	Calendar.setup({
-        inputField		:		"${inputField}",
-        displayArea		:		"${displayArea}",
-        button			:		"${button}",
-        eventName		:		"${eventName}",
-        ifFormat		:		"${ifFormat}",
-        daFormat		:		"${daFormat}",
-        singleClick		:		${singleClick},
-        disableFunc		:		"${disableFunc}",
-        dateText		:		"${dateText}",
-        firstDay		:		${firstDay},
-        weekNumbers		:		${weekNumbers},
-        align			:		"${align}",
-        range			:		${range},
-        flatCallback	:		"${flatCallback}",
-        onSelect		:		"${onSelect}",
-        onClose			:		"${onClose}",
-        onUpdate		:		${onUpdate},
-        date			:		"${date}",
-        showsTime		:		${showsTime},
-        timeFormat		:		"${timeFormat}",
-        electric		:		${electric},
-        step			:		${step},
-        position		:		"${position}",
-        cache			:		${cache},
-        showOthers		:		${showOthers},
-        multiple		:		"${multiple}"
-
-
-<!--
-        flat			:		"${flat}",
--->
-    });
+	Calendar.setup({inputField:"${inputField}",displayArea:"${displayArea}",button:"${button}",eventName:"${eventName}",ifFormat:"${ifFormat}",daFormat:"${daFormat}",singleClick:${singleClick},disableFunc:"${disableFunc}",dateText:"${dateText}",firstDay:${firstDay},weekNumbers:${weekNumbers},align:"${align}",range:${range},flatCallback:"${flatCallback}",onSelect:"${onSelect}",onClose:"${onClose}",onUpdate:${onUpdate},date:"${date}",showsTime:${showsTime},timeFormat:"${timeFormat}",electric:${electric},step:${step},position:"${position}",cache:${cache},showOthers:${showOthers},multiple:"${multiple}"});
 </initialization>
 </script>
