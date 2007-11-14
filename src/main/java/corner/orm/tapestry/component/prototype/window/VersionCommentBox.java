@@ -17,15 +17,7 @@
 
 package corner.orm.tapestry.component.prototype.window;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.tapestry.BaseComponent;
-import org.apache.tapestry.IMarkupWriter;
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.IScript;
-import org.apache.tapestry.TapestryUtils;
-import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
 
@@ -37,33 +29,6 @@ import org.apache.tapestry.form.IFormComponent;
  * @since 2.5
  */
 public abstract class VersionCommentBox extends BaseComponent implements IFormComponent{
-	
-	@InjectScript("VersionCommentBox.script")
-	public abstract IScript getScript();
-	
-	/**
-	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
-	 */
-	@Override
-	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
-		super.renderComponent(writer, cycle);
-		
-		if (!cycle.isRewinding()) {
-            
-            Map<String,Object> parms = new HashMap<String,Object>();
-            parms.put("component", this);
-            
-            getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
-        }
-	}
-	
-	public String getShowFunc(){
-		return "if(check()){\n"+
-				"pwin_WindowQueryDialogField.showCenter(); \n"+
-				"}else{ \n" +
-				"pwin_WindowQueryDialogField.close();\n" +
-				"}";
-	}
 	
 	@Parameter
 	public abstract String getQueryPageName();

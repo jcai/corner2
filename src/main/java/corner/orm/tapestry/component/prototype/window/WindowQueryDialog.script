@@ -10,29 +10,13 @@
 <include-script resource-path="/corner/prototype/window/javascripts/window.js" />
 <include-script resource-path="/corner/prototype/window/javascripts/window_effects.js" />
 <include-script resource-path="/corner/prototype/window/javascripts/debug.js" />
+<include-script resource-path="/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js" />
 
 
 <input-symbol key="component" required="yes" />
 <input-symbol key="props" required="yes" />
 
 <initialization>
-
-	${component.dialogScriptOnLoadName}=${component.onloadFun}
-	
-	var ${component.dialogName} = init${component.dialogName}();
-	
-	function init${component.dialogName}(){
-		if(!${component.dialogName}){
-		   ${component.dialogName} = new Window('${component.dialogName}',${props});
-		}
-		return ${component.dialogName};
-	}
-									   
-	${component.dialogScriptFunName}=function(){
-		${component.showFun}
-	}
-	
-	dojo.event.connect(dojo.byId("${component.eventId}"),"onclick","${component.dialogScriptFunName}");
-
+	windowQueryDialogAction("${component.eventId}",${props});
 </initialization>
 </script>

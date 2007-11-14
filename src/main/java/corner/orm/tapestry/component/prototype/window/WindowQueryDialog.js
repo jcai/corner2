@@ -1,5 +1,8 @@
-function myWindow(fieldId,props){
-	var win;
+/*
+ *	WindowQueryDialog的js操作，一同写了 VersionCommentBox的checkbox判断
+ */
+function windowQueryDialogAction(fieldId,props){
+	this.win;
 	dojo.debug(props);
 	
 	this.loadframe = function(){
@@ -13,11 +16,19 @@ function myWindow(fieldId,props){
 	var options = {"onload":this.loadframe};
 	Object.extend(props, options);
 
-	win = new Window(props);
+	this.win = new Window(props);
 	
-	ddd = function(evt){
-		win.showCenter();
+	action = function(evt){
+		if(dojo.byId(fieldId).type == "checkbox"){
+			if(dojo.byId(fieldId).checked){
+				this.win.showCenter();
+			}else{
+				this.win.close();
+			}
+		}else{
+			this.win.showCenter();
+		}
 	}
 	
-	dojo.event.connect(dojo.byId(fieldId),"onclick",this,"ddd");
+	dojo.event.connect(dojo.byId(fieldId),"onclick",this,action);
 }

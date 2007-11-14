@@ -39,8 +39,6 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.link.DirectLink;
 import org.apache.tapestry.listener.ListenerInvoker;
 
-import corner.util.StringUtils;
-
 /**
  * 使用prototype的弹出查询框
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
@@ -90,12 +88,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         if (!cycle.isRewinding()) {
             JSONObject json = initWindow();
             
-            //去掉onload方法名的引号
-            String props = StringUtils.replace(json.toString(), "\"" + getDialogScriptOnLoadName() +"\"", getDialogScriptOnLoadName());            
-            
             Map<String,Object> parms = new HashMap<String,Object>();
             parms.put("component", this);
-            parms.put("props", props);
+            parms.put("props", json.toString());
             
             getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
         }
@@ -124,15 +119,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	}
 
 	/**
-	 * 获得调用的方法名称
-	 */
-	public String getDialogScriptFunName(){
-		
-		
-		return getDialogName() + "Show";
-	}
-	
-	/**
 	 * 获得名称
 	 */
 	public String getDialogName(){
@@ -146,14 +132,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		return getDialogName() + "_button";
 	}
 	
-	/**
-	 * 获得onload函数名称
-	 */
-	public String getDialogScriptOnLoadName(){
-		return getDialogName() + "Fun";
-	}
-
-
 	/**
 	 * 初始化窗体属性
 	 */
@@ -186,7 +164,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         json.put("wiredDrag", getWiredDrag());
         json.put("destroyOnClose", getDestroyOnClose());
         json.put("all callbacks", getAllCallbacks());
-        json.put("onload", getDialogScriptOnLoadName());
+//        json.put("onload", getDialogScriptOnLoadName());
          
         //未知的功能，放开就报错
 //      json.put("parent", getParent()); 
@@ -195,31 +173,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 		
 		return json;
 	}
-
-	/**
-	 * 前台生成的onLoad脚本
-	 */
-	public String getOnloadFun() {
-		return 	"function(){ \n" +
-				"dojo.debug('frame on load!');\n"+
-				"frameW=dojo.html.iframeContentWindow("+getDialogName()+".getContent());\n" +
-				"	if(frameW){\n"+
-				"		frameW.queryBox="+getDialogName()+";\n" +
-				"	}\n" +
-				"}\n";
-	}
-	
-	
-	public String getShowFun(){
-		
-		if(this.getShowFunc() != null && this.getShowFunc().length() != 0){
-			return this.getShowFunc();
-		}
-		
-		return getDialogName()+".showCenter();";
-	 
-	}
-
 
 	/**
 	 * 返回url
@@ -311,10 +264,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	public abstract String getDestroyOnClose();
 	@Parameter(defaultValue = "literal:none")
 	public abstract String getAllCallbacks();
-	
-	
-	@Asset("classpath:/corner/prototype/window/themes/alphacube.css")
-	public abstract IAsset getAssetCss();
 	
 	@Parameter
 	public abstract String getQueryPageName();
