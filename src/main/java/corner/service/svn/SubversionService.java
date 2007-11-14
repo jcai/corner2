@@ -90,8 +90,10 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		if(!versionableObject.isSvnCommit()){ //不提交
 			flag= -1;
 		}
+		//得到JSON字符串
+		final String json =  XStreamDelegate.toJSON(versionableObject);
 		
-		if(isSameVersionableObject(versionableObject)){ //相同的实体
+		if(isSameVersionableObject(versionableObject,json)){ //相同的实体
 			flag= -2;
 		}
 		if(flag<0){
@@ -103,8 +105,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		 
 		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
 		logger.debug(filePath);
-		//得到JSON字符串
-		final String json =  XStreamDelegate.toJSON(versionableObject);
+		
 		
 		return (Long) this.execute(new ISvnCallback(){
 
@@ -184,10 +185,11 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	/**
 	 * 判断是否相同
 	 * @param versionableObject 需要比对的对象
+	 * @param newVer 新对象的json字符串.
 	 * @return 如果有差异返回true，如果没有差异返回false;
 	 */
-	public boolean isSameVersionableObject(IVersionable versionableObject){
-		String newVer = XStreamDelegate.toJSON(versionableObject);
+	public boolean isSameVersionableObject(IVersionable versionableObject,String newVer){
+		
 		
 		String oldVer = null;
 		
