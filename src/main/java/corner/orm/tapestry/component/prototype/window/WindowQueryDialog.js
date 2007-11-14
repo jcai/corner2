@@ -1,26 +1,27 @@
 /*
  *	WindowQueryDialog的js操作，一同写了 VersionCommentBox的checkbox判断
  */
-function windowQueryDialogAction(fieldId,props){
-	this.win;
-	dojo.debug(props);
-	
-	this.loadframe = function(){
-			dojo.debug("frame on load!");
-			frameW=dojo.html.iframeContentWindow(win.getContent());
+var WindowQueryDialogAction = Class.create();
+WindowQueryDialogAction.prototype = {
+	initialize: function(fieldId, props){	
+		this.fieldId = fieldId;	
+		this.props = props;
+		this.win =null;
+		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
+	},
+	loadFrame:function(){
+			frameW=dojo.html.iframeContentWindow(this.win.getContent());
 			if(frameW){
-				frameW.queryBox=win;
+				frameW.queryBox=this.win;
+			}
+	},
+	clickField: function(evt){
+		if(this.win==null){
+			this.build();
 		}
-	}
-	
-	var options = {"onload":this.loadframe};
-	Object.extend(props, options);
-
-	this.win = new Window(props);
-	
-	action = function(evt){
-		if(dojo.byId(fieldId).type == "checkbox"){
-			if(dojo.byId(fieldId).checked){
+		
+		if($(this.fieldId).type == "checkbox"){
+			if(dojo.byId(this.fieldId).checked){
 				this.win.showCenter();
 			}else{
 				this.win.close();
@@ -28,7 +29,11 @@ function windowQueryDialogAction(fieldId,props){
 		}else{
 			this.win.showCenter();
 		}
+	},
+	build: function() {
+		options = {"onload":this.loadFrame.bindAsEventListener(this)};
+		Object.extend(this.props, options);
+		
+		this.win = new Window(this.props);
 	}
-	
-	dojo.event.connect(dojo.byId(fieldId),"onclick",this,action);
-}
+};

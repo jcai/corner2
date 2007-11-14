@@ -17,6 +17,6 @@
 <input-symbol key="props" required="yes" />
 
 <initialization>
-	windowQueryDialogAction("${component.eventId}",${props});
+	new WindowQueryDialogAction("${component.eventId}",${props});
 </initialization>
 </script>
