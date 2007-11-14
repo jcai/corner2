@@ -12,15 +12,11 @@
 
 package corner.service.svn;
 
-import java.io.Serializable;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.engine.SessionImplementor;
 import org.hibernate.event.SaveOrUpdateEvent;
 import org.hibernate.event.def.DefaultSaveOrUpdateEventListener;
 
-import corner.orm.hibernate.IPersistModel;
 import corner.orm.spring.SpringContainer;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
@@ -73,8 +69,12 @@ public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventList
 		if(versionGroup!=null&&!entityClass.equals(versionGroup.groupClass())){
 			Class<? extends IVersionable> groupClass = versionGroup.groupClass();
 			String groupId = (String) BeanUtils.getProperty(entity, versionGroup.groupIdExp());
-			IVersionable group=(IVersionable) session.load(groupClass, groupId);
-			group.setRevision(String.valueOf(revision));
+			
+			//当且仅当父类的ID有值的时候
+			if(groupId!=null&&groupId.trim().length()>0){
+				IVersionable group=(IVersionable) session.load(groupClass, groupId);
+				group.setRevision(String.valueOf(revision));
+			}
 		}
 	}
 }
