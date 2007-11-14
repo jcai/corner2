@@ -7,6 +7,10 @@ WindowQueryDialogAction.prototype = {
 		this.fieldId = fieldId;	
 		this.props = props;
 		this.win =null;
+		/*
+		  增加onclick事件并传递this到clickField，传递的this表示当前function
+		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
+		 */
 		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
 	},
 	loadFrame:function(){
@@ -31,7 +35,7 @@ WindowQueryDialogAction.prototype = {
 		}
 	},
 	build: function() {
-		options = {"onload":this.loadFrame.bindAsEventListener(this)};
+		options = {"onload":this.loadFrame.bindAsEventListener(this)};	//传递this到loadFrame，确保this是function本身
 		Object.extend(this.props, options);
 		
 		this.win = new Window(this.props);
