@@ -15,6 +15,14 @@ djConfig = { isDebug: true,
 
 //-->
 </SCRIPT>
+<link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/theme1.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/mac_os_x.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/darkX.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/spread.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alert.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alert_lite.css" rel="stylesheet" type="text/css" >	 </link>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
 <script type="text/javascript">
@@ -29,31 +37,13 @@ dojo.require("tapestry.namespace")
 
 <body bottommargin="0" rightmargin="0" topmargin="0" leftmargin="0" id="Body">
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script> 
-	<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/effects.js"> </script>
-	<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window.js"> </script>
-	<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
-	<link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/theme1.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/mac_os_x.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/darkX.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/spread.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/alert.css" rel="stylesheet" type="text/css" >	 </link>
-	<link href="../../../../main/js/corner/prototype/window/themes/alert_lite.css" rel="stylesheet" type="text/css" >	 </link>
-
-
-
-	
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/effects.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
 
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
-
-<div style="display:none;" id="AFormhidden"><input type="hidden" name="formids" value="" />
-<input type="hidden" name="submitmode" value="" />
-<input type="hidden" name="submitname" value="" />
-</div>
 	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" onclick="ddd();" /></span>
-	
-
 	<br/>
 	<input id="test"/>
 	<input type="submit"/>
@@ -76,32 +66,35 @@ function selectRecord(obj){
 <br/>
 <span>Version:0.0.1  $Revision: 2023 $ $Date: 2006-07-22 13:23:08Z $ </span>
 <script type="text/javascript"><!--
-test1=function(){
-		dojo.debug("frame on load!");
-		frameW=dojo.html.iframeContentWindow(pwin_winDialog.getContent());
-		if(frameW){
-			frameW.queryBox=pwin_winDialog;
-	}
 
-}
-var pwin_winDialog;
-								   
-function ddd(){
-
-   if(!pwin_winDialog){
-					   								   
-   pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
-								   "url":"haha.html","top ":"top:0","right":"left:0","width":"500","height":"300",
-								   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
-								   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
-								   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
-								   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
-								   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
-	}								   
-
-	pwin_winDialog.showCenter();
 	
-}
+	
+	test1=function(){
+			dojo.debug("frame on load!");
+			frameW=dojo.html.iframeContentWindow(pwin_winDialog.getContent());
+			if(frameW){
+				frameW.queryBox=pwin_winDialog;
+		}
+	
+	}
+	var pwin_winDialog;
+	
+	function ddd(){
+	
+	   if(!pwin_winDialog){
+						   								   
+	   pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
+									   "url":"haha.html","top ":"top:0","right":"left:0","width":"500","height":"300",
+									   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
+									   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
+									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
+									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
+									   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
+		}								   
+	
+		pwin_winDialog.showCenter();
+		
+	}
 
 // --></script></body>
 </html>
