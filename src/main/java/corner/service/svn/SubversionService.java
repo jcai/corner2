@@ -86,12 +86,16 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @see corner.service.svn.IVersionService#checkin(corner.service.svn.IVersionable)
 	 */
 	public  long checkin(final IVersionable versionableObject) {
-		if(!versionableObject.isSvnCommit()){
-			return -1;
+		int flag=0;
+		if(!versionableObject.isSvnCommit()){ //不提交
+			flag= -1;
 		}
 		
-		if(equals(versionableObject)){
-			return -1;
+		if(isSameVersionableObject(versionableObject)){ //相同的实体
+			flag= -2;
+		}
+		if(flag<0){
+			return flag;
 		}
 		
 		//得到文件路径
@@ -182,7 +186,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @param versionableObject 需要比对的对象
 	 * @return 如果有差异返回true，如果没有差异返回false;
 	 */
-	public boolean equals(IVersionable versionableObject){
+	public boolean isSameVersionableObject(IVersionable versionableObject){
 		String newVer = XStreamDelegate.toJSON(versionableObject);
 		
 		String oldVer = null;
@@ -205,7 +209,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		final StringBuffer groupPath = getGroupPath(versionableObject);
 		 
 		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
-		final Map fileProperties = new HashMap();
+		
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         this.execute(new ISvnCallback(){
 
@@ -216,7 +220,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		        	throw new RuntimeException("未发现文件");
 		        }
 		        
-		        repository.getFile(filePath, revision, fileProperties, baos);
+		        repository.getFile(filePath, revision, new HashMap(), baos);
 		        
 		        return null;
 			}});
