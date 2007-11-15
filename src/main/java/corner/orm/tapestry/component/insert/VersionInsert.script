@@ -11,6 +11,6 @@
 <input-symbol key="component" required="yes" />
 
 <initialization>
-	showText("${component.clientId}",${component.jsonName},${component.jsonOtherName},"${component.entityName}","${component.showProperty}",type);
+	new VersionInsert("${component.clientId}",${component.jsonName},${component.jsonOtherName},"${component.entityName}","${component.showProperty}",type);
 </initialization>
 </script>

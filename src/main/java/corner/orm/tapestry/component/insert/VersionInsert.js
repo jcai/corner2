@@ -1,74 +1,110 @@
-/*  
- * 显示字体
- */
-function showText(clientId,json,jsonOther,entityName,showProperty,type){
-//	dojo.debug("ClientId： " + clientId + " Json: " + json + " JsonOther: " + jsonOther + " EntityName: " + entityName + " ShowProperty: " + showProperty);
-	
-	var data1 = json[entityName][showProperty];
-	var data2 = jsonOther[entityName][showProperty];
-	
-	dojo.debug("type: " + type);
-	
-	if(type == "show"){
-		if(data1 != null){
-		$(clientId).update(data1);
-	}
-	}else{
-		showFieldText(clientId,data1,data2);
+
+var VersionInserts = {
+	versionInserts: [],
+	zIndex: 1200,
+
+	add: function(versionInsert) {
+		this.versionInserts.push(versionInsert);
+	},
+
+	remove: function(element) {
+		var versionInsert = this.versionInserts.find(function(t){ return t.element == $(element); });
+		if (!versionInsert) return;
+
+		this.versionInserts = this.versionInserts.reject(function(t) { return t==versionInsert; });
+		if(versionInsert.toolversionInsert) versionInsert.wrapper.remove();
+		if(versionInsert.underlay) versionInsert.underlay.remove();
+	},
+	reSetVI: function(){
+		for(var key in this.versionInserts){
+			dojo.debug("key : " + key);
+			dojo.debug("versionInserts[key] : " + this.versionInserts[key]);
+			var versionInsert = this.versionInserts[key];
+			versionInsert.setFieldText();
+		}
 	}
 }
 
-/*  
- * 显示更新显示文字
- * 未记入svn的用#bfb表示，改变的用#fd8表示
+/*
+ * svn显示文字功能
  */
-function showFieldText(clientId,data1,data2){
-	dojo.debug("data1: " + data1);
-	dojo.debug("data2: " + data2);
-	
-	var ver = showVerNum("otherVer_hid");
-	
-	if(data1!=null && data2==null){	//删除
-		$(clientId).setStyle({
-		  backgroundColor: '#FF3E3E',
-		  fontSize: '12px',
-			'text-decoration': 'line-through',
-			color:'white'
-		});
-		$(clientId).update(data1);
-	}
-	
-	if(data1==null && data2!=null){	//增加
-		$(clientId).setStyle({
-		  backgroundColor: '#bfb',
-		  'line-height':'150%'
-		});
-		$(clientId).update("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-		new Tip($(clientId), data2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
-	}
-	
-	if(data1!=null && data2!=null && data1 != data2){	//修改
-		$(clientId).setStyle({
-			  backgroundColor: '#fd8'
+var VersionInsert = Class.create();
+VersionInsert.prototype = {
+	initialize: function(element,json,jsonOther,entityName,showProperty,type) {
+		this.element = $(element);
+		VersionInserts.remove(this.element);
+		this.entityName = entityName;
+		this.showProperty = showProperty;
+		this.type = type;
+		this.date1 = json[entityName][showProperty];
+		this.date2 = jsonOther[entityName][showProperty];
+		
+		this.setFieldText();	//调用设置方法
+		
+		VersionInserts.add(this);
+		//VersionInserts.reSetVI();
+	},
+	setFieldText : function(){
+		dojo.debug("type: " + this.type);
+		
+		if(this.type == "show"){
+			if(this.date1 != null){
+			this.element.update(this.date1);
+		}
+		}else{
+			this.showFieldText();
+		}
+	},
+	/*
+	 * 显示更新显示文字
+	 * 未记入svn的用#bfb表示，改变的用#fd8表示
+	 */
+	showFieldText: function(){
+		dojo.debug("date1: " + this.date1);
+		dojo.debug("date2: " + this.date2);
+		
+		var ver = this.showVerNum("otherVer_hid");
+		
+		if(this.date1!=null && this.date2==null){	//删除
+			this.element.setStyle({
+			backgroundColor: '#FF3E3E',
+			fontSize: '12px',
+				'text-decoration': 'line-through',
+				color:'white'
 			});
-		$(clientId).update(data1);
-		new Tip($(clientId), data2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
-	}
-	
-	if(data1!=null && data2!=null && data1 == data2){	//显示
-		dojo.debug("show");
-	}
-}
-
-/*  
- * 显示版本号
- */
-function showVerNum(verFieldName){
-	var ver = $(verFieldName).value;
-	
-	if(ver){
-		return " Revision:" + ver ;
-	}else{
-		return "MAXINFO";
+			this.element.update(this.date1);
+		}
+		
+		if(this.date1==null && this.date2!=null){	//增加
+			this.element.setStyle({
+			backgroundColor: '#bfb',
+			'line-height':'150%'
+			});
+			this.element.update("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			new Tip(this.element, this.date2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
+		}
+		
+		if(this.date1!=null && this.date2!=null && this.date1 != this.date2){	//修改
+			this.element.setStyle({
+				backgroundColor: '#fd8'
+				});
+			this.element.update(this.date1);
+			new Tip(this.element, this.date2,{footer:ver,fixed:true,hook:{target:'topLeft',tip:'bottomLeft'}});
+		}
+		
+		if(this.date1!=null && this.date2!=null && this.date1 == this.date2){	//显示
+			dojo.debug("show");
+		}
+	},
+	/*
+	 * 显示版本号
+	 */
+	showVerNum: function (verFieldName){
+		var ver = $(verFieldName).value;
+		if(ver){
+			return " Revision:" + ver ;
+		}else{
+			return "MAXINFO";
+		}
 	}
 }

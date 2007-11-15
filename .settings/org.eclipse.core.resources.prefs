@@ -1,6 +1,9 @@
-#Fri Mar 23 14:21:34 CST 2007
+#Thu Nov 15 14:27:39 CST 2007
 eclipse.preferences.version=1
+encoding//src/main/java/corner/orm/tapestry/component/insert/VersionInsert.js=UTF-8
+encoding//src/main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js=UTF-8
 encoding//src/main/java/corner/util/CornerStrings.properties=UTF-8
+encoding//src/main/js/corner/menu/DropdownMenu.js=UTF-8
 encoding//src/main/webapp/many2many/ABList.page=UTF-8
 encoding//src/main/webapp/many2many2/ABForm.page=UTF-8
 encoding//src/main/webapp/many2many2/ABList.page=UTF-8
