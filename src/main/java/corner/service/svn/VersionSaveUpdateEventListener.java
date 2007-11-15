@@ -55,9 +55,17 @@ public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventList
 			IVersionService service=(IVersionService) SpringContainer.getInstance().getApplicationContext().getBean(IVersionProvider.VERSION_SPRING_BEAN_NAME);
 			long revision = service.checkin(tmpObj);
 			if(revision>0){ //当为大于0的版本
-				tmpObj.setRevision(String.valueOf(revision));
 				
-				updateGroupModelRevision(String.valueOf(revision),tmpObj,session);
+				String selfrev = tmpObj.getRevision() == null?"0":tmpObj.getRevision();
+				
+				if(selfrev.indexOf(UNREVISION_VERSION)!=-1){
+					selfrev = selfrev.substring(0, selfrev.indexOf(UNREVISION_VERSION));
+				}
+				
+				long nowrevision = Long.valueOf(selfrev);
+				
+				tmpObj.setRevision(String.valueOf(++nowrevision));
+				updateGroupModelRevision(String.valueOf(nowrevision),tmpObj,session);
 				
 			}else if(tmpObj.getRevision()!=null&&tmpObj.getRevision().indexOf(UNREVISION_VERSION)==-1){
 				//当且仅当有了版本号而没有*的时候特别处理一下.

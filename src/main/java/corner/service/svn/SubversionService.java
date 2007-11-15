@@ -257,17 +257,19 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				if(isGroupClass(versionableObject)){
 					svnPath = groupPath.toString();
 				}
+				
 				repository.log(new String[] {svnPath}, 
 				        0, -1, true, true,new ISVNLogEntryHandler(){
-
+							long seq = 1;
+							
 							public void handleLogEntry(SVNLogEntry logEntry) throws SVNException {
 								VersionResult result = new VersionResult();
 								result.setAuthor(logEntry.getAuthor());
 								result.setComment(logEntry.getMessage());
 								result.setCreateDate(logEntry.getDate());
 								result.setVersionNum(logEntry.getRevision());
+								result.setVersionSeq(seq++);
 								list.add(result);			
-								
 							}});
 				Collections.sort(list);
 				return list;
