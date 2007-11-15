@@ -43,7 +43,7 @@ public class VersionResult implements Comparable<VersionResult>, Serializable{
 	/** 创建日期 **/
 	private Date createDate;
 	/** 序列号 **/
-	private long versionSeq;
+	private int versionSeq;
 	
 	/**
 	 * @return Returns the author.
@@ -96,13 +96,13 @@ public class VersionResult implements Comparable<VersionResult>, Serializable{
 	/**
 	 * @return Returns the versionSeq.
 	 */
-	public long getVersionSeq() {
+	public int getVersionSeq() {
 		return versionSeq;
 	}
 	/**
 	 * @param versionSeq The versionSeq to set.
 	 */
-	public void setVersionSeq(long versionSeq) {
+	public void setVersionSeq(int versionSeq) {
 		this.versionSeq = versionSeq;
 	}
 	
@@ -110,10 +110,6 @@ public class VersionResult implements Comparable<VersionResult>, Serializable{
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(VersionResult o) {
-		if(o.versionNum>this.versionNum){
-			return 1;
-		}else{
-			return -1;
-		}
+		return o.versionSeq-this.versionSeq;
 	}
 }

@@ -260,7 +260,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				
 				repository.log(new String[] {svnPath}, 
 				        0, -1, true, true,new ISVNLogEntryHandler(){
-							long seq = 1;
+							int seq = 1;
 							
 							public void handleLogEntry(SVNLogEntry logEntry) throws SVNException {
 								VersionResult result = new VersionResult();
