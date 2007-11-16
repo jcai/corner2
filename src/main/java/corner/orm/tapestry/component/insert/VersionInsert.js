@@ -108,6 +108,9 @@ VersionInsert.prototype = {
 		}
 		
 		if(this.date1!=null && this.date2!=null && this.date1 == this.date2){	//显示
+			if(this.date1 == 0){
+				$(this.element).update(this.date1);
+			}
 			dojo.debug("show");
 		}
 	},
