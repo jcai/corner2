@@ -30,3 +30,7 @@
 	padding: 0;
 	margin: 0;
 }
+
+.view {}
+.view del {text-decoration:none;background: #FF3E3E}
+.view ins {text-decoration:none;background: #bfb}

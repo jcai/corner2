@@ -4,6 +4,7 @@
 <head>
 <title>test sun</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
@@ -20,6 +21,7 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/VersionInsert.js"></script>
+<script LANGUAGE="JavaScript" src="XinDiff.js"></script>
 
 </head>
 
@@ -35,7 +37,13 @@ djConfig = { isDebug: true
   </div>
  </div>
 <br><br><br><br><br>
+<span class="view"><del>deleted</del> <ins>inserted</ins> <span>same</span></span><br>
 增加：<span id ="addField" >dsadsa</span><br>
+不同的：<span class="view" id ="addField_diff" >dsadsa</span><br>
+
+<a id="reset" onclick="VersionInserts.resetTips();">reset</a><br>
+
+<a id="destroy" onclick="VersionInserts.closeTips();">destroy</a><br>
 
 <input id="otherVer_hid" type="hidden" value="555"/>
 
@@ -49,8 +57,6 @@ dojo.event.connect(window,"onload",this,"add");
 add=function(evt){
 	new VersionInsert("addField",flags,flags2,"entity","name",type);
 }
-
-
 
 //-->
 </SCRIPT>
