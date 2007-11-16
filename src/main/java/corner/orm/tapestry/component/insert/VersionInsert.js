@@ -12,6 +12,9 @@ var VersionInserts = {
 			$(this.versionInserts[i].element).setStyle({
 				display: ''
 			});
+			$(this.versionInserts[i].diffElement).setStyle({
+				display: 'none'
+			});
 		}
 	},
 	closeTips: function(){	//全部隐藏
@@ -19,6 +22,9 @@ var VersionInserts = {
 		for(i=0;i<this.versionInserts.length;i++){
 			$(this.versionInserts[i].element).setStyle({
 				display: 'none'
+			});
+			$(this.versionInserts[i].diffElement).setStyle({
+				display: ''
 			});
 		}
 	}
@@ -43,6 +49,10 @@ VersionInsert.prototype = {
 		this.setFieldText();	//调用设置方法
 		
 		this.setDiffFieldText();
+		
+		$(this.diffElement).setStyle({
+			display: 'none'
+		});
 		
 		VersionInserts.add(this);
 	},
