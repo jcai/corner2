@@ -64,7 +64,7 @@ VersionInsert.prototype = {
 		
 		if(this.type == "show"){
 			if(this.date1 != null){
-			this.element.update(this.date1);
+			$(this.element).update(this.date1);
 		}
 		}else{
 			this.showFieldText();

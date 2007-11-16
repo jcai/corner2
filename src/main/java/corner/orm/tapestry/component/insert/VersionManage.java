@@ -159,18 +159,23 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			writer.end("div");
 		writer.end("div");
 		
-		writer.begin("a");
-			writer.attribute("id", "showSet");
-			writer.attribute("onclick", "VersionInserts.resetTips();");
-			writer.print("set by set");
-		writer.end("a");
-		
-		writer.begin("a");
-			writer.attribute("id", "showLine");
-			writer.attribute("onclick", "VersionInserts.closeTips();");
-			writer.print("by line");
-		writer.end("a");
-		
+		if(v2 != 0){
+			writer.begin("input");
+				writer.attribute("class", "button");
+				writer.attribute("type", "button");
+				writer.attribute("id", "showside");
+				writer.attribute("onclick", "VersionInserts.resetTips();");
+				writer.attribute("value", "side by side");
+			writer.end("input");
+			writer.print("  ");
+			writer.begin("input");
+				writer.attribute("class", "button");
+				writer.attribute("type", "button");
+				writer.attribute("id", "showLine");
+				writer.attribute("onclick", "VersionInserts.closeTips();");
+				writer.attribute("value", "inline");
+			writer.end("input");
+		}
 		
 		writer.begin("input");
 		writer.attribute("type", "hidden");

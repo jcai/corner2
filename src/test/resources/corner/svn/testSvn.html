@@ -21,7 +21,7 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/prototip/prototip.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/VersionInsert.js"></script>
-<script LANGUAGE="JavaScript" src="XinDiff.js"></script>
+<script LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/insert/XinDiff.js"></script>
 
 </head>
 
@@ -40,6 +40,9 @@ djConfig = { isDebug: true
 <span class="view"><del>deleted</del> <ins>inserted</ins> <span>same</span></span><br>
 增加：<span id ="addField" >dsadsa</span><br>
 不同的：<span class="view" id ="addField_diff" >dsadsa</span><br>
+<input class="button" type="submit" name="fds" value="side by side"  onclick="VersionInserts.resetTips();" />
+
+<input class="button" type="submit" name="ggg" value="inline" onclick="VersionInserts.closeTips();"/>
 
 <a id="reset" onclick="VersionInserts.resetTips();">reset</a><br>
 
@@ -49,7 +52,7 @@ djConfig = { isDebug: true
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-var flags = eval({"entity":{"id":"test01",name:"asdf"}});
+var flags = eval({"entity":{"id":"test01"}});
 var flags2 = eval({"entity":{"id":"test01","name":"中国111"}});
 var type ="show1";
 	
