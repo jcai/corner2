@@ -119,63 +119,78 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		
 		String v2show = String.valueOf(v2);
 		
-		if(conf.isCompareLastVer()){
-			writer.print("版本: " + v2 +" 与 当前版本 对比");
-		}else {
-			if(v2 == 0){
-				writer.print("版本:" + v1);
-				v2show = "";
-			}else{
-				writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
-			}
-		}
+		writer.begin("table");
+			writer.attribute("border", "0");
+			writer.attribute("cellspacing", "0");
+			writer.attribute("cellpadding", "0");
+			writer.attribute("width", "100%");
+			writer.begin("tr");
+				writer.begin("td");
+				writer.attribute("width", "50%");
+					if(conf.isCompareLastVer()){
+						writer.print("版本: " + v2 +" 与 当前版本 对比");
+					}else {
+						if(v2 == 0){
+							writer.print("版本:" + v1);
+							v2show = "";
+						}else{
+							writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
+						}
+					}
+					
+					writer.begin("div");
+					writer.attribute("class", "diff");
+						writer.begin("div");
+						writer.attribute("id", "legend");
+							writer.begin("dl");
+								writer.begin("dt");
+								writer.attribute("class", "add");
+								writer.end("dt");
+								writer.begin("dd");
+								writer.print("Add");
+								writer.end("dd");
+								
+								writer.begin("dt");
+								writer.attribute("class", "mod");
+								writer.end("dt");
+								writer.begin("dd");
+								writer.print("Edit");
+								writer.end("dd");
+								
+								writer.begin("dt");
+								writer.attribute("class", "cp");
+								writer.end("dt");
+								writer.begin("dd");
+								writer.print("Delete");
+								writer.end("dd");
+							writer.end("dl");
+						writer.end("div");
+					writer.end("div");
 		
-		writer.begin("div");
-		writer.attribute("class", "diff");
-			writer.begin("div");
-			writer.attribute("id", "legend");
-				writer.begin("dl");
-					writer.begin("dt");
-					writer.attribute("class", "add");
-					writer.end("dt");
-					writer.begin("dd");
-					writer.print("Add");
-					writer.end("dd");
-					
-					writer.begin("dt");
-					writer.attribute("class", "mod");
-					writer.end("dt");
-					writer.begin("dd");
-					writer.print("Edit");
-					writer.end("dd");
-					
-					writer.begin("dt");
-					writer.attribute("class", "cp");
-					writer.end("dt");
-					writer.begin("dd");
-					writer.print("Delete");
-					writer.end("dd");
-				writer.end("dl");
-			writer.end("div");
-		writer.end("div");
+				writer.end("td");
 		
 		if(v2 != 0){
-			writer.begin("input");
-				writer.attribute("class", "button");
-				writer.attribute("type", "button");
-				writer.attribute("id", "showside");
-				writer.attribute("onclick", "VersionInserts.resetTips();");
-				writer.attribute("value", "side by side");
-			writer.end("input");
-			writer.print("  ");
-			writer.begin("input");
-				writer.attribute("class", "button");
-				writer.attribute("type", "button");
-				writer.attribute("id", "showLine");
-				writer.attribute("onclick", "VersionInserts.closeTips();");
-				writer.attribute("value", "inline");
-			writer.end("input");
+				writer.begin("td");
+				writer.attribute("width", "50%");
+					writer.begin("input");
+						writer.attribute("class", "button");
+						writer.attribute("type", "button");
+						writer.attribute("id", "showside");
+						writer.attribute("onclick", "VersionInserts.resetTips();");
+						writer.attribute("value", "side by side");
+					writer.end("input");
+					writer.print("  ");
+					writer.begin("input");
+						writer.attribute("class", "button");
+						writer.attribute("type", "button");
+						writer.attribute("id", "showLine");
+						writer.attribute("onclick", "VersionInserts.closeTips();");
+						writer.attribute("value", "inline");
+					writer.end("input");
+				writer.end("td");
 		}
+		writer.end("tr");
+		writer.end("table");
 		
 		writer.begin("input");
 		writer.attribute("type", "hidden");
