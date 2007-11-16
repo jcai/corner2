@@ -138,10 +138,17 @@ VersionInsert.prototype = {
 	    output.symbols = [right.symbols, left.symbols];
 	
 	    diff.doDiff().serialize(diff, output);
-	    $(this.diffElement).innerHTML = output.getHTML();
+	    dojo.debug("this.diffElement " + this.diffElement);
+	    
+	    $(this.diffElement).update(output.getHTML());
 	},
 	diffBy: function () {
-	    this.doDiff(this.splitWords(this.date1), this.splitWords(this.date2));
+		var v1 = this.date1;
+		var v2 = this.date2;
+		if(v1==null){v1 = "";}
+		if(v2==null){v2 = "";}
+		
+	    this.doDiff(this.splitWords(v1), this.splitWords(v2));
 	},
 	splitCharacters: function (text) {
 	    var chars = [];

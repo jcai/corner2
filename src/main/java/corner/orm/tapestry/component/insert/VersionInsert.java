@@ -36,6 +36,8 @@ import org.apache.tapestry.annotations.Parameter;
  */
 public abstract class VersionInsert extends org.apache.tapestry.components.Insert{
 	
+	private static String DIFF_POSTFIX = "_diff";
+	
 	/**
 	 * @see org.apache.tapestry.components.Insert#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
@@ -44,6 +46,11 @@ public abstract class VersionInsert extends org.apache.tapestry.components.Inser
 		writer.begin("span");
 		writer.attribute("id", this.getClientId());
 		super.renderComponent(writer, cycle);
+		writer.end("span");
+		
+		writer.begin("span");
+		writer.attribute("class", "view");
+		writer.attribute("id", this.getClientId() + DIFF_POSTFIX);
 		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
