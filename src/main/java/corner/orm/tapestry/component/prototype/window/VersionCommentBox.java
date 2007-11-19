@@ -48,6 +48,9 @@ public abstract class VersionCommentBox extends BaseComponent implements IFormCo
 	@Parameter
 	public abstract String getSvnLog();
 	
+	@Parameter(defaultValue = "literal:")
+	public abstract String getTitle();
+	
 	/**
 	 * 按钮上的文字
 	 */

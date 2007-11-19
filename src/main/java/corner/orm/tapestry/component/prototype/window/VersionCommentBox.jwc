@@ -12,6 +12,7 @@
     <binding name="queryPageName" value="ognl:queryPageName"/>
     <binding name="eventHeaderId" value="ognl:eventHeaderId"/>
     <binding name="windowShowButtonText" value="ognl:windowShowButtonText"/>
+    <binding name="title" value="ognl:title"/>
   </component>
   <component type="Hidden" id="svnAuthor">
     <binding name="defaultValue" value="ognl:svnAuthorDefaultValue"/>

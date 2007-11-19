@@ -206,7 +206,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	public abstract String getWinId();
 	@Parameter(defaultValue = "literal:alphacube")
 	public abstract String getClassName();
-	@Parameter(defaultValue = "literal:none")
+	@Parameter(defaultValue = "literal:")
 	public abstract String getTitle();
 //	@Parameter(defaultValue = "literal:none")
 //	public abstract String getUrl();
