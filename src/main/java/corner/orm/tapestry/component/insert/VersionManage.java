@@ -87,10 +87,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			String json2 = null;
 			
 			if(conf.isCompareLastVer()){
-				v2 = Long.valueOf(StringUtils.replace(
-						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
-						);
-				
+				v2 = -1;
 				json1 = getJsonVersion(entity,v2);
 				json2 = XStreamDelegate.toJSON(entity);
 			}else{
@@ -128,7 +125,9 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 				writer.begin("td");
 				writer.attribute("width", "50%");
 					if(conf.isCompareLastVer()){
-						writer.print("版本: " + v2 +" 与 当前版本 对比");
+						writer.print("版本: " + StringUtils.replace(
+						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
+						 +" 与 当前版本 对比");
 					}else {
 						if(v2 == 0){
 							writer.print("版本:" + v1);
