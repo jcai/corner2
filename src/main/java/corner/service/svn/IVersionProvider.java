@@ -34,20 +34,40 @@ public interface IVersionProvider {
 	/**
 	 * 要显示的版本号1
 	 */
-	public abstract long getVersionNum();
+	public abstract long getVersionShowNum();
 	
 	/***
 	 * 要显示的版本号1
+	 */
+	public abstract  void  setVersionShowNum(long versionNum);
+	
+	/**
+	 * 要捡出的版本号1
+	 */
+	public abstract long getVersionNum();
+	
+	/***
+	 * 要捡出的版本号1
 	 */
 	public abstract  void  setVersionNum(long versionNum);
 	
 	/**
 	 * 要显示的版本号2
 	 */
-	public abstract long getOtherVersionNum();
+	public abstract long getOtherVersionShowNum();
 	
 	/***
 	 * 要显示的版本号2
+	 */
+	public abstract  void  setOtherVersionShowNum(long versionNum);
+	
+	/**
+	 * 要捡出的版本号2
+	 */
+	public abstract long getOtherVersionNum();
+	
+	/***
+	 * 要捡出的版本号2
 	 */
 	public abstract  void  setOtherVersionNum(long versionNum);
 	

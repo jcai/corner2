@@ -114,7 +114,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	 */
 	private void appendShowElement(IMarkupWriter writer,IVersionable entity, IVersionProvider conf , long v1, long v2) {
 		
-		String v2show = String.valueOf(v2);
+		String v2show = String.valueOf(conf.getOtherVersionShowNum());
 		
 		writer.begin("table");
 			writer.attribute("border", "0");
@@ -130,10 +130,10 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 						 +" 与 当前版本 对比");
 					}else {
 						if(v2 == 0){
-							writer.print("版本:" + v1);
+							writer.print("版本:" + conf.getVersionShowNum());
 							v2show = "";
 						}else{
-							writer.print("版本: " + v1 +" 与  版本: " + v2 + " 对比");
+							writer.print("版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比");
 						}
 					}
 					
