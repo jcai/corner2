@@ -66,7 +66,7 @@ ac._ensureIndicatorExists = function(indicator_pic_url){
 		t=document.createElement("img");
 		t.setAttribute("src",indicator_pic_url);
 		block.appendChild(t);
-		block.appendChild(document.createTextNode("请稍后....."));
+		block.appendChild(document.createTextNode("Waiting....."));
     }
 	
 }
