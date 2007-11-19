@@ -123,25 +123,27 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			writer.attribute("width", "100%");
 			writer.begin("tr");
 				writer.begin("td");
-				writer.attribute("width", "50%");
-					if(conf.isCompareLastVer()){
-						writer.print("版本: " + StringUtils.replace(
-						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
-						 +" 与 当前版本 对比");
-					}else {
-						if(v2 == 0){
-							writer.print("版本:" + conf.getVersionShowNum());
-							v2show = "";
-						}else{
-							writer.print("版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比");
-						}
-					}
-					
-					writer.begin("div");
+				writer.attribute("width", "80%");
+					writer.begin("span");
 					writer.attribute("class", "diff");
-						writer.begin("div");
+						writer.begin("span");
 						writer.attribute("id", "legend");
 							writer.begin("dl");
+								writer.begin("dd");
+									if(conf.isCompareLastVer()){
+										writer.print("版本: " + StringUtils.replace(
+										entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
+										 +" 与 当前版本 对比");
+									}else {
+										if(v2 == 0){
+											writer.print("版本:" + conf.getVersionShowNum());
+											v2show = "";
+										}else{
+											writer.print("版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比");
+										}
+									}
+								writer.end("dd");
+							
 								writer.begin("dt");
 								writer.attribute("class", "add");
 								writer.end("dt");
@@ -163,14 +165,14 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 								writer.print("Delete");
 								writer.end("dd");
 							writer.end("dl");
-						writer.end("div");
-					writer.end("div");
+						writer.end("span");
+					writer.end("span");
 		
 				writer.end("td");
 		
 		if(v2 != 0){
 				writer.begin("td");
-				writer.attribute("width", "50%");
+				writer.attribute("width", "20%");
 					writer.begin("input");
 						writer.attribute("class", "button");
 						writer.attribute("type", "button");
