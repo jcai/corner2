@@ -1,0 +1,80 @@
+<html>
+<head>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../../../../../main/webapp/css/sandbox.css" />
+	
+	<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script> 
+	<script type="text/javascript" src="js/scriptaculous.js"></script>
+	<script type="text/javascript" src="Tree.js"></script>
+	<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
+</head>
+<body>
+
+			<script type="text/javascript">
+			function funcOpen (branch, response) {
+				// Ici tu peux traiter le retour et retourner true si
+				// tu veux ins�rer les enfants, false si tu veux pas
+				return true;
+			}
+			var tree = null;
+			function TafelTreeInit () {
+				var struct = [
+				{
+				'id':'root1',
+				'txt':'Element racine',
+				'items':[
+					{
+					'id':'child1',
+					'txt':'Un enfant',
+					'canhavechildren' : true
+					},
+					{
+					'id':'child2',
+					'txt':'Un enfant 2'
+					},
+					{
+					'id':'child3',
+					'txt':'Un enfant 3',
+					'canhavechildren' : true
+					},
+					{
+					'id':'child4',
+					'txt':'Un enfant 4',
+					'canhavechildren' : true
+					}
+				]
+				}
+				];
+				tree = new TafelTree('test', struct, {
+					'generate' : true,
+					'imgBase' : 'imgs/',
+					'defaultImg' : 'page.gif',
+					'defaultImgOpen' : 'folderopen.gif',
+					'defaultImgClose' : 'folder.gif',
+					'onOpenPopulate' : [funcOpen, 'sampleOpen1.php']
+				});
+			}
+
+			function effet () {
+				var branch = tree.getBranchById('child1');
+				branch.refreshChildren();
+			}
+			</script>
+			<div id="test"></div>
+			<p><a href="#" onclick="effet()">Effet</a></p>
+
+
+	
+</body>
+</html>

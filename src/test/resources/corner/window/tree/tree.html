@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" media="all" href="../../../../../main/webapp/css/sandbox.css" />
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+
+
+<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script> 
+<script type="text/javascript" src="js/scriptaculous.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="Tree.js"></script>
+
+</HEAD>
+<body>
+			<script type="text/javascript">
+			function funcOpen (branch, response) {
+				// Ici tu peux traiter le retour et retourner true si
+				// tu veux ins�rer les enfants, false si tu veux pas
+				return true;
+			}
+			var tree = null;
+			function TafelTreeInit () {
+				var struct = [
+				{
+				'id':'root1',
+				'txt':'Element racine',
+				'canhavechildren' : true,
+				'items':[
+						{
+						'id':'child1',
+						'txt':'Un enfant',
+						'items': [{
+						'id':'child2',
+						'txt':'Un enfant 2'
+						},
+						{
+						'id':'child3',
+						'txt':'Un enfant 3',
+						'items':[
+							{
+							'id':'child4',
+							'txt':'Un enfant 4',
+							'onclick':myCheck
+							}
+						]
+						}
+					]
+					}
+				]
+				}
+				];
+				
+				tree = new TafelTree('test', struct, {
+					'generate' : true,
+					'imgBase' : 'imgs/',
+					'defaultImg' : 'page.gif',
+					'defaultImgOpen' : 'folderopen.gif',
+					'defaultImgClose' : 'folder.gif',
+					'onOpenPopulate' : [funcOpen, 'sampleOpen1.php']
+				});
+			}
+
+			function effet () {
+				var branch = tree.getBranchById('child1');
+				branch.refreshChildren();
+			}
+			myCheck = function(tree) {
+				alert(tree.getId());
+			}
+			</script>
+			<div id="test"></div>
+			<p><a href="#" onclick="effet()">Effet</a></p>
+
+</span>
+</body>	
+</html>
