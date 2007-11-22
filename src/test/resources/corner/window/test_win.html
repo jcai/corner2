@@ -43,7 +43,7 @@ dojo.require("tapestry.namespace")
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
 
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
-	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" onclick="ddd();" /></span>
+	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
 	<br/>
 	<input id="test"/>
 	<input type="submit"/>
@@ -66,35 +66,14 @@ function selectRecord(obj){
 <br/>
 <span>Version:0.0.1  $Revision$ $Date$ </span>
 <script type="text/javascript"><!--
-
 	
-	
-	test1=function(){
-			dojo.debug("frame on load!");
-			frameW=dojo.html.iframeContentWindow(pwin_winDialog.getContent());
-			if(frameW){
-				frameW.queryBox=pwin_winDialog;
-		}
-	
-	}
-	var pwin_winDialog;
-	
-	function ddd(){
-	
-	   if(!pwin_winDialog){
-						   								   
-	   pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
+	new WindowQueryDialogAction("pwin_winDialog_button",{"className":"alphacube","title":"google",
 									   "url":"haha.html","top ":"top:0","right":"left:0","width":"500","height":"300",
 									   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
 									   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
-									   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
-		}								   
-	
-		pwin_winDialog.showCenter();
-		
-	}
+									   "destroyOnClose":"false","all callbacks":"none"});
 
 // --></script></body>
 </html>
