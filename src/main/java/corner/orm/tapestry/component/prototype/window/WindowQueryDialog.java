@@ -137,7 +137,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	 */
 	private JSONObject initWindow() {
 		JSONObject json =new JSONObject();
-        json.put("id", getWinId());
+//        json.put("id", getWinId());
         json.put("className", getClassName());
         json.put("title", getTitle());
         json.put("url", getUrl());
@@ -202,8 +202,8 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * window 需要的参数
 	 */
-	@Parameter(defaultValue = "literal:generated")
-	public abstract String getWinId();
+//	@Parameter(defaultValue = "literal:generated")
+//	public abstract String getWinId();
 	@Parameter(defaultValue = "literal:alphacube")
 	public abstract String getClassName();
 	@Parameter(defaultValue = "literal:")
