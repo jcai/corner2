@@ -1,7 +1,7 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
 	initialize: function(element) {
-		var date = eval({"nodes":[{"id":"test1","type":"jobsite","data":"Ajax Element 1"},{"id":"test2","type":"jobsite","data":"Ajax Element 2","nodes":[{"id":"test2blah1","type":"task","data":"Sub Element 1","nodes":[{"id":"test2blah1yay1","type":"expense","data":"Leaf Element 1"},{"id":"test2blah1yay2","type":"expense","data":"Leaf Element 2"}]},{"id":"test2blah2","type":"task","data":"Sub Element 2"},{"id":"test2blah2yay3","type":"expense","data":"Leaf Element 3"}]},{"id":"test3","type":"jobsite","data":"Ajax Element 3"}]});
+		var date = eval({"nodes":[{"id":"test1","type":"jobsite","data":"Ajax Element 1"},{"id":"test2","type":"jobsite","data":"Ajax Element 2"}]});
 		
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
@@ -9,7 +9,22 @@ LeftTree.prototype = {
 						page: 'ajaxtreedata.php',
 						prependParentId: '_jobsite-',
 						left:2,
-						right:3
+						right:3,
+						onClick: function(){
+							dojo.debug("this.options.page " + this.options.page);
+							dojo.debug("this.options.leafNode " + this.options.leafNode);
+							
+								if(!this.options.leafNode){
+									this.getContents();
+								}
+								else{
+									this.toggleChildren();
+								}
+								
+								this.options.leafNode = !this.options.leafNode;
+								
+								if(this.options.onClick){ this.options.onClick.call(this, event); }
+							}
 						// nothing to do if default behaviour is all that is needed
 						},
 					task: {
