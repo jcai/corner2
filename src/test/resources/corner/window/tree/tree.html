@@ -4,7 +4,41 @@
 <TITLE>对查询的页面的支持 </TITLE>
 <META NAME="Generator" CONTENT="EditPlus">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-<link rel="stylesheet" type="text/css" media="all" href="../../../../../main/webapp/css/sandbox.css" />
+		<style type="text/css">
+#parent {
+	width: 650px;
+}
+div.treenode {
+	clear: left;
+	padding-left: 16px;
+}
+span.mark {
+	background-color: #efe;
+	float: left;
+	margin: 0px 3px 0px 3px;
+	padding: 0px;
+	text-align: center;
+	width: 15px;
+}
+.expanded:before {content: "-";}
+.collapsed:before {content: "+";}
+.leaf:before {content: " ";}
+span.treedata {
+	background-color: #F0F0EE;
+}
+dl {
+	margin: 0px;
+}
+dt {
+	background-color: #ffe;
+	float: left;
+	width: 300px;
+}
+dd {
+	background-color: #eff;
+	text-align: right;
+}
+		</style>
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
@@ -17,72 +51,58 @@ djConfig = { isDebug: true,
 //-->
 </SCRIPT>
 
+<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script type="text/javascript" src="prototype-ext.js"> </script>  
 
-<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script> 
-<script type="text/javascript" src="js/scriptaculous.js"></script>
-<SCRIPT LANGUAGE="JavaScript" src="Tree.js"></script>
+<script type="text/javascript" src="scriptaculous.js"> </script>
+<script language="JavaScript" type="text/javascript" src="ajaxtree.js"></script>
+<script type="text/javascript" src="common.js"> </script>
+<script type="text/javascript" src="commonajax.js"> </script>
 
 </HEAD>
 <body>
-			<script type="text/javascript">
-			function funcOpen (branch, response) {
-				// Ici tu peux traiter le retour et retourner true si
-				// tu veux ins�rer les enfants, false si tu veux pas
-				return true;
-			}
-			var tree = null;
-			function TafelTreeInit () {
-				var struct = [
-				{
-				'id':'root1',
-				'txt':'Element racine',
-				'canhavechildren' : true,
-				'items':[
-						{
-						'id':'child1',
-						'txt':'Un enfant',
-						'items': [{
-						'id':'child2',
-						'txt':'Un enfant 2'
+		<div id="parent"></div>
+
+		<script type="text/javascript">
+			Ajax.Tree.Invoice = Ajax.Tree.create({
+				types: {
+					jobsite: {
+						page: 'ajaxtreedata.php',
+						prependParentId: '_jobsite-'
+						// nothing to do if default behaviour is all that is needed
 						},
-						{
-						'id':'child3',
-						'txt':'Un enfant 3',
-						'items':[
-							{
-							'id':'child4',
-							'txt':'Un enfant 4',
-							'onclick':myCheck
-							}
-						]
+					task: {
+						page: 'ajaxtreedata.php',
+						prependParentId: '_task-'
+						// nothing to do if default behaviour is all that is needed
+					},
+					expense: {
+						leafNode: true,
+						insertion: function(el,data){
+							var node = Builder.node('dl',{},
+							[
+								Builder.node('dt',[data]),
+								Builder.node('dd',['delete'])
+							]);
+							el.appendChild(node);
+							this.mark.innerHTML = '&nbsp;';
+							//new Draggable(this.element);
+							this.clickExpense = function(){ alert('you clicked '+this.element.id); }.bind(this);
+							Event.observe(this.span,'click',this.clickExpense);
+						},
+						onDispose: function(){
+							Event.stopObserving(this.span,'click',this.clickExpense);
 						}
-					]
 					}
-				]
+				},
+				onTest: function(){
+					new Ajax.Tree.Invoice(this.element,'1','task',{data:'Element 2'});
 				}
-				];
-				
-				tree = new TafelTree('test', struct, {
-					'generate' : true,
-					'imgBase' : 'imgs/',
-					'defaultImg' : 'page.gif',
-					'defaultImgOpen' : 'folderopen.gif',
-					'defaultImgClose' : 'folder.gif',
-					'onOpenPopulate' : [funcOpen, 'sampleOpen1.php']
-				});
-			}
-
-			function effet () {
-				var branch = tree.getBranchById('child1');
-				branch.refreshChildren();
-			}
-			myCheck = function(tree) {
-				alert(tree.getId());
-			}
-			</script>
-			<div id="test"></div>
-			<p><a href="#" onclick="effet()">Effet</a></p>
-
-</span>
-</body>	
+			});
+			var test = new Ajax.Tree.Invoice('parent','root','jobsite',{data:'First Element!'});
+			test.onTest();
+			enableAjaxDebug();
+		</script>
+	</body>
 </html>
