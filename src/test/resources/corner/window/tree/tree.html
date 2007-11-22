@@ -51,14 +51,11 @@ djConfig = { isDebug: true,
 //-->
 </SCRIPT>
 
-<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
-<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
-<script type="text/javascript" src="prototype-ext.js"> </script>  
 
-<script type="text/javascript" src="scriptaculous.js"> </script>
-<script language="JavaScript" type="text/javascript" src="ajaxtree.js"></script>
-<script type="text/javascript" src="common.js"> </script>
-<script type="text/javascript" src="commonajax.js"> </script>
+<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script language="JavaScript" type="text/javascript" src="js/prototype-ext.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/scriptaculous.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/ajaxtree.js"></script>
 
 </HEAD>
 <body>
@@ -69,12 +66,22 @@ djConfig = { isDebug: true,
 				types: {
 					jobsite: {
 						page: 'ajaxtreedata.php',
-						prependParentId: '_jobsite-'
+						prependParentId: '_jobsite-',
+						left:2,
+						right:3,
+						onClick:function(){
+							new Ajax.Tree.Invoice(this.element,'1','expense',{data:'Element my'});
+						}
 						// nothing to do if default behaviour is all that is needed
 						},
 					task: {
 						page: 'ajaxtreedata.php',
-						prependParentId: '_task-'
+						prependParentId: '_task-',
+						left:1,
+						right:100,
+						onClick:function(){
+							this.onTest();
+						}
 						// nothing to do if default behaviour is all that is needed
 					},
 					expense: {
@@ -102,7 +109,10 @@ djConfig = { isDebug: true,
 			});
 			var test = new Ajax.Tree.Invoice('parent','root','jobsite',{data:'First Element!'});
 			test.onTest();
-			enableAjaxDebug();
+
 		</script>
+		
+		
+		
 	</body>
 </html>
