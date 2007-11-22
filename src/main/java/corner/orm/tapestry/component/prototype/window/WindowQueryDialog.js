@@ -14,16 +14,16 @@ WindowQueryDialogAction.prototype = {
 		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
 	},
 	loadFrame:function(){
-			frameW=dojo.html.iframeContentWindow(this.win.getContent());
-			if(frameW){
-				frameW.queryBox=this.win;
-			}
+		frameW=dojo.html.iframeContentWindow(this.win.getContent());
+		if(frameW){
+			frameW.queryBox=this.win;
+			dojo.debug("frameW.queryBox : " + frameW.queryBox);
+		}
 	},
 	clickField: function(evt){
 		if(this.win==null){
 			this.build();
 		}
-		
 		if($(this.fieldId).type == "checkbox"){
 			if(dojo.byId(this.fieldId).checked){
 				this.win.showCenter();
@@ -39,5 +39,6 @@ WindowQueryDialogAction.prototype = {
 		Object.extend(this.props, options);
 		
 		this.win = new Window(this.props);
+		Event.observe($(this.win.element.id + "_content"), "load", this.win.options.onload);
 	}
 };

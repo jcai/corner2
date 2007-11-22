@@ -627,7 +627,7 @@ Window.prototype = {
     ";
     Element.hide(win);
     this.options.parent.insertBefore(win, this.options.parent.firstChild);
-    Event.observe($(id + "_content"), "load", this.options.onload);
+    
     return win;
   },
   
