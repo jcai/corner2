@@ -212,9 +212,9 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 //	public abstract String getUrl();
 	@Parameter(defaultValue = "literal:body")
 	public abstract String getParent();
-	@Parameter(defaultValue = "literal:top:0")
+	@Parameter(defaultValue = "literal:0")
 	public abstract String getTop ();
-	@Parameter(defaultValue = "literal:left:0")
+	@Parameter(defaultValue = "literal:0")
 	public abstract String getLeft();
 	@Parameter(defaultValue = "literal:500")
 	public abstract String getWidth();
