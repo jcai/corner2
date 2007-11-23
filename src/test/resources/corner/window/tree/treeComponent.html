@@ -57,19 +57,17 @@ djConfig = { isDebug: true,
 <script language="JavaScript" type="text/javascript" src="js/effects.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/controls.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/builder.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/ajaxtree.js"></script>
-<!--
+<script language="JavaScript" type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/tree/ajaxtree.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/common.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/commonajax.js"></script>
--->
-<script language="JavaScript" type="text/javascript" src="lefttree.js"></script>
+<script language="JavaScript" type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/tree/lefttree.js"></script>
 
 </HEAD>
 <body>
 		<div id="parent"></div>
 
 		<script type="text/javascript">
-			new LeftTree("parent");
+			new LeftTree("parent","leftTreeSite","我的树",1,5);
 			enableAjaxDebug();
 		</script>
 	</body>

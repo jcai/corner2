@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+-->
+
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+  
+<script>
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/prototype-ext.js" />
+<include-script resource-path="/scriptaculous-1.7.1/effects.js" />
+<include-script resource-path="/scriptaculous-1.7.1/controls.js" />
+<include-script resource-path="/scriptaculous-1.7.1/builder.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/ajaxtree.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/lefttree.js" />
+<initialization>
+
+
+</initialization>
+</script>
