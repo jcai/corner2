@@ -28,7 +28,7 @@ import com.thoughtworks.xstream.mapper.Mapper;
 import corner.util.BeanUtils;
 
 /**
- * 所有需要进行版本控制的实体需要实现的接口.
+ * 对所有需要进行版本控制的实体进行转化的自定义转换器
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @version $Revision$
  * @since 2.5
