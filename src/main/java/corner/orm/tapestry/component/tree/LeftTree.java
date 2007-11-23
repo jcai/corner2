@@ -21,7 +21,11 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
+import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.web.WebRequest;
 
 /**
  * 左邻树
@@ -38,6 +42,12 @@ public abstract class LeftTree extends BaseComponent{
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		
+		writer.begin("span");
+		writer.attribute("id", this.getClientId());
+		super.renderComponent(writer, cycle);
+		writer.end("span");
+		
 		if (!cycle.isRewinding()) {
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
@@ -46,6 +56,19 @@ public abstract class LeftTree extends BaseComponent{
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
-		
 	}
+	
+	public String getUrl(){
+		ILink link = this.getLeftTreeService().getLink(true, new Object[1]);
+		return link.getURL();
+	}
+	
+//	@InjectObject("infrastructure:request")
+//	public abstract WebRequest getWebRequest();
+	
+	/**
+	 * @return
+	 */
+	@InjectObject("engine-service:leftTree")
+	public abstract IEngineService getLeftTreeService();
 }

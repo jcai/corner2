@@ -68,5 +68,8 @@
   
   <component-type type="VInsert" specification-path="insert/VersionInsert.jwc"/>
   <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
-
+  
+  <component-type type="LeftTree" specification-path="tree/LeftTree.jwc"/>
+  <component-type type="LeftTreeServiceLink" specification-path="/corner/orm/tapestry/tree/LeftTreeServiceLink.jwc"/>
+  
 </library-specification>

@@ -1,10 +1,10 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element,site,firstTitle,left,right) {
+	initialize: function(element,page,site,firstTitle,left,right) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
-						page: 'http://colin.mollenhour.com/ajaxtree/ajaxtreedata.php',
+						page: page,
 						prependParentId: '_jobsite-',
 						// nothing to do if default behaviour is all that is needed
 						
@@ -25,6 +25,5 @@ LeftTree.prototype = {
 				}
 			});
 			var test = new Ajax.Tree.Invoice(element,'root',site,{data:firstTitle},left,right);
-			test.onTest();
 	}
 }
