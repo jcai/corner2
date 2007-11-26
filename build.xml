@@ -1,85 +1,33 @@
-<project name="corner" default="compile" basedir=".">
-	<property file="build.properties"/>
-	<import file="support/common.xml"/>
-	<property name="src.js.dir" value="src/main/js"/>
-	<property name="antlr.dir" value="src/main/antlr"/>
-	<target name="beforeCompile">
-		<java classname="antlr.Tool" classpathref="antlr.path">
-			<arg value="-o"/>
-			<arg value="${antlr.dir}/corner/expression/calc"/>
-			<arg
-				value="${antlr.dir}/corner/expression/calc/calc.g"/>
-		</java>
-	</target>
-	<!-- jra的库路径 -->
-	<path id="jra.classpath">
-		<fileset dir="${support.lib.dir}/jasper">
-			<include name="**/*.jar"/>
-		</fileset>
-	</path>
-	<!-- 生成jasper文件 -->
-	<target name="jrc" description="Compiles the XML report design and produces the .jasper file.">
-		<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask"> 
-			<classpath refid="jra.classpath"/>
-		</taskdef>
-		<jrc>
-			<src>
-				<fileset dir="${project.test.resources.dir}">
-					<include name="**/*.jrxml"/>
-				</fileset>
-				<fileset dir="${project.test.java.dir}">
-					<include name="**/*.jrxml"/>
-				</fileset>
-			</src>
-			<classpath refid="jra.classpath"/>
-		</jrc> 
-	</target>
-	
-	<!-- assemble resource files -->
-	<target name="afterCompile">
-		<copy todir="${build.classes.dir}">
-			<fileset dir="${src.js.dir}">
-				<include name="corner/**/*"/>
-			</fileset>
-		</copy>
-		<copy todir="${build.classes.dir}">
-			<fileset dir="${project.src.java.dir}">
-				<exclude name="**/*.java"/>
-			</fileset>
-		</copy>
-		
-	</target>
-	<target name="source">
-		<mkdir dir="${dist.dir}"/>
-		<tar destfile="${dist.dir}/corner-source-${project.version}.tar">
-			
-			<tarfileset dir=".">
-				<include name="src/**/*.*"/>
-				<include name="build.*"/>
-				<include name="*.xml"/>
-				<include name=".*"/>
-				<include name="support/**"/>
-			</tarfileset>
-		</tar>
-		<bzip2 src="${dist.dir}/corner-source-${project.version}.tar"
-			destfile="${dist.dir}/corner-source-${project.version}.tar.bz2"/>
-		<delete file="${dist.dir}/corner-source-${project.version}.tar"/>
-	</target>
-	<target name="source-with-doc">
-		<mkdir dir="${dist.dir}"/>
-		<tar destfile="${dist.dir}/corner-source-${project.version}.tar">
-			
-			<tarfileset dir=".">
-				<include name="src/**/*.*"/>
-				<include name="build.*"/>
-				<include name="doc/**"/>
-				<include name="*.xml"/>
-				<include name=".*"/>
-				<include name="support/**"/>
-			</tarfileset>
-		</tar>
-		<bzip2 src="${dist.dir}/corner-source-${project.version}.tar"
-			destfile="${dist.dir}/corner-source-${project.version}.tar.bz2"/>
-		<delete file="${dist.dir}/corner-source-${project.version}.tar"/>
-	</target>
+<project name="corner"  basedir=".">
+    <path id="maven-ant-tasks.classpath" path="support/ant-lib/maven-ant-tasks-2.0.7.jar"/>
+    <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
+             classpathref="maven-ant-tasks.classpath"/>
+    <!-- 定义中央文件服务地址 -->
+    <artifact:remoteRepository id="maxinfo.repository" url="http://dev.bjmaxinfo.com:8080/artifactory/repo"/>
+    <!-- 定义maven得pom -->
+    <artifact:pom file="pom.xml" id="corner"/>
+    <!-- corner 依赖的所有包 -->
+    <artifact:dependencies pathId="corner.path">
+        <pom refid="corner"/>
+        <remoteRepository refid="maxinfo.repository"/>
+    </artifact:dependencies>    
+    <!-- =================================
+	target: 编译jasper的jrxml文件
+	================================= -->
+    <target name="jrc" description="编译.jrxml文件为.jasper文件">
+        <taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+            <classpath refid="corner.path"/>
+        </taskdef>
+        <jrc>
+            <src>
+                <fileset dir="src/main/resources">
+                    <include name="**/*.jrxml"/>
+                </fileset>
+                <fileset dir="src/test/java">
+                    <include name="**/*.jrxml"/>
+                </fileset>
+            </src>
+            <classpath refid="corner.path"/>
+        </jrc>
+    </target>
 </project>
