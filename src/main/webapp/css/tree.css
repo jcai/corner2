@@ -1,0 +1,33 @@
+#parent {
+	width: 650px;
+}
+div.treenode {
+	clear: left;
+	padding-left: 16px;
+}
+span.mark {
+	background-color: #efe;
+	float: left;
+	margin: 0px 3px 0px 3px;
+	padding: 0px;
+	text-align: center;
+	width: 15px;
+}
+.expanded:before {content: "-";}
+.collapsed:before {content: "+";}
+.leaf:before {content: " ";}
+span.treedata {
+	background-color: #F0F0EE;
+}
+dl {
+	margin: 0px;
+}
+dt {
+	background-color: #ffe;
+	float: left;
+	width: 300px;
+}
+dd {
+	background-color: #eff;
+	text-align: right;
+}

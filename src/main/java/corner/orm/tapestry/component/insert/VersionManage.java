@@ -174,7 +174,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 				writer.begin("td");
 				writer.attribute("width", "20%");
 					writer.begin("input");
-						writer.attribute("class", "button");
+						writer.attribute("class", "svnbutton");
 						writer.attribute("type", "button");
 						writer.attribute("id", "showside");
 						writer.attribute("onclick", "VersionInserts.resetTips();");
@@ -182,7 +182,7 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 					writer.end("input");
 					writer.print("  ");
 					writer.begin("input");
-						writer.attribute("class", "button");
+						writer.attribute("class", "svnbutton");
 						writer.attribute("type", "button");
 						writer.attribute("id", "showLine");
 						writer.attribute("onclick", "VersionInserts.closeTips();");
