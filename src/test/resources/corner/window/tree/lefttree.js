@@ -1,6 +1,6 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element) {
+	initialize: function(element,page,site,data) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
@@ -37,6 +37,6 @@ LeftTree.prototype = {
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'Root Element!',left:1,right:2}});
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'Root Element!',left:-1,right:-1}});
 	}
 }

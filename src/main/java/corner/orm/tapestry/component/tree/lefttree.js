@@ -37,6 +37,6 @@ LeftTree.prototype = {
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:1,right:2}});
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:-1,right:-1}});
 	}
 }
