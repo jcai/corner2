@@ -13,6 +13,8 @@
 					value="infrastructure:linkFactory"/>
 				<set-object property="requestCycle"
 					value="infrastructure:requestCycle"/>
+				<set-object property="entityService"
+					value="spring:entityService"/>
 			</construct>
 		</invoke-factory>
 	</service-point>

@@ -20,7 +20,10 @@ LeftTree.prototype = {
 						callback:{
 							call:function(node,id){
 								left=node.element.getAttribute("left");
-								return "left="+left;
+								right=node.element.getAttribute("right");
+								leftTreeQueryClassName = $("leftTreeQueryClassName").value;
+								
+								return "left=" + left + "&" + "right=" + right + "&" + "queryClassName=" + leftTreeQueryClassName;
 							}	
 						}
 					}

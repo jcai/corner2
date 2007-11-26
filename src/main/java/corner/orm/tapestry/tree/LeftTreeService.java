@@ -26,6 +26,8 @@ import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
+import corner.service.EntityService;
+
 /**
  * @author "<a href=\"mailto:xf@bjmaxinfo.com\">xiafei</a>"
  * @version $Revision$
@@ -74,9 +76,18 @@ public class LeftTreeService implements IEngineService{
 		
 		String left = cycle.getParameter("left");
 		String right = cycle.getParameter("right");
+		String queryClassName = cycle.getParameter("queryClassName");
 		
 		System.out.println("left : " + left);
 		System.out.println("right : " + right);
+		System.out.println("queryClassName : " + queryClassName);
+		
+		if(this.entityService != null){
+			System.out.println("entityService not null! ");
+		}
+		
+		
+		
 		
 		PrintWriter pw = response.getPrintWriter(new ContentType("text/html"));
 		
@@ -92,6 +103,9 @@ public class LeftTreeService implements IEngineService{
 
 	/** request cycle * */
 	protected IRequestCycle requestCycle;
+	
+	/** EntityService * */
+	protected EntityService entityService;
 	
 	/**
 	 * @param linkFactory The linkFactory to set.
@@ -112,5 +126,12 @@ public class LeftTreeService implements IEngineService{
 	 */
 	public void setResponse(WebResponse response) {
 		this.response = response;
+	}
+
+	/**
+	 * @param entityService The entityService to set.
+	 */
+	public void setEntityService(EntityService entityService) {
+		this.entityService = entityService;
 	}
 }

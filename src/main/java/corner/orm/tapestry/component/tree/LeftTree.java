@@ -23,6 +23,7 @@ import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
+import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.web.WebRequest;
@@ -44,8 +45,16 @@ public abstract class LeftTree extends BaseComponent{
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		
 		writer.begin("span");
-		writer.attribute("id", this.getClientId());
-		super.renderComponent(writer, cycle);
+		{
+			writer.attribute("id", this.getClientId());
+			super.renderComponent(writer, cycle);
+		
+			writer.begin("input");
+			writer.attribute("type", "hidden");
+			writer.attribute("id", "leftTreeQueryClassName");
+			writer.attribute("value", getQueryClassName());
+			writer.end("input");
+		}
 		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
@@ -63,8 +72,9 @@ public abstract class LeftTree extends BaseComponent{
 		return link.getURL();
 	}
 	
-//	@InjectObject("infrastructure:request")
-//	public abstract WebRequest getWebRequest();
+	/** 待查询的类名 * */
+	@Parameter(required = true)
+	public abstract String getQueryClassName();
 	
 	/**
 	 * @return

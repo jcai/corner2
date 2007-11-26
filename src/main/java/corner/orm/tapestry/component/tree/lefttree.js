@@ -21,7 +21,9 @@ LeftTree.prototype = {
 							call:function(node,id){
 								left=node.element.getAttribute("left");
 								right=node.element.getAttribute("right");
-								return "left=" + left + "&" + "right=" + right;
+								leftTreeQueryClassName = $("leftTreeQueryClassName").value;
+								
+								return "left=" + left + "&" + "right=" + right + "&" + "queryClassName=" + leftTreeQueryClassName;
 							}	
 						}
 					}
