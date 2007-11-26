@@ -51,6 +51,6 @@
 	<!-- for guice container -->
 	<sub-module descriptor="corner.guice.xml"/>
 	
-	<sub-module descriptor="corner.tree.xml"/>
+	
 	
 </module>

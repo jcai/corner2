@@ -16,6 +16,7 @@ LeftTree.prototype = {
 							
 							this.element.setAttribute("left",data.left);
 							this.element.setAttribute("right",data.right);
+							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
 							this.element.setAttribute("entityId",data.id);
 							
@@ -29,14 +30,15 @@ LeftTree.prototype = {
 							call:function(node,id){
 								left=node.element.getAttribute("left");
 								right=node.element.getAttribute("right");
+								depth=node.element.getAttribute("depth");
 								leftTreeQueryClassName = $("leftTreeQueryClassName").value;
 								
-								return "left=" + left + "&" + "right=" + right + "&" + "queryClassName=" + leftTreeQueryClassName;
+								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + "&" + "queryClassName=" + leftTreeQueryClassName;
 							}	
 						}
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:-1,right:-1}});
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:-1,right:-1,depth:0}});
 	}
 }

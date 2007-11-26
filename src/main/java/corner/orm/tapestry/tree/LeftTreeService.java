@@ -76,6 +76,7 @@ public class LeftTreeService implements IEngineService{
 		
 		String left = cycle.getParameter("left");
 		String right = cycle.getParameter("right");
+		String depth = cycle.getParameter("depth");
 		String queryClassName = cycle.getParameter("queryClassName");
 		
 		System.out.println("left : " + left);
@@ -85,6 +86,8 @@ public class LeftTreeService implements IEngineService{
 		if(this.entityService != null){
 			System.out.println("entityService not null! ");
 		}
+		
+		
 		
 		
 		
