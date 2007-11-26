@@ -21,9 +21,9 @@ LeftTree.prototype = {
 					}
 				},
 				onTest: function(){
-					new Ajax.Tree.Invoice(this.element,'1',site,{data:'Element 2'},1,4);
+					new Ajax.Tree.Invoice(this.element,'1',site,{data:'Element 2'});
 				}
 			});
-			var test = new Ajax.Tree.Invoice(element,'root',site,{data:firstTitle},left,right);
+			var test = new Ajax.Tree.Invoice(element,'root',site,{data:firstTitle});
 	}
 }

@@ -12,7 +12,6 @@
 
 package corner.orm.tapestry.tree;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -65,9 +64,9 @@ public class LeftTreeService implements IEngineService{
 		
 //		String date = ;
 
-//		JSONObject json = new JSONObject("{\"nodes\":[{\"id\":\"test1\",\"type\":\"jobsite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"jobsite\",\"data\":\"Ajax Element 2\"}]}");
+//		JSONObject json = new JSONObject("{\"nodes\":[{\"id\":\"test1\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 2\"}]}");
 		
-		String date = "{\"nodes\":[{\"id\":\"test1\",\"type\":\"jobsite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"jobsite\",\"data\":\"Ajax Element 2\"}]}";;
+		String date = "{\"nodes\":[{\"id\":\"test1\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 2\"}]}";;
 		
 		String activePageName = cycle.getParameter(ServiceConstants.PAGE);
 		IPage page = cycle.getPage(activePageName);
@@ -83,11 +82,6 @@ public class LeftTreeService implements IEngineService{
 		
 		pw.write(date);
 		
-//		while ((count = zis.read(data, 0, BUFFER)) != -1) {
-//			dest.write(data, 0, count);
-//		}
-//		
-//		ops.write(arg0);
 	}
 	
 	/** link factory */
