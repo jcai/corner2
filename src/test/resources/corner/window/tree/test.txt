@@ -1,1 +1,1 @@
-{"nodes":[{"id":"test1","type":"leftTreeSite","data":{name:"Ajax Element 1","left":22,"right":33}},{"id":"test2","type":"leftTreeSite","data":{name:"Ajax Element 2",left:23,right:24}}]}
+{"nodes":[{"id":"282828c1167af1a101167af6a71c0002","type":"leftTreeSite","data":{"nodeName":"1","left":1,"right":8,"depth":1}},{"id":"282828c1167af1a101167af6ede90003","type":"leftTreeSite","data":{"nodeName":"2","left":9,"right":14,"depth":1}}]}
