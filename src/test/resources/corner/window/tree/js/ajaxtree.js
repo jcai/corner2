@@ -325,17 +325,6 @@ Ajax.Tree.Base.prototype = {
 	initialize: function(parent,id,type,data){
 		this.type = type || '_root';
 		this.options = this.types[this.type];
-		
-		
-//		dojo.debug("this.type : " + this.type);
-//		dojo.debug("this.types[this.type] : " + this.types[this.type]);
-//		
-//		for(var key in this.options){
-//			dojo.debug("this.options : " + key + " : "+ this.options[key]);
-//		}
-//		dojo.debug("this.options : " + this.options);
-
-
 		this.children = [];
 		this.loaded = this.opening = this.root = false;
 		
@@ -426,15 +415,6 @@ Ajax.Tree.Base.prototype = {
 			return;
 		}
 		this.opening = true;
-		
-		
-		dojo.debug("this : " + this);
-		dojo.debug("this.options.callback : " + this.options.callback);
-		dojo.debug("this.element.id : " + this.element.id);
-		dojo.debug("this.options.page : " + this.options.page);
-		
-		
-		
 		var params = 'action=getContents&' + ((this.options.callback) ? 
 			this.options.callback.call(this, this.element.id) : 'id='+this.element.id);
 		var request = new Ajax.Request(this.options.page,{
@@ -444,9 +424,6 @@ Ajax.Tree.Base.prototype = {
 			onFailure: Ajax.Tree.error.ajax
 		});
 		if(this.options.onGetContents){ this.options.onGetContents.call(this, request); }
-		
-		dojo.debug("params : " + params);
-		dojo.debug("request : " + request);
 	},
 	getContentsComplete: function(xhr,json){
 		this.opening = false;

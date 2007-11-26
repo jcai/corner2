@@ -322,9 +322,9 @@ All properties are accessed by *this.<property>*.
 
 Ajax.Tree.Base = {};
 Ajax.Tree.Base.prototype = {
-	initialize: function(parent,id,type,data){
-		this.left = 0;
-		this.right = 0;
+	initialize: function(parent,id,type,data,left,right){
+		this.left = left;
+		this.right = right;
 		this.type = type || '_root';
 		this.options = this.types[this.type];
 		this.children = [];
@@ -362,11 +362,6 @@ Ajax.Tree.Base.prototype = {
 		if(this.options.onClearContents){ this.options.onClearContents.call(this); }
 	},
 	createNode: function(){
-		dojo.debug("this.options : " + this.options);
-		dojo.debug("this.options.leafNode : " + this.options.leafNode);
-		
-		
-		
 		var linkType = (this.options.leafNode ? 'leaf':'collapsed');
 		var newID = (this.options.prependParentId !== false ? this.parent.id+this.options.prependParentId:'')+this.id;
 		this.mark = Builder.node('span',{className:'mark '+linkType});

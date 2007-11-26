@@ -66,7 +66,7 @@ public class LeftTreeService implements IEngineService{
 
 //		JSONObject json = new JSONObject("{\"nodes\":[{\"id\":\"test1\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 2\"}]}");
 		
-		String date = "{\"nodes\":[{\"id\":\"test1\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 1\"},{\"id\":\"test2\",\"type\":\"leftTreeSite\",\"data\":\"Ajax Element 2\"}]}";;
+		String date = "{\"nodes\":[{\"id\":\"test1\",\"type\":\"leftTreeSite\",\"data\":{name:\"Ajax Element 1\",\"left\":22,\"right\":33}},{\"id\":\"test2\",\"type\":\"leftTreeSite\",\"data\":{name:\"Ajax Element 2\",left:23,right:24}}]}";
 		
 		String activePageName = cycle.getParameter(ServiceConstants.PAGE);
 		IPage page = cycle.getPage(activePageName);

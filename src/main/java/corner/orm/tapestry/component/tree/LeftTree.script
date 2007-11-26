@@ -21,7 +21,7 @@
 <input-symbol key="component" required="yes" />
 
 <initialization>
-	new LeftTree("${component.clientId}","${component.url}","leftTreeSite","我的树",1,5);
+	new LeftTree("${component.clientId}","${component.url}","leftTreeSite",null);
 	enableAjaxDebug();
 </initialization>
 </script>
