@@ -45,7 +45,7 @@ dojo.require("tapestry.namespace")
 	
 
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
-	<span id="winDialog"><input type="checkbox" name="pwin_winDialog_button" id="pwin_winDialog_button"/></span>
+	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
   <br/>
 	<input id="test"/>
 	
@@ -58,7 +58,7 @@ dojo.require("tapestry.namespace")
 
 
 function selectRecord(obj){
-			dojo.byId('test').value=obj.value;
+			dojo.byId('test').value=obj.getAttribute("treeName");
 }
 
 //-->

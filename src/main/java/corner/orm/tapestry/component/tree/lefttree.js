@@ -16,6 +16,14 @@ LeftTree.prototype = {
 							
 							this.element.setAttribute("left",data.left);
 							this.element.setAttribute("right",data.right);
+							this.element.setAttribute("treeName",data.name);
+							this.element.setAttribute("entityId",data.id);
+							
+							this.clickExpense = function(evt){ 
+								parent.selectRecord(this.element);
+								queryBox.close();
+							}.bind(this);
+							Event.observe(this.span,'click',this.clickExpense);
 						},
 						callback:{
 							call:function(node,id){
@@ -29,6 +37,6 @@ LeftTree.prototype = {
 					}
 				}
 			});
-			var test = new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:1,right:2}});
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:1,right:2}});
 	}
 }
