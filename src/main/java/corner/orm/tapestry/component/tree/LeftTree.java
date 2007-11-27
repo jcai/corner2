@@ -26,7 +26,6 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
-import org.apache.tapestry.web.WebRequest;
 
 /**
  * 左邻树
@@ -45,16 +44,8 @@ public abstract class LeftTree extends BaseComponent{
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		
 		writer.begin("span");
-		{
-			writer.attribute("id", this.getClientId());
-			super.renderComponent(writer, cycle);
-		
-			writer.begin("input");
-			writer.attribute("type", "hidden");
-			writer.attribute("id", "leftTreeQueryClassName");
-			writer.attribute("value", getQueryClassName());
-			writer.end("input");
-		}
+		writer.attribute("id", this.getClientId());
+		super.renderComponent(writer, cycle);
 		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
@@ -75,6 +66,10 @@ public abstract class LeftTree extends BaseComponent{
 	/** 待查询的类名 * */
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
+	
+	/** 名称 * */
+	@Parameter(defaultValue = "literal:My Tree")
+	public abstract String getTitle();
 	
 	/**
 	 * @return

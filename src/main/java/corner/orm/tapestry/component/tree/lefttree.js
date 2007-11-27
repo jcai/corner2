@@ -1,10 +1,11 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element,page,site,data) {
+	initialize: function(element,page,title,queryClassName) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
 						page: page,
+						queryClassName : queryClassName,
 						insertion: function(el,data){
 							dojo.debug("insertion data:"+data.left);
 							var node = Builder.node('dl',{},
@@ -31,14 +32,13 @@ LeftTree.prototype = {
 								left=node.element.getAttribute("left");
 								right=node.element.getAttribute("right");
 								depth=node.element.getAttribute("depth");
-								leftTreeQueryClassName = $("leftTreeQueryClassName").value;
 								
-								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + "&" + "queryClassName=" + leftTreeQueryClassName;
+								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + "&" + "queryClassName=" + node.options.queryClassName;
 							}	
 						}
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:'我是树',left:-1,right:-1,depth:0}});
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}},queryClassName);
 	}
 }
