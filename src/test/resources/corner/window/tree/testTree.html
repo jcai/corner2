@@ -48,6 +48,7 @@ dojo.require("tapestry.namespace")
 	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
   <br/>
 	<input id="test"/>
+	<input id="show2"/>
 	
 	<a id="ccc">fjds</a>
 	
@@ -59,6 +60,10 @@ dojo.require("tapestry.namespace")
 
 function selectRecord(obj){
 			dojo.byId('test').value=obj.getAttribute("treeName");
+}
+
+function selectRecordShow(obj){
+			dojo.byId('show2').value=obj.getAttribute("treeName");
 }
 
 //-->

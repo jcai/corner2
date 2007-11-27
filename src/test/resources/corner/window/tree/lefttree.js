@@ -1,6 +1,6 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element,page,title,queryClassName) {
+	initialize: function(element,page,title,queryClassName,parentAction) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
@@ -22,7 +22,7 @@ LeftTree.prototype = {
 							this.element.setAttribute("entityId",data.id);
 							
 							this.clickExpense = function(evt){ 
-								parent.selectRecord(this.element);
+								parent[parentAction](this.element);
 								queryBox.close();
 							}.bind(this);
 							Event.observe(this.span,'click',this.clickExpense);

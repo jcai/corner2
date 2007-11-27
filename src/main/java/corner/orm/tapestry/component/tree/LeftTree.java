@@ -71,6 +71,10 @@ public abstract class LeftTree extends BaseComponent{
 	@Parameter(defaultValue = "literal:My Tree")
 	public abstract String getTitle();
 	
+	/** 名称 * */
+	@Parameter(defaultValue = "literal:selectRecord")
+	public abstract String getParentAction();
+	
 	/**
 	 * @return
 	 */
