@@ -24,6 +24,7 @@ import org.apache.tapestry.IActionListener;
 import org.apache.tapestry.IAsset;
 import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.Tapestry;
@@ -86,7 +87,7 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
         }
         
         if (!cycle.isRewinding()) {
-            JSONObject json = initWindow();
+            JSONObject json = initWindow(cycle);
             
             Map<String,Object> parms = new HashMap<String,Object>();
             parms.put("component", this);
@@ -135,12 +136,12 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * 初始化窗体属性
 	 */
-	private JSONObject initWindow() {
+	private JSONObject initWindow(IRequestCycle cycle) {
 		JSONObject json =new JSONObject();
 //        json.put("id", getWinId());
         json.put("className", getClassName());
         json.put("title", getTitle());
-        json.put("url", getUrl());
+        json.put("url", getUrl(cycle));
         json.put("top ", getTop ());
         json.put("right", getLeft());
         json.put("width", getWidth());
@@ -177,27 +178,28 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/**
 	 * 返回url
 	 */
-	protected String getUrl() {
+	protected String getUrl(IRequestCycle cycle) {
 		String url = null;
 		
+		Object[] parameters = null;
+		
 		if(this.getQueryPageName() != null){
-			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
+			IPage page = cycle.getPage(this.getQueryPageName());
+			cycle.activate(page);
+			parameters = new Object[]{getOnSelectFunName()};
 		}else{
-			Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
-			
-			Object[] serviceParameters = DirectLink
-					.constructServiceParameters(parameters);
-
-			DirectServiceParameter dsp = new DirectServiceParameter(this,
-					serviceParameters);
-			
-			url = getDirectService().getLink(false, dsp).getAbsoluteURL();
+			parameters = new Object[]{getOnSelectFunName(),getParameters()};
 		}
+		
+		Object[] serviceParameters = DirectLink.constructServiceParameters(parameters);
+		
+		DirectServiceParameter dsp = new DirectServiceParameter(this,
+				serviceParameters);
+		
+		url = getDirectService().getLink(false, dsp).getAbsoluteURL();
 		
 		return url;
 	}
-	
-//	public static String csss="default,theme1,mac_os_x,alphacube,darkX,spread,alert,alert_lite";
 	
 	/**
 	 * window 需要的参数
@@ -327,7 +329,4 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	/** injected. */
 	@InjectScript("WindowQueryDialog.script")
 	public abstract IScript getScript();
-	
-	@InjectObject("service:tapestry.services.Page")
-	public abstract IEngineService getPageService();
 }

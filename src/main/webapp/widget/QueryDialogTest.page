@@ -20,8 +20,8 @@
 	<binding value="literal:selectRecord" name="onSelectFunName"/>
     <binding value="literal:google" name="title"/>
   </component>
-  <component type="corner:PageQueryDialog" id="dialog2">
-	  <binding value="literal:widget/SelectionListPage" name="queryPageName"/>
+  <component type="corner:WindowQueryDialog" id="dialog2">
+	  <binding value="literal:widget/WinSelectionListPage" name="queryPageName"/>
   </component>
   <component type="corner:VersionCommentBox" id="popText">
       <binding value="literal:widget/pop" name="queryPageName"/>

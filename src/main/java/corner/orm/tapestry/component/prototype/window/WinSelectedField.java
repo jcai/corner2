@@ -28,7 +28,6 @@ import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
-import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.components.Any;
 import org.apache.tapestry.services.LinkFactory;
 
@@ -70,15 +69,7 @@ public abstract class WinSelectedField extends Any {
         
         Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
         
-        String onSelectFunName = null;
-        
-        if(parameters.length == 0){
-        	onSelectFunName = getOnSelectFunName();
-        }else{
-        	onSelectFunName = (String) parameters[0];
-        }
-        
-        
+        String onSelectFunName = (String) parameters[0];
         
         if (!rewinding)
         {
@@ -91,9 +82,6 @@ public abstract class WinSelectedField extends Any {
 		parms.put("onSelectFunName", onSelectFunName);
 		getScript().execute(this, cycle, prs, parms);
 	}
-	
-	@Parameter(defaultValue = "literal:selectRecord")
-	public abstract String getOnSelectFunName();
 	
 	@InjectObject("infrastructure:linkFactory")
 	public abstract LinkFactory getLinkFactory();
