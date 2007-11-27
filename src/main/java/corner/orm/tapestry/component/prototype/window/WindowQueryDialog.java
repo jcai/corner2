@@ -181,15 +181,12 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	protected String getUrl(IRequestCycle cycle) {
 		String url = null;
 		
-		Object[] parameters = null;
-		
 		if(this.getQueryPageName() != null){
 			IPage page = cycle.getPage(this.getQueryPageName());
 			cycle.activate(page);
-			parameters = new Object[]{getOnSelectFunName()};
-		}else{
-			parameters = new Object[]{getOnSelectFunName(),getParameters()};
 		}
+		
+		Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
 		
 		Object[] serviceParameters = DirectLink.constructServiceParameters(parameters);
 		

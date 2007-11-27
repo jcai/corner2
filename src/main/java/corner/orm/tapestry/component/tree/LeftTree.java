@@ -54,12 +54,14 @@ public abstract class LeftTree extends BaseComponent{
 			Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
 	        
 	        String onSelectFunName = (String) parameters[0];
+	        String queryClassName = (String) parameters[1];
 			
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("component", this);
 			parms.put("parentAction", onSelectFunName);
+			parms.put("queryClassName", queryClassName);
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
@@ -69,10 +71,6 @@ public abstract class LeftTree extends BaseComponent{
 		ILink link = this.getLeftTreeService().getLink(true, new Object[1]);
 		return link.getURL();
 	}
-	
-	/** 待查询的类名 * */
-	@Parameter(required = true)
-	public abstract String getQueryClassName();
 	
 	/** 名称 * */
 	@Parameter(defaultValue = "literal:My Tree")
