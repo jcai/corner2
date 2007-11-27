@@ -26,6 +26,7 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.services.LinkFactory;
 
 /**
  * 左邻树
@@ -49,10 +50,16 @@ public abstract class LeftTree extends BaseComponent{
 		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
+			
+			Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
+	        
+	        String onSelectFunName = (String) parameters[0];
+			
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("component", this);
+			parms.put("parentAction", onSelectFunName);
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
@@ -71,13 +78,12 @@ public abstract class LeftTree extends BaseComponent{
 	@Parameter(defaultValue = "literal:My Tree")
 	public abstract String getTitle();
 	
-	/** 名称 * */
-	@Parameter(defaultValue = "literal:selectRecord")
-	public abstract String getParentAction();
-	
 	/**
 	 * @return
 	 */
 	@InjectObject("engine-service:leftTree")
 	public abstract IEngineService getLeftTreeService();
+	
+	@InjectObject("infrastructure:linkFactory")
+	public abstract LinkFactory getLinkFactory();
 }
