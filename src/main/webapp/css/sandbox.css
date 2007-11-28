@@ -6,7 +6,7 @@
 @import url("windowThemes/alphacube.css");
 
 @import url("svn.css");
-@import url("tree.css");
+@import url("tree/default.css");
 
 .alertButton {
 	width: auto;

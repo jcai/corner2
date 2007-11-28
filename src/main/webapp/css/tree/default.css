@@ -13,9 +13,9 @@ span.mark {
 	width: 30px;
     
 }
-.expanded {background:url(tree/opened.gif) no-repeat 0 1px;}
-.collapsed {background:url(tree/closed.gif) no-repeat 0 1px;}
-.leaf {background:url(tree/child.gif) no-repeat 13px 2px;}
+.expanded {background:url(opened.gif) no-repeat 0 1px;}
+.collapsed {background:url(closed.gif) no-repeat 0 1px;}
+.leaf {background:url(child.gif) no-repeat 13px 2px;}
 span.treedata {
 	background-color: blue;
     border:1px;

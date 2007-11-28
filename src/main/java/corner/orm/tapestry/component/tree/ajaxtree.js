@@ -322,9 +322,7 @@ All properties are accessed by *this.<property>*.
 
 Ajax.Tree.Base = {};
 Ajax.Tree.Base.prototype = {
-	initialize: function(parent,id,type,data,left,right){
-		this.left = left;
-		this.right = right;
+	initialize: function(parent,id,type,data){
 		this.type = type || '_root';
 		this.options = this.types[this.type];
 		this.children = [];
@@ -369,7 +367,8 @@ Ajax.Tree.Base.prototype = {
 		this.element = Builder.node('div',{id:newID,className:this.options.className+' treenode'},[
 			this.mark,this.span
 		]);
-		this.events.observe(this.mark, 'click', this.onClick.bindAsEventListener(this));
+        this.mark.update("&nbsp;");
+        this.events.observe(this.mark, 'click', this.onClick.bindAsEventListener(this));
 		if(this.options.mouseOver){
 			this.events.observe(this.span, 'mouseover', this.options.mouseOver.bindAsEventListener(this));
 		}

@@ -55,6 +55,12 @@ public abstract class LeftTree extends BaseComponent{
 	        
 	        String onSelectFunName = (String) parameters[0];
 	        String queryClassName = (String) parameters[1];
+	        
+	        String dependField = null;
+	        
+	        if(parameters.length > 2){
+	        	dependField = (String) parameters[2];
+	        }
 			
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
@@ -62,6 +68,7 @@ public abstract class LeftTree extends BaseComponent{
 			parms.put("component", this);
 			parms.put("parentAction", onSelectFunName);
 			parms.put("queryClassName", queryClassName);
+			parms.put("dependField", dependField);
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}

@@ -1,6 +1,6 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element,page,title,queryClassName,parentAction) {
+	initialize: function(element,page,title,queryClassName,parentAction,dependField) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
@@ -36,16 +36,23 @@ LeftTree.prototype = {
 						},
 						callback:{
 							call:function(node,id){
-								left=node.element.getAttribute("left");
-								right=node.element.getAttribute("right");
-								depth=node.element.getAttribute("depth");
+								var left=node.element.getAttribute("left");
+								var right=node.element.getAttribute("right");
+								var depth=node.element.getAttribute("depth");
 								
-								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + "&" + "queryClassName=" + node.options.queryClassName;
+								var depend="null";
+								
+								if(dependField != null && dependField != ""){
+									depend = parent.document.getElementById(dependField).value;
+								}
+								
+								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 
+								"&" + "queryClassName=" + node.options.queryClassName + "&" + "dependField=" + depend;
 							}	
 						}
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}},queryClassName);
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}},queryClassName,parentAction,dependField);
 	}
 }
