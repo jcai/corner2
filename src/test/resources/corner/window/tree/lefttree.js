@@ -21,11 +21,18 @@ LeftTree.prototype = {
 							this.element.setAttribute("treeName",data.name);
 							this.element.setAttribute("entityId",data.id);
 							
-							this.clickExpense = function(evt){ 
-								parent[parentAction](this.element);
-								queryBox.close();
-							}.bind(this);
-							Event.observe(this.span,'click',this.clickExpense);
+							if((data.right - data.left) == 1){
+								this.clickExpense = function(evt){ 
+									parent[parentAction](this.element);
+									queryBox.close();
+								}.bind(this);
+								Event.observe(this.span,'click',this.clickExpense);
+							}else{
+								this.clickExpense = function(evt){ 
+									this.onClick();
+								}.bind(this);
+								Event.observe(this.span,'click',this.clickExpense);
+							}
 						},
 						callback:{
 							call:function(node,id){
