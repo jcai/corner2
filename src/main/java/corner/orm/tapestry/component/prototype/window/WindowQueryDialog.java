@@ -181,33 +181,19 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	protected String getUrl(IRequestCycle cycle) {
 		String url = null;
 		
-//		if(this.getQueryPageName() != null){
-//			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
-//		}else{
-//			Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
-//			
-//			Object[] serviceParameters = DirectLink
-//					.constructServiceParameters(parameters);
-//
-//			DirectServiceParameter dsp = new DirectServiceParameter(this,
-//					serviceParameters);
-//			
-//			url = getDirectService().getLink(false, dsp).getAbsoluteURL();
-//		}
-		
 		if(this.getQueryPageName() != null){
-			IPage page = cycle.getPage(this.getQueryPageName());
-			cycle.activate(page);
+			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
+		}else{
+			Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
+			
+			Object[] serviceParameters = DirectLink
+					.constructServiceParameters(parameters);
+
+			DirectServiceParameter dsp = new DirectServiceParameter(this,
+					serviceParameters);
+			
+			url = getDirectService().getLink(false, dsp).getAbsoluteURL();
 		}
-		
-		Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
-		
-		Object[] serviceParameters = DirectLink.constructServiceParameters(parameters);
-		
-		DirectServiceParameter dsp = new DirectServiceParameter(this,
-				serviceParameters);
-		
-		url = getDirectService().getLink(false, dsp).getAbsoluteURL();
 		
 		return url;
 	}
@@ -341,6 +327,6 @@ public abstract class WindowQueryDialog extends AbstractWidget implements IDirec
 	@InjectScript("WindowQueryDialog.script")
 	public abstract IScript getScript();
 	
-//	@InjectObject("service:tapestry.services.Page")
-//	public abstract IEngineService getPageService();
+	@InjectObject("service:tapestry.services.Page")
+	public abstract IEngineService getPageService();
 }
