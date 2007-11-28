@@ -3,10 +3,11 @@
  */
 var WindowQueryDialogAction = Class.create();
 WindowQueryDialogAction.prototype = {
-	initialize: function(fieldId, props){	
+	initialize: function(fieldId, props,selectFunName){	
 		this.fieldId = fieldId;	
 		this.props = props;
 		this.win =null;
+		this.selectFunName=selectFunName;
 		/*
 		  增加onclick事件并传递this到clickField，传递的this表示当前function
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
@@ -16,7 +17,7 @@ WindowQueryDialogAction.prototype = {
 	loadFrame:function(){
 		frameW=dojo.html.iframeContentWindow(this.win.getContent());
 		if(frameW){
-			frameW.queryBox=this.win;
+			frameW.queryBox=this;
 			dojo.debug("frameW.queryBox : " + frameW.queryBox);
 		}
 	},
@@ -40,5 +41,8 @@ WindowQueryDialogAction.prototype = {
 		
 		this.win = new Window(this.props);
 		Event.observe($(this.win.element.id + "_content"), "load", this.win.options.onload);
+	},
+	onSelect:function(element){
+		eval(this.selectFunName+"(element)");
 	}
 };

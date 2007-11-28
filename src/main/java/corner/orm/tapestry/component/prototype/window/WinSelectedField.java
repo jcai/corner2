@@ -58,28 +58,17 @@ public abstract class WinSelectedField extends Any {
 
         boolean rewinding = cycle.isRewinding();
 
-        if (!rewinding)
-        {
+        if (!rewinding){
             writer.begin(element);
-            
-            renderInformalParameters(writer, cycle);
-            if (getId() != null && !isParameterBound("id"))
-                renderIdAttribute(writer, cycle);
-        }
-        
-        Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
-        
-        String onSelectFunName = (String) parameters[0];
-        
-        if (!rewinding)
-        {
+	            renderInformalParameters(writer, cycle);
+	            if (getId() != null && !isParameterBound("id"))
+	                renderIdAttribute(writer, cycle);
             writer.end(element);
         }
         
 		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 		Map<String, String> parms = new HashMap<String, String>();
 		parms.put("id", this.getClientId());
-		parms.put("onSelectFunName", onSelectFunName);
 		getScript().execute(this, cycle, prs, parms);
 	}
 	
