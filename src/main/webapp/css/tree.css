@@ -11,7 +11,7 @@ span.mark {
 	padding: 0px;
 	text-align: center;
 	width: 30px;
-    text-indent:10em;
+    
 }
 .expanded {background:url(tree/opened.gif) no-repeat 0 1px;}
 .collapsed {background:url(tree/closed.gif) no-repeat 0 1px;}
