@@ -6,28 +6,29 @@ div.treenode {
 	padding-left: 16px;
 }
 span.mark {
-	background-color: #efe;
 	float: left;
-	margin: 0px 3px 0px 3px;
+	margin: 0px 10px 0px 3px;
 	padding: 0px;
 	text-align: center;
-	width: 15px;
+	width: 30px;
+    text-indent:10em;
 }
-.expanded:before {content: "-";}
-.collapsed:before {content: "+";}
-.leaf:before {content: " ";}
+.expanded {background:url(tree/opened.gif) no-repeat 0 1px;}
+.collapsed {background:url(tree/closed.gif) no-repeat 0 1px;}
+.leaf {background:url(tree/child.gif) no-repeat 13px 2px;}
 span.treedata {
-	background-color: #F0F0EE;
+	background-color: blue;
+    border:1px;
 }
 dl {
 	margin: 0px;
 }
 dt {
-	background-color: #ffe;
+	
 	float: left;
 	width: 300px;
 }
 dd {
-	background-color: #eff;
+	
 	text-align: right;
 }

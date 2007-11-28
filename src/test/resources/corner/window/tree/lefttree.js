@@ -14,21 +14,21 @@ LeftTree.prototype = {
 								Builder.node('dd',['delete'])
 							]);
 							el.appendChild(node);
-							
+
 							this.element.setAttribute("left",data.left);
 							this.element.setAttribute("right",data.right);
 							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
 							this.element.setAttribute("entityId",data.id);
-							
+
 							if((data.right - data.left) == 1){
-								this.clickExpense = function(evt){ 
+								this.clickExpense = function(evt){
 									parent[parentAction](this.element);
 									queryBox.close();
 								}.bind(this);
 								Event.observe(this.span,'click',this.clickExpense);
 							}else{
-								this.clickExpense = function(evt){ 
+								this.clickExpense = function(evt){
 									this.onClick();
 								}.bind(this);
 								Event.observe(this.span,'click',this.clickExpense);
@@ -39,9 +39,9 @@ LeftTree.prototype = {
 								left=node.element.getAttribute("left");
 								right=node.element.getAttribute("right");
 								depth=node.element.getAttribute("depth");
-								
+
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + "&" + "queryClassName=" + node.options.queryClassName;
-							}	
+							}
 						}
 					}
 				}
