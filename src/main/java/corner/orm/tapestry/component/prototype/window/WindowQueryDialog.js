@@ -8,6 +8,7 @@ WindowDialogBase.prototype = {
 		this.props = props;
 		this.win =null;
 		this.selectFunName=selectFunName;
+		this.options = this["options"];
 		/*
 		  增加onclick事件并传递this到clickField，传递的this表示当前function
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
@@ -36,8 +37,8 @@ WindowDialogBase.prototype = {
 		}
 	},
 	build: function() {
-		options = {"onload":this.loadFrame.bindAsEventListener(this)};	//传递this到loadFrame，确保this是function本身
-		Object.extend(this.props, options);
+		ops = {"onload":this.loadFrame.bindAsEventListener(this)};	//传递this到loadFrame，确保this是function本身
+		Object.extend(this.props, ops);
 		
 		this.win = new Window(this.props);
 		Event.observe($(this.win.element.id + "_content"), "load", this.win.options.onload);
@@ -47,24 +48,24 @@ WindowDialogBase.prototype = {
 	}
 };
 
+/*
+ *	构造类
+ */
 WindowDialog = {
 	/* Function: create
 	Returns a constructor for a new class that is specific to the structure passed.
-	This new class is an extension of <Ajax.Tree.Base>
+	This new class is an extension of <WindowDialogBase>
 
 	structure - The structure that defines node types and their options and hooks.
 	*/
 	create: function(structure){
+		var options = {};
+		structure["options"] = Object.extend(options,structure["options"]);
+		
 		var newTreeClass = Class.create();
 		Object.extend(newTreeClass.prototype,Object.extend(WindowDialogBase.prototype,structure));
 		newTreeClass.prototype.constructor = newTreeClass;
 		return newTreeClass;
-	},
-	error: {
-		ajax: function(transport){
-			var msg = 'There was an error communicating with the server\n'+transport.statusText;
-			showError(msg);
-		}
 	},
 	showError: function(message){
 		alert(message);
