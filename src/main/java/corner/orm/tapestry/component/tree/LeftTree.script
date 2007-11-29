@@ -19,12 +19,11 @@
 <include-script resource-path="/corner/orm/tapestry/component/tree/commonajax.js" />
 
 <input-symbol key="component" required="yes" />
-<input-symbol key="parentAction" required="yes" />
 <input-symbol key="queryClassName" required="yes" />
 <input-symbol key="dependField" />
 
 <initialization>
-	new LeftTree("${component.clientId}","${component.url}","${component.title}","${queryClassName}","${parentAction}","${dependField}");
+	new LeftTree("${component.clientId}","${component.url}","${component.title}","${queryClassName}","${dependField}");
 	enableAjaxDebug();
 </initialization>
 </script>

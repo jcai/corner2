@@ -1,6 +1,6 @@
 var LeftTree = Class.create();
 LeftTree.prototype = {
-	initialize: function(element,page,title,queryClassName,parentAction,dependField) {
+	initialize: function(element,page,title,queryClassName,dependField) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
@@ -23,8 +23,8 @@ LeftTree.prototype = {
 
 							if((data.right - data.left) == 1){
 								this.clickExpense = function(evt){
-									parent[parentAction](this.element);
-									queryBox.close();
+									queryBox.onSelect(this.element);
+									queryBox.win.close();
 								}.bind(this);
 								Event.observe(this.span,'click',this.clickExpense);
 							}else{
@@ -53,6 +53,6 @@ LeftTree.prototype = {
 					}
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}},queryClassName,parentAction,dependField);
+			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}},queryClassName,dependField);
 	}
 }

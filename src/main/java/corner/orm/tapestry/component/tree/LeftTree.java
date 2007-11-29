@@ -53,8 +53,8 @@ public abstract class LeftTree extends BaseComponent{
 			
 			Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
 	        
-	        String onSelectFunName = (String) parameters[0];
-	        String queryClassName = (String) parameters[1];
+//	        String queryClassName = (String) parameters[0];
+			String queryClassName = "com.bjmaxinfo.piano.model.system.AccountItemCode";
 	        
 	        String dependField = null;
 	        
@@ -66,7 +66,6 @@ public abstract class LeftTree extends BaseComponent{
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("component", this);
-			parms.put("parentAction", onSelectFunName);
 			parms.put("queryClassName", queryClassName);
 			parms.put("dependField", dependField);
 			
