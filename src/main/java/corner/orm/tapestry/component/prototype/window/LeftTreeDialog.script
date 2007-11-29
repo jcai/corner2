@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+
+<script>
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/scriptaculous-1.7.1/effects.js" />
+<include-script resource-path="/scriptaculous-1.7.1/controls.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window_effects.js" />
+<include-script resource-path="/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js" />
+<include-script resource-path="/corner/orm/tapestry/component/prototype/window/LeftTreeDialog.js" />
+
+<input-symbol key="component" required="yes" />
+<input-symbol key="props" required="yes" />
+
+<initialization>
+	new LeftTreeDialog("${component.eventId}",${props},"${component.onSelectFunName}","${component.title}","${component.queryClassName}","${component.dependField}");
+</initialization>
+</script>

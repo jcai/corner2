@@ -62,6 +62,7 @@
   <component-type type="AssAC" specification-path="prototype/autocompleter/AssociateAutocompleter.jwc"/>
   
   <component-type type="WindowQueryDialog" specification-path="prototype/window/WindowQueryDialog.jwc"/>
+  <component-type type="LeftTreeDialog" specification-path="prototype/window/LeftTreeDialog.jwc"/>
   <component-type type="WinSelectedField" specification-path="prototype/window/WinSelectedField.jwc"/>
   <component-type type="WinTextArea" specification-path="prototype/window/WinTextArea.jwc"/>
   <component-type type="VersionCommentBox" specification-path="prototype/window/VersionCommentBox.jwc"/>
