@@ -50,24 +50,10 @@ public abstract class LeftTree extends BaseComponent{
 		writer.end("span");
 		
 		if (!cycle.isRewinding()) {
-			
-			Object[] parameters = getLinkFactory().extractListenerParameters(cycle);
-	        
-//	        String queryClassName = (String) parameters[0];
-			String queryClassName = "com.bjmaxinfo.piano.model.system.AccountItemCode";
-	        
-	        String dependField = null;
-	        
-	        if(parameters.length > 2){
-	        	dependField = (String) parameters[2];
-	        }
-			
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("component", this);
-			parms.put("queryClassName", queryClassName);
-			parms.put("dependField", dependField);
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
