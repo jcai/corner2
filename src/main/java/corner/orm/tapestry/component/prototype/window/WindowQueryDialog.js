@@ -1,8 +1,8 @@
 /*
- *	WindowQueryDialog的js操作，一同写了 VersionCommentBox的checkbox判断
+ *	基础类
  */
-var WindowQueryDialogAction = Class.create();
-WindowQueryDialogAction.prototype = {
+WindowDialogBase = {};
+WindowDialogBase.prototype = {
 	initialize: function(fieldId, props,selectFunName){	
 		this.fieldId = fieldId;	
 		this.props = props;
@@ -46,3 +46,32 @@ WindowQueryDialogAction.prototype = {
 		eval(this.selectFunName+"(element)");
 	}
 };
+
+WindowDialog = {
+	/* Function: create
+	Returns a constructor for a new class that is specific to the structure passed.
+	This new class is an extension of <Ajax.Tree.Base>
+
+	structure - The structure that defines node types and their options and hooks.
+	*/
+	create: function(structure){
+		var newTreeClass = Class.create();
+		Object.extend(newTreeClass.prototype,Object.extend(WindowDialogBase.prototype,structure));
+		newTreeClass.prototype.constructor = newTreeClass;
+		return newTreeClass;
+	},
+	error: {
+		ajax: function(transport){
+			var msg = 'There was an error communicating with the server\n'+transport.statusText;
+			showError(msg);
+		}
+	},
+	showError: function(message){
+		alert(message);
+	}
+};
+
+/*
+ *	WindowQueryDialog的js操作，一同写了 VersionCommentBox的checkbox判断
+ */
+WindowQueryDialogAction = WindowDialog.create({});

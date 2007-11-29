@@ -39,7 +39,7 @@ djConfig = { isDebug: true,
 winSelectRecord=function(evt){
 	var src=dojo.html.getEventTarget(evt);
 	parent.selectRecord(src);
-	queryBox.close();
+	queryBox.win.close();
 }
 dojo.event.connect(dojo.byId("r1"),"onclick","winSelectRecord");
 
