@@ -26,7 +26,6 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
-import org.apache.tapestry.services.LinkFactory;
 
 /**
  * 左邻树
@@ -54,12 +53,14 @@ public abstract class LeftTree extends BaseComponent{
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("component", this);
+			parms.put("linkUrl", getLinkUrl());
+			parms.put("title", getTitle());
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
 	}
 	
-	public String getUrl(){
+	public String getLinkUrl(){
 		ILink link = this.getLeftTreeService().getLink(true, new Object[1]);
 		return link.getURL();
 	}
@@ -73,7 +74,4 @@ public abstract class LeftTree extends BaseComponent{
 	 */
 	@InjectObject("engine-service:leftTree")
 	public abstract IEngineService getLeftTreeService();
-	
-	@InjectObject("infrastructure:linkFactory")
-	public abstract LinkFactory getLinkFactory();
 }

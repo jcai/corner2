@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+
+<script>
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/prototype-ext.js" />
+<include-script resource-path="/scriptaculous-1.7.1/effects.js" />
+<include-script resource-path="/scriptaculous-1.7.1/controls.js" />
+<include-script resource-path="/scriptaculous-1.7.1/builder.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/ajaxtree.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/lefttree.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/common.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/commonajax.js" />
+
+<input-symbol key="component" required="yes" />
+<input-symbol key="linkUrl" required="yes" />
+<input-symbol key="title" required="yes" />
+
+<initialization>
+	new LeftTree("${component.clientId}","${linkUrl}","${title}");
+	enableAjaxDebug();
+</initialization>
+</script>
