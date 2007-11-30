@@ -13,15 +13,17 @@ function isDOMRequired() {
 function objectTag() {
 		var insertTag="";
 		var cssTag = "";
-		if (document.insertTagform.insertTag.value != ""){
-			insertTag=document.insertTagform.insertTag.value;
-		}
-		if (document.insertTagform.cssTag.value != ""){
-			cssTag=document.insertTagform.cssTag.value;
-		}
-		else {
+		if (document.insertTagForm.insertTagField.value != ""){
+			insertTag=document.insertTagForm.insertTagField.value;
+		} else{
 			insertTag='text'; 
-			cssTag = 'input_form_c';
+		}
+		
+		if (document.insertTagForm.cssTagField.value != ""){
+			cssTag=document.insertTagForm.cssTagField.value;
+		} else {
+		
+			cssTag = 'input-form';
 		}
 
 		return ("<input type=\"text\" name=\""+insertTag+"\" id=\""+insertTag+"Field\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>");
@@ -34,16 +36,16 @@ function objectTag() {
 </script>
 </head>
 <body>
-<form action="" method="post" name="insertTagform" id="insertTagform">
+<form action="" method="post" name="insertTagForm" id="insertTagForm">
   <table width="380" border="0" cellspacing="3" cellpadding="2">
     <tr>
       <td><font size="2" face="新宋体">字段名称(默认:text)</font></td>
-      <td><input type="text" name="insertTag" id="insertTag">
+      <td><input type="text" name="insertTagField" id="insertTagField">
       </td>
     </tr>
     <tr>
-      <td><font size="2" face="新宋体">CSS名称(默认:input_form_c)</font></td>
-      <td><input type="text" name="cssTag" id="cssTag">
+      <td><font size="2" face="新宋体">CSS名称(默认:input-form)</font></td>
+      <td><input type="text" name="cssTagField" id="cssTagField">
       </td>
     </tr>
   </table>
