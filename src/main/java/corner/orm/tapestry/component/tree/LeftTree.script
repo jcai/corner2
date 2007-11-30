@@ -20,6 +20,5 @@
 
 <initialization>
 	new LeftTree("${component.clientId}","${linkUrl}","${title}");
-	enableAjaxDebug();
 </initialization>
 </script>

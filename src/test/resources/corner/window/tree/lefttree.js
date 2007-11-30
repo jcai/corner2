@@ -6,11 +6,9 @@ LeftTree.prototype = {
 					leftTreeSite: {
 						page: 'test.txt',
 						insertion: function(el,data){
-							dojo.debug("insertion data:"+data.left);
 							var node = Builder.node('dl',{},
 							[
-								Builder.node('dt',[data.name]),
-								Builder.node('dd',['delete'])
+								Builder.node('dt',[data.name])
 							]);
 							el.appendChild(node);
 
@@ -19,7 +17,7 @@ LeftTree.prototype = {
 							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
 							this.element.setAttribute("entityId",data.id);
-
+							
 							if((data.right - data.left) == 1){
 								this.clickExpense = function(evt){
 									queryBox.onSelect(this.element);
@@ -52,6 +50,20 @@ LeftTree.prototype = {
 							}
 						}
 					}
+				},
+				createNodes: function(nodes){
+					if(!nodes.length){ return; }
+					this.showChildren();
+					this.loaded = true;
+					for(var i=0; i < nodes.length; i++){
+						if((nodes[i].data.right - nodes[i].data.left) == 1){
+							this.options.leafNode = true;
+						}else{
+							this.options.leafNode = false;
+						}
+						var newNode = new this.constructor(this.element,nodes[i].id,nodes[i].type,nodes[i]);
+					}
+					if(this.options.sortable){ this.createSortable(); }
 				}
 			});
 			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}});

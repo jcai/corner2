@@ -3,6 +3,5 @@
 
 <page-specification class="org.apache.tapestry.html.BasePage">
   <component type="corner:LeftTree" id="tree">
-  	<binding name="queryClassName" value="literal:corner.demo.model.one.A"/>
   </component>
 </page-specification>
