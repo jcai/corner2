@@ -46,7 +46,8 @@ LeftTree.prototype = {
 								}
 															
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 
-								"&" + "queryClassName=" + queryBox.options.queryClassName + "&" + "dependField=" + depend;
+								"&" + "queryClassName=" + queryBox.options.queryClassName + "&" + "dependField=" + depend + 
+								"&" + "parentPage=" + queryBox.options.page;
 							}
 						}
 					}

@@ -12,6 +12,9 @@
 
 package corner.orm.tapestry.component.prototype.window;
 
+import java.util.Map;
+
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
@@ -23,6 +26,16 @@ import org.apache.tapestry.annotations.Parameter;
  */
 public abstract class LeftTreeDialog extends WindowDialog{
 	
+	
+	/**
+	 * @see corner.orm.tapestry.component.prototype.window.WindowDialog#appendScriptParms(java.util.Map, org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void appendScriptParms(Map<String, Object> parms,
+			IRequestCycle cycle) {
+		parms.put("page", cycle.getPage().getPageName());
+	}
+
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
 	

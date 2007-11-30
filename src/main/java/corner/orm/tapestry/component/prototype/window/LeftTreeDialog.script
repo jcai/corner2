@@ -14,8 +14,9 @@
 
 <input-symbol key="component" required="yes" />
 <input-symbol key="props" required="yes" />
+<input-symbol key="page" required="yes" />
 
 <initialization>
-	new LeftTreeDialog("${component.eventId}",${props},"${component.onSelectFunName}","${component.title}","${component.queryClassName}","${component.dependField}");
+	new LeftTreeDialog("${component.eventId}",${props},"${component.onSelectFunName}","${component.title}","${component.queryClassName}","${component.dependField}","${page}");
 </initialization>
 </script>

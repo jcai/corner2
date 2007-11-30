@@ -84,10 +84,18 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	        Map<String,Object> parms = new HashMap<String,Object>();
 	        parms.put("component", this);
 	        parms.put("props", json.toString());
+	        appendScriptParms(parms,cycle);
 	        
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
 	}
+
+	/**
+	 * 额外增加条件
+	 * @param parms
+	 * @param cycle 
+	 */
+	protected abstract void appendScriptParms(Map<String, Object> parms, IRequestCycle cycle);
 
 	/**
 	 * 创建一个按钮
