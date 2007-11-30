@@ -95,7 +95,9 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	 * @param parms
 	 * @param cycle 
 	 */
-	protected abstract void appendScriptParms(Map<String, Object> parms, IRequestCycle cycle);
+	protected void appendScriptParms(Map<String, Object> parms, IRequestCycle cycle){
+		
+	}
 
 	/**
 	 * 创建一个按钮
