@@ -442,7 +442,7 @@ Ajax.Tree.Base.prototype = {
 	loadContents: function(xhr,json){
 		this.clearContents();
 		this.showChildren();
-		var nodes = (json && json.nodes) ? json.nodes : json_decode(xhr.responseText).nodes || false;
+		var nodes = (json && json.nodes) ? json.nodes : eval('('+xhr.responseText+')').nodes || false;
 		if(nodes){ this.createNodes(nodes); }
 		this.loaded = true;
 		if(this.options.onContentLoaded){ this.options.onContentLoaded.call(this, xhr, json); }

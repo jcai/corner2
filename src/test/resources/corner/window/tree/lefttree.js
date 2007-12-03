@@ -6,6 +6,7 @@ LeftTree.prototype = {
 					leftTreeSite: {
 						page: 'test.txt',
 						insertion: function(el,data){
+							dojo.debug(data)
 							var node = Builder.node('dl',{},
 							[
 								Builder.node('dt',[data.name])
@@ -33,6 +34,7 @@ LeftTree.prototype = {
 						},
 						callback:{
 							call:function(node,id){
+								dojo.debug("callback!!!")
 								var left=node.element.getAttribute("left");
 								var right=node.element.getAttribute("right");
 								var depth=node.element.getAttribute("depth");
@@ -69,6 +71,7 @@ LeftTree.prototype = {
 					}
 				},
 				createNodes: function(nodes){
+					dojo.debug(nodes)
 					if(!nodes.length){ return; }
 					this.showChildren();
 					this.loaded = true;
