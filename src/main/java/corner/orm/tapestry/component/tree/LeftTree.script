@@ -11,8 +11,7 @@
 <include-script resource-path="/scriptaculous-1.7.1/builder.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/ajaxtree.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/lefttree.js" />
-<include-script resource-path="/corner/orm/tapestry/component/tree/common.js" />
-<include-script resource-path="/corner/orm/tapestry/component/tree/commonajax.js" />
+
 
 <input-symbol key="component" required="yes" />
 <input-symbol key="linkUrl" required="yes" />

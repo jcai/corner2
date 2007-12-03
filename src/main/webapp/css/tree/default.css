@@ -4,7 +4,7 @@
 div.treenode {
 	clear: left;
 	padding-left: 16px;
-	cursor:hand;
+	cursor:pointer;
 }
 span.mark {
 	float: left;
