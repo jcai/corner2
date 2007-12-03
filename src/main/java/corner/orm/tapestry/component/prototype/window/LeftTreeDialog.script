@@ -9,7 +9,7 @@
 <include-script resource-path="/scriptaculous-1.7.1/controls.js" />
 <include-script resource-path="/corner/prototype/window/javascripts/window.js" />
 <include-script resource-path="/corner/prototype/window/javascripts/window_effects.js" />
-<include-script resource-path="/corner/prototype/corner.js" />
+<include-script resource-path="/corner/prototype/cornerBuilder.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/LeftTreeDialog.js" />
 

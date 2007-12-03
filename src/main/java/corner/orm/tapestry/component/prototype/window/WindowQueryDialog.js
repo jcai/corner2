@@ -1,7 +1,7 @@
 /*
  *	继承corner.js
  */
-WindowDialogBase = Corner.create({
+WindowDialogBase = CornerBuilder.create({
 	extend: CornerBase.prototype,
 	initialize: function(fieldId, props,selectFunName){	
 		this.fieldId = fieldId;	

@@ -8,7 +8,7 @@ CornerBase.prototype = {
 /*
  *	构造类
  */
-Corner = {
+CornerBuilder = {
 	/* Function: create
 	Returns a constructor for a new class that is specific to the structure passed.
 	This new class is an extension of <WindowDialogBase>

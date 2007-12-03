@@ -4,7 +4,7 @@
 var LeftTreeDialog  = Class.create();
 LeftTreeDialog.prototype = {
 	initialize: function(fieldId, props,selectFunName,title,queryClassName,dependFields,page){	
-		TreeDialog = Corner.create({
+		TreeDialog = CornerBuilder.create({
 			extend: WindowDialogBase.prototype,
 			options : {
 				title : title,
