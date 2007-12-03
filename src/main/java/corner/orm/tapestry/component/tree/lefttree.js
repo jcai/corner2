@@ -37,16 +37,23 @@ LeftTree.prototype = {
 								var right=node.element.getAttribute("right");
 								var depth=node.element.getAttribute("depth");
 								
-								var dependField = queryBox.options.dependField;
+								var dependFields = queryBox.options.dependFields;
 								
-								var depend="null";
+								var depend="";
 								
-								if(dependField != null && dependField != ""){
-									depend = parent.document.getElementById(dependField).value;
+								if(dependFields != null && dependFields != "" && dependFields.length != 0){
+									for(var i=0;i<dependFields.length;i++){
+										if(i!=0){
+											depend += ",";
+										}
+										depend += parent.document.getElementById(dependFields[i]).value;
+									}
+								}else{
+									depend="null";
 								}
 															
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 
-								"&" + "queryClassName=" + queryBox.options.queryClassName + "&" + "dependField=" + depend + 
+								"&" + "queryClassName=" + queryBox.options.queryClassName + "&" + "dependFields=" + depend + 
 								"&" + "parentPage=" + queryBox.options.page;
 							}
 						}

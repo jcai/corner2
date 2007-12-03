@@ -1,11 +1,11 @@
 var LeftTreeDialog  = Class.create();
 LeftTreeDialog.prototype = {
-	initialize: function(fieldId, props,selectFunName,title,queryClassName,dependField,page){	
+	initialize: function(fieldId, props,selectFunName,title,queryClassName,dependFields,page){	
 		TreeDialog = WindowDialog.create({
 			options : {
 				title : title,
 				queryClassName : queryClassName,
-				dependField : dependField,
+				dependFields : dependFields,
 				page : page
 			}
 		});

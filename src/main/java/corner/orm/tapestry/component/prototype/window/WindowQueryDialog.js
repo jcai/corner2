@@ -59,9 +59,6 @@ WindowDialog = {
 	structure - The structure that defines node types and their options and hooks.
 	*/
 	create: function(structure){
-		var options = {};
-		structure["options"] = Object.extend(options,structure["options"]);
-		
 		var newTreeClass = Class.create();
 		Object.extend(newTreeClass.prototype,Object.extend(WindowDialogBase.prototype,structure));
 		newTreeClass.prototype.constructor = newTreeClass;

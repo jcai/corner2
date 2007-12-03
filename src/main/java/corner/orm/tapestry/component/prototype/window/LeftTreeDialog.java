@@ -18,6 +18,8 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.json.JSONArray;
+import org.apache.tapestry.json.JSONObject;
 
 /**
  * @author <a href="mailto:xf@bjmaxinfo.com">xiafei</a>
@@ -33,14 +35,32 @@ public abstract class LeftTreeDialog extends WindowDialog{
 	@Override
 	protected void appendScriptParms(Map<String, Object> parms,
 			IRequestCycle cycle) {
+		JSONArray json = jsonDependFields();
+		
 		parms.put("page", cycle.getPage().getPageName());
+		parms.put("dependFields", json.toString().replaceAll("\"", "'"));
+	}
+
+	/**
+	 * 返回json数组
+	 */
+	private JSONArray jsonDependFields() {
+		JSONArray json = new JSONArray();
+		
+		String [] dependFields = getDependFields().split(",");
+		
+		for(String s : dependFields){
+			json.put(s);
+		}
+		
+		return json;
 	}
 
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
 	
 	@Parameter
-	public abstract String getDependField();
+	public abstract String getDependFields();
 	
 	@Parameter(defaultValue = "literal:My")
 	public abstract String getTitle();
