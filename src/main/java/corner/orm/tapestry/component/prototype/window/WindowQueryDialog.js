@@ -1,8 +1,8 @@
 /*
- *	基础类
+ *	继承corner.js
  */
-WindowDialogBase = {};
-WindowDialogBase.prototype = {
+WindowDialogBase = Corner.create({
+	extend: CornerBase.prototype,
 	initialize: function(fieldId, props,selectFunName){	
 		this.fieldId = fieldId;	
 		this.props = props;
@@ -46,30 +46,9 @@ WindowDialogBase.prototype = {
 	onSelect:function(element){
 		eval(this.selectFunName+"(element)");
 	}
-};
+});
 
 /*
- *	构造类
+ *	WindowQueryDialog的js操作
  */
-WindowDialog = {
-	/* Function: create
-	Returns a constructor for a new class that is specific to the structure passed.
-	This new class is an extension of <WindowDialogBase>
-
-	structure - The structure that defines node types and their options and hooks.
-	*/
-	create: function(structure){
-		var newTreeClass = Class.create();
-		Object.extend(newTreeClass.prototype,Object.extend(WindowDialogBase.prototype,structure));
-		newTreeClass.prototype.constructor = newTreeClass;
-		return newTreeClass;
-	},
-	showError: function(message){
-		alert(message);
-	}
-};
-
-/*
- *	WindowQueryDialog的js操作，一同写了 VersionCommentBox的checkbox判断
- */
-WindowQueryDialogAction = WindowDialog.create({});
+WindowQueryDialogAction = WindowDialogBase;

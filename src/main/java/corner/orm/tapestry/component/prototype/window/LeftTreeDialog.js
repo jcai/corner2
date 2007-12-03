@@ -1,7 +1,11 @@
+/*
+ *	左邻树Dialog
+ */
 var LeftTreeDialog  = Class.create();
 LeftTreeDialog.prototype = {
 	initialize: function(fieldId, props,selectFunName,title,queryClassName,dependFields,page){	
-		TreeDialog = WindowDialog.create({
+		TreeDialog = Corner.create({
+			extend: WindowDialogBase.prototype,
 			options : {
 				title : title,
 				queryClassName : queryClassName,
