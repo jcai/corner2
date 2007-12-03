@@ -1,0 +1,20 @@
+<module id="corner.pushlet" version="1.0.0" package="corner.orm.tapestry.service.pushlet">  
+  <!-- 提供一个tapestry的服务 -->
+  <contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="pushlet" object="service:PushletService"/>
+  </contribution>
+  
+	<service-point id="PushletService"
+		interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory model="threaded">
+			<construct class="PushletService">
+				<set-object property="response" value="infrastructure:response"/>
+				<set-object property="linkFactory"
+					value="infrastructure:linkFactory"/>
+				<set-object property="requestCycle"
+					value="infrastructure:requestCycle"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+<!-- contribution -->
+</module>
