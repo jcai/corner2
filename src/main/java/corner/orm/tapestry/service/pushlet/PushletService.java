@@ -60,20 +60,8 @@ public class PushletService implements IEngineService {
 	}
 
 	public void service(IRequestCycle cycle) throws IOException {
-		Thread t = Thread.currentThread();
-		try {
-			//TODO 检测并发送数据
-			OutputStream output = _response.getOutputStream(new ContentType(CONTENT_TYPE));
-			String outStr = "Ghost:"+cycle.getInfrastructure().getRequest().getHeader("User-Agent");
-			System.out.println(outStr);
-			output.write(outStr.getBytes());
-			output.flush();
-			t.sleep(3000);
-			this.service(cycle);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+		System.out.println("start to push!");
+		new ShowMessage(cycle).run();
 	}
 	
 	/**
@@ -98,6 +86,35 @@ public class PushletService implements IEngineService {
 	 */
 	public void setResponse(WebResponse _response) {
 		this._response = _response;
+	}
+	
+	class ShowMessage implements Runnable{
+		private IRequestCycle _cycle;
+		public ShowMessage(IRequestCycle cycle){
+			this._cycle = cycle;
+		}
+		
+		public void show() throws IOException{
+				String outStr = "Ghost:"+_cycle.getInfrastructure().getRequest().getHeader("User-Agent");
+				OutputStream output = _response.getOutputStream(new ContentType(CONTENT_TYPE));
+				output.write(outStr.getBytes());
+				output.flush();
+		}
+
+		public void run() {
+			while(true){
+				try {
+					this.show();
+					Thread.sleep(3000);
+				} catch (IOException e) {
+					System.out.println("client exit!");
+					break;
+				} catch (InterruptedException e) {
+					System.out.println(e.getMessage());
+					break;
+				}
+			}
+		}
 	}
 
 }

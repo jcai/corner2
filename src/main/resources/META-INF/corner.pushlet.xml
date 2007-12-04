@@ -1,12 +1,12 @@
 <module id="corner.pushlet" version="1.0.0" package="corner.orm.tapestry.service.pushlet">  
   <!-- 提供一个tapestry的服务 -->
-  <contribution configuration-id="tapestry.services.ApplicationServices">
+  <contribution configuration-id="tapestry.services.ApplicationServices"  if="not (property org.apache.tapestry.disable-caching)">
 		<service name="pushlet" object="service:PushletService"/>
   </contribution>
   
 	<service-point id="PushletService"
 		interface="org.apache.tapestry.engine.IEngineService">
-		<invoke-factory model="threaded">
+		<invoke-factory>
 			<construct class="PushletService">
 				<set-object property="response" value="infrastructure:response"/>
 				<set-object property="linkFactory"
