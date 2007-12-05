@@ -36,6 +36,11 @@ public class PushletService implements IEngineService {
 	protected static final String CONTENT_TYPE = "text/html;charset=UTF-8";
 
 	protected static final String SERVICE_NAME = "pushlet";
+	
+	/**
+	 * 发送的消息
+	 */
+	private String msg;
 
 	/** link factory */
 	protected LinkFactory _linkFactory;
@@ -61,7 +66,7 @@ public class PushletService implements IEngineService {
 
 	public void service(IRequestCycle cycle) throws IOException {
 		System.out.println("start to push!");
-		new ShowMessage(cycle).run();
+		new ShowMessage().run();
 	}
 	
 	/**
@@ -89,18 +94,15 @@ public class PushletService implements IEngineService {
 	}
 	
 	class ShowMessage implements Runnable{
-		private IRequestCycle _cycle;
-		public ShowMessage(IRequestCycle cycle){
-			this._cycle = cycle;
-		}
 		
 		public void show() throws IOException{
-			String outStr = "<script language='javascript'>parent.onMessageShow('"+System.currentTimeMillis()+"')</script>";	
+			String outStr = "<script language='javascript'>parent.onMessageShow('"+getMsg()+"')</script>";	
 			PrintWriter output = _response.getPrintWriter(new ContentType(CONTENT_TYPE));
 			System.out.println("outStr is:"+outStr);
 			
 			output.print(outStr);
 			output.flush();
+			setMsg(null);//reset msg
 		}
 
 		public void run() {
@@ -117,6 +119,20 @@ public class PushletService implements IEngineService {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return Returns the msg.
+	 */
+	public String getMsg() {
+		return msg;
+	}
+
+	/**
+	 * @param msg The msg to set.
+	 */
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }
