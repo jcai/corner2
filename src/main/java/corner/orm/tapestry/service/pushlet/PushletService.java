@@ -13,7 +13,7 @@
 package corner.orm.tapestry.service.pushlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +25,8 @@ import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
+import corner.util.Constants;
+
 /**
  * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision$
@@ -33,14 +35,11 @@ import org.apache.tapestry.web.WebResponse;
 public class PushletService implements IEngineService {
 	
 	/** The content type for an Excel response */
-	protected static final String CONTENT_TYPE = "text/html;charset=UTF-8";
+	protected static final String CONTENT_TYPE = "text/plain";
 
 	protected static final String SERVICE_NAME = "pushlet";
 	
-	/**
-	 * 发送的消息
-	 */
-	private String msg;
+	
 
 	/** link factory */
 	protected LinkFactory _linkFactory;
@@ -96,13 +95,18 @@ public class PushletService implements IEngineService {
 	class ShowMessage implements Runnable{
 		
 		public void show() throws IOException{
-			String outStr = "<script language='javascript'>parent.onMessageShow('"+getMsg()+"')</script>";	
-			PrintWriter output = _response.getPrintWriter(new ContentType(CONTENT_TYPE));
-			System.out.println("outStr is:"+outStr);
-			
-			output.print(outStr);
-			output.flush();
-			setMsg(null);//reset msg
+			StringBuffer outStr = new StringBuffer();
+			OutputStream output = _response.getOutputStream(new ContentType(CONTENT_TYPE));
+//			System.out.println("outStr is:"+outStr);
+			String msg = Constants.getMsg();
+			if(msg != null && msg.length()>0){
+				outStr.append("<script language='javascript'>parent.onMessageShow('");
+				outStr.append(msg);
+				outStr.append("')</script>");
+				System.out.println("outStr is:"+outStr.toString());
+				output.write(outStr.toString().getBytes());
+				output.flush();
+			}
 		}
 
 		public void run() {
@@ -120,19 +124,7 @@ public class PushletService implements IEngineService {
 			}
 		}
 	}
+	
 
-	/**
-	 * @return Returns the msg.
-	 */
-	public String getMsg() {
-		return msg;
-	}
-
-	/**
-	 * @param msg The msg to set.
-	 */
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
 
 }

@@ -214,3 +214,14 @@ CLASS_MSN_MESSAGE.prototype.rect = function(left,right,top,bottom){
         this.top        = top    !=null?top:this.bottom - this.height; 
     } catch(e){} 
 } 
+
+onMessageShow = function(message){
+		if(message!=null && message.length >0){
+			var MSG1 = new CLASS_MSN_MESSAGE("aa",200,120,"短消息提示：","您有1封消息",message); 
+		    MSG1.rect(null,null,null,screen.height-50); 
+		    MSG1.speed    = 10; 
+		    MSG1.step    = 5; 
+		    //alert(MSG1.top); 
+		    MSG1.show();	
+		}
+	}

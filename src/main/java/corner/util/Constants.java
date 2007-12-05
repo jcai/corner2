@@ -17,6 +17,9 @@
 
 package corner.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 保存Corner中一些的常量
  * 
@@ -49,5 +52,30 @@ public class Constants {
 	 */
 	public static final String PDF_PAGE_CHECKBOX_TRUE_STR = "是";
 	public static final String PDF_PAGE_CHECKBOX_FALSE_STR = "否";
+	
+	/**
+	 * 发送的消息
+	 */
+	private static List<String> msgList = new ArrayList<String>();
+//	static {
+//		for(int i=0;i<100;i++){
+//			msgList.add("show me the money!");
+//		}
+//	}
+	
+	public static void addMsg(String s){
+		msgList.clear();
+		msgList.add(s);
+	}
+	
+	public static String getMsg(){
+		if(msgList.size()>0){
+			String str = msgList.get(0);
+			msgList.clear();
+			return str;
+		} else{
+			return null;
+		}
+	}
 	
 }
