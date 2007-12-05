@@ -71,4 +71,6 @@
   <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
   
   <component-type type="LeftTree" specification-path="tree/LeftTree.jwc"/>
+  
+  <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
 </library-specification>

@@ -23,6 +23,7 @@
 	<parameter name="title" />
 	<component id="shell" type="Shell">
 		<binding name="stylesheets" value="ognl:{assets.stylesheet}"/>
+		<binding name="debugEnabled" value="true"/>
 		<binding name="title" value="ognl:title + ' - corner sandbox'"/>
         <binding name="doctype" value='literal:HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'/>
 	</component>

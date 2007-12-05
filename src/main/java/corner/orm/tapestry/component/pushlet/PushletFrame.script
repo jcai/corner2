@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+
+<script>
+<include-script resource-path="PushletFrame.js" />
+
+<initialization>
+	function onMessageShow(message){
+		if(message!=null &amp;&amp; message.length >0){
+			var MSG1 = new CLASS_MSN_MESSAGE("aa",200,120,"短消息提示：","您有1封消息",message); 
+		    MSG1.rect(null,null,null,screen.height-50); 
+		    MSG1.speed    = 10; 
+		    MSG1.step    = 5; 
+		    //alert(MSG1.top); 
+		    MSG1.show();	
+		}
+	}
+</initialization>
+</script>

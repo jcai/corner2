@@ -9,5 +9,6 @@
   
 <script>
 <include-script resource-path="/corner/corner.js"/>
+<include-script resource-path="/corner/sc-17-proto-15-compressed.js"/>
 </script>
 

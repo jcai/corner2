@@ -13,7 +13,7 @@
 package corner.orm.tapestry.service.pushlet;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ import org.apache.tapestry.web.WebResponse;
 public class PushletService implements IEngineService {
 	
 	/** The content type for an Excel response */
-	protected static final String CONTENT_TYPE = "text/html; charset=utf-8";
+	protected static final String CONTENT_TYPE = "text/html;charset=UTF-8";
 
 	protected static final String SERVICE_NAME = "pushlet";
 
@@ -95,17 +95,19 @@ public class PushletService implements IEngineService {
 		}
 		
 		public void show() throws IOException{
-				String outStr = "Ghost:"+_cycle.getInfrastructure().getRequest().getHeader("User-Agent");
-				OutputStream output = _response.getOutputStream(new ContentType(CONTENT_TYPE));
-				output.write(outStr.getBytes());
-				output.flush();
+			String outStr = "<script language='javascript'>parent.onMessageShow('"+System.currentTimeMillis()+"')</script>";	
+			PrintWriter output = _response.getPrintWriter(new ContentType(CONTENT_TYPE));
+			System.out.println("outStr is:"+outStr);
+			
+			output.print(outStr);
+			output.flush();
 		}
 
 		public void run() {
 			while(true){
 				try {
 					this.show();
-					Thread.sleep(3000);
+					Thread.sleep(5000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
 					break;
