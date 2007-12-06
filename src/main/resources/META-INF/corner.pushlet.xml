@@ -13,6 +13,8 @@
 					value="infrastructure:linkFactory"/>
 				<set-object property="requestCycle"
 					value="infrastructure:requestCycle"/>
+				<set-object property="requestGlobals"
+					value="service:tapestry.globals.RequestGlobals"/>
 			</construct>
 		</invoke-factory>
 	</service-point>

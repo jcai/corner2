@@ -17,10 +17,13 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.services.LinkFactory;
+import org.apache.tapestry.services.RequestGlobals;
 import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
@@ -38,6 +41,12 @@ public class PushletService implements IEngineService {
 	protected static final String CONTENT_TYPE = "text/plain";
 
 	protected static final String SERVICE_NAME = "pushlet";
+
+	private RequestGlobals requestGlobals;
+ 
+    public void setRequestGlobals(RequestGlobals requestGlobals){
+    	this.requestGlobals = requestGlobals;
+    }
 	
 	
 
@@ -106,6 +115,9 @@ public class PushletService implements IEngineService {
 				System.out.println("outStr is:"+outStr.toString());
 				output.write(outStr.toString().getBytes());
 				output.flush();
+				//tapestry.globals.
+				requestGlobals.getResponse().flushBuffer();
+//				_requestCycle.getResponseBuilder().flush();
 			}
 		}
 
