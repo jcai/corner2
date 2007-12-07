@@ -22,6 +22,10 @@
 		else {
 			insertTag='id'; 
 		}
+		
+		var idInsTag = insertTag.charAt(0).toUpperCase()+insertTag.substring(1,insertTag.length);
+		var valTag = insertTag.charAt(0).toLowerCase()+insertTag.substring(1,insertTag.length);
+		
 		if (document.insertTagform.objectName.value != ""){
 			objectName=document.insertTagform.objectName.value;
 		}
@@ -31,7 +35,7 @@
 		
 		//手动实现再选中的文本外围增加span标签
 		var dom = dw.getDocumentDOM();               
-		dom.source.wrapSelection("<span id=\""+insertTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+insertTag+"\">","</span>");
+		dom.source.wrapSelection("<span id=\""+idInsTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+valTag+"\">","</span>");
 		return;        
 		
 
@@ -40,8 +44,13 @@
 	function displayHelp(){
 		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
 	}
+	
+	function focusObject(){
+		var obj = document.getElementById("insertTag");
+		obj.focus();
+	}
 </script>
-<body>
+<body onload="focusObject()">
 <form action="" method="post" name="insertTagform" id="insertTagform">
  <table width="380" border="0" cellspacing="3" cellpadding="2" align="center">
   <tr>
