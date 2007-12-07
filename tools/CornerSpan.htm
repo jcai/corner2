@@ -12,15 +12,30 @@
 	}
 
 	function objectTag() {
+		
+		//取得当前浏览的dom
+		var dom = dw.getDocumentDOM();
+		
 		//属性名称，用于生成id标签例如:entity.id中的id
 		var insertTag="";
 		//包含改属性的实体的名称,录入:entity.id中的entity
 		var objectName = "";
+		
 		if (document.insertTagform.insertTag.value != ""){
 			insertTag = document.insertTagform.insertTag.value;
 		}
 		else {
-			insertTag='id'; 
+			//取得选中的位置
+			var domSelection = dom.getSelection();
+			if(domSelection != null && domSelection.length==2){
+				if(domSelection[0] != domSelection[1]){
+					insertTag = dom.source.getText(domSelection[0],domSelection[1]);
+				} else{
+					insertTag = "id";
+				}
+			} else{
+					insertTag = "id";
+			}
 		}
 		
 		var idInsTag = insertTag.charAt(0).toUpperCase()+insertTag.substring(1,insertTag.length);
@@ -34,7 +49,6 @@
 		}
 		
 		//手动实现再选中的文本外围增加span标签
-		var dom = dw.getDocumentDOM();               
 		dom.source.wrapSelection("<span id=\""+idInsTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+valTag+"\">","</span>");
 		return;        
 		
