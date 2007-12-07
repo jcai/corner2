@@ -8,6 +8,8 @@ dojo.provide("corner.menu.SlideMenu");
 
 dojo.require("dojo.event.*");
 dojo.require("dojo.logging.*");
+dojo.require("dojo.html.layout");
+dojo.require("dojo.html.util");
 dojo.require("dojo.collections.ArrayList");
 
 corner.menu.SlideMenu=function(menuId){
