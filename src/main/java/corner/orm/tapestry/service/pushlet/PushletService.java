@@ -14,6 +14,7 @@ package corner.orm.tapestry.service.pushlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,11 +38,11 @@ import corner.util.Constants;
 public class PushletService implements IEngineService {
 	
 	public static final String START_DOCUMENT =
-		"<html><head><meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expires\" content=\"Tue, 31 Dec 1997 23:59:59 GMT\"></head>";
+		"<html><head><meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expires\" content=\"Tue, 31 Dec 1997 23:59:59 GMT; text/html; charset=utf-8\"></head>";
 	public static final String END_DOCUMENT = "<body> <span id=\"test\" name=\"test\" /> </body></html>";
 	
 	/** The content type for an Excel response */
-	protected static final String CONTENT_TYPE = "text/plain";
+	protected static final String CONTENT_TYPE = "text/html;charset=UTF-8";
 
 	protected static final String SERVICE_NAME = "pushlet";
 
@@ -123,7 +124,7 @@ public class PushletService implements IEngineService {
 
 			response.setContentType(CONTENT_TYPE);
 			response.setStatus(HttpServletResponse.SC_OK);
-			os.write(outStr.toString().getBytes());
+			os.write(outStr.toString().getBytes("UTF-8"));
 			os.flush();
 			response.flushBuffer();
 		}
@@ -134,6 +135,7 @@ public class PushletService implements IEngineService {
 			OutputStream os = null;
 			try {
 				os = response.getOutputStream();
+				
 			} catch (IOException e1) {
 				System.out.println("Thread-"+Thread.currentThread().getId()+" exit!");
 				e1.printStackTrace();

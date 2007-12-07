@@ -93,7 +93,7 @@ CLASS_MSN_MESSAGE.prototype.onunload = function() {
 CLASS_MSN_MESSAGE.prototype.oncommand = function(){  
     //this.close = true;
     this.hide();  
-	window.open("http://www.5x5y.cn/zhongqiu/");
+//	window.open("http://www.5x5y.cn/zhongqiu/");
    
 } 
 /**//*  
@@ -221,7 +221,6 @@ onMessageShow = function(message){
 		    MSG1.rect(null,null,null,screen.height-50); 
 		    MSG1.speed    = 10; 
 		    MSG1.step    = 5; 
-		    //alert(MSG1.top); 
 		    MSG1.show();	
 		}
 	}
