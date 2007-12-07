@@ -25,7 +25,6 @@ import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.services.RequestGlobals;
 import org.apache.tapestry.services.ServiceConstants;
-import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
 
 import corner.util.Constants;
@@ -36,6 +35,10 @@ import corner.util.Constants;
  * @since 2.5
  */
 public class PushletService implements IEngineService {
+	
+	public static final String START_DOCUMENT =
+		"<html><head><meta http-equiv=\"Pragma\" content=\"no-cache\"><meta http-equiv=\"Expires\" content=\"Tue, 31 Dec 1997 23:59:59 GMT\"></head>";
+	public static final String END_DOCUMENT = "<body> <span id=\"test\" name=\"test\" /> </body></html>";
 	
 	/** The content type for an Excel response */
 	protected static final String CONTENT_TYPE = "text/plain";
@@ -103,28 +106,41 @@ public class PushletService implements IEngineService {
 	
 	class ShowMessage implements Runnable{
 		
-		public void show() throws IOException{
+		public void show(HttpServletResponse response, OutputStream os) throws IOException{
 			StringBuffer outStr = new StringBuffer();
-			OutputStream output = _response.getOutputStream(new ContentType(CONTENT_TYPE));
-//			System.out.println("outStr is:"+outStr);
-			String msg = Constants.getMsg();
+			String msg = Constants.getMsg();			
+			
 			if(msg != null && msg.length()>0){
-				outStr.append("<script language='javascript'>parent.onMessageShow('");
+				outStr.append(START_DOCUMENT);
+				outStr.append("<script language='javascript'> parent.onMessageShow('");
 				outStr.append(msg);
-				outStr.append("')</script>");
+				outStr.append("') </script>");
+				outStr.append(END_DOCUMENT);
 				System.out.println("outStr is:"+outStr.toString());
-				output.write(outStr.toString().getBytes());
-				output.flush();
-				//tapestry.globals.
-				requestGlobals.getResponse().flushBuffer();
-//				_requestCycle.getResponseBuilder().flush();
+			} else{
+				outStr.append(" ");
 			}
+
+			response.setContentType(CONTENT_TYPE);
+			response.setStatus(HttpServletResponse.SC_OK);
+			os.write(outStr.toString().getBytes());
+			os.flush();
+			response.flushBuffer();
 		}
 
 		public void run() {
+			//tapestry.globals.
+			HttpServletResponse response = requestGlobals.getResponse();
+			OutputStream os = null;
+			try {
+				os = response.getOutputStream();
+			} catch (IOException e1) {
+				System.out.println("Thread-"+Thread.currentThread().getId()+" exit!");
+				e1.printStackTrace();
+			}
 			while(true){
 				try {
-					this.show();
+					this.show(response, os);
 					Thread.sleep(5000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
@@ -136,7 +152,4 @@ public class PushletService implements IEngineService {
 			}
 		}
 	}
-	
-
-
 }
