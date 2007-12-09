@@ -12,9 +12,6 @@
 
 package corner.orm.tapestry.component.pushlet;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.tapestry.AbstractComponent;
 import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
@@ -28,14 +25,19 @@ import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 
-import corner.orm.hibernate.IPersistModel;
-
 /**
  * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision$
  * @since 2.5
  */
 public abstract class PushletFrame extends AbstractComponent implements IDirect{
+	
+	/**
+	 * 查询消息使用的消息实体名称
+	 * @return 保存消息的实体类名
+	 */
+	@Parameter(required=true)
+	public abstract String getMessageClassName();
 	
     @InjectObject("service:corner.pushlet.PushletService")
     public abstract IEngineService getPushletService();
@@ -62,7 +64,7 @@ public abstract class PushletFrame extends AbstractComponent implements IDirect{
 		   writer.begin("iframe");
 		   writer.appendAttribute("id", "PublishFrame");
 		   writer.appendAttribute("name", "PublishFrame");
-		   ILink link = getPushletService().getLink(true, null);
+		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName()}));
 		   writer.appendAttribute("src", link.getAbsoluteURL());
 		   writer.appendAttribute("style", "visibility: hidden; width: 0px; height: 0px; border: 0px;");
 		   writer.end("iframe");
