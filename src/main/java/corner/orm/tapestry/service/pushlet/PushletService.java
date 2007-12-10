@@ -202,7 +202,6 @@ public class PushletService implements IEngineService {
 				for(IMessageModel model:messageModelList){
 					messages.add(model.getMessageTitle());
 				}
-				System.out.println("messageModelList.size():"+messageModelList.size());
 			}
 			
 			while(true){
