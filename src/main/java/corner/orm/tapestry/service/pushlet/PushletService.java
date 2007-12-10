@@ -14,7 +14,7 @@ package corner.orm.tapestry.service.pushlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +31,12 @@ import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.services.RequestGlobals;
 import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.web.WebResponse;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import corner.orm.tapestry.component.pushlet.IMessageModel;
 import corner.orm.tapestry.component.pushlet.IPushletFramePage;
 import corner.service.EntityService;
-import corner.util.Constants;
 
 /**
  * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
@@ -82,12 +79,17 @@ public class PushletService implements IEngineService {
 		
 		DirectServiceParameter dsp = (DirectServiceParameter) parameter;
 	    IComponent component = dsp.getDirect();
-	    IPage componentPage = component.getPage();//得到componet所在的page
+	    
+        IPage activePage = _requestCycle.getPage();
+        IPage componentPage = component.getPage();
 		
-	    Object[] objs = (Object[])parameter;
+	    Object[] objs = dsp.getServiceParameters();
 	    
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put(ServiceConstants.PAGE, _requestCycle.getPage().getPageName());
+        parameters.put(ServiceConstants.PAGE, activePage.getPageName());
+        parameters.put(ServiceConstants.COMPONENT, component.getIdPath());
+        parameters.put(ServiceConstants.CONTAINER, componentPage == activePage ? null
+                : componentPage.getPageName());
 		parameters.put(QUERY_MESSAGE_ENTITY_NAME, objs[0]);//保存message实体的类名到request cycle中
 
 		return _linkFactory.constructLink(this, post, parameters, true);
@@ -101,7 +103,7 @@ public class PushletService implements IEngineService {
 		System.out.println("start to push!");
 		String componentPageName = cycle.getParameter(ServiceConstants.PAGE);
 		String messageEntityName = cycle.getParameter(QUERY_MESSAGE_ENTITY_NAME);
-		IPushletFramePage page = (IPushletFramePage)cycle.getPage();
+		IPushletFramePage page = (IPushletFramePage)cycle.getPage(componentPageName);
 		cycle.activate(page);
 		
 		DetachedCriteria dCriteria = page.addCriteria(DetachedCriteria.forEntityName(messageEntityName));
@@ -109,6 +111,7 @@ public class PushletService implements IEngineService {
 		
 		ShowMessage showMsg = new ShowMessage();
 		showMsg.setDCriteria(dCriteria);
+		showMsg.setEntityService(entityService);
 		showMsg.run();
 	}
 	
@@ -153,6 +156,7 @@ public class PushletService implements IEngineService {
 				for(String msg:messages){
 					StringBuffer outStr = new StringBuffer();
 					if(msg != null && msg.length()>0){
+						System.out.println("send a message here!");
 						outStr.append(START_DOCUMENT);
 						outStr.append("<script language='javascript'> parent.onMessageShow('");
 						outStr.append(msg);
@@ -190,21 +194,21 @@ public class PushletService implements IEngineService {
 				System.out.println("Thread-"+Thread.currentThread().getId()+" exit!");
 				e1.printStackTrace();
 			}
-			final DetachedCriteria dc = this.getDCriteria();
-			List<String> messages = (List<String>)entityService.executeFind(new HibernateCallback(){
-				
-				public Object doInHibernate(Session session)
-						throws HibernateException, SQLException {
-					Criteria criteria = dc.getExecutableCriteria(session);
-					return criteria.list();
+			
+			List<IMessageModel> messageModelList = (List<IMessageModel>)((HibernateDaoSupport)entityService.getObjectRelativeUtils()).getHibernateTemplate().findByCriteria(this.getDCriteria());
+			List<String> messages = null;
+			if(messageModelList != null && messageModelList.size()>0){
+				messages = new ArrayList<String>();
+				for(IMessageModel model:messageModelList){
+					messages.add(model.getMessageTitle());
 				}
-				
-			});
+				System.out.println("messageModelList.size():"+messageModelList.size());
+			}
 			
 			while(true){
 				try {
 					this.show(response, os, messages);
-					Thread.sleep(5000);
+					Thread.sleep(6000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
 					break;

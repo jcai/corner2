@@ -119,7 +119,7 @@ CLASS_MSN_MESSAGE.prototype.show = function(){
         str += "<TR>"  
         str += "<TD style='PADDING-RIGHT: 1px;PADDING-BOTTOM: 1px' colSpan=3 height=" + (h-28) + ">"  
         str += "<DIV style='BORDER-RIGHT: #b9c9ef 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #728eb8 1px solid; PADDING-LEFT: 8px; FONT-SIZE: 12px; PADDING-BOTTOM: 8px; BORDER-LEFT: #728eb8 1px solid; WIDTH: 100%; COLOR: #1f336b; PADDING-TOP: 8px; BORDER-BOTTOM: #b9c9ef 1px solid; HEIGHT: 100%'>" + this.title + "<BR><BR>"  
-        str += "<DIV style='WORD-BREAK: break-all' align=left><A href='javascript:void(0)' hidefocus=false id='btCommand'><FONT color=#ff0000>" + this.message + "</FONT></A></DIV>"  
+        str += "<DIV style=\"WORD-BREAK: break-all\" align=left><A href=\"javascript:parent.location='system/SystemUserManage/MessageMainList.page'\" hidefocus=false id=\"btCommand\"><FONT color=#ff0000>" + this.message + "</FONT></A></DIV>"  
         str += "</DIV>"  
         str += "</TD>"  
         str += "</TR>"  
