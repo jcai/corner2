@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" media="all" href="../../../../../main/webapp/css/sandbox.css" />
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
+		
+<script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script language="JavaScript" type="text/javascript" src="js/prototype-ext.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/effects.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/controls.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/builder.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/ajaxtree.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="js/common.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/commonajax.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="lefttree.js"></script>
+
+</HEAD>
+<body>
+		<input id="t1" value="1" type="checkbox"/>1<br/><input id="t2" value="2" type="checkbox"/>2<br/>
+		<input type="button" class="alertButton" onClick="queryBox.win.close();" value="Close"/>
+
+<script type="text/javascript">
+<!--
+var maps = {
+	maps: [],
+	zIndex: 1200,
+
+	push: function(element) {
+		this.maps.push(element);
+	},
+	pop: function(element) {
+		this.maps.pop(element);
+	},
+	toString: function(){
+		var values="";;
+		for(i=0;i<this.maps.length;i++){
+			if(i>0){
+				values += ",";
+			}
+			values +=this.maps[i].value;
+		}
+		return values;
+	}
+}
+
+	winSelectRecord=function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		if(src.checked){
+			maps.push(src);
+		}else{
+			maps.pop(src);
+		}
+		parent.selectRecord(maps.toString());
+	}
+	dojo.event.connect(dojo.byId("t1"),"onclick","winSelectRecord");
+	dojo.event.connect(dojo.byId("t2"),"onclick","winSelectRecord");
+//-->
+</script>
+	</body>
+</html>
