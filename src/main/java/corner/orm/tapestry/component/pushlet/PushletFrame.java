@@ -12,6 +12,9 @@
 
 package corner.orm.tapestry.component.pushlet;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.tapestry.AbstractComponent;
 import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
@@ -61,16 +64,15 @@ public abstract class PushletFrame extends AbstractComponent implements IDirect{
 		boolean rewinding = cycle.isRewinding();
 	   if (!rewinding)
 	    {
-		   writer.begin("iframe");
-		   writer.appendAttribute("id", "PublishFrame");
-		   writer.appendAttribute("name", "PublishFrame");
-		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName()}));
-		   writer.appendAttribute("src", link.getAbsoluteURL());
-		   writer.appendAttribute("style", "visibility: hidden; width: 0px; height: 0px; border: 0px;");
-		   writer.end("iframe");
+		   writer.begin("span");
+		   writer.appendAttribute("id", "PublishFrameDiv");
+		   writer.appendAttribute("name", "PublishFrameDiv");
+		   writer.end("span");
 		   
-//	        Map<String,Object> parms = new HashMap<String,Object>();
-	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), null);
+		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName()}));		   
+	        Map<String,Object> parms = new HashMap<String,Object>();
+	        parms.put("url", link.getAbsoluteURL());
+	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
 
 	}

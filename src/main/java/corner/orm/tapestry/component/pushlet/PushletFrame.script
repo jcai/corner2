@@ -6,6 +6,9 @@
 <script>
 <include-script resource-path="PushletFrame.js" />
 
+<input-symbol key="url" required="yes" />
+
 <initialization>
+	showPushletFrame("${url}");
 </initialization>
 </script>

@@ -1,4 +1,4 @@
-/**//*  
+/**  
 **    ==================================================================================================  
 **    类名：CLASS_MSN_MESSAGE  
 **    功能：提供类似MSN消息框  
@@ -9,16 +9,8 @@
                 MSG.show();  
   
     ---------------------------------------------------------------------------------------------------  
-**    作者：ttyp  
-**    邮件：ttyp@21cn.com  
-**    日期：2005-3-18  
-**    ==================================================================================================  
 **/  
-  
-  
-/**//*  
-*    消息构造  
-*/  
+
 function CLASS_MSN_MESSAGE(id,width,height,caption,title,message,target,action){  
     this.id     = id;  
     this.title  = title;  
@@ -93,7 +85,8 @@ CLASS_MSN_MESSAGE.prototype.onunload = function() {
 CLASS_MSN_MESSAGE.prototype.oncommand = function(){  
     //this.close = true;
     this.hide();  
-//	window.open("http://www.5x5y.cn/zhongqiu/");
+	parent.location="/system/SystemUserManage/MessageMainList.page";
+	this.hide();  
    
 } 
 /**//*  
@@ -119,7 +112,7 @@ CLASS_MSN_MESSAGE.prototype.show = function(){
         str += "<TR>"  
         str += "<TD style='PADDING-RIGHT: 1px;PADDING-BOTTOM: 1px' colSpan=3 height=" + (h-28) + ">"  
         str += "<DIV style='BORDER-RIGHT: #b9c9ef 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #728eb8 1px solid; PADDING-LEFT: 8px; FONT-SIZE: 12px; PADDING-BOTTOM: 8px; BORDER-LEFT: #728eb8 1px solid; WIDTH: 100%; COLOR: #1f336b; PADDING-TOP: 8px; BORDER-BOTTOM: #b9c9ef 1px solid; HEIGHT: 100%'>" + this.title + "<BR><BR>"  
-        str += "<DIV style=\"WORD-BREAK: break-all\" align=left><A href=\"javascript:parent.location='system/SystemUserManage/MessageMainList.page'\" hidefocus=false id=\"btCommand\"><FONT color=#ff0000>" + this.message + "</FONT></A></DIV>"  
+        str += "<DIV style='WORD-BREAK: break-all' align=left><A href='javascript:void(0)' hidefocus=false id='btCommand'><FONT color=#ff0000>" + this.message + "</FONT></A></DIV>"  
         str += "</DIV>"  
         str += "</TD>"  
         str += "</TR>"  
@@ -178,12 +171,12 @@ CLASS_MSN_MESSAGE.prototype.show = function(){
     btCommand.onclick = function(){  
         me.oncommand();  
     }    
-	 var ommand = oPopup.document.getElementById("ommand");  
-      ommand.onclick = function(){  
-       //this.close = true;
-    me.hide();  
-	window.open(ommand.href);
-    }   
+//	 var ommand = oPopup.document.getElementById("ommand");  
+//      ommand.onclick = function(){  
+//       //this.close = true;
+//    me.hide();  
+//	window.open(ommand.href);
+//    }   
 }  
 /**//* 
 ** 设置速度方法 
@@ -215,9 +208,29 @@ CLASS_MSN_MESSAGE.prototype.rect = function(left,right,top,bottom){
     } catch(e){} 
 } 
 
+/**
+ * create the PushletFrame
+ */
+showPushletFrame = function(url){
+	dojo.debug("url is:"+url);
+	dojo.event.connect("after", window, "onload", function(){
+		var PublishFrameDivNode = dojo.byId("PublishFrameDiv");//get PublishFrameDiv node
+		var pushletFrame = document.createElement("iframe");
+		pushletFrame.name = "PublishFrame";
+		pushletFrame.id = "PublishFrame";
+		pushletFrame.visibility = "hidden";
+		pushletFrame.style.width = "0px";
+		pushletFrame.style.height = "0px";
+		pushletFrame.style.border = "0px";
+		pushletFrame.src=url;
+		PublishFrameDivNode.appendChild(pushletFrame);
+		dojo.debug("create iframe done");
+	});
+}
+
 onMessageShow = function(message){
 		if(message!=null && message.length >0){
-			var MSG1 = new CLASS_MSN_MESSAGE("aa",200,120,"短消息提示：","您有1封消息",message); 
+			var MSG1 = new CLASS_MSN_MESSAGE("PushletMessageWindow",200,120,"短消息提示：","您有1封消息",message); 
 		    MSG1.rect(null,null,null,screen.height-50); 
 		    MSG1.speed    = 10; 
 		    MSG1.step    = 5; 
