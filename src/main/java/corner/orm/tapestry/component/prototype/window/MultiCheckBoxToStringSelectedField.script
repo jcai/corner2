@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+<input-symbol key="id" required="yes" />
+<initialization>
+	<unique>
+		var maps = {
+			maps: [],
+			zIndex: 1200,
+		
+			push: function(element) {
+				this.maps.push(element);
+			},
+			pop: function(element) {
+				this.maps.pop(element);
+			},
+			toString: function(){
+				var values=&quot;&quot;;
+				for(i=0;i&lt;this.maps.length;i++){
+					if(i&gt;0){
+						values += &quot;,&quot;;
+					}
+					values +=this.maps[i].value;
+				}
+				return values;
+			}
+		}
+	</unique>
+	
+	dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
+		var src=dojo.html.getEventTarget(evt);
+		if(src.checked){
+			maps.push(src);
+		}else{
+			maps.pop(src);
+		}
+		queryBox.onSelect(maps.toString());
+	}); 
+</initialization>
+</script>
