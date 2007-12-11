@@ -42,6 +42,13 @@ public abstract class PushletFrame extends AbstractComponent implements IDirect{
 	@Parameter(required=true)
 	public abstract String getMessageClassName();
 	
+	/**
+	 * 取得点击消息时候跳转到的消息列表
+	 * @return {@link String}
+	 */
+	@Parameter(required=true)
+	public abstract String getMessageListPageName();
+	
     @InjectObject("service:corner.pushlet.PushletService")
     public abstract IEngineService getPushletService();
     
@@ -69,7 +76,7 @@ public abstract class PushletFrame extends AbstractComponent implements IDirect{
 		   writer.appendAttribute("name", "_PublishFrameDiv");
 		   writer.end("span");
 		   
-		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName()}));		   
+		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName(),this.getMessageListPageName()}));		   
 	        Map<String,Object> parms = new HashMap<String,Object>();
 	        parms.put("url", link.getAbsoluteURL());
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);

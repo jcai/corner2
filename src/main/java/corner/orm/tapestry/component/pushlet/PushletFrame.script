@@ -5,6 +5,11 @@
 
 <script>
 <include-script resource-path="PushletFrame.js" />
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/scriptaculous-1.7.1/effects.js" />
+<include-script resource-path="/scriptaculous-1.7.1/controls.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window.js" />
+<include-script resource-path="/corner/prototype/window/javascripts/window_effects.js" />
 
 <input-symbol key="url" required="yes" />
 

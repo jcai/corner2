@@ -47,6 +47,8 @@ public class PushletService implements IEngineService {
 	
 	private static final String QUERY_MESSAGE_ENTITY_NAME = "query_message_entity_name";
 	
+	private static final String QUERY_MESSAGE_LIST_PAGE_NAME = "query_message_list_page_name";
+	
 	private static final String BLANK_STR = " ";
 	
 	public static final String START_DOCUMENT =
@@ -91,6 +93,7 @@ public class PushletService implements IEngineService {
         parameters.put(ServiceConstants.CONTAINER, componentPage == activePage ? null
                 : componentPage.getPageName());
 		parameters.put(QUERY_MESSAGE_ENTITY_NAME, objs[0]);//保存message实体的类名到request cycle中
+		parameters.put(QUERY_MESSAGE_LIST_PAGE_NAME, objs[1]);//保存message类表页面名称
 
 		return _linkFactory.constructLink(this, post, parameters, true);
 	}
@@ -103,6 +106,7 @@ public class PushletService implements IEngineService {
 		System.out.println("start to push!");
 		String componentPageName = cycle.getParameter(ServiceConstants.PAGE);
 		String messageEntityName = cycle.getParameter(QUERY_MESSAGE_ENTITY_NAME);
+		String messageListPageName = cycle.getParameter(QUERY_MESSAGE_LIST_PAGE_NAME);
 		IPushletFramePage page = (IPushletFramePage)cycle.getPage(componentPageName);
 		cycle.activate(page);
 		
@@ -112,6 +116,7 @@ public class PushletService implements IEngineService {
 		ShowMessage showMsg = new ShowMessage();
 		showMsg.setDCriteria(dCriteria);
 		showMsg.setEntityService(entityService);
+		showMsg.setMessageListPageName(messageListPageName);
 		showMsg.run();
 	}
 	
@@ -151,6 +156,8 @@ public class PushletService implements IEngineService {
 		 */
 		private EntityService entityService;
 		
+		private String messageListPageName;
+		
 		public void show(HttpServletResponse response, OutputStream os, List<String> messages) throws IOException{
 			if(messages != null && messages.size()>0){
 				for(String msg:messages){
@@ -160,7 +167,7 @@ public class PushletService implements IEngineService {
 						outStr.append(START_DOCUMENT);
 						outStr.append("<script language='javascript'> parent.onMessageShow('");
 						outStr.append(msg);
-						outStr.append("') </script>");
+						outStr.append("','"+messageListPageName+"') </script>");
 						outStr.append(END_DOCUMENT);
 						System.out.println("outStr is:"+outStr.toString());
 					} else{
@@ -207,7 +214,7 @@ public class PushletService implements IEngineService {
 			while(true){
 				try {
 					this.show(response, os, messages);
-					Thread.sleep(6000);
+					Thread.sleep(12000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
 					break;
@@ -232,6 +239,20 @@ public class PushletService implements IEngineService {
 
 		public void setEntityService(EntityService entityService) {
 			this.entityService = entityService;
+		}
+
+		/**
+		 * @return Returns the messageListPageName.
+		 */
+		public String getMessageListPageName() {
+			return messageListPageName;
+		}
+
+		/**
+		 * @param messageListPageName The messageListPageName to set.
+		 */
+		public void setMessageListPageName(String messageListPageName) {
+			this.messageListPageName = messageListPageName;
 		}
 	}
 }
