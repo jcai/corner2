@@ -65,8 +65,8 @@ public abstract class PushletFrame extends AbstractComponent implements IDirect{
 	   if (!rewinding)
 	    {
 		   writer.begin("span");
-		   writer.appendAttribute("id", "PublishFrameDiv");
-		   writer.appendAttribute("name", "PublishFrameDiv");
+		   writer.appendAttribute("id", "_PublishFrameDiv");
+		   writer.appendAttribute("name", "_PublishFrameDiv");
 		   writer.end("span");
 		   
 		   ILink link = getPushletService().getLink(true, new DirectServiceParameter(this,new Object[]{this.getMessageClassName()}));		   

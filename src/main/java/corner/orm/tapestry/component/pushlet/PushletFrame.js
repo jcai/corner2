@@ -214,10 +214,10 @@ CLASS_MSN_MESSAGE.prototype.rect = function(left,right,top,bottom){
 showPushletFrame = function(url){
 	dojo.debug("url is:"+url);
 	dojo.event.connect("after", window, "onload", function(){
-		var PublishFrameDivNode = dojo.byId("PublishFrameDiv");//get PublishFrameDiv node
+		var PublishFrameDivNode = dojo.byId("_PublishFrameDiv");//get PublishFrameDiv node
 		var pushletFrame = document.createElement("iframe");
-		pushletFrame.name = "PublishFrame";
-		pushletFrame.id = "PublishFrame";
+		pushletFrame.name = "_PublishFrame";
+		pushletFrame.id = "_PublishFrame";
 		pushletFrame.visibility = "hidden";
 		pushletFrame.style.width = "0px";
 		pushletFrame.style.height = "0px";
