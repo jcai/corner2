@@ -17,17 +17,10 @@
 
 package corner.orm.tapestry.component.textfield;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.hivemind.ApplicationRuntimeException;
-import org.apache.tapestry.IMarkupWriter;
-import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
-import org.apache.tapestry.PageRenderSupport;
-import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
-import org.apache.tapestry.components.Any;
+
+import corner.orm.tapestry.component.AbstractAny;
 
 
 /**
@@ -38,44 +31,15 @@ import org.apache.tapestry.components.Any;
  * @since 2.3
  */
 
-public abstract class SelectedField extends Any {
+public abstract class SelectedField extends AbstractAny {
 	@InjectScript("SelectedField.script")
 	public abstract IScript getScript();
 
 	/**
-	 * @see org.apache.tapestry.components.Any#renderComponent(org.apache.tapestry.IMarkupWriter,
-	 *      org.apache.tapestry.IRequestCycle)
+	 * @see corner.orm.tapestry.component.AbstractAny#exceptionMessage()
 	 */
 	@Override
-	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
-String element = getElement();
-        
-        if (element == null)
-            throw new ApplicationRuntimeException("SelectedField", this,
-                    null, null);
-
-        boolean rewinding = cycle.isRewinding();
-
-        if (!rewinding)
-        {
-            writer.begin(element);
-            
-            renderInformalParameters(writer, cycle);
-            if (getId() != null && !isParameterBound("id"))
-                renderIdAttribute(writer, cycle);
-        }
-        
-        
-        
-        if (!rewinding)
-        {
-            writer.end(element);
-        }
-
-		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
-		Map<String, String> parms = new HashMap<String, String>();
-		parms.put("id", this.getClientId());
-		getScript().execute(this, cycle, prs, parms);
+	protected String exceptionMessage() {
+		return "SelectedField";
 	}
-
 }
