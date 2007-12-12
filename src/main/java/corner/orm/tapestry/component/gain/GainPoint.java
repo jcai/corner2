@@ -75,8 +75,10 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 		for(String s : this.getEntityPropertys()){
 			String sl[] = cycle.getParameters(s);
 			
-			this.getForegroundEntitys().add(Arrays.asList(sl));
-			this.setForegroundLength(sl.length);
+			if(sl != null && sl.length>0){//增加null时候的验证
+				this.getForegroundEntitys().add(Arrays.asList(sl));
+				this.setForegroundLength(sl.length);
+			}
 		}
 	}
 
@@ -198,11 +200,13 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 
 			this.getDeleteEntitys().add(entity); // 删除的先加入
 
-			for (String s : foregroundList) {
-				if (id.equals(s)) {
-					this.getDeleteEntitys().remove(
-							this.getDeleteEntitys().size() - 1); // 如果相同则减少删除的
-					this.getEntitys().add(entity);
+			if(foregroundList != null && foregroundList.length>0){//增加null时候的验证
+				for (String s : foregroundList) {
+					if (id.equals(s)) {
+						this.getDeleteEntitys().remove(
+								this.getDeleteEntitys().size() - 1); // 如果相同则减少删除的
+						this.getEntitys().add(entity);
+					}
 				}
 			}
 		}
