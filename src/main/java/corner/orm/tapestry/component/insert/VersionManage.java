@@ -144,6 +144,9 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		}
 	}
 	
+	public abstract String getShowside();
+	public abstract String getShowLine();
+	
 	/**
 	 * 获得相应版本的json串
 	 * @param entity 实体

@@ -13,9 +13,9 @@
     </td>
     <span jwcid="@If" renderTag="ognl:false" condition="ognl:showButton">
     <td width="20%">
-    	<input class="svnbutton" type="button" id="showside" onClick="VersionInserts.resetTips();" value="side by side"/>
+    	<input class="svnbutton" type="button" id="showside" onClick="VersionInserts.resetTips();" jwcid="@Any" value="ognl:showside"/>
         &nbsp;&nbsp;
-        <input class="svnbutton" type="button" id="showLine" onClick="VersionInserts.closeTips();" value="inline"/>
+        <input class="svnbutton" type="button" id="showLine" onClick="VersionInserts.closeTips();" jwcid="@Any" value="ognl:showLine"/>
     </td>
     </span>
   </tr>
