@@ -43,8 +43,8 @@ public class CommitTest extends Assert{
 		setupLibrary(); //初始化
 		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
 		
-		String userName = "xf";
-        String userPassword = "123456";
+		String userName = "jetty";
+        String userPassword = "jetty";
         
         String svnPath = "svnKitTest";
         String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
@@ -81,8 +81,8 @@ public class CommitTest extends Assert{
 		setupLibrary(); //初始化
 		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
 		
-		String userName = "xf";
-        String userPassword = "123456";
+		String userName = "jetty";
+        String userPassword = "jetty";
         
         String svnPath = "svnKitTest";
         String fileName = "test" + (new java.util.Date()).getTime() + ".txt";
