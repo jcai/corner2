@@ -15,7 +15,6 @@ package corner.service.svn;
 import java.io.ByteArrayInputStream;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -38,7 +37,7 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
  */
 public class CommitTest extends Assert{
 	
-	@Test
+//	@Test
 	public void SaveOrUpdateFile() throws SVNException{
 		setupLibrary(); //初始化
 		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
@@ -76,7 +75,7 @@ public class CommitTest extends Assert{
         System.out.println("The file was changed: " + commitInfo);
 	}
 	
-	@Test
+//	@Test
 	public void DelectFile() throws SVNException{
 		setupLibrary(); //初始化
 		SVNURL url = SVNURL.parseURIEncoded("http://dev.bjmaxinfo.com/svn/svn-test/");
