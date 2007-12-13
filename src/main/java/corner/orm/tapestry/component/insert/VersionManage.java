@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
@@ -95,118 +96,54 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 				json2 = getJsonVersion(entity,v2);
 			}
 			
-			appendShowElement(writer, entity, conf, v1, v2);
-			
 			parms.put("json", json1);
 			parms.put("json2", json2);
 			
 			parms.put("type", v2 == 0 ?"show":"compare");	//记录是显示还是比较
 			
+			//增加显示信息
+			String v2show = String.valueOf(conf.getOtherVersionShowNum());
+			
+			String showInfo = null;
+			
+			if(conf.isCompareLastVer()){
+				showInfo = "版本: " + StringUtils.replace(
+						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
+						 +" 与 当前版本 对比";
+			}else {
+				if(v2 == 0){
+					showInfo = "版本:" + conf.getVersionShowNum();
+					v2show = "";
+				}else{
+					showInfo = "版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比";
+				}
+			}
+			
+			parms.put("ver", String.valueOf(v1));
+			parms.put("otherVer", v2show);
+			parms.put("showInfo", showInfo);
+			
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}
-
+	
 	/**
-	 * 加入信息
-	 * @param writer
-	 * @param v1
-	 * @param v2
+	 * 是否需要显示功能按钮，如果是返回true，反之亦然
 	 */
-	private void appendShowElement(IMarkupWriter writer,IVersionable entity, IVersionProvider conf , long v1, long v2) {
+	public boolean isShowButton(){
+		IPage page = getPage().getRequestCycle().getPage();
 		
-		String v2show = String.valueOf(conf.getOtherVersionShowNum());
+		IVersionProvider conf = (IVersionProvider)page;
 		
-		writer.begin("table");
-			writer.attribute("border", "0");
-			writer.attribute("cellspacing", "0");
-			writer.attribute("cellpadding", "0");
-			writer.attribute("width", "100%");
-			writer.begin("tr");
-				writer.begin("td");
-				writer.attribute("width", "80%");
-					writer.begin("span");
-					writer.attribute("class", "diff");
-						writer.begin("span");
-						writer.attribute("id", "legend");
-							writer.begin("dl");
-								writer.begin("dd");
-									if(conf.isCompareLastVer()){
-										writer.print("版本: " + StringUtils.replace(
-										entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
-										 +" 与 当前版本 对比");
-									}else {
-										if(v2 == 0){
-											writer.print("版本:" + conf.getVersionShowNum());
-											v2show = "";
-										}else{
-											writer.print("版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比");
-										}
-									}
-								writer.end("dd");
-							
-								writer.begin("dt");
-								writer.attribute("class", "add");
-								writer.end("dt");
-								writer.begin("dd");
-								writer.print("Add");
-								writer.end("dd");
-								
-								writer.begin("dt");
-								writer.attribute("class", "mod");
-								writer.end("dt");
-								writer.begin("dd");
-								writer.print("Edit");
-								writer.end("dd");
-								
-								writer.begin("dt");
-								writer.attribute("class", "cp");
-								writer.end("dt");
-								writer.begin("dd");
-								writer.print("Delete");
-								writer.end("dd");
-							writer.end("dl");
-						writer.end("span");
-					writer.end("span");
-		
-				writer.end("td");
+		long v2 = conf.getOtherVersionNum();
 		
 		if(v2 != 0){
-				writer.begin("td");
-				writer.attribute("width", "20%");
-					writer.begin("input");
-						writer.attribute("class", "svnbutton");
-						writer.attribute("type", "button");
-						writer.attribute("id", "showside");
-						writer.attribute("onclick", "VersionInserts.resetTips();");
-						writer.attribute("value", "side by side");
-					writer.end("input");
-					writer.print("  ");
-					writer.begin("input");
-						writer.attribute("class", "svnbutton");
-						writer.attribute("type", "button");
-						writer.attribute("id", "showLine");
-						writer.attribute("onclick", "VersionInserts.closeTips();");
-						writer.attribute("value", "inline");
-					writer.end("input");
-				writer.end("td");
+			return true;
+		}else{
+			return false;
 		}
-		writer.end("tr");
-		writer.end("table");
-		
-		writer.begin("input");
-		writer.attribute("type", "hidden");
-		writer.attribute("id", "ver_hid");
-		writer.attribute("value", String.valueOf(v1));
-		writer.end("input");
-		
-		writer.begin("input");
-		writer.attribute("type", "hidden");
-		writer.attribute("id", "otherVer_hid");
-		writer.attribute("value", v2show);
-		writer.end("input");
-		
 	}
-
+	
 	/**
 	 * 获得相应版本的json串
 	 * @param entity 实体

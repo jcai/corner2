@@ -1,2 +1,25 @@
 <span jwcid="$content$">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td width="80%">
+    	<span class="diff">
+        	<span id="legend">
+        		<dl><dd><span jwcid="@Any" id="ver_showInfo"></span></dd></dl>
+                <dt class="add"></dt><dd>Add</dd>
+                <dt class="mod"></dt><dd>Edit</dd>
+                <dt class="cp"></dt><dd>Delete</dd>
+        	</span>
+        </span>
+    </td>
+    <span jwcid="@If" renderTag="ognl:false" condition="ognl:showButton">
+    <td width="20%">
+    	<input class="svnbutton" type="button" id="showside" onClick="VersionInserts.resetTips();" value="side by side"/>
+        &nbsp;&nbsp;
+        <input class="svnbutton" type="button" id="showLine" onClick="VersionInserts.closeTips();" value="inline"/>
+    </td>
+    </span>
+  </tr>
+</table>
+<input type="hidden" id="ver_hid"/>
+<input type="hidden" id="otherVer_hid"/>
 </span>

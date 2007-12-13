@@ -43,10 +43,12 @@ public abstract class AbstractAny extends Any {
 	        writer.end(element);
 	    }
 	    
-		PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
-		Map<String, String> parms = new HashMap<String, String>();
-		parms.put("id", this.getClientId());
-		getScript().execute(this, cycle, prs, parms);
+	    if(getScript() != null){
+	    	PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
+			Map<String, String> parms = new HashMap<String, String>();
+			parms.put("id", this.getClientId());
+			getScript().execute(this, cycle, prs, parms);
+	    }
 	}
 	
 	protected abstract String exceptionMessage();
