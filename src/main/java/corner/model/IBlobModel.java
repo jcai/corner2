@@ -24,6 +24,10 @@ package corner.model;
  * @since 2.1
  */
 public interface IBlobModel {
+	
+	public static final String BLOB_DATA_PRO_NAME="blobData";
+	public static final String BLOB_NAME_PRO_NAME="blobName";
+	public static final String CONTENT_TYPE_PRO_NAME="contentType";
 
 	public abstract byte[] getBlobData();
 

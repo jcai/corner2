@@ -22,9 +22,11 @@ import org.hibernate.proxy.HibernateProxy;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;
 import com.thoughtworks.xstream.converters.reflection.ReflectionProvider;
+import com.thoughtworks.xstream.core.util.Base64Encoder;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.mapper.Mapper;
 
+import corner.model.IBlobModel;
 import corner.util.BeanUtils;
 
 /**
@@ -34,6 +36,8 @@ import corner.util.BeanUtils;
  * @since 2.5
  */
 public class VersionModelConverter extends ReflectionConverter{
+	
+	private static final Base64Encoder base64 = new Base64Encoder();
 
 	public VersionModelConverter(Mapper mapper, ReflectionProvider reflectionProvider) {
 		super(mapper, reflectionProvider);
@@ -66,7 +70,11 @@ public class VersionModelConverter extends ReflectionConverter{
 				continue;
 			}
 			writer.startNode(pro);
-			writer.setValue(value.toString());
+			if(value instanceof byte[] && pro.equals(IBlobModel.BLOB_DATA_PRO_NAME)){
+				writer.setValue(base64.encode((byte[]) value));
+			}else{
+				writer.setValue(value.toString());
+			}
 			writer.endNode();
 		}
 	}

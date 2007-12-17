@@ -17,13 +17,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.testng.annotations.Test;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.mapper.MapperWrapper;
-
-import corner.demo.model.one2many.A;
-import corner.service.EntityService;
 import corner.test.AbstractTestCase;
 
 /**
@@ -33,13 +26,27 @@ import corner.test.AbstractTestCase;
  */
 public class HibernateObjectTest extends AbstractTestCase{
 	private static final Log logger = LogFactory.getLog(HibernateObjectTest.class);
+	
 	@Test
+	public void testBase64(){
+		this.startTransaction();
+		Session session=this.getCurrentSession();
+		
+		final corner.demo.model.one.A a1=new corner.demo.model.one.A();
+		a1.setName("Base 64 测试");
+		a1.setBlobData("test".getBytes());
+		session.saveOrUpdate(a1);
+		this.commitTransaction();
+		System.out.println(XStreamDelegate.toJSON(a1));
+	}
+	
+//	@Test
 	public void testA(){
 		logger.debug("----------------------对A的操作--------------");
 		//保存A
 		this.startTransaction();
 		Session session=this.getCurrentSession();
-		final A a1=new A();
+		final corner.demo.model.one2many.A a1=new corner.demo.model.one2many.A();
 		a1.setName("哈哈");
 		System.out.println(XStreamDelegate.toJSON(a1));
 		session.save(a1);
@@ -49,7 +56,7 @@ public class HibernateObjectTest extends AbstractTestCase{
 		//保存B,同时增加关系
 		this.startTransaction();
 		session=this.getCurrentSession();
-		A a = (A) session.load(A.class, a1.getId());
+		corner.demo.model.one2many.A a = (corner.demo.model.one2many.A) session.load(corner.demo.model.one2many.A.class, a1.getId());
 		
 		 System.out.println(XStreamDelegate.toJSON(a));
         

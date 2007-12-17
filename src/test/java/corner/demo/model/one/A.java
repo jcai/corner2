@@ -2,6 +2,7 @@ package corner.demo.model.one;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.Type;
 import corner.demo.model.AbstractModel;
 import corner.model.IBlobModel;
 import corner.orm.hibernate.v3.MatrixRow;
+import corner.service.svn.IVersionable;
 
 /**
  *
@@ -22,7 +24,7 @@ import corner.orm.hibernate.v3.MatrixRow;
  */
 @Entity(name="oneA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class A extends AbstractModel implements IBlobModel {
+public class A extends AbstractModel implements IBlobModel,IVersionable {
 
 	/**
 	 *
@@ -188,5 +190,70 @@ public class A extends AbstractModel implements IBlobModel {
 	 */
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+	
+	private String revision;
+	private boolean svnCommit;
+	private String svnLog;
+	
+	/**
+	 * @see corner.service.svn.IVersionable#getNeedVersionableProperties()
+	 */
+	@Transient
+	public String[] getNeedVersionableProperties() {
+		return new String[]{"name","password","blobData"};
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#getRevision()
+	 */
+	@Transient
+	public String getRevision() {
+		return revision;
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#getSvnAuthor()
+	 */
+	@Transient
+	public String getSvnAuthor() {
+		return "testUser";
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#getSvnLog()
+	 */
+	@Transient
+	public String getSvnLog() {
+		return svnLog;
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#isSvnCommit()
+	 */
+	@Transient
+	public boolean isSvnCommit() {
+		return svnCommit;
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#setRevision(java.lang.String)
+	 */
+	public void setRevision(String revison) {
+		this.revision = revison;
+	}
+	
+	/**
+	 * @param svnCommit The svnCommit to set.
+	 */
+	public void setSvnCommit(boolean svnCommit) {
+		this.svnCommit = svnCommit;
+	}
+
+	/**
+	 * @param svnLog The svnLog to set.
+	 */
+	public void setSvnLog(String svnLog) {
+		this.svnLog = svnLog;
 	}
 }
