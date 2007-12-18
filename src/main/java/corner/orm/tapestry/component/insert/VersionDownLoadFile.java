@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IMarkupWriter;
+import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
@@ -96,6 +97,28 @@ public abstract class VersionDownLoadFile extends BaseComponent{
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}
+	
+	/**
+	 * 是否需要显示功能按钮，如果是返回true，反之亦然
+	 */
+	public boolean isShowButton(){
+		IPage page = getPage().getRequestCycle().getPage();
+		
+		IVersionProvider conf = (IVersionProvider)page;
+		
+		long v2 = conf.getOtherVersionNum();
+		
+		if(v2 != 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public abstract String getLink1();
+	public abstract void setLink1(String s);
+	public abstract String getLink2();
+	public abstract void setLink2(String s);
 	
 	/**
 	 * 获得相应版本的Url

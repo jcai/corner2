@@ -17,6 +17,7 @@
 
 package corner.orm.tapestry.component.insert;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,9 @@ import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.form.IFormComponent;
+import org.apache.tapestry.json.JSONObject;
 
+import corner.model.IBlobModel;
 import corner.orm.tapestry.page.EntityPage;
 import corner.service.EntityService;
 import corner.service.svn.IVersionProvider;
@@ -96,6 +99,11 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 				json2 = getJsonVersion(entity,v2);
 			}
 			
+			if(entity instanceof IBlobModel){	//删除blob属性
+				json1 = removeBlobDate(json1);
+				json2 = removeBlobDate(json2);
+			}
+			
 			parms.put("json", json1);
 			parms.put("json2", json2);
 			
@@ -142,6 +150,26 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		}else{
 			return false;
 		}
+	}
+	
+	/**
+	 * 删除blobdate
+	 * @param temp
+	 * @return
+	 */
+	public static String removeBlobDate(String temp){
+		JSONObject parent = null;
+		JSONObject json = null;
+		try {
+			parent = new JSONObject(temp);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+		
+		json = parent.getJSONObject("entity");
+		json.remove(IBlobModel.BLOB_DATA_PRO_NAME);
+		
+		return parent.toString();
 	}
 	
 	public abstract String getShowside();

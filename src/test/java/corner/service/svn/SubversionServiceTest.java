@@ -4,21 +4,19 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
-import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
-import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
-import org.tmatesoft.svn.core.io.ISVNEditor;
-import org.tmatesoft.svn.core.io.SVNRepository;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
-import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import corner.demo.model.one2many.A;
-import corner.demo.model.one2many.B;
+import corner.orm.tapestry.component.insert.VersionManage;
 
 public class SubversionServiceTest extends Assert{
+	
+	@Test
+	public void testRemovePrototype(){
+		String temp ="{\"entity\":{\"saleContractMain\":\"com.bjmaxinfo.piano.model.sale.impl.SaleContractMain@6efc82\",\"blobName\":\"06级法律本科第3学期.rar\",\"contentType\":\"application/x-msdownload\",\"blobData\":\"MSwyLDMsNA==\"}}";
+		String expect ="{\"entity\":{\"saleContractMain\":\"com.bjmaxinfo.piano.model.sale.impl.SaleContractMain@6efc82\",\"blobName\":\"06级法律本科第3学期.rar\",\"contentType\":\"application/x-msdownload\"}}";
+		assertEquals(VersionManage.removeBlobDate(temp),expect);
+	}
+	
 	@Test
 	public void test_checkin2()throws Exception{
 		IVersionService service = constructService();
@@ -28,7 +26,6 @@ public class SubversionServiceTest extends Assert{
 		long revision=service.checkin(a);
 		List<VersionResult> version = service.fetchVersionInfo(a);
 		String jsonStr = service.fetchObjectAsJson(a, revision);
-		
 	}
 	
 	@Test

@@ -8,4 +8,6 @@
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 	
 <component-specification class="corner.orm.tapestry.component.insert.VersionDownLoadFile" allow-body="no" allow-informal-parameters="yes">
+  <property name="link1" initial-value="literal:查看"/>
+  <property name="link2" initial-value="literal:另一版本 查看"/>
 </component-specification>
