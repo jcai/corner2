@@ -8,6 +8,8 @@
 @import url("svn.css");
 @import url("tree/default.css");
 
+@import url("ajaxio.css");
+
 .alertButton {
 	width: auto;
 	border: none;
