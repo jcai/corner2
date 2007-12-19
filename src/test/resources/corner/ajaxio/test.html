@@ -26,89 +26,16 @@ djConfig = { isDebug: true
 </head>
 
 <body>
-		<form action="#" onsubmit="stopSubmit();return false;" name="f1">
+<!-- form 可删可不删，删了没报错 -->
+<form action="#" onsubmit="stopSubmit();return false;" name="f1">
+
+<a href="javascript:makeElement(0);">make box</a>
 
 <div id="x0"></div>
 <div id="x1"></div>
 <div id="band" style="z-index:500"></div>
 <div id="pos"></div>
-	
-<!--
-<div id="inst" style="position:absolute;top:0;left:400;width:400;z-index:0">
-<table border=0 bgcolor="f0f0f0">
-	<tr>
-		<td class='title'>
-			Ajaxio v0.4 - a simple diagram drawing demo
-		</td>
-	</tr>
-	<tr>
-		<td class='descr'>
-			by James MacFarlane (diodeus &#64; gmail.com)
-			<P>
-			The purpose of this experiment is to see if a Visio-type of
-			tool could be developed in a web browser. Using <A href="http://prototype.conio.net/" target="_blank">Prototype</a>,
-			<A href="http://wiki.script.aculo.us" target="_blank">script.aculo.us</a> and
-			<A href="http://www.walterzorn.com/jsgraphics/jsgraphics_e.htm">Water Zorn's</a> SVG library I managed
-			to hack together a simple demo. The line routing needs a lot of improvement, but you get the idea.
-			You can crash it without trying too hard. A lot of work needs to be done. Adding Ajax write-backs to a server
-			wouldn't be very difficult since it's based on Prototype.
-			<P>
-			<ul>
-				<li>Click <i>make element</i>&nbsp; to add a box to the workspace. Add a few. Slide them around.</li>
-				<li>Drag the green handle from one box onto another green handle to make an association</li>
-				<li>Double-click on the title or description of a box to edit the contents. Clicking off the box will exit edit mode.</li>
-				<li>Drag boxes around on the screen, watch the pretty lines follow them.</li>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="javascript:makeElement(0);">make element</a>&nbsp;|&nbsp;
-			<a href="javascript:demo();">make three elements</a>
-			<br>
-		</td>
-	</tr>
-</table>	
-
-</div>
--->
-<div id="inst" style="position:absolute;top:0;left:400;width:400;z-index:0">
-<table border=0 bgcolor="f0f0f0">
-	<tr>
-		<td class='title'>
-			Ajaxio v0.4 - a simple diagram drawing demo
-		</td>
-
-	</tr>
-	<tr>
-		<td class='descr'>
-			by James MacFarlane (diodeus &#64; gmail.com)
-			<P>
-			The purpose of this experiment is to see if a Visio-type of
-			tool could be developed in a web browser. Using <A href="http://prototype.conio.net/" target="_blank">Prototype</a>,
-			<A href="http://wiki.script.aculo.us" target="_blank">script.aculo.us</a> and
-			<A href="http://www.walterzorn.com/jsgraphics/jsgraphics_e.htm">Water Zorn's</a> SVG library I managed
-			to hack together a simple demo. It's not perfect, but it demonstrates that it can be done.
-			There is no Ajax writeback to the server in this demo, but it could be easily added as a call in prototype.
-			<P>
-
-			<strong>Boxes</strong> You can resize boxes - select the box and grab a corner. You can also double-click
-			on the title or description to edit it in-place.
-			<P>
-			<strong>Connectors</strong> Drop the green arrow from one box onto another.
-			<P>
-		</td>
-	</tr>
-	<tr>
-		<td>
-
-			<a href="javascript:makeElement(0);">make box</a>&nbsp;|&nbsp;
-			<br>
-		</td>
-	</tr>
-</table>	
-
-</div>
+<div id="inst" style="position:absolute;top:0;left:400;width:400;z-index:0"></div>
 <P>
 <div id="placeholder" style="position:absolute;top:0;left:0"></div>
 
