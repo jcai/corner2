@@ -22,8 +22,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import corner.demo.model.AbstractModel;
-
-import corner.orm.hibernate.IPersistModel;
 import corner.service.svn.IVersionable;
 import corner.service.svn.VersionGroup;
 
@@ -102,6 +100,13 @@ public class A extends AbstractModel implements IVersionable{
 	 */
 	public void setRevision(String revision) {
 		this.revision = revision;
+	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#getParentObject()
+	 */
+	public Object getParentObject() {
+		return null;
 	}
 
 }

@@ -256,4 +256,11 @@ public class A extends AbstractModel implements IBlobModel,IVersionable {
 	public void setSvnLog(String svnLog) {
 		this.svnLog = svnLog;
 	}
+
+	/**
+	 * @see corner.service.svn.IVersionable#getParentObject()
+	 */
+	public Object getParentObject() {
+		return null;
+	}
 }

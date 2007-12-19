@@ -57,4 +57,9 @@ public interface IVersionable extends IPersistModel{
 	 */
 	public void setRevision(String revison);
 	
+	/**
+	 * 获得对象上一级
+	 * @return
+	 */
+	public Object getParentObject();
 }
