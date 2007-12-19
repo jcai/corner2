@@ -81,18 +81,32 @@ public abstract class VersionDownLoadFile extends BaseComponent{
 			
 			String link1 = null;
 			String link2 = null;
+			String link1show = null;
+			String link2show = null;
+			
 			
 			if(conf.isCompareLastVer()){	//如果是与不提交文件对比
 				v2 = -1;	//获得最新的文件
 				link1 = getLinkUrl(entity,v2);
 				link2 = getLinkUrl(entity,-2);	//表示获得数据库中保存的文件
+				
+				link1show = "版本 " + entity.getRevision() + " 查看";
+				link2show = "当前版本 查看";
 			}else{
 				link1 = getLinkUrl(entity,v1);
 				link2 = getLinkUrl(entity,v2);
+				if(v2 == 0){
+					link1show = "查看";
+				}else{
+					link1show = "版本 " + conf.getVersionShowNum() + " 查看";
+					link2show = "版本 " + conf.getOtherVersionShowNum() + " 查看";
+				}
 			}
 			
 			parms.put("link1", link1);
 			parms.put("link2", link2);
+			parms.put("link1show", link1show);
+			parms.put("link2show", link2show);
 			
 			getScript().execute(this, cycle, prs, parms);
 		}
@@ -108,17 +122,14 @@ public abstract class VersionDownLoadFile extends BaseComponent{
 		
 		long v2 = conf.getOtherVersionNum();
 		
-		if(v2 != 0){
-			return true;
-		}else{
+		if(v2 == 0){
+			if(conf.isCompareLastVer())
+				return true;
 			return false;
+		}else{
+			return true;
 		}
 	}
-	
-	public abstract String getLink1();
-	public abstract void setLink1(String s);
-	public abstract String getLink2();
-	public abstract void setLink2(String s);
 	
 	/**
 	 * 获得相应版本的Url

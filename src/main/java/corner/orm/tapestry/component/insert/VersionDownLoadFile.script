@@ -6,9 +6,16 @@
 
 <input-symbol key="link1" required="yes" />
 <input-symbol key="link2" required="yes" />
+<input-symbol key="link1show" required="yes" />
+<input-symbol key="link2show" />
+
 
 <initialization>
 	$("ver_download").href = "${link1}";
-	$("otherVer_download").href = "${link2}";
+	$("ver_download_show").update("${link1show}");
+	if($("otherVer_download")){
+		$("otherVer_download").href = "${link2}";
+		$("otherVer_download_show").update("${link2show}");
+	}
 </initialization>
 </script>

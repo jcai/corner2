@@ -145,10 +145,12 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 		
 		long v2 = conf.getOtherVersionNum();
 		
-		if(v2 != 0){
-			return true;
-		}else{
+		if(v2 == 0){
+			if(conf.isCompareLastVer())
+				return true;
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
