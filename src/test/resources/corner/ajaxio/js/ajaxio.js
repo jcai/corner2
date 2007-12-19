@@ -26,7 +26,9 @@ for (x=0;x<maxNodes;x++) {
 	nodeTo[x]='';
 }
 
-
+/*
+ * demo显示的时候，自动建立一个3个元素的
+ */
 function demo() {
 	if(demoClicked) {
 		return;
@@ -64,7 +66,9 @@ function doubleClick(e,doThis,m) {
 	}
 	
 }
-
+/*
+ * 删除了，用不到 
+ */
 function editMe(e,m) {
 	if(e=='') {
 		return;
@@ -121,7 +125,7 @@ function stopSubmit() {
 function selectMe(e) {
 		temp = e.split('_')
 		e = temp[0]
-		//$('pos').innerHTML = e + ' - ' +whoSelected
+//		$('pos').innerHTML = e + ' - ' +whoSelected
 		$(e+'_t').className='nodeSelected'
 		Element.show(e+'_c_1')
 		Element.show(e+'_c_2')
@@ -137,11 +141,15 @@ function selectMe(e) {
 		whoSelected = e
 }
 
+/*
+ * 增加节点连接时
+ */
 function addNode(source,dest) {
-	nodeFrom[nodeCount] = source
-	nodeTo[nodeCount] = dest
+	dojo.debug("Adding: " + source + ' ' + dest+ ' ');
+	dojo.debug("Adding: nodeCount " + nodeCount);
+	nodeFrom[nodeCount] = source;
+	nodeTo[nodeCount] = dest;
 	nodeCount ++;
-	//$('pos').innerHTML = $('pos').innerHTML  + ("<br>Adding: " + source + ' ' + dest+ ' ')
 }
 
 function showNodes() {
@@ -152,6 +160,9 @@ function showNodes() {
 	}	
 }
 
+/*
+ * 遍历所有已存在的元素 
+ */
 function renderNodes() {
 	y = 0
 	while(y<nodeCount) {
@@ -164,7 +175,7 @@ function lineSelect(e) {
 	$('pos').innerHTML = "Line selected: " + e
 }
 	
-function getPos(e1,e2) {	
+function getPos(e1,e2) {
 	canvas1 = new jsGraphics("x1");
 	canvas1.setColor("#00ff00");
 	x1 = parseInt(Element.getStyle(e1,'left').replace('px',''))
@@ -303,11 +314,12 @@ function findCorner(e) {
 	pStyle.top = newTop
 	pStyle.left = newLeft
 	renderNodes();
-
-
 }
 
-
+/*
+ * 新建一个元素
+ * name 元素名称
+ */
 function makeElement(name) {
 	if(name==0) {
 		name="Title"+elementCount;
@@ -352,6 +364,9 @@ function makeElement(name) {
 //	Event.observe(name+'Desc','click',function(e) {doubleClick(name+'Desc','editMe',2)},false);
 
 
+	/*
+	 * 拖动的时候
+	 */
 	new Draggable(name, {revert:false,
 		zindex:100,
 		endeffect:function(e) {			
@@ -360,7 +375,10 @@ function makeElement(name) {
 			renderNodes();
 		}		
 	})
-
+	
+	/*
+	 * 连接的时候
+	 */
 	new Draggable(name+'h1', {revert:true,
 		zindex:100,
 		endeffect:function(e) {			
@@ -418,6 +436,9 @@ function makeElement(name) {
 
 }
 
+/*
+ * 不知道干什么 
+ */
 function makePoly(source,dest) {
 	$('pos').innerHTML = ""
 	flip2 = false
@@ -448,9 +469,8 @@ function makePoly(source,dest) {
 	endx = x2p +parseInt((destDim.width/2))
 	endy = y2p 
 	eval("canvas"+myCanvas+"=new jsGraphics('x'+myCanvas)");
-	dojo.debug("add !!");
-	Event.stopObserving('x'+myCanvas,'click', function(e) {lineSelect('x'+myCanvas)},true)
-	Event.observe('x'+myCanvas,'click', function(e) {lineSelect('x'+myCanvas)},true)
+	Event.stopObserving('x'+myCanvas,'click', function(e) {lineSelect('x'+myCanvas)},true);
+	Event.observe('x'+myCanvas,'click', function(e) {lineSelect('x'+myCanvas)},true);
 
 	
 	// make poly line
