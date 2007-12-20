@@ -48,5 +48,12 @@ Start.prototype.setWorkflow=function(/*:Workflow*/ workflow)
     this.outputPort.setName("output");
 
     this.addPort(this.outputPort,this.width,this.height/2);
+    
+    this.inputPort2=new InputPort();
+	this.inputPort2.setWorkflow(workflow);
+	this.inputPort2.setBackgroundColor(new Color(115,115,245));
+	this.inputPort2.setColor(null);
+	this.inputPort2.setName("input2");
+	this.addPort(this.inputPort2,this.width/2,0);
   }
 }
