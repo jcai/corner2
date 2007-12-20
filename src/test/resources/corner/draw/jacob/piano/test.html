@@ -1,5 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/Strict.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
 <HEAD>
 <TITLE>对查询的页面的支持 </TITLE>
 <META NAME="Generator" CONTENT="EditPlus">
@@ -26,11 +26,14 @@ djConfig = { isDebug: true,
 <!-- example specific imports -->
 <SCRIPT src="SaleOrderMain.js"></SCRIPT>
 <SCRIPT src="Matter.js"></SCRIPT>
+<SCRIPT src="ToolSave.js"></SCRIPT>
+<SCRIPT src="GUIPalette.js"></SCRIPT>
+<SCRIPT src="XMLSerializer_01.js"></SCRIPT>
 	
 </HEAD>
 
 <body onselectstart="return false;" style="margin:0px;padding:0px;" onkeydown="" id="Body">
-<div id="paintarea" style="position:absolute;left:0px;top:0px;width:3000px;height:3000px" >
+<div id="paintarea" style="position:absolute;left:0px;top:0px;width:1600px;height:800px" >
 </div>
 <script type="text/javascript"><!--
   var workflow  = new Workflow("paintarea");
@@ -38,6 +41,10 @@ djConfig = { isDebug: true,
   obj.setTitle("订单编号： ");
   obj.setContent("<h1>名称</h1><a href='test'>link</a>");
   workflow.addFigure(obj, 100,100);
+  
+  var w = new GUIPalette();
+  workflow.setToolWindow(w);
+  w.setPosition(20,140);
   
   var matter1 = new Matter();
   matter1.setTitle("物");
@@ -68,5 +75,7 @@ djConfig = { isDebug: true,
   c.setSource(matter2.getPort("output"));
   c.setTarget(matter3.getPort("input"));
   workflow.addFigure(c);
+  
+  window.onscroll=function(){workflow.onScroll();};
 // --></script></body>
 </html>
