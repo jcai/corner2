@@ -29,17 +29,18 @@ djConfig = { isDebug: true,
 <SCRIPT src="ToolSave.js"></SCRIPT>
 <SCRIPT src="GUIPalette.js"></SCRIPT>
 <SCRIPT src="XMLSerializer_01.js"></SCRIPT>
+<SCRIPT src="JSONSerializer.js"></SCRIPT>
 	
 </HEAD>
 
 <body onselectstart="return false;" style="margin:0px;padding:0px;" onkeydown="" id="Body">
-<div id="paintarea" style="position:absolute;left:0px;top:0px;width:1600px;height:800px" >
+<div id="paintarea"  >
 </div>
 <script type="text/javascript"><!--
   var workflow  = new Workflow("paintarea");
   var obj = new SaleOrderMain();
   obj.setTitle("订单编号： ");
-  obj.setContent("<h1>名称</h1><a href='test'>link</a>");
+  obj.setContent("<h1>名称</h1>");
   workflow.addFigure(obj, 100,100);
   
   var w = new GUIPalette();

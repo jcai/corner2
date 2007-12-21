@@ -166,6 +166,14 @@ Matter.prototype.setTitle=function(/*:String*/ title)
    this.header.innerHTML=title;
 }
 
+/**
+ * 获得标题
+ *
+ **/
+Matter.prototype.getTitle=function()
+{
+   return this.header.innerHTML;
+}
 
 /**
  * Utility function to set the content of the figure.
@@ -175,6 +183,15 @@ Matter.prototype.setContent=function(/*:String*/ content)
 {
    this.textarea.innerHTML=content;
 }
+
+/**
+ * 返回内容
+ **/
+Matter.prototype.getContent=function()
+{
+   return this.textarea.innerHTML;
+}
+
 
 
 
