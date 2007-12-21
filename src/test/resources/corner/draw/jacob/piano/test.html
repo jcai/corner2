@@ -32,13 +32,22 @@ djConfig = { isDebug: true,
 <SCRIPT src="XMLSerializer_01.js"></SCRIPT>
 <SCRIPT src="JSONSerializer.js"></SCRIPT>
 <SCRIPT src="DrawScaffold.js"></SCRIPT>
+<SCRIPT src="ContextmenuConnection.js"></SCRIPT>
 
 </HEAD>
 
 <body onselectstart="return false;" style="margin:0px;padding:0px;" onkeydown="" id="Body">
-<div id="paintarea" style="position:absolute;left:0px;top:0px;width:1600px;height:800px" >
+<div id="paintarea"  style="position:absolute;left:0px;top:0px;width:1600px;height:800px">
 </div>
 <script type="text/javascript"><!--
-  var draw = new DrawScaffold();
+	dojo.require("dojo.json");
+	var props = dojo.json.evalJson("{'nodes':[{'id':'q5asTHHGkP','type':'SaleOrderMain','x':162,'y':163,'title': '订单编号： ','content':'<h1>名称</h1>'},{'id':'PB12l3iliw','type': 'Matter','x':489,'y':159,'title':'物','content':'原料'},{'id':'HBp1l3PSoB', 'type':'Matter','x':395,'y':382,'title':'物','content':' 货品'},{'id':'D1R5vg3D7O','type':'Matter','x':725,'y':321,'title':'物', 'content':'货品'}],'lines':[{'sourcePort':'q5asTHHGkP','targetPort': 'PB12l3iliw'},{'sourcePort':'q5asTHHGkP','targetPort':'HBp1l3PSoB'},{'sourcePort':'HBp1l3PSoB','targetPort':'D1R5vg3D7O'}]}");
+	var draw = new DrawScaffold("paintarea", props);
+  
+  var w = new GUIPalette();
+  draw.workflow.setToolWindow(w);
+  w.setPosition(20,140);
+  window.onscroll=function(){draw.workflow.onScroll();};
+  
 // --></script></body>
 </html>

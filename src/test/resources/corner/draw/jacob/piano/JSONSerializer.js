@@ -24,8 +24,8 @@ JSONSerializer.prototype.toJSON=function(document){
 		
 		json=json+"{\"id\":\""+node.getId()+"\",";
 		json=json+"\"type\":\""+node.type+"\",";
-		json=json+"\"x\":\""+node.getX()+"\",";
-		json=json+"\"y\":\""+node.getY()+"\",";
+		json=json+"\"x\":"+node.getX()+",";
+		json=json+"\"y\":"+node.getY()+",";
 		json=json+"\"title\":\""+title+"\",";
 		json=json+"\"content\":\""+content+"\"}";
 	}
@@ -42,7 +42,7 @@ JSONSerializer.prototype.toJSON=function(document){
 		json=json+"\"targetPort\":\""+line.targetPort.getParent().getId()+"\"}";
 	}
 	json=json+"]}";
-//	dojo.debug(json);
+	dojo.debug(json);
 	return json;
 //	return dojo.json.evalJson(json);
 };
