@@ -42,6 +42,7 @@ JSONSerializer.prototype.toJSON=function(document){
 		json=json+"\"targetPort\":\""+line.targetPort.getParent().getId()+"\"}";
 	}
 	json=json+"]}";
+//	dojo.debug(json);
 	return json;
 //	return dojo.json.evalJson(json);
 };

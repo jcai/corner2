@@ -19,6 +19,7 @@ djConfig = { isDebug: true,
 <SCRIPT LANGUAGE="JavaScript" src="../../../../../../main/js/tapestry/core.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript" src="../../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script type="text/javascript" src="../../../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
 
 <!-- common, all times required, imports -->
 <SCRIPT src='../wz_jsgraphics.js'></SCRIPT>             <SCRIPT src='../draw2d.js'></SCRIPT>
@@ -30,53 +31,14 @@ djConfig = { isDebug: true,
 <SCRIPT src="GUIPalette.js"></SCRIPT>
 <SCRIPT src="XMLSerializer_01.js"></SCRIPT>
 <SCRIPT src="JSONSerializer.js"></SCRIPT>
-	
+<SCRIPT src="DrawScaffold.js"></SCRIPT>
+
 </HEAD>
 
 <body onselectstart="return false;" style="margin:0px;padding:0px;" onkeydown="" id="Body">
-<div id="paintarea"  >
+<div id="paintarea" style="position:absolute;left:0px;top:0px;width:1600px;height:800px" >
 </div>
 <script type="text/javascript"><!--
-  var workflow  = new Workflow("paintarea");
-  var obj = new SaleOrderMain();
-  obj.setTitle("订单编号： ");
-  obj.setContent("<h1>名称</h1>");
-  workflow.addFigure(obj, 100,100);
-  
-  var w = new GUIPalette();
-  workflow.setToolWindow(w);
-  w.setPosition(20,140);
-  
-  var matter1 = new Matter();
-  matter1.setTitle("物");
-  matter1.setContent("原料");
-  workflow.addFigure(matter1, 500,80);
-  
-  var matter2 = new Matter();
-  matter2.setTitle("物");
-  matter2.setContent("货品");
-  workflow.addFigure(matter2, 500,250);
-  
-  var matter3 = new Matter();
-  matter3.setTitle("物");
-  matter3.setContent("货品");
-  workflow.addFigure(matter3, 800,250);
-  
-  var c = new Connection();
-  c.setSource(obj.getPort("output"));
-  c.setTarget(matter1.getPort("input"));
-  workflow.addFigure(c);
-  
-  var c = new Connection();
-  c.setSource(obj.getPort("output"));
-  c.setTarget(matter2.getPort("input"));
-  workflow.addFigure(c);
-  
-  var c = new Connection();
-  c.setSource(matter2.getPort("output"));
-  c.setTarget(matter3.getPort("input"));
-  workflow.addFigure(c);
-  
-  window.onscroll=function(){workflow.onScroll();};
+  var draw = new DrawScaffold();
 // --></script></body>
 </html>
