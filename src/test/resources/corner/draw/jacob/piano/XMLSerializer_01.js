@@ -7,7 +7,12 @@ XMLSerializer_01.prototype.toXML=function(document){
 	var figures=document.getFigures();
 	for(var i=0;i<figures.length;i++){
 		var node=figures[i];
-		xml=xml+"<"+node.type+" x=\""+node.getX()+"\" y=\""+node.getY()+"\" id=\""+node.getId()+"\">\n";
+		var title,content;
+		if(node instanceof SaleOrderMain){
+			title = node.getTitle();
+			content = node.getContent();
+		}
+		xml=xml+"<"+node.type+" x=\""+node.getX()+"\" y=\""+node.getY()+"\" title=\""+title+"\" content=\""+content+"\"  id=\""+node.getId()+"\">\n";
 		xml=xml+this.getPropertyXML(node,"   ");
 		if(node instanceof CompartmentFigure){
 			xml=xml+this.getChildXML(node,"   ");

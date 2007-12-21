@@ -166,6 +166,15 @@ SaleOrderMain.prototype.setTitle=function(/*:String*/ title)
    this.header.innerHTML=title;
 }
 
+/**
+ * 获得标题
+ *
+ **/
+SaleOrderMain.prototype.getTitle=function()
+{
+   return this.header.innerHTML;
+}
+
 
 /**
  * Utility function to set the content of the figure.
@@ -174,6 +183,13 @@ SaleOrderMain.prototype.setTitle=function(/*:String*/ title)
 SaleOrderMain.prototype.setContent=function(/*:String*/ content)
 {
    this.textarea.innerHTML=content;
+}
+/**
+ * 返回内容
+ **/
+SaleOrderMain.prototype.getContent=function()
+{
+   return this.textarea.innerHTML;
 }
 
 
