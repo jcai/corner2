@@ -25,14 +25,14 @@ djConfig = { isDebug: true,
 <SCRIPT src='../wz_jsgraphics.js'></SCRIPT>             <SCRIPT src='../draw2d.js'></SCRIPT>
 
 <!-- example specific imports -->
+<SCRIPT src="Panel.js"></SCRIPT>
 <SCRIPT src="SaleOrderMain.js"></SCRIPT>
 <SCRIPT src="Matter.js"></SCRIPT>
 <SCRIPT src="ToolSave.js"></SCRIPT>
 <SCRIPT src="GUIPalette.js"></SCRIPT>
-<SCRIPT src="XMLSerializer_01.js"></SCRIPT>
 <SCRIPT src="JSONSerializer.js"></SCRIPT>
 <SCRIPT src="DrawScaffold.js"></SCRIPT>
-<SCRIPT src="ContextmenuConnection.js"></SCRIPT>
+
 
 </HEAD>
 
@@ -43,7 +43,7 @@ djConfig = { isDebug: true,
 	dojo.require("dojo.json");
 	var props = dojo.json.evalJson("{'nodes':[{'id':'q5asTHHGkP','type':'SaleOrderMain','x':162,'y':163,'title': '订单编号： ','content':'<h1>名称</h1>'},{'id':'PB12l3iliw','type': 'Matter','x':489,'y':159,'title':'物','content':'原料'},{'id':'HBp1l3PSoB', 'type':'Matter','x':395,'y':382,'title':'物','content':' 货品'},{'id':'D1R5vg3D7O','type':'Matter','x':725,'y':321,'title':'物', 'content':'货品'}],'lines':[{'sourcePort':'q5asTHHGkP','targetPort': 'PB12l3iliw'},{'sourcePort':'q5asTHHGkP','targetPort':'HBp1l3PSoB'},{'sourcePort':'HBp1l3PSoB','targetPort':'D1R5vg3D7O'}]}");
 	var draw = new DrawScaffold("paintarea", props);
-  
+	
   var w = new GUIPalette();
   draw.workflow.setToolWindow(w);
   w.setPosition(20,140);
