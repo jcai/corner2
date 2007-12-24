@@ -420,6 +420,35 @@ public class EntityService {
 					}
 				});
 	}
+	
+	/**
+	 * 普通的查询
+	 * 
+	 * @param clazz
+	 *            类
+	 * @return
+	 */
+	public List getExistRelativeList(final Class clazz) {
+		return this.getExistRelativeList(clazz.getName());
+	}
+	
+	/**
+	 * 普通的查询
+	 * @param clazzName
+	 * @return
+	 */
+	public List getExistRelativeList(final String clazzName) {
+		return (List) ((HibernateObjectRelativeUtils) this
+				.getObjectRelativeUtils()).getHibernateTemplate().execute(
+				new HibernateCallback() {
+
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Criteria criteria = session.createCriteria(clazzName);
+						return criteria.list();
+					}
+				});
+	}
 
 	/**
 	 * 获得一个组结果的个数，带条件的
