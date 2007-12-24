@@ -26,8 +26,8 @@ djConfig = { isDebug: true,
 
 <!-- example specific imports -->
 <SCRIPT src="Panel.js"></SCRIPT>
-<SCRIPT src="SaleOrderMain.js"></SCRIPT>
-<SCRIPT src="Matter.js"></SCRIPT>
+<SCRIPT src="Root.js"></SCRIPT>
+<SCRIPT src="Leaf.js"></SCRIPT>
 <SCRIPT src="ToolSave.js"></SCRIPT>
 <SCRIPT src="GUIPalette.js"></SCRIPT>
 <SCRIPT src="JSONSerializer.js"></SCRIPT>
@@ -41,7 +41,7 @@ djConfig = { isDebug: true,
 </div>
 <script type="text/javascript"><!--
 	dojo.require("dojo.json");
-	var props = dojo.json.evalJson("{'nodes':[{'id':'q5asTHHGkP','type':'SaleOrderMain','x':162,'y':163,'title': '订单编号： ','content':'<h1>名称</h1>'},{'id':'PB12l3iliw','type': 'Matter','x':489,'y':159,'title':'物','content':'原料'},{'id':'HBp1l3PSoB', 'type':'Matter','x':395,'y':382,'title':'物','content':' 货品'},{'id':'D1R5vg3D7O','type':'Matter','x':725,'y':321,'title':'物', 'content':'货品'}],'lines':[{'sourcePort':'q5asTHHGkP','targetPort': 'PB12l3iliw'},{'sourcePort':'q5asTHHGkP','targetPort':'HBp1l3PSoB'},{'sourcePort':'HBp1l3PSoB','targetPort':'D1R5vg3D7O'}]}");
+	var props = dojo.json.evalJson("{'nodes':[{'id':'q5asTHHGkP','type':'Root','x':162,'y':163,'title': '订单编号： ','content':'<h1>名称</h1>'},{'id':'PB12l3iliw','type': 'Leaf','x':489,'y':159,'title':'物','content':'原料'},{'id':'HBp1l3PSoB', 'type':'Leaf','x':395,'y':382,'title':'物','content':' 货品'},{'id':'D1R5vg3D7O','type':'Leaf','x':725,'y':321,'title':'物', 'content':'货品'}],'lines':[{'sourcePort':'q5asTHHGkP','targetPort': 'PB12l3iliw'},{'sourcePort':'q5asTHHGkP','targetPort':'HBp1l3PSoB'},{'sourcePort':'HBp1l3PSoB','targetPort':'D1R5vg3D7O'}]}");
 	var draw = new DrawScaffold("paintarea", props);
 	
   var w = new GUIPalette();

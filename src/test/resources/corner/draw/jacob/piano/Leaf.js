@@ -1,7 +1,7 @@
 /* 
  * 显示物
  */
-Matter=function()
+Leaf=function()
 {
   this.cornerWidth  = 15;
   this.cornerHeight = 15;
@@ -14,15 +14,15 @@ Matter=function()
 /** base class of my example double click figure 
  * You can use circle, oval,.....too
  **/
-Matter.prototype = new Panel;
-Matter.prototype.type="Matter";
+Leaf.prototype = new Panel;
+Leaf.prototype.type="Leaf";
 
 /**
  * Create the Input&Output ports of the figure if the element will be assigned the first time
  * to the workflow/canvas.
  *
  **/
-Matter.prototype.setWorkflow=function(/*:Workflow*/ workflow)
+Leaf.prototype.setWorkflow=function(/*:Workflow*/ workflow)
 {
   Node.prototype.setWorkflow.call(this,workflow);
 

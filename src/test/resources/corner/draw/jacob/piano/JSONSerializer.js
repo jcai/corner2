@@ -15,7 +15,7 @@ JSONSerializer.prototype.toJSON=function(document){
 		}
 		var node=figures[i];
 		var title,content;
-		if(node.type == "SaleOrderMain" || node.type == "Matter"){
+		if(node instanceof Panel){
 			title = node.getTitle();
 			content = node.getContent();
 		}else{

@@ -1,7 +1,7 @@
 /* 
  * 销售合同主表
  */
-SaleOrderMain=function()
+Root=function()
 {
   this.cornerWidth  = 15;
   this.cornerHeight = 15;
@@ -14,5 +14,5 @@ SaleOrderMain=function()
 /** base class of my example double click figure 
  * You can use circle, oval,.....too
  **/
-SaleOrderMain.prototype = new Panel;
-SaleOrderMain.prototype.type="SaleOrderMain";
+Root.prototype = new Panel;
+Root.prototype.type="Root";
