@@ -20,7 +20,7 @@ showPushletFrame = function(url){
 
 onMessageShow = function(message, url){
 		if(message!=null && message.length >0){
-		   win = new Window({"className":"dialog","title":"消息提示窗",
+		   win = new Window({"className":"alphacube","title":"消息提示窗",
 	            "top ":"0",right:20, bottom:20, zIndex:1000,"width":"260","height":"120",
 	            "maxWidth":"none","maxHeight":"none","minWidth ":"260","minHeight":"120",
 	            "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
@@ -30,7 +30,7 @@ onMessageShow = function(message, url){
 		            
 			win.getContent().innerHTML="<a href=\"javascript:onMessageClick('"+url+"')\" id='_messageContent'>"+message+"</a>";
 			win.show();
-			window.setTimeout("closeMessageWindow(win)",9000);
+			window.setTimeout("closeMessageWindow(win)",7000);
 		}
 	}
 	
