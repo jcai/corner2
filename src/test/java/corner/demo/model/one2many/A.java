@@ -105,6 +105,7 @@ public class A extends AbstractModel implements IVersionable{
 	/**
 	 * @see corner.service.svn.IVersionable#getParentObject()
 	 */
+	@Transient
 	public Object getParentObject() {
 		return null;
 	}
