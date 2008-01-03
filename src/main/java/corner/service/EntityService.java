@@ -36,6 +36,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.beans.BeansException;
@@ -392,7 +393,21 @@ public class EntityService {
 	 */
 	public List getExistRelativeList(final Class clazz,
 			final Criterion criterion) {
-		return this.getExistRelativeList(clazz.getName(), criterion);
+		return this.getExistRelativeList(clazz.getName(), criterion,null);
+	}
+	
+	/**
+	 * 获得一个组结果，带条件的
+	 * 
+	 * @param clazz
+	 *            类
+	 * @param criterion
+	 *            条件
+	 * @return
+	 */
+	public List getExistRelativeList(final Class clazz,
+			final Criterion criterion,final Order order) {
+		return this.getExistRelativeList(clazz.getName(), criterion, order);
 	}
 
 	/**
@@ -405,7 +420,7 @@ public class EntityService {
 	 * @return
 	 */
 	public List getExistRelativeList(final String clazzName,
-			final Criterion criterion) {
+			final Criterion criterion,final Order order) {
 		return (List) ((HibernateObjectRelativeUtils) this
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
@@ -415,6 +430,11 @@ public class EntityService {
 						Criteria criteria = session.createCriteria(clazzName);
 
 						criteria.add(criterion);
+						
+						//增加排序
+						if(order != null){
+							criteria.addOrder(order);
+						}
 
 						return criteria.list();
 					}
@@ -429,7 +449,19 @@ public class EntityService {
 	 * @return
 	 */
 	public List getExistRelativeList(final Class clazz) {
-		return this.getExistRelativeList(clazz.getName());
+		return this.getExistRelativeList(clazz.getName(),null);
+	}
+	
+	/**
+	 * 普通的查询
+	 * 
+	 * @param clazz
+	 *            类
+	 * @param order 排序
+	 * @return
+	 */
+	public List getExistRelativeList(final Class clazz,final Order order) {
+		return this.getExistRelativeList(clazz.getName(),order);
 	}
 	
 	/**
@@ -437,7 +469,7 @@ public class EntityService {
 	 * @param clazzName
 	 * @return
 	 */
-	public List getExistRelativeList(final String clazzName) {
+	public List getExistRelativeList(final String clazzName,final Order order) {
 		return (List) ((HibernateObjectRelativeUtils) this
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
@@ -445,6 +477,12 @@ public class EntityService {
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						Criteria criteria = session.createCriteria(clazzName);
+						
+						//增加排序
+						if(order != null){
+							criteria.addOrder(order);
+						}
+						
 						return criteria.list();
 					}
 				});
