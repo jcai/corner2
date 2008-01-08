@@ -1,18 +1,20 @@
 <span jwcid="$content$">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<td width="5%">
-				<span jwcid="@If" condition="ognl:ImageFile eq true">
-					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">
-						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder"/>					</a>				</span>
-				<span jwcid="@Else">
-					<span jwcid="@If" condition="ognl:blobEntity.blobData != null">
-					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a></span>
-                </span>
-			</td>
 			<td width="5%"><input type="checkbox" name="Input" jwcid="isEditBlobField" /></td>
 			<td>
 				<input type="file" name="blobData" jwcid="blobDataField"  />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" >
+				<span jwcid="@If" condition="ognl:ImageFile eq true" renderTag="ognl:false">
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">
+						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:320px;height:200px;"/></a></span>
+				<span jwcid="@Else" renderTag="ognl:false">
+					<span jwcid="@If" condition="ognl:blobEntity.blobData != null" renderTag="ognl:false">
+					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a></span>
+                </span>
 			</td>
 		</tr>
 	</table>

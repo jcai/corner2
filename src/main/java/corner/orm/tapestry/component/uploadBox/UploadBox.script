@@ -7,20 +7,24 @@
 <initialization>
 	 preview=function(){
 	    var objimg = dojo.byId('ImageField');
-	    var filepath = dojo.byId('blobDataField').value;
+		var filepath = dojo.byId('blobDataField').value;
 	    re=/\\/g
 	    filepath = filepath.replace(re,'/');
-	    
 	    var fileext = filepath.substring(filepath.length-4,filepath.length)
 	    fileext = fileext.toLowerCase();
 	    if (fileext=='.gif' || fileext=='.png' || fileext=='.jpg'){
-	        objimg.src="file:///"+filepath;
-	        objimg.style.display='';
+	        objimg.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = filepath;
+			objimg.style.width = objimg.offsetWidth;
+			objimg.style.height = objimg.offsetHeight;
+			objimg.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").sizingMethod = 'scale';
+			objimg.width = objimg.offsetWidth;
+			objimg.height = objimg.offsetHeight;
+			objimg.src="file:///"+filepath;
 	    }
 	    else{
 	        objimg.style.display='none';
 	    }
 	}
-	dojo.event.connect(dojo.byId('blobDataField'),"onchange","preview");
+	dojo.event.connect(dojo.byId('blobDataField'),"onpropertychange","preview");
 </initialization>
 </script>
