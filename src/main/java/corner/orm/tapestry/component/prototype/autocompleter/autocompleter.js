@@ -50,7 +50,9 @@ ac.evaluate = function (text,li) {
 	   	 value=value.gsub(/^<!--\s+/,'').gsub(/\/{2}\s+-->/,'');
     	fields = eval('(' + value + ')');
 		for(var name in fields){
-			$(name).value=fields[name];
+			if($(name)){
+				$(name).value=fields[name];
+			}
 		}	 
     }
 }
