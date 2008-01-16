@@ -217,9 +217,17 @@ public class PushletService implements IEngineService {
 					Thread.sleep(12000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
+					Thread thread = Thread.currentThread();
+					if(!thread.isInterrupted()){
+						thread.interrupt();
+					}
 					break;
 				} catch (InterruptedException e) {
 					System.out.println(e.getMessage());
+					Thread thread = Thread.currentThread();
+					if(!thread.isInterrupted()){
+						thread.interrupt();
+					}
 					break;
 				}
 			}
