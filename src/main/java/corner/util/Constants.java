@@ -20,6 +20,9 @@ package corner.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import corner.orm.tapestry.component.checkbox.StringCheckbox;
+import corner.orm.tapestry.pdf.AbstractPdfPage;
+
 /**
  * 保存Corner中一些的常量
  * 

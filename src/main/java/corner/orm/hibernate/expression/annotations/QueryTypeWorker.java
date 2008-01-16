@@ -20,7 +20,6 @@ package corner.orm.hibernate.expression.annotations;
 import java.util.HashMap;
 import java.util.Map;
 
-import corner.orm.hibernate.expression.annotations.QueryDefinition;
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryField;
 import corner.orm.hibernate.expression.annotations.QueryDefinition.QueryType;
 

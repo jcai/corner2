@@ -22,8 +22,6 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.util.ComponentAddress;
 
-import corner.util.CornerMessages;
-
 
 
 /**

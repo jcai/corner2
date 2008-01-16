@@ -19,7 +19,6 @@ import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.json.JSONArray;
-import org.apache.tapestry.json.JSONObject;
 
 /**
  * @author <a href="mailto:xf@bjmaxinfo.com">xiafei</a>
