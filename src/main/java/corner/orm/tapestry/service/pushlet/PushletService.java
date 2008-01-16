@@ -44,6 +44,8 @@ import corner.service.EntityService;
  * @since 2.5
  */
 public class PushletService implements IEngineService {
+	public static int STARTS=0;
+	public static int ENDS=0;
 	
 	private static final String QUERY_MESSAGE_ENTITY_NAME = "query_message_entity_name";
 	
@@ -191,6 +193,7 @@ public class PushletService implements IEngineService {
 
 	
 		public void run() {
+			STARTS++;
 			//tapestry.globals.
 			HttpServletResponse response = requestGlobals.getResponse();
 			OutputStream os = null;
@@ -217,9 +220,11 @@ public class PushletService implements IEngineService {
 					Thread.sleep(12000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
+					ENDS++;
 					break;
 				} catch (InterruptedException e) {
 					System.out.println(e.getMessage());
+					ENDS++;
 					break;
 				}
 			}
