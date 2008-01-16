@@ -199,7 +199,6 @@ public class PushletService implements IEngineService {
 				
 			} catch (IOException e1) {
 				System.out.println("Thread-"+Thread.currentThread().getId()+" exit!");
-				PushletService.interruptedCurrentThread(Thread.currentThread());
 				e1.printStackTrace();
 			}
 			
@@ -218,11 +217,9 @@ public class PushletService implements IEngineService {
 					Thread.sleep(12000);
 				} catch (IOException e) {
 					System.out.println("client exit!");
-					PushletService.interruptedCurrentThread(Thread.currentThread());
 					break;
 				} catch (InterruptedException e) {
 					System.out.println(e.getMessage());
-					PushletService.interruptedCurrentThread(Thread.currentThread());
 					break;
 				}
 			}
@@ -256,16 +253,6 @@ public class PushletService implements IEngineService {
 		 */
 		public void setMessageListPageName(String messageListPageName) {
 			this.messageListPageName = messageListPageName;
-		}
-	}
-	
-	/**
-	 * 判断当前Thread是否已经interrupted,如果没有则对其进行interrupted
-	 * @param thread
-	 */
-	private static void interruptedCurrentThread(Thread thread){
-		if(!thread.isInterrupted()){
-			thread.interrupt();
 		}
 	}
 }
