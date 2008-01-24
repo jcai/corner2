@@ -58,10 +58,20 @@ public class CornerPdfExporter extends JRPdfExporter {
 	}
 	
 	/**
+	 * 提供了pdf字体根据框的大小自动缩小的功能.同时以是否有横线(-)为条件判断是否需要自动缩小.
 	 * @see net.sf.jasperreports.engine.export.JRPdfExporter#exportText(net.sf.jasperreports.engine.JRPrintText)
 	 */
 	@Override
 	protected void exportText(JRPrintText text) throws DocumentException {
+		
+		//如果不是画了横线 则用父类的方法.
+		if(!text.isStrikeThrough()){
+		   
+			super.exportText(text);
+			
+			return;
+		}
+		
 		JRStyledText styledText = getStyledText(text, false);
 
 		if (styledText == null)
