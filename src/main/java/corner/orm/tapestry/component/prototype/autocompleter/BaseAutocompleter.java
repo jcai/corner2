@@ -161,6 +161,16 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 		renderDelegatePrefix(writer, cycle);
 
 		if (isTextarea) {
+			/*
+			 * 如果需要显示提示信息
+			 */
+			if(isShowHelpText()){
+				writer.begin("span");
+					writer.appendAttribute("style", "float: left");
+					writer.print(getHelpText());
+				writer.end("span");
+				writer.begin("br");
+			}
 			writer.begin("textarea");
 		} else {
 			writer.beginEmpty("input");
@@ -316,6 +326,18 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	public abstract String getDependFields();
 	@Parameter
 	public abstract Object getParameters();
+	
+	/**
+	 * 是否显示提示信息
+	 */
+	@Parameter(defaultValue = "ognl:false")
+	public abstract boolean isShowHelpText();
+	
+	/**
+	 * 提示信息的内容
+	 */
+	@Parameter(defaultValue = "literal:*输入关键字的可以进行查询，换行后仍然可以使用自动完成功能。")
+	public abstract String getHelpText();
 
 	/**
 	 * 用来展示的每行数据的模板
@@ -353,7 +375,6 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 
 	/**
 	 * Script
-	 * 
 	 */
 	@InjectScript("/corner/orm/tapestry/component/prototype/autocompleter/Autocompleter.script")
 	public abstract IScript getScript();
