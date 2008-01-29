@@ -103,8 +103,8 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 
 						public Object doInHibernate(Session session) throws HibernateException, SQLException {
 							Criteria criteria=callback.createCriteria(session);
-							criteria.setProjection(Projections.rowCount());
 							callback.appendCriteria(criteria);
+							criteria.setProjection(Projections.rowCount());
 
 							return criteria.list().iterator().next();
 						}})).intValue();
