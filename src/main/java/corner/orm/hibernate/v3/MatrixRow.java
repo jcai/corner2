@@ -88,4 +88,19 @@ public class MatrixRow<T> extends Vector<T> {
 		}
 		return defaultValue;
 	}
+	
+	/**
+	 * 根据索引返回集合元素
+	 * @param index
+	 * @return 指定索引的集合元素,不存在则返回null
+	 */
+	public String printToPdf(int index){
+		
+		//有此索引的元素则返回
+		if(this.size()>index){
+			return this.get(index).toString();
+		}
+		
+		return null;
+	}
 }
