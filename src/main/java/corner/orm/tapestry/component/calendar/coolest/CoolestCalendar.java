@@ -79,7 +79,7 @@ public abstract class CoolestCalendar extends TextField{
 		scriptParms.put("jsFileName",     jsFileName);
 
 		// 增加环境条件
-		scriptParms.put("inputField",     this.getClientId());
+		scriptParms.put("inputField",     getInputField());
 		scriptParms.put("displayArea",    getDisplayArea());
 		scriptParms.put("button",         getButton());
 		scriptParms.put("eventName",      getEventName());
@@ -121,6 +121,12 @@ public abstract class CoolestCalendar extends TextField{
 		writer.attribute("autocomplete", "off");
         super.renderInformalParameters(writer, cycle);
     }
+	
+	/**
+	 * 显示
+	 */
+	@Parameter(defaultValue = "ognl: this.getClientId()")
+	public abstract String getInputField();
 	/**
 	 * 显示
 	 */
