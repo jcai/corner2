@@ -20,7 +20,6 @@ package corner.orm.tapestry.jasper.exporter;
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,6 @@ import net.sf.jasperreports.engine.util.JRStyledText;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.Font;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.ColumnText;
