@@ -44,7 +44,7 @@ public class JasperPrinterLinkService extends JasperLinkService{
 	 * @see corner.orm.tapestry.jasper.service.JasperLinkService#service(org.apache.tapestry.IRequestCycle, org.apache.tapestry.IPage, boolean, java.lang.String, corner.model.IBlobModel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	protected void service(IRequestCycle cycle, IPage page, boolean isUsetemplatePath, String templatePath, IBlobModel templateEntity, String downloadFileName, String taskType, String detailEntity, String detailCollection) throws IOException {
+	protected void service(IRequestCycle cycle, IPage page, boolean isUsetemplatePath,boolean multiPageInRecord,boolean onlyOnePageInRecort, String templatePath, IBlobModel templateEntity, String downloadFileName, String taskType, String detailEntity, String detailCollection) throws IOException {
 		try {
 			//判断是从那里读取流
 			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(templateEntity);

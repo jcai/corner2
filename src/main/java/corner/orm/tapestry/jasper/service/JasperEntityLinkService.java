@@ -19,6 +19,7 @@ package corner.orm.tapestry.jasper.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -49,21 +50,32 @@ public class JasperEntityLinkService extends JasperLinkService{
 	 * @see corner.orm.tapestry.jasper.service.JasperLinkService#service(org.apache.tapestry.IRequestCycle, org.apache.tapestry.IPage, boolean, java.lang.String, corner.model.IBlobModel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	protected void service(IRequestCycle cycle, IPage page, boolean isUsetemplatePath, String templatePath, IBlobModel templateEntity, String downloadFileName, String taskType, String detailEntity, String detailCollection) throws IOException {
+	protected void service(IRequestCycle cycle, IPage page, boolean isUsetemplatePath,boolean multiPageInRecord,boolean onlyOnePageInRecort, String templatePath, IBlobModel templateEntity, String downloadFileName, String taskType, String detailEntity, String detailCollection) throws IOException {
 		IJasperExporter jasperAction = TaskType.valueOf(taskType).newInstance();
 		try {
 			
 			//判断是从那里读取流
 			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(templateEntity);
 			
-			JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection);
-			
 			JRExporter exporter = jasperAction.getExporter();
 			//初始化
 			jasperAction.setupExporter(exporter);
+		   
+			//如果是一个报表有多页 非循环分页
+			if(multiPageInRecord){
+				
+				List<JasperPrint> jasperPrintList = getJasperPrintList(is, page, templateEntity, detailEntity, detailCollection);
+				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
+			}else{
+				JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection);
+				//如果只要第一页
+				if(onlyOnePageInRecort){
+					jasperPrint = getOnlyOnePageJasperPrint(jasperPrint);
+				}
+				//准备参数
+				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, VectorUtils.getCollection(jasperPrint));
+			}
 			
-			//准备参数
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, VectorUtils.getCollection(jasperPrint));
 			
 			//设定下载文件名
 			ComponentResponseUtils.constructResponse(downloadFileName, jasperAction.getSuffix(),cycle, response);

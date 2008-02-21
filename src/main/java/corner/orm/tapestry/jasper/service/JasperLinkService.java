@@ -22,7 +22,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -58,6 +60,7 @@ public abstract class JasperLinkService implements IEngineService{
 	
 	private static final String MAIN_REPORT = "main.jasper";
 	private static final int BUFFER = 2048;
+	private static final String DETAIL = "detail";
 	
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)
@@ -110,8 +113,10 @@ public abstract class JasperLinkService implements IEngineService{
 		
 		String detailEntity = (String) parameters[4];
 		String detailCollection = (String) parameters[5];
+		boolean multiPageInRecord = ((Boolean) parameters[6]).booleanValue();
+		boolean onlyOnePageInRecort = ((Boolean) parameters[7]).booleanValue();
 		
-		service(cycle,page,isUsetemplatePath,templatePath,templateEntity,downloadFileName,taskType,detailEntity,detailCollection);
+		service(cycle,page,isUsetemplatePath,multiPageInRecord,onlyOnePageInRecort,templatePath,templateEntity,downloadFileName,taskType,detailEntity,detailCollection);
 	}
 	
 	
@@ -119,7 +124,7 @@ public abstract class JasperLinkService implements IEngineService{
 	 * 自己的方法
 	 */
 	protected abstract void service(IRequestCycle cycle, IPage page,
-			boolean isUsetemplatePath, String templatePath,
+			boolean isUsetemplatePath,boolean multiPageInRecord,boolean onlyOnePageInRecort, String templatePath,
 			IBlobModel templateEntity, String downloadFileName,
 			String taskType, String detailEntity, String detailCollection)
 			throws IOException;
@@ -243,6 +248,116 @@ public abstract class JasperLinkService implements IEngineService{
 		return jasperPrint;
 	}
 
+	/**
+	 * 得到JasperPrint的list.用于一个报表有多页的情况(非循环多页)
+	 * <p>
+	 * 实现方法:通过读取zip包,将zip包里每一个报表文件进行填充并放入List返回.
+	 * <p>
+	 * 读取zip包的方法摘自getZipReportInputStreamMap(InputStream,Map)方法
+	 * 
+	 * @param jasperInStream
+	 * @param page
+	 * @param templateEntity
+	 * @param detailEntity
+	 * @param detailCollection
+	 * @return
+	 * @throws JRException
+	 */
+	protected List<JasperPrint> getJasperPrintList(InputStream jasperInStream,
+			IPage page, Object templateEntity, String detailEntity,
+			String detailCollection) throws JRException {
+
+		List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+		Map<String, InputStream> jasperInStreamMaps = new HashMap<String, InputStream>();
+		JasperPrint jasperPrint = null;
+		Map<String, String> detailMap = new HashMap<String, String>();
+
+		if (isZipFile(jasperInStream)) {
+			ZipInputStream zis = new ZipInputStream(jasperInStream);
+			BufferedOutputStream dest = null;
+			ZipEntry entry = null;
+			String reportName = null;// 报表的名字(.jasper之前的部分)
+
+			ByteArrayOutputStream fos = null;
+
+			try {
+				while ((entry = zis.getNextEntry()) != null) {
+					int count;
+					byte data[] = new byte[BUFFER];
+
+					// write the files to the disk
+					fos = new ByteArrayOutputStream((int) entry.getSize());
+					dest = new BufferedOutputStream(fos, BUFFER);
+					while ((count = zis.read(data, 0, BUFFER)) != -1) {
+						dest.write(data, 0, count);
+					}
+
+					dest.flush();
+					dest.close();
+					reportName = entry.getName().split("\\.")[0];
+
+					// 如果报表名是以detail结尾的,即此报表有detail则进行标记
+					if (reportName.endsWith(DETAIL)) {
+
+						reportName = reportName.substring(0, reportName
+								.indexOf(DETAIL));
+						detailMap.put(reportName, DETAIL);
+					}
+					jasperInStreamMaps.put(reportName,
+							new ByteArrayInputStream(fos.toByteArray()));
+
+				}
+				zis.close();
+			} catch (Exception e) {
+				throw new ApplicationRuntimeException(e);
+			}
+		}
+
+		// 遍历jasperInStreamMaps,将从zip包读出的报表流进行填充,并放入jasperPrintList.
+		for (int i = 1;; i++) {
+
+			InputStream jasperInStreamMap = jasperInStreamMaps.get(String
+					.valueOf(i));
+
+			// 如果map里没有值了则跳出
+			if (jasperInStreamMap == null) {
+				break;
+			}
+
+			// 如果有detail则给它正确的数据源,否则给null
+			if (detailMap.get(String.valueOf(i)) != null) {
+				jasperPrint = this.getJasperPrint(jasperInStreamMap, page,
+						templateEntity, detailEntity, detailCollection);
+			} else {
+				jasperPrint = this.getJasperPrint(jasperInStreamMap, page,
+						templateEntity, null, null);
+			}
+            
+			//报表页数>0才添加进List进行导出打印
+           if(jasperPrint.getPages().size()>0){
+            	jasperPrintList.add(jasperPrint);
+           }
+            
+		}
+		return jasperPrintList;
+	}
+	
+	/**
+	 * 移除报表的页面,只保留第一页
+	 * @param jasperPrint
+	 * @return
+	 */
+	protected JasperPrint getOnlyOnePageJasperPrint(JasperPrint jasperPrint){
+	     
+		int pagesSize = jasperPrint.getPages().size();
+		
+		for(int i=pagesSize-1;i>0;i=jasperPrint.getPages().size()-1){
+			jasperPrint.removePage(i);
+		}
+		
+		return jasperPrint;
+	}
+	
 	/**
 	 * 获得数据源
 	 * @param page

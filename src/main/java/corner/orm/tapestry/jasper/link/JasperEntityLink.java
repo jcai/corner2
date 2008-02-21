@@ -36,13 +36,15 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	 */
 	@Override
 	public ILink getLink(IRequestCycle cycle) {
-		Object[] parameters = new Object[6];
+		Object[] parameters = new Object[8];
 		parameters[0] = getDownloadFileName();
 		parameters[1] = getTaskType().toLowerCase();
 		parameters[2] = getTemplatePath();
 		parameters[3] = getTemplateEntity();
 		parameters[4] = getDetailEntity();
 		parameters[5] = getDetailCollection();
+		parameters[6] = getMultiPageInRecort();
+		parameters[7] = getOnlyOnePageInRecort();
 		
 		return this.getJasperService().getLink(true, parameters);
 	}
@@ -82,6 +84,16 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	 */
 	@Parameter(defaultValue = "literal:pdf")
 	public abstract String getTaskType();
+	
+	/**
+	 * 是否在一个报表中含多页.
+	 * <p>用于由多页组成的且非循环分成多页的报表的判断.
+	 */
+	@Parameter(defaultValue = "false")
+	public abstract boolean getMultiPageInRecort();
+	
+	@Parameter(defaultValue = "false")
+	public abstract boolean getOnlyOnePageInRecort();
 	
 	/**
 	 * @return
