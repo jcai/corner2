@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>test FheckboxGroupRequired validator</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<SCRIPT LANGUAGE="JavaScript">
+			<!--
+				djConfig = { isDebug: true
+	          };
+			//-->
+		</SCRIPT>
+		<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+		<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+	</head>
+	<body>
+		<input type="checkbox" id="checkbox1"/>checkbox1
+		
+		<input type="checkbox" id="checkbox2"/>checkbox2
+		
+		<input type="checkbox" id="checkbox3"/>checkbox3
+
+		<input type="button" id="button" value="validate"/>
+
+		<SCRIPT LANGUAGE="JavaScript">
+			<!--
+				dojo.require("corner.validate.web");
+				dojo.event.connect(dojo.byId("button"),"onclick",this,"val");
+				val=function(evt){
+					dojo.debug(corner.validate.isFheckboxGroupRequired({"ids":["checkbox1","checkbox2","checkbox3"]}));				
+				}
+			//-->
+		</SCRIPT>		
+	</body>
+</html>

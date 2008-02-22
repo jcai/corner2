@@ -18,12 +18,7 @@ corner.validate.isCheckboxGroupRequired = function(/*String*/value, /*Object?*/f
 			temp = true;
 		}
 	}
-	
-	if(temp == true) {
-		return true;
-	}else{
-		return false;
-	}
+	return temp;
 }
 
 corner.validate.isRelationAss = function(/*String*/value, /*Object?*/flags){

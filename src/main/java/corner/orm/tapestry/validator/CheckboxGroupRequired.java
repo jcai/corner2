@@ -22,14 +22,17 @@ import org.apache.tapestry.valid.ValidatorException;
 import org.springframework.util.Assert;
 
 /**
+ * 判断一组checkbox至少选中一项
  * @author <a href="mailto:qsl@bjmaxinfo.com">Renais</a>
  * @version $Revision$
  * @since 0.9.0
  */
 public class CheckboxGroupRequired extends BaseValidator {
 
+	//保存错误提示信息
 	private String message;
 
+	//保存page页面定义的组件id
 	private String[] otherFields;
 
 	public CheckboxGroupRequired() {
@@ -55,6 +58,7 @@ public class CheckboxGroupRequired extends BaseValidator {
     }
 
 	/**
+	 * 后台验证
 	 * @see org.apache.tapestry.form.validator.Validator#validate(org.apache.tapestry.form.IFormComponent, org.apache.tapestry.form.ValidationMessages, java.lang.Object)
 	 */
 	public void validate(IFormComponent field, ValidationMessages messages,
@@ -107,9 +111,24 @@ public class CheckboxGroupRequired extends BaseValidator {
 						+ "}]"));
 
 		accumulateProfileProperty(field, profile,
-				ValidationConstants.CONSTRAINTS, message);
+				ValidationConstants.CONSTRAINTS, buildMessage(context, field));
 	}
 	
+	/**
+	 * 构建message 
+	 * @return 返回显示信息
+	 */
+	private String buildMessage(ValidationMessages messages,
+			IFormComponent field) {
+		return messages.formatValidationMessage("{0}项目必须选中一项.", null,
+				new Object[] { message });
+	}
+	
+	/**
+	 * 返回用双引号扩起来，用逗号分割的字符串
+	 * @param fields 需要处理的数组
+	 * @return 返回字符串
+	 */
 	public String toFieldString(String[] fields) {
 		StringBuffer temp = new StringBuffer();
 		for (String t : fields) {
@@ -119,11 +138,19 @@ public class CheckboxGroupRequired extends BaseValidator {
 		return str.substring(0, str.length() - 1);
 	}
 	
+	/**
+	 * 从page页面读取的配置信息
+	 * @param parameters
+	 */
 	public void setCheckboxGroupRequired(String parameters) {
 		parameters = parameters.substring(1, parameters.length() - 1);
 		initParams(parameters);
 	}
 
+	/**
+	 * 将传入的字符串转换为字符串数组
+	 * @param parameters 需要处理的字符串
+	 */
 	public void initParams(String parameters){
 		message = parameters.substring(parameters.indexOf(":") + 1, parameters.indexOf(";"));
 		String str = parameters.substring(parameters.lastIndexOf(":") + 1);
