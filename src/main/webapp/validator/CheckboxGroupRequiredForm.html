@@ -1,0 +1,31 @@
+<span jwcid="@DemoBorder">
+	<a jwcid="@PageLink" page="Home">Return Home page</a>
+	<form jwcid="AForm" action="AList.html">
+		<table>
+        <tr>
+          <td>
+            <span key="NumField">NumField:</span>
+          </td>
+		  <td>
+            <span key="maxNumField">maxNumField:</span>
+          </td>
+		  <td>
+            <span key="plusnumField">plusnumField:</span>
+          </td>
+		</tr>
+		<tr>
+          	<td>
+				<input jwcid="numField" />
+			</td>
+			<td>
+			  <input jwcid="maxnumField"/>
+			</td>
+			<td>
+				<input jwcid="plusnumField"/>
+			</td>
+		</tr>
+      </table>
+      <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
+      <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
+	</form>
+</span>

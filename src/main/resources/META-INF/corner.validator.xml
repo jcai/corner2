@@ -12,5 +12,6 @@
 		<validator name="personID" class="PersonID" configurable="false"/>
 		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
 		<validator name="relationAss" class="RelationAss" configurable="false"/>
+		<validator name="checkboxGroupRequired" class="CheckboxGroupRequired"/>
 	</contribution>
 </module>

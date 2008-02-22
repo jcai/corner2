@@ -7,6 +7,25 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isCheckboxGroupRequired = function(/*String*/value, /*Object?*/flags){
+// summary:
+// 验证多个checkbox至少选中一个
+	dojo.debug("ids.length:" + flags.ids.length);
+	
+	var temp = false;
+	for(var i in flags.ids) {
+		if(dojo.byId(flags.ids[i]).checked) {
+			temp = true;
+		}
+	}
+	
+	if(temp == true) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
 corner.validate.isRelationAss = function(/*String*/value, /*Object?*/flags){
 //summary:
 // 将flags传进来的ID，如果获得管理对象返回true
