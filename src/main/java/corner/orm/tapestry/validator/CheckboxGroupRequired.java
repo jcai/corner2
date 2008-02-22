@@ -76,7 +76,7 @@ public class CheckboxGroupRequired extends BaseValidator {
 		
 		if (flag == false) {
 			Assert.notNull(message);
-			throw new ValidatorException(message);
+			throw new ValidatorException(buildMessage(messages, field));
 		}
 	}
 
