@@ -27,7 +27,7 @@
 				dojo.require("corner.validate.web");
 				dojo.event.connect(dojo.byId("button"),"onclick",this,"val");
 				val=function(evt){
-					dojo.debug(corner.validate.isFheckboxGroupRequired({"ids":["checkbox1","checkbox2","checkbox3"]}));				
+					dojo.debug(corner.validate.isCheckboxGroupRequired("checkbox1",{"ids":["checkbox1","checkbox2","checkbox3"]}));				
 				}
 			//-->
 		</SCRIPT>		
