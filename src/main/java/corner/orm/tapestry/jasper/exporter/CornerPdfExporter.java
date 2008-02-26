@@ -276,7 +276,12 @@ public class CornerPdfExporter extends JRPdfExporter {
 				tf.setAlignment(horizontalAlignment);
 				tf.setText(text.getText());
 				tf.setFont(PdfUtils.createSongLightBaseFont());
-				tf.setOptions(TextField.MULTILINE);
+				
+				//标记 如果是styledText 则自动缩小单行,否则为多行
+				if(!text.isStyledText()){
+					tf.setOptions(TextField.MULTILINE);
+				}
+				
 				try {
 					pdfContentByte.getPdfWriter().addAnnotation(
 							tf.getTextField());
