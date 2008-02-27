@@ -247,7 +247,6 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		final StringBuffer groupPath = getGroupPath(versionableObject);
 		
 		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
-		System.out.println(filePath);
 		
 		return (List<VersionResult>) this.execute(new ISvnCallback(){
 
