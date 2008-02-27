@@ -343,22 +343,6 @@ public abstract class JasperLinkService implements IEngineService{
 	}
 	
 	/**
-	 * 移除报表的页面,只保留第一页
-	 * @param jasperPrint
-	 * @return
-	 */
-	protected JasperPrint getOnlyOnePageJasperPrint(JasperPrint jasperPrint){
-	     
-		int pagesSize = jasperPrint.getPages().size();
-		
-		for(int i=pagesSize-1;i>0;i=jasperPrint.getPages().size()-1){
-			jasperPrint.removePage(i);
-		}
-		
-		return jasperPrint;
-	}
-	
-	/**
 	 * 获得数据源
 	 * @param page
 	 * @param detailCollection
