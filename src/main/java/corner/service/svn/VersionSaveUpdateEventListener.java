@@ -65,13 +65,17 @@ public class VersionSaveUpdateEventListener extends DefaultSaveOrUpdateEventList
 				long nowrevision = Long.valueOf(selfrev);
 				
 				tmpObj.setRevision(String.valueOf(++nowrevision));
-				updateGroupModelRevision(String.valueOf(nowrevision),tmpObj,session);
+				
+				//不更新主表版本号所以注释掉了
+//				updateGroupModelRevision(String.valueOf(nowrevision),tmpObj,session);
 				
 			}else if(tmpObj.getRevision()!=null&&tmpObj.getRevision().indexOf(UNREVISION_VERSION)==-1){
 				//当且仅当有了版本号而没有*的时候特别处理一下.
 				String modifiedVersion = tmpObj.getRevision().trim()+UNREVISION_VERSION;
 				tmpObj.setRevision(modifiedVersion);
-				updateGroupModelRevision(modifiedVersion,tmpObj,session);
+				
+				//不更新主表版本号所以注释掉了
+//				updateGroupModelRevision(modifiedVersion,tmpObj,session);
 			}
 		}
 	}

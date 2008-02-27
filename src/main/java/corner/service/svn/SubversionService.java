@@ -247,15 +247,18 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		final StringBuffer groupPath = getGroupPath(versionableObject);
 		
 		final String filePath = groupPath.toString()+"/"+getFilePath(versionableObject)+ENTITY_FILIE_SUFFIX;
+		System.out.println(filePath);
 		
 		return (List<VersionResult>) this.execute(new ISvnCallback(){
 
 			public Object doInRepository(SVNRepository repository) throws SVNException {
 				final ArrayList<VersionResult> list = new ArrayList<VersionResult>();
 				String svnPath = filePath;
-				if(isGroupClass(versionableObject)){
-					svnPath = groupPath.toString();
-				}
+				
+				//要展示当前实体的svn地址所以注释掉了
+//				if(isGroupClass(versionableObject)){
+//					svnPath = groupPath.toString();
+//				}
 				
 				repository.log(new String[] {svnPath}, 
 				        0, -1, true, true,new ISVNLogEntryHandler(){
