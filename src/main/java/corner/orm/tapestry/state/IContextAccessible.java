@@ -26,6 +26,12 @@ import org.apache.tapestry.annotations.InjectState;
  * @since 2.3.7
  */
 public interface IContextAccessible<T extends IContext> {
-	@InjectState("context")
+	
+	/**
+	 * 注入StateManager中的key的字符串
+	 */
+	public static final String CORNER_CONTEXT_KEY_STR = "context";
+	
+	@InjectState(CORNER_CONTEXT_KEY_STR)
 	public  T getContext();
 }

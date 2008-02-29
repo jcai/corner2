@@ -2,8 +2,11 @@
 	<contribution configuration-id="hivemind.FactoryDefaults">
 	   <default symbol="corner.state.object.class" value="corner.orm.tapestry.state.MockContext"/>
 	</contribution>
+	<contribution configuration-id="hivemind.FactoryDefaults">
+	   <default symbol="corner.state.scope" value="session"/>
+	</contribution>
 	<contribution configuration-id="tapestry.state.ApplicationObjects">
-		<state-object name="context" scope="session">
+		<state-object name="context" scope="${corner.state.scope}">
 				<invoke-factory object="service:PersistASOFactory"/>
 		</state-object>
 	</contribution>
