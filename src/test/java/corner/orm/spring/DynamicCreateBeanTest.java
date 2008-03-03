@@ -27,7 +27,7 @@ import corner.demo.model.many2many.A;
 public class DynamicCreateBeanTest {
 	@Test
 	public void test_data(){
-		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(new String[]{"classpath:/corner/orm/spring/app-test.xml"},false);
+		ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(new String[]{"classpath:/corner/orm/spring/app-test.xml"},true);
 		BeanFactoryPostProcessor beanFactoryPostProcessor=new BeanFactoryPostProcessor(){
 
 			public void postProcessBeanFactory(
