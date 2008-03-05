@@ -102,7 +102,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * @param select
 	 */
 	@SuppressWarnings("unchecked")
-	private void doSelectCheckbox(Object obj,Object objInversed,boolean select){
+	public void doSelectCheckbox(Object obj,Object objInversed,boolean select){
 		Collection c=this.getRelationshipCollection(obj);
 		if(select){
 			if(!c.contains(objInversed)){
@@ -123,7 +123,7 @@ public abstract class ReflectRelativeSelectionListPage extends
 	 * @param obj
 	 * @return
 	 */
-	private Collection getRelationshipCollection(Object obj){
+	public Collection getRelationshipCollection(Object obj){
 		Collection c= (Collection) BeanUtils.getProperty(obj,this.getRelativePropertyName());
 		if(c==null){
 			throw new IllegalStateException("从["+obj+"] 通过属性 ["+this.getRelativePropertyName()+"] 得到的集合为空!");
