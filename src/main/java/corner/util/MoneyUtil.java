@@ -28,17 +28,17 @@ public class MoneyUtil {
 
 	/**
 	 * 将数字转换为英文大写格式．
-	 * @param x
+	 * @param value
 	 * @return　英文大写格式
 	 */
-	public static String parse(String x) {
-	    int z = x.indexOf("."); // 取小数点位置
+	public static String parseToEnglishCurrency(String value) {
+	    int z = value.indexOf("."); // 取小数点位置
 	    String lstr = "", rstr = "";
 	    if (z > -1) { // 看是否有小数，如果有，则分别取左边和右边
-	     lstr = x.substring(0, z);
-	     rstr = x.substring(z + 1);
+	     lstr = value.substring(0, z);
+	     rstr = value.substring(z + 1);
 	     } else // 否则就是全部
-	     lstr = x;
+	     lstr = value;
 
 	    String lstrrev = reverse(lstr); // 对左边的字串取反
 	    String[] a = new String[5]; // 定义5个字串变量来存放解析出来的叁位一组的字串
@@ -407,5 +407,14 @@ public class MoneyUtil {
 	 */
 	public static String changeToBig(double value) {
 		return changeToBig(String.valueOf(value));
+	}
+	
+	/**
+	 * 将数字转换成英文大写
+	 * @param value 数值型
+	 * @return
+	 */
+	public static String parseToEnglishCurrency(double value){
+		return parseToEnglishCurrency(String.valueOf(value));
 	}
 }

@@ -44,18 +44,18 @@ public class MoneyUtilTest extends Assert {
 	@Test
 	public void testChangeToEnglishBig(){
 		
-		assertEquals("ONE ONLY", MoneyUtil.parse("01"));
-		assertEquals("ELEVEN ONLY", MoneyUtil.parse("11"));
-		assertEquals("NINETY ONLY", MoneyUtil.parse("90"));
-		assertEquals("NINETY NINE ONLY", MoneyUtil.parse("99"));
-		assertEquals("ONE HUNDRED ONLY", MoneyUtil.parse("100"));
-		assertEquals("ONE THOUSAND ONLY", MoneyUtil.parse("1000"));
-		assertEquals("TEN THOUSAND ONLY", MoneyUtil.parse("10000"));
-		assertEquals("ONE HUNDRED THOUSAND ONLY", MoneyUtil.parse("100000"));
-		assertEquals("ONE MILLION ONLY", MoneyUtil.parse("1000000"));
-		assertEquals("ONE HUNDRED AND TWENTY ONE ONLY", MoneyUtil.parse("121"));
-		assertEquals("ONE THOUSAND AND ONE ONLY", MoneyUtil.parse("1001"));
-		assertEquals("ONE THOUSAND AND TEN ONLY", MoneyUtil.parse("1010"));
-		assertEquals("ONE HUNDRED AND TWENTY THREE AND CENTS FORTY FIVE ONLY", MoneyUtil.parse("123.456"));
+		assertEquals("ONE ONLY", MoneyUtil.parseToEnglishCurrency("01"));
+		assertEquals("ELEVEN ONLY", MoneyUtil.parseToEnglishCurrency("11"));
+		assertEquals("NINETY ONLY", MoneyUtil.parseToEnglishCurrency("90"));
+		assertEquals("NINETY NINE ONLY", MoneyUtil.parseToEnglishCurrency("99"));
+		assertEquals("ONE HUNDRED ONLY", MoneyUtil.parseToEnglishCurrency("100"));
+		assertEquals("ONE THOUSAND ONLY", MoneyUtil.parseToEnglishCurrency("1000"));
+		assertEquals("TEN THOUSAND ONLY", MoneyUtil.parseToEnglishCurrency("10000"));
+		assertEquals("ONE HUNDRED THOUSAND ONLY", MoneyUtil.parseToEnglishCurrency("100000"));
+		assertEquals("ONE MILLION ONLY", MoneyUtil.parseToEnglishCurrency("1000000"));
+		assertEquals("ONE HUNDRED AND TWENTY ONE ONLY", MoneyUtil.parseToEnglishCurrency("121"));
+		assertEquals("ONE THOUSAND AND ONE ONLY", MoneyUtil.parseToEnglishCurrency("1001"));
+		assertEquals("ONE THOUSAND AND TEN ONLY", MoneyUtil.parseToEnglishCurrency("1010"));
+		assertEquals("ONE HUNDRED AND TWENTY THREE AND CENTS FORTY FIVE ONLY", MoneyUtil.parseToEnglishCurrency("123.456"));
 	}
 }
