@@ -71,10 +71,32 @@ public class MoneyUtil {
 	     }
 
 	    String xs = ""; // 用来存放转换后小数部分
-	    if (z > -1)
-	     xs = "AND CENTS " + transTwo(rstr) + " "; // 小数部分存在时转换小数
+	    // 小数部分存在时转换小数
+	    if (z > -1){
+	    	//如果小数点前为0,则不加"AND"
+	    	if(Integer.parseInt(lstr) == 0){
+	    		//如果小数部分为0,则在小数部分为"ZERO"
+	    		if(Integer.parseInt(rstr) == 0){
+	    			xs = "CENTS ZERO";
+	    		}else{
+	    			//不为0,则小数部分正常转换
+	    			xs = "CENTS "+ transTwo(rstr);
+	    		}
+	    		
+	    	}else{
+	    		//如果小数部分为0,则在小数部分为"ZERO"
+	    		if(Integer.parseInt(rstr) == 0){
+	    			xs = " AND CENTS ZERO";
+	    		}else{
+	    			//不为0,则小数部分正常转换
+	    			xs = " AND CENTS "+ transTwo(rstr);
+	    		}
+	    		
+	    	}
+	    }
+	    
 
-	    return lm.trim() + " " + xs + "ONLY";
+	    return lm.trim() +  xs + " ONLY";
 	    }
 
 	private static String parseFirst(String s) {

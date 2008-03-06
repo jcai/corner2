@@ -57,5 +57,8 @@ public class MoneyUtilTest extends Assert {
 		assertEquals("ONE THOUSAND AND ONE ONLY", MoneyUtil.parseToEnglishCurrency("1001"));
 		assertEquals("ONE THOUSAND AND TEN ONLY", MoneyUtil.parseToEnglishCurrency("1010"));
 		assertEquals("ONE HUNDRED AND TWENTY THREE AND CENTS FORTY FIVE ONLY", MoneyUtil.parseToEnglishCurrency("123.456"));
+		assertEquals("CENTS FORTY FIVE ONLY", MoneyUtil.parseToEnglishCurrency("0.456"));
+		assertEquals("CENTS ZERO ONLY", MoneyUtil.parseToEnglishCurrency("0.00"));
+		assertEquals("ONE AND CENTS ZERO ONLY", MoneyUtil.parseToEnglishCurrency("1.00"));
 	}
 }
