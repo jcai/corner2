@@ -254,7 +254,8 @@ public abstract class JasperLinkService implements IEngineService{
 	 * 实现方法:通过读取zip包,将zip包里每一个报表文件进行填充并放入List返回.
 	 * <p>
 	 * 读取zip包的方法摘自getZipReportInputStreamMap(InputStream,Map)方法
-	 * 
+	 * 注意:zip包里报表名命名规则:第一张应该为1.jasper,依次类推;若报表有detail,则在数字后边加上detail如2detail.jasper;
+	 * 若报表有子报表则命名时后缀为.zip有detail则加,无则不加.
 	 * @param jasperInStream
 	 * @param page
 	 * @param templateEntity
@@ -271,7 +272,7 @@ public abstract class JasperLinkService implements IEngineService{
 		Map<String, InputStream> jasperInStreamMaps = new HashMap<String, InputStream>();
 		JasperPrint jasperPrint = null;
 		Map<String, String> detailMap = new HashMap<String, String>();
-
+        
 		if (isZipFile(jasperInStream)) {
 			ZipInputStream zis = new ZipInputStream(jasperInStream);
 			BufferedOutputStream dest = null;
