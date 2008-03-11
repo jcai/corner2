@@ -98,7 +98,13 @@ public class MatrixRow<T> extends Vector<T> {
 		
 		//有此索引的元素则返回
 		if(this.size()>index){
-			return this.get(index).toString();
+			
+			String value = this.get(index).toString().trim();
+			//将空字符串("")排除
+			if(value != null && value.length()>0){
+				return value;
+			}
+			
 		}
 		
 		return null;
