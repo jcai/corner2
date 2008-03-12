@@ -16,7 +16,7 @@
 	<span id="winDialog">
 	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" 
 	onmouseover="startObjVisible('test','show')" onmouseout="startObjVisible('test','hid')" /></span>
-	<div id="test" style="position:absolute;DISPLAY: none;">fjdskajfdksjl</div><br/>
+	<div id="test" style="position:absolute;DISPLAY: none;" onmouseover="keepState()" onmouseout="startObjVisible('test','hid')" onclick="run('aaa')">fjdskajfdksjl</div><br/>
 	<br>
 	<br>
 	<br>
@@ -29,6 +29,11 @@
 	<input id="test"/>
 	<input type="submit"/>
 </form>	
+<SCRIPT> 
+	function aaa(){
+		alert("11111111");
+	}
+</SCRIPT> 
 
 <br/>
 <span>Version:0.0.1  $Revision: 3761 $ $Date: 2007-12-03 18:11:19 +0800 $ </span>

@@ -16,13 +16,7 @@ djConfig = { isDebug: true,
 //-->
 </SCRIPT>
 <link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/theme1.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/mac_os_x.css" rel="stylesheet" type="text/css" >	 </link>
 <link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/darkX.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/spread.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/alert.css" rel="stylesheet" type="text/css" >	 </link>
-<link href="../../../../main/js/corner/prototype/window/themes/alert_lite.css" rel="stylesheet" type="text/css" >	 </link>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
 <script type="text/javascript">
@@ -42,10 +36,27 @@ dojo.require("tapestry.namespace")
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
+<script type="text/javascript" src="fade.js"> </script>
+
 
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
-	<span id="winDialog"><img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
-	<br/>
+	<span id="winDialog">
+	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" 
+	onmouseover="startObjVisible('test','show')" onmouseout="startObjVisible('test','hid')" /></span>
+	<div id="test" style="position:absolute;" onmouseover="keepState()" onmouseout="startObjVisible('test','hid')">fjdskajfdksjl</div><br/>
+	<br>
+	<br>
+	<br>
+	<br>
+	<a onclick="dd.setObjOpen()">111111</a>
+	<a onclick="dd.setObjClose()">222222</a>
+	
+	<br>
+	<br>
+	<a onclick="startObjVisible('test','show')">33333</a>
+	<a onclick="startObjVisible('test','hid')">44444</a>
+	<a onclick="keep()">5555555</a>
+	
 	<input id="test"/>
 	<input type="submit"/>
 </form>	
@@ -75,6 +86,7 @@ function selectRecord(obj){
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
 									   "destroyOnClose":"false","all callbacks":"none"});
+	var dd = new Fade("test","dd");
 
 // --></script></body>
 </html>
