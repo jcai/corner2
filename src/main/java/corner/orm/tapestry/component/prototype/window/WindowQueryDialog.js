@@ -16,9 +16,6 @@ WindowDialogBase = CornerBuilder.create({
 		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
 		
 		if(isShowCleanDiv){
-			dojo.debug("11111111111111111111111111111111");
-			dojo.debug(Fade);
-			dojo.debug(showCleanId);
 			dojo.event.connect(dojo.byId(fieldId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
 			dojo.event.connect(dojo.byId(fieldId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
 			dojo.event.connect(dojo.byId(showCleanId),"onmouseover",function(evt){Fade.keepState()});

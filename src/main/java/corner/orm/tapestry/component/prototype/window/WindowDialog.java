@@ -72,6 +72,10 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 			setEventId(getEventHeaderId());
 		}
 		
+		if(isShowCleanDiv()){	 //如果要使用删除功能
+			addShowCleanDiv(writer);
+		}
+		
 	    renderBody(writer, cycle);
 	    
 	    if (!cycle.isRewinding()) {
@@ -88,6 +92,18 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	        
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
+	}
+
+	/**
+	 * @param writer
+	 */
+	private void addShowCleanDiv(IMarkupWriter writer) {
+		writer.begin("div");
+			writer.attribute("id",getShowCleanDivId());
+			writer.attribute("style", "display:none");
+			writer.attribute("class", getShowCleanDivClass());
+			writer.print("删除");
+		writer.end("div");
 	}
 
 	/**
@@ -133,6 +149,13 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	 */
 	public String getDialogButtonName() {
 		return getDialogName() + "_button";
+	}
+	
+	/**
+	 * 获得按钮名称
+	 */
+	public String getShowCleanDivId() {
+		return getDialogName() + "_div";
 	}
 
 	/**
@@ -292,6 +315,18 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 
 	@Parameter
 	public abstract String getShowFunc();
+	
+	/*
+	 * 是否弹出删除层
+	 */
+	@Parameter(defaultValue = "ognl:false")
+	public abstract boolean isShowCleanDiv();
+	
+	@Parameter(defaultValue = "literal:callShowCleanFun")
+	public abstract String getCallShowCleanFun();
+	
+	@Parameter
+	public abstract String getShowCleanDivClass();
 
 	/**
 	 * 获得需要定义控制事件的Id
