@@ -3,7 +3,7 @@
  */
 WindowDialogBase = CornerBuilder.create({
 	extend: CornerBase.prototype,
-	initialize: function(fieldId, props,selectFunName){	
+	initialize: function(fieldId, props,selectFunName,isShowCleanDiv,showCleanId,callShowCleanFunName){	
 		this.fieldId = fieldId;	
 		this.props = props;
 		this.win =null;
@@ -14,6 +14,17 @@ WindowDialogBase = CornerBuilder.create({
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
 		 */
 		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
+		
+		if(isShowCleanDiv){
+			dojo.debug("11111111111111111111111111111111");
+			dojo.debug(Fade);
+			dojo.debug(showCleanId);
+			dojo.event.connect(dojo.byId(fieldId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
+			dojo.event.connect(dojo.byId(fieldId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
+			dojo.event.connect(dojo.byId(showCleanId),"onmouseover",function(evt){Fade.keepState()});
+			dojo.event.connect(dojo.byId(showCleanId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
+			dojo.event.connect(dojo.byId(showCleanId),"onclick",function(evt){Fade.callFun(callShowCleanFunName)});
+		}
 	},
 	loadFrame:function(){
 		frameW=dojo.html.iframeContentWindow(this.win.getContent());
