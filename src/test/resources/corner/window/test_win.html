@@ -26,7 +26,67 @@ dojo.require("tapestry.namespace")
 </script>
 	
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<style>
+.menu-normal {
+	background-image: url(../image/sample_3.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+	cursor: pointer ;
+}
+.menu-selected {
+	background-image: url(../image/sample_1.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+	text-indent: 4px;
 
+}
+.menu-selected-after {
+	background-image: url(../image/sample_2.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	white-space: nowrap;
+	height: 30px;
+	width: 80px;
+	text-align: center;
+
+}
+.menu-table{
+	height:30px;
+	width:960px;
+	text-align: center;
+	font-size: 12px;
+	color: #000000;
+
+}
+.popMenuDiv,#popMenuDiv{
+	position: absolute;
+	background-color: white;
+	border:1px solid black;
+	font: normal 12px Verdana;
+}
+
+
+#popMenuDiv  a,.popMenuDiv a{
+	font-size:12px;
+	text-decoration: none;
+	padding-left: 6px;
+	color: black;
+	display: block;
+}
+
+#popMenuDiv a:hover,.popMenuDiv a:hover{ 
+	background-color: #CCFF9D;
+}
+
+</style>
 </HEAD>
 
 <body bottommargin="0" rightmargin="0" topmargin="0" leftmargin="0" id="Body">
@@ -36,14 +96,13 @@ dojo.require("tapestry.namespace")
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
-<script type="text/javascript" src="fade.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/fade.js"> </script>
 
 
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
 	<span id="winDialog">
-	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" 
-	onmouseover="startObjVisible('test','show')" onmouseout="startObjVisible('test','hid')" /></span>
-	<div id="test" style="position:absolute;" onmouseover="keepState()" onmouseout="startObjVisible('test','hid')">fjdskajfdksjl</div><br/>
+	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
+	<div id="test" class="popMenuDiv" style="display:none">fjdskajfdksjl</div><br/>
 	<br>
 	<br>
 	<br>
@@ -68,6 +127,9 @@ function selectRecord(obj){
 			dojo.byId('test').value=obj.getAttribute("label");
 }
 
+function aaa(){
+	alert("11111111");
+}
 //-->
 </script>
 
@@ -86,8 +148,13 @@ function selectRecord(obj){
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
 									   "destroyOnClose":"false","all callbacks":"none"});
-	var dd = new Fade("test","dd");
-
+	
+	dojo.event.connect(dojo.byId("pwin_winDialog_button"),"onmouseover",function(evt){Fade.elementOpen('test')});
+	dojo.event.connect(dojo.byId("pwin_winDialog_button"),"onmouseout",function(evt){Fade.elementClose('test')});
+	dojo.event.connect(dojo.byId("test"),"onmouseover",function(evt){Fade.keepState()});
+	dojo.event.connect(dojo.byId("test"),"onmouseout",function(evt){Fade.elementClose('test')});
+	dojo.event.connect(dojo.byId("test"),"onclick",function(evt){Fade.callFun('aaa')});
+	
 // --></script></body>
 </html>
 <!-- Render time: ~ 922 ms -->

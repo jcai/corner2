@@ -107,6 +107,7 @@ corner.menu.DropdownMenu={
 	},
 	clearHideMenuHandler:function(evt){
 		dojo.debug("clear hide menu");
+		dojo.debug("this.hideMenuHandler " + this.hideMenuHandler);
 		if(this.hideMenuHandler){
 			clearTimeout(this.hideMenuHandler);
 		}
