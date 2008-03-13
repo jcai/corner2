@@ -19,6 +19,8 @@
 	<binding value="listener:doWinPopQueryPage" name="listener"/>
 	<binding value="literal:selectRecord" name="onSelectFunName"/>
     <binding value="literal:google" name="title"/>
+    <binding name="showCleanDiv" value="ognl:true" />
+    <binding name="showCleanDivClass" value="literal:popMenuDiv" />
   </component>
   <component type="corner:WindowQueryDialog" id="dialog2">
 	  <binding value="literal:widget/WinSelectionListPage" name="queryPageName"/>
