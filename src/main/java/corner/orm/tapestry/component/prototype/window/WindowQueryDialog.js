@@ -16,11 +16,29 @@ WindowDialogBase = CornerBuilder.create({
 		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
 		
 		if(isShowCleanDiv){
-			dojo.event.connect(dojo.byId(fieldId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
-			dojo.event.connect(dojo.byId(fieldId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
-			dojo.event.connect(dojo.byId(showCleanId),"onmouseover",function(evt){Fade.keepState()});
-			dojo.event.connect(dojo.byId(showCleanId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
-			dojo.event.connect(dojo.byId(showCleanId),"onclick",function(evt){Fade.callFun(callShowCleanFunName)});
+			
+			//设定下拉菜单的宽度
+			contentWidth=dojo.html.getContentBox($(fieldId)).width;
+			dojo.html.setContentBox($(showCleanId),{width:contentWidth});
+			dojo.debug("content Width:"+contentWidth);
+			//得到菜单的位置
+			with(dojo.html.getAbsolutePosition($(fieldId))){
+				var _left=left;
+				var _top=top;
+			}
+			//设定下拉菜单的位置
+			with(dojo.html){
+				_top+=dojo.html.getContentBox($(fieldId)).height;
+				dojo.debug("left :"+_left+" _top:"+_top);
+				dojo.html.placeOnScreen($(showCleanId),_left,_top,[0,0],false);	
+			}
+			
+			dojo.event.connect($(fieldId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
+			dojo.event.connect($(fieldId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
+//			dojo.event.connect($(showCleanId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
+			dojo.event.connect($(showCleanId),"onmouseover",function(evt){Fade.keepState()});
+			dojo.event.connect($(showCleanId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
+			dojo.event.connect($(showCleanId),"onclick",function(evt){Fade.callFun(callShowCleanFunName)});
 		}
 	},
 	loadFrame:function(){
@@ -53,6 +71,20 @@ WindowDialogBase = CornerBuilder.create({
 	},
 	onSelect:function(element){
 		eval(this.selectFunName+"(element)");
+	},
+	getPos:function(obj){
+		var x,y,objParent;
+		with(obj){
+			x=offsetLeft;
+			y=offsetTop;
+			objParent=offsetParent;
+			while(objParent.tagName.toUpperCase()!= "BODY"){
+				x+=objParent.offsetLeft;
+				y+=objParent.offsetTop;
+				objParent = objParent.offsetParent;
+			}
+		}
+		return {"x":x,"y":y};
 	}
 });
 

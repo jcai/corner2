@@ -1,7 +1,7 @@
 var Fade = {
 	intTimeStep:20,
 	isIe:(window.ActiveXObject)?true:false,
-	intAlphaStep:(this.isIe)?5:0.05,
+	intAlphaStep:((window.ActiveXObject)?true:false)?5:0.05,
 	curSObj:null,
 	curOpacity:null,
 	timer:null,
@@ -48,10 +48,11 @@ var Fade = {
 	 */
 	setObjOpen: function() {
 		if(this.isIe){
-			this.curSObj.filters.alpha.opacity+=this.intAlphaStep;
+			this.curOpacity+=this.intAlphaStep;
+			this.curSObj.filters.alpha.opacity=this.curOpacity;
 			if (this.curSObj.filters.alpha.opacity<100) {
-				this.timer=setTimeout('Fade.setObjOpen()',this.intTimeStep)
-			};
+				this.timer=setTimeout('Fade.setObjOpen()',this.intTimeStep);
+			}
 		}else{
 			this.curOpacity+=this.intAlphaStep;
 			this.curSObj.style.opacity = this.curOpacity;
