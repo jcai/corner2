@@ -167,7 +167,7 @@ public class NumTranslator extends AbstractTranslator {
 			return super.getMessage();
 		}
 		return MessageFormat.format(srcPattern.replaceAll(DEFINE_PATTERN,
-				"{0}是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."+(this.isNegative()?"":"且不能是负数.")),filedName);
+				"[{0}]是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."+(this.isNegative()?"":"且不能是负数.")),filedName);
 	}
 
 	/**
