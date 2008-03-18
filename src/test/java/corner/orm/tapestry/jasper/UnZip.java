@@ -58,7 +58,6 @@ public class UnZip extends BaseModelTestCase{
 	/**
 	 * 
 	 */
-	@Test(groups="model")
 	public void testUnZipBlobSingleFile(){
 		A main = null;
 		main = (A) this.load(A.class, "282828c1154a53a501154a54c4780001");

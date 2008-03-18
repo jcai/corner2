@@ -85,7 +85,26 @@ dojo.require("tapestry.namespace")
 #popMenuDiv a:hover,.popMenuDiv a:hover{ 
 	background-color: #CCFF9D;
 }
+.popDiv,#popDiv{
+	position: absolute;
+	background-color:#FFFF99;
+	border:1px solid black;
+	font: normal 12px Verdana;
+	color:#FF0000;
+}
 
+
+#popDiv  a,.popDiv a{
+	font-size:12px;
+	text-decoration: none;
+	padding-left: 6px;
+	color: black;
+	display: block;
+}
+
+#popDiv a:hover,.popDiv a:hover{ 
+	background-color: #CCFF9D;
+}
 </style>
 </HEAD>
 
@@ -102,7 +121,7 @@ dojo.require("tapestry.namespace")
 <form method="post" action="/widget/QueryDialogTest,AForm.direct" id="AForm">
 	<span id="winDialog">
 	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" /></span>
-	<div id="test" style="DISPLAY: none;FILTER: alpha(opacity=0); ">fjdskajfdksjl</div><br/>
+	<div id="test" style="FILTER: alpha(opacity=0);" class="popDiv">fjdskajfdksjl</div><br/>
 	<br>
 	
 	<input id="test" />
