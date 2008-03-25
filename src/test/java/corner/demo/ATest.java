@@ -1,12 +1,11 @@
 package corner.demo;
 
-import java.util.Vector;
-
 import org.hibernate.Session;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
 import corner.orm.hibernate.v3.MatrixRow;
+import corner.service.EntityService;
 import corner.test.AbstractTestCase;
 
 public class ATest extends AbstractTestCase {
@@ -31,5 +30,12 @@ public class ATest extends AbstractTestCase {
 		assertNotNull(a1.getColors());
 		assertEquals(a1.getColors().size(),2);
 		this.commitTransaction();
+	}
+	
+	@Test
+	public void testZeroCountQuery(){
+		EntityService service = (EntityService)container.getApplicationContext().getBean("entityService");
+		service.bulkUpdate("delete from corner.demo.model.one.A ");
+		assertEquals(0, service.getExistRelativeRowCount(A.class, null));
 	}
 }

@@ -488,31 +488,26 @@ public class EntityService {
 				});
 	}
 
+
 	/**
-	 * 获得一个组结果的个数，带条件的
+	 * 查询给定clazz的实体在数据库中的记录数量
 	 * 
-	 * @param clazz
-	 *            类
-	 * @param criterion
-	 *            条件
-	 * @return
+	 * @param clazz 给定的Class类
+	 * @param criterion 查询条件
+	 * @return int类型的整数，没有符合条件的记录时，返回0
 	 */
-	public Integer getExistRelativeRowCount(final Class clazz,
-			final Criterion criterion) {
+	public int getExistRelativeRowCount(final Class clazz, final Criterion criterion) {
 		return this.getExistRelativeRowCount(clazz.getName(), criterion);
 	}
 
 	/**
-	 * 获得一个组结果的个数，带条件的
+	 * 查询给定clazzName的实体在数据库中的记录数量
 	 * 
-	 * @param clazzName
-	 *            类名
-	 * @param criterion
-	 *            条件
-	 * @return
+	 * @param clazzName 类名
+	 * @param criterion 查询条件
+	 * @return int类型的整数，没有符合条件的记录时，返回0
 	 */
-	public Integer getExistRelativeRowCount(final String clazzName,
-			final Criterion criterion) {
+	public int getExistRelativeRowCount(final String clazzName, final Criterion criterion) {
 		return (Integer) ((HibernateObjectRelativeUtils) this
 				.getObjectRelativeUtils()).getHibernateTemplate().execute(
 				new HibernateCallback() {
@@ -521,7 +516,9 @@ public class EntityService {
 							throws HibernateException, SQLException {
 						Criteria criteria = session.createCriteria(clazzName);
 
-						criteria.add(criterion);
+						if(criterion != null){//增加条件为空的情况
+							criteria.add(criterion);
+						}
 						criteria.setProjection(Projections.rowCount());
 
 						return criteria.list().iterator().next();
