@@ -36,16 +36,12 @@ function addRow(id){
 	
 	//删除最后一个增加的id
 	var values = document.getElementsByName(getPagePersistentId());
-	dojo.debug('values.length: ' + values.length);
 	
 	if(values.length - 1 <= 0){ //如果是0
 		return;
 	}
 	
 	var field = values[values.length - 1];
-	dojo.debug('field: ' + field);
-	
-	dojo.debug('field old value: ' + field.value);
 	
 	field.value="";
 }
@@ -90,5 +86,32 @@ function dellRow(pid,id){
 // 删除指定table的指定行
 	var obj = dojo.byId(pid);
 	dojo.debug("del "  + id);
-	obj.deleteRow(id);
+	if(id==0){
+		var cellNum = obj.rows[0].cells.length; //获得有多少个td的个数
+		
+		for(var i=0; i<cellNum; i++){
+			
+			var cell = obj.rows[0].cells[i]; //获得一个td
+			
+			for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){	//遍历td里面的元素
+				
+				var child = cell.childNodes[childIndex];
+				
+				switch(child.type){
+				case "hidden":
+					 child.value = "";
+					 break;
+				case "text":
+					 child.value = "";
+					 break;
+				case "checkbox":
+					 child.value = "";
+					 child.checked = false;
+					 break;
+				}
+			}
+		}
+	}else{
+		obj.deleteRow(id);		
+	}
 }
