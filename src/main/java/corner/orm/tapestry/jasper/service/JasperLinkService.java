@@ -157,6 +157,7 @@ public abstract class JasperLinkService implements IEngineService{
 	 */
 	public static boolean isZipFile(InputStream readStream) {
 		byte[] magic = new byte[2];
+		readStream.mark(2048);
 		try {
 			if (readStream.read(magic) > 1) {
 				if ((magic[0] == 'P') && (magic[1] == 'K')) {
