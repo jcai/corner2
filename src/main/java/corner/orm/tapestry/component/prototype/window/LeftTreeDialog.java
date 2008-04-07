@@ -34,10 +34,11 @@ public abstract class LeftTreeDialog extends WindowDialog{
 	@Override
 	protected void appendScriptParms(Map<String, Object> parms,
 			IRequestCycle cycle) {
-		JSONArray json = jsonDependFields();
-		
 		parms.put("page", cycle.getPage().getPageName());
-		parms.put("dependFields", json.toString().replaceAll("\"", "'"));
+		if(getDependFields()!=null){
+			JSONArray json = jsonDependFields();
+			parms.put("dependFields", json.toString().replaceAll("\"", "'"));
+		}
 	}
 
 	/**
