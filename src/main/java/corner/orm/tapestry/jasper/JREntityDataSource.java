@@ -52,7 +52,14 @@ public class JREntityDataSource implements JRDataSource{
 		this.page = page;
 		if(sourceRefer != null){
 			IBinding binding = getOrCreateBinding("source ognl",sourceRefer);
-			this.source = ((Collection) binding.getObject()).iterator();
+			//在页面提供的数据源没数据时需返回为null,这时也应该显示其他的数据,不显示detail循环数据.
+			//这时将source赋值为null,做未配置数据源情况处理.
+			if(binding.getObject() == null){
+				this.source = null;
+			}else{
+				this.source = ((Collection) binding.getObject()).iterator();
+			}
+			
 		}
 	}
 	/**
