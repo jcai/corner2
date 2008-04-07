@@ -1,12 +1,12 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
     <form jwcid="BForm" action="BList.html">
-		name <a href=# onclick="addRow('t')">add</a><br/>
+		增加 <a href=# onclick="addRow('t')"><img src="../images/add.png" border="0"/></a><br/>
       <table id="t">
 		 
 		<tr jwcid="GainPointField">
 			<td>
-				id <input type="hidden" id="pid" name ="poid" value=""	/>
+				id <input type="hidden" id="poid" name ="poid" value=""	/>
 			</td>
 			<td>
 				name <input type="text" id="field1" name ="name"	/>
@@ -15,7 +15,7 @@
 				cnName <input type="text" id="field2" name ="cnName"	/>
 			</td>
 			<td>
-				<input type="button" id="testAdd" value="删除" onclick="dellRow('t',this.parentNode.parentNode.rowIndex)"/>
+				<a href=# onclick="dellRow('t',getTrIndex(this))""><img src="../images/cancel.png" border="0"/>
 			</td>							
 		</tr>
 			  
