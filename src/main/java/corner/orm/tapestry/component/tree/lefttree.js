@@ -16,7 +16,12 @@ LeftTree.prototype = {
 							this.element.setAttribute("right",data.right);
 							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
-							this.element.setAttribute("entityId",data.id);
+							this.element.setAttribute("this",data.thisEntity);
+							
+							//变量json名值对，增加返回内容
+							for(var key in data.returnDates){
+								this.element.setAttribute(key,data.returnDates[key]);
+							}
 
 							if((data.right - data.left) == 1){
 								this.clickExpense = function(evt){
@@ -49,7 +54,7 @@ LeftTree.prototype = {
 										depend += parent.document.getElementById(dependFields[i]).value;
 									}
 								}else{
-									depend="null";
+									depend="";
 								}
 															
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 

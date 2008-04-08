@@ -60,14 +60,27 @@ public abstract class LeftTree extends BaseComponent{
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	public String getLinkUrl(){
-		ILink link = this.getLeftTreeService().getLink(true, new Object[1]);
+		Object [] parameters = new Object[1];
+		parameters[0] = getReturnValues();
+		
+		ILink link = this.getLeftTreeService().getLink(true, parameters);
 		return link.getURL();
 	}
 	
 	/** 名称 * */
 	@Parameter(defaultValue = "literal:My Tree")
 	public abstract String getTitle();
+	
+	/**
+	 * 设置返回值的名称和需要返回的内容
+	 * json的形式如：{"htmlAttribute1":"entityGetName1","htmlAttribute2":"entityGetName2"}
+	 */
+	@Parameter
+	public abstract String getReturnValues();
 	
 	/**
 	 * @return

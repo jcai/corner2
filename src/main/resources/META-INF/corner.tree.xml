@@ -15,6 +15,7 @@
 					value="infrastructure:requestCycle"/>
 				<set-object property="entityService"
 					value="spring:entityService"/>
+				<set-object property="dataSqueezer" value="service:tapestry.data.DataSqueezer"/>
 			</construct>
 		</invoke-factory>
 	</service-point>
