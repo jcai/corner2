@@ -33,6 +33,8 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.util.Defense;
@@ -61,6 +63,7 @@ public abstract class JasperLinkService implements IEngineService{
 	private static final String MAIN_REPORT = "main.jasper";
 	private static final int BUFFER = 2048;
 	private static final String DETAIL = "detail";
+	private static final String PAGE_NUMBER_ADD = "pageNumberAdd";
 	
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)
@@ -220,15 +223,19 @@ public abstract class JasperLinkService implements IEngineService{
 
 	/**
 	 * 获得JasperPrint
-	 * @param detailCollection 细节的计划名称
-	 * @param detailEntity 循环用的entity geter
-	 * @param objects
-	 * @throws JRException 
-	 * @throws IOException 
+	 * @param jasperInStream .jasper文件的流
+	 * @param page   报表对应的页面
+	 * @param templateEntity  报表实体
+	 * @param detailEntity  数据源实体
+	 * @param detailCollection  数据源集合
+	 * @param pageNumber 用于多张报表时记录前面已填充报表的总页数.在非第一张报表时使用.
+	 * <p>在报表中表示当前页数应该为:Integer.valueOf($V{PAGE_NUMBER}.intValue()+$P{pageNumberAdd}.intValue()),报表中需加参数pageNumberAdd并默认值为0.
+	 * @return 填充好的JasperPrint对象
+	 * @throws JRException
 	 */
-	protected JasperPrint getJasperPrint(InputStream jasperInStream,IPage page,Object templateEntity ,String detailEntity, String detailCollection) throws JRException{
+	protected JasperPrint getJasperPrint(InputStream jasperInStream,IPage page,Object templateEntity ,String detailEntity, String detailCollection,int pageNumber) throws JRException{
 		JasperPrint jasperPrint = null;
-		
+	
 		Map parameters = null;
 		
 		//如果要传递参数
@@ -243,6 +250,11 @@ public abstract class JasperLinkService implements IEngineService{
 		if(isZipFile(jasperInStream)){
 			getZipReportInputStreamMap(jasperInStream, parameters);
 			jasperInStream = (InputStream) parameters.get(MAIN_REPORT);
+		}
+
+		//前边已填充报表则设置参数到报表
+		if(pageNumber >0){
+			parameters.put(PAGE_NUMBER_ADD, pageNumber);
 		}
 		
 		jasperPrint = JasperFillManager.fillReport(jasperInStream, parameters, getDataSource(page,detailCollection,detailEntity));
@@ -273,7 +285,8 @@ public abstract class JasperLinkService implements IEngineService{
 		Map<String, InputStream> jasperInStreamMaps = new HashMap<String, InputStream>();
 		JasperPrint jasperPrint = null;
 		Map<String, String> detailMap = new HashMap<String, String>();
-        
+		int pageNumber = 0;
+		
 		if (isZipFile(jasperInStream)) {
 			ZipInputStream zis = new ZipInputStream(jasperInStream);
 			BufferedOutputStream dest = null;
@@ -329,17 +342,25 @@ public abstract class JasperLinkService implements IEngineService{
 			// 如果有detail则给它正确的数据源,否则给null
 			if (detailMap.get(String.valueOf(i)) != null) {
 				jasperPrint = this.getJasperPrint(jasperInStreamMap, page,
-						templateEntity, detailEntity, detailCollection);
+						templateEntity, detailEntity, detailCollection,pageNumber);
 			} else {
 				jasperPrint = this.getJasperPrint(jasperInStreamMap, page,
-						templateEntity, null, null);
+						templateEntity, null, null,pageNumber);
 			}
             
+			int pageSize = jasperPrint.getPages().size();
+			pageNumber += pageSize;   //将前边的JasperPrint的页数进行记录
+			
 			//报表页数>0才添加进List进行导出打印
-           if(jasperPrint.getPages().size()>0){
+           if(pageSize>0){
             	jasperPrintList.add(jasperPrint);
            }
             
+		}
+		//TODO 在这可能因为数据源里没有数据导致pageSize为0,使得jasperPrintList里没数据 导出报表时异常.
+		//等待解决"数据源没数据打印出空白页面"时一块解决此问题. 现在先保证没异常,打印出空白页.
+		if(jasperPrintList.size() == 0){
+			jasperPrintList.add(jasperPrint);
 		}
 		return jasperPrintList;
 	}

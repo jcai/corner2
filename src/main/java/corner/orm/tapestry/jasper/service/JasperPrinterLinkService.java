@@ -49,7 +49,7 @@ public class JasperPrinterLinkService extends JasperLinkService{
 			//判断是从那里读取流
 			InputStream is = isUsetemplatePath ? getAssetStream(page,templatePath) : getAssetStream(templateEntity);
 			
-			JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection);
+			JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection,0);
 			
 			ObjectOutputStream os = new ObjectOutputStream(response.getOutputStream(new ContentType()));
 			os.writeObject(jasperPrint);

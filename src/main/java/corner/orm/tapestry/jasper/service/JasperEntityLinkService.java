@@ -67,7 +67,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 				List<JasperPrint> jasperPrintList = getJasperPrintList(is, page, templateEntity, detailEntity, detailCollection);
 				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
 			}else{
-				JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection);
+				JasperPrint jasperPrint = getJasperPrint(is,page,templateEntity,detailEntity,detailCollection,0);
 				//如果只要第一页,设置导出页数参数为0
 				if(onlyOnePageInRecort){
 					exporter.setParameter(JRExporterParameter.PAGE_INDEX,Integer.valueOf(0));
