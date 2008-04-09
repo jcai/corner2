@@ -18,6 +18,6 @@
 <input-symbol key="title" required="yes" />
 
 <initialization>
-	new LeftTree("${component.clientId}","${linkUrl}","${title}");
+	window.tree = new LeftTree("${component.clientId}","${linkUrl}","${title}");
 </initialization>
 </script>

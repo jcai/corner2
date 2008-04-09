@@ -79,6 +79,6 @@ LeftTree.prototype = {
 					if(this.options.sortable){ this.createSortable(); }
 				}
 			});
-			new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}});
+			this.treeObj = new Ajax.Tree.Invoice(element,'root','leftTreeSite',{data:{name:title,left:-1,right:-1,depth:0}});
 	}
 }

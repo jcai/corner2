@@ -11,6 +11,14 @@ LeftTreeDialog.prototype = {
 				queryClassName : queryClassName,
 				dependFields : dependFields,
 				page : page
+			},
+			loadFrame:function(){
+				frameW=dojo.html.iframeContentWindow(this.win.getContent());
+				if(frameW){
+					frameW.queryBox=this;
+					frameW.tree.treeObj.onClick();
+					dojo.debug("frameW.queryBox : " + frameW.queryBox);
+				}
 			}
 		});
 		this.tree = new TreeDialog(fieldId,props,selectFunName);
