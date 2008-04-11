@@ -25,7 +25,6 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import org.apache.hivemind.ApplicationRuntimeException;
-import org.apache.hivemind.HiveMind;
 import org.apache.hivemind.util.PropertyUtils;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
@@ -54,33 +53,23 @@ public class NumTranslator extends AbstractTranslator {
 	private static final String NEGATIVE_STR="-?";
 	private static final String REPLACE_STR="\\\\d{0,$1}(\\\\.\\\\d{0,$2})?\\";
 
-	private String srcPattern;
-
-	private String validatePattern;
-
-	private String formatPattern;
-	
 	private boolean _omitZero = true;
 	private boolean _negative=true;
 
 	public NumTranslator() {
-		this.setPattern(getDefaultPattern());
+		this.setPattern(getPattern());
 	}
 
 	// TODO: Needed until HIVEMIND-134 fix is available
 	public NumTranslator(String initializer) {
 		PropertyUtils.configureProperties(this, initializer);
-		 if (HiveMind.isBlank(srcPattern))
-	        {
-	            this.setPattern(getDefaultPattern());
-	        }
 	}
 
 	/**
 	 * 得到默认的pattern
 	 * @return
 	 */
-	protected String getDefaultPattern() {
+	protected String getPattern() {
 		return "{100:0}";
 	}
 
@@ -119,8 +108,27 @@ public class NumTranslator extends AbstractTranslator {
 	}
 
 	public DecimalFormat getDecimalFormat(Locale locale) {
-		return new DecimalFormat(formatPattern,
+		return new DecimalFormat(getForamtPattern(),
 				new DecimalFormatSymbols(locale));
+	}
+	//得到格式化的字符串模式
+	protected String getForamtPattern(){
+		String srcPattern = this.getPattern();
+		
+		int places = Integer.parseInt(srcPattern.replaceAll(DEFINE_PATTERN,
+				"$2"));
+		String formatPattern = "0";
+		if (places > 0) {
+			formatPattern += ".";
+		}
+		while (places-- > 0) {
+			formatPattern += "0";
+		}
+		return formatPattern;
+	}
+	protected String getValidatePattern(){
+		return this.getPattern().replaceAll(DEFINE_PATTERN,getReplaceString());
+		
 	}
 
 	/**
@@ -135,7 +143,7 @@ public class NumTranslator extends AbstractTranslator {
 		super.renderContribution(writer, cycle, context, field);
 		//初始化pattern
 		initPattern();
-		String pattern = _matcher.getEscapedPatternString(validatePattern);
+		String pattern = _matcher.getEscapedPatternString(getValidatePattern());
 
 		JSONObject profile = context.getProfile();
 
@@ -158,15 +166,12 @@ public class NumTranslator extends AbstractTranslator {
 			IFormComponent field) {
 		return messages.formatValidationMessage(getMessage(field.getDisplayName()),
 				ValidationStrings.PATTERN_MISMATCH, new Object[] {
-						field.getDisplayName(), validatePattern });
+						field.getDisplayName(), getValidatePattern() });
 	}
 
 	
 	public String getMessage(String filedName) {
-		if (this.srcPattern == null) {
-			return super.getMessage();
-		}
-		return MessageFormat.format(srcPattern.replaceAll(DEFINE_PATTERN,
+		return MessageFormat.format(this.getPattern().replaceAll(DEFINE_PATTERN,
 				"[{0}]是错误的数字格式，正确的为：小数点前面至多$1位，后面至多$2位."+(this.isNegative()?"":"且不能是负数.")),filedName);
 	}
 
@@ -189,28 +194,14 @@ public class NumTranslator extends AbstractTranslator {
 		if (!pattern.matches(DEFINE_PATTERN)) {
 			throw new ApplicationRuntimeException("错误的pattern定义，正确的格式应该为：{x:x}");
 		}
-		this.srcPattern = pattern;
-		
-		
 	}
 	/**
 	 * 对pattern进行初始化处理
 	 *
 	 */
 	private void initPattern(){
-		if(this.srcPattern==null){
+		if(this.getPattern()==null){
 			throw new ApplicationRuntimeException("初始化pattern错误，没有定义pattern!");
-		}
-		
-		this.validatePattern = srcPattern.replaceAll(DEFINE_PATTERN,getReplaceString());
-		int places = Integer.parseInt(srcPattern.replaceAll(DEFINE_PATTERN,
-				"$2"));
-		formatPattern = "0";
-		if (places > 0) {
-			formatPattern += ".";
-		}
-		while (places-- > 0) {
-			formatPattern += "0";
 		}
 	}
 	 /**
