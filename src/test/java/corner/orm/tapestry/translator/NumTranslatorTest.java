@@ -14,7 +14,6 @@ package corner.orm.tapestry.translator;
 
 import java.util.Locale;
 
-import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
 import org.apache.tapestry.form.validator.BaseValidatorTestCase;
@@ -107,8 +106,15 @@ public class NumTranslatorTest extends BaseValidatorTestCase{
 	}
 	@Test
 	public void test_format() throws ValidatorException{
-		NumTranslator translator=new NumTranslator();
-		translator.setPattern("{6:2}");
+		NumTranslator translator=new NumTranslator(){
+			/**
+			 * @see corner.orm.tapestry.translator.NumTranslator#getPattern()
+			 */
+			@Override
+			protected String getPattern() {
+				return "{6:2}";
+			}
+		};
 		
 		IFormComponent field=newField();
 		
@@ -122,8 +128,15 @@ public class NumTranslatorTest extends BaseValidatorTestCase{
 	}
 	@Test
 	public void test_format2() throws ValidatorException{
-		NumTranslator translator=new NumTranslator();
-		translator.setPattern("{6:4}");
+		NumTranslator translator=new NumTranslator(){
+			/**
+			 * @see corner.orm.tapestry.translator.NumTranslator#getPattern()
+			 */
+			@Override
+			protected String getPattern() {
+				return "{6:4}";
+			}
+		};
 		
 		IFormComponent field=newField();
 		
@@ -138,8 +151,15 @@ public class NumTranslatorTest extends BaseValidatorTestCase{
 	
 	@Test
 	public void test_format_zero() throws ValidatorException{
-		NumTranslator translator=new NumTranslator();
-		translator.setPattern("{6:4}");
+		NumTranslator translator=new NumTranslator(){
+			/**
+			 * @see corner.orm.tapestry.translator.NumTranslator#getPattern()
+			 */
+			@Override
+			protected String getPattern() {
+				return "{6:4}";
+			}
+		};
 		
 		IFormComponent field=newField();
 		
