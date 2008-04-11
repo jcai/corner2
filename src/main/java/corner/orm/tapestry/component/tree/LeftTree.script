@@ -15,7 +15,7 @@
 
 <input-symbol key="component" required="yes" />
 <input-symbol key="linkUrl" required="yes" />
-<input-symbol key="title" required="yes" />
+<input-symbol key="title" required="no" />
 
 <initialization>
 	window.tree = new LeftTree("${component.clientId}","${linkUrl}","${title}");

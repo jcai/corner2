@@ -72,7 +72,7 @@ public abstract class LeftTree extends BaseComponent{
 	}
 	
 	/** 名称 * */
-	@Parameter(defaultValue = "literal:My Tree")
+	@Parameter
 	public abstract String getTitle();
 	
 	/**
