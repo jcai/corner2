@@ -21,15 +21,11 @@ span.treedata {
 	background-color: blue;
     border:1px;
 }
-dl {
+.treeDl {
 	margin: 0px;
 }
-dt {
-	
+.treeDt {
 	float: left;
 	width: 300px;
-}
-dd {
-	
-	text-align: right;
+	vertical-align: sub;
 }

@@ -6,9 +6,9 @@ LeftTree.prototype = {
 					leftTreeSite: {
 						page: page,
 						insertion: function(el,data){
-							var node = Builder.node('dl',{},
+							var node = Builder.node('dl',{className:'treeDl'},
 							[
-								Builder.node('dt',[data.name]),
+								Builder.node('dt',{className:'treeDt'},[data.name]),
 							]);
 							el.appendChild(node);
 
