@@ -180,14 +180,14 @@
 		<repository>
 			<id>central</id>
 			<name>maxinfo</name>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/repo</url>
 		</repository>
 		<repository>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
 			<id>snapshots</id>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/repo</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -196,14 +196,14 @@
 				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/repo</url>
 		</pluginRepository>
 		<pluginRepository>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
 			<id>snapshots</id>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/repo</url>
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
@@ -448,12 +448,12 @@
 		<repository>
 			<id>maxinfo-release</id>
 			<name>bjmaxinfo release </name>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/libs-releases@repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/libs-releases@repo</url>
 		</repository>
 		<snapshotRepository>
 			<id>maxinfo-snapshot</id>
 			<name>bjmaxinfo snapshot </name>
-			<url>http://dev.bjmaxinfo.com:8080/artifactory/libs-snapshots@repo</url>
+			<url>http://dev.bjmaxinfo.com:5180/artifactory/libs-snapshots@repo</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
