@@ -58,8 +58,8 @@ public class JasperEntityLinkService extends JasperLinkService{
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void service(IRequestCycle cycle, IPage page,boolean isUsetemplatePath,boolean multiPageInReport,
-			boolean onlyOnePageInRecort, String templatePath,IBlobModel templateEntity, String downloadFileName,
+	protected void service(IRequestCycle cycle, IPage page,boolean isUsetemplatePath, 
+			String templatePath,IBlobModel templateEntity, String downloadFileName,
 			String taskType, String detailEntity, String detailCollection) throws IOException{
 		IJasperExporter jasperAction = TaskType.valueOf(taskType).newInstance();
 		try {			
@@ -73,6 +73,8 @@ public class JasperEntityLinkService extends JasperLinkService{
 			getJasperParameters(is, parameters);		
 			
 			IPageRooted<Object, Object> activePage = (IPageRooted<Object, Object>) page;
+			boolean multiPageInReport = false;
+			boolean onlyOnePageInRecort = false;
 			if(parameters.containsKey(TEMPLATE_PAGE)) {	
 				InputStream propStream = (InputStream)parameters.get(TEMPLATE_PAGE);			
 				String jsonParam = getLinkParameter(propStream);	

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -90,9 +91,7 @@ public abstract class JasperLinkService implements IEngineService{
 		
 		return linkFactory.constructLink(this, post, parameters, true);
 	}
-	
-	
-	
+		
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#service(org.apache.tapestry.IRequestCycle)
 	 */
@@ -117,10 +116,8 @@ public abstract class JasperLinkService implements IEngineService{
 		
 		String detailEntity = (String) parameters[4];
 		String detailCollection = (String) parameters[5];
-		boolean multiPageInRecord = ((Boolean) parameters[6]).booleanValue();
-		boolean onlyOnePageInRecort = ((Boolean) parameters[7]).booleanValue();
 		
-		service(cycle,page,isUsetemplatePath,multiPageInRecord,onlyOnePageInRecort,templatePath,templateEntity,downloadFileName,taskType,detailEntity,detailCollection);
+		service(cycle,page,isUsetemplatePath,templatePath,templateEntity,downloadFileName,taskType,detailEntity,detailCollection);
 	}
 	
 	/**
@@ -128,8 +125,6 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @param cycle
 	 * @param page 与特定报表对应的页面类
 	 * @param isUsetemplatePath 判断是从哪里读取流
-	 * @param multiPageInRecord 为true,一个报表有多页(非循环分页)
-	 * @param onlyOnePageInRecort 只打印第一页
 	 * @param templatePath 报表模板的路径
 	 * @param templateEntity 存放报表的实体类
 	 * @param downloadFileName 报表保存的文件名
@@ -139,7 +134,7 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @throws IOException
 	 */
 	protected abstract void service(IRequestCycle cycle, IPage page,
-			boolean isUsetemplatePath,boolean multiPageInRecord,boolean onlyOnePageInRecort, String templatePath,
+			boolean isUsetemplatePath, String templatePath,
 			IBlobModel templateEntity, String downloadFileName,
 			String taskType, String detailEntity, String detailCollection)
 			throws IOException;
@@ -312,6 +307,7 @@ public abstract class JasperLinkService implements IEngineService{
 		int pageNumber = 0;	
 		JasperPrint jasperPrint = null;	
 		Object[] jasperName = parameters.keySet().toArray();
+		Arrays.sort(jasperName);
 		
 		for(int i = 0; i < jasperName.length; i++) {		
 		
