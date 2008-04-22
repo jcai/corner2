@@ -57,12 +57,22 @@ public class NumTranslator extends AbstractTranslator {
 	private boolean _negative=true;
 
 	public NumTranslator() {
+		this.setNegative(this.getDefaultNegative());
 		this.setPattern(getPattern());
 	}
 
 	// TODO: Needed until HIVEMIND-134 fix is available
 	public NumTranslator(String initializer) {
+		this.setNegative(this.getDefaultNegative());
 		PropertyUtils.configureProperties(this, initializer);
+	}
+
+	/**
+	 * 得到默认是否为负数
+	 * @return
+	 */
+	protected boolean getDefaultNegative() {
+		return true;
 	}
 
 	/**
