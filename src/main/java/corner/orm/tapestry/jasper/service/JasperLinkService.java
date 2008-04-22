@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ import org.apache.tapestry.asset.AssetSource;
 import org.apache.tapestry.binding.BindingSource;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.web.WebResponse;
@@ -53,6 +55,7 @@ import org.apache.tapestry.web.WebResponse;
 import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.IJasperParameter;
 import corner.orm.tapestry.jasper.JREntityDataSource;
+import corner.orm.tapestry.page.relative.IPageRooted;
 
 /**
  * 抽象类
@@ -65,6 +68,8 @@ public abstract class JasperLinkService implements IEngineService{
 	private static final String MAIN_REPORT = "main.jasper";
 	private static final int BUFFER = 2048;
 	private static final String DETAIL = "detail";
+	private static final String TEMPLATE_PAGE = "jasper.properties";
+	private static final String PAGE = "page";
 	private static final String PAGE_NUMBER_ADD = "pageNumberAdd";
 	
 	/**
@@ -265,8 +270,8 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @throws IOException
 	 */
 	protected void getJasperParameters(InputStream jasperInStream, Map<Object, Object> parameters) throws JRException, IOException{		
-		if(isZipFile(jasperInStream)){		
-			getZipReportInputStreamMap(jasperInStream, parameters);		
+		if(isZipFile(jasperInStream)){				
+			getZipReportInputStreamMap(jasperInStream, parameters);
 		}
 	}
 	
@@ -297,10 +302,11 @@ public abstract class JasperLinkService implements IEngineService{
 	 * @return
 	 * @throws JRException
 	 * @throws IOException
+	 * @throws ParseException 
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<JasperPrint> getJasperPrintList(InputStream jasperInStream,
-			IPage page, Map<Object, Object> parameters, String detailEntity, String detailCollection) throws JRException, IOException {
+	protected List<JasperPrint> getJasperPrintList(IRequestCycle cycle, InputStream jasperInStream,
+			IPage page, Map<Object, Object> parameters, String detailEntity, String detailCollection) throws JRException, IOException, ParseException {
 
 		List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 		
@@ -313,13 +319,33 @@ public abstract class JasperLinkService implements IEngineService{
 		
 			jasperInStream = (InputStream) parameters.get(jasperName[i]);
 			getJasperParameters(jasperInStream, parameters);
+			IPageRooted<Object, Object> activePage = (IPageRooted<Object, Object>) page;
+			
+			if(parameters.containsKey(TEMPLATE_PAGE)) {	
+				
+				InputStream propStream = (InputStream)parameters.get(TEMPLATE_PAGE);			
+				String jsonParam = getLinkParameter(propStream);	
+				parameters.remove(TEMPLATE_PAGE);
+				
+				if(jsonParam!=null){
+					JSONObject json = new JSONObject(jsonParam);	
+					
+					String activePageName = null;
+					if(json.has(PAGE)){
+						activePageName = (String)json.get(PAGE);	
+						activePage = (IPageRooted<Object, Object>)cycle.getPage(activePageName);		
+						((IPageRooted<Object, Object>) activePage).setRootedObject(((IPageRooted<Object, Object>)page).getRootedObject());			
+						cycle.activate(activePage);
+					}
+				}
+			}
 			
 			if(((String)jasperName[i]).substring(0, ((String)jasperName[i]).indexOf(".")).endsWith(DETAIL)){
 				
-				jasperPrint = this.getJasperPrint(jasperInStream, page, parameters, detailEntity, detailCollection, pageNumber);
+				jasperPrint = this.getJasperPrint(jasperInStream, activePage, parameters, detailEntity, detailCollection, pageNumber);
 			}else{
 				
-				jasperPrint = this.getJasperPrint(jasperInStream, page, parameters, null, null, pageNumber);	
+				jasperPrint = this.getJasperPrint(jasperInStream, activePage, parameters, null, null, pageNumber);	
 			}
 			
 			jasperPrintList.add(jasperPrint);

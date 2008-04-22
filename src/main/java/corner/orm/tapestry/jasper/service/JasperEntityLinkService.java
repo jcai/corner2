@@ -70,7 +70,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 			jasperAction.setupExporter(exporter);
 			
 			Map<Object, Object> parameters = new HashMap<Object, Object>(); 	
-			getJasperParameters(is, parameters);		
+			getJasperParameters(is, parameters);
 			
 			IPageRooted<Object, Object> activePage = (IPageRooted<Object, Object>) page;
 			boolean multiPageInReport = false;
@@ -85,7 +85,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 					
 					String activePageName = null;
 					if(json.has(PAGE)){
-						activePageName = (String)json.get(PAGE);		
+						activePageName = (String)json.get(PAGE);	
 						activePage = (IPageRooted<Object, Object>)cycle.getPage(activePageName);		
 						((IPageRooted<Object, Object>) activePage).setRootedObject(((IPageRooted<Object, Object>)page).getRootedObject());			
 						cycle.activate(activePage);
@@ -100,7 +100,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 		   
 			//如果是一个报表有多页 非循环分页
 			if(multiPageInReport){
-				List<JasperPrint> jasperPrintList = getJasperPrintList(is,activePage,parameters,detailEntity,detailCollection);
+				List<JasperPrint> jasperPrintList = getJasperPrintList(cycle,is,activePage,parameters,detailEntity,detailCollection);
 				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
 			}else{
 				JasperPrint jasperPrint = getJasperPrint(is,activePage,parameters,detailEntity,detailCollection,0);
