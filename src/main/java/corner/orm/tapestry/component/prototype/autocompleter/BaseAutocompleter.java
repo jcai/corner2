@@ -58,6 +58,7 @@ import corner.service.EntityService;
  * 基础的Autocompleter，父类
  * 
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
+ * @author <a href="mailto:renais@bjmaxinfo.com">renais</a>
  * @version $Revision$
  * @since 2.3.7
  */
@@ -152,10 +153,19 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		log.debug("renderFormComponent() cycle rewinding?:"
 				+ cycle.isRewinding());
-
+		
+		String value = null;
+		if (this.getDefaultValue() == null || this.getDefaultValue().trim().length() < 1) {
+			value = getTranslatedFieldSupport().format(this, formatValue(getValue()));
+		} else {
+			if (this.getValue() != null) {
+				value = getTranslatedFieldSupport().format(this, formatValue(getValue()));
+			} else {
+				value = getTranslatedFieldSupport().format(this, this.getDefaultValue());
+			}
+		}
+		
 		boolean isTextarea = "textarea".equalsIgnoreCase(getTemplateTag());
-
-		String value = getTranslatedFieldSupport().format(this, formatValue(getValue()));
 		boolean disabled = isDisabled();
 
 		renderDelegatePrefix(writer, cycle);
@@ -298,6 +308,14 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	public abstract Object getValue();
 
 	public abstract void setValue(Object entity);
+	
+	/**
+	 * 取得默认值
+	 * 
+	 * @return
+	 */
+	@Parameter
+	public abstract String getDefaultValue();
 
 	/** 待查询的类名 * */
 	@Parameter(required = true)
