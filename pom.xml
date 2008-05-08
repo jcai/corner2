@@ -307,6 +307,7 @@
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>2.0.1.patch.2</version>
+			<classifier>javaflow</classifier>
 			<optional>true</optional>
 		</dependency>
 		<!-- subversion client -->
