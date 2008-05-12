@@ -1,10 +1,10 @@
-#Mon Dec 03 09:57:11 CST 2007
+#Mon May 12 15:05:15 CST 2008
 eclipse.preferences.version=1
 encoding//src/main/java/corner/orm/tapestry/component/insert/VersionInsert.js=UTF-8
 encoding//src/main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js=UTF-8
-encoding//src/main/java/corner/orm/tapestry/component/tree/LeftTree.html=UTF-8
-encoding//src/main/java/corner/orm/tapestry/component/tree/LeftTree.jwc=UTF-8
-encoding//src/main/java/corner/orm/tapestry/component/tree/lefttree.js=UTF-8
+encoding//src/main/java/corner/orm/tapestry/component/tree/pop/PopTree.html=UTF-8
+encoding//src/main/java/corner/orm/tapestry/component/tree/pop/PopTree.jwc=UTF-8
+encoding//src/main/java/corner/orm/tapestry/component/tree/pop/poptree.js=UTF-8
 encoding//src/main/java/corner/util/CornerStrings.properties=UTF-8
 encoding//src/main/js/corner/menu/DropdownMenu.js=UTF-8
 encoding//src/main/webapp/many2many/ABList.page=UTF-8
