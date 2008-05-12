@@ -1,6 +1,6 @@
 var PageTree = Class.create();
 PageTree.prototype = {
-	initialize: function(element,page,title,actionFrame) {
+	initialize: function(element,page,title,actionFrame,queryClassName,parentPage) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					pageTreeSite: {
@@ -20,11 +20,6 @@ PageTree.prototype = {
 							
 							this.element.setAttribute("target",actionFrame);
 							
-							//变量json名值对，增加返回内容
-							for(var key in data.returnDates){
-								this.element.setAttribute(key,data.returnDates[key]);
-							}
-
 							if((data.right - data.left) == 1){
 								this.clickExpense = function(evt){
 									window.parent[actionFrame].location.replace(data.actionPage);
@@ -59,16 +54,10 @@ PageTree.prototype = {
 								}else{
 									depend="";
 								}
-								
-								var queryClassName;
-//								queryClassName = queryBox.options.queryClassName;
-								
-								var page;
-//								page = queryBox.options.page;
 															
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 
 								"&" + "queryClassName=" + queryClassName + "&" + "dependFields=" + depend + 
-								"&" + "parentPage=" + page;
+								"&" + "parentPage=" + parentPage;
 							}
 						}
 					}

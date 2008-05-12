@@ -10,11 +10,12 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.orm.tapestry.component.tree.pop;
+package corner.orm.tapestry.component.tree.page;
 
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
+import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 
 import corner.orm.tapestry.component.tree.AbstractLeftTree;
@@ -27,16 +28,25 @@ import corner.orm.tapestry.component.tree.AbstractLeftTree;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class PopTree extends AbstractLeftTree{
+public abstract class PageTree extends AbstractLeftTree{
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getScript()
 	 */
-	@InjectScript("PopTree.script")
+	@InjectScript("PageTree.script")
 	public abstract IScript getScript();
+	
+	@Parameter(required = true)
+	public abstract String getActionFrame();
+	
+	@Parameter(required = true)
+	public abstract String getQueryClassName();
+	
+	@Parameter
+	public abstract String getParentPage();
 	
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()
 	 */
-	@InjectObject("engine-service:leftTree")
+	@InjectObject("engine-service:pageTree")
 	public abstract IEngineService getLeftTreeService();
 }

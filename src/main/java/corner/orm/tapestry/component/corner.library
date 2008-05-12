@@ -73,6 +73,7 @@
   <component-type type="VDownLoads" specification-path="insert/VersionDownLoadFile.jwc"/>
   
   <component-type type="PopTree" specification-path="tree/pop/PopTree.jwc"/>
+  <component-type type="PageTree" specification-path="tree/page/PageTree.jwc"/>
   
   <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
 </library-specification>
