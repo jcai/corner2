@@ -10,7 +10,7 @@
 <include-script resource-path="/scriptaculous-1.7.1/controls.js" />
 <include-script resource-path="/scriptaculous-1.7.1/builder.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/ajaxtree.js" />
-<include-script resource-path="/corner/orm/tapestry/component/tree/lefttree.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/pop/poptree.js" />
 
 
 <input-symbol key="component" required="yes" />
@@ -18,6 +18,6 @@
 <input-symbol key="title" required="no" />
 
 <initialization>
-	window.tree = new LeftTree("${component.clientId}","${linkUrl}","${title}");
+	window.tree = new PopTree("${component.clientId}","${linkUrl}","${title}");
 </initialization>
 </script>

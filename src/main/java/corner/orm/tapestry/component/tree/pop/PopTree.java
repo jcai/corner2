@@ -10,7 +10,7 @@
 //License:      the Apache License, Version 2.0 (the "License")
 //==============================================================================
 
-package corner.orm.tapestry.component.tree;
+package corner.orm.tapestry.component.tree.pop;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +33,8 @@ import org.apache.tapestry.engine.ILink;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class LeftTree extends BaseComponent{
-	@InjectScript("LeftTree.script")
+public abstract class PopTree extends BaseComponent{
+	@InjectScript("PopTree.script")
 	public abstract IScript getScript();
 	
 	/**

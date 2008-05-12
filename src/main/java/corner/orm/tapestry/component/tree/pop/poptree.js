@@ -1,5 +1,5 @@
-var LeftTree = Class.create();
-LeftTree.prototype = {
+var PopTree = Class.create();
+PopTree.prototype = {
 	initialize: function(element,page,title) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {

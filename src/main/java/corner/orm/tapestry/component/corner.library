@@ -72,7 +72,7 @@
   <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
   <component-type type="VDownLoads" specification-path="insert/VersionDownLoadFile.jwc"/>
   
-  <component-type type="LeftTree" specification-path="tree/LeftTree.jwc"/>
+  <component-type type="PopTree" specification-path="tree/pop/PopTree.jwc"/>
   
   <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
 </library-specification>
