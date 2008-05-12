@@ -100,7 +100,14 @@ public class JasperEntityLinkService extends JasperLinkService{
 		   
 			//如果是一个报表有多页 非循环分页
 			if(multiPageInReport){
-				List<JasperPrint> jasperPrintList = getJasperPrintList(cycle,is,activePage,parameters,detailEntity,detailCollection);
+				List<JasperPrint> jasperPrintList = getJasperPrintList(cycle,is,activePage,parameters,detailEntity,detailCollection);	
+				//处理多页时打印出多个空白页
+				for(int i = 0,j = 0; i < jasperPrintList.size(); i++) {		
+					j += ((JasperPrint)jasperPrintList.get(i)).getPages().size();
+					if(j == 0 || (i == jasperPrintList.size() - 1 && ((JasperPrint)jasperPrintList.get(i)).getPages().size()==0 && j > 0)){
+						jasperPrintList.remove(i);
+					}
+				}
 				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
 			}else{
 				JasperPrint jasperPrint = getJasperPrint(is,activePage,parameters,detailEntity,detailCollection,0);
