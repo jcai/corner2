@@ -1,6 +1,6 @@
 var PageTree = Class.create();
 PageTree.prototype = {
-	initialize: function(element,page,title,actionFrame,queryClassName,parentPage) {
+	initialize: function(element,page,title,actionFrame,queryClassName,parentPage,baseUrl) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					pageTreeSite: {
@@ -22,7 +22,7 @@ PageTree.prototype = {
 							
 							if((data.right - data.left) == 1){
 								this.clickExpense = function(evt){
-									window.parent[actionFrame].location.replace(data.actionPage);
+									window.parent[actionFrame].location.replace(baseUrl+data.actionPage);
 								}.bind(this);
 								Event.observe(this.span,'click',this.clickExpense);
 							}else{

@@ -17,6 +17,7 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.web.WebRequest;
 
 import corner.orm.tapestry.component.tree.AbstractLeftTree;
 
@@ -43,6 +44,9 @@ public abstract class PageTree extends AbstractLeftTree{
 	
 	@Parameter
 	public abstract String getParentPage();
+	
+	@InjectObject("infrastructure:request")
+	public abstract WebRequest getWebRequest();
 	
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()
