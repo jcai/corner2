@@ -16,7 +16,6 @@ PageTree.prototype = {
 							this.element.setAttribute("right",data.right);
 							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
-							this.element.setAttribute("this",data.thisEntity);
 							
 							this.element.setAttribute("target",actionFrame);
 							

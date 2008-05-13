@@ -37,6 +37,6 @@ public abstract class PopTree extends AbstractLeftTree{
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()
 	 */
-	@InjectObject("engine-service:leftTree")
+	@InjectObject("engine-service:popTree")
 	public abstract IEngineService getLeftTreeService();
 }
