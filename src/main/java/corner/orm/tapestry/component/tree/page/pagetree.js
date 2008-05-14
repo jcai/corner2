@@ -19,7 +19,7 @@ PageTree.prototype = {
 							
 							this.element.setAttribute("target",actionFrame);
 							
-							if((data.right - data.left) == 1){
+							if(data.actionPage){
 								this.clickExpense = function(evt){
 									window.parent[actionFrame].location.replace(baseUrl+data.actionPage);
 								}.bind(this);
