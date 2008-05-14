@@ -27,11 +27,8 @@
   </component>
      
   <component id="backRollover" type="Rollover">
-    <binding name="image" value="asset:back"/>
-    <binding name="mouseOver" value="asset:backFocus"/>
+    <binding name="image" value="asset:backImage"/>
+    <binding name="mouseOver" value="asset:backFocusImage"/>
   </component>
-  
-  <asset name="back" path="images/Back.gif"/>
-  <asset name="backFocus" path="images/Back-focus.gif"/>
   
 </page-specification>
