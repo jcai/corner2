@@ -58,7 +58,7 @@ function initTblCell(cell,id){
 	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
-	dojo.debug(cell.innerHTML);
+//	dojo.debug(cell.innerHTML);
 	
 	if(cell.children != null && cell.children.length > 0){
 		for(childIndex = 0;childIndex < cell.children.length; childIndex++){
@@ -81,7 +81,7 @@ function initTblCell(cell,id){
 	cell.height = lastCell.height;
 }
 
-function dellRow(pid,id){
+function dellRowById(pid,id){
 //summary:
 // 删除指定table的指定行
 	var obj = dojo.byId(pid);
@@ -114,4 +114,12 @@ function dellRow(pid,id){
 	}else{
 		obj.deleteRow(id);		
 	}
+}
+
+function dellLastRow(pid){
+//summary:
+// 删除指定table的最后一个tr
+	var obj = dojo.byId(pid);
+	var id = obj.rows.length-1;
+	dellRowById(pid,id);
 }

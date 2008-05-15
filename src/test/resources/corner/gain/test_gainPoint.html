@@ -61,6 +61,7 @@ function reElementValues(){
 <form id="BForm">
 	name <a href=# onclick="addRow('t')"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
 	<a href=# onclick="addRows(4,'t')">adds</a><br/>
+	<a href=# onclick="dellLastRow('t')""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
       <table id="t">
 		<tr jwcid="GainPointIdField">
 			<td>
@@ -73,7 +74,7 @@ function reElementValues(){
 				field 2 <input id="field1" type="text" name="cnName" value="bbbbbb" />
 			</td>
 			<td>
-				<a href=# onclick="dellRow('t',getTrIndex(this))""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
+				<a href=# onclick="dellRowById('t',getTrIndex(this))""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
 			</td>
 		</tr>
 	</table>
