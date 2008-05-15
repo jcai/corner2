@@ -139,4 +139,35 @@ public class StringUtils {
 		}
 		return line;
 	}
+	
+    /**
+     * 判断给定字符串，是空值
+     * <p>
+     * 空值包括null,空字符串"",还有纯空格(一个或者多个空格)
+     * true:是空值 false:不是空值
+     * @param string
+     * @return boolean
+     */
+    public static boolean blank(String string){
+        if (string == null || string.length() == 0)
+            return true;
+
+        if (string.trim().length() == 0)
+            return true;
+
+        return false;
+    }
+
+
+    /**
+     * 判断给定字符串，不为空
+     * <p>
+     * 空值包括null,空字符串"",还有纯空格(一个或者多个空格)
+     * true:不是空值 false:是空值
+     * @param string
+     * @return
+     */
+    public static boolean notBlank(String string){
+        return !blank(string);
+    }
 }
