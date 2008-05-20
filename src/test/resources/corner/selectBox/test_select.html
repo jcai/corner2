@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
+          };
+
+//-->
+</SCRIPT>
+<link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script type="text/javascript" src="selectBox.js"> </script>  
+<script type="text/javascript">
+dojo.require("dojo.logging.Logger");
+dojo.log.setLevel(dojo.log.getLevel("WARNING"));
+dojo.require("tapestry.namespace")
+</script>
+	
+
+</HEAD>
+
+<body bottommargin="0" rightmargin="0" topmargin="0" leftmargin="0" id="Body">
+<form onSubmit="allSelect()">
+<table border="0"> 
+	
+              <tr>
+                <td>
+                  <select id="possible" name="possible" size="4"	MULTIPLE width=200 style="width: 200px" >
+                    <option value="1">中国广州
+                    <option value="2">中国上海
+                    <option value="3">中国北京
+                    <option value="4">中国武汉
+					
+                  </select>
+                </td>
+                  <td><a href="javascript:copyToList('possible','chosen')">添加至右方--></a><br>
+                    <br>
+                    <a href="javascript:copyAll('possible','chosen')">添加All至右方--></a>
+                    <br><br>
+                    </a><a href="javascript:copyToList('chosen','possible')"><--添加至左方
+
+</a><br><br>                   </a><a href="javascript:copyAll('chosen','possible')"><--添加All至
+
+左方</a>
+                    <br></td>
+                <td>
+                  <select id="chosen" name="chosen" size="4"
+	MULTIPLE width=200 style="width: 200px;">
+                    <option value="temp">从左边选择你的地区 
+                  </select>
+                </td>
+              </tr>  
+            </table>
+            <input type="submit" />
+</form>
+
+<br/>
+<span>Version:0.0.1  $Revision: 3996 $ $Date: 2008-03-18 16:54:31 +0800 $ </span>
+<script type="text/javascript"><!--
+var dblclickCopy = function(evt){
+  	  
+  dojo.debug("call dblclickCopy");
+  
+  obj = dojo.html.getEventTarget(evt);
+  selectedValue = obj.value;
+  selectedText = obj.text;
+ 
+  //判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
+  if(typeof(selectedText) == "undefined"){
+     //ie下 需这样取值
+     selectedText = obj.options[obj.selectedIndex].text;   
+  }
+  
+  dojo.debug("selectedText " + selectedText);
+  dojo.debug("selectedValue " + selectedValue);
+}
+dojo.event.connect(dojo.byId("possible"),"ondblclick",dblclickCopy);
+
+// --></script></body>
+</html>
+<!-- Render time: ~ 922 ms -->
+
+
