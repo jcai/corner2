@@ -1,8 +1,10 @@
 var SelectBox = Class.create();
 SelectBox.prototype = {
-	initialize: function(fromField,toField) {
+	initialize: function(formId,fromField,toField) {
+		this.formId = formId;
 		this.fromField = fromField;
 		this.toField = toField;
+		Event.observe($(this.formId ),"submit",this.allSelect.bindAsEventListener(this));
 	    Event.observe($(this.fromField),"dblclick",this.dblclickCopy.bindAsEventListener(this));
 	    Event.observe($(this.toField),"dblclick",this.dblclickCopyTo.bindAsEventListener(this));
 	},
@@ -68,7 +70,7 @@ SelectBox.prototype = {
 	    $(field).appendChild(oOption);
 	},
 	allSelect:function(){
-		List = document.forms[0].chosen;
+		List = $(this.toField);
 		if (List.length && List.options[0].value == 'temp') return;
 		for (i=0;i<List.length;i++){
 			 List.options[i].selected = true;
