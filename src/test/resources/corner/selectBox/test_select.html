@@ -45,19 +45,17 @@ dojo.require("tapestry.namespace")
 					
                   </select>
                 </td>
-                  <td><a href="javascript:copyToList('possible','chosen')">添加至右方--></a><br>
-                    <br>
-                    <a href="javascript:copyAll('possible','chosen')">添加All至右方--></a>
+                  <td>
+                  	<a href="javascript:sel.copyFormToList();">添加至右方--></a>
+                  	<br><br>
+                    <a href="javascript:sel.copyAllFormTo();">添加All至右方--></a>
                     <br><br>
-                    </a><a href="javascript:copyToList('chosen','possible')"><--添加至左方
-
-</a><br><br>                   </a><a href="javascript:copyAll('chosen','possible')"><--添加All至
-
-左方</a>
+                    <a href="javascript:sel.copyToFormList()"><--添加至左方</a>
+                    <br><br>
+                    <a href="javascript:sel.copyAllToForm()"><--添加All至左方</a>
                     <br></td>
                 <td>
-                  <select id="chosen" name="chosen" size="4"
-	MULTIPLE width=200 style="width: 200px;">
+                  <select id="chosen" name="chosen" size="4" MULTIPLE width=200 style="width: 200px;">
                     <option value="temp">从左边选择你的地区 
                   </select>
                 </td>
@@ -69,25 +67,7 @@ dojo.require("tapestry.namespace")
 <br/>
 <span>Version:0.0.1  $Revision: 3996 $ $Date: 2008-03-18 16:54:31 +0800 $ </span>
 <script type="text/javascript"><!--
-var dblclickCopy = function(evt){
-  	  
-  dojo.debug("call dblclickCopy");
-  
-  obj = dojo.html.getEventTarget(evt);
-  selectedValue = obj.value;
-  selectedText = obj.text;
- 
-  //判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
-  if(typeof(selectedText) == "undefined"){
-     //ie下 需这样取值
-     selectedText = obj.options[obj.selectedIndex].text;   
-  }
-  
-  dojo.debug("selectedText " + selectedText);
-  dojo.debug("selectedValue " + selectedValue);
-}
-dojo.event.connect(dojo.byId("possible"),"ondblclick",dblclickCopy);
-
+	var sel = new SelectBox('possible','chosen');
 // --></script></body>
 </html>
 <!-- Render time: ~ 922 ms -->
