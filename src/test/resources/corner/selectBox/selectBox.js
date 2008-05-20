@@ -4,6 +4,7 @@ SelectBox.prototype = {
 		this.fromField = fromField;
 		this.toField = toField;
 	    Event.observe($(this.fromField),"dblclick",this.dblclickCopy.bindAsEventListener(this));
+	    Event.observe($(this.toField),"dblclick",this.dblclickCopyTo.bindAsEventListener(this));
 	},
 	copyFormToList:function(){
 		this.copyToList(true);
@@ -55,7 +56,7 @@ SelectBox.prototype = {
 			i--;
 		}
 	},
-	fnAdd:function(){
+	fnAdd:function(field,sName,sValue){
 		var oOption = document.createElement("option");
 	    oOption.appendChild(document.createTextNode(sName));
 	
@@ -64,7 +65,7 @@ SelectBox.prototype = {
 	        oOption.setAttribute("value", sValue);
 	    }
 	
-	    oListbox.appendChild(oOption);
+	    $(field).appendChild(oOption);
 	},
 	allSelect:function(){
 		List = document.forms[0].chosen;
@@ -77,8 +78,6 @@ SelectBox.prototype = {
 	 * 双击操作
 	 */
 	dblclickCopy: function(evt){
-		dojo.debug("call dblclickCopy");
-  
 		obj = dojo.html.getEventTarget(evt);
 		selectedValue = obj.value;
 		selectedText = obj.text;
@@ -87,8 +86,26 @@ SelectBox.prototype = {
 		   //ie下 需这样取值
 		   selectedText = obj.options[obj.selectedIndex].text;   
 		}
-		  
-		dojo.debug("selectedText " + selectedText);
-		dojo.debug("selectedValue " + selectedValue);
+		
+		obj.remove(obj.selectedIndex);
+		
+		this.fnAdd(this.toField,selectedText,selectedValue);
+	},
+	/*
+	 * 双击操作
+	 */
+	dblclickCopyTo: function(evt){
+		obj = dojo.html.getEventTarget(evt);
+		selectedValue = obj.value;
+		selectedText = obj.text;
+		//判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
+		if(typeof(selectedText) == "undefined"){
+		   //ie下 需这样取值
+		   selectedText = obj.options[obj.selectedIndex].text;   
+		}
+		
+		obj.remove(obj.selectedIndex);
+		
+		this.fnAdd(this.fromField,selectedText,selectedValue);
 	}
 }
