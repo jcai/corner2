@@ -63,8 +63,10 @@ public abstract class UploadBox extends BaseComponent implements IFormComponent,
 		
 		if (!form.isRewinding()) {
 			PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
-			Map<String, String> parms = new HashMap<String, String>();
+			Map<String,Object> parms = new HashMap<String,Object>();
 			parms.put("id", this.getClientId());
+			parms.put("component", this);
+			
 			getScript().execute(this, cycle, prs, parms);
 		}
 	}

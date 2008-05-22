@@ -4,10 +4,13 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 
 <script>
+
+<input-symbol key="component" required="yes" />
+
 <initialization>
 	 preview=function(){
 	    var objimg = dojo.byId('ImageField');
-		var filepath = dojo.byId('blobDataField').value;
+		var filepath = dojo.byId('blobDataField_update').value;
 	    re=/\\/g
 	    filepath = filepath.replace(re,'/');
 	    var fileext = filepath.substring(filepath.length-4,filepath.length)
@@ -25,6 +28,6 @@
 	        objimg.style.display='none';
 	    }
 	}
-	dojo.event.connect(dojo.byId('blobDataField'),"onpropertychange","preview");
+	dojo.event.connect(dojo.byId('blobDataField_update'),"onpropertychange","preview");
 </initialization>
 </script>

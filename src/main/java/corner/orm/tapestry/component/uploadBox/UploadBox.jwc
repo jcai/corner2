@@ -9,7 +9,7 @@
 	
 <component-specification class="corner.orm.tapestry.component.uploadBox.UploadBox" allow-body="no" allow-informal-parameters="yes">
 
-  <component type="Upload" id="blobDataField">
+  <component type="Upload" id="blobDataField_update">
     <binding name="displayName" value="message:BlobData"/>
     <binding name="class" value="fileInputClass"/>
     <binding name="validators" value="fileValidators"/>
