@@ -155,7 +155,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 				+ cycle.isRewinding());
 		
 		String value = null;
-		if (this.getDefaultValue() == null || this.getDefaultValue().trim().length() < 1) {
+		if (this.getDefaultValue() == null || this.getDefaultValue().toString().trim().length() < 1) {
 			value = getTranslatedFieldSupport().format(this, formatValue(getValue()));
 		} else {
 			if (this.getValue() != null) {
@@ -315,7 +315,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	 * @return
 	 */
 	@Parameter
-	public abstract String getDefaultValue();
+	public abstract Object getDefaultValue();
 
 	/** 待查询的类名 * */
 	@Parameter(required = true)

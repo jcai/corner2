@@ -58,8 +58,16 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 		writer.attribute("name",this.getName()+ASSOCIATE_SUFFIX);
 		writer.attribute("id",this.getClientId()+ASSOCIATE_SUFFIX);
 		writer.attribute("type","hidden");
-		writer.attribute("value",this.getDataSqueezer().squeeze(value));
 		
+		if (this.getDefaultValue() == null || this.getDefaultValue().toString().trim().length() < 1) {
+			writer.attribute("value",this.getDataSqueezer().squeeze(value));
+		} else {
+			if (this.getValue() != null) {
+				writer.attribute("value",this.getDataSqueezer().squeeze(value));
+			} else {
+				writer.attribute("value",this.getDataSqueezer().squeeze(this.getDefaultValue()));
+			}
+		}
 	}
 	/**
 	 * Rewinds the component, doing translation, validation and binding.
