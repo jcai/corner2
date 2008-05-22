@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.ValidationMessages;
+import org.apache.tapestry.form.translator.DateTranslator;
 import org.apache.tapestry.valid.ValidatorException;
 
 
@@ -33,18 +34,18 @@ import org.apache.tapestry.valid.ValidatorException;
  * @version $Revision$
  * @since 2.5
  */
-public class StringDateTranslator extends org.apache.tapestry.form.translator.DateTranslator {
+public class StringDateTranslator extends DateTranslator {
     /**
-     * piano-core中日期类型使用的pattern
+     * corner简单的中日期类型使用的pattern
      */
-    private static final String PIANO_DATE_PATTERN = "yyyy-MM-dd";
+    private static final String CORNER_DATE_PATTERN = "yyyy-MM-dd";
 
     /**
      * @see org.apache.tapestry.form.translator.DateTranslator#defaultPattern()
      */
     @Override
     protected String defaultPattern() {
-        return PIANO_DATE_PATTERN;
+        return CORNER_DATE_PATTERN;
     }
 
     /**
@@ -95,7 +96,7 @@ public class StringDateTranslator extends org.apache.tapestry.form.translator.Da
                              .toUpperCase(locale);
 
         if (Locale.SIMPLIFIED_CHINESE.equals(locale)) {
-            return new Object[] { label, PIANO_DATE_PATTERN.toUpperCase() };
+            return new Object[] { label, CORNER_DATE_PATTERN.toUpperCase() };
         } else {
             return new Object[] { label, pattern };
         }

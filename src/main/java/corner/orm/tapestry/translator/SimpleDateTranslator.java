@@ -28,15 +28,15 @@ import org.apache.tapestry.form.translator.DateTranslator;
  */
 public class SimpleDateTranslator extends DateTranslator {
     /**
-     * poison.preplan中日期类型使用的pattern
+     * corner中日期类型使用的pattern
      */
-    private static final String PIANO_DATE_PATTERN = "yyyy-MM-dd";
+    private static final String CORNER_DATE_PATTERN = "yyyy-MM-dd";
 
     /**
      * @see org.apache.tapestry.form.translator.DateTranslator#defaultPattern()
      */
     @Override
     protected String defaultPattern() {
-        return PIANO_DATE_PATTERN;
+        return CORNER_DATE_PATTERN;
     }
 }

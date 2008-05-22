@@ -4,9 +4,13 @@
 	<contribution configuration-id="tapestry.form.translator.Translators">
 		<bean name="vector" class="VectorTranslator"/>
 		<bean name="num" class="NumTranslator"/>
+		<!-- 将yyyy-MM-dd HH:mm:ss格式的字符串转化成Date类型 -->
 		<bean name="exactdate" class="ExactDateTranslator"/>
+		<!-- 将yyyy-MM-dd格式的字符串转化成Date类型 -->
 		<bean name="simpledate" class="SimpleDateTranslator"/>
+		<!-- 将yyyy-MM-dd格式的字符串作为String保存 -->
 		<bean name="stringdate" class="StringDateTranslator"/>
+		<!-- 将HH:mm:ss格式的字符串转化成Date -->
 		<bean name="timedate" class="TimeTranslator"/>
 	</contribution>
 </module>

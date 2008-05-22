@@ -29,15 +29,15 @@ package corner.orm.tapestry.translator;
  */
 public class TimeTranslator extends org.apache.tapestry.form.translator.DateTranslator {
     /**
-     * poison.preplan中日期类型使用的pattern
+     * corner中时间类型使用的pattern
      */
-    private static final String OA_TIME_PATTERN = "HH:mm:ss";
+    private static final String CORNER_TIME_PATTERN = "HH:mm:ss";
 
     /**
      * @see org.apache.tapestry.form.translator.DateTranslator#defaultPattern()
      */
     @Override
     protected String defaultPattern() {
-        return OA_TIME_PATTERN;
+        return CORNER_TIME_PATTERN;
     }
 }
