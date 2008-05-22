@@ -17,6 +17,8 @@
 
 package corner.orm.tapestry.translator;
 
+import java.text.SimpleDateFormat;
+
 import org.apache.tapestry.form.translator.DateTranslator;
 
 /**
@@ -31,6 +33,12 @@ public class SimpleDateTranslator extends DateTranslator {
      * corner中日期类型使用的pattern
      */
     private static final String CORNER_DATE_PATTERN = "yyyy-MM-dd";
+    
+    /**
+     * 用户回显时使用的Format
+     */
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(CORNER_DATE_PATTERN);
+
 
     /**
      * @see org.apache.tapestry.form.translator.DateTranslator#defaultPattern()
