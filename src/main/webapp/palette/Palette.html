@@ -1,11 +1,4 @@
 <span jwcid="@DemoBorder">
-
-<p>The Palette component is used to collect multiple selections, items are selected
-in the left column (available) and moved to the right column (selected).  The component
-can be configured to keep the items sorted by their visible label, their
-hidden value, or manually sorted.  Items are moved between columns using the buttons,
-or by double clicking.</p>
-
 <form jwcid="valid@Form">
 <input jwcid="inputEnabled"/> Enable Client Side Validation
 </form>
@@ -27,17 +20,18 @@ or by double clicking.</p>
 		<td><input jwcid="update"/>
 			<input jwcid="continue"/></td>
 	</tr>
+	<!--
+	<tr>
+		<th><span jwcid="@FieldLabel" field="component:timePickerField"/>:</th>
+		<td><input jwcid="timePickerField"/></td>
+	</tr>
+	-->
+	<tr>
+		<th><span jwcid="@FieldLabel" field="component:coolestPickerField"/>:</th>
+		<td><input jwcid="coolestPickerField"/></td>
+	</tr>
 </table>
 
 </form>
-
-<p>
-Obviously, there's a whole lot of JavaScript running on the client side.  However, there
-are no arbitrary limits; you can have as many Palettes in a form as you want, or have multiple
-forms and multiple Palettes.  Tapestry uses a sophisticated method of generating custom JavaScript
-from a template.</p>
-  
-<p>You can also customize the images used for the buttons and the titles above the
-two selection columns.</p>
 
 </span>

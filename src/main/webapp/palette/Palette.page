@@ -62,6 +62,22 @@
   	<binding name="image" value="continueImage"/>
   </component>
 
+  <!-- GTimePicker -->
+  <!--
+  <component type="GTimePicker" id="timePickerField">
+    <binding name="displayName" value="literal:timePicker"/>
+    <binding name="value" value="ognl:currentTime"/>
+    <binding name="validators" value="validators:required"/>
+  </component>
+  -->
+  <component type="corner:CoolestPicker" id="coolestPickerField">
+	<binding name="displayName" value="message:coolestPicker" />
+	<binding name="translator" value="translator:timedate"/>
+	<binding name="ifFormat" value="literal:%H:%M:%S"/>
+	<binding name="showsTime" value="literal:true"/>
+	<binding name="timeFormat" value="literal:24"/>
+	<binding name="value" value="ognl:currentTime"/>
+  </component>
   
 </page-specification>
 

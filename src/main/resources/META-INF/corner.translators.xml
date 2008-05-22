@@ -4,5 +4,9 @@
 	<contribution configuration-id="tapestry.form.translator.Translators">
 		<bean name="vector" class="VectorTranslator"/>
 		<bean name="num" class="NumTranslator"/>
+		<bean name="exactdate" class="ExactDateTranslator"/>
+		<bean name="simpledate" class="SimpleDateTranslator"/>
+		<bean name="stringdate" class="StringDateTranslator"/>
+		<bean name="timedate" class="TimeTranslator"/>
 	</contribution>
 </module>

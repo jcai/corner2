@@ -1,6 +1,8 @@
 package corner.demo.page.palette;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.tapestry.IAsset;
@@ -12,12 +14,9 @@ import org.apache.tapestry.form.StringPropertySelectionModel;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.valid.IValidationDelegate;
 
-public abstract class Palette extends BasePage
-{
-
-    public Palette()
-    {
-    }
+public abstract class Palette extends BasePage {
+	
+	public static final SimpleDateFormat TIME_PATTERN = new SimpleDateFormat("hh:mm:ss");
 
     public abstract List getSelectedColors();
 
@@ -26,6 +25,9 @@ public abstract class Palette extends BasePage
     public abstract void setSort(String s);
 
     public abstract IValidationDelegate getDelegate();
+    
+    public abstract Date getCurrentTime();
+    public abstract void setCurrentTime(Date date);
 
     @InjectPage("palette/PaletteResults")
     public abstract PaletteResults getResultsPage();
@@ -44,6 +46,7 @@ public abstract class Palette extends BasePage
     {
         PaletteResults results = getResultsPage();
         results.setSelectedColors(getSelectedColors());
+        results.setCurrentTime(this.getCurrentTime());
         return results;
     }
 
