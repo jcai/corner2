@@ -12,5 +12,7 @@
 		<bean name="stringdate" class="StringDateTranslator"/>
 		<!-- 将HH:mm:ss格式的字符串转化成Date -->
 		<bean name="timedate" class="TimeTranslator"/>
+		<!-- 将HH:mm格式的字符串转化成Date -->
+		<bean name="simpleTimeDate" class="SimpleTimeTranslator"/>
 	</contribution>
 </module>
