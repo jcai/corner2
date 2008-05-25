@@ -33,7 +33,7 @@ public class SimpleTimeTranslator extends org.apache.tapestry.form.translator.Da
     /**
      * corner中时间类型使用的pattern
      */
-    private static final String CORNER_TIME_PATTERN = "HH:mm";
+    public static final String CORNER_TIME_PATTERN = "HH:mm";
     
     /**
      * 用户回显时使用的Format
