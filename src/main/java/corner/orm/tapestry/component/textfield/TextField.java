@@ -19,6 +19,7 @@ package corner.orm.tapestry.component.textfield;
 
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.annotations.Parameter;
 
 import corner.util.StringUtils;
 
@@ -130,6 +131,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 * 
 	 * @return
 	 */
+	@Parameter
 	public abstract Object getDefaultValue();
 
 	/**
@@ -137,5 +139,6 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 * 
 	 * @return
 	 */
+	@Parameter(defaultValue = "ognl:false")
 	public abstract Boolean getOnlyRead();
 }

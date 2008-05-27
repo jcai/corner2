@@ -19,18 +19,6 @@
     </description>
   </parameter>
   
-  <parameter name="defaultValue">
-    <description>
-      Give a defaultValue if the value property is null and this property is setted at the same time.
-    </description>
-  </parameter>
-  
-  <parameter name="onlyRead" default-value="false">
-    <description>
-      Give a ReadOnly attribute if the set this property true.
-    </description>
-  </parameter>
-  
   <parameter name="disabled">
     <description>
       If true, then the disabled attribute will be written on render, and the
