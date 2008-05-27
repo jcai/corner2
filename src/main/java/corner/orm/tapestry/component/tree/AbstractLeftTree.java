@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry.BaseComponent;
+import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
-import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
@@ -20,7 +20,7 @@ import org.apache.tapestry.engine.ILink;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class AbstractLeftTree extends BaseComponent {
+public abstract class AbstractLeftTree extends BaseComponent implements IDirect{
 
 	public abstract IScript getScript();
 
@@ -73,5 +73,4 @@ public abstract class AbstractLeftTree extends BaseComponent {
 	 * @return
 	 */
 	public abstract IEngineService getLeftTreeService();
-
 }

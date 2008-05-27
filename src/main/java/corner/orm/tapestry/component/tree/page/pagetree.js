@@ -1,6 +1,6 @@
 var PageTree = Class.create();
 PageTree.prototype = {
-	initialize: function(element,page,title,actionFrame,queryClassName,parentPage,baseUrl) {
+	initialize: function(element,page,title,actionFrame,queryClassName,actionPage,baseUrl) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					pageTreeSite: {
@@ -19,16 +19,26 @@ PageTree.prototype = {
 							
 							this.element.setAttribute("target",actionFrame);
 							
-							if(data.actionPage){
-								this.clickExpense = function(evt){
-									window.parent[actionFrame].location.replace(baseUrl+data.actionPage);
-								}.bind(this);
-								Event.observe(this.span,'click',this.clickExpense);
+							if(actionPage){
+								if(data.depth!=0){
+									this.clickExpense = function(evt){
+										dojo.debug(actionPage + "?ajax_entity_value="+data.thisEntity);
+										window.parent[actionFrame].location.replace(baseUrl+actionPage+"?ajax_entity_value="+data.thisEntity);
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+								}
 							}else{
-								this.clickExpense = function(evt){
-									this.onClick();
-								}.bind(this);
-								Event.observe(this.span,'click',this.clickExpense);
+								if(data.actionPage){
+									this.clickExpense = function(evt){
+										window.parent[actionFrame].location.replace(baseUrl+data.actionPage);
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+								}else{
+									this.clickExpense = function(evt){
+										this.onClick();
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+								}
 							}
 						},
 						callback:{
@@ -55,8 +65,7 @@ PageTree.prototype = {
 								}
 															
 								return "left=" + left + "&" + "right=" + right + "&" + "depth=" + depth + 
-								"&" + "queryClassName=" + queryClassName + "&" + "dependFields=" + depend + 
-								"&" + "parentPage=" + parentPage;
+								"&" + "queryClassName=" + queryClassName + "&" + "dependFields=" + depend;
 							}
 						}
 					}

@@ -37,14 +37,6 @@
     <binding name="onchange" value="literal:javascript:this.form.events.submit();"/>
   </component>
 
-  <component id="inputColorSort" type="PropertySelection">
-  	<binding name="value" value="sort"/>
-  	<binding name="model" value="literal:None=NONE,Label=LABEL,Value=VALUE,Manual=USER"/>
-    <binding name="onchange">
-      literal:javascript:this.form.events.refresh();
-    </binding>
-  </component>
-  
   <component id="inputColor" type="contrib:Palette">
     <binding name="model" value="colorModel"/>
     <binding name="selected" value="selectedColors"/>
@@ -62,22 +54,6 @@
   	<binding name="image" value="continueImage"/>
   </component>
 
-  <!-- GTimePicker -->
-  <!--
-  <component type="GTimePicker" id="timePickerField">
-    <binding name="displayName" value="literal:timePicker"/>
-    <binding name="value" value="ognl:currentTime"/>
-    <binding name="validators" value="validators:required"/>
-  </component>
-  -->
-  <component type="corner:CoolestPicker" id="coolestPickerField">
-	<binding name="displayName" value="message:coolestPicker" />
-	<binding name="translator" value="translator:timedate"/>
-	<binding name="ifFormat" value="literal:%H:%M:%S"/>
-	<binding name="showsTime" value="literal:true"/>
-	<binding name="timeFormat" value="literal:24"/>
-	<binding name="value" value="ognl:currentTime"/>
-  </component>
   
 </page-specification>
 

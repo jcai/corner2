@@ -12,11 +12,17 @@
 
 package corner.orm.tapestry.component.tree.page;
 
+import org.apache.tapestry.IActionListener;
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
+import org.apache.tapestry.Tapestry;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.link.DirectLink;
+import org.apache.tapestry.listener.ListenerInvoker;
 import org.apache.tapestry.web.WebRequest;
 
 import corner.orm.tapestry.component.tree.AbstractLeftTree;
@@ -30,11 +36,53 @@ import corner.orm.tapestry.component.tree.AbstractLeftTree;
  * @since 2.5
  */
 public abstract class PageTree extends AbstractLeftTree{
+	
+	/**
+	 * @see org.apache.tapestry.IDirect#trigger(org.apache.tapestry.IRequestCycle)
+	 */
+	public void trigger(IRequestCycle cycle) {
+		IActionListener listener = getListener();
+	
+		if (listener == null  && getQueryPageName() == null)
+			throw Tapestry.createRequiredParameterException(this, "listener or QueryPageName");
+	
+		getListenerInvoker().invokeListener(listener, this, cycle);
+	}
+	
+	/**
+	 * 返回url
+	 */
+	public String getUrl() {
+		String url = null;
+		
+		if(this.getQueryPageName() != null){
+			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
+		}else{
+			Object[] parameters = new Object[]{getParameters()};
+			
+			Object[] serviceParameters = DirectLink
+					.constructServiceParameters(parameters);
+	
+			DirectServiceParameter dsp = new DirectServiceParameter(this,
+					serviceParameters);
+			
+			url = getDirectService().getLink(false, dsp).getAbsoluteURL();
+		}
+		
+		return url;
+	}
+
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getScript()
 	 */
 	@InjectScript("PageTree.script")
 	public abstract IScript getScript();
+	
+	@Parameter
+	public abstract String getQueryPageName();
+	
+	@Parameter
+	public abstract Object getParameters();
 	
 	@Parameter(required = true)
 	public abstract String getActionFrame();
@@ -48,9 +96,30 @@ public abstract class PageTree extends AbstractLeftTree{
 	@InjectObject("infrastructure:request")
 	public abstract WebRequest getWebRequest();
 	
+	@Parameter
+	public abstract String getBaseUrl();
+	
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()
 	 */
 	@InjectObject("engine-service:pageTree")
 	public abstract IEngineService getLeftTreeService();
+	
+	/**
+	 * 监听调用函数
+	 */
+	@Parameter
+	public abstract IActionListener getListener();
+
+	/**
+	 * 获得监听
+	 */
+	@InjectObject("infrastructure:listenerInvoker")
+	public abstract ListenerInvoker getListenerInvoker();
+
+	@InjectObject("service:tapestry.services.Page")
+	public abstract IEngineService getPageService();
+	
+	@InjectObject("service:tapestry.services.Direct")
+	public abstract IEngineService getDirectService();
 }
