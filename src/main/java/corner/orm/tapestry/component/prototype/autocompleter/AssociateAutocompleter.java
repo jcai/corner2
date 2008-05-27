@@ -26,6 +26,7 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 
 import corner.util.BeanUtils;
+import corner.util.StringUtils;
 
 /**
  * 保存关联的自动完成组件
@@ -59,7 +60,7 @@ public abstract class AssociateAutocompleter extends AutoEvaluateModelAutocomple
 		writer.attribute("id",this.getClientId()+ASSOCIATE_SUFFIX);
 		writer.attribute("type","hidden");
 		
-		if (this.getDefaultValue() == null || this.getDefaultValue().toString().trim().length() < 1) {
+		if (this.getDefaultValue() == null || StringUtils.blank(this.getDefaultValue().toString())) {
 			writer.attribute("value",this.getDataSqueezer().squeeze(value));
 		} else {
 			if (this.getValue() != null) {

@@ -53,6 +53,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import corner.orm.tapestry.state.IContext;
 import corner.orm.tapestry.state.IContextAccessible;
 import corner.service.EntityService;
+import corner.util.StringUtils;
 
 /**
  * 基础的Autocompleter，父类
@@ -155,7 +156,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 				+ cycle.isRewinding());
 		
 		String value = null;
-		if (this.getDefaultValue() == null || this.getDefaultValue().toString().trim().length() < 1) {
+		if (this.getDefaultValue() == null || StringUtils.blank(this.getDefaultValue().toString())) {
 			value = getTranslatedFieldSupport().format(this, formatValue(getValue()));
 		} else {
 			if (this.getValue() != null) {
