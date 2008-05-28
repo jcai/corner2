@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<title>添加员工</title>
+<link rel="stylesheet" type="text/css" href="../css/base.css">
+</head>
+
+<body>
+<table border="0" width="100%" bgcolor="#999999">
+<tr><td>添加员工</td></tr>
+</table>
+<br>
+<TABLE  border="1" align="center" width="100%">
+
+<TR >
+	<TD width="20%" >用户帐号</TD>
+	<TD width="21%" >用户名</TD>
+	<TD width="24%" >性别</TD>
+	<TD width="35%" >操作</TD>
+</TR>
+<TR >
+<TD >aaa@163.com</TD>
+<TD >李峰</TD>
+<TD >男</TD>
+<TD ><a href="#">删除</a>&nbsp;&nbsp;&nbsp;<a href="../hr/人员信息/人员信息.htm">分配信息</a></TD>
+</TR>
+
+</TABLE>
+<br> <form name="form1" method="post" action="">
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 style="BACKGROUND: #f3f3f3;">
+<TR >
+<TD width="7%" height="30" >用户帐号：</TD>
+<TD width="19%" >
+  <input type="text" name="textfield">
+</TD>
+<TD width="19%" ><input type="checkbox" name="checkbox" value="checkbox">
+  添加此用户</TD>
+<TD width="55%" ><INPUT class=buttonstyle onclick=subReg() type=button value=提交 name=subReg>
+  (注：当输入用户帐号时提交按钮为查询，当查出此用户按并选上了这个单选框架，按钮为添加此用户。当查无此人时，不显示单选框，用红色字体显示查无此人。按钮还是查询)</TD>
+</TR>
+</TABLE>
+</form>
+</body>
+</html>
