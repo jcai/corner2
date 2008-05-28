@@ -13,6 +13,7 @@
 package corner.orm.tapestry.component.tree.page;
 
 import org.apache.tapestry.IActionListener;
+import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.Tapestry;
@@ -35,7 +36,7 @@ import corner.orm.tapestry.component.tree.AbstractLeftTree;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class PageTree extends AbstractLeftTree{
+public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	
 	/**
 	 * @see org.apache.tapestry.IDirect#trigger(org.apache.tapestry.IRequestCycle)
