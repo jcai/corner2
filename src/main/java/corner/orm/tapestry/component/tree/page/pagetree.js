@@ -26,6 +26,12 @@ PageTree.prototype = {
 										window.parent[actionFrame].location.replace(baseUrl+actionPage+"?ajax_entity_value="+data.thisEntity);
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
+								}else{
+									this.clickExpense = function(evt){
+										dojo.debug(actionPage + "?ajax_entity_value="+data.thisEntity);
+										window.parent[actionFrame].location.replace(baseUrl+actionPage+"?ajax_entity_value=boot");
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
 								}
 							}else{
 								if(data.actionPage){
