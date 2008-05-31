@@ -24,7 +24,6 @@ import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.link.DirectLink;
 import org.apache.tapestry.listener.ListenerInvoker;
-import org.apache.tapestry.web.WebRequest;
 
 import corner.orm.tapestry.component.tree.AbstractLeftTree;
 
@@ -93,12 +92,6 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	
 	@Parameter
 	public abstract String getParentPage();
-	
-	@InjectObject("infrastructure:request")
-	public abstract WebRequest getWebRequest();
-	
-	@Parameter
-	public abstract String getBaseUrl();
 	
 	/**
 	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()

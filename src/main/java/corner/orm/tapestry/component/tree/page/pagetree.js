@@ -1,6 +1,6 @@
 var PageTree = Class.create();
 PageTree.prototype = {
-	initialize: function(element,page,title,actionFrame,queryClassName,actionPage,baseUrl) {
+	initialize: function(element,page,title,actionFrame,queryClassName,actionPage) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					pageTreeSite: {
@@ -23,20 +23,20 @@ PageTree.prototype = {
 								if(data.depth!=0){
 									this.clickExpense = function(evt){
 										dojo.debug(actionPage + "?ajax_entity_value="+data.thisEntity);
-										window.parent[actionFrame].location.replace(baseUrl+actionPage+"?ajax_entity_value="+data.thisEntity);
+										window.parent[actionFrame].location.replace(actionPage + "?ajax_entity_value="+data.thisEntity);
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
 								}else{
 									this.clickExpense = function(evt){
-										dojo.debug(actionPage + "?ajax_entity_value="+data.thisEntity);
-										window.parent[actionFrame].location.replace(baseUrl+actionPage+"?ajax_entity_value=boot");
+										dojo.debug(actionPage + "?ajax_entity_value=boot");
+										window.parent[actionFrame].location.replace(actionPage + "?ajax_entity_value=boot");
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
 								}
 							}else{
 								if(data.actionPage){
 									this.clickExpense = function(evt){
-										window.parent[actionFrame].location.replace(baseUrl+data.actionPage);
+										window.parent[actionFrame].location.replace(data.actionPage);
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
 								}else{
