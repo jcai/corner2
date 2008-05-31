@@ -12,11 +12,13 @@
 <include-script resource-path="/corner/orm/tapestry/component/tree/ajaxtree.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/page/pagetree.js" />
 
-<input-symbol key="component" required="yes" />
+<input-symbol key="clientId" required="yes" />
 <input-symbol key="linkUrl" required="yes" />
 <input-symbol key="title" required="no" />
+<input-symbol key="actionFrame" required="no" />
+<input-symbol key="actionUrl" required="no" />
 
 <initialization>
-	new PageTree("${component.clientId}","${linkUrl}","${title}","${component.actionFrame}","${component.queryClassName}","${component.actionUrl}");
+	new PageTree("${clientId}","${linkUrl}","${title}","${actionFrame}","${queryClassName}","${actionUrl}");
 </initialization>
 </script>

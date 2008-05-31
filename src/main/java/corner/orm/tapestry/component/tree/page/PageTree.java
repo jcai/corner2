@@ -12,6 +12,8 @@
 
 package corner.orm.tapestry.component.tree.page;
 
+import java.util.Map;
+
 import org.apache.tapestry.IActionListener;
 import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IRequestCycle;
@@ -37,6 +39,16 @@ import corner.orm.tapestry.component.tree.AbstractLeftTree;
  */
 public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	
+	/**
+	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#appendParamet(java.util.Map)
+	 */
+	@Override
+	public void appendParamet(Map<String, Object> parms) {
+		parms.put("actionFrame", getActionFrame());
+		parms.put("queryPageName", getQueryPageName());
+		parms.put("actionUrl", getActionUrl());
+	}
+
 	/**
 	 * @see org.apache.tapestry.IDirect#trigger(org.apache.tapestry.IRequestCycle)
 	 */

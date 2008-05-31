@@ -13,11 +13,11 @@
 <include-script resource-path="/corner/orm/tapestry/component/tree/pop/poptree.js" />
 
 
-<input-symbol key="component" required="yes" />
+<input-symbol key="clientId" required="yes" />
 <input-symbol key="linkUrl" required="yes" />
 <input-symbol key="title" required="no" />
 
 <initialization>
-	window.tree = new PopTree("${component.clientId}","${linkUrl}","${title}");
+	window.tree = new PopTree("${clientId}","${linkUrl}","${title}");
 </initialization>
 </script>

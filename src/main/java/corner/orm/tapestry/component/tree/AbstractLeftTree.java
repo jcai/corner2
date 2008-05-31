@@ -38,12 +38,22 @@ public abstract class AbstractLeftTree extends BaseComponent {
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
-			parms.put("component", this);
+			parms.put("clientId", this.getClientId());
 			parms.put("linkUrl", getLinkUrl());
 			parms.put("title", getTitle());
 			
+			appendParamet(parms);
+			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
+	}
+
+	/**
+	 * 增加参数
+	 * @param parms
+	 */
+	public void appendParamet(Map<String, Object> parms){
+		
 	}
 
 	/**
