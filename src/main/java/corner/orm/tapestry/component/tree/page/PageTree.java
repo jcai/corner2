@@ -45,7 +45,7 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	@Override
 	public void appendParamet(Map<String, Object> parms) {
 		parms.put("actionFrame", getActionFrame());
-		parms.put("queryPageName", getQueryPageName());
+		parms.put("queryClassName", getQueryClassName());
 		parms.put("actionUrl", getActionUrl());
 	}
 

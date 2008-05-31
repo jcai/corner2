@@ -17,7 +17,7 @@
 <input-symbol key="title" required="no" />
 <input-symbol key="actionFrame" required="no" />
 <input-symbol key="actionUrl" required="no" />
-
+<input-symbol key="queryClassName" required="no" />
 <initialization>
 	new PageTree("${clientId}","${linkUrl}","${title}","${actionFrame}","${queryClassName}","${actionUrl}");
 </initialization>
