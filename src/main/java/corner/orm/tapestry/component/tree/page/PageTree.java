@@ -52,7 +52,7 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	/**
 	 * 返回url
 	 */
-	public String getUrl() {
+	public String getActionUrl() {
 		String url = null;
 		
 		if(this.getQueryPageName() != null){

@@ -17,6 +17,6 @@
 <input-symbol key="title" required="no" />
 
 <initialization>
-	new PageTree("${component.clientId}","${linkUrl}","${title}","${component.actionFrame}","${component.queryClassName}","${component.url}");
+	new PageTree("${component.clientId}","${linkUrl}","${title}","${component.actionFrame}","${component.queryClassName}","${component.actionUrl}");
 </initialization>
 </script>
