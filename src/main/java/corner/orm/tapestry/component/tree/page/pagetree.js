@@ -81,11 +81,11 @@ PageTree.prototype = {
 					this.showChildren();
 					this.loaded = true;
 					for(var i=0; i < nodes.length; i++){
-						if((nodes[i].data.right - nodes[i].data.left) == 1){
-							this.options.leafNode = true;
-						}else{
+//						if((nodes[i].data.right - nodes[i].data.left) == 1){
+//							this.options.leafNode = true;
+//						}else{
 							this.options.leafNode = false;
-						}
+//						}
 						var newNode = new this.constructor(this.element,nodes[i].id,nodes[i].type,nodes[i]);
 					}
 					if(this.options.sortable){ this.createSortable(); }
