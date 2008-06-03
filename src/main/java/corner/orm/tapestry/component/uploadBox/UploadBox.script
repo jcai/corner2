@@ -28,6 +28,9 @@
 	        objimg.style.display='none';
 	    }
 	}
-	dojo.event.connect(dojo.byId('blobDataField_update'),"onpropertychange","preview");
+	
+	if(${component.imageFile}){
+		dojo.event.connect(dojo.byId('blobDataField_update'),"onpropertychange","preview");
+	}
 </initialization>
 </script>
