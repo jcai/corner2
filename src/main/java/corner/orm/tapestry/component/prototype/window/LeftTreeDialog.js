@@ -16,7 +16,8 @@ LeftTreeDialog.prototype = {
 				frameW=dojo.html.iframeContentWindow(this.win.getContent());
 				if(frameW){
 					frameW.queryBox=this;
-					frameW.tree.treeObj.onClick();
+					if(frameW.tree)
+						frameW.tree.treeObj.onClick();
 					dojo.debug("frameW.queryBox : " + frameW.queryBox);
 				}
 			}
