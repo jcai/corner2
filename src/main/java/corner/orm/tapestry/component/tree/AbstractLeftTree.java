@@ -41,6 +41,7 @@ public abstract class AbstractLeftTree extends BaseComponent {
 			parms.put("clientId", this.getClientId());
 			parms.put("linkUrl", getLinkUrl());
 			parms.put("title", getTitle());
+			parms.put("verifyLeafNode", isVerifyLeafNode());
 			
 			appendParamet(parms);
 			
@@ -70,6 +71,9 @@ public abstract class AbstractLeftTree extends BaseComponent {
 	/** 名称 * */
 	@Parameter
 	public abstract String getTitle();
+	
+	@Parameter(defaultValue = "ognl:true")
+	public abstract boolean isVerifyLeafNode();
 	
 	/**
 	 * 设置返回值的名称和需要返回的内容

@@ -1,6 +1,6 @@
 var PopTree = Class.create();
 PopTree.prototype = {
-	initialize: function(element,page,title) {
+	initialize: function(element,page,title,isVerifyLeafNode) {
 		Ajax.Tree.Invoice = Ajax.Tree.create({
 				types: {
 					leftTreeSite: {
@@ -22,16 +22,24 @@ PopTree.prototype = {
 							for(var key in data.returnDates){
 								this.element.setAttribute(key,data.returnDates[key]);
 							}
-
-							if((data.right - data.left) == 1){
+							
+							if(isVerifyLeafNode){
+								if((data.right - data.left) == 1){
+									this.clickExpense = function(evt){
+										queryBox.onSelect(this.element);
+										queryBox.win.close();
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+								}else{
+									this.clickExpense = function(evt){
+										this.onClick();
+									}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+								}
+							}else{
 								this.clickExpense = function(evt){
 									queryBox.onSelect(this.element);
 									queryBox.win.close();
-								}.bind(this);
-								Event.observe(this.span,'click',this.clickExpense);
-							}else{
-								this.clickExpense = function(evt){
-									this.onClick();
 								}.bind(this);
 								Event.observe(this.span,'click',this.clickExpense);
 							}

@@ -16,8 +16,9 @@
 <input-symbol key="clientId" required="yes" />
 <input-symbol key="linkUrl" required="yes" />
 <input-symbol key="title" required="no" />
+<input-symbol key="verifyLeafNode" required="yes" />
 
 <initialization>
-	window.tree = new PopTree("${clientId}","${linkUrl}","${title}");
+	window.tree = new PopTree("${clientId}","${linkUrl}","${title}",${verifyLeafNode});
 </initialization>
 </script>
