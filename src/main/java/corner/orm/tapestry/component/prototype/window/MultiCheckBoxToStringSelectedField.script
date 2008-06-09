@@ -4,6 +4,7 @@
   "http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
 <input-symbol key="id" required="yes" />
+<input-symbol key="queryBox" required="yes" />
 <initialization>
 	<unique>
 		var maps = {
@@ -15,16 +16,6 @@
 			},
 			pop: function(element) {
 				this.maps.pop(element);
-			},
-			toString: function(){
-				var values=&quot;&quot;;
-				for(i=0;i&lt;this.maps.length;i++){
-					if(i&gt;0){
-						values += &quot;,&quot;;
-					}
-					values +=this.maps[i].value;
-				}
-				return values;
 			}
 		}
 	</unique>
@@ -36,7 +27,7 @@
 		}else{
 			maps.pop(src);
 		}
-		queryBox.onSelect(maps.toString());
+		${queryBox}.onSelect(maps);
 	}); 
 </initialization>
 </script>

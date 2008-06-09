@@ -9,6 +9,7 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.PageRenderSupport;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.components.Any;
 
 /**
@@ -47,9 +48,16 @@ public abstract class AbstractAny extends Any {
 	    	PageRenderSupport prs = TapestryUtils.getPageRenderSupport(cycle, this);
 			Map<String, String> parms = new HashMap<String, String>();
 			parms.put("id", this.getClientId());
+			parms.put("queryBox", getQueryBox());
 			getScript().execute(this, cycle, prs, parms);
 	    }
 	}
 	
 	protected abstract String exceptionMessage();
+	
+	/**
+	 * 增加queryBox配置
+	 */
+	@Parameter(defaultValue = "literal:queryBox")
+	public abstract String getQueryBox();
 }
