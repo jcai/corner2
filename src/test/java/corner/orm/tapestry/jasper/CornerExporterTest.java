@@ -59,7 +59,7 @@ public class CornerExporterTest extends Assert{
 	 * 测试生成pdf
 	 * @throws JRException 
 	 */
-	@Test
+//	@Test
 	public void testMakePdf() throws JRException{
 		// Export to PDF file.
 		JRPdfExporter exporter = new CornerPdfExporter();
