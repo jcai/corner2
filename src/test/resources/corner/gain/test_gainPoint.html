@@ -23,24 +23,32 @@ function reElementValues(){
 	
 //	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
 	
-	var flags = eval({"id":[],"name":[],"cnName":[]});
+//	var flags = eval({"id":[],"name":[],"cnName":[]});
 	
-//	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"]});
+	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]});
 
 	
 	var temp;
 	for(var key in flags){
 		
 			var elements = document.getElementsByName(key);
-		
+			
 			dojo.debug("elements.length " + elements.length);
 		
 			for (var i in elements){
 	
 				temp = 	flags[key][i];
+				
+				dojo.debug("type " + elements[i].type);
 	
 				if(temp){
-				 elements[i].value = flags[key][i];
+					if(elements[i].type =="checkbox"){
+						if(temp=="on"){
+							elements[i].checked = "checked";
+						}
+					}else{
+						elements[i].value = temp;
+					}
 				}
 			
 				dojo.debug(flags[key][i]);
@@ -73,8 +81,14 @@ function reElementValues(){
 			<td>
 				field 2 <input id="field1" type="text" name="cnName" value="bbbbbb" />
 			</td>
+            <td>
+				field 3 <input name="show" type="checkbox" value="" >
+			</td>
 			<td>
-				<a href=# onclick="dellRowById('t',getTrIndex(this))""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
+				field 4 <input name="subsidy" type="checkbox" value="" >
+			</td>
+			<td>
+				<a href=# onclick="dellRowById('t',getTrIndex(this))"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
 			</td>
 		</tr>
 	</table>

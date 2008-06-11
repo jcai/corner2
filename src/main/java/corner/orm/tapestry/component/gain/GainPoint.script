@@ -24,7 +24,7 @@
     dojo.debug("run Change");
     (function ${gpid}Change() {
     	
-    	var flags = eval(${elementValues});;
+    	var flags = eval(${elementValues});
     	
     	dojo.debug("flags " + flags);
 		
@@ -36,14 +36,20 @@
 		
 			dojo.debug("elements.length " + elements.length);
 			
-			var len = elements.length;
-		
-			for (var i=0;i&lt;len;i++){
-			
+			for (var i in elements){
+	
 				temp = 	flags[key][i];
+				
+				dojo.debug("type " + elements[i].type);
 	
 				if(temp){
-					elements[i].value = temp;
+					if(elements[i].type =="checkbox"){
+						if(temp=="on"){
+							elements[i].checked = "checked";
+						}
+					}else{
+						elements[i].value = temp;
+					}
 				}
 			
 				dojo.debug(temp);
