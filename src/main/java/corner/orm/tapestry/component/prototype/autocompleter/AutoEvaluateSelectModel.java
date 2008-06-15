@@ -37,6 +37,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import corner.orm.tapestry.state.IContext;
 import corner.util.BeanUtils;
+import corner.util.StringUtils;
 
 /**
  * 自动赋值selector
@@ -169,18 +170,18 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	 * @param context
 	 */
 	protected void appendContext(Class clazz,Criteria criteria,IContext context){
-//		if (ICompanyModel.class.isAssignableFrom(clazz) && context.getCompany() != null) {
-//			criteria.add(Restrictions.eq(AbstractCompanywareModel.COMPANY_PRO_NAME, context.getCompany()));
-//		}
+		
 	}
 	
 	/**
+	 * 如果录入字符为空，则为无条件查询;如果不为空按照录入字符
+	 * 
 	 * @param criteria
 	 * @param match
 	 */
 	protected void appendCriteria(Criteria criteria, String queryName,
 			String match,DataSqueezer squeezer,String [] dependFieldsValue,IContext context) {
-		if (match == null || match.trim().length() == 0) {
+		if (StringUtils.blank(match)) {
 			return;
 		} else {
 			criteria.add(Restrictions.like(queryName, match.trim() + "%"));
