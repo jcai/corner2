@@ -49,7 +49,7 @@
 		}
 		
 		//手动实现再选中的文本外围增加span标签
-		dom.source.wrapSelection("<span id=\""+idInsTag+"Field\" jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+valTag+"\">","</span>");
+		dom.source.wrapSelection("<span jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+valTag+"\">","</span>");
 		return;        
 		
 
