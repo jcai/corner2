@@ -16,4 +16,8 @@
     <file name="CornerTextField.png" destination="$dreamweaver/configuration/objects/common" />
 </files> 
 
+<configuration-changes>
+<menu-insert insertAfter="DWMenu_Insert_FormObject" skipSeparator="true">
+<menuitem name="CornerTextField" key="Opt+3"  enabled="dw.getFocus() != 'browser' && dw.getDocumentDOM() != null && dw.getDocumentDOM().getParseMode() == 'html'" file="Common/CornerTextField.htm" id="CornerTextField_Name" />
+<separator id="CornerTextField_Separator" />
 </macromedia-extension>
