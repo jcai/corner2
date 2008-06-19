@@ -13,7 +13,7 @@ dojo.require("dojo.collections.ArrayList");
 //why define widget?
 dojo.widget.defineWidget("corner.widget.Matrix");
 
-dojo.widget.tags.addParseTreeHandler("dojo:Matrix");
+
 
 corner.widget.Matrix=function(){
 	dojo.widget.HtmlWidget.call(this);

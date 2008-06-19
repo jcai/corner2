@@ -10,6 +10,7 @@ dojo.require("dojo.ns");
 			"TextAreaBox":"corner.widget.TextAreaBox",
 			"QueryBox":"corner.widget.QueryBox",
 			"DropdownDatePicker":"corner.widget.DropdownDatePicker"
+			"Matrix":"corner.widget.Matrix"
 		}
 	};
 	
