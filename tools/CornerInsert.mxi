@@ -15,4 +15,10 @@
     <file name="CornerInsert.png" destination="$dreamweaver/configuration/objects/common" />
 </files> 
 
+<configuration-changes>
+<menu-insert insertAfter="DWMenu_Insert_FormObject" skipSeparator="true">
+<menuitem name="CornerInsert" key="Opt+1"  enabled="dw.getFocus() != 'browser' && dw.getDocumentDOM() != null && dw.getDocumentDOM().getParseMode() == 'html'" file="Common/CornerInsert.htm" id="CornerInsert_Name" />
+<separator id="CornerInsert_Separator" />
+</menu-insert>
+</configuration-changes>
 </macromedia-extension>

@@ -1,7 +1,4 @@
-<macromedia-extension
-    name="Corner I18N"
-    version="1.0.1"
-    type="object">
+<macromedia-extension name="CornerI18N" version="1.0.2" type="object">
 <author name="Ghostbb" />
 
 <products> 
@@ -20,5 +17,10 @@
     <file name="CornerI18N.htm" destination="$dreamweaver/configuration/objects/common" /> 
     <file name="CornerI18N.png" destination="$dreamweaver/configuration/objects/common" />
 </files> 
-
+<configuration-changes>
+<menu-insert insertAfter="DWMenu_Insert_FormObject" skipSeparator="true">
+<menuitem name="CornerI18N" key="Opt+2"  enabled="dw.getFocus() != 'browser' && dw.getDocumentDOM() != null && dw.getDocumentDOM().getParseMode() == 'html'" file="Common/CornerI18N.htm" id="CornerI18N_Name" />
+<separator id="CornerI18N_Separator" />
+</menu-insert>
+</configuration-changes>
 </macromedia-extension>
