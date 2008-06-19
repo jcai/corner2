@@ -1,0 +1,18 @@
+<macromedia-extension name="CornerInsert" version="1.0.5" type="object">
+<author name="Ghostbb" />
+<products> 
+    <product name="Dreamweaver" version="6" primary="true" />
+</products> 
+<description> 
+    <![CDATA[自动生成带有Tapestry标记的Insert]]> 
+</description> 
+<ui-access> 
+    <![CDATA[弹出对话框中可以设置标记名称,例如:实体名称设置为:entity,字段名称设置为test,则可以生成:<span id="TestField" jwcid="@Insert" value="ognl:entity.test">]]> 
+</ui-access> 
+
+<files> 
+    <file name="CornerInsert.htm" destination="$dreamweaver/configuration/objects/common" /> 
+    <file name="CornerInsert.png" destination="$dreamweaver/configuration/objects/common" />
+</files> 
+
+</macromedia-extension>

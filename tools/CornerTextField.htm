@@ -1,0 +1,56 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Corner TextField</title>
+<script language="JavaScript">
+
+function isDOMRequired() { 
+	// Return false, indicating that this object is available in code view.
+	return false;
+}
+
+function objectTag() {
+		var insertTag="";
+		var cssTag = "";
+		if (document.insertTagForm.insertTagField.value != ""){
+			insertTag=document.insertTagForm.insertTagField.value;
+		} else{
+			insertTag='text'; 
+		}
+		
+		if (document.insertTagForm.cssTagField.value != ""){
+			cssTag=document.insertTagForm.cssTagField.value;
+		} else {
+		
+			cssTag = 'input-form';
+		}
+
+		return ("<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>");
+
+	}
+
+	function displayHelp(){
+		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
+	}
+</script>
+</head>
+<body>
+<form action="" method="post" name="insertTagForm" id="insertTagForm">
+  <table width="380" border="0" cellspacing="3" cellpadding="2">
+    <tr>
+      <td><font size="2" face="新宋体">字段名称(默认:text)</font></td>
+      <td><input type="text" name="insertTagField" id="insertTagField">
+      </td>
+    </tr>
+    <tr>
+      <td><font size="2" face="新宋体">CSS名称(默认:input-form)</font></td>
+      <td><input type="text" name="cssTagField" id="cssTagField">
+      </td>
+    </tr>
+  </table>
+  <hr>
+  bjmaxinfo'Ghostbb
+</form>
+</body>
+</html>

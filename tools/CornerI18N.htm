@@ -1,0 +1,50 @@
+<!DOCTYPE HTML SYSTEM "-//Macromedia//DWExtension layout-engine 5.0//dialog">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Corner I18N</title>
+
+</head>
+<script language="JavaScript">
+	function isDOMRequired() { 
+		// Return false, indicating that this object is available in code view.
+		return false;
+	}
+
+	function objectTag() {
+		//key属性的值,对应.page文件中的message属性
+		var objectName = "";
+		if (document.insertTagform.objectName.value != ""){
+			objectName=document.insertTagform.objectName.value;
+		}
+		else {
+			objectName='id'; 
+		}
+		
+		//手动实现再选中的文本外围增加span标签
+		var dom = dw.getDocumentDOM();               
+		dom.source.wrapSelection("<span key=\""+objectName+"\">","</span>");
+		return;        
+		
+
+	}
+
+	function displayHelp(){
+		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
+	}
+</script>
+<body>
+<form action="" method="post" name="insertTagform" id="insertTagform">
+ <table width="380" border="0" cellspacing="3" cellpadding="2" align="center">
+  <tr>
+  <td align="left"><font face="新宋体" size="2">key属性值(默认为:id)</font></td>
+   <td>
+     <input type="text" name="objectName" id="objectName">
+   </td>
+   </tr>
+ </table>
+ <hr>
+<p align="center">bjmaxinfo'Ghostbb</p>
+</form>
+</body>
+</html>

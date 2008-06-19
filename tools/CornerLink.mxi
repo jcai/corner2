@@ -1,0 +1,24 @@
+<macromedia-extension
+    name="Corner Span"
+    version="1.0.0"
+    type="object">
+<author name="Ghost" />
+
+<products> 
+    <product name="Dreamweaver" version="6" primary="true" />
+</products> 
+
+<description> 
+    <![CDATA[自动生成带有Tapestry标记的Span]]> 
+</description> 
+
+<ui-access> 
+    <![CDATA[弹出对话框中可以设置标记名称,例如:实体名称设置为:entity,字段名称设置为test,则可以生成:<span id="TestField" jwcid="ognl:entity.test">]]> 
+</ui-access> 
+
+<files> 
+    <file name="CornerSpan.htm" destination="$dreamweaver/configuration/objects/common" /> 
+    <file name="CornerSpan.png" destination="$dreamweaver/configuration/objects/common" />
+</files> 
+
+</macromedia-extension>
