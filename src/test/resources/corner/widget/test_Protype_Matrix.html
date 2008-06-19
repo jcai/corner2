@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> 对二维表的展现进行测试</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<script language="JavaScript" src="../../../../main/js/corner/sc-17-proto-15-compressed.js"></script>
+
+
+
+</HEAD>
+<BODY>
+<p>
+    <pre>
+对二维表展现的测试，下面可以动态的增加行和列，上面的TextArea为对应的值.
+下面的一行对应数据库的是一条记录。目前记录这些值采用一个字段，存储的类型为向量(java.util.Vector).
+
+TODO:
+    在增加的时候可以支持拖拽(DND)。 
+    对填入的数据进行客户端的验证.   
+    </pre>
+</p>
+<Textarea id="sumTextarea" cols="40" rows="20" >
+    </textarea>
+<input type="button" id="addRow" value="add row"/>
+<input type="button" id="addCol" value="add column"/>
+<table id="testMatrix" ></table>
+
+<script>
+<!--
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+Matrix = Class.create();
+Matrix.prototype={
+	
+	initialize:function(tableId){
+		this.matrixTable=$(tableId);
+		this.sumTextarea=$('sumTextarea');
+		$("addRow").observe("click",this.addRow.bindAsEventListener(this));
+		$("addCol").observe("click",this.addColumn.bindAsEventListener(this));
+		
+	},
+	//行和列定义.
+	rows:function(){return this.matrixTable.rows.length;},
+	cols:function(){if(this.rows() == 0) return 0;else return this.matrixTable.rows[0].cells.length;},   
+    
+    matrixTable:null,
+    
+   
+    inputNodes:new Array(),
+    
+    //增加一行.
+    addRow:function(evt){
+    	//加入对行进行操作的按钮
+    	if(this.rows()==0){
+    		//增加行和列的操作按钮
+	    	
+
+	    	row=this.matrixTable.insertRow(0);
+	    	row.insertCell(0);
+	    	
+	    	inputChildren=new Array();
+	    	this.inputNodes.push(inputChildren);
+
+    	}
+    	currentRows=this.rows();
+    	currentCols=this.cols();
+    	//插入行
+    	row = this.matrixTable.insertRow(currentRows);
+    	
+    	//加入对行进行操作的单元格
+    	cell=row.insertCell(0);
+    	input=this.createRowActionElement('rc'+currentRows+0);
+    	cell.appendChild(input);
+    	$(input).observe("click",this.removeRow.bindAsEventListener(this));
+    	
+    	//此行所有input的集合
+    	inputChildren=new Array();
+    	
+		//插入行对应的列
+		for(var i=1;i<currentCols;i++){
+			id='rc'+currentRows+i;
+			
+	        cell=row.insertCell(i);
+	        input=this.createInputElement(id);
+		    cell.appendChild(input);
+		    
+		    //加入数据
+		    inputChildren.push(input);
+		}
+		this.inputNodes.push(inputChildren);
+
+		this.sumValue();
+    },
+    //增加一列.
+    addColumn:function(evt){
+    	if(this.rows()==0){
+    		return;
+    	}
+		currentRows=this.rows();
+    	currentCols=this.cols();
+    	
+    	//加入对列操作的单元格
+		cell=this.matrixTable.rows[0].insertCell(currentCols);
+
+    	input=this.createColActionElement('rc'+0+currentCols);
+		cell.appendChild(input);
+		$(input).observe("click",this.removeCol.bindAsEventListener(this));
+		
+    	//逐行加入列
+    	for(var i=1;i<currentRows;i++){
+			id='rc'+i+currentCols;
+	        row=this.matrixTable.rows[i];
+	        cell=row.insertCell(currentCols);
+	        input=this.createInputElement(id);
+	        cell.appendChild(this.createInputElement(id));
+       		this.inputNodes[i].push(input);
+       		
+
+	    }
+       	this.sumValue();
+    },
+    //创建一个Input
+    createInputElement:function (id){
+        input=document.createElement("input");
+        input.value=0;
+        input.type="text";
+
+        $(input).observe("keyup",this.sumValue.bindAsEventListener(this));
+        
+	    return input;
+	},
+	//创建对列进行操作的Input
+	createColActionElement:function(id){
+		input = document.createElement("input");
+        input.value="删除本列";
+        input.type="button";
+        return input;
+	},
+	/**
+	 * 创建行操作元素
+	 * @TODO 将和createColActionElement合并.
+	 */
+	createRowActionElement:function(id){
+		input = document.createElement("input");
+		input.type="button";
+        input.value="删除本行";
+        return input;
+	},
+	/**
+	 * 删除行。
+	 */
+	removeRow:function(evt){
+		var src=Event.element(evt);
+		index=src.parentNode.parentNode.rowIndex;
+		this.matrixTable.deleteRow(index);
+		this.inputNodes.remove(index);
+		this.sumValue();
+		
+	},
+	/**
+	 * 删除列.
+	 */
+	removeCol:function(evt){
+		var src=Event.element(evt);
+
+		colIndex=src.parentNode.cellIndex;
+		rowCount=this.rows();
+		
+		for(var i=0;i<rowCount;i++){
+			row = this.matrixTable.rows[i];
+			
+			row.deleteCell(colIndex);
+			if(i>0){
+				rowNodes=this.inputNodes[i];
+				rowNodes.remove(colIndex-1);
+			}
+		}
+		this.sumValue();
+	},
+	/**
+	 * 统计值
+	 */
+	sumValue:function(evt){
+		value="";
+
+		this.inputNodes.forEach(function(item,i){
+			if(i==0){//工具行
+				return;
+			}
+			rowValue="";
+			item.forEach(function(input,j){
+				rowValue+=input.value;
+				rowValue+=",";
+			});
+			if(rowValue.length>0){
+				rowValue=rowValue.substr(0,rowValue.length-1);
+			}
+			value+=rowValue;
+			value+="\n";
+		});
+		this.sumTextarea.value=value;
+	}
+    
+
+}
+createMatrixTable = function(event){
+	new Matrix('testMatrix');
+	
+	
+}
+createMatrixTable();
+
+
+//-->
+</script>
+
+$Id: test_Matrix.html 4082 2008-06-19 05:01:08Z jcai $
+</body>
+</html>
