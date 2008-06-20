@@ -11,7 +11,8 @@ function isDOMRequired() {
 }
 
 function objectTag() {
-
+		
+		var returnValue= "";//返回值
 		var insertTag="";
 		var cssTag = "";
 		if (document.insertTagForm.insertTagField.value != ""){
@@ -28,17 +29,31 @@ function objectTag() {
 			}			
 		}
 			//取得当前浏览的dom
+	
 		var dom = dw.getDocumentDOM();
-		var domSelection =dom.getSelection();
+		var domSelection =dom.getSelection();		
 		if(dw.getFocus() == 'document'){
 			if(domSelection && domSelection.length==2){
-				if(dreamweaver.canDeleteSelection()){
-					dom.deleteSelection();
-				}
+				if(domSelection[0] != domSelection[1]){
+					var pattern = "</textarea>";
+					var selectSource = dom.source.getText(domSelection[0],domSelection[1]);
+					var result = selectSource.toLowerCase().indexOf(pattern);
+					if(result && result>-1){//如果是TextArea
+						if(dreamweaver.canDeleteSelection()){//删除选中部分
+							dom.deleteSelection();
+						}
+						returnValue = "<textarea name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/></textarea>";
+					}
+				} 
 			}
 		}
-		return ("<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>");
-
+		if(returnValue == null || returnValue == ""){
+			if(dreamweaver.canDeleteSelection()){//删除选中部分
+				dom.deleteSelection();
+			}
+			returnValue ="<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>";
+		}
+		return returnValue;
 	}
 	
 	function copyCss(){
