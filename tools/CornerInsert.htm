@@ -53,10 +53,40 @@
 		}
 		
 		//手动实现再选中的文本外围增加span标签
-		if(valTag.indexOf("get")>-1){
-			dom.source.wrapSelection("<span jwcid=\"@Insert\" value=\"ognl:"+valTag+"("+inputObjectName+")\">","</span>");//如果输入get方法
+		var perfixStr = "<span jwcid=\"@Insert\" value=\"ognl:";
+		var suffixStr = ">";
+		var dateList = document.insertTagform.dateRadio;
+		var selectType;
+		if(dateList && dateList.length>0){
+			for(var i=0;i<dateList.length;i++){
+				var dType = dateList[i]; 
+				if(dType.checked){
+					selectType = dType.value;
+				}
+			}
 		} else {
-			dom.source.wrapSelection("<span jwcid=\"@Insert\" value=\"ognl:"+objectName+"."+valTag+"\">","</span>");//如果是属性
+			alert('插件异常,请联系作者');
+			displayHelp();
+		}
+		//根据selectType增加format
+		if(selectType && selectType.length>0){
+			var tmp = " format=\"date:";
+			if("date"==selectType){
+				tmp = tmp + "date";
+			} else if("sdate" == selectType){
+				tmp = tmp + "sdate";
+			} else if("time" == selectType){
+				tmp = tmp + "time";
+			} else {
+				tmp = tmp + "stime";
+			}
+			tmp = tmp + "\" ";
+			suffixStr = tmp + suffixStr;
+		}
+		if(valTag.indexOf("get")>-1){
+			dom.source.wrapSelection(perfixStr+valTag+"('"+inputObjectName+"')\""+suffixStr,"</span>");//如果输入get方法
+		} else {
+			dom.source.wrapSelection(perfixStr+objectName+"."+valTag+"\""+suffixStr,"</span>");//如果是属性
 		}
 		return;        
 		
@@ -71,25 +101,50 @@
 		var obj = document.getElementById("insertTag");
 		obj.focus();
 	}
+
+	function displayHelp(){
+		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
+	}
 </script>
-<body onload="focusObject()">
+<body onLoad="focusObject()">
 <form action="" method="post" name="insertTagform" id="insertTagform">
  <table width="380" border="0" cellspacing="3" cellpadding="2" align="center">
   <tr>
-  <td align="left"><font face="新宋体" size="2">实体名称(默认为:entity)</font></td>
-   <td>
-     <input type="text" name="objectName" id="objectName">
-   </td>
-   </tr>
-   <tr>
-   <td align="left"><font face="新宋体" size="2">字段名称(默认为:idField)</font></td>
-   <td>
-     <input type="text" name="insertTag" id="insertTag">
-   </td>
+	<td align="left"><font face="新宋体" size="2">实体名称(默认为:entity)</font></td>
+	<td><input type="text" name="objectName" id="objectName"></td>
+  </tr>
+  <tr>
+	<td align="left"><font face="新宋体" size="2">字段名称(默认为:idField)</font></td>
+	<td><input type="text" name="insertTag" id="insertTag"></td>
+  </tr>
+  <tr>
+	<td align="left" rowspan="2"><font face="新宋体" size="2">日期类型选择</font></td>
+	<td>
+        <table width="200" border="1">
+            <tr>
+                <td><font face="新宋体" size="2">日期</font>:</td>
+                <td><input type="radio" name="dateRadio" id="dateRadio" value="sdate"></td>
+                <td><font face="新宋体" size="2">精确日期</font>:</td>
+                <td><input type="radio" name="dateRadio" id="dateRadio" value="date"></td>
+            </tr>
+        </table>
+	</td>
+  </tr>
+  <tr>
+  	<td>
+        <table width="200" border="1">
+            <tr>
+                <td><font face="新宋体" size="2">时间</font>:</td>
+                <td><input type="radio" name="dateRadio" id="dateRadio" value="stime"></td>
+                <td><font face="新宋体" size="2">精确时间</font>:</td>
+                <td><input type="radio" name="dateRadio" id="dateRadio" value="time"></td>
+            </tr>
+        </table>
+    </td>
   </tr>
  </table>
  <hr>
-<p align="center">bjmaxinfo'Ghostbb</p>
+<p align="left"><font color="#0080FF" size="+1" face="Comic Sans MS">bjmaxinfo'Ghostbb</font></p>
 </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<macromedia-extension name="CornerInsert" version="1.0.5" type="object">
+<macromedia-extension name="CornerInsert" version="1.0.6" type="object">
 <author name="Ghostbb" />
 <products> 
     <product name="Dreamweaver" version="6" primary="true" />
