@@ -11,6 +11,7 @@ function isDOMRequired() {
 }
 
 function objectTag() {
+
 		var insertTag="";
 		var cssTag = "";
 		if (document.insertTagForm.insertTagField.value != ""){
@@ -22,20 +23,49 @@ function objectTag() {
 		if (document.insertTagForm.cssTagField.value != ""){
 			cssTag=document.insertTagForm.cssTagField.value;
 		} else {
-		
-			cssTag = 'input-form';
+			if(cssTag == "" || cssTag.length==0){
+				cssTag = 'input-form';//default value
+			}			
 		}
-
+			//取得当前浏览的dom
+		var dom = dw.getDocumentDOM();
+		var domSelection =dom.getSelection();
+		if(dw.getFocus() == 'document'){
+			if(domSelection && domSelection.length==2){
+				if(dreamweaver.canDeleteSelection()){
+					dom.deleteSelection();
+				}
+			}
+		}
 		return ("<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>");
 
+	}
+	
+	function copyCss(){
+			//取得当前浏览的dom
+		var dom = dw.getDocumentDOM();
+		var domSelection =dom.getSelection();
+		if(dw.getFocus() == 'document'){
+			if(domSelection && domSelection.length==2){
+				if(domSelection[0] != domSelection[1]){
+					var pattern = /class=\"([^"]+)\"/;
+					var selectSource = dom.source.getText(domSelection[0],domSelection[1]);
+					var result = selectSource.match(pattern);
+					if(result && result[1]){
+						document.insertTagForm.cssTagField.value = result[1];
+					}
+				} 
+			} 
+		} 
 	}
 
 	function displayHelp(){
 		dreamweaver.browseDocument("mailto:Ghostbb@bjmaxinfo.com");
 	}
+	
 </script>
 </head>
-<body>
+<body onload="copyCss();">
 <form action="" method="post" name="insertTagForm" id="insertTagForm">
   <table width="380" border="0" cellspacing="3" cellpadding="2">
     <tr>

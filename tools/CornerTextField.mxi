@@ -1,4 +1,4 @@
-<macromedia-extension name="CornerTextField" version="1.0.2" type="object">
+<macromedia-extension name="CornerTextField" version="1.0.3" type="object">
 <author name="Ghostbb" />
 <products> 
     <product name="Dreamweaver" version="6" primary="true" />
