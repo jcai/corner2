@@ -1,5 +1,8 @@
-Dreamweaver的plug-in,可以方便的生成带有Tapestry标记的span,input标签
+Dreamweaver的plug-in,可以方便的生成带有Tapestry标记的span,input,key标签
 注意:如果用使用dw打包的时候出现问题，请讲全部代码转换成gb2312编码，然后重新打包
+使用方法:
+  1.安装dw,和extension manager
+  2.双击运行.mxp文件
 ------------------------------------------------------------------------
 2008-06-29
 changes: 
