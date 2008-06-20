@@ -18,4 +18,7 @@ changes:
 2008-06-20
 changes:
    CornerTextField version 1.0.3
+   CornerInsert version 1.0.5
  1.升级了CornerTextField支持在视图模式修改TextField和TextArea属性和CSS
+ 2.升级了CornerInsert组件，支持选择日期类型，并自动带入date类型的format的功能
+ 
