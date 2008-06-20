@@ -54,6 +54,20 @@
   	<binding name="image" value="continueImage"/>
   </component>
 
-  
+<component type="corner:CoolestPicker" id="regDateField">
+
+    <binding name="displayName" value="message:regDate"/>
+
+    <binding name="translator" value="translator:exactdate"/>
+
+    <binding name="ifFormat" value="literal:%Y-%m-%d %H:%M:%S"/>
+
+    <binding name="showsTime" value="literal:true"/>
+
+    <binding name="timeFormat" value="literal:24"/>
+
+    <binding name="value" value="ognl:regDate"/>
+
+  </component>
 </page-specification>
 

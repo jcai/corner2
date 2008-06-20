@@ -32,15 +32,15 @@ public abstract class Palette extends BasePage implements PageBeginRenderListene
 
     public abstract List getSelectedColors();
     public abstract void setSelectedColors(List list);
+    
+    public abstract Date getRegDate();
+    public abstract void setRegDate(Date d);
 
     public abstract String getSort();
 
     public abstract void setSort(String s);
 
     public abstract IValidationDelegate getDelegate();
-    
-    public abstract Date getCurrentTime();
-    public abstract void setCurrentTime(Date date);
 
     @InjectPage("palette/PaletteResults")
     public abstract PaletteResults getResultsPage();
@@ -62,7 +62,7 @@ public abstract class Palette extends BasePage implements PageBeginRenderListene
     {
         PaletteResults results = getResultsPage();
         results.setSelectedColors(getSelectedColors());
-        results.setCurrentTime(this.getCurrentTime());
+        results.setRegDate(this.getRegDate());
         return results;
     }
 

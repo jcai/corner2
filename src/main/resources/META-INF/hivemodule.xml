@@ -49,6 +49,7 @@
 	<sub-module descriptor="corner.pdf.xml"/>
 	<sub-module descriptor="corner.jasper.xml"/>
 	<sub-module descriptor="corner.pushlet.xml"/>
+	<sub-module descriptor="corner.formats.xml"/>
 	<!-- for guice container -->
 	<sub-module descriptor="corner.guice.xml"/>
 	

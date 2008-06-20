@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module id="corner.format" version="4.0.0" package="corner.orm.tapestry.format">
+<service-point id="DateBindingFactory" interface="org.apache.tapestry.binding.BindingFactory">
+    Factory for the "date:" binding prefix.
+    <invoke-factory>
+      <construct class="DateBindingFactory">
+      	<set-object property="valueConverter" value="infrastructure:valueConverter"/>  
+      </construct>
+    </invoke-factory>
+</service-point>
+<contribution configuration-id="tapestry.bindings.BindingFactories">
+   <binding prefix="date" service-id="DateBindingFactory"/>
+</contribution>
+    
+</module>

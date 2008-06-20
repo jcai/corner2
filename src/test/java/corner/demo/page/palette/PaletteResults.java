@@ -11,8 +11,8 @@ public abstract class PaletteResults extends BasePage
 {
     public abstract void setSelectedColors(List list);
     
-    public abstract Date getCurrentTime();
-    public abstract void setCurrentTime(Date date);
+    public abstract Date getRegDate();
+    public abstract void setRegDate(Date d);
     
     @Asset("classpath:Back.gif")
     public abstract IAsset getBackImage();
