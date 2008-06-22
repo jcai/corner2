@@ -331,13 +331,26 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			
 			scriptParms.put("elementValues", JSONElementValues.toString());	//
 			
+			scriptParms.put("checkBoxFields", getCheckBoxs().toString()); //那个是checkbox
+			
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 			
 		}
 	}
 	
 	
-//	
+	/**
+	 * @return
+	 */
+	private JSONArray getCheckBoxs() {
+		JSONArray json = new JSONArray();
+		String [] boxs = this.getCheckBoxFields().split(",");
+		for(String s : boxs){
+			json.put(s);
+		}
+		return json;
+	}
+
 	/**
 	 * 获得json串
 	 * @param elements
@@ -471,6 +484,9 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	
 	@Parameter(defaultValue = "literal:tr")
 	public abstract String getElement();
+	
+	@Parameter(defaultValue = "literal:")
+	public abstract String getCheckBoxFields();
 
 	/**
 	 * 

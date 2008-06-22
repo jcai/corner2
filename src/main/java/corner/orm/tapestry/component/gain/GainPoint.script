@@ -10,6 +10,7 @@
 <input-symbol key="pagePersistentId"     	required="yes" />
 <input-symbol key="gpid"     	required="yes" />
 <input-symbol key="elementValues"     	required="yes" />
+<input-symbol key="checkBoxFields"     	required="yes" />
 
 
 <initialization>
@@ -19,40 +20,38 @@
 		function getPagePersistentId(){
 			return '${pagePersistentId}';
 		}
+		
+		function isContain(checkBoxs,value){
+			for(var i = 0 ; i&lt;checkBoxs.length;i++){
+				if(value==checkBoxs[i]){
+					return true;
+				}
+			}
+			return false;
+		}
 	</unique>
 
     dojo.debug("run Change");
     (function ${gpid}Change() {
-    	
     	var flags = eval(${elementValues});
-    	
+    	var checkBoxs = eval(${checkBoxFields});
     	dojo.debug("flags " + flags);
-		
+    	
 		var temp;
-		
 		for(var key in flags){
-		
 			var elements = document.getElementsByName(key);
-		
-			dojo.debug("elements.length " + elements.length);
-			
 			for (var i in elements){
 	
 				temp = 	flags[key][i];
 				
-				dojo.debug("type " + elements[i].type);
-	
 				if(temp){
-					if(elements[i].type =="checkbox"){
+					elements[i].value = temp;
+					if(isContain(checkBoxs,key)){
 						if(temp=="on"){
-							elements[i].checked = "checked";
+							document.getElementsByName(key+"_check")[i].checked = "checked";
 						}
-					}else{
-						elements[i].value = temp;
 					}
 				}
-			
-				dojo.debug(temp);
 			}
 		}
 		

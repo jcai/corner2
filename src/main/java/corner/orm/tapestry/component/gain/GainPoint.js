@@ -123,3 +123,26 @@ function dellLastRow(pid){
 	var id = obj.rows.length-1;
 	dellRowById(pid,id);
 }
+
+
+function checkHidField(hidName,filed){
+	var obj = document.getElementsByName(hidName+"_check");
+	//获得选择的位置
+	var index = 0;
+	for(var t=0;t<obj.length;t++){
+		if(obj[t]==filed){
+			index = t;
+		}
+	}
+	dojo.debug("click index " + index);
+	
+	//获得所有该名字元素
+	var hidObje = document.getElementsByName(hidName);
+	if(filed.checked){
+		hidObje[index].value="on";
+	}else{
+		hidObje[index].value="off";
+	}
+	
+	dojo.debug("hid value = " + hidObje[index].value);
+}
