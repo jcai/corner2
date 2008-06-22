@@ -19,42 +19,39 @@ djConfig = { isDebug: true
 function reElementValues(){
 	
 	dojo.require("dojo.json");
-	dojo.debug("fkdlsajfkldjsakfjdkls");
-	
-//	var tempflags = "{'attributes':[{'property':'inName','elementValues':['value1','value2','value3','value4']},{'property':'cnName','elementValues':['value5','value6','value7','value8']}]}";
-	
-//	var flags = eval({"id":[],"name":[],"cnName":[]});
 	
 	var flags = dojo.json.evalJson({"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]});
 
+	var checkBoxs = dojo.json.evalJson(['show','subsidy']);
 	
 	var temp;
 	for(var key in flags){
+		var elements = document.getElementsByName(key);
+		dojo.debug("elements.length " + elements.length);
 		
-			var elements = document.getElementsByName(key);
+		for (var i in elements){
+			temp = 	flags[key][i];
+			dojo.debug("type " + elements[i].type);
 			
-			dojo.debug("elements.length " + elements.length);
-		
-			for (var i in elements){
-	
-				temp = 	flags[key][i];
-				
-				dojo.debug("type " + elements[i].type);
-	
-				if(temp){
-					if(elements[i].type =="checkbox"){
-						if(temp=="on"){
-							elements[i].checked = "checked";
-						}
-					}else{
-						elements[i].value = temp;
+			if(temp){
+				elements[i].value = temp;
+				if(isContain(checkBoxs,key)){
+					if(temp=="on"){
+						document.getElementsByName(key+"_check")[i].checked = "checked";
 					}
 				}
-			
-				dojo.debug(flags[key][i]);
 			}
+		}
 	}
-	
+}
+
+function isContain(checkBoxs,value){
+	for(var i = 0 ; i<checkBoxs.length;i++){
+		if(value==checkBoxs[i]){
+			return true;
+		}
+	}
+	return false;
 }
 	
 	
@@ -82,16 +79,19 @@ function reElementValues(){
 				field 2 <input id="field1" type="text" name="cnName" value="bbbbbb" />
 			</td>
             <td>
-				field 3 <input name="show" type="checkbox" value="" >
+				field 3 <input name="show_check" type="checkbox" value="" onclick="checkHidField('show',this)" />
+				<input type="hidden" name="show" value=""	/>
 			</td>
 			<td>
-				field 4 <input name="subsidy" type="checkbox" value="" >
+				field 4 <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
+				<input type="hidden" name="subsidy" value=""/>
 			</td>
 			<td>
 				<a href=# onclick="dellRowById('t',getTrIndex(this))"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
 			</td>
 		</tr>
 	</table>
+	<input type="submit" />
 </form>
 
 <a href=# onclick=" reElementValues()">reElementValues</a><br />
