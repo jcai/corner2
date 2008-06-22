@@ -153,6 +153,48 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			
 			this.getSaveOrUpdateEntitys().add(entity);
 		}
+		
+		//删除全是空的实体
+		delNullEntity();
+	}
+
+	/**
+	 * 删除空实体
+	 */
+	private void delNullEntity() {
+		String prop = this.getShowPropertys().replace(this.getPagePersistentId(), getPersistentId());
+		String entityPropertys[] = prop.split(",");
+		int count = 0;
+		Object obj=null;
+		
+		List nulllist = new ArrayList();
+		
+		for(Object bean : getSaveOrUpdateEntitys()){
+			count = 0;
+			for(String name:entityPropertys){
+				try {
+					obj = PropertyUtils.getProperty(bean, name);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				}
+				
+				if(obj == null || obj.toString() == ""){
+					count++;
+				}
+				
+				if(count == entityPropertys.length){
+					nulllist.add(bean);
+				}
+			}
+		}
+		
+		for(Object bean : nulllist){
+			getSaveOrUpdateEntitys().remove(bean);
+		}
 	}
 
 	/**
