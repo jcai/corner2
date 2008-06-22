@@ -259,7 +259,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 				renderBody(writer, cycle);
 		}
 		if (!cycle.isRewinding()) {
-			super.renderComponent(writer, cycle);
+			
+			String element = isParameterBound("element") ? getElement() : getTemplateTagName();
+			
+			writer.begin(element);
+				super.renderComponent(writer, cycle);
+			writer.end();
 			
 			this.initData();
 			
@@ -421,6 +426,9 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	 */
 	@Parameter(defaultValue = "literal:id")
 	public abstract String getPersistentId();
+	
+	@Parameter(defaultValue = "literal:tr")
+	public abstract String getElement();
 
 	/**
 	 * 

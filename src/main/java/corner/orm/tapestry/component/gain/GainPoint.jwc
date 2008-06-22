@@ -12,7 +12,6 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <description>
     A row component
   </description>
- 
 
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
 </component-specification>
