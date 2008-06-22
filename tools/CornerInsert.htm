@@ -84,7 +84,7 @@
 			suffixStr = tmp + suffixStr;
 		}
 		if(valTag.indexOf("get")>-1){
-			dom.source.wrapSelection(perfixStr+valTag+"('"+inputObjectName+"')\""+suffixStr,"</span>");//如果输入get方法
+			dom.source.wrapSelection(perfixStr+valTag+"("+inputObjectName+")\""+suffixStr,"</span>");//如果输入get方法
 		} else {
 			dom.source.wrapSelection(perfixStr+objectName+"."+valTag+"\""+suffixStr,"</span>");//如果是属性
 		}
