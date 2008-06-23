@@ -100,8 +100,8 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			}
 			
 			if(entity instanceof IBlobModel){	//删除blob属性
-				json1 = removeBlobDate(json1);
-				json2 = removeBlobDate(json2);
+				json1 = removeBlobData(json1);
+				json2 = removeBlobData(json2);
 			}
 			
 			parms.put("json", json1);
@@ -155,11 +155,11 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 	}
 	
 	/**
-	 * 删除blobdate
+	 * 删除blobdata
 	 * @param temp
 	 * @return
 	 */
-	public static String removeBlobDate(String temp){
+	public static String removeBlobData(String temp){
 		JSONObject parent = null;
 		JSONObject json = null;
 		try {
