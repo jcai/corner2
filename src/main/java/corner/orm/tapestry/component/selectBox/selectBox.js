@@ -23,9 +23,9 @@ SelectBox.prototype = {
 	//from表示:包含可选择项目的select对象名字 to表示:列出可选择项目的select对象名字
 	//你可以根据你的具体情况修改
 	copyToList:function(isTurn){
-		var fromList = isTurn?$(this.fromField):$(this.toField);	
+		var fromList = isTurn?$(this.fromField):$(this.toField);
 		var toList = isTurn?$(this.toField):$(this.fromField);
-		if (toList.options.length > 0 && toList.options[0].value == 'temp'){
+		if (toList.options.length > 0 && toList.options[0].value == 'hold_Text'){
 			toList.options.length = 0;
 		}
 		var sel = false;
@@ -33,7 +33,7 @@ SelectBox.prototype = {
 			var current = fromList.options[i];
 			if (current.selected){
 				sel = true;
-				if (current.value == 'temp'){
+				if (current.value == 'hold_Text'){
 					alert ('你不能选择这个项目!');
 					return;
 				}
@@ -48,7 +48,7 @@ SelectBox.prototype = {
 	copyAll:function(isTurn){
 		var fromList = isTurn?$(this.fromField):$(this.toField);	
 		var toList = isTurn?$(this.toField):$(this.fromField);
-		if (toList.options.length > 0 && toList.options[0].value == 'temp'){
+		if (toList.options.length > 0 && toList.options[0].value == 'hold_Text'){
 			toList.options.length = 0;
 		}
 		for (i=0;i<fromList.options.length;i++){
@@ -71,7 +71,7 @@ SelectBox.prototype = {
 	},
 	allSelect:function(){
 		List = $(this.toField);
-		if (List.length && List.options[0].value == 'temp') return;
+		if (List.length && List.options[0].value == 'hold_Text') return;
 		for (i=0;i<List.length;i++){
 			 List.options[i].selected = true;
 		}
@@ -86,7 +86,7 @@ SelectBox.prototype = {
 		//判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
 		if(typeof(selectedText) == "undefined"){
 		   //ie下 需这样取值
-		   selectedText = obj.options[obj.selectedIndex].text;   
+		   selectedText = obj.options[obj.selectedIndex].text;
 		}
 		
 		obj.remove(obj.selectedIndex);
@@ -103,7 +103,7 @@ SelectBox.prototype = {
 		//判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
 		if(typeof(selectedText) == "undefined"){
 		   //ie下 需这样取值
-		   selectedText = obj.options[obj.selectedIndex].text;   
+		   selectedText = obj.options[obj.selectedIndex].text;
 		}
 		
 		obj.remove(obj.selectedIndex);
