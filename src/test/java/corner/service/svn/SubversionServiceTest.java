@@ -14,7 +14,7 @@ public class SubversionServiceTest extends Assert{
 	public void testRemovePrototype(){
 		String temp ="{\"entity\":{\"saleContractMain\":\"com.bjmaxinfo.piano.model.sale.impl.SaleContractMain@6efc82\",\"blobName\":\"06级法律本科第3学期.rar\",\"contentType\":\"application/x-msdownload\",\"blobData\":\"MSwyLDMsNA==\"}}";
 		String expect ="{\"entity\":{\"saleContractMain\":\"com.bjmaxinfo.piano.model.sale.impl.SaleContractMain@6efc82\",\"blobName\":\"06级法律本科第3学期.rar\",\"contentType\":\"application/x-msdownload\"}}";
-		assertEquals(VersionManage.removeBlobDate(temp),expect);
+		assertEquals(VersionManage.removeBlobData(temp),expect);
 	}
 	
 	@Test
