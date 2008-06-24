@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import corner.demo.model.AbstractModel;
 import corner.model.IBlobModel;
 import corner.orm.hibernate.v3.MatrixRow;
+import corner.orm.tapestry.component.selectBox.ISelectBox;
 import corner.service.svn.IVersionable;
 
 /**
@@ -24,7 +25,7 @@ import corner.service.svn.IVersionable;
  */
 @Entity(name="oneA")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class A extends AbstractModel implements IBlobModel,IVersionable {
+public class A extends AbstractModel implements IBlobModel,IVersionable,ISelectBox {
 
 	/**
 	 *
@@ -263,5 +264,21 @@ public class A extends AbstractModel implements IBlobModel,IVersionable {
 	@Transient
 	public Object getParentObject() {
 		return null;
+	}
+	
+	/**
+	 * @see corner.orm.tapestry.component.selectBox.ISelectBox#getLabel()
+	 */
+	@Transient
+	public String getLabel() {
+		return this.getName();
+	}
+
+	/**
+	 * @see corner.orm.tapestry.component.selectBox.ISelectBox#getValue()
+	 */
+	@Transient
+	public String getValue() {
+		return this.getId();
 	}
 }
