@@ -87,9 +87,9 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 		
 		if (!cycle.isRewinding()) {
 	        Map<String,Object> parms = new HashMap<String,Object>();
-	        parms.put("fromId", getFromId());
+	        parms.put("formId", getFormId());
 	        parms.put("fromField", getFromField());
-	        parms.put("foField", getToField());
+	        parms.put("toField", getToField());
 	        
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
@@ -120,7 +120,7 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 * FormId
 	 */
 	@Parameter(required = true)
-	public abstract String getFromId();
+	public abstract String getFormId();
 	
 	/**
 	 * 
