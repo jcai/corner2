@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+<script>
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/corner/orm/tapestry/component/selectBox/selectBox.js" />
+
+<input-symbol key="formId" required="yes" />
+<input-symbol key="fromField" required="yes" />
+<input-symbol key="toField" required="yes" />
+
+<initialization>
+	new SelectBox("${formId}","${fromField}","${toField}");
+</initialization>
+</script>

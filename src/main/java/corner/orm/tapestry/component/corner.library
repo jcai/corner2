@@ -76,5 +76,7 @@
   <component-type type="PopTree" specification-path="tree/pop/PopTree.jwc"/>
   <component-type type="PageTree" specification-path="tree/page/PageTree.jwc"/>
   
+  <component-type type="SelectBox" specification-path="selectBox/SelectBox.jwc"/>
+  
   <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
 </library-specification>
