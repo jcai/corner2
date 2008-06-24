@@ -33,11 +33,6 @@ import org.apache.tapestry.annotations.Parameter;
  */
 public abstract class VersionJson extends AbstractComponent {
 	
-	/**
-	 * render出的json串，变量名称的前缀
-	 */
-	public static final String VERSION_JSON_NAME_FLAG_STR = "flag";
-	
 	@InjectScript("VersionJson.script")
 	public abstract IScript getScript();
 

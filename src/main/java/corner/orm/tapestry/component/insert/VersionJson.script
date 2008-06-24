@@ -6,6 +6,6 @@
 <input-symbol key="json" required="yes" />
 <input-symbol key="jsonName" required="yes"/>
 <initialization>
-	var flag_${jsonName} = eval(${json});
+	var ${jsonName} = eval(${json});
 </initialization>
 </script>
