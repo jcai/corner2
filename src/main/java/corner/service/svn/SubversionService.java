@@ -168,7 +168,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 		});
 	}
 	
-	private Object execute(ISvnCallback callback){
+	protected Object execute(ISvnCallback callback){
 		SVNRepository repository = null;
 		try {
 			repository=createSvnRepository();
@@ -325,7 +325,7 @@ public class SubversionService  implements IVersionService,InitializingBean{
 	 * @param clazz 类名.
 	 * @return 路径名称.
 	 */
-	private  StringBuffer getGroupPath(IVersionable versionableObject){
+	protected  StringBuffer getGroupPath(IVersionable versionableObject){
 		Class<?> entityClass = EntityService.getEntityClass(versionableObject);
 		VersionGroup versionGroup=entityClass.getAnnotation(VersionGroup.class);
 		StringBuffer entityPath=new StringBuffer();
