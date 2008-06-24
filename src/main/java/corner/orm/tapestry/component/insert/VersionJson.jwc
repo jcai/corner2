@@ -7,8 +7,6 @@
   "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 	
-<component-specification class="corner.orm.tapestry.component.insert.VersionJsonManage" 
+<component-specification class="corner.orm.tapestry.component.insert.VersionJson" 
     allow-body="no">
-  <property name="showside" initial-value="literal:并排"/>
-  <property name="showLine" initial-value="literal:内联"/>
 </component-specification>

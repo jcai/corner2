@@ -70,7 +70,7 @@
   
   <component-type type="VInsert" specification-path="insert/VersionInsert.jwc"/>
   <component-type type="VManage" specification-path="insert/VersionManage.jwc"/>
-  <component-type type="VJsonManage" specification-path="insert/VersionJsonManage.jwc"/>
+  <component-type type="VJson" specification-path="insert/VersionJson.jwc"/>
   <component-type type="VDownLoads" specification-path="insert/VersionDownLoadFile.jwc"/>
   
   <component-type type="PopTree" specification-path="tree/pop/PopTree.jwc"/>

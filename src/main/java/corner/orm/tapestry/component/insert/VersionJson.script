@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+<input-symbol key="json" required="yes" />
+<input-symbol key="jsonName" required="yes"/>
+<initialization>
+	var flag_${jsonName} = eval(${json});
+</initialization>
+</script>
