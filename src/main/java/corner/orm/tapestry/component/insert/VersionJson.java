@@ -46,14 +46,14 @@ public abstract class VersionJson extends AbstractComponent {
 	 * 页面render出来的json串变量的名称
 	 * @return {@link String}
 	 */
-	@Parameter
+	@Parameter(required=true)
 	public abstract String getJsonName();
 	
 	/**
 	 * 页面render出来的json串变量
 	 * @return {@link String}
 	 */
-	@Parameter
+	@Parameter(required=true)
 	public abstract String getJsonStr();
 
 
