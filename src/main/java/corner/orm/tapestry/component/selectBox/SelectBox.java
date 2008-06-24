@@ -25,6 +25,7 @@ import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
+import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.valid.IValidationDelegate;
 
 /**
@@ -90,11 +91,29 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	        parms.put("formId", getFormId());
 	        parms.put("fromField", getFromField());
 	        parms.put("toField", getToField());
+	        parms.put("fromSource", getFromSource().toString());
+	        parms.put("toSource", getToSource().toString());
 	        
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
 	}
 	
+	/**
+	 * @return
+	 */
+	private JSONArray getToSource() {
+		JSONArray json = new JSONArray();
+		return json;
+	}
+
+	/**
+	 * 获得源
+	 */
+	private JSONArray getFromSource() {
+		JSONArray json = new JSONArray();
+		return json;
+	}
+
 	/**
 	 * 
 	 */
