@@ -7,26 +7,15 @@
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
-djConfig = { isDebug: true,
-               baseRelativePath: "../../../../main/js/dojo",
-               preventBackButtonFix: false,
-               parseWidgets: false
-          };
+djConfig = { isDebug: true };
 
 //-->
 </SCRIPT>
 <link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
 <link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
-<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
-<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/selectBox/selectBox.js"> </script>  
-<script type="text/javascript">
-dojo.require("dojo.logging.Logger");
-dojo.log.setLevel(dojo.log.getLevel("WARNING"));
-dojo.require("tapestry.namespace")
-</script>
 	
 
 </HEAD>
@@ -38,11 +27,12 @@ dojo.require("tapestry.namespace")
               <tr>
                 <td>
                   <select id="possible" name="possible" size="4"	MULTIPLE width=200 style="width: 200px" >
+                  <!--
                     <option value="1">中国广州
                     <option value="2">中国上海
                     <option value="3">中国北京
                     <option value="4">中国武汉
-					
+					-->
                   </select>
                 </td>
                   <td>
@@ -63,13 +53,10 @@ dojo.require("tapestry.namespace")
             </table>
             <input type="submit" />
 </form>
-
 <br/>
 <span>Version:0.0.1  $Revision: 3996 $ $Date: 2008-03-18 16:54:31 +0800 $ </span>
-<script type="text/javascript"><!--
-	var sel = new SelectBox('Aform','possible','chosen');
+<script type="text/javascript">
+<!--
+	var sel = new SelectBox('Aform','possible','chosen',[{"label":"广州","value":"111111"},{"label":"上海","value":"222222"},{"label":"北京","value":"333333"},{"label":"武汉","value":"444444"}],{});
 // --></script></body>
 </html>
-<!-- Render time: ~ 922 ms -->
-
-

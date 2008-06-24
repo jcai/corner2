@@ -1,9 +1,22 @@
+var loadSelectValues = function(field,source){
+	dojo.debug(field);
+	dojo.debug("Start Add Option...");
+	for(var i = 0 ; i<source.length;i++){
+		var txt = source[i]["label"];
+		var val = source[i]["value"];
+		dojo.debug(txt + " - " + val);
+		$(field).options[$(field).length]= new Option(txt,val);
+	}
+}
+
 var SelectBox = Class.create();
 SelectBox.prototype = {
-	initialize: function(formId,fromField,toField) {
+	initialize: function(formId,fromField,toField,fromSource,toSource) {
 		this.formId = formId;
 		this.fromField = fromField;
 		this.toField = toField;
+		loadSelectValues(this.fromField,fromSource);
+		loadSelectValues(this.toField,toSource);
 		Event.observe($(this.formId ),"submit",this.allSelect.bindAsEventListener(this));
 	    Event.observe($(this.fromField),"dblclick",this.dblclickCopy.bindAsEventListener(this));
 	    Event.observe($(this.toField),"dblclick",this.dblclickCopyTo.bindAsEventListener(this));
