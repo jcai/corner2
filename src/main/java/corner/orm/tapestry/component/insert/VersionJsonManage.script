@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+
+<input-symbol key="json" required="yes" />
+<input-symbol key="jsonName" />
+<input-symbol key="json2" />
+<input-symbol key="type" required="yes" />
+<input-symbol key="ver" required="yes" />
+<input-symbol key="otherVer"  />
+<input-symbol key="showInfo" />
+
+<initialization>
+	var ${jsonName} = eval(${json});
+	var flags2 = eval(${json2});
+	var type = "${type}";
+	$("ver_hid").value = "${ver}";
+	$("otherVer_hid").value = "${otherVer}";
+	$("ver_showInfo").update("${showInfo}");
+</initialization>
+</script>

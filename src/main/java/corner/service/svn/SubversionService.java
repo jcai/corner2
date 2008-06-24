@@ -223,7 +223,9 @@ public class SubversionService  implements IVersionService,InitializingBean{
 				SVNNodeKind nodeKind = repository.checkPath(filePath , revision);
 		        
 		        if (nodeKind == SVNNodeKind.NONE || nodeKind == SVNNodeKind.DIR) {
-		        	throw new RuntimeException("未发现文件");
+		        	logger.debug("未发现文件");
+		        	return null;
+//		        	throw new RuntimeException("未发现文件");
 		        }
 		        
 		        repository.getFile(filePath, revision, new HashMap(), baos);
