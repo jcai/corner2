@@ -5,18 +5,29 @@
   <description>corner.demo.model.one.A Form Page</description>
   <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
   <property persist="entity" initial-value="new corner.demo.model.one.A()" name="entity"/>
-
   <component type="Form" id="AForm">
     <binding value="ognl:beans.delegate" name="delegate"/>
     <binding value="ognl:true" name="clientValidationEnabled"/>
     <binding value="listener:doSaveEntityAction" name="success"/>
     <binding value="listener:doCancelEntityAction" name="cancel"/>
   </component>
-  <component type="corner:SelectBox" id="SelectBoxField">
+  <component type="corner:SelectBox" id="SelectBox">
     <binding name="displayName" value="message:name"/>
+    <!--binding name="entityClassName" value="literal:corner.demo.model.one.A"/-->
     <binding name="formId" value="literal:AForm"/>
-    <binding name="fromField" value="literal:fromSelect"/>
-    <binding name="toField" value="literal:toSelect"/>
-    <binding name="fromList" value="ognl:fromList"/>
+    <binding name="fromField" value="literal:possible"/>
+    <binding name="toField" value="literal:chosen"/>
+    <binding name="fromSource" value="ognl:fromList"/>
+    <binding name="toSource" value="ognl:toList"/>
+  </component>
+  
+  <component type="corner:SelectBox" id="SelectBox2">
+    <binding name="displayName" value="message:name"/>
+    <binding name="entityClassName" value="literal:corner.demo.model.one.A"/>
+    <binding name="formId" value="literal:AForm"/>
+    <binding name="fromField" value="literal:fromSource"/>
+    <binding name="toField" value="literal:toSource"/>
+    <binding name="fromSource" value="ognl:fromSource"/>
+    <binding name="toSource" value="ognl:toSource"/>
   </component>
 </page-specification>

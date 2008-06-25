@@ -22,11 +22,16 @@ import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.TapestryUtils;
+import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.json.JSONArray;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.IValidationDelegate;
+
+import corner.service.EntityService;
+import corner.util.StringUtils;
 
 /**
  * 两个select互选选择
@@ -35,6 +40,9 @@ import org.apache.tapestry.valid.IValidationDelegate;
  * @since 2.5
  */
 public abstract class SelectBox extends BaseComponent implements IFormComponent{
+	
+	private static String SELECT_LABEL = "label";
+	private static String SELECT_VALUE = "value";
 	
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
@@ -45,9 +53,44 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 * @param cycle
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		String [] values = cycle.getParameters(this.getToField());
 		
+		this.getToSource().clear();
+		//判断是否是空
+		if(StringUtils.notBlank(this.getEntityClassName())){
+			loadEntitys(values);
+		}else{
+			reLoadSource(values);
+		}
 	}
 	
+	/**
+	 * 通过value重新整理toSource
+	 * @param values 
+	 * @return
+	 */
+	private void reLoadSource(String[] values) {
+		for(String s:values){
+			for(ISelectBox sb : this.getFromSource()){
+				if(sb.getValue().equals(s)){
+					this.getToSource().add(sb);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 重新抓取实体整理toSource
+	 * @param values 
+	 * @return
+	 */
+	private void loadEntitys(String[] values) {
+		for(String id : values){
+			ISelectBox o = (ISelectBox) this.getEntityService().load(this.getEntityClassName(), id);
+			this.getToSource().add(o);
+		}
+	}
+
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle)
 	 */
@@ -88,11 +131,12 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 		
 		if (!cycle.isRewinding()) {
 	        Map<String,Object> parms = new HashMap<String,Object>();
+	        parms.put("clientId", this.getClientId());
 	        parms.put("formId", getFormId());
 	        parms.put("fromField", getFromField());
 	        parms.put("toField", getToField());
-	        parms.put("fromSource", getFromSource().toString());
-	        parms.put("toSource", getToSource().toString());
+	        parms.put("fromSource", getFromList().toString());
+	        parms.put("toSource", getToList().toString());
 	        
 	        getScript().execute(this, cycle, TapestryUtils.getPageRenderSupport(cycle, this), parms);
 	    }
@@ -101,17 +145,56 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	/**
 	 * @return
 	 */
-	private JSONArray getToSource() {
-		JSONArray json = new JSONArray();
-		return json;
+	private JSONArray getToList() {
+		JSONArray arr = new JSONArray();
+		JSONObject json = null;
+		for(ISelectBox sb : this.getToSource()){
+			json = new JSONObject();
+			json.put(SELECT_LABEL, sb.getLabel());
+			json.put(SELECT_VALUE, sb.getValue());
+			arr.put(json);
+		}
+		return arr;
 	}
 
 	/**
 	 * 获得源
 	 */
-	private JSONArray getFromSource() {
-		JSONArray json = new JSONArray();
-		return json;
+	private JSONArray getFromList() {
+		JSONArray arr = new JSONArray();
+		JSONObject json = null;
+		for(ISelectBox sb : this.getFromSource()){
+			if(isNotExist(sb)){
+				json = new JSONObject();
+				json.put(SELECT_LABEL, sb.getLabel());
+				json.put(SELECT_VALUE, sb.getValue());
+				arr.put(json);
+			}
+		}
+		return arr;
+	}
+
+	/**
+	 * 判断是否在ToList里面存在
+	 * @param sb
+	 * @return
+	 */
+	private boolean isExist(ISelectBox sb) {
+		for(ISelectBox o : this.getToSource()){
+			if(o.getValue().equals(sb.getValue())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断是否在ToList里面存在
+	 * @param sb
+	 * @return
+	 */
+	private boolean isNotExist(ISelectBox sb) {
+		return !this.isExist(sb);
 	}
 
 	/**
@@ -151,7 +234,7 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 * 数据源，用于回显或者显示
 	 */
 	@Parameter(required = true)
-	public abstract List<ISelectBox> getFromList();
+	public abstract List<ISelectBox> getFromSource();
 	
 	/**
 	 * FormId
@@ -162,12 +245,26 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	/**
 	 * 已经选中的
 	 */
+	@Parameter(required = true)
+	public abstract List<ISelectBox> getToSource();
+	
+	/**
+	 * 使用的实体
+	 */
 	@Parameter
-	public abstract List<ISelectBox> getToList();
+	public abstract String getEntityClassName();
 	
 	/**
 	 * 写入js
 	 */
 	@InjectScript("SelectBox.script")
 	public abstract IScript getScript();
+	
+	/**
+	 * 得到EntityService.
+	 * <p>提供基本的操作.
+	 * @return entityService 实体服务类
+	 */
+	@InjectObject("spring:entityService")
+	public abstract EntityService getEntityService();
 }

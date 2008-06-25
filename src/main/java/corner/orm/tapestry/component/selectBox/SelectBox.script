@@ -6,11 +6,14 @@
 <include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
 <include-script resource-path="/corner/orm/tapestry/component/selectBox/selectBox.js" />
 
+<input-symbol key="clientId" required="yes" />
 <input-symbol key="formId" required="yes" />
 <input-symbol key="fromField" required="yes" />
 <input-symbol key="toField" required="yes" />
+<input-symbol key="fromSource" required="yes" />
+<input-symbol key="toSource" required="yes" />
 
 <initialization>
-	new SelectBox("${formId}","${fromField}","${toField}");
+	${clientId}_fun = new SelectBox("${formId}","${fromField}","${toField}",${fromSource},${toSource});
 </initialization>
 </script>
