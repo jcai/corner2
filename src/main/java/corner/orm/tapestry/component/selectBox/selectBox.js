@@ -96,6 +96,8 @@ SelectBox.prototype = {
 		obj = dojo.html.getEventTarget(evt);
 		selectedValue = obj.value;
 		selectedText = obj.text;
+		if(obj.selectedIndex == -1)
+			return;
 		//判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
 		if(typeof(selectedText) == "undefined"){
 		   //ie下 需这样取值
@@ -113,6 +115,8 @@ SelectBox.prototype = {
 		obj = dojo.html.getEventTarget(evt);
 		selectedValue = obj.value;
 		selectedText = obj.text;
+		if(obj.selectedIndex == -1)
+			return;
 		//判断使用什么取值 obj.text 或obj.options[obj.selectedIndex].text
 		if(typeof(selectedText) == "undefined"){
 		   //ie下 需这样取值
