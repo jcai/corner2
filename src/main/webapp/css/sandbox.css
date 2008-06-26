@@ -9,7 +9,7 @@
 @import url("tree/default.css");
 
 @import url("ajaxio.css");
-
+@import url("preview.css");
 .alertButton {
 	width: auto;
 	border: none;
