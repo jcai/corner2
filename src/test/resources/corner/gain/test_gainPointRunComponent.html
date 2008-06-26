@@ -13,6 +13,7 @@ djConfig = { isDebug: true
           };
 
 //-->
+
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
@@ -48,44 +49,14 @@ djConfig = { isDebug: true
 			</td>
 		</tr>
 	</table>
-	<hr/>
-	name <a href=# onclick="gp2.addRow()"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
-	<a href=# onclick="gp2.addRows()">adds</a><br/>
-	<a href=# onclick="gp2.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
-      <table id="t2">
-		<tr jwcid="GainPointIdField">
-			<td>
-				id<input type="text" name ="po2id" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
-			</td>
-			<td>
-				field 1 <input type="text" name="name2" value="aaaaa" />
-			</td>
-			<td>
-				field 2 <input type="text" name="cnName2" value="bbbbbb" />
-			</td>
-            <td>
-				field 3 <input name="show2_check" type="checkbox" value="" onclick="checkHidField('show2',this)" />
-				<input type="hidden" name="show2" value=""	/>
-			</td>
-			<td>
-				field 4 <input name="subsidy2_check" type="checkbox"  onclick="checkHidField('subsidy2',this)" />
-				<input type="hidden" name="subsidy2" value=""/>
-			</td>
-			<td>
-				<a href=# onclick="gp2.delRowById(this)"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
-			</td>
-		</tr>
-	</table>
 	<input type="submit" />
 </form>
 
 <a href=# onclick="gp.init()">reElementValues1</a><br />
-<a href=# onclick="gp2.init()">reElementValues2</a><br />
 
 <script type="text/javascript">
 <!--
 	var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
-	var gp2 = new GainPoint("t2","po2id",4,{"po2id":["111","222","333","444"],"name2":["a","zd","5e","6"],"cnName2":["q","xs","pe","oa"],"show2":[null,"on","on",""],"subsidy2":[null,null,"on","on"]},['show2','subsidy2']);
 // --></script>
 </body>
 
