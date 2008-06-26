@@ -1,7 +1,7 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
     <form jwcid="BForm" action="BList.html">
-		增加 <a href=# onclick="addRow('t')"><img src="../images/add.png" border="0"/></a><br/>
+		增加 <a href=# onclick="GainPointField_0_fun.addRow()"><img src="../images/add.png" border="0"/></a><br/>
       <table id="t">
 		 
 		<tr jwcid="GainPointField">
@@ -9,18 +9,16 @@
 				id <input type="hidden" id="poid" name ="poid" value=""	/>
 			</td>
 			<td>
-				name <input type="text" id="field1" name ="name"	/>
+				name <input type="text" id="field1" name ="name" />
 			</td>
 			<td>
-				cnName <input type="text" id="field2" name ="cnName"	/>
+				cnName <input type="text" id="field2" name ="cnName" />
 			</td>
 			<td>
-				<a href=# onclick="dellRow('t',getTrIndex(this))""><img src="../images/cancel.png" border="0"/>
+				<a href=# onclick="GainPointField_0_fun.delRowById(this)""><img src="../images/cancel.png" border="0"/>
 			</td>							
 		</tr>
-			  
       </table>
-		
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
       <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>

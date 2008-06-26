@@ -3,59 +3,17 @@
 	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
 	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
 <script>
+<include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
 <include-script resource-path="/corner/orm/tapestry/component/gain/GainPoint.js" />
 
-<input-symbol key="tableId"     	required="yes" />
-<input-symbol key="elementSize"     	required="yes" />
-<input-symbol key="pagePersistentId"     	required="yes" />
-<input-symbol key="gpid"     	required="yes" />
-<input-symbol key="elementValues"     	required="yes" />
-<input-symbol key="checkBoxFields"     	required="yes" />
-
+<input-symbol key="tableId" required="yes" />
+<input-symbol key="elementSize" required="yes" />
+<input-symbol key="pagePersistentId" required="yes" />
+<input-symbol key="gpid" required="yes" />
+<input-symbol key="elementValues" required="yes" />
+<input-symbol key="checkBoxFields" required="yes" />
 
 <initialization>
-	<unique>
-	dojo.require("dojo.json");
-		addRows(${elementSize},'${tableId}');
-		function getPagePersistentId(){
-			return '${pagePersistentId}';
-		}
-		
-		function isContain(checkBoxs,value){
-			for(var i = 0 ; i&lt;checkBoxs.length;i++){
-				if(value==checkBoxs[i]){
-					return true;
-				}
-			}
-			return false;
-		}
-	</unique>
-
-    dojo.debug("run Change");
-    (function ${gpid}Change() {
-    	var flags = eval(${elementValues});
-    	var checkBoxs = eval(${checkBoxFields});
-    	dojo.debug("flags " + flags);
-    	
-		var temp;
-		for(var key in flags){
-			var elements = document.getElementsByName(key);
-			for (var i in elements){
-	
-				temp = 	flags[key][i];
-				
-				if(temp){
-					elements[i].value = temp;
-					if(isContain(checkBoxs,key)){
-						if(temp=="on"){
-							document.getElementsByName(key+"_check")[i].checked = "checked";
-						}
-					}
-				}
-			}
-		}
-		
-	})()
-	
+	${gpid}_fun = new GainPoint("${tableId}","${pagePersistentId}",${elementSize},${elementValues},${checkBoxFields});
 </initialization>
 </script>
