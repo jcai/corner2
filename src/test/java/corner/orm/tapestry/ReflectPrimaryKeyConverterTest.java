@@ -1,7 +1,6 @@
 package corner.orm.tapestry;
 
 import org.apache.tapestry.BaseComponentTestCase;
-import org.easymock.EasyMock;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;

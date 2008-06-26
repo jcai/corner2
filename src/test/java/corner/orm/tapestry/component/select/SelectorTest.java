@@ -11,7 +11,6 @@ import org.easymock.EasyMock;
 import org.testng.annotations.Test;
 
 import corner.demo.model.one.A;
-import corner.orm.spring.SpringContainer;
 import corner.service.EntityService;
 
 

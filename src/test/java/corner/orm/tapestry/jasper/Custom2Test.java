@@ -22,7 +22,6 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import corner.orm.tapestry.jasper.ciq.Custom2;
 

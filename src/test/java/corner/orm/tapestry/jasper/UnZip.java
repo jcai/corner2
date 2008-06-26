@@ -25,8 +25,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-import org.testng.annotations.Test;
-
 import corner.demo.model.one.A;
 import corner.util.BaseModelTestCase;
 

@@ -1,5 +1,8 @@
 package corner.orm.tapestry.validator;
 
+import static org.easymock.EasyMock.aryEq;
+import static org.easymock.EasyMock.eq;
+
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
@@ -14,10 +17,6 @@ import org.apache.tapestry.form.validator.BaseValidatorTestCase;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.ValidatorException;
 import org.easymock.EasyMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.eq;
-import static org.easymock.EasyMock.aryEq;
-
 import org.testng.annotations.Test;
 
 public class FieldPlusEqTest extends BaseValidatorTestCase {

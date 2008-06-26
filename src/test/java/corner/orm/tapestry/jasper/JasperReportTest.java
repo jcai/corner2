@@ -24,7 +24,6 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import corner.orm.tapestry.jasper.ciq.Custom;
 

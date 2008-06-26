@@ -1,11 +1,11 @@
 package corner.orm.tapestry.component.insert;
 
+import static org.easymock.EasyMock.expect;
+
 import org.apache.tapestry.BaseComponentTestCase;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.testng.annotations.Test;
-
-import static org.easymock.EasyMock.*;
 
 public class InsertTest extends BaseComponentTestCase {
 	@Test

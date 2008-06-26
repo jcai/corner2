@@ -17,7 +17,6 @@ import org.apache.tapestry.IPage;
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.page.relative.ReflectMultiManyEntityFormPage;
 import corner.service.svn.IVersionProvider;
-import corner.service.svn.IVersionable;
 
 /**
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>

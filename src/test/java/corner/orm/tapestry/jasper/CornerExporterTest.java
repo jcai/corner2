@@ -23,7 +23,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import corner.orm.tapestry.jasper.ciq.Custom;
 import corner.orm.tapestry.jasper.exporter.CornerPdfExporter;

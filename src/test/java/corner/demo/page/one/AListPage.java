@@ -12,7 +12,6 @@
 
 package corner.demo.page.one;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,9 +21,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import corner.demo.model.one.A;
-import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.IJasperParameter;
-import corner.orm.tapestry.jasper.service.JasperLinkService;
 import corner.orm.tapestry.page.PoListPage;
 
 /**
