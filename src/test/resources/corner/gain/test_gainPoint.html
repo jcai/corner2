@@ -4,7 +4,8 @@
 <head>
 <title>test gainPoint</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-	<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GainPoint.js"></script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GainPoint.js"></script>
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
@@ -44,16 +45,6 @@ function reElementValues(){
 		}
 	}
 }
-
-function isContain(checkBoxs,value){
-	for(var i = 0 ; i<checkBoxs.length;i++){
-		if(value==checkBoxs[i]){
-			return true;
-		}
-	}
-	return false;
-}
-	
 	
 //-->
 </SCRIPT>
@@ -64,9 +55,9 @@ function isContain(checkBoxs,value){
 
 <body>
 <form id="BForm">
-	name <a href=# onclick="addRow('t')"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
-	<a href=# onclick="addRows(4,'t')">adds</a><br/>
-	<a href=# onclick="dellLastRow('t')""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
+	name <a href=# onclick="gp.addRow()"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
+	<a href=# onclick="gp.addRows()">adds</a><br/>
+	<a href=# onclick="gp.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
       <table id="t">
 		<tr jwcid="GainPointIdField">
 			<td>
@@ -87,15 +78,19 @@ function isContain(checkBoxs,value){
 				<input type="hidden" name="subsidy" value=""/>
 			</td>
 			<td>
-				<a href=# onclick="dellRowById('t',getTrIndex(this))"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
+				<a href=# onclick="gp.delRowById(this)"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
 			</td>
 		</tr>
 	</table>
 	<input type="submit" />
 </form>
 
-<a href=# onclick=" reElementValues()">reElementValues</a><br />
+<a href=# onclick="gp.init()">reElementValues</a><br />
 
+<script type="text/javascript">
+<!--
+	var gp = new GainPoint("t","poid",4,{"id":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
+// --></script>
 	
 </body>
 
