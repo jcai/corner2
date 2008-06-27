@@ -22,11 +22,6 @@ import corner.orm.hibernate.IPersistModel;
  * @since 2.5
  */
 public abstract class AbstractPersistModel extends AbstractPersistDomain implements Serializable, IPersistModel{
-    /**
-     * @hibernate.id generator-class="uuid"  type="string"
-     * @hibernate.column name="Recno_Pk" comment="主键值" length="32" sql-type="Char(32)" 
-     *
-     */
     private String id;
 
 	/**
@@ -42,9 +37,6 @@ public abstract class AbstractPersistModel extends AbstractPersistDomain impleme
     public void setId(String id) {
         this.id = id;
     }
-
-	
-	
 	
     /* bean properties begin */
     public static final String ID_PRO_NAME="id";

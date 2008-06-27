@@ -18,14 +18,7 @@ package corner.model;
 public interface ICodeModel {
 
 	/**
-	 * 
-	 * @see com.bjmaxinfo.piano.model.ICodeModel#getIndexCode()
-	 * 
-	 * 编码,IndexCode,Char(20).
-	 * 
-	 * @hibernate.property
-	 * @hibernate.column name="Index_Code" comment="编码" length="20"
-	 * @hibernate.meta attribute="field-description" value="编号、代号"
+	 * 编码,IndexCode
 	 */
 	public abstract String getIndexCode();
 
@@ -36,12 +29,7 @@ public interface ICodeModel {
 	public abstract void setIndexCode(String indexCode);
 
 	/**
-	 * 拼音检索代码,abcCode,Char(100).
-	 * 
-	 * @hibernate.property
-	 * @hibernate.column name="abc_Code" comment="拼音检索代码." length="10"
-	 * @hibernate.meta attribute="field-description"
-	 *                 value="拼音检索代码,abcCode,Char(100)."
+	 * 拼音检索代码,abcCode
 	 */
 	public abstract String getAbcCode();
 
@@ -51,12 +39,7 @@ public interface ICodeModel {
 	public abstract void setAbcCode(String abcCode);
 
 	/**
-	 * 数字检索代码,numCode,Char(10).
-	 * 
-	 * @hibernate.property
-	 * @hibernate.column name="num_Code" comment="数字检索代码." length="10"
-	 * @hibernate.meta attribute="field-description"
-	 *                 value="数字检索代码,numCode,Char(10)."
+	 * 数字检索代码,numCode
 	 */
 	public abstract String getNumCode();
 
@@ -66,12 +49,7 @@ public interface ICodeModel {
 	public abstract void setNumCode(String numCode);
 
 	/**
-	 * 英文名称,engName,Varchar(100).
-	 * 
-	 * @hibernate.property
-	 * @hibernate.column name="eng_Name" comment="英文名称" length="100"
-	 * @hibernate.meta attribute="field-description"
-	 *                 value="英文名称,engName,Varchar(100)."
+	 * 英文名称,engName
 	 */
 	public abstract String getEngName();
 
@@ -81,12 +59,7 @@ public interface ICodeModel {
 	public abstract void setEngName(String engName);
 
 	/**
-	 * 中文名称,chnName,Varchar(100).
-	 * 
-	 * @hibernate.property
-	 * @hibernate.column name="chn_Name" comment="中文名称" length="100"
-	 * @hibernate.meta attribute="field-description"
-	 *                 value="中文名称,chnName,Varchar(100)."
+	 * 中文名称,chnName
 	 */
 	public abstract String getChnName();
 
