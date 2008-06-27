@@ -15,7 +15,6 @@ package corner.orm.tapestry.component.tree.page;
 import java.util.Map;
 
 import org.apache.tapestry.IActionListener;
-import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.Tapestry;
@@ -27,7 +26,7 @@ import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.link.DirectLink;
 import org.apache.tapestry.listener.ListenerInvoker;
 
-import corner.orm.tapestry.component.tree.AbstractLeftTree;
+import corner.orm.tapestry.component.tree.BaseLeftTree;
 
 
 
@@ -37,10 +36,10 @@ import corner.orm.tapestry.component.tree.AbstractLeftTree;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class PageTree extends AbstractLeftTree implements IDirect{
+public abstract class PageTree extends BaseLeftTree{
 	
 	/**
-	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#appendParamet(java.util.Map)
+	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#appendParamet(java.util.Map)
 	 */
 	@Override
 	public void appendParamet(Map<String, Object> parms) {
@@ -85,7 +84,7 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getScript()
+	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#getScript()
 	 */
 	@InjectScript("PageTree.script")
 	public abstract IScript getScript();
@@ -106,12 +105,6 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 	public abstract String getParentPage();
 	
 	/**
-	 * @see corner.orm.tapestry.component.tree.AbstractLeftTree#getLeftTreeService()
-	 */
-	@InjectObject("engine-service:pageTree")
-	public abstract IEngineService getLeftTreeService();
-	
-	/**
 	 * 监听调用函数
 	 */
 	@Parameter
@@ -125,7 +118,4 @@ public abstract class PageTree extends AbstractLeftTree implements IDirect{
 
 	@InjectObject("service:tapestry.services.Page")
 	public abstract IEngineService getPageService();
-	
-	@InjectObject("service:tapestry.services.Direct")
-	public abstract IEngineService getDirectService();
 }
