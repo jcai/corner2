@@ -23,10 +23,15 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.DirectServiceParameter;
 import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.json.JSONArray;
+import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.link.DirectLink;
 import org.apache.tapestry.listener.ListenerInvoker;
 
+import corner.model.tree.ILeftMenu;
+import corner.model.tree.ITreeAdaptor;
 import corner.orm.tapestry.component.tree.BaseLeftTree;
+import corner.orm.tapestry.component.tree.ITreeSelectModel;
 
 
 
@@ -37,6 +42,18 @@ import corner.orm.tapestry.component.tree.BaseLeftTree;
  * @since 2.5
  */
 public abstract class PageTree extends BaseLeftTree{
+	
+	/** 选择的过滤器 **/
+	@Parameter(defaultValue="ognl:new corner.orm.tapestry.component.tree.page.PopTreeSelectModel()")
+	public abstract ITreeSelectModel getSelectModel();
+	
+	/**
+	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#constructSelectModel()
+	 */
+	@Override
+	protected ITreeSelectModel constructSelectModel() {
+		return this.getSelectModel();
+	}
 	
 	/**
 	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#appendParamet(java.util.Map)
@@ -81,6 +98,42 @@ public abstract class PageTree extends BaseLeftTree{
 		}
 		
 		return url;
+	}
+	
+	/**
+	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#leftTreeNodeJson(corner.orm.tapestry.component.tree.ITreeSelectModel)
+	 */
+	protected JSONObject leftTreeNodeJson(ITreeSelectModel model) {
+		JSONArray jsonArr = new JSONArray();
+		
+		JSONObject subjson = null;
+		
+		JSONObject datejson = null;
+		
+		for(ITreeAdaptor node : model.getTreeList()){
+			subjson = new JSONObject();
+			subjson.put("id", node.getId());
+			subjson.put("type", "pageTreeSite");
+			
+			datejson = new JSONObject();
+			datejson.put("name", node.getNodeName());
+			datejson.put("left", node.getLeft());
+			datejson.put("right", node.getRight());
+			datejson.put("depth", node.getDepth());
+			datejson.put("thisEntity", getDataSqueezer().squeeze(node));
+			
+			if(node instanceof ILeftMenu){
+				datejson.put("actionPage", ((ILeftMenu)node).getActionPage());
+			}
+			
+			subjson.put("data", datejson);
+			
+			jsonArr.put(subjson);
+		}
+		
+		JSONObject json = new JSONObject();
+		json.put("nodes", jsonArr);
+		return json;
 	}
 
 	/**

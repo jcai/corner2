@@ -5,9 +5,10 @@
  * created at:2007-04-20
  */
 
-package corner.model;
+package corner.model.tree;
 
-import corner.service.tree.ITreeAdaptor;
+import corner.model.AbstractCodeModel;
+
 
 /**
  * 抽象的树的模型.

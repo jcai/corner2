@@ -13,7 +13,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import corner.model.AbstractTreeAdaptor;
+import corner.model.tree.AbstractTreeAdaptor;
+import corner.model.tree.ITreeAdaptor;
 import corner.util.BeanUtils;
 
 /**

@@ -7,8 +7,8 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.LinkFactory;
 
-import corner.service.tree.ITree;
-import corner.service.tree.ITreeAdaptor;
+import corner.model.tree.ITree;
+import corner.model.tree.ITreeAdaptor;
 
 /**
  * @author <a href="mailto:xf@bjmaxinfo.com">xiafei</a>

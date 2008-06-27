@@ -14,7 +14,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import corner.model.AbstractTreeAdaptor;
+import corner.model.tree.AbstractTreeAdaptor;
+import corner.model.tree.ITreeAdaptor;
 import corner.service.EntityService;
 
 /**

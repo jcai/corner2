@@ -18,8 +18,10 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
 
+import corner.model.tree.ITreeAdaptor;
 import corner.orm.tapestry.component.tree.BaseLeftTree;
 import corner.orm.tapestry.component.tree.ITreeSelectModel;
 
@@ -64,5 +66,41 @@ public abstract class PopTree extends BaseLeftTree{
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	/**
+	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#leftTreeNodeJson(corner.orm.tapestry.component.tree.ITreeSelectModel)
+	 */
+	protected JSONObject leftTreeNodeJson(ITreeSelectModel model) {
+		JSONArray jsonArr = new JSONArray();
+		
+		JSONObject subjson = null;
+		
+		JSONObject datejson = null;
+		
+		for(ITreeAdaptor node : model.getTreeList()){
+			subjson = new JSONObject();
+			subjson.put("id", node.getId());
+			subjson.put("type", "leftTreeSite");
+			
+			datejson = new JSONObject();
+			datejson.put("name", node.getNodeName());
+			datejson.put("left", node.getLeft());
+			datejson.put("right", node.getRight());
+			datejson.put("depth", node.getDepth());
+			datejson.put("thisEntity", this.getDataSqueezer().squeeze(node));
+			
+			if(model.getReturnValues() != null){	//如果不等于空则反抓出数据
+				returnPropertys(datejson,node,model.getReturnValues());
+			}
+			
+			subjson.put("data", datejson);
+			
+			jsonArr.put(subjson);
+		}
+		
+		JSONObject json = new JSONObject();
+		json.put("nodes", jsonArr);
+		return json;
 	}
 }

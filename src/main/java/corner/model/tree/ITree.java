@@ -5,7 +5,7 @@
  * created at:2007-12-25
  */
 
-package corner.service.tree;
+package corner.model.tree;
 
 /**
  * 树最基本的特性

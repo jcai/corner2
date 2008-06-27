@@ -12,7 +12,7 @@ import java.util.List;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.json.JSONObject;
 
-import corner.service.tree.ITreeAdaptor;
+import corner.model.tree.ITreeAdaptor;
 
 /**
  * @author <a href="mailto:xf@bjmaxinfo.com">xiafei</a>

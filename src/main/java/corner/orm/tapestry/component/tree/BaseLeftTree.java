@@ -23,8 +23,8 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.services.ResponseBuilder;
 
+import corner.model.tree.ITreeAdaptor;
 import corner.service.EntityService;
-import corner.service.tree.ITreeAdaptor;
 import corner.service.tree.TreeService;
 import corner.util.BeanUtils;
 
@@ -104,38 +104,11 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 		return list;
 	}
 
-	private JSONObject leftTreeNodeJson(ITreeSelectModel model) {
-		JSONArray jsonArr = new JSONArray();
-		
-		JSONObject subjson = null;
-		
-		JSONObject datejson = null;
-		
-		for(ITreeAdaptor node : model.getTreeList()){
-			subjson = new JSONObject();
-			subjson.put("id", node.getId());
-			subjson.put("type", "leftTreeSite");
-			
-			datejson = new JSONObject();
-			datejson.put("name", node.getNodeName());
-			datejson.put("left", node.getLeft());
-			datejson.put("right", node.getRight());
-			datejson.put("depth", node.getDepth());
-			datejson.put("thisEntity", this.getDataSqueezer().squeeze(node));
-			
-			if(model.getReturnValues() != null){	//如果不等于空则反抓出数据
-				returnPropertys(datejson,node,model.getReturnValues());
-			}
-			
-			subjson.put("data", datejson);
-			
-			jsonArr.put(subjson);
-		}
-		
-		JSONObject json = new JSONObject();
-		json.put("nodes", jsonArr);
-		return json;
-	}
+	/**
+	 * @param model
+	 * @return
+	 */
+	protected abstract JSONObject leftTreeNodeJson(ITreeSelectModel model);
 
 	/**
 	 * @param cycle

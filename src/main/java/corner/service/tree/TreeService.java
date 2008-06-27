@@ -17,6 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import corner.model.tree.ITreeAdaptor;
 import corner.service.EntityService;
 import corner.util.BeanUtils;
 

@@ -5,7 +5,7 @@
  * created at:2007-04-19
  */
 
-package corner.service.tree;
+package corner.model.tree;
 
 import corner.orm.hibernate.IPersistModel;
 

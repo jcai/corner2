@@ -9,6 +9,8 @@ package corner.service.tree;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import corner.model.tree.ITreeAdaptor;
+
 /**
  * 对树进行处理的字处理程序
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
