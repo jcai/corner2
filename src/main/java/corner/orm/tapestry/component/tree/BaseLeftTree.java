@@ -185,7 +185,7 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 	 * 设置返回值的名称和需要返回的内容
 	 * json的形式如：{"htmlAttribute1":"entityGetName1","htmlAttribute2":"entityGetName2"}
 	 */
-	@Parameter
+	@Parameter(defaultValue = "literal:{}")
 	public abstract String getReturnValues();
 	
 	/**
@@ -203,8 +203,4 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 	
 	@InjectObject("service:tapestry.data.DataSqueezer")
 	public abstract DataSqueezer getDataSqueezer();
-//	/**
-//	 * @return
-//	 */
-//	public abstract IEngineService getLeftTreeService();
 }
