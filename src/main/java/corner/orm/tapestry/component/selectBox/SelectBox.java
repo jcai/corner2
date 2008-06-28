@@ -54,8 +54,10 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		String [] values = cycle.getParameters(this.getToField());
-		
 		this.getToSource().clear();
+		
+		if(values == null) return;
+		
 		//判断是否是空
 		if(StringUtils.notBlank(this.getEntityClassName())){
 			loadEntitys(values);

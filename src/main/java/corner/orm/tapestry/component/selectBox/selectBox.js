@@ -84,7 +84,7 @@ SelectBox.prototype = {
 	},
 	allSelect:function(){
 		List = $(this.toField);
-		if (List.length && List.options[0].value == 'hold_Text') return;
+		if (List.length <=0 || List.options[0].value == 'hold_Text') return;
 		for (i=0;i<List.length;i++){
 			 List.options[i].selected = true;
 		}
