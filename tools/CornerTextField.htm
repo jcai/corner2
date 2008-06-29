@@ -25,7 +25,8 @@ function objectTag() {
 			cssTag=document.insertTagForm.cssTagField.value;
 		} else {
 			if(cssTag == "" || cssTag.length==0){
-				cssTag = 'input-form';//default value
+				//cssTag = 'input-form';//default value
+				cssTag = '';
 			}			
 		}
 			//取得当前浏览的dom
@@ -42,7 +43,12 @@ function objectTag() {
 						if(dreamweaver.canDeleteSelection()){//删除选中部分
 							dom.deleteSelection();
 						}
-						returnValue = "<textarea name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/></textarea>";
+						if(cssTag && cssTag.length>0){
+							returnValue = "<textarea name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/></textarea>";					
+						} else {
+							returnValue = "<textarea name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\"/></textarea>";
+							
+						}
 					}
 				} 
 			}
@@ -51,7 +57,12 @@ function objectTag() {
 			if(dreamweaver.canDeleteSelection()){//删除选中部分
 				dom.deleteSelection();
 			}
-			returnValue ="<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>";
+			if(cssTag && cssTag.length>0){
+				returnValue ="<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\" class=\""+cssTag+"\"/>";
+				
+			} else {
+				returnValue ="<input type=\"text\" name=\""+insertTag+"\" jwcid=\""+insertTag+"Field\"/>";
+			}
 		}
 		return returnValue;
 	}
