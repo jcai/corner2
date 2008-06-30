@@ -1,7 +1,8 @@
 // This function gets called when the end-user clicks on some date.
 function selected(cal, date) {
 	cal.sel.value = date;
-	//cal.callCloseHandler();
+	
+	cal.callCloseHandler();
 }
 
 // And this gets called when the end-user clicks on the _selected_ date,
@@ -25,11 +26,11 @@ function showCalendar(el, format, showsTime, showsOtherMonths) {
 		// uncomment the following line to hide the week numbers
 		// cal.weekNumbers = false;
 		if (typeof showsTime == "string") {
-		cal.showsTime = true;
-		cal.time24 = (showsTime == "24");
+			cal.showsTime = true;
+			cal.time24 = (showsTime == "24");
 		}
 		if (showsOtherMonths) {
-		cal.showsOtherMonths = true;
+			cal.showsOtherMonths = true;
 		}
 		_dynarch_popupCalendar = cal;// remember it in the global var
 		cal.setRange(1900, 2070);// min/max year allowed.
