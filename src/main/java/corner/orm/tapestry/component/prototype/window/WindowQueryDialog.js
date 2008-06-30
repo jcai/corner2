@@ -42,6 +42,7 @@ WindowDialogBase = CornerBuilder.create({
 	},
 	loadFrame:function(){
 		frameW=dojo.html.iframeContentWindow(this.win.getContent());
+		dojo.debug("frameW = " + frameW);
 		if(frameW){
 			frameW.queryBox=this;
 			dojo.debug("frameW.queryBox : " + frameW.queryBox);
@@ -69,7 +70,7 @@ WindowDialogBase = CornerBuilder.create({
 		Event.observe($(this.win.element.id + "_content"), "load", this.win.options.onload);
 	},
 	onSelect:function(element){
-		eval(this.selectFunName+"(element)");
+		eval(this.selectFunName+"(element,this.fieldElement)");
 	},
 	getPos:function(obj){
 		var x,y,objParent;

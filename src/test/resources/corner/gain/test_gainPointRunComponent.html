@@ -8,6 +8,10 @@
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GainPoint.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="moneyUtil.js"></script>
 
+<link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
+
+
 <link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/coolestCalendar/aqua/theme.css" title="Aqua" />
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/calendar.js"></script>
 
@@ -15,6 +19,14 @@
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js"></script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/lang/calendar-zh.js"></script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/calendar-setup.js"></script>
+
+
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/effects.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/fade.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
@@ -27,7 +39,50 @@ djConfig = { isDebug: true
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="GPCalendar.js"></script>
+
+<style>
+.popMenuDiv,#popMenuDiv{
+	position: absolute;
+	background-color: white;
+	border:1px solid black;
+	font: normal 12px Verdana;
+}
+
+
+#popMenuDiv  a,.popMenuDiv a{
+	font-size:12px;
+	text-decoration: none;
+	padding-left: 6px;
+	color: black;
+	display: block;
+}
+
+#popMenuDiv a:hover,.popMenuDiv a:hover{ 
+	background-color: #CCFF9D;
+}
+.popDiv,#popDiv{
+	position: absolute;
+	background-color:#FFFF99;
+	border:1px solid black;
+	font: normal 12px Verdana;
+	color:#FF0000;
+}
+
+
+#popDiv  a,.popDiv a{
+	font-size:12px;
+	text-decoration: none;
+	padding-left: 6px;
+	color: black;
+	display: block;
+}
+
+#popDiv a:hover,.popDiv a:hover{ 
+	background-color: #CCFF9D;
+}
+</style>
 
 </head>
 
@@ -50,7 +105,7 @@ djConfig = { isDebug: true
 				  <input id="field1" type="text" name="cnName" onchange="calc()"  />
 			</td>
             <td>
-				field 3 <input type="text" name="show" value=""	/>
+				field 3 <input type="text" name="show" value="" onfocus="popWin(this)"/>
 			</td>
 			<td>是否采用
 			  <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
@@ -61,10 +116,32 @@ djConfig = { isDebug: true
 			</td>
 		</tr>
 	</table>
+	
+	<span id="winDialog">
+	<img name="pwin_winDialog_button" id="pwin_winDialog_button" src="../../../../main/js/corner/widget/templates/dic.gif" border="0" />
+	</span>
+	<div id="test" style="FILTER: alpha(opacity=0);" class="popDiv">fjdskajfdksjl</div><br/>
+	<br>
+	
+	<input id="testddd" />
 	<input type="submit" />
 </form>
 
 <a href=# onclick="gp.init()">reElementValues1</a><br />
+
+<script>
+<!--
+function selectRecord(obj,fieldElement){
+	dojo.byId('testddd').value=obj.getAttribute("label");
+	fieldElement.value="label";
+}
+
+function aaa(){
+	alert("11111111111");
+}
+
+//-->
+</script>
 
 <script type="text/javascript">
 <!--
@@ -73,7 +150,7 @@ djConfig = { isDebug: true
 	
 	var gp = new GainPoint("t","poid",4,{},[]);
 	
-	calc=function(evt){
+	calc=function(){
 		var elements = document.getElementsByName("cnName");
 		var money=0;
 		for (var i=0;i<elements.length;i++){
@@ -82,6 +159,16 @@ djConfig = { isDebug: true
 		dojo.debug("money  = " + money);
 		dojo.byId('caps').innerHTML = "<font color='#FF0000'>"+changeToBig(money)+"</font>";
 	
+	}
+	
+	popWin = function(element){
+		new WindowQueryDialogAction(element,{"className":"alphacube","title":"google",
+								   "url":"pop.html","top ":"0","right":"0","width":"500","height":"300",
+								   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
+								   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
+								   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
+								   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
+								   "destroyOnClose":"false","all callbacks":"none"},"selectRecord",true,"test","aaa");
 	}
 // --></script>
 </body>
