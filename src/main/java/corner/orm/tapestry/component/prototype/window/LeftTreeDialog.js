@@ -3,7 +3,7 @@
  */
 var LeftTreeDialog  = Class.create();
 LeftTreeDialog.prototype = {
-	initialize: function(fieldId, props,selectFunName,title,queryClassName,dependFields,page){	
+	initialize: function(fieldElement, props,selectFunName,title,queryClassName,dependFields,page){	
 		TreeDialog = CornerBuilder.create({
 			extend: WindowDialogBase.prototype,
 			options : {
@@ -22,6 +22,6 @@ LeftTreeDialog.prototype = {
 				}
 			}
 		});
-		this.tree = new TreeDialog(fieldId,props,selectFunName);
+		this.tree = new TreeDialog(fieldElement,props,selectFunName);
 	}
 }

@@ -3,8 +3,8 @@
  */
 WindowDialogBase = CornerBuilder.create({
 	extend: CornerBase.prototype,
-	initialize: function(fieldId, props,selectFunName,isShowCleanDiv,showCleanId,callShowCleanFunName){	
-		this.fieldId = fieldId;	
+	initialize: function(fieldElement, props,selectFunName,isShowCleanDiv,showCleanId,callShowCleanFunName){	
+		this.fieldElement = fieldElement;	
 		this.props = props;
 		this.win =null;
 		this.selectFunName=selectFunName;
@@ -13,29 +13,28 @@ WindowDialogBase = CornerBuilder.create({
 		  增加onclick事件并传递this到clickField，传递的this表示当前function
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
 		 */
-		Event.observe($(this.fieldId),"click",this.clickField.bindAsEventListener(this));
+		Event.observe(this.fieldElement,"click",this.clickField.bindAsEventListener(this));
 		
 		if(isShowCleanDiv){
 			
 			//设定下拉菜单的宽度
-			contentWidth=dojo.html.getContentBox($(fieldId)).width;
+			contentWidth=dojo.html.getContentBox(fieldElement).width;
 			dojo.html.setContentBox($(showCleanId),{width:contentWidth});
 			dojo.debug("content Width:"+contentWidth);
 			//得到菜单的位置
-			with(dojo.html.getAbsolutePosition($(fieldId))){
+			with(dojo.html.getAbsolutePosition(fieldElement)){
 				var _left=left;
 				var _top=top;
 			}
 			//设定下拉菜单的位置
 			with(dojo.html){
-				_top+=dojo.html.getContentBox($(fieldId)).height;
+				_top+=dojo.html.getContentBox(fieldElement).height;
 				dojo.debug("left :"+_left+" _top:"+_top);
 				dojo.html.placeOnScreen($(showCleanId),_left,_top,[0,0],false);	
 			}
 			
-			dojo.event.connect($(fieldId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
-			dojo.event.connect($(fieldId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
-//			dojo.event.connect($(showCleanId),"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
+			dojo.event.connect(fieldElement,"onmouseover",function(evt){Fade.elementOpen(showCleanId)});
+			dojo.event.connect(fieldElement,"onmouseout",function(evt){Fade.elementClose(showCleanId)});
 			dojo.event.connect($(showCleanId),"onmouseover",function(evt){Fade.keepState()});
 			dojo.event.connect($(showCleanId),"onmouseout",function(evt){Fade.elementClose(showCleanId)});
 			dojo.event.connect($(showCleanId),"onclick",function(evt){Fade.callFun(callShowCleanFunName)});
@@ -52,8 +51,8 @@ WindowDialogBase = CornerBuilder.create({
 		if(this.win==null){
 			this.build();
 		}
-		if($(this.fieldId).type == "checkbox"){
-			if(dojo.byId(this.fieldId).checked){
+		if(this.fieldElement.type == "checkbox"){
+			if(this.fieldElement.checked){
 				this.win.showCenter();
 			}else{
 				this.win.close();

@@ -124,13 +124,13 @@ dojo.require("tapestry.namespace")
 	<div id="test" style="FILTER: alpha(opacity=0);" class="popDiv">fjdskajfdksjl</div><br/>
 	<br>
 	
-	<input id="test" />
+	<input id="testddd" />
 	<input type="submit"/>
 </form>	
 <script>
 <!--
 function selectRecord(obj){
-			dojo.byId('test').value=obj.getAttribute("label");
+			dojo.byId('testddd').value=obj.getAttribute("label");
 }
 
 function aaa(){
@@ -148,7 +148,7 @@ function aaa(){
 <span>Version:0.0.1  $Revision$ $Date$ </span>
 <script type="text/javascript"><!--
 	
-	new WindowQueryDialogAction("pwin_winDialog_button",{"className":"alphacube","title":"google",
+	new WindowQueryDialogAction($("pwin_winDialog_button"),{"className":"alphacube","title":"google",
 									   "url":"haha.html","top ":"0","right":"0","width":"500","height":"300",
 									   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
 									   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",

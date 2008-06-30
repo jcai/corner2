@@ -19,6 +19,6 @@
 <input-symbol key="dependFields" />
 
 <initialization>
-	new LeftTreeDialog("${component.eventId}",${props},"${component.onSelectFunName}","${component.title}","${component.queryClassName}",eval("{${dependFields}}"),"${page}");
+	new LeftTreeDialog($("${component.eventId}"),${props},"${component.onSelectFunName}","${component.title}","${component.queryClassName}",eval("{${dependFields}}"),"${page}");
 </initialization>
 </script>
