@@ -27,6 +27,7 @@ djConfig = { isDebug: true
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="GPCalendar.js"></script>
 
 </head>
 
@@ -41,7 +42,7 @@ djConfig = { isDebug: true
 				id<input type="text" id="poid" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
 			</td>
 			<td>
-				field 1 <input id="field1" type="text" name="name" />
+				field 1 <input id="field1" type="text" name="name" onclick="return showCalendar(this, '%Y-%m-%d', true);" />
 			</td>
 			<td>
 				field 2 <input id="field1" type="text" name="cnName" onchange="calc()"  />
@@ -72,13 +73,6 @@ djConfig = { isDebug: true
 	
 	var gp = new GainPoint("t","poid",4,{},[]);
 	
-	Calendar.setup({
-        inputField     :    "f_date_a",   // id of the input field
-        ifFormat       :    "%Y-%m-%d",       // format of the input field
-        showsTime      :    true,
-        timeFormat     :    "24"
-    });
-    
 	calc=function(evt){
 		var elements = document.getElementsByName("cnName");
 		var money=0;
