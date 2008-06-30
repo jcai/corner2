@@ -76,11 +76,10 @@ djConfig = { isDebug: true
 	calc=function(evt){
 		var elements = document.getElementsByName("cnName");
 		var money=0;
-		for (var i in elements){
+		for (var i=0;i<elements.length;i++){
 			money +=getNumber(elements[i].value);
 		}
 		dojo.debug("money  = " + money);
-		
 		dojo.byId('caps').innerHTML = "<font color='#FF0000'>"+changeToBig(money)+"</font>";
 	
 	}

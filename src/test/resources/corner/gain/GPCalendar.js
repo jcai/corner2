@@ -1,8 +1,8 @@
 // This function gets called when the end-user clicks on some date.
 function selected(cal, date) {
 	cal.sel.value = date;
-	
-	cal.callCloseHandler();
+	//是否自动关闭显示
+//	cal.callCloseHandler();
 }
 
 // And this gets called when the end-user clicks on the _selected_ date,
