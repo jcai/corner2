@@ -6,6 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GainPoint.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="moneyUtil.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/coolestCalendar/aqua/theme.css" title="Aqua" />
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/calendar.js"></script>
+
+<!-- import the language module -->
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/lang/calendar-zh.js"></script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/calendar-setup.js"></script>
+
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
@@ -31,10 +41,10 @@ djConfig = { isDebug: true
 				id<input type="text" id="poid" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
 			</td>
 			<td>
-				field 1 <input id="field1" type="text" name="name" value="aaaaa" />
+				field 1 <input id="field1" type="text" name="name" />
 			</td>
 			<td>
-				field 2 <input id="field1" type="text" name="cnName" value="bbbbbb" />
+				field 2 <input id="field1" type="text" name="cnName" onchange="calc()"  />
 			</td>
             <td>
 				field 3 <input name="show_check" type="checkbox" value="" onclick="checkHidField('show',this)" />
@@ -49,6 +59,7 @@ djConfig = { isDebug: true
 			</td>
 		</tr>
 	</table>
+	<input name="date" id="f_date_a" type="text">
 	<input type="submit" />
 </form>
 
@@ -56,7 +67,28 @@ djConfig = { isDebug: true
 
 <script type="text/javascript">
 <!--
-	var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
+	dojo.require("dojo.math");
+	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
+	
+	var gp = new GainPoint("t","poid",4,{},[]);
+	
+	Calendar.setup({
+        inputField     :    "f_date_a",   // id of the input field
+        ifFormat       :    "%Y-%m-%d",       // format of the input field
+        showsTime      :    true,
+        timeFormat     :    "24"
+    });
+    
+	calc=function(evt){
+		var elements = document.getElementsByName("cnName");
+		var money=0;
+		for (var i in elements){
+			money +=getNumber(elements[i].value);
+		}
+		dojo.debug("money  = " + money);
+	
+		dojo.debug(changeToBig(money));
+	}
 // --></script>
 </body>
 
