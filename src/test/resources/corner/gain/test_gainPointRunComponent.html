@@ -33,29 +33,30 @@ djConfig = { isDebug: true
 
 <body>
 <form id="BForm">
-	name <a href=# onclick="gp.addRow()"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
-	<a href=# onclick="gp.addRows()">adds</a><br/>
-	<a href=# onclick="gp.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
+	增加一行<a href=# onclick="gp.addRow()"><img src="../../../../main/webapp/images/add.png" border="0"/></a> <div id="caps"></div><br/>
+	增加多行<a href=# onclick="gp.addRows()">adds</a><br/>
+	删除最后一行<a href=# onclick="gp.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
       <table id="t">
 		<tr jwcid="GainPointIdField">
 			<td>
 				id<input type="text" id="poid" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
 			</td>
 			<td>
-				field 1 <input id="field1" type="text" name="name" onclick="return showCalendar(this, '%Y-%m-%d', true);" />
+				日期 
+				  <input id="field1" type="text" name="name" onclick="return showCalendar(this, '%Y-%m-%d', true);" />
 			</td>
 			<td>
-				field 2 <input id="field1" type="text" name="cnName" onchange="calc()"  />
+				金额 
+				  <input id="field1" type="text" name="cnName" onchange="calc()"  />
 			</td>
             <td>
-				field 3 <input name="show_check" type="checkbox" value="" onclick="checkHidField('show',this)" />
-				<input type="hidden" name="show" value=""	/>
+				field 3 <input type="text" name="show" value=""	/>
 			</td>
-			<td>
-				field 4 <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
+			<td>是否采用
+			  <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
 				<input type="hidden" name="subsidy" value=""/>
 			</td>
-			<td>
+	  <td>
 				<a href=# onclick="gp.delRowById(this)"><img src="../../../../main/webapp/images/cancel.png" border="0"/></a>
 			</td>
 		</tr>
@@ -68,7 +69,7 @@ djConfig = { isDebug: true
 <script type="text/javascript">
 <!--
 	dojo.require("dojo.math");
-	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
+	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['subsidy']);
 	
 	var gp = new GainPoint("t","poid",4,{},[]);
 	
@@ -79,8 +80,9 @@ djConfig = { isDebug: true
 			money +=getNumber(elements[i].value);
 		}
 		dojo.debug("money  = " + money);
+		
+		dojo.byId('caps').innerHTML = "<font color='#FF0000'>"+changeToBig(money)+"</font>";
 	
-		dojo.debug(changeToBig(money));
 	}
 // --></script>
 </body>
