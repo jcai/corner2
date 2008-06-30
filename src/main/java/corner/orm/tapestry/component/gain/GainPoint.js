@@ -130,6 +130,13 @@ var delRowById = function(pid,id){
 	var obj = dojo.byId(pid);
 	dojo.debug("del "  + id);
 	if(id==0){
+		var rows = $(pid).rows.length;
+		//如果不是最后一行就删除
+		if(rows != 1){
+			obj.deleteRow(id);
+			return;
+		}
+		
 		var cellNum = obj.rows[0].cells.length; //获得有多少个td的个数
 		
 		for(var i=0; i<cellNum; i++){
