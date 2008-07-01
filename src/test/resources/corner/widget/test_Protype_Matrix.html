@@ -25,10 +25,9 @@ TODO:
 <input type="button" id="addRow" value="add row"/>
 <input type="button" id="addCol" value="add column"/>
 <table id="testMatrix" >
+<tr><td><input/></td><td>文字</td></tr>
 </table>
-<table id="templateTable" style="display:none">
-	<tr><td><input/></td><td>文字</td></tr>
-</table>
+
 <script>
 <!--
 Array.prototype.remove = function(from, to) {
@@ -40,8 +39,8 @@ Matrix = Class.create();
 Matrix.prototype={
 	options:{
 		template:true,
-		disable_column_action:true,
-		template_table_id:'templateTable'
+		disable_column_action:true
+		
 	},
 	templateTable:null,
 	initialize:function(tableId,config){
@@ -49,13 +48,14 @@ Matrix.prototype={
 		this.sumTextarea=$('sumTextarea');
 		Object.extend(this.options, config || {});
 		
-		this.templateTable=$(this.options.template_table_id);
-		this.templateTableCols=this.templateTable.rows[0].cells.length;
+		
+		this.templateTableCols=this.matrixTable.rows[0].cells.length;
 		//初始化Template中的内容
 		this.templateColsHTML=[];
 		for(var i = 0 ;i<this.templateTableCols;i++){
-			this.templateColsHTML[i]=this.templateTable.rows[0].cells[i].innerHTML;
+			this.templateColsHTML[i]=this.matrixTable.rows[0].cells[i].innerHTML;
 		}
+		this.matrixTable.deleteRow(0);
 		$("addRow").observe("click",this.addRow.bindAsEventListener(this));
 		$("addCol").observe("click",this.addColumn.bindAsEventListener(this));
 		this.addRow(null);
@@ -100,7 +100,7 @@ Matrix.prototype={
 			cell=row.insertCell(i);
 			cell.innerHTML=this.templateColsHTML[i-1];
 		}
-		this.templateTable.rows[0]    	
+		
     	//此行所有input的集合
     	inputChildren=new Array();
     	
