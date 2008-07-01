@@ -24,8 +24,11 @@ TODO:
     </textarea>
 <input type="button" id="addRow" value="add row"/>
 <input type="button" id="addCol" value="add column"/>
-<table id="testMatrix" ></table>
-
+<table id="testMatrix" >
+</table>
+<table id="templateTable" style="display:none">
+	<tr><td><input/></td><td>文字</td></tr>
+</table>
 <script>
 <!--
 Array.prototype.remove = function(from, to) {
@@ -35,13 +38,27 @@ Array.prototype.remove = function(from, to) {
 };
 Matrix = Class.create();
 Matrix.prototype={
-	
-	initialize:function(tableId){
+	options:{
+		template:true,
+		disable_column_action:true,
+		template_table_id:'templateTable'
+	},
+	templateTable:null,
+	initialize:function(tableId,config){
 		this.matrixTable=$(tableId);
 		this.sumTextarea=$('sumTextarea');
+		Object.extend(this.options, config || {});
+		
+		this.templateTable=$(this.options.template_table_id);
+		this.templateTableCols=this.templateTable.rows[0].cells.length;
+		//初始化Template中的内容
+		this.templateColsHTML=[];
+		for(var i = 0 ;i<this.templateTableCols;i++){
+			this.templateColsHTML[i]=this.templateTable.rows[0].cells[i].innerHTML;
+		}
 		$("addRow").observe("click",this.addRow.bindAsEventListener(this));
 		$("addCol").observe("click",this.addColumn.bindAsEventListener(this));
-		
+		this.addRow(null);
 	},
 	//行和列定义.
 	rows:function(){return this.matrixTable.rows.length;},
@@ -57,14 +74,14 @@ Matrix.prototype={
     	//加入对行进行操作的按钮
     	if(this.rows()==0){
     		//增加行和列的操作按钮
-	    	
-
 	    	row=this.matrixTable.insertRow(0);
 	    	row.insertCell(0);
-	    	
+	    	//同时还要插入模板的列
+	    	for(var i=1;i<=this.templateTableCols;i++){
+		    	cell = row.insertCell(i);
+		    }	
 	    	inputChildren=new Array();
 	    	this.inputNodes.push(inputChildren);
-
     	}
     	currentRows=this.rows();
     	currentCols=this.cols();
@@ -76,12 +93,19 @@ Matrix.prototype={
     	input=this.createRowActionElement('rc'+currentRows+0);
     	cell.appendChild(input);
     	$(input).observe("click",this.removeRow.bindAsEventListener(this));
-    	
+
+		//根据模板来创建对应的列
+		
+		for(var i =1;i<=this.templateTableCols;i++){
+			cell=row.insertCell(i);
+			cell.innerHTML=this.templateColsHTML[i-1];
+		}
+		this.templateTable.rows[0]    	
     	//此行所有input的集合
     	inputChildren=new Array();
     	
 		//插入行对应的列
-		for(var i=1;i<currentCols;i++){
+		for(var i=(this.templateTableCols+1);i<currentCols;i++){
 			id='rc'+currentRows+i;
 			
 	        cell=row.insertCell(i);
@@ -114,6 +138,7 @@ Matrix.prototype={
     	for(var i=1;i<currentRows;i++){
 			id='rc'+i+currentCols;
 	        row=this.matrixTable.rows[i];
+	        
 	        cell=row.insertCell(currentCols);
 	        input=this.createInputElement(id);
 	        cell.appendChild(this.createInputElement(id));
@@ -208,9 +233,7 @@ Matrix.prototype={
 
 }
 createMatrixTable = function(event){
-	new Matrix('testMatrix');
-	
-	
+	matrix = new Matrix('testMatrix');
 }
 createMatrixTable();
 
