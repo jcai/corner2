@@ -201,7 +201,7 @@ Matrix.prototype={
 			row.deleteCell(colIndex);
 			if(i>0){
 				rowNodes=this.inputNodes[i];
-				rowNodes.remove(colIndex-1);
+				rowNodes.remove(colIndex-1-this.templateTableCols);
 			}
 		}
 		this.sumValue();
