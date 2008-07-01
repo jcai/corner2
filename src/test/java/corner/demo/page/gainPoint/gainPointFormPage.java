@@ -14,7 +14,10 @@ package corner.demo.page.gainPoint;
 
 import java.util.List;
 
+import org.apache.tapestry.link.ILinkRenderer;
+
 import corner.demo.model.one2many.A;
+import corner.orm.tapestry.RawURLLinkRenderer;
 import corner.orm.tapestry.component.gain.GainPoint;
 import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 
@@ -42,6 +45,17 @@ public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 			this.getEntityService().deleteEntities(e);
 		}
 	}
+	
+	/**
+	 * @return
+	 */
+	public ILinkRenderer getRenderer(){
+		return new RawURLLinkRenderer();
+	}
+	
+//	public IPage doWinPopQueryPage(){
+//		return this.getRequestCycle().getPage("widget/WinSelectionListPage");
+//	}
 	
 	public List getSource(){
 		return  ((A)this.getRootedObject()).getBs();

@@ -40,7 +40,8 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
-<SCRIPT LANGUAGE="JavaScript" src="GPCalendar.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GPCalendar.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GPWinDialog.js"></script>
 
 <style>
 .popMenuDiv,#popMenuDiv{
@@ -158,17 +159,10 @@ function aaa(){
 		}
 		dojo.debug("money  = " + money);
 		dojo.byId('caps').innerHTML = "<font color='#FF0000'>"+changeToBig(money)+"</font>";
-	
 	}
 	
 	popWin = function(element){
-		new WindowQueryDialogAction(element,{"className":"alphacube","title":"google",
-								   "url":"pop.html","top ":"0","right":"0","width":"500","height":"300",
-								   "maxWidth":"none","maxHeight":"none","minWidth ":"500","minHeight":"300",
-								   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
-								   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
-								   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
-								   "destroyOnClose":"false","all callbacks":"none"},"selectRecord",true,"test","aaa");
+		initWindowDialog(element,"google","pop.html","selectRecord");
 	}
 // --></script>
 </body>

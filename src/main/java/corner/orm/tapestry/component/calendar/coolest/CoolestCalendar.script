@@ -6,6 +6,7 @@
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar-setup.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js" />
+<include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-zh.js" />
 
 <input-symbol key="baseUrl"     required="yes" />
 

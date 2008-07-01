@@ -26,6 +26,4 @@
     <binding value="literal:t" name="tableId"/>
     <binding value="source" name="source"/>
   </component>
-  
-  
 </page-specification>

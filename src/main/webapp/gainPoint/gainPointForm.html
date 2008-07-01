@@ -9,10 +9,10 @@
 				id <input type="hidden" id="poid" name ="poid" value=""	/>
 			</td>
 			<td>
-				name <input type="text" id="field1" name ="name" />
+				name <input type="text" id="field1" name ="name" onclick="return showCalendar(this, '%Y-%m-%d', true);"/>
 			</td>
 			<td>
-				cnName <input type="text" id="field2" name ="cnName" />
+				cnName <input type="text" id="field2" name ="cnName" onfocus="popWin(this)" />
 			</td>
 			<td>
 				<a href=# onclick="GainPointField_0_fun.delRowById(this)""><img src="../images/cancel.png" border="0"/>
@@ -22,5 +22,16 @@
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
       <input jwcid="@Any" type="Button" value="message:button.Cancel" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>
+<script type="text/javascript">
+	function selectRecord(obj,fieldElement){
+		fieldElement.value=obj.value;
+	}
+
+	popWin = function(element){
+		var url = '<spen jwcid="@PageLink" page="widget/WinSelectionListPage" renderer="ognl:renderer"/>';
+	
+		initWindowDialog(element,"test Title",url,"selectRecord");
+	}
+</script>
     <br/>
 </span>
