@@ -46,52 +46,70 @@ public class CornerOptionRenderer implements IOptionRenderer{
         boolean foundSelected = false;
         
         /**
-         * 从cycle中取得自定义的名称
+         * 从cycle中取得是否显示自定义的名称:全选/selectAll.
          */
-        String optionName = cycle.getAttribute(PropertySelection.USER_DEFINED_OPTION_NAME).toString();
+        Boolean isShowAll = (Boolean) cycle.getAttribute(PropertySelection.IS_SHOW_SELECTALL_OPTION_NAME);
         
-        if(optionName == null || optionName.trim().length() == 0){
-        	optionName = "select all";
+        //要显示:全部/SelectAll.
+        if(isShowAll.booleanValue()){
+        	 /**
+             * 从cycle中取得自定义的名称
+             */
+            String optionName = cycle.getAttribute(PropertySelection.USER_DEFINED_OPTION_NAME).toString();
+            
+            if(optionName == null || optionName.trim().length() == 0){
+            	optionName = "select all";
+            }
+            //在全部option之前插入一个全选的option
+            writer.begin("option");
+            writer.attribute("value", "%");
+
+            if (!foundSelected && isEqual("%", selected))
+            {
+                writer.attribute("selected", "selected");
+
+                foundSelected = true;
+            }        
+
+            writer.print(optionName);
+
+            writer.end();
+
+            writer.println();
         }
-        //在全部option之前插入一个全选的option
-        writer.begin("option");
-        writer.attribute("value", "%");
-
-        if (!foundSelected && isEqual("%", selected))
-        {
-            writer.attribute("selected", "selected");
-
-            foundSelected = true;
-        }        
-
-        writer.print(optionName);
-
-        writer.end();
-
-        writer.println();
+       
         
         for (int i = 0; i < count; i++)
         {
             Object option = model.getOption(i);
             
-            writer.begin("option");
-            writer.attribute("value", model.getValue(i));
+            //disabled时,使用optgroup.这样兼容IE,FF.注意:label需是"&nbsp;".
+            if (model.isDisabled(i)){
+            	
+            	writer.begin("optgroup");
+            	writer.attribute("value",model.getValue(i));
+                writer.attributeRaw("label", model.getLabel(i));
+            	writer.end();
+            	writer.println();
+            	
+            }else{
+            	writer.begin("option");
+                writer.attribute("value", model.getValue(i));
 
-            if (!foundSelected && isEqual(option, selected))
-            {
-                writer.attribute("selected", "selected");
+                if (!foundSelected && isEqual(option, selected))
+                {
+                    writer.attribute("selected", "selected");
+                    
+                    foundSelected = true;
+                }
                 
-                foundSelected = true;
+                writer.print(model.getLabel(i));
+
+                writer.end();
+
+                writer.println();
             }
             
-            if (model.isDisabled(i))
-                writer.attribute("disabled", "true");
-            
-            writer.print(model.getLabel(i));
-
-            writer.end();
-
-            writer.println();
         }
 	}
 	

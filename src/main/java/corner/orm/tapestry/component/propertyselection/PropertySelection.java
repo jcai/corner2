@@ -20,6 +20,7 @@ package corner.orm.tapestry.component.propertyselection;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InitialValue;
+import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.valid.ValidatorException;
 
 /**
@@ -41,7 +42,9 @@ public abstract class PropertySelection extends
 	 * 增加的全选那条option的标签名称。例如"全选" or "select all"
 	 */
 	public static final String USER_DEFINED_OPTION_NAME = "optionName";
-
+    
+	public static final String IS_SHOW_SELECTALL_OPTION_NAME = "isShowSelectAll";
+	
 	/**
 	 * @see org.apache.tapestry.form.PropertySelection#renderFormComponent(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle)
@@ -49,8 +52,10 @@ public abstract class PropertySelection extends
 	@Override
 	protected void renderFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		cycle.setAttribute(USER_DEFINED_OPTION_NAME, this.getOptionName());
+		cycle.setAttribute(IS_SHOW_SELECTALL_OPTION_NAME, this.getShowSelectAll());
 		super.renderFormComponent(writer, cycle);
 		cycle.removeAttribute(USER_DEFINED_OPTION_NAME);
+		cycle.removeAttribute(IS_SHOW_SELECTALL_OPTION_NAME);
 	}
 
 	/**
@@ -79,4 +84,7 @@ public abstract class PropertySelection extends
 	 */
 	@InitialValue("literal:全选")
 	public abstract String getOptionName();
+	
+	@Parameter(defaultValue="true")
+	public abstract boolean getShowSelectAll();
 }
