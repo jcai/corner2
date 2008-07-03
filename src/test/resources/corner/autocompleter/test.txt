@@ -1,1 +1,1 @@
-<li><span class="returnValue" style="display:none"><script type="text/javascript"><!--{"111111"}// --></script></span></li>
+<span class="returnValue" style="display:none"><script type="text/javascript"><!--{"updateField":"CustomIdField","updateField2":"squeezer object"}" --></script></span><span class="selecteme">chnName</span>
