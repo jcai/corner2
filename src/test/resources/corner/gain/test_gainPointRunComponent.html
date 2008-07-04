@@ -11,7 +11,7 @@
 <link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
 <link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
 
-
+<link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/sandbox.css" />
 <link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/coolestCalendar/aqua/theme.css" title="Aqua" />
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/calendar/coolest/calendar.js"></script>
 
@@ -28,6 +28,9 @@
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/fade.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
 
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/controls.js"> </script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js"></script>
+
 <SCRIPT LANGUAGE="JavaScript">
 <!--
 
@@ -42,6 +45,7 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GPCalendar.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GPWinDialog.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/gain/GPAutocompleter.js"></script>
 
 <style>
 .popMenuDiv,#popMenuDiv{
@@ -106,7 +110,10 @@ djConfig = { isDebug: true
 				  <input id="field1" type="text" name="cnName" onchange="calc()"  />
 			</td>
             <td>
-				field 3 <input type="text" name="show" value="" onfocus="popWin(this)"/>
+				弹出选择 <input type="text" name="show" value="" onfocus="popWin(this)"/>
+			</td>
+			<td>
+				AutoEva <input type="text" name="area" value="" onkeydown="autoEva(this)"/>
 			</td>
 			<td>是否采用
 			  <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
@@ -163,6 +170,10 @@ function aaa(){
 	
 	popWin = function(element){
 		initWindowDialog(element,"google","pop.html","selectRecord");
+	}
+	
+	autoEva = function(element){
+		initAutocompleter(element,"../autocompleter/test.txt","../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/indicator.gif");
 	}
 // --></script>
 </body>

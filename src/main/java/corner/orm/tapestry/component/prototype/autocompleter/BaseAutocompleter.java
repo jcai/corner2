@@ -209,8 +209,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 
 		Map<String, Object> scriptParms = new HashMap<String, Object>();
 
-		ILink link = getDirectService().getLink(true,
-				new DirectServiceParameter(this));
+		ILink link = getLink();
 
 		scriptParms.put("updateUrl", link.getURL());
 		scriptParms.put("inputId", getClientId());
@@ -229,6 +228,13 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 		getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 	}
 
+	/**
+	 * @return
+	 */
+	public ILink getLink() {
+		return getDirectService().getLink(true,
+				new DirectServiceParameter(this));
+	}
 	protected Object formatValue(Object value) {
 		return value;
 	}

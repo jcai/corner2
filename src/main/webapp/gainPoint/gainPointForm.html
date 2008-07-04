@@ -1,18 +1,24 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
     <form jwcid="BForm" action="BList.html">
+    	<span  style="display:none">
+        <span jwcid="addressField"></span>
+        </span>
 		增加 <a href=# onclick="GainPointField_0_fun.addRow()"><img src="../images/add.png" border="0"/></a><br/>
       <table id="t">
 		 
 		<tr jwcid="GainPointField">
 			<td>
-				id <input type="hidden" id="poid" name ="poid" value=""	/>
+				id <input type="hidden" name ="poid" value=""	/>
 			</td>
 			<td>
-				name <input type="text" id="field1" name ="name" onclick="return showCalendar(this, '%Y-%m-%d', true);"/>
+				name <input type="text" name ="name" onclick="return showCalendar(this, '%Y-%m-%d', true);"/>
 			</td>
 			<td>
-				cnName <input type="text" id="field2" name ="cnName" onfocus="popWin(this)" />
+				cnName <input type="text" name ="cnName" onfocus="popWin(this)" />
+			</td>
+			<td>
+				address <input type="text" name ="address" onkeydown="autoEva(this)" />
 			</td>
 			<td>
 				<a href=# onclick="GainPointField_0_fun.delRowById(this)""><img src="../images/cancel.png" border="0"/>
@@ -31,6 +37,12 @@
 		var url = '<spen jwcid="@PageLink" page="widget/WinSelectionListPage" renderer="ognl:renderer"/>';
 	
 		initWindowDialog(element,"test Title",url,"selectRecord");
+	}
+	
+	autoEva = function(element){
+		var url = '<span jwcid="@Insert" value="ognl:autoEvaUrl" raw="true"></span>';
+		var picUrl = '<span jwcid="@Insert" value="ognl:indicatorAsset"></span>';
+		initAutocompleter(element,url,picUrl);
 	}
 </script>
     <br/>

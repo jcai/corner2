@@ -19,6 +19,7 @@ import org.apache.tapestry.link.ILinkRenderer;
 import corner.demo.model.one2many.A;
 import corner.orm.tapestry.RawURLLinkRenderer;
 import corner.orm.tapestry.component.gain.GainPoint;
+import corner.orm.tapestry.component.prototype.autocompleter.BaseAutocompleter;
 import corner.orm.tapestry.page.relative.ReflectRelativeEntityFormPage;
 
 /**
@@ -53,9 +54,15 @@ public abstract class gainPointFormPage extends ReflectRelativeEntityFormPage {
 		return new RawURLLinkRenderer();
 	}
 	
-//	public IPage doWinPopQueryPage(){
-//		return this.getRequestCycle().getPage("widget/WinSelectionListPage");
-//	}
+	public String getAutoEvaUrl(){
+		BaseAutocompleter ac  = (BaseAutocompleter) this.getPage().getComponent("addressField");
+		return ac.getLink().getAbsoluteURL();
+	}
+	
+	public String getIndicatorAsset(){
+		BaseAutocompleter ac  = (BaseAutocompleter) this.getPage().getComponent("addressField");
+		return ac.getIndicatorAsset().buildURL();
+	}
 	
 	public List getSource(){
 		return  ((A)this.getRootedObject()).getBs();

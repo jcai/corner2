@@ -20,8 +20,15 @@
     <binding value="translator:string" name="translator"/>
     <binding value="ognl:entity.name" name="value"/>
   </component>
+  <component type="corner:AutoEva" id="addressField">
+    <binding value="message:name" name="displayName"/>
+    <binding name="queryClassName" value="literal:corner.demo.model.one.A"/>
+    <binding name="template" value="literal:&lt;span class=&quot;selectme&quot;&gt;%1$s&lt;/span&gt;"/>
+    <binding name="labelFields" value="literal:name"/>
+    <binding value="ognl:entity.sex" name="value"/>
+  </component>
   <component type="corner:GainPoint" id="GainPointField">
-    <binding value="literal:poid,name,cnName" name="showPropertys"/>
+    <binding value="literal:poid,name,cnName,address" name="showPropertys"/>
     <binding value="literal:corner.demo.model.one2many.B" name="entityClass"/>
     <binding value="literal:t" name="tableId"/>
     <binding value="source" name="source"/>

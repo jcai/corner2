@@ -7,6 +7,7 @@
 <include-script resource-path="/corner/orm/tapestry/component/gain/GainPoint.js" />
 <include-script resource-path="/corner/orm/tapestry/component/gain/GPCalendar.js" />
 <include-script resource-path="/corner/orm/tapestry/component/gain/GPWinDialog.js" />
+<include-script resource-path="/corner/orm/tapestry/component/gain/GPAutocompleter.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/calendar.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-en.js" />
 <include-script resource-path="/corner/orm/tapestry/component/calendar/coolest/lang/calendar-zh.js" />
@@ -18,6 +19,8 @@
 <include-script resource-path="/corner/prototype/cornerBuilder.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/fade.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js" />
+
+<include-script resource-path="/corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js" />
 
 <input-symbol key="tableId" required="yes" />
 <input-symbol key="elementSize" required="yes" />

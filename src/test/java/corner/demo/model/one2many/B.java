@@ -26,6 +26,16 @@ public class B extends AbstractModel{
 	private static final long serialVersionUID = -1512980745076899710L;
 	
 	private A a;
+	
+	/**
+	 * @hibernate.property
+	 */
+	private String sex;
+	
+	/**
+	 * @hibernate.property
+	 */
+	private String address;
 
 	/**
 	 * @return Returns the a.
@@ -40,5 +50,33 @@ public class B extends AbstractModel{
 	 */
 	public void setA(A a) {
 		this.a = a;
+	}
+
+	/**
+	 * @return Returns the sex.
+	 */
+	public String getSex() {
+		return sex;
+	}
+
+	/**
+	 * @param sex The sex to set.
+	 */
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	/**
+	 * @return Returns the address.
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address The address to set.
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
