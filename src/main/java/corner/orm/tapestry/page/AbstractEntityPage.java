@@ -19,12 +19,20 @@ package corner.orm.tapestry.page;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 import org.apache.tapestry.IAsset;
+import org.apache.tapestry.IBinding;
+import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
+import org.apache.tapestry.binding.LiteralBinding;
+import org.apache.tapestry.components.ILinkComponent;
 import org.apache.tapestry.dojo.html.Dialog;
+import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.html.BasePage;
+import org.apache.tapestry.link.ILinkRenderer;
 import org.apache.tapestry.services.DataSqueezer;
 
 import corner.model.IBlobModel;
@@ -237,6 +245,32 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 			return null;
 		}
 		return BeanUtils.getProperty(rootObject,pro);
+	}
+	
+	/**
+	 * 向页面写入IFrame
+	 * @return
+	 */
+	public ILinkRenderer getIframeRenderPage() {
+		return new ILinkRenderer() {
+			public void renderLink(IMarkupWriter writer, IRequestCycle cycle,
+					ILinkComponent linkComponent) {
+				writer.begin("iframe");
+				Iterator i = linkComponent.getBindingNames().iterator();
+				while (i.hasNext()) {
+					String name = (String) i.next();
+					IBinding b = linkComponent.getBinding(name);
+					if (b instanceof LiteralBinding
+							&& !"src".equalsIgnoreCase(name)
+							&& !"page".equalsIgnoreCase(name)) {
+						writer.attribute(name, b.getObject().toString());
+					}
+				}
+				ILink l = linkComponent.getLink(cycle);
+				writer.attribute("src", l.getURL());
+				writer.end("iframe");
+			}
+		};
 	}
 	
 	/** 对日期类型的格式化 * */
