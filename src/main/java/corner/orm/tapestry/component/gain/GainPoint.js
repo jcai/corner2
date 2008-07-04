@@ -4,14 +4,16 @@
 */
 var GainPoint = Class.create();
 GainPoint.prototype = {
-	initialize: function(tableId,pagePersistentId,size,flags,checkBoxs) {
+	initialize: function(tableId,pagePersistentId,size,flags,checkBoxs,initFuns) {
 		this.tableId = tableId;
 		this.pagePersistentId = pagePersistentId;
 		this.size = size;
 		this.flags = flags;
 		this.checkBoxs = checkBoxs;
+		this.initFuns = initFuns;
 		
 		//初始化
+		this.initFieldFuns();
 		this.addRows();
 		this.init();
 	},
@@ -64,15 +66,11 @@ GainPoint.prototype = {
 		}
 		
 		//删除最后一个增加的id
-		var values = document.getElementsByName(this.pagePersistentId);
-		
-		if(values.length - 1 <= 0){ //如果是0
-			return;
-		}
-		
-		var field = values[values.length - 1];
-		
+		var field = getLastFieldByName(this.pagePersistentId);
 		field.value="";
+		
+		//初始化函数
+		this.initFieldFuns();
 	},
 	delLastRow : function(){
 	//summary:
@@ -83,7 +81,27 @@ GainPoint.prototype = {
 	},
 	delRowById : function(obj){
 		delRowById(this.tableId,obj.parentNode.parentNode.rowIndex)
+	},
+	initFieldFuns : function(){
+	//初始化js
+		for(var key in this.initFuns){
+			var element = getLastFieldByName(key);
+			eval(this.initFuns[key]+"(element)");
+		}
 	}
+}
+
+//通过名称获得最后一个元素
+var getLastFieldByName = function(fieldName){
+	var values = document.getElementsByName(fieldName);
+	
+	if(values.length - 1 < 0){ //如果是0
+		return;
+	}
+	
+	var field = values[values.length - 1];
+	
+	return field;
 }
 
 var isContain = function (checkBoxs,value){

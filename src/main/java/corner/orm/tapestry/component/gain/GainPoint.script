@@ -28,8 +28,9 @@
 <input-symbol key="gpid" required="yes" />
 <input-symbol key="elementValues" required="yes" />
 <input-symbol key="checkBoxFields" required="yes" />
+<input-symbol key="initFuns" required="yes" />
 
 <initialization>
-	${gpid}_fun = new GainPoint("${tableId}","${pagePersistentId}",${elementSize},${elementValues},${checkBoxFields});
+	${gpid}_fun = new GainPoint("${tableId}","${pagePersistentId}",${elementSize},${elementValues},${checkBoxFields},${initFuns});
 </initialization>
 </script>

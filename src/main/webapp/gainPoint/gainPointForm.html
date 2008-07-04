@@ -1,6 +1,8 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="BList.html">Return </a>
+    
     <form jwcid="BForm" action="BList.html">
+    <span jwcid="addressField1"/>
     	<span  style="display:none">
         <span jwcid="addressField"></span>
         </span>
@@ -18,7 +20,7 @@
 				cnName <input type="text" name ="cnName" onfocus="popWin(this)" />
 			</td>
 			<td>
-				address <input type="text" name ="address" onkeydown="autoEva(this)" />
+				address <input type="text" name ="address" />
 			</td>
 			<td>
 				<a href=# onclick="GainPointField_0_fun.delRowById(this)""><img src="../images/cancel.png" border="0"/>
@@ -35,14 +37,13 @@
 
 	popWin = function(element){
 		var url = '<spen jwcid="@PageLink" page="widget/WinSelectionListPage" renderer="ognl:renderer"/>';
-	
 		initWindowDialog(element,"test Title",url,"selectRecord");
 	}
 	
-	autoEva = function(element){
+	function autoEva(element){
 		var url = '<span jwcid="@Insert" value="ognl:autoEvaUrl" raw="true"></span>';
 		var picUrl = '<span jwcid="@Insert" value="ognl:indicatorAsset"></span>';
-		initAutocompleter(element,url,picUrl);
+		initAutocompleter(element,"addressField",url,picUrl);
 	}
 </script>
     <br/>

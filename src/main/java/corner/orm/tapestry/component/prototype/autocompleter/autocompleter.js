@@ -13,7 +13,6 @@ ac.createAjaxAutocompleter = function(updId, inpId, updUrl, elmntClass, freq, op
         return;
     }
 
-	dojo.debug("run ajax ....");
     ac._ensureElementExists(updId, elmntClass);
     //create indicator
     ac._ensureIndicatorExists(indicator_pic_url);

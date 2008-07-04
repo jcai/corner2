@@ -113,7 +113,7 @@ djConfig = { isDebug: true
 				弹出选择 <input type="text" name="show" value="" onfocus="popWin(this)"/>
 			</td>
 			<td>
-				AutoEva <input type="text" name="area" value="" onkeydown="autoEva(this)"/>
+				AutoEva <input type="text" name="area" value=""/>
 			</td>
 			<td>是否采用
 			  <input name="subsidy_check" type="checkbox"  onclick="checkHidField('subsidy',this)" />
@@ -156,7 +156,7 @@ function aaa(){
 	dojo.require("dojo.math");
 	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['subsidy']);
 	
-	var gp = new GainPoint("t","poid",4,{},[]);
+	var gp = new GainPoint("t","poid",4,{},[],{"area":"autoEva"});
 	
 	calc=function(){
 		var elements = document.getElementsByName("cnName");
@@ -172,8 +172,8 @@ function aaa(){
 		initWindowDialog(element,"google","pop.html","selectRecord");
 	}
 	
-	autoEva = function(element){
-		initAutocompleter(element,"../autocompleter/test.txt","../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/indicator.gif");
+	function autoEva(element){
+		initAutocompleter(element,"elementId","../autocompleter/test.txt","../../../../main/java/corner/orm/tapestry/component/prototype/autocompleter/indicator.gif");
 	}
 // --></script>
 </body>

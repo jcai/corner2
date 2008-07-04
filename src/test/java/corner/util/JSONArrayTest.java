@@ -48,4 +48,11 @@ public class JSONArrayTest extends Assert{
 		
 		System.out.println(jsonarr.toString());
 	}
+	
+	@Test
+	public void testJSONObject(){
+		JSONObject json = new JSONObject();
+		json.put("label", "广州");
+		System.out.println(json.toString());
+	}
 }

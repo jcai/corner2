@@ -18,6 +18,7 @@
 package corner.orm.tapestry.component.gain;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -333,14 +334,30 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 			
 			scriptParms.put("checkBoxFields", getCheckBoxs().toString()); //那个是checkbox
 			
+			scriptParms.put("initFuns", getInitFieldFuns().toString());
+			
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 			
 		}
 	}
 	
+	/**
+	 * 那些要在加入后初始化js
+	 * {"fieldName":"funName"}
+	 */
+	private JSONObject getInitFieldFuns() {
+		JSONObject json = null;
+		try {
+			json = new JSONObject(this.getInitFuns());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
 	
 	/**
-	 * @return
+	 * 有那些是checkbox
 	 */
 	private JSONArray getCheckBoxs() {
 		JSONArray json = new JSONArray();
@@ -487,6 +504,9 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	
 	@Parameter(defaultValue = "literal:")
 	public abstract String getCheckBoxFields();
+	
+	@Parameter(defaultValue = "literal:{}")
+	public abstract String getInitFuns();
 
 	/**
 	 * 
