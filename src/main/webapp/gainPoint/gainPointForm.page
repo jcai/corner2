@@ -38,7 +38,7 @@
     <binding value="literal:poid,name,cnName,address" name="showPropertys"/>
     <binding value="literal:corner.demo.model.one2many.B" name="entityClass"/>
     <binding value="literal:t" name="tableId"/>
-    <binding name="initFuns" value="literal:{&quot;address&quot;:&quot;autoEva&quot;}"/>
+    <binding name="initFuns" value="literal:{&quot;address&quot;:&quot;autoEva&quot;,&quot;cnName&quot;:&quot;popWin&quot;}"/>
     <binding value="source" name="source"/>
   </component>
 </page-specification>

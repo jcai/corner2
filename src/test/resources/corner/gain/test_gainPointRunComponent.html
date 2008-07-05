@@ -110,7 +110,7 @@ djConfig = { isDebug: true
 				  <input id="field1" type="text" name="cnName" onchange="calc()"  />
 			</td>
             <td>
-				弹出选择 <input type="text" name="show" value="" onfocus="popWin(this)"/>
+				弹出选择 <input type="text" name="show" value=""/>
 			</td>
 			<td>
 				AutoEva <input type="text" name="area" value=""/>
@@ -156,7 +156,7 @@ function aaa(){
 	dojo.require("dojo.math");
 	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['subsidy']);
 	
-	var gp = new GainPoint("t","poid",4,{},[],{"area":"autoEva"});
+	var gp = new GainPoint("t","poid",4,{},[],{"area":"autoEva","show":"popWin"});
 	
 	calc=function(){
 		var elements = document.getElementsByName("cnName");
@@ -168,7 +168,7 @@ function aaa(){
 		dojo.byId('caps').innerHTML = "<font color='#FF0000'>"+changeToBig(money)+"</font>";
 	}
 	
-	popWin = function(element){
+	function popWin(element){
 		initWindowDialog(element,"google","pop.html","selectRecord");
 	}
 	
