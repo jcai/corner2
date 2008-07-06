@@ -27,6 +27,7 @@
 <script type="text/javascript" src="../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/fade.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/prototype/window/LeftTreeDialog.js"> </script>
 
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/controls.js"> </script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js"></script>
@@ -98,19 +99,22 @@ djConfig = { isDebug: true
 	删除最后一行<a href=# onclick="gp.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
       <table id="t">
 		<tr jwcid="GainPointIdField">
-			<td>
-				id<input type="text" id="poid" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
+			<td style="width:3%">
+				id<input type="text" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48" />
 			</td>
-			<td>
+			<td style="width:5%">
 				日期 
-				  <input id="field1" type="text" name="name" onclick="return showCalendar(this, '%Y-%m-%d', true);" />
+				  <input id="field1" type="text" name="name" onclick="return showCalendar(this, '%Y-%m-%d', true);" style="width:80%"/>
+			</td>
+			<td style="width:5%">
+				金额 
+				  <input id="field1" type="text" name="cnName" onchange="calc()" style="width:80%" />
+			</td>
+            <td style="width:5%">
+				弹出选择 <input type="text" name="show" value=""/>
 			</td>
 			<td>
-				金额 
-				  <input id="field1" type="text" name="cnName" onchange="calc()"  />
-			</td>
-            <td>
-				弹出选择 <input type="text" name="show" value=""/>
+				弹出Tree <input type="text" name="tree" value=""/>
 			</td>
 			<td>
 				AutoEva <input type="text" name="area" value=""/>
@@ -144,6 +148,11 @@ function selectRecord(obj,fieldElement){
 	fieldElement.value="label";
 }
 
+function selectRecordShow(obj,fieldElement){
+	dojo.debug(obj.getAttribute("treeName"));
+	fieldElement.value=obj.getAttribute("treename");
+}
+
 function aaa(){
 	alert("11111111111");
 }
@@ -156,7 +165,7 @@ function aaa(){
 	dojo.require("dojo.math");
 	//var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['subsidy']);
 	
-	var gp = new GainPoint("t","poid",4,{},[],{"area":"autoEva","show":"popWin"});
+	var gp = new GainPoint("t","poid",4,{},[],{"area":"autoEva","show":"popWin","tree":"popTree"});
 	
 	calc=function(){
 		var elements = document.getElementsByName("cnName");
@@ -170,6 +179,10 @@ function aaa(){
 	
 	function popWin(element){
 		initWindowDialog(element,"google","pop.html","selectRecord");
+	}
+	
+	function popTree(element){
+		initWindowDialog(element,"google","../window/tree/tree.html","selectRecordShow","我是树","com.xf.com",{},"page");
 	}
 	
 	function autoEva(element){

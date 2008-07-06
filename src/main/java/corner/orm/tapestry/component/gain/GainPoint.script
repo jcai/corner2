@@ -19,6 +19,7 @@
 <include-script resource-path="/corner/prototype/cornerBuilder.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/fade.js" />
 <include-script resource-path="/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js" />
+<include-script resource-path="/corner/orm/tapestry/component/prototype/window/LeftTreeDialog.js" />
 
 <include-script resource-path="/corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js" />
 
