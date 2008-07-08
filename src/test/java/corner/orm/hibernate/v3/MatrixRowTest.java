@@ -27,4 +27,22 @@ public class MatrixRowTest extends Assert{
 		MatrixRow<Double> m=new MatrixRow<Double>();
 		assertEquals(m.getDoubleWithAnyway(2,2.1),2.1);
 	}
+	
+	@Test
+	public void testGetInt(){
+		MatrixRow<String> m = new MatrixRow<String>();
+		MatrixRow<String> m1 = new MatrixRow<String>();
+		m.add("1");
+		assertEquals(m.getInt(0),1);
+		assertEquals(m1.getInt(0), 0);
+	}
+	
+	@Test
+	public void testGetString(){
+		MatrixRow<String> m = new MatrixRow<String>();
+		MatrixRow<String> m1 = new MatrixRow<String>();
+		m.add("1");
+		assertEquals(m.getString(0),"1");
+		assertEquals(m1.getString(0), "0");
+	}
 }

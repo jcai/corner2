@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Vector;
 
+import corner.util.StringUtils;
 import corner.util.VectorUtils;
 
 /**
@@ -30,6 +31,11 @@ import corner.util.VectorUtils;
  * @since 2.2.2
  */
 public class MatrixRow<T> extends Vector<T> {
+	
+	/**
+	 * 取得字符型的返回值时候的defaultValue
+	 */
+	private static final String MATRIX_STRING_ZERO_STR = "0";
 
 	/**
 	 * 
@@ -56,6 +62,7 @@ public class MatrixRow<T> extends Vector<T> {
 	
 	/**
 	 * 以double类型返回matrix中的一个对象
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
 	 * @param index
 	 * @return
 	 */
@@ -65,17 +72,79 @@ public class MatrixRow<T> extends Vector<T> {
 	
 	/**
 	 * 以double类型返回matrix中的一个对象,当matrix中对象为空时,返回defaultValue
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
 	 * @param index
 	 * @param defaultValue
 	 * @return
 	 */
 	public double getDouble(int index, double defaultValue){
+		if(isOverFlow(index)){
+			return defaultValue;
+		}
 		T t=this.get(index);
-		if(t==null||t.toString().trim().length()==0){
+		if(t==null || StringUtils.blank(t.toString())){
 			return defaultValue;
 		}
 		return Double.parseDouble(t.toString());		
 	}
+	
+	
+	/**
+	 * 以int类型返回matrix中的一个对象
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
+	 * @param index
+	 * @return int
+	 */
+	public int getInt(int index){
+		return getInt(index,0);
+	}
+	
+	/**
+	 * 以int类型返回matrix中的一个对象,当matrix中对象为空时,返回defaultValue
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
+	 * @param index
+	 * @param defaultValue
+	 * @return int
+	 */
+	public int getInt(int index, int defaultValue){
+		if(isOverFlow(index)){
+			return defaultValue;
+		}
+		T t=this.get(index);
+		if(t==null || StringUtils.blank(t.toString())){
+			return defaultValue;
+		}
+		return Integer.parseInt(t.toString());		
+	}
+	
+	/**
+	 * 以String类型返回matrix中的一个对象
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
+	 * @param index
+	 * @return {@link String}
+	 */
+	public String getString(int index){
+		return getString(index,MATRIX_STRING_ZERO_STR);
+	}
+	
+	/**
+	 * 以String类型返回matrix中的一个对象,当matrix中对象为空时,返回defaultValue
+	 * 如果给定的index超过了当前MatrixRow的最大索引值,返回defaultValue
+	 * @param index
+	 * @param defaultValue
+	 * @return {@link String}
+	 */
+	public String getString(int index, String defaultValue){
+		if(isOverFlow(index)){
+			return defaultValue;
+		}
+		T t=this.get(index);
+		if(t==null || StringUtils.blank(t.toString())){
+			return defaultValue;
+		}
+		return t.toString();		
+	}
+	
 	/**
 	 * 总是得到一个值，无论是超过边界.
 	 * @param index 索引。
@@ -101,12 +170,26 @@ public class MatrixRow<T> extends Vector<T> {
 			
 			String value = this.get(index).toString().trim();
 			//将空字符串("")排除
-			if(value != null && value.length()>0){
+			if(StringUtils.notBlank(value)){
 				return value;
 			}
 			
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * 判断给定的所以是否超出当前MatrixRow的最大索引值
+	 * 超出最大索引: true  没有超过最大索引:false
+	 * @param index
+	 * @return
+	 */
+	private boolean isOverFlow(int index){
+		int avableIndex = this.size()-1;
+		if(index>avableIndex){
+			return true;
+		}
+		return false;
 	}
 }
