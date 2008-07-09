@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>对查询的页面的支持 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true };
+
+//-->
+</SCRIPT>
+<link href="../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
+<link href="../../../../main/js/corner/prototype/window/themes/alphacube.css" rel="stylesheet" type="text/css" >	 </link>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/effects.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/controls.js"> </script>
+<script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/selectBox/selectBox.js"> </script>  
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/response/ajaxResponse.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../../../../main/webapp/css/sandbox.css" />
+</HEAD>
+
+<body bottommargin="0" rightmargin="0" topmargin="0" leftmargin="0" id="Body">
+<form id="Aform">
+update files<input id="updateField1"><input id="updateField2"><br/>
+field 1 <input id="CustomIdField" name="CustomIdField"	type="text" />
+	<table border="0"> 
+      <tr>
+        <td>
+          <select id="possible" name="possible" size="4" MULTIPLE width=200 style="width: 200px" >
+          <!--
+            <option value="1">中国广州
+            <option value="2">中国上海
+            <option value="3">中国北京
+            <option value="4">中国武汉
+			-->
+          </select>
+        </td>
+          <td>
+          	<a href="javascript:sel.copyFormToList();">添加至右方--></a>
+          	<br><br>
+            <a href="javascript:sel.copyAllFormTo();">添加All至右方--></a>
+            <br><br>
+            <a href="javascript:sel.copyToFormList()"><--添加至左方</a>
+            <br><br>
+            <a href="javascript:sel.copyAllToForm()"><--添加All至左方</a>
+            <br></td>
+        <td>
+          <select id="chosen" name="chosen" size="4" MULTIPLE width=200 style="width: 200px;">
+            
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" />
+</form>
+<br/>
+<span>Version:0.0.1  $Revision: 3996 $ $Date: 2008-03-18 16:54:31 +0800 $ </span>
+<script type="text/javascript">
+<!--
+	dojo.require("dojo.json");
+	var newFormSource = {"111111":"北京","555555":"杭州","666666":"深圳","777777":"厦门"};
+	
+	var sel = new SelectBox('Aform','possible','chosen',{"111111":"北京","222222":"上海","333333":"广州","444444":"武汉"},{});
+	CustomIdField_AC = ac.createAjaxAutocompleter("CustomIdFieldcomplete", "CustomIdField", "../autocompleter/test.txt", "auto_complete", 0.2,{select:'selectme',afterUpdateElement:ac.evaluate},"../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/indicator.gif","");
+	dojo.event.connect("after",CustomIdField_AC,"updateElement",this,"updateFromSource");
+	updateFromSource=function(){
+		var json = ajaxResponse("test.txt",{"page":"test.page"});
+		json = dojo.json.evalJson(json);
+		sel.formAdds(json);
+	}
+// --></script></body>
+</html>
