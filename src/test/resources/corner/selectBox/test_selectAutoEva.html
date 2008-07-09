@@ -17,6 +17,7 @@ djConfig = { isDebug: true };
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/effects.js"> </script>
 <script type="text/javascript" src="../../../../main/js/corner/prototype/window/javascripts/controls.js"> </script>
+<script type="text/javascript" src="../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
 <script type="text/javascript" src="../../../../main/java/corner/orm/tapestry/component/selectBox/selectBox.js"> </script>  
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/autocompleter.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/java/corner/orm/tapestry/component/response/ajaxResponse.js"></script>
@@ -68,9 +69,12 @@ field 1 <input id="CustomIdField" name="CustomIdField"	type="text" />
 	
 	var sel = new SelectBox('Aform','possible','chosen',{"111111":"北京","222222":"上海","333333":"广州","444444":"武汉"},{});
 	CustomIdField_AC = ac.createAjaxAutocompleter("CustomIdFieldcomplete", "CustomIdField", "../autocompleter/test.txt", "auto_complete", 0.2,{select:'selectme',afterUpdateElement:ac.evaluate},"../../../../main/java//corner/orm/tapestry/component/prototype/autocompleter/indicator.gif","");
+	
+	ajaxRes = new AjaxResponse("test.txt","test/page");
+	
 	dojo.event.connect("after",CustomIdField_AC,"updateElement",this,"updateFromSource");
 	updateFromSource=function(){
-		var json = ajaxResponse("test.txt",{"page":"test.page"});
+		var json = ajaxRes.request({"paras":"testage"});
 		json = dojo.json.evalJson(json);
 		sel.formAdds(json);
 	}
