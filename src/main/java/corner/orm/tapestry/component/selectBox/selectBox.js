@@ -1,9 +1,9 @@
 var loadSelectValues = function(field,source){
 	dojo.debug(field);
 	dojo.debug("Start Add Option...");
-	for(var i = 0 ; i<source.length;i++){
-		var txt = source[i]["label"];
-		var val = source[i]["value"];
+	for(var key in source){
+		var txt = source[key];
+		var val = key;
 		dojo.debug(txt + " - " + val);
 		$(field).options[$(field).length]= new Option(txt,val);
 	}
@@ -126,5 +126,20 @@ SelectBox.prototype = {
 		obj.remove(obj.selectedIndex);
 		
 		this.fnAdd(this.fromField,selectedText,selectedValue);
+	},
+	/*
+	 * 再次增加新的元素
+	 */
+	formAdds : function(source){
+		source.remove(0);
+//		var fromSource;
+//		var fromList = $(this.toField);	
+//		for (i=0;i<fromList.options.length;i++){
+//			var current = fromList.options[i];
+//			dojo.debug("current.text  ----  " + current.text + "  current.value   ----  " + current.value);
+//			
+//		}
+		
+		loadSelectValues(this.fromField,source);
 	}
 }

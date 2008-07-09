@@ -26,7 +26,6 @@ import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
-import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.IValidationDelegate;
 
@@ -40,9 +39,6 @@ import corner.util.StringUtils;
  * @since 2.5
  */
 public abstract class SelectBox extends BaseComponent implements IFormComponent{
-	
-	private static String SELECT_LABEL = "label";
-	private static String SELECT_VALUE = "value";
 	
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
@@ -147,33 +143,25 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	/**
 	 * @return
 	 */
-	private JSONArray getToList() {
-		JSONArray arr = new JSONArray();
-		JSONObject json = null;
+	private JSONObject getToList() {
+		JSONObject json = new JSONObject();
 		for(ISelectBox sb : this.getToSource()){
-			json = new JSONObject();
-			json.put(SELECT_LABEL, sb.getLabel());
-			json.put(SELECT_VALUE, sb.getValue());
-			arr.put(json);
+			json.put(sb.getValue(), sb.getLabel());
 		}
-		return arr;
+		return json;
 	}
 
 	/**
 	 * 获得源
 	 */
-	private JSONArray getFromList() {
-		JSONArray arr = new JSONArray();
-		JSONObject json = null;
+	private JSONObject getFromList() {
+		JSONObject json = new JSONObject();;
 		for(ISelectBox sb : this.getFromSource()){
 			if(isNotExist(sb)){
-				json = new JSONObject();
-				json.put(SELECT_LABEL, sb.getLabel());
-				json.put(SELECT_VALUE, sb.getValue());
-				arr.put(json);
+				json.put(sb.getValue(), sb.getLabel());
 			}
 		}
-		return arr;
+		return json;
 	}
 
 	/**

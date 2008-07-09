@@ -51,12 +51,18 @@ djConfig = { isDebug: true };
                 </td>
               </tr>  
             </table>
+<script type="text/javascript">
+<!--
+	var newFormSource = {"111111":"北京","555555":"杭州","666666":"深圳","777777":"厦门};
+// --></script></body>
+
+            <a href="javascript:sel.formAdds(newFormSource)">增加</a><br/>
             <input type="submit" />
 </form>
 <br/>
 <span>Version:0.0.1  $Revision: 3996 $ $Date: 2008-03-18 16:54:31 +0800 $ </span>
 <script type="text/javascript">
 <!--
-	var sel = new SelectBox('Aform','possible','chosen',[{"label":"广州","value":"111111"},{"label":"上海","value":"222222"},{"label":"北京","value":"333333"},{"label":"武汉","value":"444444"}],{});
+	var sel = new SelectBox('Aform','possible','chosen',{"111111":"北京","222222":"上海","333333":"广州","444444":"武汉"},{});
 // --></script></body>
 </html>
