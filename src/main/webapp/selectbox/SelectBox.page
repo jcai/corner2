@@ -11,6 +11,13 @@
     <binding value="listener:doSaveEntityAction" name="success"/>
     <binding value="listener:doCancelEntityAction" name="cancel"/>
   </component>
+  <component type="corner:AutoEva" id="AField">
+    <binding name="displayName" value="message:MaterialType"/>
+    <binding name="queryClassName" value="literal:corner.demo.model.one.A"/>
+    <binding name="template" value="literal:&lt;span class=&quot;selectme&quot;&gt;%1$s&lt;/span&gt;"/>
+    <binding name="labelFields" value="literal:name"/>
+    <binding name="value" value="ognl:entity.name"/>
+  </component>
   <component type="corner:SelectBox" id="SelectBox">
     <binding name="displayName" value="message:name"/>
     <!--binding name="entityClassName" value="literal:corner.demo.model.one.A"/-->
@@ -20,7 +27,6 @@
     <binding name="fromSource" value="ognl:fromList"/>
     <binding name="toSource" value="ognl:toList"/>
   </component>
-  
   <component type="corner:SelectBox" id="SelectBox2">
     <binding name="displayName" value="message:name"/>
     <binding name="entityClassName" value="literal:corner.demo.model.one.A"/>

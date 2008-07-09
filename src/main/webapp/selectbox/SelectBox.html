@@ -1,6 +1,8 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
     <form jwcid="AForm" action="AList.html">
+    	<span jwcid="ajaxRes@corner:AjaxRes"/>
+    	<span jwcid="AField"/><br>
       <table>
         <tr>
           <td>
@@ -32,6 +34,7 @@
           </td>
         </tr>
       </table>
+      <hr/>
       <table>
         <tr>
           <td>
@@ -63,14 +66,21 @@
           </td>
         </tr>
       </table>
-<script type="text/javascript">
-<!--
-	var newFormSource = {"111111":"北京","555555":"杭州","666666":"深圳","777777":"厦门"};
-// -->
-</script>
-            <a href="javascript:SelectBox2_0_fun.formAdds(newFormSource)">增加</a><br/>
       <input jwcid="@Submit" type="Submit" value="message:button.Okay"/>
       <input jwcid="@Any" type="Button" value="message:button.Cancle" onClick="javascript:tapestry.form.cancel(this.form);"/>
     </form>
 	<span jwcid="@Insert" value="ognl:context"/>
+	<script type="text/javascript">
+<!--
+dojo.event.connect("after",window,"onload",function(){
+	dojo.event.connect("after",AField_AC,"updateElement",function(){
+			var value = dojo.byId(AField).value;
+			var paras = dojo.json.evalJson("{'field':'" +value+ "'}");
+			var json = ajaxRes_ares.request(paras);
+			json = dojo.json.evalJson(json);
+			SelectBox_0_fun.formAdds(json);
+		});
+}
+);
+// --></script>
 </span>

@@ -78,5 +78,7 @@
   
   <component-type type="SelectBox" specification-path="selectBox/SelectBox.jwc"/>
   
+  <component-type type="AjaxRes" specification-path="response/AjaxResponse.jwc"/>
+  
   <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
 </library-specification>

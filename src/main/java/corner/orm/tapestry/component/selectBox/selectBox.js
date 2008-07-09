@@ -4,7 +4,7 @@ var loadSelectValues = function(field,source){
 	for(var key in source){
 		var txt = source[key];
 		var val = key;
-		dojo.debug(txt + " - " + val);
+//		dojo.debug(txt + " - " + val);
 		$(field).options[$(field).length]= new Option(txt,val);
 	}
 }
@@ -140,7 +140,7 @@ SelectBox.prototype = {
 		var toList = $(this.toField);
 		for (i=0;i<toList.options.length;i++){
 			var current = toList.options[i];
-			dojo.debug("current.text  ----  " + current.text + "  current.value   ----  " + current.value);
+//			dojo.debug("current.text  ----  " + current.text + "  current.value   ----  " + current.value);
 			if(fromSource[current.value]){
 				fromSource.remove(current.value);
 			}

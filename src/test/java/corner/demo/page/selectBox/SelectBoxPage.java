@@ -16,9 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tapestry.IPage;
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InitialValue;
+import org.apache.tapestry.json.JSONObject;
 
 import corner.demo.model.one.A;
+import corner.orm.tapestry.component.response.IAjaxResponsePage;
 import corner.orm.tapestry.page.PoFormPage;
 
 /**
@@ -26,7 +29,24 @@ import corner.orm.tapestry.page.PoFormPage;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class SelectBoxPage extends PoFormPage {
+public abstract class SelectBoxPage extends PoFormPage implements IAjaxResponsePage{
+	
+	/**
+	 * @see corner.orm.tapestry.component.response.IAjaxResponsePage#getJsonData(org.apache.tapestry.IRequestCycle)
+	 */
+	public String getJsonData(IRequestCycle cycle) {
+		String value = cycle.getParameter("field");
+		if(value == null) return null;
+		
+		JSONObject json = new JSONObject();
+		json.put("000000", value);
+		json.put("111111", "a1");
+		json.put("555555", "a5");
+		json.put("666666", "a6");
+		json.put("777777", "a7");
+		return json.toString();
+	}
+
 	/**
 	 * @see corner.orm.tapestry.page.AbstractEntityFormPage#getEntityListPage()
 	 */
