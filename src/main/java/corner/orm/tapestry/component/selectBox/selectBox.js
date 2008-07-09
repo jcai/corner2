@@ -131,15 +131,22 @@ SelectBox.prototype = {
 	 * 再次增加新的元素
 	 */
 	formAdds : function(source){
-		source.remove(0);
-//		var fromSource;
-//		var fromList = $(this.toField);	
-//		for (i=0;i<fromList.options.length;i++){
-//			var current = fromList.options[i];
-//			dojo.debug("current.text  ----  " + current.text + "  current.value   ----  " + current.value);
-//			
-//		}
+		//清除from端
+		var fromList = $(this.fromField);
+		fromList.options.length = 0;
 		
-		loadSelectValues(this.fromField,source);
+		//增加重复的记录
+		var fromSource = new Hash(source);
+		var toList = $(this.toField);
+		for (i=0;i<toList.options.length;i++){
+			var current = toList.options[i];
+			dojo.debug("current.text  ----  " + current.text + "  current.value   ----  " + current.value);
+			if(fromSource[current.value]){
+				fromSource.remove(current.value);
+			}
+		}
+		dojo.debug(fromSource.toJSON());
+		var json = dojo.json.evalJson(fromSource.toJSON());
+		loadSelectValues(this.fromField,json);
 	}
 }
