@@ -1,12 +1,12 @@
 <span jwcid="$content$">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-	<span jwcid="headIter" >
+	<span jwcid="headIter" renderTag="ognl:false">
 		<td jwcid="informal" class="ognl:tdClass" >
 			<input type="text" jwcid="@Any" class="ognl:inputClass" value="ognl:headObj" readonly="true"/>
 		</td>
 	</span>
-	<span jwcid="@If" condition="ognl:needFill">
+	<span jwcid="@If" condition="ognl:needFill" renderTag="ognl:false">
 		<span jwcid="@For" source="ognl:fillSource">
 			<td jwcid="@Any" class="ognl:tdClass" >
 				<input type="text" jwcid="@Any"  class="ognl:inputClass"  value="" readonly="true"/>
