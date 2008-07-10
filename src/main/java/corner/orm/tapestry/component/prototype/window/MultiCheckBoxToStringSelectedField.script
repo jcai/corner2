@@ -9,11 +9,13 @@
 	dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
-			${queryBox}.maps.push(src);
+			dojo.debug("src.id ---  " + src.id);
+			dojo.debug("${queryBox}.maps ---  " + ${queryBox}.maps);
+			${queryBox}.maps[src.id]=src.value;
 		}else{
-			${queryBox}.maps.pop(src);
+			delete ${queryBox}.maps[src.id];
 		}
-		${queryBox}.onSelect(${queryBox}.maps);
+		${queryBox}.onSelect(${queryBox}.maps.values());
 	}); 
 </initialization>
 </script>
