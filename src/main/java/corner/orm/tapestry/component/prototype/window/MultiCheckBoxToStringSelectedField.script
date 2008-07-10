@@ -10,10 +10,9 @@
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
 			dojo.debug("src.id ---  " + src.id);
-			dojo.debug("${queryBox}.maps ---  " + ${queryBox}.maps);
-			${queryBox}.maps[src.id]=src.value;
+			${queryBox}.maps[src.value]=src.value;
 		}else{
-			delete ${queryBox}.maps[src.id];
+			delete ${queryBox}.maps[src.value];
 		}
 		${queryBox}.onSelect(${queryBox}.maps.values());
 	}); 

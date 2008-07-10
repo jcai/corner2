@@ -12,10 +12,7 @@
 
 package corner.orm.tapestry.component.prototype.window;
 
-import java.util.Date;
-
 import org.apache.tapestry.IScript;
-import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
 
 import corner.orm.tapestry.component.AbstractAny;
@@ -36,17 +33,5 @@ public abstract class MultiCheckBoxToStringSelectedField extends AbstractAny{
 	@Override
 	protected String exceptionMessage() {
 		return "MultiCheckBoxToStringSelectedField";
-	}
-	
-	/**
-	 * @see org.apache.tapestry.AbstractComponent#generateClientId()
-	 */
-	protected void generateClientId() {
-		String id = getSpecifiedId();
-
-		if (id != null && getPage() != null
-				&& getPage().getRequestCycle() != null)
-			setClientId(getPage().getRequestCycle().getUniqueId(
-					TapestryUtils.convertTapestryIdToNMToken(id))+(new Date()).getTime());
 	}
 }
