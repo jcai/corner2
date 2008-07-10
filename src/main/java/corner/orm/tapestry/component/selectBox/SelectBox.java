@@ -12,6 +12,7 @@
 
 package corner.orm.tapestry.component.selectBox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 */
 	protected void rewindFormComponent(IMarkupWriter writer, IRequestCycle cycle) {
 		String [] values = cycle.getParameters(this.getToField());
-		this.getToSource().clear();
+		this.setToSource(new ArrayList<ISelectBox>());
 		
 		if(values == null) return;
 		
@@ -237,6 +238,7 @@ public abstract class SelectBox extends BaseComponent implements IFormComponent{
 	 */
 	@Parameter(required = true)
 	public abstract List<ISelectBox> getToSource();
+	public abstract void setToSource(List<ISelectBox> ls);
 	
 	/**
 	 * 使用的实体
