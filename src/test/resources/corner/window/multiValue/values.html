@@ -31,44 +31,26 @@ djConfig = { isDebug: true,
 
 </HEAD>
 <body>
-		<input id="t1" value="1" type="checkbox"/>1<br/><input id="t2" value="2" type="checkbox"/>2<br/>
+		<input id="MultiCBToStringSelectedField" value="1" type="checkbox"/>1<br/>
+		<input id="t2" value="2" type="checkbox"/>2<br/>
+		<input id="t3" value="3" type="checkbox"/>3<br/>
 		<input type="button" class="alertButton" onClick="queryBox.win.close();" value="Close"/>
 
 <script type="text/javascript">
 <!--
-var maps = {
-	maps: [],
-	zIndex: 1200,
-
-	push: function(element) {
-		this.maps.push(element);
-	},
-	pop: function(element) {
-		this.maps.pop(element);
-	},
-	toString: function(){
-		var values="";;
-		for(i=0;i<this.maps.length;i++){
-			if(i>0){
-				values += ",";
-			}
-			values +=this.maps[i].value;
-		}
-		return values;
-	}
-}
 
 	winSelectRecord=function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
-			maps.push(src);
+			queryBox.maps[src.id]=src.value;
 		}else{
-			maps.pop(src);
+			delete queryBox.maps[src.id];
 		}
-		parent.selectRecord(maps.toString());
+		parent.selectRecord(queryBox.maps.values());
 	}
-	dojo.event.connect(dojo.byId("t1"),"onclick","winSelectRecord");
+	dojo.event.connect(dojo.byId("MultiCBToStringSelectedField"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t2"),"onclick","winSelectRecord");
+	dojo.event.connect(dojo.byId("t3"),"onclick","winSelectRecord");
 //-->
 </script>
 	</body>

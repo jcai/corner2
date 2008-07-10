@@ -9,7 +9,6 @@
 	dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
-			dojo.debug("src.id ---  " + src.id);
 			${queryBox}.maps[src.value]=src.value;
 		}else{
 			delete ${queryBox}.maps[src.value];
