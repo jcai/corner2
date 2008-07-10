@@ -1,7 +1,7 @@
 /*
  * 进行ajax请求到任意页面，返回json串
  */
-AjaxResponse = CornerBuilder.create({
+AjaxPageResponse = CornerBuilder.create({
 	extend: CornerBase.prototype,
 	initialize: function(url,page) {
 		this.url = url;

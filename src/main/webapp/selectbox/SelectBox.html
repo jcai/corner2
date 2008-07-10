@@ -1,7 +1,7 @@
 <span jwcid="@DemoBorder">
     <a listener="listener:doCancelEntityAction" jwcid="@DirectLink" href="AList.html">Return A List</a>
     <form jwcid="AForm" action="AList.html">
-    	<span jwcid="ajaxRes@corner:AjaxRes"/>
+    	<span jwcid="ajaxRes@corner:AjaxPageRes"/>
     	<span jwcid="AField"/><br>
       <table>
         <tr>
@@ -76,7 +76,7 @@ dojo.event.connect("after",window,"onload",function(){
 	dojo.event.connect("after",AField_AC,"updateElement",function(){
 			var value = dojo.byId(AField).value;
 			var paras = dojo.json.evalJson("{'field':'" +value+ "'}");
-			var json = ajaxRes_ares.request(paras);
+			var json = ajaxRes_AR.request(paras);
 			json = dojo.json.evalJson(json);
 			SelectBox_0_fun.formAdds(json);
 		});

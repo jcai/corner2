@@ -37,9 +37,9 @@ import org.apache.tapestry.services.ResponseBuilder;
  * @version $Revision$
  * @since 2.5
  */
-public abstract class AjaxResponse extends BaseComponent implements IDirect{
+public abstract class AjaxPageResponse extends BaseComponent implements IDirect{
 	
-	@InjectScript("AjaxResponse.script")
+	@InjectScript("AjaxPageResponse.script")
 	public abstract IScript getScript();
 	
 	/**
