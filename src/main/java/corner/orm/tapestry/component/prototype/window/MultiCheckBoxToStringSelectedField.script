@@ -6,28 +6,14 @@
 <input-symbol key="id" required="yes" />
 <input-symbol key="queryBox" required="yes" />
 <initialization>
-	<unique>
-		var maps = {
-			maps: [],
-			zIndex: 1200,
-		
-			push: function(element) {
-				this.maps.push(element);
-			},
-			pop: function(element) {
-				this.maps.pop(element);
-			}
-		}
-	</unique>
-	
 	dojo.event.connect(dojo.byId("${id}"),"onclick",function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
-			maps.push(src);
+			${queryBox}.maps.push(src);
 		}else{
-			maps.pop(src);
+			${queryBox}.maps.pop(src);
 		}
-		${queryBox}.onSelect(maps);
+		${queryBox}.onSelect(${queryBox}.maps);
 	}); 
 </initialization>
 </script>

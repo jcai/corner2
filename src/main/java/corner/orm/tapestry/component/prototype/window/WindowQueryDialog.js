@@ -9,6 +9,27 @@ WindowDialogBase = CornerBuilder.create({
 		this.win =null;
 		this.selectFunName=selectFunName;
 		this.options = this["options"];
+		this.maps = {
+			maps: [],
+			zIndex: 1200,
+		
+			push: function(element) {
+				this.maps.push(element);
+			},
+			pop: function(element) {
+				this.maps.pop(element);
+			},
+			toString: function(){
+				var values="";
+				for(i=0;i<this.maps.length;i++){
+					if(i>0){
+						values += ",";
+					}
+					values +=this.maps[i].value;
+				}
+				return values;
+			}
+		}
 		/*
 		  增加onclick事件并传递this到clickField，传递的this表示当前function
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
