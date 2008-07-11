@@ -137,13 +137,10 @@ public class UniqueEntity extends BaseValidator {
 	 */
 	protected int getRowCount(final IFormComponent field, final Object inputObj,
 			final String entityClassName, final String property) {
-		return (Integer) ((HibernateDaoSupport) getEntityService()
-				.getObjectRelativeUtils()).getHibernateTemplate().execute(
-				new HibernateCallback() {
-					public Object doInHibernate(Session session)
-							throws HibernateException, SQLException {
-						Criteria criteria = session
-								.createCriteria(entityClassName);
+		return (Integer) getEntityService().execute(new HibernateCallback() {
+			
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						Criteria criteria = session.createCriteria(entityClassName);
 						criteria.setProjection(Projections.rowCount());
 						criteria.add(Restrictions.eq(property, inputObj));
 						return criteria.list().get(0);

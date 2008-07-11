@@ -205,7 +205,7 @@ public class PushletService implements IEngineService {
 				e1.printStackTrace();
 			}
 			
-			List<IMessageModel> messageModelList = (List<IMessageModel>)((HibernateDaoSupport)entityService.getObjectRelativeUtils()).getHibernateTemplate().findByCriteria(this.getDCriteria());
+			List<IMessageModel> messageModelList = (List<IMessageModel>)entityService.findByCriteria(this.getDCriteria());
 			List<String> messages = null;
 			if(messageModelList != null && messageModelList.size()>0){
 				messages = new ArrayList<String>();

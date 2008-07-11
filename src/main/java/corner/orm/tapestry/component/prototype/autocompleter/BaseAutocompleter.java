@@ -106,7 +106,6 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 	//对Prototype进行渲染
 	void renderPrototypeComponent(IMarkupWriter writer,
 			IRequestCycle cycle) {
-		HibernateTemplate ht = getHibernateTemplate();
 
 		// initValue();
 		// 对选择器进行额外赋值
@@ -115,7 +114,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 		model.setComponent(this);
 		
 		// 查询
-		List list = model.search(ht, this.getQueryClassName(), this
+		List list = model.search(getEntityService().getHibernateTemplate(), this.getQueryClassName(), this
 				.getSearchString(), ((IContext) this.getContext()), this.getDataSqueezer(),this.getDependFieldsValue());
 
 		// 迭代器
@@ -136,11 +135,6 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 		}
 		writer.end();
 
-	}
-
-	HibernateTemplate getHibernateTemplate() {
-		return ((HibernateDaoSupport) getEntityService()
-				.getObjectRelativeUtils()).getHibernateTemplate();
 	}
 
 	protected ISelectModel constructSelectModel() {

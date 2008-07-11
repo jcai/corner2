@@ -171,16 +171,14 @@ public class DefaultSelectFilter implements ISelectFilter {
 	 * @return
 	 */
 	public List listAllMatchedValue(final String... searchParam){
-		return ((List) ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate()
-				.execute(new HibernateCallback(){
+		return this.entityService.executeFind(new HibernateCallback(){
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						Criteria criteria=session.createCriteria(queryClass);
 						criteria.add(Restrictions.or(Restrictions.like(labelField,searchParam[0]), Restrictions.like(cnlabelField,searchParam[0])));
 						criteria.setFirstResult(nFirst);
 						criteria.setMaxResults(nPageSize);
 						return criteria.list();
-					}}));
+					}});
 	}
 
 	/**

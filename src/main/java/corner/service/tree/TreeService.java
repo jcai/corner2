@@ -51,10 +51,7 @@ public class TreeService extends EntityService {
 	 * @param depth	要查询的深度
 	 */
 	public List getDepthTree(
-			IPage page, Class clazz, String [] depends, int depth, int left,
-			int right) {
-		HibernateTemplate ht = ((HibernateDaoSupport) this
-				.getObjectRelativeUtils()).getHibernateTemplate();
+			IPage page, Class clazz, String [] depends, int depth, int left,int right) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
 		
 		if(depth == 1){
@@ -73,7 +70,7 @@ public class TreeService extends EntityService {
 		
 		criteria.addOrder(Order.asc(ITreeAdaptor.LEFT_PRO_NAME));
 
-		return ht.findByCriteria(criteria);
+		return findByCriteria(criteria);
 	}
 	
 	/**
@@ -161,8 +158,7 @@ public class TreeService extends EntityService {
 	@SuppressWarnings("unchecked")
 	public List<? extends ITreeAdaptor> getTree(
 			Class<? extends ITreeAdaptor> clazz) {
-		HibernateTemplate ht = ((HibernateDaoSupport) this
-				.getObjectRelativeUtils()).getHibernateTemplate();
+		HibernateTemplate ht = getHibernateTemplate();
 		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
 		criteria.addOrder(Order.asc(ITreeAdaptor.LEFT_PRO_NAME));
 

@@ -129,8 +129,7 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	 * @since 2.0.3
 	 */
 	protected void flushHibernate() {
-		((HibernateObjectRelativeUtils) this.getEntityService()
-				.getObjectRelativeUtils()).getHibernateTemplate().flush();
+		this.getEntityService().flush();
 	}
 
 	/**

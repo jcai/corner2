@@ -96,7 +96,7 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 			return rows;
 		}
 		if (rows == -1) {
-			rows=((Integer)this.entityService.getHibernateTemplate().execute(new HibernateCallback(){
+			rows=((Integer)this.entityService.execute(new HibernateCallback(){
 
 						public Object doInHibernate(Session session) throws HibernateException, SQLException {
 							Criteria criteria=callback.createCriteria(session);

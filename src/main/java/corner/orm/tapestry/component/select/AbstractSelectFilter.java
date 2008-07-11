@@ -54,7 +54,7 @@ public abstract class AbstractSelectFilter implements ISelectFilter{
 	 */
 	public List query(final String match, final IPoSelectorModel model) {
 		this.model=model;
-		List list=((HibernateDaoSupport) model.getEntityService().getObjectRelativeUtils()).getHibernateTemplate().executeFind(new HibernateCallback(){
+		List list=model.getEntityService().executeFind(new HibernateCallback(){
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				Criteria c=createCriteria(session);//创建 criteria
 				appendCriteria(c,match); //提供查询条件
