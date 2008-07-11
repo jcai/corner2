@@ -14,8 +14,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import corner.model.tree.ITreeAdaptor;
 import corner.service.EntityService;
@@ -28,6 +26,7 @@ import corner.util.BeanUtils;
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
  * @author <a href="mailto:xf@bjmaxinfo.com">xiafei</a>
+ * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision$
  * @since 2.5
  */
@@ -108,17 +107,14 @@ public class TreeService extends EntityService {
 	public void saveTreeChildNode(ITreeAdaptor node, ITreeAdaptor parentNode, Class clazz) {
 		String treeClassName = getTreeClassName(node,clazz);
 
-		// 得到HibernateTemplate object
-		HibernateTemplate ht = getHibernateTemplate();
-
 		if (parentNode == null) { // 插入顶级节点
 			parentNode = (ITreeAdaptor) BeanUtils.instantiateClass(EntityService.getEntityClass(node).getName());
 			parentNode.setLeft(0);
 			parentNode.setDepth(0);
-			long rowCount = (Long) ht.find(String.format(COUNT_ALL_NODE_HSQL, treeClassName)).get(0);
+			long rowCount = (Long) find(String.format(COUNT_ALL_NODE_HSQL, treeClassName)).get(0);
 			parentNode.setRight((int) (rowCount * 2 + 1));
 		} else { // reload parent object
-			ht.refresh(parentNode);
+			refresh(parentNode);
 		}
 		// 得到父节点的右边值
 		int parentRight = parentNode.getRight();
@@ -130,10 +126,10 @@ public class TreeService extends EntityService {
 
 		String updateLeftHQL = String.format(UPDATE_LEFT_HSQL,treeClassName,2);
 		
-		ht.bulkUpdate(updateLeftHQL, new Object[] { parentRight});
+		bulkUpdate(updateLeftHQL, new Object[] { parentRight});
 
 		String updateRightHQL = String.format(UPDATE_RIGHT_HSQL,treeClassName,2);
-		ht.bulkUpdate(updateRightHQL, new Object[] { parentRight - 1});
+		bulkUpdate(updateRightHQL, new Object[] { parentRight - 1});
 
 		// 更新当前节点的值
 		node.setLeft(parentRight);
@@ -141,9 +137,9 @@ public class TreeService extends EntityService {
 		node.setDepth(parentNode.getDepth() + 1);
 
 		// 保存当前的实体
-		ht.saveOrUpdate(node);
+		saveOrUpdate(node);
 		if (parentNode.getId() != null) {
-			ht.refresh(parentNode);
+			refresh(parentNode);
 		}
 	}
 
@@ -158,11 +154,10 @@ public class TreeService extends EntityService {
 	@SuppressWarnings("unchecked")
 	public List<? extends ITreeAdaptor> getTree(
 			Class<? extends ITreeAdaptor> clazz) {
-		HibernateTemplate ht = getHibernateTemplate();
 		DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
 		criteria.addOrder(Order.asc(ITreeAdaptor.LEFT_PRO_NAME));
 
-		return ht.findByCriteria(criteria);
+		return findByCriteria(criteria);
 	}
 
 	/**
@@ -180,18 +175,15 @@ public class TreeService extends EntityService {
 		if (n == 0) {
 			return;
 		}
-		
-		//得到当前的Hibernate模板
-		HibernateTemplate ht = ((HibernateDaoSupport) getObjectRelativeUtils()).getHibernateTemplate();
 
-		IMoveTreeNodeProcessor processor=createSubProcessor(node,ht,n);
+		IMoveTreeNodeProcessor processor=createSubProcessor(node,this,n);
 		
-		processor.execute(node,ht,n,clazz);
+		processor.execute(node,this,n,clazz);
 		
 		
 	}
 
-	private IMoveTreeNodeProcessor createSubProcessor(ITreeAdaptor node,HibernateTemplate ht, int n) {
+	private IMoveTreeNodeProcessor createSubProcessor(ITreeAdaptor node,EntityService service, int n) {
 		if(n>0){
 			return new MoveUpProcessor();
 		}else{
@@ -226,15 +218,12 @@ public class TreeService extends EntityService {
 		int width = left-right - 1;
 
 		// 删除该节点，以及节点下面所属的字节点
-		HibernateTemplate ht = ((HibernateDaoSupport) this
-				.getObjectRelativeUtils()).getHibernateTemplate();
-
-		ht.bulkUpdate(String.format(DELETE_NODE_HSQL,treeClassName),
+		bulkUpdate(String.format(DELETE_NODE_HSQL,treeClassName),
 				new Object[] { left, right});
 
 		// 更新其他节点的左右值
-		ht.bulkUpdate(String.format(UPDATE_LEFT_HSQL,treeClassName,width), new Object[] {right});
-		ht.bulkUpdate(String.format(UPDATE_RIGHT_HSQL,treeClassName,width), new Object[] {right});
+		bulkUpdate(String.format(UPDATE_LEFT_HSQL,treeClassName,width), new Object[] {right});
+		bulkUpdate(String.format(UPDATE_RIGHT_HSQL,treeClassName,width), new Object[] {right});
 
 	}
 }

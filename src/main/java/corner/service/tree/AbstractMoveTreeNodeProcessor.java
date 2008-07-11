@@ -12,7 +12,6 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import corner.model.tree.AbstractTreeAdaptor;
 import corner.model.tree.ITreeAdaptor;
@@ -22,6 +21,7 @@ import corner.service.EntityService;
  * 抽象对树的移动进行的处理
  * 
  * @author <a href="mailto:jun.tsai@bjmaxinfo.com">Jun Tsai</a>
+ * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision: 9172 $
  * @since 0.7.5
  */
@@ -38,9 +38,8 @@ abstract class AbstractMoveTreeNodeProcessor {
 
 	// 当前操作的节点
 	private ITreeAdaptor node;
-
-	// Hiberante模板类
-	private HibernateTemplate ht;
+	
+	private EntityService service;
 
 	// 对应的节点类的名字
 	private String treeClassName;
@@ -69,14 +68,9 @@ abstract class AbstractMoveTreeNodeProcessor {
 	protected String getTreeClassName() {
 		return this.treeClassName;
 	}
-
-	/**
-	 * 得到Hibernate模板对象类
-	 * 
-	 * @return Hibernate模板对象类
-	 */
-	protected HibernateTemplate getHibernateTemplate() {
-		return this.ht;
+	
+	protected EntityService getEntityService(){
+		return this.service;
 	}
 
 	// 得到移动块的左边的起始位置,注意的是：查询的时候是 >=
@@ -98,11 +92,11 @@ abstract class AbstractMoveTreeNodeProcessor {
 	// 获取移动模板的位置信息
 	protected abstract void fetchMoveBlockInfo(List list);
 
-	public void execute(ITreeAdaptor node, HibernateTemplate ht, int n,
-			Class clazz) {
+	public void execute(ITreeAdaptor node, EntityService service, int n, Class clazz) {
 
 		this.node = node;
-		this.ht = ht;
+//		this.ht = ht;
+		this.service = service;
 
 		if (clazz != null) {
 			treeClassName = clazz.getName();
@@ -110,7 +104,7 @@ abstract class AbstractMoveTreeNodeProcessor {
 			treeClassName = EntityService.getEntityClass(node).getName();
 		}
 		// 对当前的node刷新
-		ht.refresh(node);
+		service.refresh(node);
 		// 查到移动到位置的节点
 		List list = fetchReplaceNode(Math.abs(n) - 1);
 
@@ -126,10 +120,10 @@ abstract class AbstractMoveTreeNodeProcessor {
 		updateCurrentNode();
 
 		// 刷新影响的节点
-		ht.refresh(node);
+		service.refresh(node);
 
 		if (list.size() > 0) {
-			ht.evict(list.get(0));
+			service.evict(list.get(0));
 		}
 
 	}
@@ -146,13 +140,13 @@ abstract class AbstractMoveTreeNodeProcessor {
 				.getEntityClass(node));
 		appendQueryReplaceNodeCriteria(criteria);
 		criteria.add(Restrictions.eq(AbstractTreeAdaptor.DEPTH_PRO_NAME, node.getDepth()));
-		return ht.findByCriteria(criteria, n, 1);
+		return service.findByCriteria(criteria, n, 1);
 
 	}
 
 	// 孤立当前节点以及子节点
 	private void insulateCurrentNodeAndChildren() {
-		ht.bulkUpdate(String.format(ISOLATE_NODE_HQL, treeClassName),
+		service.bulkUpdate(String.format(ISOLATE_NODE_HQL, treeClassName),
 				new Object[] { node.getLeft(), node.getRight()});
 	}
 
@@ -161,7 +155,7 @@ abstract class AbstractMoveTreeNodeProcessor {
 
 		String updateNodesAffectedHQL = String.format(UPDATE_NODES_AFFECTED,
 				treeClassName, getUpdateWidth(), getUpdateWidth());
-		ht.bulkUpdate(updateNodesAffectedHQL, new Object[] {
+		service.bulkUpdate(updateNodesAffectedHQL, new Object[] {
 				getMoveBlockLeftStart(), getMoveBlockLeftEnd()});
 
 	}
@@ -171,7 +165,7 @@ abstract class AbstractMoveTreeNodeProcessor {
 
 		String updateCurrentNodeHQL = String.format(UPDATE_CURRENT_NODE_HQL,
 				treeClassName, getOffset());
-		ht.bulkUpdate(updateCurrentNodeHQL,
+		service.bulkUpdate(updateCurrentNodeHQL,
 				new Object[] {0});
 	}
 
@@ -193,7 +187,7 @@ abstract class AbstractMoveTreeNodeProcessor {
 			criteria.add(Restrictions.gt(AbstractTreeAdaptor.RIGHT_PRO_NAME, node.getRight())).add(
 					Restrictions.lt(AbstractTreeAdaptor.LEFT_PRO_NAME, node.getLeft()));
 			criteria.addOrder(Order.desc(AbstractTreeAdaptor.LEFT_PRO_NAME));
-			List list = ht.findByCriteria(criteria,0,1);
+			List list = service.findByCriteria(criteria,0,1);
 
 			if (list.size() != 1) { //
 				throw new RuntimeException("非法请求，通过节点(" + node.getLeft()

@@ -84,8 +84,7 @@ class MoveDownProcessor extends AbstractMoveTreeNodeProcessor
 				.instantiateClass(getTreeClassName());
 		rootNode.setLeft(0);
 
-		long rowCount = (Long) getHibernateTemplate()
-				.find("select count(*) from " + getTreeClassName()).get(0);
+		long rowCount = (Long) getEntityService().find("select count(*) from " + getTreeClassName()).get(0);
 		rootNode.setRight((int) (rowCount * 2 + 1));
 
 		return rootNode;
