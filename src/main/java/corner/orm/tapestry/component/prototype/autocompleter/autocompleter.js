@@ -65,7 +65,7 @@ ac._ensureIndicatorExists = function(indicator_pic_url){
         document.body.appendChild(block);
 
         
-		t=document.createElement("img");
+		var t=document.createElement("img");
 		t.setAttribute("src",indicator_pic_url);
 		block.appendChild(t);
 		block.appendChild(document.createTextNode("Waiting....."));
