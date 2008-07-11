@@ -27,9 +27,9 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import corner.orm.tapestry.state.IContext;
+import corner.service.EntityService;
 
 /**
  * 默认的filter，主要是对拼音,数字，汉字 代码类进行检索
@@ -43,12 +43,12 @@ import corner.orm.tapestry.state.IContext;
 public class CodeSelectModel extends AbstractSelectModel {
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(corner.service.EntityService, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
-	public List search(HibernateTemplate ht, final String queryClassName,
+	public List search(EntityService service, final String queryClassName,
 			final String searchString, final IContext context,
 			final DataSqueezer squeezer, final String[] dependFieldsValue) {
-		return ht.executeFind(new HibernateCallback() {
+		return service.executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(queryClassName);

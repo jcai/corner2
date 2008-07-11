@@ -33,9 +33,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import corner.orm.tapestry.state.IContext;
+import corner.service.EntityService;
 import corner.util.BeanUtils;
 import corner.util.StringUtils;
 
@@ -141,11 +141,11 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	}
 
 	/**
-	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(org.springframework.orm.hibernate3.HibernateTemplate, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
+	 * @see corner.orm.tapestry.component.prototype.autocompleter.ISelectModel#search(corner.service.EntityService, java.lang.String, java.lang.String, corner.orm.tapestry.state.IContext, org.apache.tapestry.services.DataSqueezer, java.lang.String[])
 	 */
-	public List search(HibernateTemplate ht, final String queryClassName,
+	public List search(EntityService service, final String queryClassName,
 			final String searchString, final IContext context,final DataSqueezer squeezer,final String [] dependFieldsValue) {
-		return ht.executeFind(new HibernateCallback() {
+		return service.executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(queryClassName, ROOT_ENTITY_ALIAS);

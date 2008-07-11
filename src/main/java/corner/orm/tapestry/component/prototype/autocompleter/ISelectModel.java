@@ -22,9 +22,9 @@ import java.util.List;
 import org.apache.tapestry.IComponent;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.services.DataSqueezer;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import corner.orm.tapestry.state.IContext;
+import corner.service.EntityService;
 
 /**
  * 一个选择的过滤器
@@ -65,13 +65,13 @@ public interface ISelectModel {
 	public static final String NUM_FIELD = "numCode";
 	/**
 	 * 搜索
-	 * @param ht Hibernate查询模板实体
+	 * @param service corner基础服务类
 	 * @param queryClassName 查询的类名.
 	 * @param searchString 搜索的字符串
 	 * @param company 当前公司
 	 * @return 结果
 	 */
-	public List search(HibernateTemplate ht,String queryClassName,String searchString,IContext context,DataSqueezer squeezer,String [] dependFieldsValue);
+	public List search(EntityService service,String queryClassName,String searchString,IContext context,DataSqueezer squeezer,String [] dependFieldsValue);
 	
 	/**
 	 * 对结果的某一行进行渲染

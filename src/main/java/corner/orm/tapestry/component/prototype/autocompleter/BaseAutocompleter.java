@@ -47,8 +47,6 @@ import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.services.DataSqueezer;
 import org.apache.tapestry.services.ResponseBuilder;
 import org.apache.tapestry.valid.ValidatorException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import corner.orm.tapestry.state.IContext;
 import corner.orm.tapestry.state.IContextAccessible;
@@ -60,6 +58,7 @@ import corner.util.StringUtils;
  * 
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
  * @author <a href="mailto:renais@bjmaxinfo.com">renais</a>
+ * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision$
  * @since 2.3.7
  */
@@ -114,7 +113,7 @@ public abstract class BaseAutocompleter extends AbstractFormComponent implements
 		model.setComponent(this);
 		
 		// 查询
-		List list = model.search(getEntityService().getHibernateTemplate(), this.getQueryClassName(), this
+		List list = model.search(getEntityService(), this.getQueryClassName(), this
 				.getSearchString(), ((IContext) this.getContext()), this.getDataSqueezer(),this.getDependFieldsValue());
 
 		// 迭代器
