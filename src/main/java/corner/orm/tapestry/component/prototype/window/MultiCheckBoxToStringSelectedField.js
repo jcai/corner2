@@ -9,3 +9,23 @@ var checkboxEventConnect = function(id,win){
 		win.onSelect(win.maps.values());
 	}); 
 }
+/*
+ * 变成选择状态
+ */
+var loadCheckBoxSelected = function(win){
+	var elements = [];
+	var inputs = document.getElementsByTagName("input");
+	dojo.lang.forEach(inputs, function(input){
+		if(input.getAttribute("type")=="checkbox"){
+			elements.push(input);
+		}
+	});
+	
+	for(var key in win.maps){
+		for(var i=0;i<elements.length;i++){
+			if(elements[i].value==key){
+				elements[i].checked = "checked";
+			}
+		}
+	}
+}

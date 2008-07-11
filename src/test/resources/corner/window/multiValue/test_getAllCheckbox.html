@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>test FieldPlusEq validator</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+djConfig = { isDebug: true
+          };
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/tapestry/core.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/corner/corner.js"></script>
+</head>
+
+<body>
+<input id="MultiCBToStringSelectedField" value="1" type="text"/>1<br/>
+<input id="MultiCBToStringSelectedField" value="1" type="checkbox"/>1<br/>
+		<input id="t2" value="2" type="checkbox"/>2<br/>
+		<input id="t3" value="3" type="checkbox"/>3<br/>
+<br/>
+	num<a id="num">test</a>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+dojo.event.connect(dojo.byId("num"),"onclick",this,"val");
+val=function(evt){
+	var elements = [];
+	var inputs = document.getElementsByTagName("input");
+	dojo.lang.forEach(inputs, function(input){
+		if(input.getAttribute("type")=="checkbox"){
+			elements.push(input);
+		}
+	});
+	alert(elements);
+}
+	
+//-->
+</SCRIPT>
+	
+</body>
+
+</html>

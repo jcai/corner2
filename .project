@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>corner</name>
+	<name>corner2.5</name>
 	<comment>Provides some core function</comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.antlr.eclipse.core.antlrbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.antlr.eclipse.core.warningcleanerbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.antlr.eclipse.core.smapbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -34,6 +19,5 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
-		<nature>org.antlr.eclipse.core.antlrnature</nature>
 	</natures>
 </projectDescription>

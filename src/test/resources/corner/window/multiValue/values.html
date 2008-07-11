@@ -18,16 +18,7 @@ djConfig = { isDebug: true,
 <SCRIPT LANGUAGE="JavaScript" src="../../../../../main/js/dojo/dojo.js"></script>
 		
 <script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/prototype.js"> </script>
-<script language="JavaScript" type="text/javascript" src="js/prototype-ext.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/effects.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/controls.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/builder.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/ajaxtree.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="js/common.js"></script>
-<script language="JavaScript" type="text/javascript" src="js/commonajax.js"></script>
-
-<script language="JavaScript" type="text/javascript" src="lefttree.js"></script>
+<script type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/prototype/window/MultiCheckBoxToStringSelectedField.js"> </script>
 
 </HEAD>
 <body>
@@ -38,7 +29,6 @@ djConfig = { isDebug: true,
 
 <script type="text/javascript">
 <!--
-
 	winSelectRecord=function(evt){
 		var src=dojo.html.getEventTarget(evt);
 		if(src.checked){
@@ -51,6 +41,8 @@ djConfig = { isDebug: true,
 	dojo.event.connect(dojo.byId("MultiCBToStringSelectedField"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t2"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t3"),"onclick","winSelectRecord");
+	
+	
 //-->
 </script>
 	</body>
