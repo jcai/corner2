@@ -10,10 +10,13 @@
 			<td colspan="2" >
 				<span jwcid="@If" condition="ognl:ImageFile eq true" renderTag="ognl:false">
 					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}">
-						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:320px;height:200px;"/></a></span>
+						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:320px;height:200px;"/>
+					</a>
+				</span>
 				<span jwcid="@Else" renderTag="ognl:false">
 					<span jwcid="@If" condition="ognl:blobEntity.blobData != null" renderTag="ognl:false">
-					<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a></span>
+						<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a>
+					</span>
                 </span>
 			</td>
 		</tr>
