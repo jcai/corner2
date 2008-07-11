@@ -23,7 +23,7 @@ GainPoint.prototype = {
 			var elements = document.getElementsByName(key);
 			dojo.debug("elements.length " + elements.length);
 			
-			for (var i in elements){
+			for (var i=0;i<elements.length;i++){
 				temp = 	this.flags[key][i];
 				dojo.debug("type " + elements[i].type);
 				

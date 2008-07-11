@@ -30,10 +30,10 @@ djConfig = { isDebug: true
 				id<input type="text" id="poid" name ="poid" value="fjkdsajfldsu4o329048347832012j4kl48"	/>
 			</td>
 			<td>
-				field 1 <input id="field1" type="text" name="name" value="aaaaa" />
+				field 1 <input type="text" name="name" value="aaaaa" />
 			</td>
 			<td>
-				field 2 <input id="field1" type="text" name="cnName" value="bbbbbb" />
+				field 2 <input type="text" name="cnName" value="bbbbbb" />
 			</td>
             <td>
 				field 3 <input name="show_check" type="checkbox" value="" onclick="checkHidField('show',this)" />
@@ -51,21 +51,11 @@ djConfig = { isDebug: true
 	<input type="submit" />
 </form>
 
-<a href=# onclick="reElementValues()">reElementValues1</a><br />
+<a href=# onclick="gp.init()">reElementValues1</a><br />
 
 <script type="text/javascript">
 <!--
 	var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
-	
-	function reElementValues(){
-		var elements = document.getElementsByName("poid");
-		
-			dojo.debug("elements.length " + elements.length);
-		
-			for (var i in elements){
-				dojo.debug("elements[i] ---  " + elements[i].type);
-			}
-	}
 // --></script>
 </body>
 
