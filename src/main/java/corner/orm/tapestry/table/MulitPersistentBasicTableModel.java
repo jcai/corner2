@@ -77,8 +77,7 @@ public class MulitPersistentBasicTableModel extends PersistentBasicTableModel {
 	public Iterator getCurrentPageRows(int nFirst, int nPageSize,
 			ITableColumn column, boolean sort) {
 		if (resultList == null) {
-			Iterator rowIterator = super.getCurrentPageRows(nFirst, nPageSize,
-					column, sort);
+			Iterator rowIterator = super.getCurrentPageRows(nFirst, nPageSize, column, sort);
 
 			if (rowIterator != null && rowIterator.hasNext()) {
 				List<List> returnList = new ArrayList<List>();

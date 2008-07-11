@@ -126,12 +126,9 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 			}
 			
 			//TODO 考虑兼容以前的版本 Integer变为 Long
-			rows = ((Long) ((HibernateObjectRelativeUtils) this.entityService
-					.getObjectRelativeUtils()).getHibernateTemplate().execute(
-					new HibernateCallback() {
+			rows = ((Long) this.entityService.execute(new HibernateCallback() {
 
-						public Object doInHibernate(Session session)
-								throws HibernateException, SQLException {
+						public Object doInHibernate(Session session) throws HibernateException, SQLException {
 							Query query=createQuery(session,c,"select count(*)",null);
 							return query.iterate().next();
 						}
@@ -159,18 +156,12 @@ public class RelativePersistentBasicTableModel<T> implements IBasicTableModel {
 		}
 
 		if(resultList == null){
-			resultList = ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(
-				new HibernateCallback() {
-
-					public Object doInHibernate(Session session)
-							throws HibernateException, SQLException {
+			resultList = this.entityService.executeFind(new HibernateCallback() {
+				
+					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						String orderStr = "";
-
 						if (column != null) {
-
-							orderStr = "order by " + column.getColumnName()
-									+ (sort ? " desc" : " ");
+							orderStr = "order by " + column.getColumnName() + (sort ? " desc" : " ");
 						}
 						Query query = createQuery(session,c,null,orderStr);
 

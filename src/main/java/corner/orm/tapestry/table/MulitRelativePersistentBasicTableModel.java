@@ -32,8 +32,7 @@ import corner.service.EntityService;
  * @version $Revision$
  * @since 2.2.1
  */
-public class MulitRelativePersistentBasicTableModel extends
-		RelativePersistentBasicTableModel<Object> {
+public class MulitRelativePersistentBasicTableModel extends RelativePersistentBasicTableModel<Object> {
 
 	/**
 	 * 每行显示的纪录数量
@@ -78,8 +77,7 @@ public class MulitRelativePersistentBasicTableModel extends
 	public Iterator getCurrentPageRows(int nFirst, int nPageSize,
 			ITableColumn column, boolean sort) {
 		if (resultList == null) {
-			Iterator<Object> rowIterator = super.getCurrentPageRows(nFirst,
-					nPageSize, column, sort);
+			Iterator<Object> rowIterator = super.getCurrentPageRows(nFirst, nPageSize, column, sort);
 			if (rowIterator != null && rowIterator.hasNext()) {
 				List<List> returnList = new ArrayList<List>();
 				List<Object> objList = new ArrayList<Object>();

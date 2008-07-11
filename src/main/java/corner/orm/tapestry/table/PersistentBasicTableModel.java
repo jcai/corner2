@@ -47,8 +47,7 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 	/**
 	 * Logger for this class
 	 */
-	private static final Log logger = LogFactory
-			.getLog(PersistentBasicTableModel.class);
+	private static final Log logger = LogFactory.getLog(PersistentBasicTableModel.class);
 
 	// 实体服务类
 	private EntityService entityService;
@@ -97,9 +96,7 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 			return rows;
 		}
 		if (rows == -1) {
-			rows=((Integer) ((HibernateObjectRelativeUtils) this.entityService
-					.getObjectRelativeUtils()).getHibernateTemplate()
-					.execute(new HibernateCallback(){
+			rows=((Integer)this.entityService.getHibernateTemplate().execute(new HibernateCallback(){
 
 						public Object doInHibernate(Session session) throws HibernateException, SQLException {
 							Criteria criteria=callback.createCriteria(session);
@@ -121,15 +118,13 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 			final ITableColumn column, final boolean sort) {
 		if(isRewinding){
 			if (logger.isDebugEnabled()) {
-				logger
-						.debug("is rewinding ,return false;");
+				logger.debug("is rewinding ,return false;");
 			}
 
 			return null;
 		}
 		if(this.resultList==null){
-			resultList =  ((HibernateObjectRelativeUtils) this.entityService
-				.getObjectRelativeUtils()).getHibernateTemplate().executeFind(new HibernateCallback(){
+			resultList =  this.entityService.executeFind(new HibernateCallback(){
 
 					public Object doInHibernate(Session session) throws HibernateException, SQLException {
 						Criteria criteria=callback.createCriteria(session);
