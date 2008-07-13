@@ -99,6 +99,13 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 		getEntityService().saveOrUpdateEntity(getEntity());
 
 	}
+	
+	/**
+	 * 保存和更新实体。
+	 */
+	protected void saveOrUpdateEntity(Object entity) {
+		getEntityService().saveOrUpdateEntity(entity);
+	}
 
 	/**
 	 * 得到日期格式化对象.
