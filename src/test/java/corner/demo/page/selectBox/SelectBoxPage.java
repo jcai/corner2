@@ -21,7 +21,7 @@ import org.apache.tapestry.annotations.InitialValue;
 import org.apache.tapestry.json.JSONObject;
 
 import corner.demo.model.one.A;
-import corner.orm.tapestry.component.response.IAjaxResponsePage;
+import corner.orm.tapestry.component.ajax.IAjaxResponsePage;
 import corner.orm.tapestry.page.PoFormPage;
 
 /**
@@ -32,7 +32,7 @@ import corner.orm.tapestry.page.PoFormPage;
 public abstract class SelectBoxPage extends PoFormPage implements IAjaxResponsePage{
 	
 	/**
-	 * @see corner.orm.tapestry.component.response.IAjaxResponsePage#getJsonData(org.apache.tapestry.IRequestCycle)
+	 * @see corner.orm.tapestry.component.ajax.IAjaxResponsePage#getJsonData(org.apache.tapestry.IRequestCycle)
 	 */
 	public String getJsonData(IRequestCycle cycle) {
 		String value = cycle.getParameter("field");

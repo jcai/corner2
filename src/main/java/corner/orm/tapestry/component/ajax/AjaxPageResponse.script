@@ -8,7 +8,7 @@
 <include-script resource-path="/scriptaculous-1.7.1/effects.js" />
 <include-script resource-path="/scriptaculous-1.7.1/controls.js" />
 <include-script resource-path="/corner/prototype/cornerBuilder.js" />
-<include-script resource-path="/corner/orm/tapestry/component/response/ajaxPageResponse.js" />
+<include-script resource-path="/corner/orm/tapestry/component/ajax/ajaxPageResponse.js" />
 
 <input-symbol key="url" required="yes" />
 <input-symbol key="clientId" required="yes" />
