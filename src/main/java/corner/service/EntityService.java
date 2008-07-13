@@ -31,6 +31,7 @@ import org.hibernate.Filter;
 import org.hibernate.HibernateException;
 import org.hibernate.Interceptor;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,9 +67,45 @@ public class EntityService {
 	 * Logger for this class
 	 */
 	private static final Log logger = LogFactory.getLog(EntityService.class);
+	
+	private static final String SELECT_COUNT_HQL_STR = "select count(*)";
 
 	/** 对象关系utils* */
 	protected ObjectRelativeUtils oru;
+	
+	/**
+	 * 判断给定的集合为空
+	 * 
+	 * @param c 给定的集合
+	 * @return boolean
+	 * true:空 false:不空
+	 */
+	public boolean isEmptyLazyCollection(final Collection c) {
+
+		if (c == null) {
+			return true;
+		}
+
+		int rows = ((Long) execute( new HibernateCallback() { 
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+						Query query = session.createFilter(c, SELECT_COUNT_HQL_STR);
+						return query.iterate().next();
+					}
+				})).intValue();
+
+		return rows == 0;
+	}
+	
+	/**
+	 * 判断给定的集合为不空
+	 * 
+	 * @param c Collection
+	 * @return boolean
+	 * true:不空 false:空
+	 */
+	public boolean isNotEmptyLazyCollection(final Collection c){
+		return !this.isEmptyLazyCollection(c);
+	} 
 	
 
 	/**
