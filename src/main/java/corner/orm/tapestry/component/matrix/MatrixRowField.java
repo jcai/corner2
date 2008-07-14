@@ -17,6 +17,8 @@
 
 package corner.orm.tapestry.component.matrix;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.tapestry.BaseComponent;
 import org.apache.tapestry.IForm;
 import org.apache.tapestry.IMarkupWriter;
@@ -24,6 +26,8 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
+import org.apache.tapestry.components.Any;
+import org.apache.tapestry.components.ForBean;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.form.TextField;
 import org.apache.tapestry.form.ValidatableField;
@@ -51,7 +55,7 @@ public abstract class MatrixRowField extends BaseComponent implements
 
 	public abstract void setValue(MatrixRow value);
 
-	private int star = 0;
+	private AtomicInteger star = new AtomicInteger(0);
 
 	@Parameter(required = true)
 	public abstract MatrixRow getRefVector();
@@ -68,6 +72,12 @@ public abstract class MatrixRowField extends BaseComponent implements
 	@Component(type = "TextField", bindings = { "displayName=displayName",
 			"class=inputClass", "value=elementValue", "translator=translator","defaultValue=defaultValue","onlyRead=onlyRead" })
 	public abstract TextField getElementTextField();
+	
+	@Component(type="For",bindings = {"source=refVector","value=tmpObj"})
+	public abstract ForBean getForComponentField();
+	
+	@Component(type="Any",bindings={"class=tdClass"})
+	public abstract Any getAnyComponentField();
 
 	public abstract IForm getForm();
 
@@ -87,13 +97,12 @@ public abstract class MatrixRowField extends BaseComponent implements
 	 *             当错误验证的时候.
 	 */
 	public Object getElementValue() throws ValidatorException {
-		if (getValue().size() > star) {
+		if (getValue().size() > star.intValue()) {
 			ValidationMessages messages = new ValidationMessagesImpl(this, this
 					.getPage().getLocale());
-			Object obj=getValue().get(star++);
+			Object obj=getValue().get(star.getAndIncrement());
 			
-			return obj==null?null:this.getTranslator().parse(this, messages,
-					 obj.toString());
+			return obj==null?null:this.getTranslator().parse(this, messages,obj.toString());
 			// return getValue().get(star++);
 		} else {
 			return null;
@@ -103,12 +112,12 @@ public abstract class MatrixRowField extends BaseComponent implements
 	@SuppressWarnings("unchecked")
 	public void setElementValue(Object value) {
 		if (this.getPage().getRequestCycle().isRewinding()) {
-			if (star == 0) {
+			if (star.intValue() == 0) {
 				setValue(new MatrixRow());
 			}
 //			if (value != null) {
 //			getValue().add(star++, value==null?"":value);
-			getValue().add(star++, value);
+			getValue().add(star.getAndIncrement(), value);
 //			}
 		}
 	}
@@ -128,10 +137,19 @@ public abstract class MatrixRowField extends BaseComponent implements
 	 */
 	@Override
 	protected void prepareForRender(IRequestCycle arg0) {
-		star = 0;
+		star.set(0);
 		if (this.getValue() == null) {
 			setValue(new MatrixRow());
 		}
+	}
+
+	/**
+	 * @see org.apache.tapestry.AbstractComponent#cleanupAfterRender(org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void cleanupAfterRender(IRequestCycle cycle) {
+		star.set(0);
+		super.cleanupAfterRender(cycle);
 	}
 
 	/**
