@@ -13,5 +13,6 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
     A row component
   </description>
 
+  <parameter name="validators"/>
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
 </component-specification>

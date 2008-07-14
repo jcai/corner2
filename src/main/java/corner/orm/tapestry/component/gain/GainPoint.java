@@ -37,9 +37,12 @@ import org.apache.tapestry.TapestryUtils;
 import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.IFormComponent;
+import org.apache.tapestry.form.ValidatableField;
+import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.IValidationDelegate;
+import org.apache.tapestry.valid.ValidatorException;
 
 /**
  * 增长点组件
@@ -48,7 +51,7 @@ import org.apache.tapestry.valid.IValidationDelegate;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class GainPoint extends BaseComponent implements IFormComponent {
+public abstract class GainPoint extends BaseComponent implements IFormComponent,ValidatableField {
 
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
@@ -291,6 +294,13 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 		 */
 		if (form.isRewinding()) {
 			if (!isDisabled()) {
+				try {
+					getValidatableFieldSupport().validate(this, writer, cycle,
+							"");
+
+				} catch (ValidatorException e) {
+					getForm().getDelegate().record(e);
+				}
 				rewindFormComponent(writer, cycle);
 			}
 
@@ -514,6 +524,11 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent 
 	public abstract IForm getForm();
 
 	public abstract void setForm(IForm form);
+	
+	/**
+	 * Injected.
+	 */
+	public abstract ValidatableFieldSupport getValidatableFieldSupport();
 
 	protected boolean getRenderBodyOnRewind() {
 		return false;

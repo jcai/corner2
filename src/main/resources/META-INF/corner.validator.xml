@@ -9,9 +9,10 @@
 		<validator name="fieldPlusEq" class="FieldPlusEq"/>
 		<validator name="pictureSize" class="PictureSize"/>
 		<validator name="fileType" class="FileType"/>
+		<validator name="checkboxGroupRequired" class="CheckboxGroupRequired"/>
 		<validator name="personID" class="PersonID" configurable="false"/>
 		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
 		<validator name="relationAss" class="RelationAss" configurable="false"/>
-		<validator name="checkboxGroupRequired" class="CheckboxGroupRequired"/>
+		<validator name="GPRequired" class="GainPointRequired" configurable="false"/>
 	</contribution>
 </module>

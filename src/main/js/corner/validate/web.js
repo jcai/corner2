@@ -7,6 +7,25 @@ dojo.provide("corner.validate.web");
 
 dojo.require("dojo.validate.common");
 
+corner.validate.isGainPointRequired = function(/*String*/value, /*Object?*/flags){
+// summary:
+// 验证GainPoint中元素至少选中一个
+	dojo.debug("length:" + flags.paras.length);
+	
+	var elements;
+	var key;
+	for(var i in flags.paras) {
+		key = flags.paras[i];
+		elements = document.getElementsByName(key);
+		for (var i=0;i<elements.length;i++){
+			if(elements[i].value){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 corner.validate.isCheckboxGroupRequired = function(/*String*/value, /*Object?*/flags){
 // summary:
 // 验证多个checkbox至少选中一个

@@ -20,7 +20,6 @@ djConfig = { isDebug: true
 </head>
 
 <body>
-<form id="BForm">
 	name <a href=# onclick="gp.addRow()"><img src="../../../../main/webapp/images/add.png" border="0"/></a><br/>
 	<a href=# onclick="gp.addRows()">adds</a><br/>
 	<a href=# onclick="gp.delLastRow()""><img src="../../../../main/webapp/images/cancel.png" border="0"/></a><br/>
@@ -48,14 +47,19 @@ djConfig = { isDebug: true
 			</td>
 		</tr>
 	</table>
-	<input type="submit" />
-</form>
+	<input type="button" value="validate" id="validate" />
 
 <a href=# onclick="gp.init()">reElementValues1</a><br />
 
 <script type="text/javascript">
 <!--
 	var gp = new GainPoint("t","poid",4,{"poid":["282828c11361334801136133f7cd0002","282828c11361334801136133f7cd0003","282828c113613348011361345cc00006","282828c113613348011361345cc00007"],"name":["1","z","5","6"],"cnName":["q","x","p","o"],"show":[null,"","on",""],"subsidy":[null,null,"on",null]},['show','subsidy']);
+	dojo.require("corner.validate.web");
+	
+	dojo.event.connect(dojo.byId("validate"),"onclick",this,"val");
+	val=function(evt){
+		dojo.debug(corner.validate.isGainPointRequired("aaa",{"paras":["name","cnName","show"]}));
+	}
 // --></script>
 </body>
 
