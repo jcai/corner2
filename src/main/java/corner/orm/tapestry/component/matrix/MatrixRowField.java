@@ -29,7 +29,6 @@ import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.components.Any;
 import org.apache.tapestry.components.ForBean;
 import org.apache.tapestry.form.IFormComponent;
-import org.apache.tapestry.form.TextField;
 import org.apache.tapestry.form.ValidatableField;
 import org.apache.tapestry.form.ValidatableFieldSupport;
 import org.apache.tapestry.form.ValidationMessages;
@@ -69,9 +68,9 @@ public abstract class MatrixRowField extends BaseComponent implements
 	@Parameter(defaultValue = "translator:string")
 	public abstract Translator getTranslator();
 
-	@Component(type = "TextField", bindings = { "displayName=displayName",
+	@Component(type = "MatrixRowTextField", bindings = { "displayName=displayName",
 			"class=inputClass", "value=elementValue", "translator=translator","defaultValue=defaultValue","onlyRead=onlyRead" })
-	public abstract TextField getElementTextField();
+	public abstract MatrixRowTextField getElementTextField();
 	
 	@Component(type="For",bindings = {"source=refVector","value=tmpObj"})
 	public abstract ForBean getForComponentField();

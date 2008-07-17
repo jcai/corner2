@@ -224,6 +224,10 @@ public class NumTranslator extends AbstractTranslator {
     {
         _omitZero = omitZero;
     }
+    
+    public boolean getOmitZero(){
+    	return this._omitZero;
+    }
 
 	/**
 	 * @return Returns the _negative.
