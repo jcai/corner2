@@ -103,7 +103,7 @@ public class StringUtils {
 		boolean isNumvalue = true;
 		if(objs != null && objs.length>0){
 			for(Object obj:objs){
-				if(!(obj instanceof Number)){
+				if(obj != null && !(obj instanceof Number)){
 					isNumvalue = false;
 					break;
 				}

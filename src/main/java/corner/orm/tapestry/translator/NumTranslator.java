@@ -235,6 +235,15 @@ public class NumTranslator extends AbstractTranslator {
     {
         _omitZero = omitZero;
     }
+    
+    /**
+     * 取得当前Translator是否忽略了0
+     * @return boolean
+     * true:忽略0 false:不忽略0
+     */
+    public boolean getOmitZero(){
+    	return this._omitZero;
+    }
 
 	/**
 	 * @return Returns the _negative.

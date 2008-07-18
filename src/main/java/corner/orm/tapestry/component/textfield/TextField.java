@@ -21,12 +21,9 @@ import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.form.TranslatedField;
-import org.apache.tapestry.form.translator.Translator;
 
-import corner.orm.tapestry.component.matrix.MatrixRowField;
 import corner.orm.tapestry.translator.NumTranslator;
 import corner.util.StringUtils;
-import corner.util.VectorUtils;
 
 /**
  * 复写Tapestry的TextField,提供指定TextField默认值的能力
@@ -98,7 +95,7 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 				super.renderFormComponent(writer, cycle);
 			} else {
 				String value = getTranslatedFieldSupport().format(this, getValue());
-				if(StringUtils.isNumber(getValue())){//如果是Number类型
+				if(StringUtils.isNumber(getValue()) || (this.getTranslator() instanceof NumTranslator)){//如果是Number类型
 					if(checkNumberUseDefValue(this)){
 						this.setValue(this.getDefaultValue());
 						super.renderFormComponent(writer, cycle);
@@ -127,15 +124,20 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	 */
 	protected boolean checkNumberUseDefValue(TranslatedField field){
 		Object defValue = getDefaultValue();//默认值
-		double refV = Double.valueOf(getValue().toString());//字段已经保存的值,已经确定是Number类型
-		if(StringUtils.isNumber(defValue)){
-			double defV = Double.valueOf(defValue.toString());
-			if(refV == 0 && defV!=0){
-				return true;
+		Object refValue = getValue();
+		if(defValue != null && refValue != null){//判断录入是否为空
+			if(StringUtils.isNumber(defValue)){
+				double defV = Double.valueOf(defValue.toString());
+				double refV = Double.valueOf(refValue.toString());//字段已经保存的值,已经确定是Number类型
+				if(refV == 0 && defV!=0){
+					return true;
+				} else{
+					return false;
+				}
 			} else{
 				return false;
 			}
-		} else{
+		} else {
 			return false;
 		}
 		
