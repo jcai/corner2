@@ -44,6 +44,8 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.valid.IValidationDelegate;
 import org.apache.tapestry.valid.ValidatorException;
 
+import corner.util.StringUtils;
+
 /**
  * 增长点组件
  * 设置显示的属性、类名、查询数据源和复制table的id
@@ -297,11 +299,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 				try {
 					getValidatableFieldSupport().validate(this, writer, cycle,
 							"");
+					rewindFormComponent(writer, cycle);
 
 				} catch (ValidatorException e) {
 					getForm().getDelegate().record(e);
+					setErrorMessage(e.getMessage());
 				}
-				rewindFormComponent(writer, cycle);
 			}
 
 			// This is for the benefit of the couple of components (LinkSubmit)
@@ -311,6 +314,14 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 			if (getRenderBodyOnRewind())
 				renderBody(writer, cycle);
 		}
+		
+		if(StringUtils.notBlank(getErrorMessage())){
+			writer.begin("span");
+			writer.attribute("class", getErrorClass());
+			writer.print(getErrorMessage());
+			writer.end("span");
+		}
+		
 		if (!cycle.isRewinding()) {
 			
 			String element = isParameterBound("element") ? getElement() : getTemplateTagName();
@@ -348,7 +359,8 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 			
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 			
-			getValidatableFieldSupport().renderContributions(this, writer, cycle);
+			//TODO:js验证，需要获得id，明显获得id后无法获得value。所有无法使用
+//			getValidatableFieldSupport().renderContributions(this, writer, cycle);
 		}
 	}
 	
@@ -518,6 +530,12 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 	
 	@Parameter(defaultValue = "literal:{}")
 	public abstract String getInitFuns();
+	
+	@Parameter(defaultValue = "literal:error-div")
+	public abstract String getErrorClass();
+	
+	public abstract String getErrorMessage();
+	public abstract void setErrorMessage(String s);
 
 	/**
 	 * 
