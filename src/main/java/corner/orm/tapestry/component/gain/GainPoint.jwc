@@ -12,7 +12,22 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <description>
     A row component
   </description>
+  
+  <parameter name="disabled">
+      <description>
+      If true, then the disabled attribute will be written on render, and the
+      TextArea will not update its value parameter when the form is submitted.
+      </description>
+  </parameter>
+  
+  <parameter name="displayName"/>
 
+  <parameter name="translator" default-value="translator:string"/>
   <parameter name="validators"/>
+  <parameter name="id" property="idParameter" default-value="id"/>
+  		
+  <reserved-parameter name="name"/>
+
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
+  <inject property="translatedFieldSupport" object="service:tapestry.form.TranslatedFieldSupport"/>
 </component-specification>

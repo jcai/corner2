@@ -288,7 +288,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 		delegate.setFormComponent(this);
 
 		setName(form);
-
+		
 		/**
 		 * 当提交时和为显示时
 		 */
@@ -348,6 +348,7 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 			
 			getScript().execute(this, cycle, pageRenderSupport, scriptParms);
 			
+			getValidatableFieldSupport().renderContributions(this, writer, cycle);
 		}
 	}
 	

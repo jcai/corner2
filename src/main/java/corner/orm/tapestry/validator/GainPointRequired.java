@@ -104,13 +104,9 @@ public class GainPointRequired extends BaseValidator {
 		return false;
 	}
 
-	/**
-	 * @see org.apache.tapestry.form.validator.BaseValidator#renderContribution(org.apache.tapestry.IMarkupWriter,
-	 *      org.apache.tapestry.IRequestCycle,
-	 *      org.apache.tapestry.form.FormComponentContributorContext,
-	 *      org.apache.tapestry.form.IFormComponent)
+	 /**
+	 * @see org.apache.tapestry.form.validator.BaseValidator#renderContribution(org.apache.tapestry.IMarkupWriter, org.apache.tapestry.IRequestCycle, org.apache.tapestry.form.FormComponentContributorContext, org.apache.tapestry.form.IFormComponent)
 	 */
-	@Override
 	public void renderContribution(IMarkupWriter writer, IRequestCycle cycle,
 			FormComponentContributorContext context, IFormComponent field) {
 		
