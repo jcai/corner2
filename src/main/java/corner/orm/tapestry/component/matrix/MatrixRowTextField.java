@@ -12,8 +12,6 @@
 
 package corner.orm.tapestry.component.matrix;
 
-import org.apache.tapestry.IMarkupWriter;
-import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.form.TranslatedField;
 import org.apache.tapestry.form.translator.Translator;
 
@@ -40,7 +38,7 @@ public abstract class MatrixRowTextField extends TextField {
 	 * 2. 如果refValue或者defValue其中任意一个不是Number类型，返回false
 	 * 
 	 * 注意：
-	 * translator是NumTranslator,并且OmitZero==true,同时refValue==0,同时MatrixRowField中的Value总和也是0,此时不使用defaultValue
+	 * translator是NumTranslator,同时refValue==0,同时MatrixRowField中的Value总和也是0,此时不使用defaultValue
 	 */
 	protected boolean checkNumberUseDefValue(TranslatedField field){
 		Object defValue = getDefaultValue();//默认值
@@ -50,18 +48,20 @@ public abstract class MatrixRowTextField extends TextField {
 			
 			Translator translator = field.getTranslator();
 			MatrixRowField  mrf = (MatrixRowField)this.getContainer();
-			if(translator instanceof NumTranslator){//当前translator是NumTranslator,并且OmitZero==true,同时refValue==0,此时不使用defaultValue
+			if(translator instanceof NumTranslator){//当前translator是NumTranslator,同时refValue==0,此时不使用defaultValue
 				NumTranslator t = (NumTranslator)translator;
 				double totalCount = VectorUtils.sum(mrf.getValue());
-				if(t.getOmitZero() && refV == 0 && totalCount>0){
+				if(totalCount>0){//数字类型MatrixRow的行汇总值大于0,不使用defaultValue
+					return false;
+				} else {
+					return true;
+				}
+			} else{//Translator不是数字类型的Translator
+				if(getValue() != null && StringUtils.blank(getValue().toString())){//输入是否为null或者空字符串"",如果是空，那么使用默认值
+					return true;
+				} else {
 					return false;
 				}
-			}
-			
-			if(refV == 0 && defV!=0){
-				return true;
-			} else{
-				return false;
 			}
 		} else{
 			return false;

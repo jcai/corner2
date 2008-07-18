@@ -83,6 +83,17 @@ public class NumTranslator extends AbstractTranslator {
 		return "{100:0}";
 	}
 
+	/**
+	 * @see org.apache.tapestry.form.translator.AbstractTranslator#format(org.apache.tapestry.form.IFormComponent, java.util.Locale, java.lang.Object)
+	 */
+	@Override
+	public String format(IFormComponent field, Locale locale, Object object) {
+        if (object == null)
+            object = new Integer(0);
+
+        return formatObject(field, locale, object);
+	}
+
 	@Override
 	protected String formatObject(IFormComponent field, Locale locale,
 			Object object) {
@@ -223,10 +234,6 @@ public class NumTranslator extends AbstractTranslator {
     public void setOmitZero(boolean omitZero)
     {
         _omitZero = omitZero;
-    }
-    
-    public boolean getOmitZero(){
-    	return this._omitZero;
     }
 
 	/**
