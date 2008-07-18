@@ -95,21 +95,20 @@ public class StringUtils {
 	
 	/**
 	 * 判断传入的Object[]是否都是Number类型
-	 * true:都是Number类型 false:至少有一个,不是Number类型或者是null的元素存在于数组中
+	 * true:都是Number类型 
+	 * false:至少有一个,不是Number类型或者是null的元素存在于数组中
 	 * @param objs
 	 * @return
 	 */
 	public static boolean isNumber(Object... objs){
-		boolean isNumvalue = true;
 		if(objs != null && objs.length>0){
 			for(Object obj:objs){
-				if(obj != null && !(obj instanceof Number)){
-					isNumvalue = false;
-					break;
+				if(obj != null && (obj instanceof Number)){
+					return true;
 				}
 			}
 		}
-		return isNumvalue;
+		return false;
 	}
 	
 	/**
