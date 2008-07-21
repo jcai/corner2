@@ -17,7 +17,10 @@
 
 package corner.orm.tapestry.component.matrix;
 
+import java.text.Format;
+
 import org.apache.tapestry.BaseComponent;
+import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.Component;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.components.ForBean;
@@ -35,9 +38,17 @@ public abstract class MatrixHead extends BaseComponent {
 	@Component(type="For",bindings={"source=refVector","value=headObj"})
 	public abstract ForBean getHeadIter();
 	
+	/**
+	 * 取得format
+	 * @return
+	 */
+	@Parameter
+	public abstract Format getFormatter();
 	
-	public abstract void setHeadObj(Object headObj);
-	public abstract Object getHeadObj();
+//	public abstract void setHeadObj(Object headObj);
+//	public abstract Object getHeadObj();
+	
+	private Object headObj;
 	
 	
 	@Parameter(required=true)
@@ -67,4 +78,34 @@ public abstract class MatrixHead extends BaseComponent {
 	public int [] getFillSource(){
 		return new int[this.getRefSize()-this.getRefVector().size()];
 	}
+
+	/**
+	 * @return Returns the headObj.
+	 */
+	public Object getHeadObj() {
+		Format format = this.getFormatter();
+		if(format != null){
+			return format.format(headObj);
+		} else {
+			return headObj;
+		}
+	}
+
+	/**
+	 * @param headObj The headObj to set.
+	 */
+	public void setHeadObj(Object headObj) {
+		this.headObj = headObj;
+	}
+
+	/**
+	 * @see org.apache.tapestry.AbstractComponent#cleanupAfterRender(org.apache.tapestry.IRequestCycle)
+	 */
+	@Override
+	protected void cleanupAfterRender(IRequestCycle cycle) {
+		this.headObj = null;
+		super.cleanupAfterRender(cycle);
+	}
+	
+	
 }
