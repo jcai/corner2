@@ -77,13 +77,14 @@ public class GainPointRequired extends BaseValidator {
 	/**
 	 * 是否弹出错误信息
 	 * @param cycle
-	 * @return
+	 * @return boolean
+	 * true:显示异常信息 false:不显示异常信息
 	 */
 	private boolean isShowException(IRequestCycle cycle) {
 		String [] values = null;
 		for(String prop : paras) {
 			values = cycle.getParameters(prop);
-			if(isValuesNotNull(values)) {
+			if(isValuesNotNull(values)) {//如果values不为空,则不显示异常信息
 				return false;
 			}
 		}
@@ -92,8 +93,9 @@ public class GainPointRequired extends BaseValidator {
 
 	/**
 	 * 如果值不是空
-	 * @param values
-	 * @return
+	 * @param values 值的数组
+	 * @return boolean
+	 * true:values中有一个值不为空 false:values中所有的值都为空
 	 */
 	private boolean isValuesNotNull(String[] values) {
 		for(String v :values){
