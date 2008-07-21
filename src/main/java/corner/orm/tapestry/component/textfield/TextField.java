@@ -125,10 +125,10 @@ public abstract class TextField extends org.apache.tapestry.form.TextField {
 	protected boolean checkNumberUseDefValue(TranslatedField field){
 		Object defValue = getDefaultValue();//默认值
 		Object refValue = getValue();
-		if(defValue != null && refValue != null){//判断录入是否为空
+		if(defValue != null){//判断录入是否为空
 			if(StringUtils.isNumber(defValue)){
 				double defV = Double.valueOf(defValue.toString());
-				double refV = Double.valueOf(refValue.toString());//字段已经保存的值,已经确定是Number类型
+				double refV = refValue!=null?Double.valueOf(refValue.toString()):0;//字段已经保存的值,已经确定是Number类型
 				if(refV == 0 && defV!=0){
 					return true;
 				} else{

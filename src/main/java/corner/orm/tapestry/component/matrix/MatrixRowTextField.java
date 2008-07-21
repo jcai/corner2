@@ -42,11 +42,11 @@ public abstract class MatrixRowTextField extends TextField {
 	 */
 	protected boolean checkNumberUseDefValue(TranslatedField field){
 		Object defValue = getDefaultValue();//默认值
-		Object refValue = getValue();//默认值
-		if(defValue != null && refValue != null){
+//		Object refValue = getValue();//默认值
+		if(defValue != null){
 			if(StringUtils.isNumber(defValue)){
-				double defV = Double.valueOf(defValue.toString());
-				double refV = Double.valueOf(refValue.toString());//字段已经保存的值,已经确定是Number类型
+//				double defV = Double.valueOf(defValue.toString());
+//				double refV = refValue != null?Double.valueOf(refValue.toString()):null;//字段已经保存的值,已经确定是Number类型
 				
 				Translator translator = field.getTranslator();
 				MatrixRowField  mrf = (MatrixRowField)this.getContainer();
