@@ -33,9 +33,9 @@ import org.apache.tapestry.valid.IValidationDelegate;
 import org.apache.tapestry.valid.ValidationDelegate;
 import org.apache.tapestry.valid.ValidatorException;
 import org.easymock.EasyMock;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.testng.annotations.Test;
 
-import corner.orm.hibernate.ObjectRelativeUtils;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.component.BaseFormComponentTestCase;
 import corner.orm.tapestry.state.IContext;
@@ -58,9 +58,14 @@ public class BaseAutocompleterTest extends BaseFormComponentTestCase {
 		MarkupFilter filter = new UTFMarkupFilter();
 		IMarkupWriter mw = new MarkupWriterImpl("text/html", writer, filter);
 
-		EntityService e = new EntityService();
-		ObjectRelativeUtils oru = new HibernateObjectRelativeUtils();
-		e.setObjectRelativeUtils(oru);
+		EntityService e = null;
+		
+//		EntityService e = new EntityService();
+//		HibernateObjectRelativeUtils oru = new HibernateObjectRelativeUtils();
+//		HibernateTemplate template = new HibernateTemplate();
+//		oru.setHibernateTemplate(template);
+//		e.setObjectRelativeUtils(oru);
+		
 
 		IContext context = new MockContext();
 		
@@ -78,8 +83,7 @@ public class BaseAutocompleterTest extends BaseFormComponentTestCase {
 
 		model.setComponent(completer);
 		
-		EasyMock.expect(model.search(null, null, null, context,null,null))
-		.andReturn(list);
+		EasyMock.expect(model.search(null, null, null, context,null,null)).andReturn(list);
 
 		model.renderResultRow(mw, v, null, null);
 
