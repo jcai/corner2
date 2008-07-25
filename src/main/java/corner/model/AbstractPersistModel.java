@@ -22,6 +22,23 @@ import corner.orm.hibernate.IPersistModel;
  * @since 2.5
  */
 public abstract class AbstractPersistModel extends AbstractPersistDomain implements Serializable, IPersistModel{
+	
+	private String id;
+
+	/**
+	 * @see com.bjmaxinfo.piano.model.IPersistModel#getId()
+	 */
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * @param id The id to set.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+	
     /* bean properties begin */
     public static final String ID_PRO_NAME="id";
     /* bean properties end */
