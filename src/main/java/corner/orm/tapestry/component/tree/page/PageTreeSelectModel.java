@@ -19,6 +19,6 @@ import corner.orm.tapestry.component.tree.AbstractTreeSelectModel;
  * @version $Revision$
  * @since 2.5
  */
-public class PopTreeSelectModel extends AbstractTreeSelectModel{
+public class PageTreeSelectModel extends AbstractTreeSelectModel{
 	
 }

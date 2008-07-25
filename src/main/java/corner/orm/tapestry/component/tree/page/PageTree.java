@@ -44,7 +44,7 @@ import corner.orm.tapestry.component.tree.ITreeSelectModel;
 public abstract class PageTree extends BaseLeftTree{
 	
 	/** 选择的过滤器 **/
-	@Parameter(defaultValue="ognl:new corner.orm.tapestry.component.tree.page.PopTreeSelectModel()")
+	@Parameter(defaultValue="ognl:new corner.orm.tapestry.component.tree.page.PageTreeSelectModel()")
 	public abstract ITreeSelectModel getSelectModel();
 	
 	/**
