@@ -135,31 +135,17 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 		
 		String key = null; //循环用的关键字
 		
-		String propName = null;	//属性名称
-		
-		Object propValue = null;	//属性值
+		Object prop = null;
 		
 		JSONObject json = new JSONObject();
 		
 		while(list.hasNext()){
 			key = list.next();
+			returnValues.get(key);
 			
-			propName = (String) returnValues.get(key);
+			prop = BeanUtils.getProperty(node, (String) returnValues.get(key));
 			
-			//是否需要序列化
-			boolean isSequence = propName.toLowerCase().startsWith("s_");
-			if(isSequence){
-				propName = propName.substring(2);	//如果需要序列化去掉s_
-			}
-			
-			propValue = BeanUtils.getProperty(node, propName);
-			
-			//如果需要序列化处理propValue
-			if(isSequence){
-				propValue = getDataSqueezer().squeeze(propValue);
-			}
-			
-			json.put(key, propValue==null?"":propValue); //如果没有这个属性返回空值
+			json.put(key, prop==null?"":prop); //如果没有这个属性返回空值
 		}
 		
 		datejson.put("returnDates", json);
