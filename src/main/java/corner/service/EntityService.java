@@ -394,14 +394,10 @@ public class EntityService {
 	 *            与被删除实体关联的实体
 	 * @return 被删除的记录数量
 	 */
-	public <T> int doDeleteBatchRelativeEntityAction(final Class clazz,
-			final String propertyName, final T entity) {
+	public <T> int doDeleteBatchRelativeEntityAction(final Class clazz, final String propertyName, final T entity) {
 		if (entity != null && isPersistent(entity)) {
-			return ((Integer) ((HibernateObjectRelativeUtils) this
-					.getObjectRelativeUtils()).getHibernateTemplate().execute(
-					new HibernateCallback() {
-						public Object doInHibernate(Session session)
-								throws HibernateException, SQLException {
+			return ((Integer) execute( new HibernateCallback() { 
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 							StringBuffer buffer = new StringBuffer("delete ");
 							buffer.append(clazz.getName());
 							buffer.append(" clazz ");
