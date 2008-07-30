@@ -55,6 +55,8 @@ public class NumTranslator extends AbstractTranslator {
 
 	private boolean _omitZero = true;
 	private boolean _negative=true;
+	
+	private String pattern = "{100:0}";
 
 	public NumTranslator() {
 		this.setNegative(this.getDefaultNegative());
@@ -80,7 +82,7 @@ public class NumTranslator extends AbstractTranslator {
 	 * @return
 	 */
 	protected String getPattern() {
-		return "{100:0}";
+		return pattern;
 	}
 
 	/**
@@ -215,6 +217,7 @@ public class NumTranslator extends AbstractTranslator {
 		if (!pattern.matches(DEFINE_PATTERN)) {
 			throw new ApplicationRuntimeException("错误的pattern定义，正确的格式应该为：{x:x}");
 		}
+		this.pattern = pattern;
 	}
 	/**
 	 * 对pattern进行初始化处理
