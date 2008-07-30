@@ -154,6 +154,12 @@ public class SubversionService  implements IVersionService,InitializingBean{
 			         * 设定提交人信息,此项操作需要两个条件:
 			         *    1: 连接版本库必须是 "file" or "svn+ssh" 两种协议 
 			         *    2: 版本控制库实现了pre-revprop-change hook script.同时注意修改此程序中的svn:log,为svn:author
+			         *    
+			         *    jetty@mxserver01:~/piano_svn/hooks$ cp pre-revprop-change.tmpl pre-revprop-change
+					 *	  jetty@mxserver01:~/piano_svn/hooks$ vim pre-revprop-change
+					 *	  jetty@mxserver01:~/piano_svn/hooks$ chmod +x pre-revprop-change
+					 *
+					 *
 			         *  see http://www.subversion.org.cn/svnbook/1.2/svn.reposadmin.create.html#svn.reposadmin.create.hooks
 			         *  http://www.nabble.com/Doing-a-commit-with-svn%3Aauthor-different-from-authenticated-user--t4335217.html#a12366459
 			         */
