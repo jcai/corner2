@@ -9,7 +9,7 @@ AjaxPageResponse = CornerBuilder.create({
 	request:function(paras){
 	    request = new Ajax.Request(this.url,{
 			parameters: paras,
-		    method: 'get',
+		    method: 'post',
 		    onSuccess: function(transport){
 	    		response = transport.responseText; 
 	    	},
