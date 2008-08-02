@@ -157,7 +157,7 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 					e.printStackTrace();
 				}
 				
-				appendContext(clazz,criteria,context);
+				appendContext(clazz,criteria,context,searchString);
 				appendCriteria(criteria, queryName, searchString,squeezer,dependFieldsValue,context);
 				criteria.setMaxResults(20);// 最多显示20个
 				return criteria.list();
@@ -168,8 +168,9 @@ public class AutoEvaluateSelectModel extends AbstractSelectModel implements IAut
 	/**
 	 * 增加上下文查询
 	 * @param context
+	 * @param match 
 	 */
-	protected void appendContext(Class clazz,Criteria criteria,IContext context){
+	protected void appendContext(Class clazz,Criteria criteria,IContext context, String match){
 		
 	}
 	
