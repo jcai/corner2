@@ -105,6 +105,8 @@ public class StringUtils {
 			for(Object obj:objs){
 				if(obj != null && (obj instanceof Number)){
 					return true;
+				} else {
+					return false;
 				}
 			}
 		}
