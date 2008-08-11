@@ -58,10 +58,10 @@ public class BaseAutocompleterTest extends BaseFormComponentTestCase {
 		MarkupFilter filter = new UTFMarkupFilter();
 		IMarkupWriter mw = new MarkupWriterImpl("text/html", writer, filter);
 
-		EntityService e = new EntityService();
-		ObjectRelativeUtils oru = new HibernateObjectRelativeUtils();
-		e.setObjectRelativeUtils(oru);
-
+//		EntityService e = new EntityService();
+//		ObjectRelativeUtils oru = new HibernateObjectRelativeUtils();
+//		e.setObjectRelativeUtils(oru);
+		EntityService e = null;
 		IContext context = new MockContext();
 		
 
