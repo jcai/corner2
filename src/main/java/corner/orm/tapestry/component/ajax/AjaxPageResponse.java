@@ -95,6 +95,14 @@ public abstract class AjaxPageResponse extends BaseComponent implements IDirect{
 	}
 	
 	/**
+	 * @see org.apache.tapestry.AbstractComponent#isStateful()
+	 */
+	@Override
+	public boolean isStateful() {
+		return true;
+	}
+
+	/**
 	 * Injected.
 	 */
 	@InjectObject("service:tapestry.services.Direct")
