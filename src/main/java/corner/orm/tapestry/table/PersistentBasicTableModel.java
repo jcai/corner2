@@ -33,7 +33,6 @@ import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.Assert;
 
-import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.service.EntityService;
 
 /**
@@ -131,9 +130,32 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 						callback.appendCriteria(criteria);
 
 						if (column != null) {
-
-							criteria.addOrder(sort ? Order.desc(column.getColumnName()) : Order
-									.asc(column.getColumnName()));
+							
+							String columnName = column.getColumnName();
+							if(columnName.indexOf(".")>0){
+								Criteria newCriteria = null;
+								String[] props = columnName.split("\\.");
+								int index = props.length -1;
+								String orderColumn = props[index];
+								for(int i=0;i< props.length-1 ;i++){
+									if(newCriteria == null){
+										newCriteria = criteria.createCriteria(props[i]);
+									} else {
+										newCriteria = newCriteria.createCriteria(props[i]);
+									}
+								}
+								if(newCriteria != null){
+									newCriteria.addOrder(sort ? Order.desc(orderColumn) : Order
+											.asc(orderColumn));
+								} else {
+									criteria.addOrder(sort ? Order.desc(column.getColumnName()) : Order
+											.asc(column.getColumnName()));
+								}
+							} else {
+								criteria.addOrder(sort ? Order.desc(column.getColumnName()) : Order
+										.asc(column.getColumnName()));
+							}
+							
 						}
 
 						callback.appendOrder(criteria);//增加排序 since 2.2.1
