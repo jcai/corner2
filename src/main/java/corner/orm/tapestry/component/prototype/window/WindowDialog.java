@@ -209,10 +209,9 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 		if(this.getQueryPageName() != null){
 			url = getPageService().getLink(false, this.getQueryPageName()).getAbsoluteURL();
 		}else{
-			Object[] parameters = new Object[]{getOnSelectFunName(),getParameters()};
 			
 			Object[] serviceParameters = DirectLink
-					.constructServiceParameters(parameters);
+					.constructServiceParameters(this.getParameters());
 	
 			DirectServiceParameter dsp = new DirectServiceParameter(this,
 					serviceParameters);
