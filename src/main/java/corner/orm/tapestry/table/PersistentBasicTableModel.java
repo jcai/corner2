@@ -136,9 +136,9 @@ public class PersistentBasicTableModel implements IBasicTableModel {
 								Criteria newCriteria = null;
 								String[] props = columnName.split("\\.");
 								int index = props.length -1;
-								String orderColumn = props[index];
-								for(int i=0;i< props.length-1 ;i++){
-									if(newCriteria == null){
+								String orderColumn = props[index];//待查询的属性
+								for(int i=0;i< props.length-1 ;i++){//构造查询实体的关联 
+									if(newCriteria == null){//首次创建newCriteria
 										newCriteria = criteria.createCriteria(props[i]);
 									} else {
 										newCriteria = newCriteria.createCriteria(props[i]);
