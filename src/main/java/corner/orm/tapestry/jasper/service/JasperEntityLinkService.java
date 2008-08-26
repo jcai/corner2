@@ -36,6 +36,7 @@ import org.apache.tapestry.util.ContentType;
 import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.TaskType;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
+import corner.orm.tapestry.page.EntityPage;
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.utils.ComponentResponseUtils;
 
@@ -72,7 +73,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 			Map<Object, Object> parameters = new HashMap<Object, Object>(); 	
 			getJasperParameters(is, parameters);
 			
-			IPageRooted<Object, Object> activePage = (IPageRooted<Object, Object>) page;
+			EntityPage activePage = (EntityPage) page;
 			boolean multiPageInReport = false;
 			boolean onlyOnePageInRecort = false;
 			if(parameters.containsKey(TEMPLATE_PAGE)) {	
@@ -86,8 +87,9 @@ public class JasperEntityLinkService extends JasperLinkService{
 					String activePageName = null;
 					if(json.has(PAGE)){
 						activePageName = (String)json.get(PAGE);	
-						activePage = (IPageRooted<Object, Object>)cycle.getPage(activePageName);		
-						((IPageRooted<Object, Object>) activePage).setRootedObject(((IPageRooted<Object, Object>)page).getRootedObject());			
+						activePage = (EntityPage)cycle.getPage(activePageName);
+						if(activePage instanceof IPageRooted)
+							((IPageRooted<Object, Object>) activePage).setRootedObject(((IPageRooted<Object, Object>)page).getRootedObject());
 						cycle.activate(activePage);
 					}
 				
