@@ -49,10 +49,6 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
  * @since 2.3.7
  */
 public class JasperEntityLinkService extends JasperLinkService{
-	private static final String TEMPLATE_PAGE = "jasper.properties";
-	private static final String PAGE = "page";
-	private static final String MULTI_PAGE = "multiPage";
-	private static final String FETCH_FIRST_PAGE = "fetchFirstPage";
 	
 	/**
 	 * @see corner.orm.tapestry.jasper.service.JasperLinkService#service(org.apache.tapestry.IRequestCycle, org.apache.tapestry.IPage, boolean, java.lang.String, corner.model.IBlobModel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
@@ -76,6 +72,8 @@ public class JasperEntityLinkService extends JasperLinkService{
 			EntityPage activePage = (EntityPage) page;
 			boolean multiPageInReport = false;
 			boolean onlyOnePageInRecort = false;
+			boolean isIgnoreDetail = false;
+			
 			if(parameters.containsKey(TEMPLATE_PAGE)) {	
 				InputStream propStream = (InputStream)parameters.get(TEMPLATE_PAGE);			
 				String jsonParam = getLinkParameter(propStream);	
@@ -97,6 +95,9 @@ public class JasperEntityLinkService extends JasperLinkService{
 						multiPageInReport = Boolean.valueOf(json.get(MULTI_PAGE).toString());
 					if(json.has(FETCH_FIRST_PAGE))
 						onlyOnePageInRecort = Boolean.valueOf(json.get(FETCH_FIRST_PAGE).toString());
+					if(json.has(IS_IGNORE_DETAIL))
+						isIgnoreDetail = Boolean.valueOf(json.get(IS_IGNORE_DETAIL).toString());
+					
 				}
 			}
 		   
@@ -112,7 +113,16 @@ public class JasperEntityLinkService extends JasperLinkService{
 				}
 				exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
 			}else{
-				JasperPrint jasperPrint = getJasperPrint(is,activePage,parameters,detailEntity,detailCollection,0);
+				
+				JasperPrint jasperPrint = null;
+				
+				//忽略detail则将detailEntity,detailCollection置为null.
+				if(isIgnoreDetail){
+					 jasperPrint = getJasperPrint(is,activePage,parameters,null,null,0);
+				}else{
+					 jasperPrint = getJasperPrint(is,activePage,parameters,detailEntity,detailCollection,0);
+				}
+				
 				//如果只要第一页,设置导出页数参数为0
 				if(onlyOnePageInRecort){
 					exporter.setParameter(JRExporterParameter.PAGE_INDEX,Integer.valueOf(0));

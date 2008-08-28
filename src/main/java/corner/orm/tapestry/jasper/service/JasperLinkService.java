@@ -65,12 +65,50 @@ import corner.orm.tapestry.page.relative.IPageRooted;
  * @since 2.3.7
  */
 public abstract class JasperLinkService implements IEngineService{	
+	
+	/**
+	 * 报表包含子报表时,指定的主报表名.将对名为main.jasper的报表进行填充.
+	 */
 	private static final String MAIN_REPORT = "main.jasper";
+	
 	private static final int BUFFER = 2048;
+	
+	/**
+	 * 多张报表时,用于标识是否需要detail.用于zip包报表名称如:1detail.jasper.
+	 */
 	private static final String DETAIL = "detail";
-	private static final String TEMPLATE_PAGE = "jasper.properties";
-	private static final String PAGE = "page";
+	
 	private static final String PAGE_NUMBER_ADD = "pageNumberAdd";
+	
+	/**
+	 * 针对报表有特殊的要求而写的一个属性文件.现在主要是:page,multiPage,fetchFirstPage,isIgnoreDetail.
+	 * page:指定使用的页面类
+	 * multiPage:是否是多报表.
+	 * fetchFirstPage:是否只要第一页.
+	 * isIgnoreDetail:是否忽略detail.使detailEntity,detailCollection为null.
+	 * 例:{"page":"sample/SampleMainMaterial","multiPage":"true","fetchFirstPage":"true","isIgnoreDetail":"true"} 
+	 */
+	protected static final String TEMPLATE_PAGE = "jasper.properties";
+	
+	/**
+	 * 用于jasper.properties里指定此报表使用的页面类. 
+	 */
+	protected static final String PAGE = "page";
+	
+	/**
+	 * 用于jasper.properties里判断是否是多报表.
+	 */
+	protected static final String MULTI_PAGE = "multiPage";
+	
+	/**
+	 * 用于jasper.properties里判断是否只要第一页.
+	 */
+	protected static final String FETCH_FIRST_PAGE = "fetchFirstPage";
+	
+	/**
+	 * 用于jasper.properties里判断是否忽略detail.
+	 */
+	protected static final String IS_IGNORE_DETAIL = "isIgnoreDetail";
 	
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)
