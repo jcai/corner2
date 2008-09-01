@@ -78,6 +78,10 @@ public abstract class JasperLinkService implements IEngineService{
 	 */
 	private static final String DETAIL = "detail";
 	
+	/**
+	 * 多张报表时,用于记录前几张报表的页数.将它传入下一个报表从而知道正确的当前页数.
+	 * 在非第一张报表里使用:$P{pageNumberAdd}+$V{PAGE_NUMBER}
+	 */
 	private static final String PAGE_NUMBER_ADD = "pageNumberAdd";
 	
 	/**
