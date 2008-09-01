@@ -86,7 +86,8 @@ public abstract class JasperLinkService implements IEngineService{
 	 * multiPage:是否是多报表.
 	 * fetchFirstPage:是否只要第一页.
 	 * isIgnoreDetail:是否忽略detail.使detailEntity,detailCollection为null.
-	 * 例:{"page":"sample/SampleMainMaterial","multiPage":"true","fetchFirstPage":"true","isIgnoreDetail":"true"} 
+	 * reportDownloadName:指定下载的报表的名称.
+	 * 例:{"page":"sample/SampleMainMaterial","multiPage":"true","fetchFirstPage":"true","isIgnoreDetail":"true","reportDownloadName":"客户报价单"} 
 	 */
 	protected static final String TEMPLATE_PAGE = "jasper.properties";
 	
@@ -109,6 +110,11 @@ public abstract class JasperLinkService implements IEngineService{
 	 * 用于jasper.properties里判断是否忽略detail.
 	 */
 	protected static final String IS_IGNORE_DETAIL = "isIgnoreDetail";
+	
+	/**
+	 *  用于jasper.properties里指定下载的报表的名称.
+	 */
+	protected static final String REPORT_DOWNLOAD_NAME = "reportDownloadName";
 	
 	/**
 	 * @see org.apache.tapestry.engine.IEngineService#getLink(boolean, java.lang.Object)

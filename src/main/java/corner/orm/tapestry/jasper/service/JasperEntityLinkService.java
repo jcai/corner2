@@ -50,6 +50,8 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
  */
 public class JasperEntityLinkService extends JasperLinkService{
 	
+	
+
 	/**
 	 * @see corner.orm.tapestry.jasper.service.JasperLinkService#service(org.apache.tapestry.IRequestCycle, org.apache.tapestry.IPage, boolean, java.lang.String, corner.model.IBlobModel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -73,6 +75,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 			boolean multiPageInReport = false;
 			boolean onlyOnePageInRecort = false;
 			boolean isIgnoreDetail = false;
+			String reportDownloadName = downloadFileName;
 			
 			if(parameters.containsKey(TEMPLATE_PAGE)) {	
 				InputStream propStream = (InputStream)parameters.get(TEMPLATE_PAGE);			
@@ -97,6 +100,8 @@ public class JasperEntityLinkService extends JasperLinkService{
 						onlyOnePageInRecort = Boolean.valueOf(json.get(FETCH_FIRST_PAGE).toString());
 					if(json.has(IS_IGNORE_DETAIL))
 						isIgnoreDetail = Boolean.valueOf(json.get(IS_IGNORE_DETAIL).toString());
+					if(json.has(REPORT_DOWNLOAD_NAME))
+						reportDownloadName = json.getString(REPORT_DOWNLOAD_NAME);
 					
 				}
 			}
@@ -132,7 +137,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 			}
 			
 			//设定下载文件名
-			ComponentResponseUtils.constructResponse(downloadFileName, jasperAction.getSuffix(),cycle, response);
+			ComponentResponseUtils.constructResponse(reportDownloadName, jasperAction.getSuffix(),cycle, response);
 			
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream(new ContentType(jasperAction.getContentType())));
 		
