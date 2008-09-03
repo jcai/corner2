@@ -18,22 +18,40 @@
 package corner.orm.tapestry.jasper.exporter;
 
 import java.awt.Color;
+import java.awt.font.TextAttribute;
 import java.awt.geom.AffineTransform;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.jasperreports.engine.JRAlignment;
 import net.sf.jasperreports.engine.JRElement;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.JRPrintText;
+import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.JRTextElement;
+import net.sf.jasperreports.engine.base.JRBaseFont;
+import net.sf.jasperreports.engine.export.FontKey;
+import net.sf.jasperreports.engine.export.JRExportProgressMonitor;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.export.PdfFont;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRStyledText;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.TextField;
@@ -55,12 +73,166 @@ public class CornerPdfExporter extends JRPdfExporter {
 	public static final String FIELD_NAME_PREFIX = "FIELD";
 	private int i = 0;
 	private List<String> alreadyExistFields = new ArrayList<String>();
-
+	private Map fontMap = null;
+	
 	String createUniqueName() {
 		i += 1;
 		return FIELD_NAME_PREFIX + i;
 	}
 
+	/**
+	 * 从父类里拷贝过来.用于getFont的重构.
+	 * @see net.sf.jasperreports.engine.export.JRPdfExporter#exportReport()
+	 */
+	public void exportReport() throws JRException
+	{
+		registerFonts();
+
+		progressMonitor = (JRExportProgressMonitor)parameters.get(JRExporterParameter.PROGRESS_MONITOR);
+
+		/*   */
+		setOffset();
+
+		try
+		{
+			/*   */
+			setExportContext();
+
+			/*   */
+			setInput();
+
+			/*   */
+			if (!isModeBatch)
+			{
+				setPageRange();
+			}
+
+			isCreatingBatchModeBookmarks = 
+				getBooleanParameter(
+					JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS,
+					JRPdfExporterParameter.PROPERTY_CREATE_BATCH_MODE_BOOKMARKS,
+					false
+					);
+
+			forceSvgShapes = 
+				getBooleanParameter(
+					JRPdfExporterParameter.FORCE_SVG_SHAPES,
+					JRPdfExporterParameter.PROPERTY_FORCE_SVG_SHAPES,
+					false
+					);
+
+			isCompressed = 
+				getBooleanParameter(
+					JRPdfExporterParameter.IS_COMPRESSED,
+					JRPdfExporterParameter.PROPERTY_COMPRESSED,
+					false
+					);
+
+			isEncrypted = 
+				getBooleanParameter(
+					JRPdfExporterParameter.IS_ENCRYPTED,
+					JRPdfExporterParameter.PROPERTY_ENCRYPTED,
+					false
+					);
+
+			is128BitKey = 
+				getBooleanParameter(
+					JRPdfExporterParameter.IS_128_BIT_KEY,
+					JRPdfExporterParameter.PROPERTY_128_BIT_KEY,
+					false
+					);
+
+			userPassword = 
+				getStringParameter(
+					JRPdfExporterParameter.USER_PASSWORD,
+					JRPdfExporterParameter.PROPERTY_USER_PASSWORD
+					);
+
+			ownerPassword = 
+				getStringParameter(
+					JRPdfExporterParameter.OWNER_PASSWORD,
+					JRPdfExporterParameter.PROPERTY_OWNER_PASSWORD
+					);
+
+			Integer permissionsParameter = (Integer)parameters.get(JRPdfExporterParameter.PERMISSIONS);
+			if (permissionsParameter != null)
+			{
+				permissions = permissionsParameter.intValue();
+			}
+
+			String strPdfVersion = 
+				getStringParameter(
+					JRPdfExporterParameter.PDF_VERSION,
+					JRPdfExporterParameter.PROPERTY_PDF_VERSION
+					);
+			pdfVersion = 
+				(strPdfVersion == null || strPdfVersion.length() == 0) 
+				? null 
+				: new Character(strPdfVersion.charAt(0));
+
+			fontMap = (Map) parameters.get(JRExporterParameter.FONT_MAP);
+
+			setSplitCharacter();
+			setHyperlinkProducerFactory();
+
+			pdfJavaScript = 
+				getStringParameter(
+					JRPdfExporterParameter.PDF_JAVASCRIPT,
+					JRPdfExporterParameter.PROPERTY_PDF_JAVASCRIPT
+					);
+
+			OutputStream os = (OutputStream)parameters.get(JRExporterParameter.OUTPUT_STREAM);
+			if (os != null)
+			{
+				exportReportToStream(os);
+			}
+			else
+			{
+				File destFile = (File)parameters.get(JRExporterParameter.OUTPUT_FILE);
+				if (destFile == null)
+				{
+					String fileName = (String)parameters.get(JRExporterParameter.OUTPUT_FILE_NAME);
+					if (fileName != null)
+					{
+						destFile = new File(fileName);
+					}
+					else
+					{
+						throw new JRException("No output specified for the exporter.");
+					}
+				}
+
+				try
+				{
+					os = new FileOutputStream(destFile);
+					exportReportToStream(os);
+					os.flush();
+				}
+				catch (IOException e)
+				{
+					throw new JRException("Error trying to export to file : " + destFile, e);
+				}
+				finally
+				{
+					if (os != null)
+					{
+						try
+						{
+							os.close();
+						}
+						catch(IOException e)
+						{
+						}
+					}
+				}
+			}
+		}
+		finally
+		{
+			resetExportContext();
+		}
+	}
+	
 	/**
 	 * 重写了此方法.提供判断文字是否溢出从而自动缩小字体的功能.
 	 * <p>判断方法:用ColumnText模拟录入下数据,
@@ -299,4 +471,117 @@ public class CornerPdfExporter extends JRPdfExporter {
 		exportBox(text, text);
 	}
 
+	/**
+	 * 重写此方法,使字体能够加粗,斜体.
+	 * @see net.sf.jasperreports.engine.export.JRPdfExporter#getFont(java.util.Map)
+	 */
+	protected Font getFont(Map attributes)
+	{
+		JRFont jrFont = new JRBaseFont(attributes);
+
+		Exception initialException = null;
+
+		Color forecolor = (Color)attributes.get(TextAttribute.FOREGROUND);
+		/*
+		if (forecolor == null)
+		{
+			forecolor = Color.black;
+		}
+		*/
+
+		Font font = null;
+		PdfFont pdfFont = null;
+		FontKey key = new FontKey(jrFont.getFontName(), jrFont.isBold(), jrFont.isItalic());
+
+		if (fontMap != null && fontMap.containsKey(key))
+		{
+			pdfFont = (PdfFont) fontMap.get(key);
+		}
+		else
+		{
+			pdfFont = new PdfFont(jrFont.getPdfFontName(), jrFont.getPdfEncoding(), jrFont.isPdfEmbedded(),jrFont.isBold(),jrFont.isItalic());
+		}
+
+		try
+		{
+			font = FontFactory.getFont(
+				pdfFont.getPdfFontName(),
+				pdfFont.getPdfEncoding(),
+				pdfFont.isPdfEmbedded(),
+				jrFont.getFontSize(),
+				(pdfFont.isPdfSimulatedBold() ? Font.BOLD : 0)
+					| (pdfFont.isPdfSimulatedItalic() ? Font.ITALIC : 0)
+					| (jrFont.isUnderline() ? Font.UNDERLINE : 0)
+					| (jrFont.isStrikeThrough() ? Font.STRIKETHRU : 0),
+				forecolor
+				);
+
+			// check if FontFactory didn't find the font
+			if (font.getBaseFont() == null && font.family() == Font.UNDEFINED)
+			{
+				font = null;
+			}
+		}
+		catch(Exception e)
+		{
+			initialException = e;
+		}
+
+		if (font == null)
+		{
+			byte[] bytes = null;
+
+			try
+			{
+				bytes = JRLoader.loadBytesFromLocation(pdfFont.getPdfFontName(), classLoader, urlHandlerFactory);
+			}
+			catch(JRException e)
+			{
+				throw
+					new JRRuntimeException(
+						"Could not load the following font : "
+						+ "\npdfFontName   : " + pdfFont.getPdfFontName()
+						+ "\npdfEncoding   : " + pdfFont.getPdfEncoding()
+						+ "\nisPdfEmbedded : " + pdfFont.isPdfEmbedded(),
+						initialException
+						);
+			}
+
+			BaseFont baseFont = null;
+
+			try
+			{
+				baseFont =
+					BaseFont.createFont(
+						pdfFont.getPdfFontName(),
+						pdfFont.getPdfEncoding(),
+						pdfFont.isPdfEmbedded(),
+						true,
+						bytes,
+						null
+						);
+			}
+			catch(DocumentException e)
+			{
+				throw new JRRuntimeException(e);
+			}
+			catch(IOException e)
+			{
+				throw new JRRuntimeException(e);
+			}
+
+			font =
+				new Font(
+					baseFont,
+					jrFont.getFontSize(),
+					((pdfFont.isPdfSimulatedBold()) ? Font.BOLD : 0)
+						| ((pdfFont.isPdfSimulatedItalic()) ? Font.ITALIC : 0)
+						| (jrFont.isUnderline() ? Font.UNDERLINE : 0)
+						| (jrFont.isStrikeThrough() ? Font.STRIKETHRU : 0),
+					forecolor
+					);
+		}
+
+		return font;
+	}
 }
