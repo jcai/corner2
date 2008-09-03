@@ -20,13 +20,16 @@ djConfig = { isDebug: true
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
-<link rel="stylesheet" type="text/css" href="anytime.css" />
+<link rel="stylesheet" type="text/css" href="anytimec_compressed.css" />
 <script type="text/javascript" src="prototype1.6.js" ></script>
-<script type="text/javascript" src="anytimec_compress.js" ></script>
+<script type="text/javascript" src="anytimec_compressed.js" ></script>
 <body>
+http://www.ama3.com/anytime/<br/>
+	日期选择: <input type="text" id="foo" tabindex="410" /><br/>
     时间选择: <input type="text" id="bar" tabindex="420" value="12:34" />
 
 <script language="JavaScript" type="text/javascript"><!--
+	new ATWidget( "foo", { format: "%W, %M %D in the Year %z %E" } );
     new ATWidget( "bar", { format: "%H:%i", labelTitle: "时间选择",
                             labelHour: "小时", labelMinute: "分钟" } );
 // -->
