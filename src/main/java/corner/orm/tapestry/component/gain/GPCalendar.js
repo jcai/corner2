@@ -22,7 +22,7 @@ function showCalendar(el, format, showsTime, showsOtherMonths) {
 		_dynarch_popupCalendar.hide(); // so we hide it first.
 	} else {
 		// first-time call, create the calendar.
-		var cal = new Calendar(1, null, selected, closeHandler);
+		var cal = new Calendar(0, null, selected, closeHandler);
 		// uncomment the following line to hide the week numbers
 		// cal.weekNumbers = false;
 		if (typeof showsTime == "string") {
