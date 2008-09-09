@@ -1,7 +1,7 @@
 <span jwcid="$content$">
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <tr>
-    <td width="80%">
+    <td>
     	<span class="diff">
         	<span id="legend">
         		<dl><dd><span jwcid="@Any" id="ver_showInfo"></span></dd></dl>
@@ -10,14 +10,12 @@
                 <dt class="cp"></dt><dd>Delete</dd>
         	</span>
         </span>
-    </td>
-    <span jwcid="@If" renderTag="ognl:false" condition="ognl:showButton">
-    <td width="20%">
+        <span jwcid="@If" renderTag="ognl:false" condition="ognl:showButton">
     	<input class="svnbutton" type="button" id="showside" onClick="VersionInserts.resetTips();" jwcid="@Any" value="ognl:showside"/>
-        &nbsp;&nbsp;
+        	&nbsp;&nbsp;
         <input class="svnbutton" type="button" id="showLine" onClick="VersionInserts.closeTips();" jwcid="@Any" value="ognl:showLine"/>
+        </span>
     </td>
-    </span>
   </tr>
 </table>
 <input type="hidden" id="ver_hid"/>
