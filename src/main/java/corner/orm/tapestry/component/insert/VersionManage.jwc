@@ -8,6 +8,6 @@
   "http://tapestry.apache.org/dtd/Tapestry_4_0.dtd">
 	
 <component-specification class="corner.orm.tapestry.component.insert.VersionManage" allow-body="no" allow-informal-parameters="yes">
-  <property name="showside" initial-value="literal:并排"/>
-  <property name="showLine" initial-value="literal:内联"/>
+  <property name="showside" initial-value="literal:内联"/>
+  <property name="showLine" initial-value="literal:并排"/>
 </component-specification>

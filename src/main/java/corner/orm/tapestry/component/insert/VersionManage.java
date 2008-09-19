@@ -117,13 +117,13 @@ public abstract class VersionManage extends BaseComponent implements IFormCompon
 			if(conf.isCompareLastVer()){
 				showInfo = "版本: " + StringUtils.replace(
 						entity.getRevision(), VersionSaveUpdateEventListener.UNREVISION_VERSION, "")
-						 +" 与 当前版本 对比";
+						 +" → 当前数据";
 			}else {
 				if(v2 == 0){
-					showInfo = "版本:" + conf.getVersionShowNum();
+					showInfo = "版本: " + conf.getVersionShowNum();
 					v2show = "";
 				}else{
-					showInfo = "版本: " + conf.getVersionShowNum() +" 与  版本: " + conf.getOtherVersionShowNum() + " 对比";
+					showInfo = "版本: " + conf.getVersionShowNum() +" → 版本: " + conf.getOtherVersionShowNum();
 				}
 			}
 			
