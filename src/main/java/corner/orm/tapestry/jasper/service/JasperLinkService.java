@@ -170,7 +170,7 @@ public abstract class JasperLinkService implements IEngineService{
 		}
 		
 		//设置reportEntity到page的rootedObject.
-		if(page instanceof IPageRooted){
+		if(reportEntity != null && page instanceof IPageRooted){
 			((IPageRooted<Object,Object>)page).setRootedObject(reportEntity);
 		}
 		
