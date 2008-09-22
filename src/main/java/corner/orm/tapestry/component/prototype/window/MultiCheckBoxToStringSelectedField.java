@@ -14,6 +14,7 @@ package corner.orm.tapestry.component.prototype.window;
 
 import org.apache.tapestry.IScript;
 import org.apache.tapestry.annotations.InjectScript;
+import org.apache.tapestry.annotations.Parameter;
 
 import corner.orm.tapestry.component.AbstractAny;
 
@@ -34,4 +35,10 @@ public abstract class MultiCheckBoxToStringSelectedField extends AbstractAny{
 	protected String exceptionMessage() {
 		return "MultiCheckBoxToStringSelectedField";
 	}
+	
+	/**
+	 * @see corner.orm.tapestry.component.AbstractAny#getQueryBox()
+	 */
+	@Parameter(defaultValue = "literal:window.queryBox")
+	public abstract String getQueryBox();
 }
