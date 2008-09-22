@@ -158,6 +158,8 @@ public abstract class JasperLinkService implements IEngineService{
 		String downloadFileName = (String) parameters[0];
 		String taskType = (String) parameters[1];
 		String templatePath = (String) parameters[2];
+		Object reportEntity = parameters[6];
+		
 		IBlobModel templateEntity = null;
 		
 		boolean isUsetemplatePath = true;
@@ -165,6 +167,11 @@ public abstract class JasperLinkService implements IEngineService{
 		if(templatePath == null){
 			templateEntity = (IBlobModel) parameters[3];
 			isUsetemplatePath = false;
+		}
+		
+		//设置reportEntity到page的rootedObject.
+		if(page instanceof IPageRooted){
+			((IPageRooted<Object,Object>)page).setRootedObject(reportEntity);
 		}
 		
 		String detailEntity = (String) parameters[4];

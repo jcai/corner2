@@ -36,13 +36,14 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	 */
 	@Override
 	public ILink getLink(IRequestCycle cycle) {
-		Object[] parameters = new Object[6];
+		Object[] parameters = new Object[7];
 		parameters[0] = getDownloadFileName();
 		parameters[1] = getTaskType().toLowerCase();
 		parameters[2] = getTemplatePath();
 		parameters[3] = getTemplateEntity();
 		parameters[4] = getDetailEntity();
 		parameters[5] = getDetailCollection();
+		parameters[6] = getReportEntity();
 		
 		return this.getJasperService().getLink(true, parameters);
 	}
@@ -82,6 +83,13 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	 */
 	@Parameter(defaultValue = "literal:pdf")
 	public abstract String getTaskType();
+	
+	/**
+	 * 取得要打印的实体.此属性应与templatePath结合使用,试用于只有一个此类报表的情况.
+	 * @return 打印的实体
+	 */
+	@Parameter
+	public abstract Object getReportEntity();
 	
 	/**
 	 * @return
