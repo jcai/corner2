@@ -25,6 +25,10 @@
   <component type="corner:WindowQueryDialog" id="dialog2">
 	  <binding value="literal:widget/WinSelectionListPage" name="queryPageName"/>
   </component>
+  <component type="corner:WindowQueryDialog" id="checkPop">
+	  <binding value="literal:widget/CheckBoxListPage" name="queryPageName"/>
+      <binding name="onSelectFunName" value="literal:checkSelectRecord" />
+  </component>
   <component type="corner:VersionCommentBox" id="popText">
       <binding value="literal:widget/pop" name="queryPageName"/>
       <binding value="ognl:svnAuthorValue" name="svnAuthor"/>

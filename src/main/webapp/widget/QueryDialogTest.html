@@ -32,6 +32,8 @@
 	
 	<span jwcid="popText" />
 	<br/>
+	<input id="checkboxtest" /><span jwcid="checkPop" /> checkbox
+	<br/>
 	<input id="test"/>
 	<input type="submit"/>
 </form>	
@@ -39,6 +41,10 @@
 <!--
 function selectRecord(obj){
 			dojo.byId('test').value=obj.value;
+}
+
+function checkSelectRecord(obj){
+			dojo.byId('checkboxtest').value=obj;
 }
 
 function callShowCleanFun(){
