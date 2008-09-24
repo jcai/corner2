@@ -458,7 +458,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
-		<tapestry-release-version>4.1.5</tapestry-release-version>
+		<tapestry-release-version>4.1.6</tapestry-release-version>
 		<tapestry-test-release-version>4.1.4</tapestry-test-release-version>
 		<spring-release-version>1.2.9</spring-release-version>
 		<hibernate-release-version>3.2.5.ga</hibernate-release-version>
