@@ -2,6 +2,11 @@ CORNER FRAMEWORK
 ===========================================
 http://www.bjmaxinfo.com 
 
+changes in version 2.5.1 	(unreleased)
+------------------------------------------
+* 升级Tapestry到4.1.6
+* 升级hibernate到3.2.6
+
 changes in version 2.3 	(unreleased)
 ------------------------------------------
 * 升级Tapestry到4.1.1
