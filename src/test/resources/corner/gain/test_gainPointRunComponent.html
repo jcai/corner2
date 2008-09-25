@@ -34,13 +34,14 @@
 
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-
-djConfig = { isDebug: true
+djConfig = { isDebug: true,
+               baseRelativePath: "../../../../main/js/dojo",
+               preventBackButtonFix: false,
+               parseWidgets: false
           };
-
 //-->
-
 </SCRIPT>
+
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/corner/corner.js"></script>
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/core.js"></script>
@@ -158,6 +159,11 @@ function aaa(){
 }
 
 //-->
+</script>
+
+<script type="text/javascript">
+dojo.require("dojo.html.iframe");
+dojo.require("dojo.html.layout");
 </script>
 
 <script type="text/javascript">
