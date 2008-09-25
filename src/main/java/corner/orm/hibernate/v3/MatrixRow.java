@@ -42,11 +42,20 @@ public class MatrixRow<T> extends Vector<T> {
 	 */
 	private static final long serialVersionUID = -4481128241802168063L;
 
+	/**
+	 * 取得MatrixRow中,数字的和.
+	 * TODO 目前通过捕获异常的形式进行判断是否是Double类型.期待更好的方法.
+	 * @return
+	 */
 	public double getRowSum(){
 		Iterator it = this.iterator();
-		if(it.hasNext()){
+		while(it.hasNext()){
 			if(it.next() instanceof String){
-				return 0;
+				try{
+					Double.parseDouble((String) it.next());
+				}catch(NumberFormatException ex){
+					return 0;
+				}
 			}
 		}
 		return VectorUtils.sum(this);
