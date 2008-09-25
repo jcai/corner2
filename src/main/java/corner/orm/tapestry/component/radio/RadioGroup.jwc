@@ -23,5 +23,5 @@ copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
   <parameter name="validators"/>
   
   <inject property="validatableFieldSupport" object="service:tapestry.form.ValidatableFieldSupport"/>
-    
+  <inject property="script" type="script" object="/org/apache/tapestry/form/RadioGroup.script"/>  
 </component-specification>
