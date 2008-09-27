@@ -166,7 +166,7 @@ public abstract class CoolestCalendar extends TextField{
 	/**
 	 * @return
 	 */
-	@Parameter
+	@Parameter(defaultValue = "literal:function isDisabled(date){}")
 	public abstract String getDisableFunc();
 	
 	/**

@@ -47,6 +47,6 @@
 		document.getElementsByTagName("HEAD")[0].appendChild(x);
 	</unique>
 	dojo.byId("${inputField}").setAttribute('readonly','true');
-	Calendar.setup({inputField:"${inputField}",displayArea:"${displayArea}",button:"${button}",eventName:"${eventName}",ifFormat:"${ifFormat}",daFormat:"${daFormat}",singleClick:${singleClick},disableFunc:"${disableFunc}",dateText:"${dateText}",firstDay:${firstDay},weekNumbers:${weekNumbers},align:"${align}",range:${range},flatCallback:"${flatCallback}",onSelect:"${onSelect}",onClose:"${onClose}",onUpdate:${onUpdate},date:"${date}",showsTime:${showsTime},timeFormat:"${timeFormat}",electric:${electric},step:${step},position:"${position}",cache:${cache},showOthers:${showOthers},multiple:"${multiple}"});
+	Calendar.setup({inputField:"${inputField}",displayArea:"${displayArea}",button:"${button}",eventName:"${eventName}",ifFormat:"${ifFormat}",daFormat:"${daFormat}",singleClick:${singleClick},disableFunc:${disableFunc},dateText:"${dateText}",firstDay:${firstDay},weekNumbers:${weekNumbers},align:"${align}",range:${range},flatCallback:"${flatCallback}",onSelect:"${onSelect}",onClose:"${onClose}",onUpdate:${onUpdate},date:"${date}",showsTime:${showsTime},timeFormat:"${timeFormat}",electric:${electric},step:${step},position:"${position}",cache:${cache},showOthers:${showOthers},multiple:"${multiple}"});
 </initialization>
 </script>
