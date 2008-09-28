@@ -17,19 +17,20 @@ PageTree.prototype = {
 							this.element.setAttribute("depth",data.depth);
 							this.element.setAttribute("treeName",data.name);
 							
-							this.element.setAttribute("target",actionFrame);
+							var separator = actionPage.indexOf("?") == -1 ? "?" : "&";
+							dojo.debug("separator : " + separator);
 							
 							if(actionPage){
 								if(data.depth!=0){
 									this.clickExpense = function(evt){
-										dojo.debug(actionPage + "?ajax_entity_value="+data.thisEntity);
-										window.parent[actionFrame].location.replace(actionPage + "?ajax_entity_value="+data.thisEntity);
+										dojo.debug(actionPage + separator + "ajax_entity_value="+data.thisEntity);
+										window.parent[actionFrame].location.replace(actionPage + separator + "ajax_entity_value="+data.thisEntity);
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
 								}else{
 									this.clickExpense = function(evt){
-										dojo.debug(actionPage + "?ajax_entity_value=boot");
-										window.parent[actionFrame].location.replace(actionPage + "?ajax_entity_value=boot");
+										dojo.debug(actionPage + separator + "ajax_entity_value=boot");
+										window.parent[actionFrame].location.replace(actionPage + separator + "ajax_entity_value=boot");
 									}.bind(this);
 									Event.observe(this.span,'click',this.clickExpense);
 								}
