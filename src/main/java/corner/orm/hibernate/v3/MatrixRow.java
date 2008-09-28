@@ -49,18 +49,21 @@ public class MatrixRow<T> extends Vector<T> {
 	 */
 	public double getRowSum(){
 		Iterator it = this.iterator();
+		Object value = null;
+		
 		while(it.hasNext()){
-			if(it.next() instanceof String){
+			value = it.next();
+			if(value instanceof String){
 				try{
-					Double.parseDouble((String) it.next());
+					Double.parseDouble((String)value);
 				}catch(NumberFormatException ex){
 					return 0;
 				}
 			}
 		}
 		return VectorUtils.sum(this);
-		
 	}
+	
 	public MatrixRow(T ... ts){
 		this();
 		this.addAll(Arrays.asList(ts));
