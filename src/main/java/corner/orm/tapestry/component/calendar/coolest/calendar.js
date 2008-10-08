@@ -1,4 +1,4 @@
-﻿/*  Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo
+/*  Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo
  * -----------------------------------------------------------
  *
  * The DHTML Calendar, version 1.0 "It is happening again"
@@ -631,6 +631,8 @@ Calendar.cellClick = function(el, ev) {
 			date.setMonth(m);
 		};
 		switch (el.navtype) {
+			//TODO: 删除帮助
+			/*
 		    case 400:
 			Calendar.removeClass(el, "hilite");
 			var text = Calendar._TT["ABOUT"];
@@ -647,6 +649,7 @@ Calendar.cellClick = function(el, ev) {
 			}
 			alert(text);
 			return;
+			*/
 		    case -2:
 			if (year > cal.minYear) {
 				date.setFullYear(year - 1);
@@ -776,8 +779,9 @@ Calendar.prototype.create = function (_par) {
 	var title_length = 5;
 	(this.isPopup) && --title_length;
 	(this.weekNumbers) && ++title_length;
-
-	hh("?", 1, 400).ttip = Calendar._TT["INFO"];
+	
+	//TODO: 删除顶端的问号
+	hh(" ", 1, 400).ttip = "";
 	this.title = hh("", title_length, 300);
 	this.title.className = "title";
 	
