@@ -14,5 +14,7 @@
 		<bean name="timedate" class="TimeTranslator"/>
 		<!-- 将HH:mm格式的字符串转化成Date -->
 		<bean name="simpleTimeDate" class="SimpleTimeTranslator"/>
+		<!-- 将HH:mm格式的字符串转化成Date -->
+		<bean name="monthDate" class="MonthDateTranslator"/>
 	</contribution>
 </module>
