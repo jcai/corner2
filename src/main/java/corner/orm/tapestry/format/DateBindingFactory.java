@@ -96,7 +96,7 @@ public class DateBindingFactory extends AbstractBindingFactory {
 		 * 精确到月份的日期
 		 * yyyy-MM
 		 */
-		FORMAT_CLAZZ.put("mondate", TimeTranslator.DATE_FORMAT);
+		FORMAT_CLAZZ.put("monyear", TimeTranslator.DATE_FORMAT);
 	}
 
 	/**

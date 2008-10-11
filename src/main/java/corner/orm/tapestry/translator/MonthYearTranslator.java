@@ -18,22 +18,22 @@ import org.apache.tapestry.form.translator.DateTranslator;
  * @version $Revision$
  * @since 2.5.1
  */
-public class MonthDateTranslator extends DateTranslator {
+public class MonthYearTranslator extends DateTranslator {
     /**
      * 中日期类型使用的pattern
      */
-    private static final String OA_MONTH_DATE_PATTERN = "yyyy-MM";
+    private static final String OA_MONTH_YEAR_PATTERN = "yyyy-MM";
     
     /**
      * 用户回显时使用的Format
      */
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(OA_MONTH_DATE_PATTERN);
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(OA_MONTH_YEAR_PATTERN);
 
     /**
      * @see org.apache.tapestry.form.translator.DateTranslator#defaultPattern()
      */
     @Override
     protected String defaultPattern() {
-        return OA_MONTH_DATE_PATTERN;
+        return OA_MONTH_YEAR_PATTERN;
     }
 }
