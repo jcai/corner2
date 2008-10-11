@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 /**
  * 一个时间类型的Translator
  * <p>
- * 将当前时间格式化成yyyy-MM的格式的translator
+ * 将当前时间格式化成HH:MM:ss的格式的translator
  * 
  * @author <a href="mailto:Ghostbb@bjmaxinfo.com">Ghostbb</a>
  * @version $Revision$
@@ -33,7 +33,7 @@ public class TimeTranslator extends org.apache.tapestry.form.translator.DateTran
     /**
      * corner中时间类型使用的pattern
      */
-    private static final String CORNER_TIME_PATTERN = "yyyy-MM";
+    private static final String CORNER_TIME_PATTERN = "HH:MM:ss";
     
     /**
      * 用户回显时使用的Format
