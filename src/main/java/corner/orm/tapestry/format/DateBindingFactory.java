@@ -28,6 +28,8 @@ import org.apache.tapestry.IComponent;
 import org.apache.tapestry.binding.AbstractBindingFactory;
 
 import corner.orm.tapestry.translator.ExactDateTranslator;
+import corner.orm.tapestry.translator.MonthDayTranslator;
+import corner.orm.tapestry.translator.MonthYearTranslator;
 import corner.orm.tapestry.translator.SimpleDateTranslator;
 import corner.orm.tapestry.translator.SimpleTimeTranslator;
 import corner.orm.tapestry.translator.TimeTranslator;
@@ -96,7 +98,13 @@ public class DateBindingFactory extends AbstractBindingFactory {
 		 * 精确到月份的日期
 		 * yyyy-MM
 		 */
-		FORMAT_CLAZZ.put("monyear", TimeTranslator.DATE_FORMAT);
+		FORMAT_CLAZZ.put("monyear", MonthYearTranslator.DATE_FORMAT);
+		
+		/** 
+		 * 显示月份和日
+		 * MM-dd
+		 */
+		FORMAT_CLAZZ.put("monthday", MonthDayTranslator.DATE_FORMAT);
 	}
 
 	/**
