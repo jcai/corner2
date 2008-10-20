@@ -5,6 +5,12 @@
 			<td>
 				<input type="file" name="blobData" jwcid="blobDataField_update"  />
 			</td>
+			<td width="5%"><span jwcid="@If" condition="ognl:ImageFile eq false" renderTag="ognl:false">
+					<span jwcid="@If" condition="ognl:blobEntity.blobData != null" renderTag="ognl:false">
+						<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a>
+					</span>
+                </span>
+            </td>
 		</tr>
 		<tr>
 			<td colspan="2" >
@@ -13,11 +19,7 @@
 						<img jwcid="@Image" id="ImageField" class="ognl:imgInputClass" width="ognl:imgWidth" height="ognl:imgHeight" image="ognl:blobAsset" border="ognl:imgBorder" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);width:320px;height:200px;"/>
 					</a>
 				</span>
-				<span jwcid="@Else" renderTag="ognl:false">
-					<span jwcid="@If" condition="ognl:blobEntity.blobData != null" renderTag="ognl:false">
-						<a href="" jwcid="@ServiceLink" service="blob" parameters="ognl:{blobEntity}"><span jwcid="@Insert" value="ognl:Msg">查看</span></a>
-					</span>
-                </span>
+				
 			</td>
 		</tr>
 	</table>
