@@ -24,6 +24,8 @@ import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.link.AbstractLinkComponent;
 
+import corner.orm.tapestry.jasper.IBeforePrintSaveEntity;
+
 /**
  * @author <a href=mailto:xf@bjmaxinfo.com>xiafei</a>
  * @version $Revision$
@@ -43,9 +45,14 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 		parameters[3] = getTemplateEntity();
 		parameters[4] = getDetailEntity();
 		parameters[5] = getDetailCollection();
-		parameters[6] = getReportEntity();
+		parameters[6] = getReportEntity(); 
 		
-		return this.getJasperService().getLink(true, parameters);
+		//在提交之前，保存实体
+		if(cycle.getPage() instanceof IBeforePrintSaveEntity){  
+			parameters[6] = ((IBeforePrintSaveEntity)cycle.getPage()).getBeforePrintSaveEntity();
+		}
+	
+		return this.getJasperService().getLink(true, parameters); 
 	}
 	
 	/**
