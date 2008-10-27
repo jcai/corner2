@@ -48,7 +48,7 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 		parameters[6] = getReportEntity(); 
 		
 		//在提交之前，保存实体
-		if(cycle.getPage() instanceof IBeforePrintSaveEntity){  
+		if(cycle.getPage() instanceof IBeforePrintSaveEntity&&getReportEntity() != null){  
 			parameters[6] = ((IBeforePrintSaveEntity)cycle.getPage()).getBeforePrintSaveEntity();
 		}
 	
