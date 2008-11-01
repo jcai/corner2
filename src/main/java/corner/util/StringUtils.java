@@ -171,4 +171,25 @@ public class StringUtils {
     public static boolean notBlank(String string){
         return !blank(string);
     }
+    
+	/**
+	 * 根据给定的分隔符(symbol),将array中的所有元素用分隔符组成一个字符串，并去掉最后一个分隔符
+	 * <p>例如:数组{'1','2','3'}使用','分隔，将得到"1,2,3"
+	 * @param array
+	 * @param symbol
+	 * @return {@link String}
+	 */
+	public static String splitArray(String[] array, String symbol){
+		String returnStr = null;
+		if(array != null && array.length>0 && StringUtils.notBlank(symbol)){
+			StringBuffer buffer = new StringBuffer();
+			for(String s:array){
+				buffer.append(s);
+				buffer.append(symbol);
+			}
+			returnStr = (buffer.toString()).substring(0,buffer.length()-1);
+		}
+		
+		return returnStr;
+	}
 }
