@@ -1,1 +1,1 @@
-mvn -Dmaven.test.skip=true -Ddb=test clean install
+mvn -Dmaven.test.skip=true clean install
