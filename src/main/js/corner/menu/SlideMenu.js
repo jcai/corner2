@@ -14,6 +14,7 @@ dojo.require("dojo.collections.ArrayList");
 
 corner.menu.SlideMenu=function(menuId){
 	dojo.debug(menuId);
+	left = null;
 	this.menu=dojo.byId(menuId);
 	if(!this.menu){
 		dojo.raise("wrong menu id");
