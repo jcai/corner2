@@ -7,6 +7,7 @@
 		<validator name="uniqueEntity" class="UniqueEntity"/>
 		<validator name="fieldMin" class="FieldMin"/>
 		<validator name="fieldPlusEq" class="FieldPlusEq"/>
+		<validator name="reletiveFieldNotNull" class="ReletiveFieldNotNull"/>
 		<validator name="pictureSize" class="PictureSize"/>
 		<validator name="fileType" class="FileType"/>
 		<validator name="checkboxGroupRequired" class="CheckboxGroupRequired"/>

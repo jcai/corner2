@@ -153,6 +153,30 @@ corner.validate.isFieldPlusEq = function(/*String*/value, /*Object?*/flags){
 	}
 }
 
+corner.validate.isReletiveFieldNotNull = function(/*String*/value, /*Object?*/flags){
+//summary:
+// 将flags传进来的ID数组中对应的数值相加，然后与value比对，相当返回true
+	dojo.debug("value:" + value);
+	dojo.debug("fields.length :" +flags.fields.length);
+	
+	var tValue;
+	
+	for (var i in flags.fields){
+		tVCalue = dojo.byId(flags.fields[i]).value; 
+		dojo.debug(tVCalue);
+		if( tVCalue!= null && tVCalue!=""){ 
+			if(i!=(flags.fields.length-1)){
+				continue;
+			}else{
+				return true;
+			}
+			
+		}else{
+				return false;	
+		}
+	}
+	
+}
 corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 // summary:
 //  validate number
