@@ -1,1 +1,2 @@
-mvn -Dmaven.test.skip=true deploy
+svn update
+./mvn.sh -Dmaven.test.skip=true deploy
