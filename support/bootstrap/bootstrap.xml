@@ -6,7 +6,7 @@
 	created at:2007-11-27
 -->
 <project name="bootstrap" basedir="../.." default="init">
-	<property name="repo.url" value="http://code.bjmaxinfo.cn:5180/artifactory/repo"/>
+	<property name="repo.url" value="http://dev.bjmaxinfo.com:5180/artifactory/repo"/>
 	<!-- =================================
 	target: 初始化资源信
 	================================= -->	
