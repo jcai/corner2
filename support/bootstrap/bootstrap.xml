@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright 2006-2007 The Beijing Maxinfo Technology Ltd.
+	site:http://www.bjmaxinfo.com
+	file : $Id: build.xml 7930 2007-11-24 03:40:50Z jcai $
+	created at:2007-11-27
+-->
+<project name="bootstrap" basedir="../.." default="init">
+	<property name="repo.url" value="http://code.bjmaxinfo.cn:5180/artifactory/repo"/>
+	<!-- =================================
+	target: 初始化资源信
+	================================= -->	
+	<target name="init">
+		<mkdir dir="target"/>	
+        <get src="${repo.url}/org/apache/maven/maven-ant-tasks/2.0.7/maven-ant-tasks-2.0.7.jar"
+                    dest="support/ant-lib/maven-ant-tasks-2.0.7.jar" verbose="true" usetimestamp="true"/>
+        
+        <get src="${repo.url}/classworlds/classworlds/1.1/classworlds-1.1.jar"
+            dest="support/maven-lib/classworlds-1.1.jar" verbose="true" usetimestamp="true"/>
+        <get src="${repo.url}/org/apache/maven/maven-core/2.0.7/maven-core-2.0.7-uber.jar"
+            dest="support/maven-lib/maven-core-2.0.7-uber.jar" verbose="true" usetimestamp="true"/>
+	</target>
+</project>
