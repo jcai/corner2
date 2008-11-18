@@ -142,10 +142,8 @@ public class ReletiveFieldNotNull extends BaseValidator {
 	private void initReletiveFieldNotNull(String fieldPlusEqStr) {
 		int i = fieldPlusEqStr.indexOf("@");
 		String message = fieldPlusEqStr.substring(0, i);
-		System.err.println("信息:"+message);
 		this.fieldApInfo = message;
 		String fieldStr = fieldPlusEqStr.substring(i+1, fieldPlusEqStr.length());
-		System.err.println(fieldStr);
 		otherField = fieldStr.split(":");
 	}
 
