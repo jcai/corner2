@@ -39,8 +39,9 @@ import org.apache.tapestry.valid.ValidatorException;
 public class ReletiveFieldNotNull extends BaseValidator {
 
 	// 保存page页中定义的field
-	private String[] otherField;
-
+	private String [] otherField;
+	
+	private String fieldApInfo;
 
 	public ReletiveFieldNotNull() {
 		super();
@@ -66,7 +67,8 @@ public class ReletiveFieldNotNull extends BaseValidator {
 		IRequestCycle cycle = field.getPage().getRequestCycle();
 		for(int i = 0; i < this.otherField.length; i++){
 			String str = cycle.getParameter(this.otherField[i]);
-			if ("".equals(str)||str.length()<1){
+			
+			if (null == str || "".equals(str) || str.length() < 1){
 				throw new ValidatorException(buildMessage(messages, field));
 			}
 		}
@@ -114,10 +116,9 @@ public class ReletiveFieldNotNull extends BaseValidator {
 	 */
 	private String buildMessage(ValidationMessages messages,
 			IFormComponent field) {
-		
-		
+		//getDisplayNames(otherField,field)
 		return messages.formatValidationMessage("和{0}关联的{1}都不能为空.", null,
-				new Object[] { field.getDisplayName(),getDisplayNames(otherField,field)});
+				new Object[] { field.getDisplayName(),fieldApInfo});
 	}
 
 	/**
@@ -139,7 +140,13 @@ public class ReletiveFieldNotNull extends BaseValidator {
 	 * @param fieldPlusEqStr 需要处理的字符串
 	 */
 	private void initReletiveFieldNotNull(String fieldPlusEqStr) {
-		otherField = fieldPlusEqStr.split(":");
+		int i = fieldPlusEqStr.indexOf("@");
+		String message = fieldPlusEqStr.substring(0, i);
+		System.err.println("信息:"+message);
+		this.fieldApInfo = message;
+		String fieldStr = fieldPlusEqStr.substring(i+1, fieldPlusEqStr.length());
+		System.err.println(fieldStr);
+		otherField = fieldStr.split(":");
 	}
 
 	/**
