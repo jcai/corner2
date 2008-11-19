@@ -161,17 +161,38 @@ corner.validate.isReletiveFieldNotNull = function(/*String*/value, /*Object?*/fl
 	
 	var tValue;
 	
-	for (var i in flags.fields){
+	dojo.debug("flags:"+flags);
+//	for (var i in flags.fields){
+//		tVCalue = dojo.byId(flags.fields[i]).value; 
+//		dojo.debug(tVCalue);
+//		dojo.debug("i:"+i);
+//		if( tVCalue!= null && tVCalue!=""){ 
+//			if(i!=(flags.fields.length-1)){
+//				continue;
+//			}else{
+//				dojo.debug("return true");
+//				return true;
+//			}
+//			
+//		}else{
+//			dojo.debug("return false");
+//				return false;	
+//		}
+//	}
+	for (var i = 0;i<flags.fields.length;i++){
 		tVCalue = dojo.byId(flags.fields[i]).value; 
 		dojo.debug(tVCalue);
-		if( tVCalue!= null && tVCalue!=""){ 
+		dojo.debug("i:"+i);
+		if( tVCalue != null && tVCalue!=""){ 
 			if(i!=(flags.fields.length-1)){
 				continue;
 			}else{
+				dojo.debug("return true");
 				return true;
 			}
 			
 		}else{
+			dojo.debug("return false");
 				return false;	
 		}
 	}
