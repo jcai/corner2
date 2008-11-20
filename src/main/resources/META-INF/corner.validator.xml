@@ -15,5 +15,6 @@
 		<validator name="captcha" class="CaptchaValidator" configurable="false"/>
 		<validator name="relationAss" class="RelationAss" configurable="false"/>
 		<validator name="GPRequired" class="GainPointRequired" configurable="false"/>
+		<validator name="upLoadFileSize" class="UpLoadFileSize"/>
 	</contribution>
 </module>

@@ -198,6 +198,41 @@ corner.validate.isReletiveFieldNotNull = function(/*String*/value, /*Object?*/fl
 	}
 	
 }
+
+corner.validate.isUpLoadFileSize = function(/*String*/value, /*Object?*/flags){
+	dojo.debug("value:"+value);
+	var fieldId;
+	var maxUpLoad;
+	dojo.debug("flags:"+flags);
+	
+	maxUpLoad = flags.maxUpLoad;
+	fieldId = flags.fieldId;
+	dojo.debug("maxUpLoad:"+maxUpLoad);
+	dojo.debug("file Directory:"+dojo.byId(fieldId).value);
+//	if(dojo.byId(fieldId).type == "file"){
+//		parseInt(maxUpload)
+//	}
+//	var fso = new ActiveXObject('Scripting.FileSystemObject');
+	var fso;
+	var fileSize;
+	if(document.all){
+		dojo.debug("is IE!");
+		fso = new ActiveXObject('Scripting.FileSystemObject');
+		var file = fso.GetFile(fieldId.value);
+		fileSize = file.Size;
+	}else{
+		dojo.debug("the browser upload File Operator support is disabled! try IE!");
+		return false;
+	}
+	
+//	var file = fso.GetFile(fieldId.value); 
+	if(fileSize <= maxUpLoad){
+		return true;
+	}
+	dojo.debug("file Size:" + fileSize);
+	return false;
+}
+
 corner.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 // summary:
 //  validate number
