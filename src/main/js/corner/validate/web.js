@@ -204,29 +204,45 @@ corner.validate.isUpLoadFileSize = function(/*String*/value, /*Object?*/flags){
 	var fieldId;
 	var maxUpLoad;
 	dojo.debug("flags:"+flags);
-	
+	var fileImgTmp = document.createElement("img");
+//	var fileImgTmp = dojo.byId("fileTemp");
 	maxUpLoad = flags.maxUpLoad;
+	
+	//image load method!
+//	var loops = 0;
+//	fileImgTmp.onload = function ()
+//	{
+//		 dojo.debug(loops);
+//   		 loops ++;
+//	}
+//	
 	fieldId = flags.fieldId;
+	
+	fileImgTmp.src = dojo.byId(fieldId).value;
 	dojo.debug("maxUpLoad:"+maxUpLoad);
 	dojo.debug("file Directory:"+dojo.byId(fieldId).value);
+	
+	var fileSize = fileImgTmp.fileSize;
+	dojo.debug("fileSize:"+fileSize);
+
 //	if(dojo.byId(fieldId).type == "file"){
 //		parseInt(maxUpload)
 //	}
 //	var fso = new ActiveXObject('Scripting.FileSystemObject');
-	var fso;
-	var fileSize;
-	if(document.all){
-		dojo.debug("is IE!");
-		fso = new ActiveXObject('Scripting.FileSystemObject');
-		var file = fso.GetFile(fieldId.value);
-		fileSize = file.Size;
-	}else{
-		dojo.debug("the browser upload File Operator support is disabled! try IE!");
-		return false;
-	}
+//	var fso;
+//	var fileSize;
+//	if(document.all){
+//		dojo.debug("is IE!");
+//		fso = new ActiveXObject('Scripting.FileSystemObject');
+//		var file = fso.GetFile(fieldId.value);
+//		fileSize = file.Size;
+//	}else{
+//		dojo.debug("the browser upload File Operator support is disabled! try IE!");
+//		return false;
+//	}
 	
 //	var file = fso.GetFile(fieldId.value); 
-	if(fileSize <= maxUpLoad){
+	if(fileSize <= maxUpLoad && fileSize > 0){
 		return true;
 	}
 	dojo.debug("file Size:" + fileSize);
