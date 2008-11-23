@@ -63,7 +63,7 @@ public class TreeService extends EntityService {
 		}
 		
 		//扩展
-		if(depends.length != 0 && depends[0] != null && depends[0].length() != 0){
+		if(page instanceof ITreeQueryPage){
 			((ITreeQueryPage)page).appendCriteria(criteria,depends);
 		}
 		
