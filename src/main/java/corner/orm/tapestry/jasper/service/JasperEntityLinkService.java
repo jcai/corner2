@@ -34,6 +34,7 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.util.ContentType;
 
 import corner.model.IBlobModel;
+import corner.orm.tapestry.jasper.ISaveAbortiveCriteria;
 import corner.orm.tapestry.jasper.TaskType;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
 import corner.orm.tapestry.page.EntityPage;
@@ -50,8 +51,6 @@ import corner.orm.tapestry.utils.ComponentResponseUtils;
  */
 public class JasperEntityLinkService extends JasperLinkService{
 	
-	
-
 	/**
 	 * @see corner.orm.tapestry.jasper.service.JasperLinkService#service(org.apache.tapestry.IRequestCycle, org.apache.tapestry.IPage, boolean, java.lang.String, corner.model.IBlobModel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -92,6 +91,10 @@ public class JasperEntityLinkService extends JasperLinkService{
 						if(activePage instanceof IPageRooted)
 							((IPageRooted<Object, Object>) activePage).setRootedObject(((IPageRooted<Object, Object>)page).getRootedObject());
 						cycle.activate(activePage);
+						
+						if(activePage instanceof ISaveAbortiveCriteria){
+							((ISaveAbortiveCriteria) activePage).setAbortiveCriteria(((ISaveAbortiveCriteria)page).getAbortiveCriteria());
+						}
 					}
 				
 					if(json.has(MULTI_PAGE))
