@@ -239,7 +239,8 @@ public class ExcelService implements IEngineService {
 	protected void createTitleCell(HSSFWorkbook wb, HSSFRow row, int index,
 			String cellValue) {
 		HSSFCell titlecell = row.createCell((short) index);
-		titlecell.setCellStyle(this.getTitleStyle(wb));
+		if(titlecell.getCellStyle() == null)	//避免重复设置单元格格式
+			titlecell.setCellStyle(this.getTitleStyle(wb));
 		titlecell.setCellValue(new HSSFRichTextString(cellValue));
 	}
 	
@@ -254,7 +255,8 @@ public class ExcelService implements IEngineService {
 	protected void createContentCell(HSSFWorkbook wb, HSSFRow row, int index,
 			String cellValue) {
 		HSSFCell contentcell = row.createCell((short) index);
-		contentcell.setCellStyle(this.getContentCellStyle(wb));
+		if(contentcell.getCellStyle() == null)	//避免重复设置单元格格式
+			contentcell.setCellStyle(this.getContentCellStyle(wb));
 		contentcell.setCellValue(new HSSFRichTextString(cellValue));
 	}
 	
