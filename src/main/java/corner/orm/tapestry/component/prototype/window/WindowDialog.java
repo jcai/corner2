@@ -240,10 +240,10 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	@Parameter(defaultValue = "literal:0")
 	public abstract String getLeft();
 
-	@Parameter(defaultValue = "literal:640")
+	@Parameter(defaultValue = "literal:800")
 	public abstract String getWidth();
 
-	@Parameter(defaultValue = "literal:350")
+	@Parameter(defaultValue = "literal:400")
 	public abstract String getHeight();
 
 	@Parameter(defaultValue = "literal:none")
@@ -252,10 +252,10 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	@Parameter(defaultValue = "literal:none")
 	public abstract String getMaxHeight();
 
-	@Parameter(defaultValue = "literal:700")
+	@Parameter(defaultValue = "literal:500")
 	public abstract String getMinWidth();
 
-	@Parameter(defaultValue = "literal:350")
+	@Parameter(defaultValue = "literal:300")
 	public abstract String getMinHeight();
 
 	@Parameter(defaultValue = "ognl:true")

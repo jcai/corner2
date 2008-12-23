@@ -27,6 +27,17 @@ import org.apache.tapestry.json.JSONArray;
  */
 public abstract class LeftTreeDialog extends WindowDialog{
 	
+	/**
+	 * @see corner.orm.tapestry.component.prototype.window.WindowDialog#getWidth()
+	 */
+	@Parameter(defaultValue = "literal:500")
+	public abstract String getWidth();
+
+	/**
+	 * @see corner.orm.tapestry.component.prototype.window.WindowDialog#getHeight()
+	 */
+	@Parameter(defaultValue = "literal:300")
+	public abstract String getHeight();
 	
 	/**
 	 * @see corner.orm.tapestry.component.prototype.window.WindowDialog#appendScriptParms(java.util.Map, org.apache.tapestry.IRequestCycle)

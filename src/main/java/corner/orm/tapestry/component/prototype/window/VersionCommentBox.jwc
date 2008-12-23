@@ -13,6 +13,8 @@
     <binding name="eventHeaderId" value="ognl:eventHeaderId"/>
     <binding name="windowShowButtonText" value="ognl:windowShowButtonText"/>
     <binding name="title" value="ognl:title"/>
+    <binding name="width" value="ognl:500"/>
+    <binding name="height" value="ognl:300"/>
   </component>
   <component type="Hidden" id="svnAuthor">
     <binding name="defaultValue" value="ognl:svnAuthorDefaultValue"/>
