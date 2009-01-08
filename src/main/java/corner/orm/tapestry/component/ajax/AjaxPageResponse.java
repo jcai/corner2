@@ -57,12 +57,12 @@ public abstract class AjaxPageResponse extends BaseComponent implements IDirect{
 		if (!cycle.isRewinding()) {
 			PageRenderSupport pageRenderSupport = TapestryUtils.getPageRenderSupport(cycle, this);
 			
-			ILink link = getDirectService().getLink(true,
-					new DirectServiceParameter(this));
+			ILink link = getDirectService().getLink(true, new DirectServiceParameter(this));
 			
 			Map<String, Object> parms = new HashMap<String, Object>();
 			parms.put("clientId", this.getClientId());
 			parms.put("url", link.getURL());
+			additionalParams(parms);
 			
 			getScript().execute(this, cycle, pageRenderSupport, parms);
 		}
@@ -77,6 +77,14 @@ public abstract class AjaxPageResponse extends BaseComponent implements IDirect{
 			IRequestCycle cycle) {
 		String json = ((IAjaxResponsePage)this.getPage()).getJsonData(cycle);
 		writer.printRaw(json);
+	}
+	
+	/**
+	 * 增加扩展参数
+	 * @param parms
+	 */
+	protected void additionalParams(Map parms){
+		
 	}
 
 	/**
