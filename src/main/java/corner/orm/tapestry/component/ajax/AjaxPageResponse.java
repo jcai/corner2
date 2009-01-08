@@ -47,6 +47,7 @@ public abstract class AjaxPageResponse extends BaseComponent implements IDirect{
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		super.renderComponent(writer, cycle);
 		//处理ajax请求
 		if (!cycle.isRewinding() && getResponse().isDynamic()) {
 			renderPrototypeComponent(writer, cycle);
