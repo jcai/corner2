@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<!-- 传统方式下XFire-Spring导出POJO为Web服务的配置文件-->
+
+	<!--引入XFire的预配置文件-->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+
+	<!--XFire WebService 基类-->
+	<bean id="baseWebService" class="org.codehaus.xfire.spring.remoting.XFireExporter" lazy-init="false" abstract="true">
+		<property name="serviceFactory" ref="xfire.serviceFactory"/>
+		<property name="xfire" ref="xfire"/>
+	</bean>
+
+	<!--BookWebService 最简版本-->
+	<bean id="userServiceBean" parent="baseServiceObject">
+		<property name="target">
+			<bean class="corner.demo.xfire.service.impl.UserServiceImpl">
+				<property name="objectRelativeUtils">
+					<ref bean="objectRelativeUtils"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean name="userService" class="org.codehaus.xfire.spring.ServiceBean">
+        <property name="serviceBean" ref="userServiceBean"/>
+        <property name="serviceClass" value="corner.demo.xfire.service.UserService"/>
+    </bean>
+    
+   <bean name="bookService" class="org.codehaus.xfire.spring.ServiceBean">
+        <property name="serviceBean" ref="bookServiceBean"/>
+        <property name="serviceClass" value="corner.demo.xfire.service.BookService"/>
+    </bean>
+    <bean id="bookServiceBean" class="corner.demo.xfire.service.impl.BookServiceImpl"/>
+</beans>

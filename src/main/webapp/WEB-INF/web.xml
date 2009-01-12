@@ -77,4 +77,14 @@
 		<servlet-name>demo</servlet-name>
 		<url-pattern>/assets/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>demo</servlet-name>
+		<url-pattern>*.xfire</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>demo</servlet-name>
+		<url-pattern>*.wsdl</url-pattern>
+	</servlet-mapping>
 </web-app>

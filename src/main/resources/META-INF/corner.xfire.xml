@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<module id="corner.xfire" version="4.0.0" package="corner.orm.tapestry.service.xfire">
+    <service-point id="xfire" interface="org.apache.tapestry.engine.IEngineService">
+        <invoke-factory>
+            <construct class="XFireService">
+				<set-object property="response" value="service:tapestry.globals.HttpServletResponse"/>
+				<set-object property="request" value="service:tapestry.globals.HttpServletRequest"/>
+				<set-object property="servletContext" value="service:tapestry.globals.ServletContext"/>
+                <set-object property="linkFactory" value="infrastructure:linkFactory" />
+                <set-object property="xfire" value="spring:xfire" />
+            </construct>
+        </invoke-factory>
+    </service-point>
+    
+    <contribution configuration-id="tapestry.services.FactoryServices">
+        <service name="xfire" object="service:xfire" />
+    </contribution>
+    
+	<contribution configuration-id="tapestry.url.ServiceEncoders">
+	  <page-service-encoder id="xfire" extension="xfire" service="xfire"/>
+	  <page-service-encoder id="wsdl" extension="wsdl" service="xfire"/>
+	</contribution>
+</module>

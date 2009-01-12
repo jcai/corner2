@@ -1,6 +1,10 @@
 CORNER FRAMEWORK
 ===========================================
-http://www.bjmaxinfo.com 
+http://www.bjmaxinfo.com
+ 
+changes in version 2.5.2 	(unreleased)
+------------------------------------------
+* 增加了XFire的整合
 
 changes in version 2.5.1 	(unreleased)
 ------------------------------------------

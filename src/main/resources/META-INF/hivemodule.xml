@@ -52,7 +52,7 @@
 	<sub-module descriptor="corner.formats.xml"/>
 	<!-- for guice container -->
 	<sub-module descriptor="corner.guice.xml"/>
-	
-	
+	<!-- for xfire -->
+	<sub-module descriptor="corner.xfire.xml"/>
 	
 </module>
