@@ -17,12 +17,17 @@
 
 package corner.orm.tapestry.jasper.link;
 
+import java.util.Collection;
+
+import org.apache.tapestry.IActionListener;
+import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.annotations.InjectObject;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.link.AbstractLinkComponent;
+import org.apache.tapestry.listener.ListenerInvoker;
 
 import corner.orm.tapestry.jasper.IBeforePrintSaveEntity;
 
@@ -31,14 +36,14 @@ import corner.orm.tapestry.jasper.IBeforePrintSaveEntity;
  * @version $Revision$
  * @since 2.3.7
  */
-public abstract class JasperEntityLink extends AbstractLinkComponent{
+public abstract class JasperEntityLink extends AbstractLinkComponent implements IDirect{
 	
 	/**
 	 * @see org.apache.tapestry.link.AbstractLinkComponent#getLink(org.apache.tapestry.IRequestCycle)
 	 */
 	@Override
 	public ILink getLink(IRequestCycle cycle) {
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[9];
 		parameters[0] = getDownloadFileName();
 		parameters[1] = getTaskType().toLowerCase();
 		parameters[2] = getTemplatePath();
@@ -46,15 +51,53 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 		parameters[4] = getDetailEntity();
 		parameters[5] = getDetailCollection();
 		parameters[6] = getReportEntity(); 
+		parameters[7] = getParameters();
+		
+		if(this.getListener() != null){
+			parameters[8] = this.getIdPath();
+		}
 		
 		//在提交之前，保存实体
 		if(cycle.getPage() instanceof IBeforePrintSaveEntity&&getReportEntity() != null){  
 			parameters[6] = ((IBeforePrintSaveEntity)cycle.getPage()).getBeforePrintSaveEntity();
 		}
-	
+	    
 		return this.getJasperService().getLink(true, parameters); 
 	}
 	
+	/**
+	 * 
+	 * @param parameterValue
+	 * @return
+	 */
+	 public static Object[] constructServiceParameters(Object parameterValue)
+	    {
+	        if (parameterValue == null)
+	            return null;
+
+	        if (parameterValue instanceof Object[])
+	            return (Object[]) parameterValue;
+
+	        if (parameterValue instanceof Collection)
+	            return ((Collection) parameterValue).toArray();
+
+	        return new Object[] { parameterValue };
+	 }
+	 
+	 /**
+	  * 
+	  * @see org.apache.tapestry.IDirect#trigger(org.apache.tapestry.IRequestCycle)
+	  */
+	 public void trigger(IRequestCycle cycle)
+	    {
+	        IActionListener listener = getListener();
+
+	        if (listener == null)
+		        listener = getContainer().getListeners().getImplicitListener(this);
+
+	        getListenerInvoker().invokeListener(listener, this, cycle);
+	 }
+	 
 	/**
 	 * 细节循环用的page，geter方法名
 	 */
@@ -99,8 +142,25 @@ public abstract class JasperEntityLink extends AbstractLinkComponent{
 	public abstract Object getReportEntity();
 	
 	/**
+	 * listerner 需要传的参数.
+	 * @return
+	 */
+	@Parameter
+	public abstract Object getParameters();
+	
+	/**
+	 * listener
+	 * @return
+	 */
+	@Parameter
+	public abstract IActionListener getListener();
+	
+	/**
 	 * @return
 	 */
 	@InjectObject("engine-service:jasper")
 	public abstract IEngineService getJasperService();
+	
+	@InjectObject("infrastructure:listenerInvoker")
+	public abstract ListenerInvoker getListenerInvoker();
 }

@@ -41,6 +41,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.hivemind.ApplicationRuntimeException;
 import org.apache.hivemind.util.Defense;
+import org.apache.tapestry.IDirect;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.asset.AssetSource;
@@ -55,6 +56,7 @@ import org.apache.tapestry.web.WebResponse;
 import corner.model.IBlobModel;
 import corner.orm.tapestry.jasper.IJasperParameter;
 import corner.orm.tapestry.jasper.JREntityDataSource;
+import corner.orm.tapestry.jasper.link.JasperEntityLink;
 import corner.orm.tapestry.page.relative.IPageRooted;
 
 /**
@@ -172,6 +174,14 @@ public abstract class JasperLinkService implements IEngineService{
 		//设置reportEntity到page的rootedObject.
 		if(reportEntity != null && page instanceof IPageRooted){
 			((IPageRooted<Object,Object>)page).setRootedObject(reportEntity);
+		}
+
+		//设置监听方法的参数.并调用trigger方法.
+		cycle.setListenerParameters(JasperEntityLink.constructServiceParameters(parameters[7]));
+		String idPath = (String) parameters[8];
+		if(idPath != null){
+			IDirect direct = (IDirect) page.getNestedComponent(idPath);
+			direct.trigger(cycle);
 		}
 		
 		String detailEntity = (String) parameters[4];
