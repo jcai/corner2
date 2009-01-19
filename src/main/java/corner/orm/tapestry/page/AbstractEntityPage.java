@@ -37,6 +37,7 @@ import org.apache.tapestry.services.DataSqueezer;
 
 import corner.model.IBlobModel;
 import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
+import corner.orm.tapestry.RawURLLinkRenderer;
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.service.blob.BlobAsset;
 import corner.orm.tapestry.service.blob.IBlobPageDelegate;
@@ -281,5 +282,16 @@ public abstract class AbstractEntityPage<T> extends BasePage implements
 	
 	/** 对日期类型的格式化 * */
 	private SimpleDateFormat _dateFormat;
-
+	
+	/** 对url解析路径 * */
+	private ILinkRenderer _rawUrlLinkrenderer;
+	
+	/**
+	 * 获得全url路径
+	 */
+	public ILinkRenderer getRawUrlLinkRenderer(){
+		if (_rawUrlLinkrenderer == null)
+			_rawUrlLinkrenderer = new RawURLLinkRenderer();
+		return _rawUrlLinkrenderer;
+	}
 }
