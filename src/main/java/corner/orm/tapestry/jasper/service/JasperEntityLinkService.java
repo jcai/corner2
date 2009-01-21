@@ -34,8 +34,11 @@ import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.util.ContentType;
 
 import corner.model.IBlobModel;
+import corner.orm.tapestry.jasper.IJasperMoveXY;
+import corner.orm.tapestry.jasper.IJasperMoveXYObject;
 import corner.orm.tapestry.jasper.ISaveAbortiveCriteria;
 import corner.orm.tapestry.jasper.TaskType;
+import corner.orm.tapestry.jasper.exporter.CornerPdfExporter;
 import corner.orm.tapestry.jasper.exporter.IJasperExporter;
 import corner.orm.tapestry.page.EntityPage;
 import corner.orm.tapestry.page.relative.IPageRooted;
@@ -143,7 +146,31 @@ public class JasperEntityLinkService extends JasperLinkService{
 			ComponentResponseUtils.constructResponse(reportDownloadName, jasperAction.getSuffix(),cycle, response);
 			
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream(new ContentType(jasperAction.getContentType())));
-		
+		    
+			IJasperMoveXY jasperMoveXY = null;
+			
+			//设置报表文本坐标的偏移
+			if(activePage instanceof IJasperMoveXY){
+				
+				//页面既是报表文本坐标偏移对象.
+				jasperMoveXY = (IJasperMoveXY) activePage;
+			}else if(activePage instanceof IJasperMoveXYObject){
+				
+				//由页面提供报表文本坐标偏移的对象.
+				jasperMoveXY = ((IJasperMoveXYObject)activePage).getJasperMoveXY();
+			}else if(activePage instanceof IPageRooted){
+				
+				//处理page的rootedObject
+				Object rootedObject = ((IPageRooted)activePage).getRootedObject();
+				if(rootedObject instanceof IJasperMoveXY){
+					jasperMoveXY = (IJasperMoveXY) rootedObject;
+				}
+			}
+			
+			if(exporter instanceof CornerPdfExporter){
+				((CornerPdfExporter)exporter).setJasperMoveXY(jasperMoveXY);
+			}
+			
 			//导出报表.
 			exporter.exportReport();
 			

@@ -56,6 +56,7 @@ import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.TextField;
 
+import corner.orm.tapestry.jasper.IJasperMoveXY;
 import corner.orm.tapestry.pdf.PdfUtils;
 
 /**
@@ -74,6 +75,15 @@ public class CornerPdfExporter extends JRPdfExporter {
 	private int i = 0;
 	private List<String> alreadyExistFields = new ArrayList<String>();
 	private Map fontMap = null;
+	private IJasperMoveXY jasperMoveXY = null;//文本的偏移
+	
+	public void setJasperMoveXY(IJasperMoveXY jasperMoveXY){
+		this.jasperMoveXY = jasperMoveXY;
+	}
+	
+	public IJasperMoveXY getJasperMoveXY(){
+		return this.jasperMoveXY;
+	}
 	
 	String createUniqueName() {
 		i += 1;
@@ -389,13 +399,24 @@ public class CornerPdfExporter extends JRPdfExporter {
 				verticalOffset = 0f;
 			}
 			}
-
+            
 			float llx = x + leftPadding;
 			float lly = jasperPrint.getPageHeight() - y - topPadding
 					- verticalOffset - text.getLeadingOffset();
 			float urx = x + width - rightPadding;
 			float ury = jasperPrint.getPageHeight() - y - height
 					+ bottomPadding;
+			
+			//需要移动文本,则重新构造坐标
+			if(this.jasperMoveXY != null){
+				 llx = x + leftPadding+jasperMoveXY.getX();
+				 lly = jasperPrint.getPageHeight() - y - topPadding
+						- verticalOffset - text.getLeadingOffset()-jasperMoveXY.getY();
+				 urx = x + width - rightPadding+jasperMoveXY.getX();
+				 ury = jasperPrint.getPageHeight() - y - height
+						+ bottomPadding-jasperMoveXY.getY();
+			}
+			
 			boolean isOver = false;
 			int status = ColumnText.START_COLUMN;
 			Phrase phrase = getPhrase(styledText, text);
