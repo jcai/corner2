@@ -70,12 +70,13 @@ public abstract class SlideMenu extends BaseComponent {
 	public abstract String getElement();
 	@SuppressWarnings("unchecked")
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		writer.begin(getElement());
+		writer.attribute("id", this.getClientId());
+			super.renderComponent(writer, cycle);
+		writer.end(getElement());
 		
 		if(!cycle.isRewinding()) {
-			writer.begin(getElement());
-
 			Map map = new HashMap();
-			
 			map.put("menuBarId", this.getMenuBarId());
 			map.put("top", getTop());
 			map.put("speed", this.getSpeed());
@@ -87,9 +88,6 @@ public abstract class SlideMenu extends BaseComponent {
 				map.put("slideMenuId", this.getBinding("id").getObject().toString());
 			}
 
-			renderInformalParameters(writer, cycle);
-			renderBody(writer, cycle);
-			writer.end(getElement());
 			PageRenderSupport pageRenderSupport = TapestryUtils
 					.getPageRenderSupport(cycle, this);
 			getScript().execute(this,cycle, pageRenderSupport, map);
