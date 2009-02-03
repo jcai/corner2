@@ -38,11 +38,28 @@ djConfig = { isDebug: true,
 		}
 		parent.selectRecord(queryBox.maps.values());
 	}
+	
+	test=function(evt){
+		dojo.debug("test111" );
+		
+		try{
+		 if(!queryBox){
+			dojo.debug("interval");
+			window.setInterval("test()",1000);
+			return;
+			}
+		}catch(e){
+			dojo.debug(e);
+		}
+	 
+	  dojo.debug("test" );
+	}
+	
 	dojo.event.connect(dojo.byId("MultiCBToStringSelectedField"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t2"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t3"),"onclick","winSelectRecord");
 	
-	
+	dojo.event.connect("after",window,"onload","test");
 //-->
 </script>
 	</body>
