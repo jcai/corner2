@@ -23,6 +23,7 @@ djConfig = { isDebug: true,
 <script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/window.js"> </script>
 <script type="text/javascript" src="../../../../../main/js/corner/prototype/window/javascripts/window_effects.js"> </script>
 <script type="text/javascript" src="../../../../../main/js/corner/prototype/cornerBuilder.js"> </script>
+<script type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/prototype/window/fade.js"> </script>
 <script type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/prototype/window/WindowQueryDialog.js"> </script>
 <script type="text/javascript" src="../../../../../main/java/corner/orm/tapestry/component/prototype/window/LeftTreeDialog.js"> </script>
 <link href="../../../../../main/js/corner/prototype/window/themes/default.css" rel="stylesheet" type="text/css" >	 </link>
@@ -61,7 +62,7 @@ dojo.require("tapestry.namespace")
 </form>	
 <script>
 <!--
-
+dojo.require("dojo.html.iframe");
 function selectRecord(obj){
 	dojo.byId('test').value=obj;
 }
@@ -77,7 +78,7 @@ new WindowQueryDialogAction($("pwin_winDialog_button"),{"className":"alphacube",
 									   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
-									   "destroyOnClose":"false","all callbacks":"none"});
+									   "destroyOnClose":"false","all callbacks":"none"},"selectRecord");
 									   
 
 
