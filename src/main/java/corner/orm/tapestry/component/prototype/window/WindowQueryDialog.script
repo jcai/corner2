@@ -18,6 +18,6 @@
 <input-symbol key="props" required="yes" />
 
 <initialization>
-	new WindowQueryDialogAction($("${component.eventId}"),${props},"${component.onSelectFunName}",${component.showCleanDiv},"${component.showCleanDivId}","${component.callShowCleanFun}");
+	new WindowQueryDialogAction($("${component.eventId}"),${props},"${component.onSelectFunName}","${component.onQueryDialogLoadFunName}",${component.showCleanDiv},"${component.showCleanDivId}","${component.callShowCleanFun}");
 </initialization>
 </script>

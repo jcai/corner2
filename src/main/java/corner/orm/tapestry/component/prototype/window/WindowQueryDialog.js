@@ -3,11 +3,12 @@
  */
 WindowDialogBase = CornerBuilder.create({
 	extend: CornerBase.prototype,
-	initialize: function(fieldElement, props,selectFunName,isShowCleanDiv,showCleanId,callShowCleanFunName){	
+	initialize: function(fieldElement, props,selectFunName,queryDialogLoadFunName,isShowCleanDiv,showCleanId,callShowCleanFunName){	
 		this.fieldElement = fieldElement;	
 		this.props = props;
 		this.win =null;
 		this.selectFunName=selectFunName;
+		this.queryDialogLoadFunName=queryDialogLoadFunName;
 		this.options = this["options"];
 		this.maps = new Hash();
 		/*
@@ -15,6 +16,10 @@ WindowDialogBase = CornerBuilder.create({
 		  如果不传递this给clickField，clickField 的 this就是他本身，测试中是input element
 		 */
 		Event.observe(this.fieldElement,"click",this.clickField.bindAsEventListener(this));
+		
+		if(queryDialogLoadFunName){
+           dojo.event.connect("after",window,"onload",this,"onQueryDialogLoad");		
+		}
 		
 		if(isShowCleanDiv){
 			
@@ -72,6 +77,9 @@ WindowDialogBase = CornerBuilder.create({
 	},
 	onSelect:function(element){
 		eval(this.selectFunName+"(element,this.fieldElement)");
+	},
+	onQueryDialogLoad:function(element){
+	    eval(this.queryDialogLoadFunName+"(this,this.fieldElement)");
 	},
 	getPos:function(obj){
 		var x,y,objParent;

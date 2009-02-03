@@ -134,6 +134,19 @@ function selectRecord(obj,fieldElement){
 	dojo.byId('testddd').value=obj.getAttribute("label");
 }
 
+function queryDialogLoad(obj,fieldElement){
+   
+    var queryBox = eval(obj);
+    queryBox.maps["aa"] = "aa";
+    queryBox.maps["bb"] = "bb";
+    queryBox.maps["cc"] = "cc";
+    
+    for(var key in queryBox.maps){
+       dojo.debug("key is: "+key);
+       dojo.debug("value is: "+queryBox.maps[key]);
+    }
+    
+}
 function aaa(){
 	alert("11111111111");
 }
@@ -155,7 +168,7 @@ function aaa(){
 									   "resizable":"true","closable":"true","minimizable":"true","maximizable":"true",
 									   "draggable":"true","showEffectOptions":"none","hideEffectOptions":"none","effectOptions":"none",
 									   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
-									   "destroyOnClose":"false","all callbacks":"none"},"selectRecord",true,"test","aaa");
+									   "destroyOnClose":"false","all callbacks":"none"},"selectRecord","queryDialogLoad",true,"test","aaa");
 	
 // --></script></body>
 </html>

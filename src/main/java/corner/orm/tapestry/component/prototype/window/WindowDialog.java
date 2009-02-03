@@ -351,6 +351,9 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	public abstract String getOnSelectFunName();
 
 	@Parameter
+	public abstract String getOnQueryDialogLoadFunName();
+	
+	@Parameter
 	public abstract Object getParameters();
 
 	@Parameter(defaultValue = "literal:pwin_")
