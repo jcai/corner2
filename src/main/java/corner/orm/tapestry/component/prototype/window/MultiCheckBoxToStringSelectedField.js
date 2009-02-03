@@ -13,23 +13,19 @@ var checkboxEventConnect = function(id,box){
 	}); 
 }
 
- var queryBoxStr,intervalId;//TODO 全局变量可能造成问题,期待解决.
+ var intervalId;//TODO 全局变量可能造成问题,期待解决.
 /*
  * 变成选择状态
  */
 var loadCheckBoxSelected = function(box){
-   queryBoxStr = box;
-   dojo.event.connect('after',window, 'onload',"loadCheckBox");
-}
-
-var loadCheckBox = function(evt){
-		var queryBox;
+     
+        var queryBox;
 				
 		try{
-		    queryBox = eval(queryBoxStr);
+		    queryBox = eval(box);
 		    queryBox.maps;
 		}catch(e){
-		    intervalId = window.setInterval("loadCheckBox()",1000);
+		    intervalId = window.setInterval("loadCheckBoxSelected()",1000);
 			dojo.debug("interval "+intervalId);
 			return;
 		}
@@ -51,4 +47,5 @@ var loadCheckBox = function(evt){
 				}
 			}
 		}
-	    }
+  
+}

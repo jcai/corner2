@@ -18,7 +18,7 @@ WindowDialogBase = CornerBuilder.create({
 		Event.observe(this.fieldElement,"click",this.clickField.bindAsEventListener(this));
 		
 		if(queryDialogLoadFunName){
-           dojo.event.connect("after",window,"onload",this,"onQueryDialogLoad");		
+           Event.observe(this.fieldElement,"click",this.onQueryDialogLoad.bindAsEventListener(this));
 		}
 		
 		if(isShowCleanDiv){
