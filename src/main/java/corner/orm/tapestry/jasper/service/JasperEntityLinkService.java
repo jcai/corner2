@@ -154,6 +154,7 @@ public class JasperEntityLinkService extends JasperLinkService{
 				
 				//页面既是报表文本坐标偏移对象.
 				jasperMoveXY = (IJasperMoveXY) activePage;
+				jasperMoveXY.doMoveAction();
 			}else if(activePage instanceof IJasperMoveXYObject){
 				
 				//由页面提供报表文本坐标偏移的对象.

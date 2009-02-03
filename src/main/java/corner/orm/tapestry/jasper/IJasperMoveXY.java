@@ -26,4 +26,6 @@ public interface IJasperMoveXY {
 	
 	public int getY();
 	public void setY(int y);
+	
+	public void doMoveAction();
 }
