@@ -39,12 +39,12 @@ djConfig = { isDebug: true,
 		parent.selectRecord(queryBox.maps.values());
 	}
 	
-	loadCheckBox=function(evt){
+   var	loadCheckBox=function(box){
 		dojo.debug("test111" );
-		
+		var box ;
 		try{
-		    queryBox.maps;
-			
+		    box = eval("window.queryBox");
+		    box.maps;
 		}catch(e){
 			
 			dojo.debug(e);
@@ -53,13 +53,17 @@ djConfig = { isDebug: true,
 			return;
 		}
 	 
+	    for(var key in box.maps){
+	       dojo.debug("key is "+key);
+	    }
 	}
 	
 	dojo.event.connect(dojo.byId("MultiCBToStringSelectedField"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t2"),"onclick","winSelectRecord");
 	dojo.event.connect(dojo.byId("t3"),"onclick","winSelectRecord");
 	
-	dojo.event.connect("after",window,"onload","loadCheckBox");
+	//dojo.event.connect("after",window,"onload","loadCheckBox");
+	loadCheckBoxSelected("window.queryBox");
 //-->
 </script>
 	</body>
