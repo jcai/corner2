@@ -21,6 +21,7 @@ var loadCheckBoxSelected = function(box){
         var queryBox;
         
 		try{
+			dojo.debug("eval(box) "+ box);
 		    queryBox = eval(box);
 		    queryBox.maps;
 		}catch(e){
@@ -28,7 +29,7 @@ var loadCheckBoxSelected = function(box){
 				dojo.debug("clearInterval "+intervalId);
 				window.clearInterval(intervalId);
 			}
-		    intervalId = window.setInterval("loadCheckBoxSelected()",1000);
+		    intervalId = window.setInterval("loadCheckBoxSelected(" + box + ")",1000);
 			dojo.debug("interval "+intervalId);
 			return;
 		}
