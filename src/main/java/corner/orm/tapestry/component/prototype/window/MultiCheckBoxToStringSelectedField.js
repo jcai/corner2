@@ -33,7 +33,10 @@ var loadCheckBoxSelected = function(box){
 			return;
 		}
 		
-		window.clearInterval(intervalId);
+		dojo.debug("evaluate ...");
+		if(intervalId){
+			window.clearInterval(intervalId);
+		}
 		
 		var elements = [];
 		var inputs = document.getElementsByTagName("input");
