@@ -18,28 +18,31 @@ var checkboxEventConnect = function(id,box){
  * 变成选择状态
  */
 var loadCheckBoxSelected = function(box){
-     
         var queryBox;
-				
+        
 		try{
 		    queryBox = eval(box);
 		    queryBox.maps;
 		}catch(e){
+			if(intervalId){
+				dojo.debug("clearInterval "+intervalId);
+				window.clearInterval(intervalId);
+			}
 		    intervalId = window.setInterval("loadCheckBoxSelected()",1000);
 			dojo.debug("interval "+intervalId);
 			return;
 		}
-				
+		
 		window.clearInterval(intervalId);
-				
+		
 		var elements = [];
 		var inputs = document.getElementsByTagName("input");
 		dojo.lang.forEach(inputs, function(input){
-		if(input.getAttribute("type")=="checkbox"){
-			elements.push(input);
-		}
+			if(input.getAttribute("type")=="checkbox"){
+				elements.push(input);
+			}
 		});
-				
+		
 		for(var key in queryBox.maps){
 			for(var i=0;i<elements.length;i++){
 				if(elements[i].value==key){
@@ -47,5 +50,4 @@ var loadCheckBoxSelected = function(box){
 				}
 			}
 		}
-  
 }
