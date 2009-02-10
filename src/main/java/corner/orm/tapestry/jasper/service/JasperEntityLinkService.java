@@ -159,12 +159,14 @@ public class JasperEntityLinkService extends JasperLinkService{
 				
 				//由页面提供报表文本坐标偏移的对象.
 				jasperMoveXY = ((IJasperMoveXYObject)activePage).getJasperMoveXY();
+				jasperMoveXY.doMoveAction();
 			}else if(activePage instanceof IPageRooted){
 				
 				//处理page的rootedObject
 				Object rootedObject = ((IPageRooted)activePage).getRootedObject();
 				if(rootedObject instanceof IJasperMoveXY){
 					jasperMoveXY = (IJasperMoveXY) rootedObject;
+					jasperMoveXY.doMoveAction();
 				}
 			}
 			
