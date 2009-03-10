@@ -1,5 +1,5 @@
 <project name="corner"  basedir="." xmlns:artifact="urn:maven-artifact-ant">
-    <path id="maven-ant-tasks.classpath" path="support/ant-lib/maven-ant-tasks-2.0.7.jar"/>
+    <path id="maven-ant-tasks.classpath" path="support/ant-lib/maven-ant-tasks-2.0.9.jar"/>
     <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
              classpathref="maven-ant-tasks.classpath"/>
     <!-- 定义中央文件服务地址 -->

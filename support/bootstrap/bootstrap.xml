@@ -12,12 +12,12 @@
 	================================= -->	
 	<target name="init">
 		<mkdir dir="target"/>	
-        <get src="${repo.url}/org/apache/maven/maven-ant-tasks/2.0.7/maven-ant-tasks-2.0.7.jar"
-                    dest="support/ant-lib/maven-ant-tasks-2.0.7.jar" verbose="true" usetimestamp="true"/>
+        <get src="${repo.url}/org/apache/maven/maven-ant-tasks/2.0.9/maven-ant-tasks-2.0.9.jar"
+                    dest="support/ant-lib/maven-ant-tasks-2.0.9.jar" verbose="true" usetimestamp="true"/>
         
         <get src="${repo.url}/classworlds/classworlds/1.1/classworlds-1.1.jar"
             dest="support/maven-lib/classworlds-1.1.jar" verbose="true" usetimestamp="true"/>
-        <get src="${repo.url}/org/apache/maven/maven-core/2.0.7/maven-core-2.0.7-uber.jar"
-            dest="support/maven-lib/maven-core-2.0.7-uber.jar" verbose="true" usetimestamp="true"/>
+        <get src="${repo.url}/org/apache/maven/maven-core/2.0.9/maven-core-2.0.9-uber.jar"
+            dest="support/maven-lib/maven-core-2.0.9-uber.jar" verbose="true" usetimestamp="true"/>
 	</target>
 </project>
