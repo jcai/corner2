@@ -489,14 +489,14 @@
 			<url>scp://dev.bjmaxinfo.com/opt/sites/${pom.artifactId}</url>
 		</site>
 		<repository>
-			<id>maxinfo-release</id>
-			<name>bjmaxinfo release </name>
-			<url>http://dev.bjmaxinfo.com:5180/artifactory/libs-releases@repo</url>
+			<id>maxinfo</id>
+			<name>bjmaxinfo release</name>
+			<url>http://code.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo</url>
 		</repository>
 		<snapshotRepository>
-			<id>maxinfo-snapshot</id>
-			<name>bjmaxinfo snapshot </name>
-			<url>http://dev.bjmaxinfo.com:5180/artifactory/libs-snapshots@repo</url>
+			<id>maxinfo</id>
+			<name>bjmaxinfo snapshot</name>
+			<url>http://code.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
