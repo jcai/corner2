@@ -65,8 +65,8 @@ public class SubversionServiceTest extends Assert{
 	private IVersionService constructService() throws Exception{
 		SubversionService service=new SubversionService();
 		service.setUsername("jetty");
-		service.setPassword("jetty");
-		service.setUrl("svn+ssh://dev.bjmaxinfo.com/home/jetty/svn-test");
+		service.setPassword("205jetty@bjmaxinfo.com");
+		service.setUrl("http://dev.bjmaxinfo.com/svn/svn-test");
 		
 		service.afterPropertiesSet();
 		return service;
