@@ -1,14 +1,9 @@
 package corner.demo.model.wap.one;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 import corner.demo.model.AbstractModel;
-import corner.orm.hibernate.v3.MatrixRow;
-import corner.service.svn.IVersionable;
 
 /**
  *
