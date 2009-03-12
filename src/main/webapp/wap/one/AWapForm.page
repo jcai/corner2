@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE page-specification PUBLIC "-//Apache Software Foundation//Tapestry Specification 4.0//EN" "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="corner.orm.tapestry.page.wml.PoWmlFormPage">
+  <description>corner.demo.model.one.A Form Page</description>
+  <bean class="org.apache.tapestry.valid.ValidationDelegate" name="delegate"/>
+  <property persist="entity" initial-value="new corner.demo.model.wap.one.WapA()" name="entity"/>
+
+  <component type="wml:Go" id="AForm">
+    <binding value="listener:doSaveEntityAction" name="success"/>
+    <binding value="listener:doCancelEntityAction" name="cancel"/>
+  </component>
+  <component type="wml:Input" id="nameField">
+    <binding value="message:name" name="displayName"/>
+    <binding value="ognl:entity.name" name="value"/>
+    <binding value="literal:nameField" name="name"/>
+    <!--binding name="validators" value="validators:required"/-->    
+  </component>
+  <component type="wml:Input" id="passwordField">
+    <binding value="message:password" name="displayName"/>
+    <binding value="ognl:true" name="hidden"/>    
+    <binding value="literal:passwordField" name="name"/>
+    <binding value="ognl:entity.password" name="value"/>
+  </component>
+  <!--component type="wml:Input" id="colorsField">
+    <binding value="message:colors" name="displayName"/>
+    <binding value="colors" name="name"/>
+    <binding value="ognl:entity.colors" name="value"/>
+  </component-->
+</page-specification>

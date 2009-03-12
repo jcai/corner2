@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.2//EN"
+"http://www.wapforum.org/DTD/wml12.dtd">
+
+<wml>
+	<head>
+		<meta http-equiv="Cache-Control" content="must-revalidate" forua="true" />
+		<meta http-equiv="Cache-Control" content="no-cache" forua="true" />
+	</head>
+	<card>
+		<!--a listener="listener:doCancelEntityAction" jwcid="@DirectLink"
+			href="AWapList.html">Return A List</a-->
+			<table>
+				<tr>
+					<td><span key="name">name:</span></td>
+					<td><input jwcid="nameField" />
+					</td>
+				</tr>
+				<tr>
+					<td><span key="password">password:</span></td>
+					<td><input jwcid="passwordField" /></td>
+				</tr>
+			</table>
+		<anchor title="х╥хо">	
+			<go jwcid="AForm" action="AWapList.html">
+				<postfield jwcid="Pname@wml:Postfield" name="literal:nameField" value="ognl:entity.name" /> 
+				<postfield jwcid="Ppassword@wml:Postfield" name="literal:passwordField" value="ognl:entity.password" /> 
+			</go>Submit
+		</anchor>
+		<!--span jwcid="@Insert" value="ognl:context" /-->
+	</card>
+</wml>

@@ -3,15 +3,15 @@
   "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
   "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<application name="poison-system" engine-class="org.apache.tapestry.engine.BaseEngine">
+<application name="poison-system" engine-class="org.apache.tapestry.wml.WMLEngine">
 	<description>Posion Information Application</description>
 <!--	<meta key="org.apache.tapestry.messages-encoding_zh" value="GBK"/>-->
 	<meta key="org.apache.tapestry.template-encoding" value="utf-8"/>
-	<meta key="org.apache.tapestry.home-page" value="Home"/>
+	<meta key="org.apache.tapestry.home-page" value="wap/one/AWapList"/>
+    <!--增加模板页标识-->
+    <meta key="org.apache.tapestry.template-extension" value="wml"/>
 	<library id="tacos" specification-path="/net/sf/tacos/Tacos.library"/>
 	<library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/>
     <library id="corner" specification-path="/corner/orm/tapestry/component/corner.library"/>
-
-
-
+    <library id="wml" specification-path="/org/apache/tapestry/wml/WML.library"/>
 </application>

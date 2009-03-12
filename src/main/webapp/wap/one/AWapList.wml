@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.2//EN"
+"http://www.wapforum.org/DTD/wml12.dtd">
+
+<wml>
+<head>
+<meta http-equiv="Cache-Control" content="must-revalidate" forua="true" />
+<meta http-equiv="Cache-Control" content="no-cache" forua="true" />
+</head>
+<card>
+<a listener="listener:doNewEntityAction"
+	jwcid="@DirectLink" href="AWapForm.html"> <span key="link.add">add</span>
+</a>
+<table>
+	<tr>
+		<td><span key="Name">name:</span></td>
+		<td><input jwcid="nameField" /></td>
+	</tr>
+</table>
+<anchor title="Query">
+<go jwcid="AQueryForm">
+	<postfield jwcid="Pname@wml:Postfield" name="literal:nameField" value="ognl:queryEntity.name"/>
+</go>Query
+</anchor>
+<br />
+<div jwcid="testTableView@contrib:TableView"
+	columns="name,password" element="div" source="ognl:source"
+	persist="client">
+<table>
+	<tr>
+		<td><span key="id">id</span></td>
+		<td><span key="name">name</span></td>
+		<td><span key="password">password</span></td>
+		<td><span key="link.edit">edit</span></td>
+		<td><span key="link.delete">delete</span></td>
+	</tr>
+	<tr row="ognl:entity" jwcid="@contrib:TableRows" element="tr">
+		<td><span jwcid="@Insert" value="ognl:entity.id">id</span></td>
+		<td><span jwcid="@Insert" value="ognl:entity.name">name</span></td>
+		<td><span jwcid="@Insert" value="ognl:entity.password">password</span>
+		</td>
+		<td><a parameters="ognl:entity"
+			listener="listener:doEditEntityAction" jwcid="@DirectLink"
+			href="AForm.html" id="editAction"> <span key="link.edit">Edit</span>
+		</a></td>
+		<td><a parameters="ognl:entity"
+			listener="listener:doDeleteEntityAction" jwcid="@DirectLink" href="#"
+			id="deleteAction"> <span key="link.delete">Delete</span> </a></td>
+	</tr>
+</table>
+<div jwcid="@contrib:TablePages" element="div" />
+</div>
+<!--a jwcid="@PageLink" page="one/DatePickerForm">Corner:DropdownDatePicker</a-->
+</card>
+</wml>

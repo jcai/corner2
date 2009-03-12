@@ -13,34 +13,36 @@
 		<!--init-param>
 			<param-name>redirect-path</param-name>
 			<param-value>/back/systemcode/dim.page</param-value>
-		</init-param -->
+			</init-param -->
 	</filter>
 	<!--
-	<filter>
-	<filter-name>osiv</filter-name>
-	<filter-class>corner.web.filter.CornerOpenSessionInViewFilter</filter-class>
-	</filter> -->
+		<filter>
+		<filter-name>osiv</filter-name>
+		<filter-class>corner.web.filter.CornerOpenSessionInViewFilter</filter-class>
+		</filter> -->
 	<filter-mapping>
 		<filter-name>redirect</filter-name>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>
 	<!--
-	<filter-mapping>
+		<filter-mapping>
 		<filter-name>osiv</filter-name>
 		<url-pattern>*.page</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
+		</filter-mapping>
+		<filter-mapping>
 		<filter-name>osiv</filter-name>
 		<url-pattern>*.direct</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
+		</filter-mapping>
+		<filter-mapping>
 		<filter-name>osiv</filter-name>
 		<url-pattern>*.sdirect</url-pattern>
-	</filter-mapping>
-		-->
+		</filter-mapping>
+	-->
 	<servlet>
 		<servlet-name>demo</servlet-name>
-		<servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
+		<servlet-class>
+			org.apache.tapestry.ApplicationServlet
+		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -77,14 +79,51 @@
 		<servlet-name>demo</servlet-name>
 		<url-pattern>/assets/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>demo</servlet-name>
 		<url-pattern>*.xfire</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>demo</servlet-name>
 		<url-pattern>*.wsdl</url-pattern>
 	</servlet-mapping>
+	
+	<!--  增加wml映射 -->
+	<servlet-mapping>
+		<servlet-name>demo</servlet-name>
+		<url-pattern>*.wml</url-pattern>
+	</servlet-mapping>
+	<!-- 配置WML格式 -->
+
+	<!-- WML Source -->
+	　
+	<mime-mapping>
+		<extension>wml</extension>
+		<mime-type>text/vnd.wap.wml</mime-type>
+	</mime-mapping>
+	<!-- Compiled WML -->
+	<mime-mapping>
+		<extension>wmlc</extension>
+		<mime-type>application/vnd.wap.wmlc</mime-type>
+	</mime-mapping>
+
+	<!-- WML Script Source -->
+	<mime-mapping>
+		<extension>wmls</extension>
+		<mime-type>text/vnd.wap.wmlscript</mime-type>
+	</mime-mapping>
+
+	<!-- Compiled WML Script -->
+	<mime-mapping>
+		<extension>wmlscriptc</extension>
+		<mime-type>application/vnd.wap.wmlscriptc</mime-type>
+	</mime-mapping>
+	
+	<!-- wbmp source -->
+	<mime-mapping>
+		<extension>wbmp</extension>
+		<mime-type>image/vnd.wap.wbmp</mime-type>
+	</mime-mapping>
 </web-app>
