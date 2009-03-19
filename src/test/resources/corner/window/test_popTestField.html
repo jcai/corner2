@@ -82,7 +82,6 @@ test1=function(){
 var pwin_winDialog;
 
 function ddd(){
-
    if(!pwin_winDialog){
 					   								   
    pwin_winDialog = new Window('pwin_winDialog',{"id":"generated","className":"alphacube","title":"google",
@@ -93,6 +92,10 @@ function ddd(){
 								   "opacity":1,"recenterAuto":"true","gridX":1,"gridY":1,"wiredDrag":"false",
 								   "destroyOnClose":"false","onload":test1,"all callbacks":"none"});
 	}
+	//在窗体关闭的时候调用一个方法
+	dojo.event.connect('after',pwin_winDialog,'close',function(){
+		dojo.debug('after pwin_winDialog.close()');
+	});
 	pwin_winDialog.showCenter();
 }
 
