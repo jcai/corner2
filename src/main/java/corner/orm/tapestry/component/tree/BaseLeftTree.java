@@ -119,6 +119,7 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 		model.setDepth(Integer.valueOf(cycle.getParameter("depth").trim()));
 		model.setQueryClassName(cycle.getParameter("queryClassName").trim());
 		model.setDepends(cycle.getParameter("dependFields").trim().split(","));
+		model.setParentPage(this.getPage());
 		return model;
 	}
 	
