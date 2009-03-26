@@ -91,39 +91,47 @@
 	</servlet-mapping>
 	
 	<!--  增加wml映射 -->
+	<!-- 
 	<servlet-mapping>
 		<servlet-name>demo</servlet-name>
 		<url-pattern>*.wml</url-pattern>
 	</servlet-mapping>
+	-->
 	<!-- 配置WML格式 -->
 
 	<!-- WML Source -->
-	　
+	<!-- 
 	<mime-mapping>
 		<extension>wml</extension>
 		<mime-type>text/vnd.wap.wml</mime-type>
 	</mime-mapping>
+	-->
 	<!-- Compiled WML -->
+	<!-- 
 	<mime-mapping>
 		<extension>wmlc</extension>
 		<mime-type>application/vnd.wap.wmlc</mime-type>
 	</mime-mapping>
-
+	-->
 	<!-- WML Script Source -->
+	<!-- 
 	<mime-mapping>
 		<extension>wmls</extension>
 		<mime-type>text/vnd.wap.wmlscript</mime-type>
 	</mime-mapping>
-
+	-->
 	<!-- Compiled WML Script -->
+	<!-- 
 	<mime-mapping>
 		<extension>wmlscriptc</extension>
 		<mime-type>application/vnd.wap.wmlscriptc</mime-type>
 	</mime-mapping>
-	
+	-->
 	<!-- wbmp source -->
+	<!-- 
 	<mime-mapping>
 		<extension>wbmp</extension>
 		<mime-type>image/vnd.wap.wbmp</mime-type>
 	</mime-mapping>
+	 -->
 </web-app>
