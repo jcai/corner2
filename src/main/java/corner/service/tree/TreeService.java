@@ -1,9 +1,14 @@
-/*		
- * Copyright 2008 The Fepss Pty Ltd. 
- * site: http://www.fepss.com
- * file: $Id: TreeService.java 508 2008-05-27 01:44:48Z Ghostbb $
- * created at:2008-05-11
- */
+//==============================================================================
+// file :       $Id$
+// project:     corner
+//
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
+//==============================================================================
 
 package corner.service.tree;
 

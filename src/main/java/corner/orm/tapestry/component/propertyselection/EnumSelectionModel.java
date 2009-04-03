@@ -1,9 +1,14 @@
-/*		
- * Copyright 2008 The Fepss Pty Ltd. 
- * site: http://www.fepss.com
- * file: $Id: EnumSelectionModel.java 911 2008-06-14 06:45:46Z jcai $
- * created at:2008-06-14
- */
+//==============================================================================
+// file :       $Id$
+// project:     corner
+//
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
+//==============================================================================
 
 package corner.orm.tapestry.component.propertyselection;
 

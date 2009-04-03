@@ -1,9 +1,14 @@
-/*		
- * Copyright 2008 The Fepss Pty Ltd. 
- * site: http://www.fepss.com
- * file: $Id: DateTranslator.java 1412 2008-07-20 01:47:09Z ghostbb $
- * created at:2008-05-14
- */
+//==============================================================================
+// file :       $Id$
+// project:     corner
+//
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
+//==============================================================================
 
 package corner.orm.tapestry.translator;
 

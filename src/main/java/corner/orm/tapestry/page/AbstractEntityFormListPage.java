@@ -1,9 +1,14 @@
-/*		
- * Copyright 2008 The Fepss Pty Ltd. 
- * site: http://www.fepss.com
- * file: $Id: AbstractEntityFormListPage.java 1621 2008-08-02 12:02:39Z ghostbb $
- * created at:2008-06-04
- */
+//==============================================================================
+// file :       $Id$
+// project:     corner
+//
+// last change: date:       $Date$
+//              by:         $Author$
+//              revision:   $Revision$
+//------------------------------------------------------------------------------
+//copyright:	Beijing Maxinfo Technology Ltd. http://www.bjmaxinfo.com
+//License:      the Apache License, Version 2.0 (the "License")
+//==============================================================================
 
 package corner.orm.tapestry.page;
 
