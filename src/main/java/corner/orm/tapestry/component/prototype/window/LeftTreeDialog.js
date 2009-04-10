@@ -16,9 +16,10 @@ LeftTreeDialog.prototype = {
 				frameW=dojo.html.iframeContentWindow(this.win.getContent());
 				if(frameW){
 					frameW.queryBox=this;
-					if(frameW.tree)
+					if(frameW.tree && frameW.tree.treeObj){
 						frameW.tree.treeObj.onClick();
-					dojo.debug("frameW.queryBox : " + frameW.queryBox);
+						dojo.debug("frameW.queryBox : " + frameW.queryBox);
+					}
 				}
 			}
 		});
