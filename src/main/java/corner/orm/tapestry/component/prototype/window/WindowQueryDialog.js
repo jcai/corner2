@@ -76,7 +76,8 @@ WindowDialogBase = CornerBuilder.create({
 		Event.observe($(this.win.element.id + "_content"), "load", this.win.options.onload);
 		
 		//增加窗口关闭时候的callback能力，方法名称必须为closeCallback
-		if(closeCallback){
+		
+		if(typeof(closeCallback) == 'function'){
 			dojo.event.connect('after', $(this.win), 'close', closeCallback);
 		}
 	},
