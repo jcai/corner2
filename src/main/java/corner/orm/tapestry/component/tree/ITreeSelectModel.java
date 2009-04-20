@@ -1,12 +1,8 @@
 package corner.orm.tapestry.component.tree;
 
 import java.util.List;
-
 import org.apache.tapestry.IPage;
-import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.json.JSONObject;
-import org.apache.tapestry.services.LinkFactory;
-
 import corner.model.tree.ITree;
 import corner.model.tree.ITreeAdaptor;
 
