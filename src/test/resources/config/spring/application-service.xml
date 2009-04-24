@@ -28,13 +28,13 @@
 		<property name="target">
 			<bean class="corner.service.svn.SubversionService">
 				<property name="url">
-					<value>svn+ssh://dev.bjmaxinfo.com/home/jetty/svn-test</value>
+					<value>http://dev.bjmaxinfo.com/svn/svn-test/</value>
 				</property>
 				<property name="username">
-					<value>jetty</value>
+					<value>xf</value>
 				</property>
 				<property name="password">
-					<value>jetty</value>
+					<value>123456</value>
 				</property>
 			</bean>
 		</property>
