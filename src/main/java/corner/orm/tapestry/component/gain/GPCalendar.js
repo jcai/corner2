@@ -41,7 +41,7 @@ function showCalendar(el, format, showsTime, showsOtherMonths) {
 	_dynarch_popupCalendar.sel = el; // inform it what input field we use
 	
 	//显示cal
-	_dynarch_popupCalendar.showAtElement(el, "Br");// show the calendar
+	_dynarch_popupCalendar.showAtElement(el);// show the calendar
 	
 	return false;
 }
