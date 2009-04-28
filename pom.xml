@@ -181,14 +181,14 @@
 		<repository>
 			<id>central</id>
 			<name>maxinfo</name>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/groups/public</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/groups/public</url>
 		</repository>
 		<repository>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
 			<id>snapshots</id>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/groups/public-snapshots</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/groups/public-snapshots</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -197,14 +197,14 @@
 				<enabled>false</enabled>
 			</snapshots>
 			<id>central</id>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/groups/public</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/groups/public</url>
 		</pluginRepository>
 		<pluginRepository>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
 			<id>snapshots</id>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/groups/public-snapshots</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/groups/public-snapshots</url>
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
@@ -492,12 +492,12 @@
 		<repository>
 			<id>maxinfo</id>
 			<name>bjmaxinfo release</name>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo</url>
 		</repository>
 		<snapshotRepository>
 			<id>maxinfo</id>
 			<name>bjmaxinfo snapshot</name>
-			<url>http://code.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo-snapshots</url>
+			<url>http://dev.bjmaxinfo.com:5180/nexus/content/repositories/bjmaxinfo-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>

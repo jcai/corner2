@@ -3,7 +3,7 @@
     <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
              classpathref="maven-ant-tasks.classpath"/>
     <!-- 定义中央文件服务地址 -->
-    <artifact:remoteRepository id="maxinfo.repository" url="http://code.bjmaxinfo.com:5180/nexus/content/groups/public"/>
+    <artifact:remoteRepository id="maxinfo.repository" url="http://dev.bjmaxinfo.com:5180/nexus/content/groups/public"/>
     <!-- 定义maven得pom -->
     <artifact:pom file="pom.xml" id="corner"/>
     <!-- corner 依赖的所有包 -->
