@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE script PUBLIC
+  "-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+  "http://tapestry.apache.org/dtd/Script_3_0.dtd">
+<script>
+<include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/js/prototype.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/js/scriptaculous.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/Tree.js" />
+
+<input-symbol key="treeId" required="yes" />
+<input-symbol key="treeStruct" required="yes" />
+<input-symbol key="treeConfig" required="yes" />
+<!--input-symbol key="imgBase" required="no" /-->
+<input-symbol key="expendElementId" required="no" />
+<input-symbol key="collapseElementId" required="no" />
+<initialization>
+
+		var tree = null;
+		// This structure represents one root node with two children
+		var struct = ${treeStruct};
+		var treeConfig = ${treeConfig};
+		
+		// Tree initialisation. This function is called automatically
+		// when the page finish to load
+		tree = new TafelTree('${treeId}', struct, treeConfig);
+		
+		expend = function(){
+			tree.expend();
+		}
+		collapse = function(){
+			tree.collapse();
+		}
+		
+		if('${expendElementId}'!=''){
+			dojo.event.connect(dojo.byId('${expendElementId}'),'onclick','expend');
+		}
+		
+		if('${collapseElementId}'!=''){
+			dojo.event.connect(dojo.byId('${collapseElementId}'),'onclick','collapse');
+		}
+		
+//		tree.collapse();
+		
+//		var branches = tree.getBranches();
+//		alert(branches[0].getId());
+//		branches[0].expend();
+
+
+</initialization>
+</script>

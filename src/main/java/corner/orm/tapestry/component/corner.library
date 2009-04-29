@@ -83,4 +83,5 @@
   <component-type type="AjaxPageRes" specification-path="ajax/AjaxPageResponse.jwc"/>
   
   <component-type type="PushletFrame" specification-path="pushlet/PushletFrame.jwc"/>
+   <component-type type="TafelTree" specification-path="tree/tafeltree/TafelTree.jwc"/>
 </library-specification>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<link rel="stylesheet" type="text/css" href="css/tree.css" />
+<script type="text/javascript" src="js/prototype.js"></script>
+<script type="text/javascript" src="js/scriptaculous.js"></script>
+<script type="text/javascript" src="Tree.js"></script>
+<TITLE>TafelTree_Test</TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+</HEAD>
+<body>
+<div id="myTree"></div>
+</body>
+<script type="text/javascript">
+	// This structure represents one root node with two children
+	var struct = [{'id' : 'root_1','txt' : 'Root 1','img' : 'folder.gif',
+'imgopen' : 'folderopen.gif',
+'imgclose' : 'folderclose.gif','items' : [{'id' : 'branch_1','txt' : 'Branch 1'
+	},{'id' : 'branch_2','txt' : 'Branch 2'}]}
+	];
+	
+	var tree = null;
+	// Tree initialisation. This function is called automatically
+	// when the page finish to load
+	
+	tree = new TafelTree('myTree', struct, {
+	'generate' : true,
+	'imgBase' : 'imgs/',
+	'width' : '100%', // default value : 100%
+	'height' : '150px', // default value : auto
+	'openAtLoad' : true,
+	'cookies' : false
+	});
+</script>
+</html>
