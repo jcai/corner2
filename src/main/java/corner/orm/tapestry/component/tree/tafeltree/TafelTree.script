@@ -13,6 +13,7 @@
 <!--input-symbol key="imgBase" required="no" /-->
 <input-symbol key="expendElementId" required="no" />
 <input-symbol key="collapseElementId" required="no" />
+<input-symbol key="rootId" required="no" />
 <initialization>
 
 		var tree = null;

@@ -55,7 +55,10 @@ public abstract class TafelTree extends BaseComponent {
 	
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootText();
-
+	
+	@Parameter(defaultValue = "literal:root_1")
+	public abstract String getRootId();
+	
 	@Parameter
 	public abstract String getExpendElementId();
 
@@ -67,7 +70,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
-
+	
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle)
@@ -86,6 +89,7 @@ public abstract class TafelTree extends BaseComponent {
 
 		parms.put("treeStruct", this.getTreeJsonStr());
 		parms.put("treeConfig", this.getTreeCfgJsonStr());
+		parms.put("rootId", this.getRootId());
 
 		getScript().execute(this, cycle, pageRenderSupport, parms);
 	}
@@ -125,7 +129,7 @@ public abstract class TafelTree extends BaseComponent {
 			JSONArray rootArray = new JSONArray();
 			JSONObject root= new JSONObject();
 			
-			root.put("id", "root_1");
+			root.put("id", this.getRootId());
 			root.put("txt", this.getRootText());
 			root.put("items", constructorDefault(null));
 			root.put("img", this.getImgBase()+"base.gif");
