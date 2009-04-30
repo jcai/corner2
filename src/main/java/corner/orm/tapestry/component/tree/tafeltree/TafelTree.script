@@ -29,10 +29,9 @@
 		expend = function(){
 			tree.expend();
 		}
-		collapse = function(){
+		collapseTree = function(){
 			tree.collapse();
 		}
-		//		tree.collapse();
 		
 		var root = tree.getBranchById('${rootId}');
 		root.expend();
@@ -44,7 +43,7 @@
 		}
 		
 		if('${collapseElementId}'!=''){
-			dojo.event.connect(dojo.byId('${collapseElementId}'),'onclick','collapse');
+			dojo.event.connect(dojo.byId('${collapseElementId}'),'onclick','collapseTree');
 		}
 		
 </initialization>
