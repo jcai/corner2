@@ -23,6 +23,7 @@
 		// Tree initialisation. This function is called automatically
 		// when the page finish to load
 		tree = new TafelTree('${treeId}', struct, treeConfig);
+//		tree.generate(); 
 		
 		expend = function(){
 			tree.expend();

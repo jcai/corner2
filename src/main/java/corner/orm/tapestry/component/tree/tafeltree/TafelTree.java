@@ -27,6 +27,8 @@ import org.apache.tapestry.annotations.InjectScript;
 import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
+import org.apache.tapestry.web.WebRequest;
+
 import corner.model.tree.ITreeAdaptor;
 import corner.service.tree.TreeService;
 import corner.service.tree.tafeltree.ITafelTreeStructService;
@@ -40,7 +42,9 @@ public abstract class TafelTree extends BaseComponent {
 
 	@InjectObject("spring:treeService")
 	public abstract TreeService getTreeService();
-
+	
+	@InjectObject("infrastructure:request")
+	public abstract WebRequest getWebRequest();
 	/**
 	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#getScript()
 	 */
@@ -82,7 +86,7 @@ public abstract class TafelTree extends BaseComponent {
 		Map<String, Object> parms = new HashMap<String, Object>();
 
 		parms.put("treeId", this.getTreeId());
-		parms.put("imgBase", this.getImgBase());
+		parms.put("imgBase", this.getWebRequest().getContextPath()+this.getImgBase());
 
 		parms.put("expendElementId", this.getExpendElementId());
 		parms.put("collapseElementId", this.getCollapseElementId());
@@ -131,8 +135,8 @@ public abstract class TafelTree extends BaseComponent {
 			
 			root.put("id", this.getRootId());
 			root.put("txt", this.getRootText());
+			root.put("img", "base.gif");
 			root.put("items", constructorDefault(null));
-			root.put("img", this.getImgBase()+"base.gif");
 			rootArray.put(root);
 //			return jsonStr;
 			return rootArray.toString();
