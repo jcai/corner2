@@ -143,6 +143,8 @@ public abstract class TafelTree extends BaseComponent {
 			root.put("id", this.getRootId());
 			root.put("txt", this.getRootText());
 			root.put("img", "base.gif");
+			root.put("imgopen", "base.gif");
+			root.put("imgclose", "base.gif");
 			root.put("items", constructorDefault(null));
 			rootArray.put(root);
 			// return jsonStr;
