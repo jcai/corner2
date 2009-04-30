@@ -54,10 +54,16 @@ public abstract class TafelTree extends BaseComponent {
 
 	@Parameter(defaultValue = "literal:myTree")
 	public abstract String getTreeId();
-
+	
+	@Parameter(defaultValue = "ognl:true")
+	public abstract boolean isDsplyLeaf();
+	
 	@Parameter(defaultValue = "literal:/images/treeImgs/")
 	public abstract String getImgBase();
-
+	
+	@Parameter(defaultValue = "literal:page.gif")
+	public abstract String getDefaultImg();
+	
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootText();
 
@@ -112,7 +118,7 @@ public abstract class TafelTree extends BaseComponent {
 			// height default value : auto
 			return "{'generate' : true," + "'imgBase' : '"
 					+ this.getWebRequest().getContextPath() + this.getImgBase()
-					+ "'," + "'defaultImg' : 'page.gif',"
+					+ "'," + "'defaultImg' : '" + getDefaultImg() + "',"
 					+ "'defaultImgOpen' : 'folderopen.gif',"
 					+ "'defaultImgClose' : 'folder.gif'," + "'width' : '100%',"
 					+ "'height' : 'auto'," + "'openAtLoad' : false,"
@@ -171,11 +177,14 @@ public abstract class TafelTree extends BaseComponent {
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 			ITreeAdaptor node = (ITreeAdaptor) iterator.next();
 			JSONObject jsonNode = new JSONObject();
+			
+			//是否添加叶
+			if(isDsplyLeaf() || isBranch(node)){
+				jsonNode.put("id", node.getId());
+				jsonNode.put("txt", node.getNodeName());
+			}
 
-			jsonNode.put("id", node.getId());
-			jsonNode.put("txt", node.getNodeName());
-
-			if ((node.getRight() - node.getLeft()) != 1) {
+			if (isBranch(node)) {
 				list = this.getTreeService().getDepthTree(this.getPage(),
 						this.getQueryClassName(), null, node.getDepth() + 1,
 						node.getLeft(), node.getRight());
@@ -186,5 +195,14 @@ public abstract class TafelTree extends BaseComponent {
 		}
 
 		return nodes;
+	}
+
+	/**
+	 * 是不是枝
+	 * @param node
+	 * @return
+	 */
+	private boolean isBranch(ITreeAdaptor node) {
+		return (node.getRight() - node.getLeft()) != 1 ? true : false;
 	}
 }
