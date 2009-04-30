@@ -4,9 +4,6 @@ CustTafelTree.prototype = {
 
 		var tree = null;
 		// This structure represents one root node with two children
-//		var struct = ${treeStruct};
-//		var treeConfig = ${treeConfig};
-		
 		// Tree initialisation. This function is called automatically
 		// when the page finish to load
 		tree = new TafelTree(treeId, struct, treeConfig);
@@ -18,7 +15,6 @@ CustTafelTree.prototype = {
 		collapseTree = function(){
 			tree.collapse();
 		}
-		//tafelTree关闭节点
 		tafelTreeExpend= function(branches){
 			for(var i=0;i<branches.length;i++){
 				branches[i].collapse();
