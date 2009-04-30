@@ -5,7 +5,7 @@
 <script>
 <include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/js/scriptaculous.js" />
-<include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/Tree.js" />
+<include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/Tree-optimized.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/TafelTreeUtil.js" />
 
 <input-symbol key="treeId" required="yes" />
@@ -15,7 +15,7 @@
 <input-symbol key="collapseElementId" required="no" />
 <input-symbol key="rootId" required="no" />
 <initialization>
-window.tafelTree = new CustTafelTree(${treeStruct},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}')
+window.custTafelTree = new CustTafelTree(${treeStruct},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}')
 		
 </initialization>
 </script>
