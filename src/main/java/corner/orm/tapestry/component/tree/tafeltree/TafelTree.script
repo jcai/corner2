@@ -11,40 +11,11 @@
 <input-symbol key="treeId" required="yes" />
 <input-symbol key="treeStruct" required="yes" />
 <input-symbol key="treeConfig" required="yes" />
-<!--input-symbol key="imgBase" required="no" /-->
 <input-symbol key="expendElementId" required="no" />
 <input-symbol key="collapseElementId" required="no" />
 <input-symbol key="rootId" required="no" />
 <initialization>
-		var tree = null;
-		// This structure represents one root node with two children
-		var struct = ${treeStruct};
-		var treeConfig = ${treeConfig};
-		
-		// Tree initialisation. This function is called automatically
-		// when the page finish to load
-		tree = new TafelTree('${treeId}', struct, treeConfig);
-//		tree.generate(); 
-		
-		expend = function(){
-			tree.expend();
-		}
-		collapseTree = function(){
-			tree.collapse();
-		}
-		
-		var root = tree.getBranchById('${rootId}');
-		root.expend();
-		var branches = root.getBranches();
-		tafelTreeExpend(branches);
-
-		if('${expendElementId}'!=''){
-			dojo.event.connect(dojo.byId('${expendElementId}'),'onclick','expend');
-		}
-		
-		if('${collapseElementId}'!=''){
-			dojo.event.connect(dojo.byId('${collapseElementId}'),'onclick','collapseTree');
-		}
+window.tafelTree = new CustTafelTree(${treeStruct},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}')
 		
 </initialization>
 </script>
