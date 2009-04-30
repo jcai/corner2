@@ -42,9 +42,10 @@ public abstract class TafelTree extends BaseComponent {
 
 	@InjectObject("spring:treeService")
 	public abstract TreeService getTreeService();
-	
+
 	@InjectObject("infrastructure:request")
 	public abstract WebRequest getWebRequest();
+
 	/**
 	 * @see corner.orm.tapestry.component.tree.BaseLeftTree#getScript()
 	 */
@@ -56,13 +57,13 @@ public abstract class TafelTree extends BaseComponent {
 
 	@Parameter(defaultValue = "literal:/images/treeImgs/")
 	public abstract String getImgBase();
-	
+
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootText();
-	
+
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootId();
-	
+
 	@Parameter
 	public abstract String getExpendElementId();
 
@@ -74,7 +75,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	@Parameter(required = true)
 	public abstract String getQueryClassName();
-	
+
 	/**
 	 * @see org.apache.tapestry.BaseComponent#renderComponent(org.apache.tapestry.IMarkupWriter,
 	 *      org.apache.tapestry.IRequestCycle)
@@ -86,7 +87,8 @@ public abstract class TafelTree extends BaseComponent {
 		Map<String, Object> parms = new HashMap<String, Object>();
 
 		parms.put("treeId", this.getTreeId());
-		parms.put("imgBase", this.getWebRequest().getContextPath()+this.getImgBase());
+		parms.put("imgBase", this.getWebRequest().getContextPath()
+				+ this.getImgBase());
 
 		parms.put("expendElementId", this.getExpendElementId());
 		parms.put("collapseElementId", this.getCollapseElementId());
@@ -100,6 +102,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 树的一些配置信息
+	 * 
 	 * @return
 	 */
 	private String getTreeCfgJsonStr() {
@@ -107,11 +110,12 @@ public abstract class TafelTree extends BaseComponent {
 				|| this.getConstructor().getTreeConfig() == null) {
 			// width default value : 100%
 			// height default value : auto
-			return "{'generate' : true," + "'imgBase' : '" + this.getImgBase()
+			return "{'generate' : true," + "'imgBase' : '"
+					+ this.getWebRequest().getContextPath() + this.getImgBase()
 					+ "'," + "'defaultImg' : 'page.gif',"
 					+ "'defaultImgOpen' : 'folderopen.gif',"
 					+ "'defaultImgClose' : 'folder.gif'," + "'width' : '100%',"
-					+ "'height' : 'auto'," + "'openAtLoad' : true,"
+					+ "'height' : 'auto'," + "'openAtLoad' : false,"
 					+ "'cookies' : false" + "}";
 		} else {
 			return this.getConstructor().getTreeConfig().toString();
@@ -125,20 +129,23 @@ public abstract class TafelTree extends BaseComponent {
 	 */
 	private String getTreeJsonStr() {
 		if (this.getConstructor() == null) {
-//			String jsonStr = "[{'id' : 'root_1','txt' : 'Root 1','img' : 'folder.gif',"
-//				+ "'imgopen' : 'folderopen.gif',"
-//				+ "'imgclose' : 'folder.gif','items' : [{'id' : 'branch_1','txt' : 'Branch 1','items' : [{'id' : 'branch_1_1','txt' : 'Branch 1_1'},{'id' : 'branch_1_2','txt' : 'Branch_1_2'}]"
-//				+ "},{'id' : 'branch_2','txt' : 'Branch 2'}]}]";
-			
+			// String jsonStr = "[{'id' : 'root_1','txt' : 'Root 1','img' :
+			// 'folder.gif',"
+			// + "'imgopen' : 'folderopen.gif',"
+			// + "'imgclose' : 'folder.gif','items' : [{'id' : 'branch_1','txt'
+			// : 'Branch 1','items' : [{'id' : 'branch_1_1','txt' : 'Branch
+			// 1_1'},{'id' : 'branch_1_2','txt' : 'Branch_1_2'}]"
+			// + "},{'id' : 'branch_2','txt' : 'Branch 2'}]}]";
+
 			JSONArray rootArray = new JSONArray();
-			JSONObject root= new JSONObject();
-			
+			JSONObject root = new JSONObject();
+
 			root.put("id", this.getRootId());
 			root.put("txt", this.getRootText());
 			root.put("img", "base.gif");
 			root.put("items", constructorDefault(null));
 			rootArray.put(root);
-//			return jsonStr;
+			// return jsonStr;
 			return rootArray.toString();
 		} else {
 			return this.getConstructor().getTreeStruct().toString();
@@ -147,31 +154,35 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 递归构造json
+	 * 
 	 * @return
 	 */
 	private JSONArray constructorDefault(List list) {
 
-		if(list == null){
-			list = this.getTreeService().getDepthTree(this.getPage(), this.getQueryClassName(), null, 1, 0, 0);
+		if (list == null) {
+			list = this.getTreeService().getDepthTree(this.getPage(),
+					this.getQueryClassName(), null, 1, 0, 0);
 		}
-		
+
 		JSONArray nodes = new JSONArray();
-		
+
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 			ITreeAdaptor node = (ITreeAdaptor) iterator.next();
 			JSONObject jsonNode = new JSONObject();
-			
+
 			jsonNode.put("id", node.getId());
 			jsonNode.put("txt", node.getNodeName());
-			
-			if((node.getRight() - node.getLeft()) != 1){
-				list = this.getTreeService().getDepthTree(this.getPage(), this.getQueryClassName(), null, node.getDepth()+1, node.getLeft(), node.getRight());
+
+			if ((node.getRight() - node.getLeft()) != 1) {
+				list = this.getTreeService().getDepthTree(this.getPage(),
+						this.getQueryClassName(), null, node.getDepth() + 1,
+						node.getLeft(), node.getRight());
 				jsonNode.put("items", this.constructorDefault(list));
 			}
-			
+
 			nodes.put(jsonNode);
 		}
-		
+
 		return nodes;
 	}
 }

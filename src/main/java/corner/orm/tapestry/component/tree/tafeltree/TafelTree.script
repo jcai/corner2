@@ -33,7 +33,8 @@
 		}
 		//		tree.collapse();
 		
-//		var branches = tree.getBranches();
+//		var root = tree.getBranchById('${rootId}');
+//		root.expend()
 //		alert(branches[0].getId());
 //		branches[0].expend();
 
