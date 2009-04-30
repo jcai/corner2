@@ -28,12 +28,13 @@ import org.apache.tapestry.annotations.Parameter;
 import org.apache.tapestry.json.JSONArray;
 import org.apache.tapestry.json.JSONObject;
 import org.apache.tapestry.web.WebRequest;
-
 import corner.model.tree.ITreeAdaptor;
 import corner.service.tree.TreeService;
-import corner.service.tree.tafeltree.ITafelTreeStructService;
+import corner.util.StringUtils;
 
 /**
+ * 封装"js组件tafelTree_1_9_1" 部分功能
+ * 
  * @author <a href=mailto:wlh@bjmaxinfo.com>wlh</a>
  * @version $Revision$
  * @since 2.5.2
@@ -52,34 +53,80 @@ public abstract class TafelTree extends BaseComponent {
 	@InjectScript("TafelTree.script")
 	public abstract IScript getScript();
 
+	/**
+	 * 树的ID名.需要提供一个区域块 呈现树 如:<div id="myTree"></div>
+	 * @return
+	 */
 	@Parameter(defaultValue = "literal:myTree")
 	public abstract String getTreeId();
 	
+	/**
+	 * 默认组织树的 Json方法的this.constructorDefault(List list);
+	 * 需不需要 组织叶节点。
+	 * 
+	 * @return
+	 */
 	@Parameter(defaultValue = "ognl:true")
 	public abstract boolean isDsplyLeaf();
 	
+	/**
+	 * 图片存放的基础地址
+	 * 
+	 * @return
+	 */
 	@Parameter(defaultValue = "literal:/images/treeImgs/")
 	public abstract String getImgBase();
 	
 	@Parameter(defaultValue = "literal:page.gif")
 	public abstract String getDefaultImg();
 	
+	/**
+	 * 根节点的呈现文本。
+	 * @return
+	 */
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootText();
 
+	/**
+	 * 指定根节点ID。
+	 * @return
+	 */
 	@Parameter(defaultValue = "literal:root_1")
 	public abstract String getRootId();
 
+	/**
+	 * 需要拥有全部展开所有节点功能控件的ID
+	 * @return
+	 */
 	@Parameter
 	public abstract String getExpendElementId();
 
+	/**
+	 * 需要拥有全部关闭所有节点功能控件的ID
+	 * @return
+	 */
 	@Parameter
 	public abstract String getCollapseElementId();
-
+	
+	/**
+	 * 获得构造树型的 json串.为空折采用默认方法
+	 * @return
+	 */
 	@Parameter
-	public abstract ITafelTreeStructService getConstructor();
-
-	@Parameter(required = true)
+	public abstract String getJSONStruct();
+	
+	/**
+	 * 树型 json 配置串
+	 * @return
+	 */
+	@Parameter
+	public abstract String getJSONCfg();
+	
+	/**
+	 * 采用默认方法时必须提供的查询类.
+	 * @return
+	 */
+	@Parameter
 	public abstract String getQueryClassName();
 
 	/**
@@ -112,8 +159,7 @@ public abstract class TafelTree extends BaseComponent {
 	 * @return
 	 */
 	private String getTreeCfgJsonStr() {
-		if (this.getConstructor() == null
-				|| this.getConstructor().getTreeConfig() == null) {
+		if (StringUtils.blank(this.getJSONCfg())) {
 			// width default value : 100%
 			// height default value : auto
 			return "{'generate' : true," + "'imgBase' : '"
@@ -124,7 +170,7 @@ public abstract class TafelTree extends BaseComponent {
 					+ "'height' : 'auto'," + "'openAtLoad' : false,"
 					+ "'cookies' : false" + "}";
 		} else {
-			return this.getConstructor().getTreeConfig().toString();
+			return this.getJSONCfg();
 		}
 	}
 
@@ -134,7 +180,7 @@ public abstract class TafelTree extends BaseComponent {
 	 * @return
 	 */
 	private String getTreeJsonStr() {
-		if (this.getConstructor() == null) {
+		if (this.getJSONStruct() == null) {
 			// String jsonStr = "[{'id' : 'root_1','txt' : 'Root 1','img' :
 			// 'folder.gif',"
 			// + "'imgopen' : 'folderopen.gif',"
@@ -156,7 +202,7 @@ public abstract class TafelTree extends BaseComponent {
 			// return jsonStr;
 			return rootArray.toString();
 		} else {
-			return this.getConstructor().getTreeStruct().toString();
+			return this.getJSONStruct();
 		}
 	}
 
