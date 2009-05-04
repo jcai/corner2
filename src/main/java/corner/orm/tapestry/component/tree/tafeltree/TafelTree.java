@@ -95,18 +95,25 @@ public abstract class TafelTree extends BaseComponent {
 	public abstract String getRootId();
 
 	/**
-	 * 需要拥有全部展开所有节点功能控件的ID
+	 * 需要拥有展开所有节点功能控件的ID
 	 * @return
 	 */
 	@Parameter
 	public abstract String getExpendElementId();
 
 	/**
-	 * 需要拥有全部关闭所有节点功能控件的ID
+	 * 需要拥有关闭所有节点功能控件的ID
 	 * @return
 	 */
 	@Parameter
 	public abstract String getCollapseElementId();
+	
+	/**
+	 * 需要拥有展开合关闭所有节点功能控件的ID
+	 * @return
+	 */
+	@Parameter
+	public abstract String getOptTreeCmpId();
 	
 	/**
 	 * 获得构造树型的 json串.为空折采用默认方法
@@ -145,7 +152,8 @@ public abstract class TafelTree extends BaseComponent {
 
 		parms.put("expendElementId", this.getExpendElementId());
 		parms.put("collapseElementId", this.getCollapseElementId());
-
+		parms.put("optTreeCmpId", this.getOptTreeCmpId());
+		
 		parms.put("treeStruct", this.getTreeJsonStr());
 		parms.put("treeConfig", this.getTreeCfgJsonStr());
 		parms.put("rootId", this.getRootId());
