@@ -109,11 +109,18 @@ public abstract class TafelTree extends BaseComponent {
 	public abstract String getCollapseElementId();
 	
 	/**
-	 * 需要拥有展开合关闭所有节点功能控件的ID
+	 * 需要拥有展开和关闭所有节点功能控件的ID
 	 * @return
 	 */
 	@Parameter
 	public abstract String getOptTreeCmpId();
+	
+	/**
+	 * 需要拥有显示和隐藏所有叶节点功能控件的ID
+	 * @return
+	 */
+	@Parameter
+	public abstract String getOptTreeLeafCmpId();
 	
 	/**
 	 * 获得构造树型的 json串.为空折采用默认方法
@@ -153,8 +160,10 @@ public abstract class TafelTree extends BaseComponent {
 		parms.put("expendElementId", this.getExpendElementId());
 		parms.put("collapseElementId", this.getCollapseElementId());
 		parms.put("optTreeCmpId", this.getOptTreeCmpId());
+		parms.put("optTreeLeafCmpId", this.getOptTreeLeafCmpId());
 		
-		parms.put("treeStruct", this.getTreeJsonStr());
+		parms.put("treeStruct", this.getTreeJsonStr(this.isDsplyLeaf()));
+		parms.put("treeStruct1", this.getTreeJsonStr(false));
 		parms.put("treeConfig", this.getTreeCfgJsonStr());
 		parms.put("rootId", this.getRootId());
 
@@ -187,7 +196,7 @@ public abstract class TafelTree extends BaseComponent {
 	 * 
 	 * @return
 	 */
-	private String getTreeJsonStr() {
+	private String getTreeJsonStr(boolean isDsplyLeaf) {
 		if (this.getJSONStruct() == null) {
 			// String jsonStr = "[{'id' : 'root_1','txt' : 'Root 1','img' :
 			// 'folder.gif',"
@@ -205,7 +214,7 @@ public abstract class TafelTree extends BaseComponent {
 			root.put("img", "base.gif");
 			root.put("imgopen", "base.gif");
 			root.put("imgclose", "base.gif");
-			root.put("items", constructorDefault(null));
+			root.put("items", constructorDefault(null,isDsplyLeaf));
 			rootArray.put(root);
 			// return jsonStr;
 			return rootArray.toString();
@@ -216,10 +225,11 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 递归构造json
+	 * @param isDsplyLeaf 
 	 * 
 	 * @return
 	 */
-	private JSONArray constructorDefault(List list) {
+	private JSONArray constructorDefault(List list, boolean isDsplyLeaf) {
 
 		if (list == null) {
 			list = this.getTreeService().getDepthTree(this.getPage(),
@@ -233,16 +243,18 @@ public abstract class TafelTree extends BaseComponent {
 			JSONObject jsonNode = new JSONObject();
 			
 			//是否添加叶
-			if(isDsplyLeaf() || isBranch(node)){
+			if(isDsplyLeaf || isBranch(node)){
 				jsonNode.put("id", node.getId());
 				jsonNode.put("txt", node.getNodeName());
+			}else{
+				continue;
 			}
 
 			if (isBranch(node)) {
 				list = this.getTreeService().getDepthTree(this.getPage(),
 						this.getQueryClassName(), null, node.getDepth() + 1,
 						node.getLeft(), node.getRight());
-				jsonNode.put("items", this.constructorDefault(list));
+				jsonNode.put("items", this.constructorDefault(list,isDsplyLeaf));
 			}
 
 			nodes.put(jsonNode);

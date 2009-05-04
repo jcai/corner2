@@ -10,14 +10,16 @@
 
 <input-symbol key="treeId" required="yes" />
 <input-symbol key="treeStruct" required="yes" />
+<input-symbol key="treeStruct1" required="yes" />
 <input-symbol key="treeConfig" required="yes" />
 <input-symbol key="expendElementId" required="no" />
 <input-symbol key="collapseElementId" required="no" />
 <input-symbol key="optTreeCmpId" required="no" />
+<input-symbol key="optTreeLeafCmpId" required="no" />
 <input-symbol key="rootId" required="no" />
 
 <initialization>
-window.custTafelTree = new CustTafelTree(${treeStruct},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}','${optTreeCmpId}')
+window.custTafelTree = new CustTafelTree(${treeStruct},${treeStruct1},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}','${optTreeCmpId}','${optTreeLeafCmpId}')
 		
 </initialization>
 </script>
