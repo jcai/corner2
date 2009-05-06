@@ -57,7 +57,7 @@ var TafelTree = Class.create();
 TafelTree.version = '1.9.1';
 TafelTree.lastUpdate = '2007-07-21';
 
-TafelTree.scriptFragment = /[\s]*<[/]?[ul|li].*>.*/ig;
+TafelTree.scriptFragment = /[\s]*<[/]?[ul|li].*>.*/img;
 
 TafelTree.debugReturn = '<br />';
 TafelTree.debugTab = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -124,15 +124,15 @@ TafelTree.functionAttributes = [
  * Constructeur d'un nouvel arbre via UL
  *
  * @access	public
- * @param	string				id						L'id de l'élément HTML conteneur
+ * @param	string				id						L'id de l'ï¿½lï¿½ment HTML conteneur
  * @param	string				imgBase					Le path vers les images, ou les options
  * @param	integer				width					La largeur de l'arbre
  * @param	integer				height					La hauteur de l'arbre
- * @param	object				options					Les options de génération
- * @return	TafelTree									L'arbre créé sur la base des UL - LI
+ * @param	object				options					Les options de gï¿½nï¿½ration
+ * @return	TafelTree									L'arbre crï¿½ï¿½ sur la base des UL - LI
  */	
 TafelTree.loadFromUL = function (id, imgBase, width, height, options, debug) {
-	// 2006-11-25 : "options" est maintenant à la place de "imgBase"
+	// 2006-11-25 : "options" est maintenant ï¿½ la place de "imgBase"
 	if (typeof(imgBase) == 'object') {
 		options = imgBase;
 		debug = width;
@@ -181,21 +181,21 @@ TafelTree.loadFromUL = function (id, imgBase, width, height, options, debug) {
 };
 
 /**
- * Méthode récursive qui va récupérer les infos de tous les LI
+ * Mï¿½thode rï¿½cursive qui va rï¿½cupï¿½rer les infos de tous les LI
  *
  * @access	private
  * @param	HTMLLiElement		obj						La LI courante
- * @param	string				virgule					Détermine s'il y a une virgule avant l'accolade ouvrante
+ * @param	string				virgule					Dï¿½termine s'il y a une virgule avant l'accolade ouvrante
  * @param	string				rt						Retour de ligne (pour le debug)
  * @param	string				tab						La tabulation courante (pour le debug)
  * @param	string				tabModel				La grandeur d'une tabulation (pour le debug)
- * @return	string										La string JSON dérivée de la structure UL - LI
+ * @return	string										La string JSON dï¿½rivï¿½e de la structure UL - LI
  */
 TafelTree._loadFromUL = function (obj, virgule, rt, tab, tabModel) {
 	tab += tabModel;
 	var contenu = TafelTree.trim(obj.innerHTML.replace(TafelTree.scriptFragment, ''));
 	var str = virgule + rt + tab + '{' + rt;
-	// Définition de toutes les propriétés
+	// Dï¿½finition de toutes les propriï¿½tï¿½s
 	str += tab + "'id' : '" + obj.id + "'";
 	if (contenu) {
 		str += "," + rt + tab + "'txt' : '" + contenu + "'";
@@ -209,7 +209,7 @@ TafelTree._loadFromUL = function (obj, virgule, rt, tab, tabModel) {
 	TafelTree.functionAttributes.each(function (attr) {
 		if (obj.getAttribute(attr)) str += "," + rt + tab + "'" + attr.replace(TafelTree.prefixAttribute, '') + "' : " + obj.getAttribute(attr);
 	});
-	// Définition des enfants
+	// Dï¿½finition des enfants
 	for (var i = 0; i < obj.childNodes.length; i++) {
 		if (obj.childNodes[i].nodeName.toLowerCase() == 'ul') {
 			virgule = '';
@@ -242,22 +242,22 @@ TafelTree.trim = function (string) {
 
 TafelTree.prototype = {
 	/**
-	 * Constructeur d'un nouvel arbre. Supporte facilement 700 éléments
+	 * Constructeur d'un nouvel arbre. Supporte facilement 700 ï¿½lï¿½ments
 	 *
-	 * 2006-11-25 : changement des paramètres dans le constructeur. On peut mettre les options
-	 * à la place de "imgBase". Les autres paramètres peuvent maintenant être passé via
+	 * 2006-11-25 : changement des paramï¿½tres dans le constructeur. On peut mettre les options
+	 * ï¿½ la place de "imgBase". Les autres paramï¿½tres peuvent maintenant ï¿½tre passï¿½ via
 	 * "options"
 	 *
 	 * @access	public
-	 * @param	string				id						L'id de l'élément HTML conteneur
+	 * @param	string				id						L'id de l'ï¿½lï¿½ment HTML conteneur
 	 * @param	object				struct					La structure de l'arbre
 	 * @param	string				imgBase					Le path vers les images (ou les options)
 	 * @param	integer				width					La largeur de l'arbre
 	 * @param	integer				height					La hauteur de l'arbre
-	 * @param	object				options					Les fonctions de load et autres binz de génération
+	 * @param	object				options					Les fonctions de load et autres binz de gï¿½nï¿½ration
 	 */	
 	initialize : function (id, struct, imgBase, width, height, options) {
-		// 2006-11-25 : "options" est maintenant à la place de "imgBase"
+		// 2006-11-25 : "options" est maintenant ï¿½ la place de "imgBase"
 		if (typeof(imgBase) == 'object') {
 			options = imgBase;
 			imgBase = (options.imgBase) ? options.imgBase : 'imgs/';
@@ -348,7 +348,7 @@ TafelTree.prototype = {
 			this.cookieOpened = [];
 			this.cookieOpened = branches[0].split(this.cookieSeparator);
 			this.cookieOpened.shift();
-			// Branches checkées (avec anti-bug pour les anciennes versions et anciens cookies)
+			// Branches checkï¿½es (avec anti-bug pour les anciennes versions et anciens cookies)
 			this.cookieChecked = [];
 			if (branches.length > 1) {
 				this.cookieChecked = branches[1].split(this.cookieSeparator);
@@ -387,12 +387,12 @@ TafelTree.prototype = {
 	 */
 
 	/**
-	 * Set l'arbre comme étant l'arbre courant
+	 * Set l'arbre comme ï¿½tant l'arbre courant
 	 *
 	 * Toutes les actions claviers auront effet seulement sur cet arbre et non sur les autres*
 	 *
 	 * @access	public
-	 * @param	Event			ev						L'événement déclencheur
+	 * @param	Event			ev						L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	evt_setAsCurrent : function (ev) {
@@ -401,11 +401,11 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Retourne une liste de branches ordrée (en fonction de leur position dans l'arbre)
+	 * Retourne une liste de branches ordrï¿½e (en fonction de leur position dans l'arbre)
 	 *
 	 * @access	public
 	 * @param	array				list					Un tableau de TafelTreeBranch
-	 * @return	array										Un tableau ordré de TafelTreeBranch
+	 * @return	array										Un tableau ordrï¿½ de TafelTreeBranch
 	 */
 	orderListBranches : function (list) {
 		var ordered = [];
@@ -423,7 +423,7 @@ TafelTree.prototype = {
 			if (niv > nivmax) nivmax = niv;
 			if (niv < nivmin) nivmin = niv;
 		}
-		// On enlève le cheni de m... à cause de la gestion tableau javascript
+		// On enlï¿½ve le cheni de m... ï¿½ cause de la gestion tableau javascript
 		for (var i = nivmin; i <= nivmax; i++) {
 			if (level[i]) {
 				ordered.push(level[i]);
@@ -431,18 +431,18 @@ TafelTree.prototype = {
 		}
 		// Pour chaque niveau, on ordre par position dans l'arbre
 
-		// On ne récupère que les 1er niveaux. S'il y a des enfants, on les ignore
+		// On ne rï¿½cupï¿½re que les 1er niveaux. S'il y a des enfants, on les ignore
 		return ordered;
 	},
 	
 	/**
-	 * Retourne les branches copiées de l'arbre, ou d'un arbre lié
+	 * Retourne les branches copiï¿½es de l'arbre, ou d'un arbre liï¿½
 	 *
-	 * Si le tableau n'a pas de branches, la méthode va voir dans les arbres liés
-	 * pour récupérer les branches qui seraient copiées dans l'autre arbre
+	 * Si le tableau n'a pas de branches, la mï¿½thode va voir dans les arbres liï¿½s
+	 * pour rï¿½cupï¿½rer les branches qui seraient copiï¿½es dans l'autre arbre
 	 *
 	 * @access	public
-	 * @return	array									Les branches copiées
+	 * @return	array									Les branches copiï¿½es
 	 */
 	getCopiedBranches : function () {
 		var branches = this.copiedBranches;
@@ -456,13 +456,13 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Retourne les branches coupées de l'arbre, ou d'un arbre lié
+	 * Retourne les branches coupï¿½es de l'arbre, ou d'un arbre liï¿½
 	 *
-	 * Si le tableau n'a pas de branches, la méthode va voir dans les arbres liés
-	 * pour récupérer les branches qui seraient coupées dans l'autre arbre
+	 * Si le tableau n'a pas de branches, la mï¿½thode va voir dans les arbres liï¿½s
+	 * pour rï¿½cupï¿½rer les branches qui seraient coupï¿½es dans l'autre arbre
 	 *
 	 * @access	public
-	 * @return	array									Les branches coupées
+	 * @return	array									Les branches coupï¿½es
 	 */
 	getCuttedBranches : function () {
 		var branches = this.cuttedBranches;
@@ -476,10 +476,10 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Fonction qui coupe la sélection et la met dans un cache
+	 * Fonction qui coupe la sï¿½lection et la met dans un cache
 	 *
 	 * @access	public
-	 * @return	return										True si ça coupe, false sinon
+	 * @return	return										True si ï¿½a coupe, false sinon
 	 */
 	cut : function () {
 		this.unsetCut();
@@ -498,10 +498,10 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Fonction qui copie la sélection dans un cache
+	 * Fonction qui copie la sï¿½lection dans un cache
 	 *
 	 * @access	public
-	 * @return	return										True si ça copie, false sinon
+	 * @return	return										True si ï¿½a copie, false sinon
 	 */
 	copy : function () {
 		this.unsetCut();
@@ -517,10 +517,10 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Fonction qui colle le cache à l'endroit sélectionné. Il ne doit y avoir qu'une sélection
+	 * Fonction qui colle le cache ï¿½ l'endroit sï¿½lectionnï¿½. Il ne doit y avoir qu'une sï¿½lection
 	 *
 	 * @access	public
-	 * @return	return										True si ça colle, false sinon
+	 * @return	return										True si ï¿½a colle, false sinon
 	 */
 	paste : function () {
 		if (this.selectedBranches.length != 1) return false;
@@ -552,11 +552,11 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Détermine si on peut coller la partie courante du cache ou non
+	 * Dï¿½termine si on peut coller la partie courante du cache ou non
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche dans laquelle on colle
-	 * @param	array				list					Le tableau de cache ordré par niveau
+	 * @param	array				list					Le tableau de cache ordrï¿½ par niveau
 	 * @param	integer				i						La position courante dans le cache
 	 * @return	boolean										True si on peut coller, false sinon
 	 */
@@ -576,7 +576,7 @@ TafelTree.prototype = {
 	},
 	
 	unsetCut : function () {
-		// On enlève les branches coupées des autres arbres (suppression du "presse-papier")
+		// On enlï¿½ve les branches coupï¿½es des autres arbres (suppression du "presse-papier")
 		var _tree = null;
 		var branches = null;
 		for (var i = 0; i < this.otherTrees.length; i++) {
@@ -596,7 +596,7 @@ TafelTree.prototype = {
 	},
 	
 	unsetCopy : function () {
-		// On enlève les branches copiées des autres arbres (suppression du "presse-papier")
+		// On enlï¿½ve les branches copiï¿½es des autres arbres (suppression du "presse-papier")
 		var _tree = null;
 		var branches = null;
 		for (var i = 0; i < this.otherTrees.length; i++) {
@@ -616,10 +616,10 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Annule les [n] dernières actions (todo...)
+	 * Annule les [n] derniï¿½res actions (todo...)
 	 *
 	 * @access	public
-	 * @return	boolean									True si quelque chose a été annulé
+	 * @return	boolean									True si quelque chose a ï¿½tï¿½ annulï¿½
 	 */
 	undo : function () {
 
@@ -633,7 +633,7 @@ TafelTree.prototype = {
 	 */
 
 	/**
-	 * Méthode récursive qui fait l'effet "couper" sur toutes les sous-branches
+	 * Mï¿½thode rï¿½cursive qui fait l'effet "couper" sur toutes les sous-branches
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
@@ -663,7 +663,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode récursive qui enlève l'effet "couper" sur toutes les sous-branches
+	 * Mï¿½thode rï¿½cursive qui enlï¿½ve l'effet "couper" sur toutes les sous-branches
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
@@ -693,7 +693,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode récursive qui fait l'effet "copier" sur toutes les sous-branches
+	 * Mï¿½thode rï¿½cursive qui fait l'effet "copier" sur toutes les sous-branches
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
@@ -712,7 +712,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode récursive qui enlève l'effet "copier" sur toutes les sous-branches
+	 * Mï¿½thode rï¿½cursive qui enlï¿½ve l'effet "copier" sur toutes les sous-branches
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
@@ -778,11 +778,11 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Permet d'utiliser les cookies ou non. Le séparateur est optionnel, '|' par défaut
+	 * Permet d'utiliser les cookies ou non. Le sï¿½parateur est optionnel, '|' par dï¿½faut
 	 *
 	 * @access	public
-	 * @param	boolean				enable					True (par défaut) pour gérer les cookies
-	 * @param	string				separator				Le séparateur dans le cookie )
+	 * @param	boolean				enable					True (par dï¿½faut) pour gï¿½rer les cookies
+	 * @param	string				separator				Le sï¿½parateur dans le cookie )
 	 */
 	enableCookies : function (enable, separator) {
 		this.useCookie = (enable) ? true : false;
@@ -804,7 +804,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Fonction qui set par défaut l'état des branches (ouvert ou fermé)
+	 * Fonction qui set par dï¿½faut l'ï¿½tat des branches (ouvert ou fermï¿½)
 	 *
 	 * @access	public
 	 * @param	boolean				open					True pour tout ouvrir, false pour tout fermer
@@ -821,7 +821,7 @@ TafelTree.prototype = {
 	/**
 	 * Permet de choisir quel comportement par defaut le drop aura
 	 *
-	 * L'autre comportement s'obtient en gardant la touche ALT appuyée et/ou CTRL
+	 * L'autre comportement s'obtient en gardant la touche ALT appuyï¿½e et/ou CTRL
 	 *
 	 * @access	public
 	 * @param	string			def							'sibling', 'siblingcopy', 'child' ou 'childcopy'
@@ -839,14 +839,14 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Set les icônes par défaut pour toutes les branches
+	 * Set les icï¿½nes par dï¿½faut pour toutes les branches
 	 *
-	 * Si imgopen n'est pas défini, il prend la valeur d'img. Pareil pour imgclose.
+	 * Si imgopen n'est pas dï¿½fini, il prend la valeur d'img. Pareil pour imgclose.
 	 *
 	 * @access	public
 	 * @param	string				img						L'image quand la branche n'a pas d'enfants
 	 * @param	string				imgopen					L'image quand la branche des enfants et est ouverte
-	 * @param	string				imgclose				L'image quand la branche a des enfants et est fermée
+	 * @param	string				imgclose				L'image quand la branche a des enfants et est fermï¿½e
 	 * @return	void
 	 */
 	setIcons : function (img, imgopen, imgclose) {
@@ -856,12 +856,12 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Set les icônes de sélection par défaut pour toutes les branches
+	 * Set les icï¿½nes de sï¿½lection par dï¿½faut pour toutes les branches
 	 *
 	 * @access	public
 	 * @param	string				img						L'image quand la branche n'a pas d'enfants
 	 * @param	string				imgopen					L'image quand la branche des enfants et est ouverte
-	 * @param	string				imgclose				L'image quand la branche a des enfants et est fermée
+	 * @param	string				imgclose				L'image quand la branche a des enfants et est fermï¿½e
 	 * @return	void
 	 */
 	setIconsSelected : function (img, imgopen, imgclose) {
@@ -956,10 +956,10 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui permet d'interdir les mouvements dans la branche dragguée
+	 * Mï¿½thode qui permet d'interdir les mouvements dans la branche dragguï¿½e
 	 *
 	 * @access	public
-	 * @param	boolean				propagateRestiction		True pour interdir le mouvement des enfants de la branche droppée
+	 * @param	boolean				propagateRestiction		True pour interdir le mouvement des enfants de la branche droppï¿½e
 	 * @return	void
 	 */
 	propagateRestriction : function (propagate) {
@@ -984,10 +984,10 @@ TafelTree.prototype = {
 	 */
 	
 	/**
-	 * Fonction pour générer l'arbre
+	 * Fonction pour gï¿½nï¿½rer l'arbre
 	 *
 	 * @access	public
-	 * @param	boolean				bigTree					True pour spécifier que c'est un gros arbre
+	 * @param	boolean				bigTree					True pour spï¿½cifier que c'est un gros arbre
 	 * @return	void
 	 */
 	generate : function (bigTree) {
@@ -1009,14 +1009,14 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Lance les fonctions générales de l'arbre
+	 * Lance les fonctions gï¿½nï¿½rales de l'arbre
 	 *
 	 * @access	public
 	 * @param	object				options					Les fonctions et autres ouvertures automatiques*
 	 * @return	void
 	 */
 	setOptions : function (options) {
-		// Fonctions événementielles
+		// Fonctions ï¿½vï¿½nementielles
 		if (options.onLoad) this.setOnLoad(options.onLoad);
 		if (options.onDebug) this.setOnDebug(options.onDebug);
 		if (options.onCheck) this.setOnCheck(options.onCheck);
@@ -1037,7 +1037,7 @@ TafelTree.prototype = {
 		if (options.onEditAjax) this.setOnEditAjax(options.onEditAjax[0], options.onEditAjax[1]);
 		if (options.onDropAjax) this.setOnDropAjax(options.onDropAjax[0], options.onDropAjax[1]);
 		if (options.onOpenPopulate) this.setOnOpenPopulate(options.onOpenPopulate[0], options.onOpenPopulate[1]);
-		// Fonctions avancées
+		// Fonctions avancï¿½es
 		if (typeof(options.rtlMode) != 'undefined') this.enableRTL(options.rtlMode);
 		if (typeof(options.dropALT) != 'undefined') this.disableDropALT(options.dropALT);
 		if (typeof(options.dropCTRL) != 'undefined') this.disableDropCTRL(options.dropCTRL);
@@ -1108,7 +1108,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Restaure les valeurs par défaut d'ouverture et check (selon type)
+	 * Restaure les valeurs par dï¿½faut d'ouverture et check (selon type)
 	 *
 	 * Le type peut prendre la valeur "open", "check" ou "all"
 	 *
@@ -1160,7 +1160,7 @@ TafelTree.prototype = {
 	/**
 	 * Fonction qui lie des arbres TafelTree entre eux, bidirecitonnellement
 	 *
-	 * On lui passe autant de TafelTree voulu, en les séparant par des virgules
+	 * On lui passe autant de TafelTree voulu, en les sï¿½parant par des virgules
 	 *
 	 * @access	public
 	 * @param	TafelTree			argument				Un ou plusieurs TafelTree
@@ -1181,7 +1181,7 @@ TafelTree.prototype = {
 	/**
 	 * Fonction qui lie des arbres TafelTree entre eux, mais unnidirecitonnel
 	 *
-	 * On lui passe autant de TafelTree voulu, en les séparant par des virgules
+	 * On lui passe autant de TafelTree voulu, en les sï¿½parant par des virgules
 	 *
 	 * @access	public
 	 * @param	TafelTree			argument				Un ou plusieurs TafelTree
@@ -1212,7 +1212,7 @@ TafelTree.prototype = {
 		for (var i = 0; i < this.selectedBranches.length; i++) {
 			branch = this.selectedBranches[i];
 			Element.removeClassName(branch.txt, this.classSelected);
-			// On set l'icône s'il doit changer
+			// On set l'icï¿½ne s'il doit changer
 			if (branch.getIconSelected() || branch.getOpenIconSelected() || branch.getCloseIconSelected()) {
 				if (branch.hasChildren()) {
 					branch.img.src = (branch.isOpened()) ? branch.tree.imgBase + branch.struct.imgopen : branch.tree.imgBase + branch.struct.imgclose;
@@ -1228,15 +1228,15 @@ TafelTree.prototype = {
 	 * Retourne toutes les branches contenues entre deux d'entre-elles
 	 *
 	 * @access	public
-	 * @param	TafelTreeBranch		branch1				La première borne
-	 * @param	TafelTreeBranch		branch2				La deuxième borne
-	 * @return	array									Un tableau de branche, ou false si rien n'a été trouvé
+	 * @param	TafelTreeBranch		branch1				La premiï¿½re borne
+	 * @param	TafelTreeBranch		branch2				La deuxiï¿½me borne
+	 * @return	array									Un tableau de branche, ou false si rien n'a ï¿½tï¿½ trouvï¿½
 	 */
 	getBranchesBetween : function (branch1, branch2) {
 		var branch1 = this.getBranchById(branch1);
 		var branch2 = this.getBranchById(branch2);
 		if (!branch1 || !branch2) return false;
-		// On quitte si ce n'est pas le même arbre
+		// On quitte si ce n'est pas le mï¿½me arbre
 		if (branch1.tree.id != branch2.tree.id) return false;
 		var found = false;
 		var selected = [];
@@ -1293,7 +1293,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Récupère toutes les branches ouvertes
+	 * Rï¿½cupï¿½re toutes les branches ouvertes
 	 *
 	 * @access	public
 	 * @return	void
@@ -1310,7 +1310,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Récupère toutes les branches checkées
+	 * Rï¿½cupï¿½re toutes les branches checkï¿½es
 	 *
 	 * @access	public
 	 * @return	void
@@ -1327,7 +1327,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Récupère toutes les branches non checkées
+	 * Rï¿½cupï¿½re toutes les branches non checkï¿½es
 	 *
 	 * @access	public
 	 * @return	void
@@ -1344,7 +1344,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Récupère toutes les branches partiellement checkées
+	 * Rï¿½cupï¿½re toutes les branches partiellement checkï¿½es
 	 *
 	 * @access	public
 	 * @return	void
@@ -1407,13 +1407,13 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode pour récupérer une branche en fonction de son id
+	 * Mï¿½thode pour rï¿½cupï¿½rer une branche en fonction de son id
 	 *
 	 * @access	public
 	 * @param	string				position				L'id de la branche soeur ou parente, ou l'objet
 	 * @param	object				item					La nouvelle branche
 	 * @param	boolean				sibling					True pour 'sibling', false pour 'child'
-	 * @param	boolean				isFirst					True pour l'insérer, soit comme 1er enfant, soit avant la soeur
+	 * @param	boolean				isFirst					True pour l'insï¿½rer, soit comme 1er enfant, soit avant la soeur
 	 * @return	void
 	 */
 	insertBranch : function (position, item, sibling, isFirst) {
@@ -1462,14 +1462,14 @@ TafelTree.prototype = {
 		try {
 			var branch = this.getBranchById(branch);
 			if (!branch) return false;
-			// On enlève le drag&drop
+			// On enlï¿½ve le drag&drop
 			if (branch.objDrag) {
 				branch.removeDragDrop();
 			}
 			if (!branch.isRoot) {
 				// On supprime le noeud HTML
 				branch.parent.obj.removeChild(branch.obj);
-				// On l'enlève de la structure Javacript
+				// On l'enlï¿½ve de la structure Javacript
 				branch.parent.children.splice(branch.pos, 1);
 				branch.parent.struct.items.splice(branch.pos, 1);
 				if (branch.parent.children.length == 0) {
@@ -1483,7 +1483,7 @@ TafelTree.prototype = {
 			} else {
 				// On supprime le noeud HTML
 				this.div.removeChild(branch.obj);
-				// On l'enlève de la structure Javacript
+				// On l'enlï¿½ve de la structure Javacript
 				this.roots.splice(branch.pos, 1);
 				if (this.roots[branch.pos-1]) {
 					this.roots[branch.pos-1]._manageAfterRootInsert();
@@ -1496,11 +1496,11 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode pour récupérer une branche en fonction de son id généré
+	 * Mï¿½thode pour rï¿½cupï¿½rer une branche en fonction de son id gï¿½nï¿½rï¿½
 	 *
 	 * @access	public
-	 * @param	string				id						L'id généré de la branche
-	 * @return	TafelBranch									La branche sélectionnée
+	 * @param	string				id						L'id gï¿½nï¿½rï¿½ de la branche
+	 * @return	TafelBranch									La branche sï¿½lectionnï¿½e
 	 */
 	getBranchByIdObj : function (id) {
 		try {
@@ -1518,11 +1518,11 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode pour récupérer une branche en fonction de son id utilisateur
+	 * Mï¿½thode pour rï¿½cupï¿½rer une branche en fonction de son id utilisateur
 	 *
 	 * @access	public
 	 * @param	string				id						L'id utilisateur de la branche
-	 * @return	TafelBranch									La branche sélectionnée
+	 * @return	TafelBranch									La branche sï¿½lectionnï¿½e
 	 */
 	getBranchById : function (id) {
 		try {
@@ -1534,7 +1534,7 @@ TafelTree.prototype = {
 			}
 			if (!obj) {
 				// On magouille avec les roots pour ne pas passer
-				// dans une boucle infinie (à cause du getBranchById)
+				// dans une boucle infinie (ï¿½ cause du getBranchById)
 				var ro = null;
 				for (var i = 0; i < this.otherTrees.length; i++) {
 					ro = this.otherTrees[i].roots;
@@ -1552,10 +1552,10 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode de gestion de debug
+	 * Mï¿½thode de gestion de debug
 	 *
 	 * @access	public
-	 * @param	string				str						Une string à afficher (optionnel)
+	 * @param	string				str						Une string ï¿½ afficher (optionnel)
 	 * @return	void
 	 */
 	debug : function (str) {
@@ -1572,7 +1572,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Fonction pour afficher l'ojbet de manière cool
+	 * Fonction pour afficher l'ojbet de maniï¿½re cool
 	 *
 	 * @access	public
 	 * @return	string										La string de l'objet
@@ -1594,7 +1594,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Fonction qui sérialise l'arbre pour en faire une string JSON
+	 * Fonction qui sï¿½rialise l'arbre pour en faire une string JSON
 	 *
 	 * @access	public
 	 * @return	string										La string de l'objet
@@ -1617,17 +1617,17 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Fonction qui renvoie les paramètres de l'URL
+	 * Fonction qui renvoie les paramï¿½tres de l'URL
 	 *
-	 * ils sont renvoyés sous cette forme :
+	 * ils sont renvoyï¿½s sous cette forme :
 			params[0] = {
 				'name' : 'paramName',
 				'value': 'paramValue'
 			}
 	 *
 	 * @access	public
-	 * @param	string				url						L'url à decomposer
-	 * @return	array										Le tableau de paramètres
+	 * @param	string				url						L'url ï¿½ decomposer
+	 * @return	array										Le tableau de paramï¿½tres
 	 */
 	getURLParams : function (url) {
 		var params = [];
@@ -1718,7 +1718,7 @@ TafelTree.prototype = {
 						branch.openIt(true);
 					} else {
 						// Cette branche est une branche qui a ses enfants sur le serveur
-						// On va donc les récupérer
+						// On va donc les rï¿½cupï¿½rer
 						if (typeof(branch.struct.onopenpopulate) == 'function' && branch.eventable) {
 							branch._openPopulate();
 							branch.openIt(true);
@@ -1730,7 +1730,7 @@ TafelTree.prototype = {
 	},
 
 	_adjustCheck : function () {
-		// On ajuste les checks d'après les cookies
+		// On ajuste les checks d'aprï¿½s les cookies
 		var branch = null;
 		if (this.checkboxes && this.useCookie && this.cookieChecked) {
 			for (var i = 0; i < this.cookieChecked.length; i++) {
@@ -1750,12 +1750,12 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode récursive pour récupérer une branche en fonction de son id généré
+	 * Mï¿½thode rï¿½cursive pour rï¿½cupï¿½rer une branche en fonction de son id gï¿½nï¿½rï¿½
 	 *
 	 * @access	private
-	 * @param	string				id						L'id généré de la branche recherchée
+	 * @param	string				id						L'id gï¿½nï¿½rï¿½ de la branche recherchï¿½e
 	 * @param	TafelTreeBranch		obj						La branche courante
-	 * @return	TafelBranch									La branche sélectionnée
+	 * @return	TafelBranch									La branche sï¿½lectionnï¿½e
 	 */
 	_getBranchByIdObj : function (id, obj) {
 		try {
@@ -1778,12 +1778,12 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode récursive pour récupérer une branche en fonction de son id utilisateur
+	 * Mï¿½thode rï¿½cursive pour rï¿½cupï¿½rer une branche en fonction de son id utilisateur
 	 *
 	 * @access	private
-	 * @param	string				id						L'id utilisateur de la branche recherchée
+	 * @param	string				id						L'id utilisateur de la branche recherchï¿½e
 	 * @param	TafelTreeBranch		obj						La branche courante
-	 * @return	TafelBranch									La branche sélectionnée
+	 * @return	TafelBranch									La branche sï¿½lectionnï¿½e
 	 */
 	_getBranchById : function (id, obj) {
 		try {
@@ -1826,10 +1826,10 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode pour ajouter l'élément principal
+	 * Mï¿½thode pour ajouter l'ï¿½lï¿½ment principal
 	 *
 	 * @access	private
-	 * @return	HTMLDivElement								L'élément DIV créé
+	 * @return	HTMLDivElement								L'ï¿½lï¿½ment DIV crï¿½ï¿½
 	 */
 	_addTree : function () {
 		var div = document.createElement('div');
@@ -1845,7 +1845,7 @@ TafelTree.prototype = {
 	 */
 	
 	/**
-	 * Méthode qui sauve le contenu dans le cookie. Propre à l'application
+	 * Mï¿½thode qui sauve le contenu dans le cookie. Propre ï¿½ l'application
 	 *
 	 * @access	public
 	 * @param	string				name					Nom du cookie
@@ -1859,7 +1859,7 @@ TafelTree.prototype = {
 			for (var i = 0; i < arr.length; i++) {
 				str = str + arr[i].getId() + this.cookieSeparator;
 			}
-			// Les branches checkées
+			// Les branches checkï¿½es
 			str += this.cookieCheckSeparator;
 			var arr = this.getCheckedBranches();
 			for (var i = 0; i < arr.length; i++) {
@@ -1884,7 +1884,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Méthode qui récupère le contenu d'un cookie en fonction du nom
+	 * Mï¿½thode qui rï¿½cupï¿½re le contenu d'un cookie en fonction du nom
 	 *
 	 * @access	public
 	 * @param	string				name					Nom du cookie
@@ -1932,7 +1932,7 @@ TafelTree.prototype = {
             this.cookieOpened = [];
             this.cookieOpened = branches[0].split(this.cookieSeparator);
             this.cookieOpened.shift();
-            // Branches checkées (avec anti-bug pour les anciennes versions et anciens cookies)
+            // Branches checkï¿½es (avec anti-bug pour les anciennes versions et anciens cookies)
             this.cookieChecked = [];
             if (branches.length > 1) {
                 this.cookieChecked = branches[1].split(this.cookieSeparator);
@@ -1951,7 +1951,7 @@ TafelTree.prototype = {
     },
 	
 	/**
-	 * Méthode qui supprime un cookie. Seul le nom est obligatoire
+	 * Mï¿½thode qui supprime un cookie. Seul le nom est obligatoire
 	 *
 	 * @access	public
 	 * @param	string				name					Nom du cookie
@@ -1971,12 +1971,12 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Méthode qui sauve le contenu dans le cookie. Propre à toute application
+	 * Mï¿½thode qui sauve le contenu dans le cookie. Propre ï¿½ toute application
 	 *
 	 * @access	private
 	 * @param	string				name					Nom du cookie
-	 * @param	string				value					La valeur à enregistrer
-	 * @param	integer				expires					La durée de vie du cookie, en jour
+	 * @param	string				value					La valeur ï¿½ enregistrer
+	 * @param	integer				expires					La durï¿½e de vie du cookie, en jour
 	 * @param	string				path					Le chemin
 	 * @param	string				domain					Le domaine
 	 * @param	string				secure					?
@@ -2010,7 +2010,7 @@ TafelTree.prototype = {
 	 */
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après le load de l'arbre
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s le load de l'arbre
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2021,7 +2021,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur pendant le load de l'arbre
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur pendant le load de l'arbre
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2032,7 +2032,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après l'ouverture ou fermeture d'un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s l'ouverture ou fermeture d'un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2043,7 +2043,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur avant l'ouverture ou fermeture d'un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur avant l'ouverture ou fermeture d'un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2054,7 +2054,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lorsque la souris est sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lorsque la souris est sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2065,7 +2065,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lorsque la souris quitte le noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lorsque la souris quitte le noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2076,7 +2076,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après un clic sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s un clic sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2087,7 +2087,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après un mouse down
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s un mouse down
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2098,7 +2098,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après un mouse up
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s un mouse up
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2109,7 +2109,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lors d'un double-clic sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lors d'un double-clic sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2120,7 +2120,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lors de la fin de l'édition d'une branche
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lors de la fin de l'ï¿½dition d'une branche
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2140,7 +2140,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lorsqu'on clique sur une checkbox, avant que celle-ci change de status
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lorsqu'on clique sur une checkbox, avant que celle-ci change de status
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2151,7 +2151,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lorsqu'on clique sur une checkbox, après qu'elle ait changé de status
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lorsqu'on clique sur une checkbox, aprï¿½s qu'elle ait changï¿½ de status
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2162,7 +2162,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lors d'un drop sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lors d'un drop sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2173,7 +2173,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur après un drop sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur aprï¿½s un drop sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2184,12 +2184,12 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lors d'un drop sur un noeud
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lors d'un drop sur un noeud
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
 	 * @param	string				link					Le lien de la page ajax
-	 * @param	boolean				propagateRestiction		True pour interdir le mouvement des enfants de la branche droppée
+	 * @param	boolean				propagateRestiction		True pour interdir le mouvement des enfants de la branche droppï¿½e
 	 * @return	void
 	 */
 	setOnDropAjax : function (func, link) {
@@ -2200,7 +2200,7 @@ TafelTree.prototype = {
 	},
 	
 	/**
-	 * Fonction appelée au retour de la requête Ajax après un open de la branche
+	 * Fonction appelï¿½e au retour de la requï¿½te Ajax aprï¿½s un open de la branche
 	 *
 	 * @access	public
 	 * @param	function|boolean	func					La fonction utilisateur ou true
@@ -2215,7 +2215,7 @@ TafelTree.prototype = {
 	},
 
 	/**
-	 * Méthode qui appelle la méthode utilisateur lors de la fin de l'édition d'une branche
+	 * Mï¿½thode qui appelle la mï¿½thode utilisateur lors de la fin de l'ï¿½dition d'une branche
 	 *
 	 * @access	public
 	 * @param	function			func					La fonction utilisateur
@@ -2337,7 +2337,7 @@ TafelTreeBaseBranch.prototype = {
 	/**
 	 * Retourne tous les parents, racine comprise.
 	 *
-	 * Le 1er élément du tableau est le parent direct, le dernier étant
+	 * Le 1er ï¿½lï¿½ment du tableau est le parent direct, le dernier ï¿½tant
 	 * la racine
 	 *
 	 * @access	public
@@ -2416,11 +2416,11 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode qui change l'id de l'élément. A utiliser avec parcimonie
+	 * Mï¿½thode qui change l'id de l'ï¿½lï¿½ment. A utiliser avec parcimonie
 	 *
 	 * @access	public
 	 * @param	string			newId					Le nouvel id
-	 * @return	boolean									True si tout est ok, false si l'id existe déjà dans l'arbre
+	 * @return	boolean									True si tout est ok, false si l'id existe dï¿½jï¿½ dans l'arbre
 	 */
 	changeId : function (newId) {
 		var used = this.tree.getBranchById(newId);
@@ -2434,7 +2434,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode qui détermine si l'élément a des enfants ou non*
+	 * Mï¿½thode qui dï¿½termine si l'ï¿½lï¿½ment a des enfants ou non*
 	 *
 	 * @access	public
 	 * @return	boolean									True s'il a des enfants, false sinon
@@ -2481,10 +2481,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Retourne TRUE si la branche est sélectionnée
+	 * Retourne TRUE si la branche est sï¿½lectionnï¿½e
 	 *
 	 * @access	public
-	 * @return	boolean										True si la branche est sélectionnée, false sinon
+	 * @return	boolean										True si la branche est sï¿½lectionnï¿½e, false sinon
 	 */
 	isSelected : function () {
 		return (Element.hasClassName(this.txt, this.tree.classSelected)) ? true : false;
@@ -2519,7 +2519,7 @@ TafelTreeBaseBranch.prototype = {
 		var struct = {};
 		for (var property in this.struct) {
 			if (property != 'items') {
-				// On prend les fonctions seulement si elles sont définies pour la branche
+				// On prend les fonctions seulement si elles sont dï¿½finies pour la branche
 				if (!withDefaultFunc && typeof(this.struct[property]) == 'function') {
 					if (!eval('this.' + property + 'Default')) {
 						struct[property] = this.struct[property];
@@ -2563,7 +2563,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui récupère la branche précédente du même niveau
+	 * Fonction qui rï¿½cupï¿½re la branche prï¿½cï¿½dente du mï¿½me niveau
 	 *
 	 * @access	public
 	 * @return	TafelTreeBranch								La branche si elle existe, null sinon
@@ -2580,7 +2580,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui récupère la branche suivante du même niveau
+	 * Fonction qui rï¿½cupï¿½re la branche suivante du mï¿½me niveau
 	 *
 	 * @access	public
 	 * @return	TafelTreeBranch								La branche si elle existe, null sinon
@@ -2597,15 +2597,15 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Retourne la branche précédente dans l'arbre, pas forcément de même niveau
+	 * Retourne la branche prï¿½cï¿½dente dans l'arbre, pas forcï¿½ment de mï¿½me niveau
 	 *
 	 * @access	public
-	 * @return	TafelTreeBranch								La branche précédente, null s'il n'y en a pas
+	 * @return	TafelTreeBranch								La branche prï¿½cï¿½dente, null s'il n'y en a pas
 	 */
 	getPreviousBranch : function () {
 		var branch = null;
 		var previous = this.getPreviousSibling();
-		// Si elle a une soeur précédente
+		// Si elle a une soeur prï¿½cï¿½dente
 		if (previous) {
 			// On regarde si elle a des enfants et est ouverte
 			if (previous.hasChildren()) {
@@ -2619,7 +2619,7 @@ TafelTreeBaseBranch.prototype = {
 				branch = previous;
 			}
 		} else {
-			// Si elle n'a pas de soeur précédente, on prend le parent (s'il existe)
+			// Si elle n'a pas de soeur prï¿½cï¿½dente, on prend le parent (s'il existe)
 			if (this.parent) {
 				branch = this.parent;
 			}
@@ -2628,20 +2628,20 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Retourne la branche suivante dans l'arbre, pas forcément de même niveau
+	 * Retourne la branche suivante dans l'arbre, pas forcï¿½ment de mï¿½me niveau
 	 *
 	 * @access	public
 	 * @return	TafelTreeBranch								La branche suivante, null s'il n'y en a pas
 	 */
 	getNextBranch : function () {
 		var branch = null;
-		// Récupère le premier enfant, s'il y en a un
+		// Rï¿½cupï¿½re le premier enfant, s'il y en a un
 		branch = this.getFirstBranch();
 		if (!branch) {
-			// Récupère sa prochaine soeur
+			// Rï¿½cupï¿½re sa prochaine soeur
 			branch = this.getNextSibling();
 			if (!branch) {
-				// Récupère la soeur du parent ou tout du moins d'un ancêtre
+				// Rï¿½cupï¿½re la soeur du parent ou tout du moins d'un ancï¿½tre
 				var b = null;
 				branch = this.parent;
 				while (!b && branch) {
@@ -2655,15 +2655,15 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Retourne la branch ouverte précédente (pas forcément du même niveau)
+	 * Retourne la branch ouverte prï¿½cï¿½dente (pas forcï¿½ment du mï¿½me niveau)
 	 *
 	 * @access	public
-	 * @return	TafelTreeBranch								La branche précédente ouverte, null s'il n'y en a pas
+	 * @return	TafelTreeBranch								La branche prï¿½cï¿½dente ouverte, null s'il n'y en a pas
 	 */
 	getPreviousOpenedBranch : function () {
 		var branch = null;
 		var previous = this.getPreviousSibling();
-		// Si elle a une soeur précédente
+		// Si elle a une soeur prï¿½cï¿½dente
 		if (previous) {
 			// On regarde si elle a des enfants et est ouverte
 			if (previous.hasChildren() && previous.isOpened()) {
@@ -2677,7 +2677,7 @@ TafelTreeBaseBranch.prototype = {
 				branch = previous;
 			}
 		} else {
-			// Si elle n'a pas de soeur précédente, on prend le parent (s'il existe)
+			// Si elle n'a pas de soeur prï¿½cï¿½dente, on prend le parent (s'il existe)
 			if (this.parent) {
 				branch = this.parent;
 			}
@@ -2686,7 +2686,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Retourne la branch ouverte suivante (pas forcément du même niveau)
+	 * Retourne la branch ouverte suivante (pas forcï¿½ment du mï¿½me niveau)
 	 *
 	 * @access	public
 	 * @return	TafelTreeBranch								La branche suivante ouverte, null s'il n'y en a pas
@@ -2715,7 +2715,7 @@ TafelTreeBaseBranch.prototype = {
 	 * @return	boolean										True si la branche est un enfant de elem
 	 */
 	removeChildren : function () {
-		// On utilise concat() pour ne pas faire de référence sur this.children
+		// On utilise concat() pour ne pas faire de rï¿½fï¿½rence sur this.children
 		var children = this.children.concat();
 		for (var i = 0; i < children.length; i++) {
 			this.tree.removeBranch(children[i]);
@@ -2723,10 +2723,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Fonction qui détermine si la branche est enfant de elem
+	 * Fonction qui dï¿½termine si la branche est enfant de elem
 	 *
 	 * @access	public
-	 * @param	TafelTreeBranch		elem					La branche dont on veut savoir si elle est un ancêtre
+	 * @param	TafelTreeBranch		elem					La branche dont on veut savoir si elle est un ancï¿½tre
 	 * @return	boolean										True si la branche est un enfant de elem
 	 */
 	isChild : function (elem) {
@@ -2767,7 +2767,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Fonction qui insère une branche comme enfant, en fin de liste
+	 * Fonction qui insï¿½re une branche comme enfant, en fin de liste
 	 *
 	 * @access	public
 	 * @param	object				item					La nouvelle branche
@@ -2831,7 +2831,7 @@ TafelTreeBaseBranch.prototype = {
 	 * Ajoute une classe CSS au texte
 	 *
 	 * @access	public
-	 * @param	string			style					Le style CSS à ajouter
+	 * @param	string			style					Le style CSS ï¿½ ajouter
 	 * @return	void
 	 */
 	addClass : function (style) {
@@ -2842,7 +2842,7 @@ TafelTreeBaseBranch.prototype = {
 	 * Retire une classe CSS du texte
 	 *
 	 * @access	public
-	 * @param	string			style					Le style CSS à enlever
+	 * @param	string			style					Le style CSS ï¿½ enlever
 	 * @return	void
 	 */
 	removeClass : function (style) {
@@ -2850,13 +2850,13 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Retourne un objet anonyme représentant l'image précédant l'icône (un plus, par ex.)
+	 * Retourne un objet anonyme reprï¿½sentant l'image prï¿½cï¿½dant l'icï¿½ne (un plus, par ex.)
 	 *
 	 * L'objet a cette structure :
 		var obj = {
 			'img'     : HTMLimgElement,
-			'number'  : Le numéro de l'image (juste avant l'extension),
-			'type'    : le nom de l'image sans le numéro et sans l'extension
+			'number'  : Le numï¿½ro de l'image (juste avant l'extension),
+			'type'    : le nom de l'image sans le numï¿½ro et sans l'extension
 			'name'    : Le nom de l'image sans l'extension,
 			'fullName': Le nom de l'image avec l'extension
 		};
@@ -2874,7 +2874,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction change l'icône en fonction des enfants, s'il y en a ou pas
+	 * Fonction change l'icï¿½ne en fonction des enfants, s'il y en a ou pas
 	 *
 	 * @access	public
 	 * @param	boolean			openable					True pour mettre l'icone d'ouverture
@@ -2919,14 +2919,14 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Fonction qui affiche la branche de manière cool
+	 * Fonction qui affiche la branche de maniï¿½re cool
 	 *
 	 * @access	public
-	 * @return	string										La string à afficher
+	 * @return	string										La string ï¿½ afficher
 	 */
 	toString : function () {		
 		var str = (this.isRoot) ? 'TafelTreeRoot {' : 'TafelTreeBranch {';
-		// Définition de toutes les propriétés
+		// Dï¿½finition de toutes les propriï¿½tï¿½s
 		var strSave = '';
 		for (var attr in this.struct) {
 			if (attr != 'items') {
@@ -2979,7 +2979,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui retourne 1 si tous les enfants sont checkés, 0 si aucun et -1 si quelques uns
+	 * Fonction qui retourne 1 si tous les enfants sont checkï¿½s, 0 si aucun et -1 si quelques uns
 	 *
 	 * @access	public
 	 * @return	integer										1 si tout check, 0 si aucun, -1 si pas tous
@@ -3003,10 +3003,10 @@ TafelTreeBaseBranch.prototype = {
 
 	/**
 	 * Permet d'intervertir les deux branches. Elles conserveront toutes leurs
-	 * caractéristiques (heureusement)
+	 * caractï¿½ristiques (heureusement)
 	 *
 	 * @access	public
-	 * @param	TafelTreeBranch		branchId			L'id de l'autre branche ou l'autre branche elle-même
+	 * @param	TafelTreeBranch		branchId			L'id de l'autre branche ou l'autre branche elle-mï¿½me
 	 * @return	void
 	 */
 	switchWith : function (branchId) {
@@ -3037,18 +3037,18 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Remplace la branche passée en paramètre par l'autre.
+	 * Remplace la branche passï¿½e en paramï¿½tre par l'autre.
 	 *
 	 * @access	public
-	 * @param	TafelTreeBranch		branchId			L'id de la branche à remplacer ou l'objet lui-même
+	 * @param	TafelTreeBranch		branchId			L'id de la branche ï¿½ remplacer ou l'objet lui-mï¿½me
 	 * @param	boolean				copy				True pour faire une copie de la branche qui remplace
-	 * @return	TafelTreeBranch							La branche remplacée
+	 * @return	TafelTreeBranch							La branche remplacï¿½e
 	 */
 	replace : function (branchId, copy) {
 		var branch = this.tree.getBranchById(branchId);
 		if (!branch) return false;
 
-		// Préparation du remplacement
+		// Prï¿½paration du remplacement
 		var copyThis = this.copiedTimes;
 		var newThis = this.clone();
 		var n1 = branch.insertBefore(newThis);
@@ -3064,7 +3064,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Méthode récursive qui ouvre la branche
+	 * Mï¿½thode rï¿½cursive qui ouvre la branche
 	 *
 	 * @access	public
 	 * @return	void
@@ -3079,7 +3079,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode récursive qui ferme la branche
+	 * Mï¿½thode rï¿½cursive qui ferme la branche
 	 *
 	 * @access	public
 	 * @return	void
@@ -3167,7 +3167,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode récursive qui détermine si la branche est ouverte ou non
+	 * Mï¿½thode rï¿½cursive qui dï¿½termine si la branche est ouverte ou non
 	 *
 	 * @access	public
 	 * @param	array				openedBranches			Le tableau des branches ouvertes
@@ -3185,10 +3185,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode récursive qui détermine si la branche est checkée
+	 * Mï¿½thode rï¿½cursive qui dï¿½termine si la branche est checkï¿½e
 	 *
 	 * @access	private
-	 * @param	array				checkedBranches			Le tableau des branches checkées
+	 * @param	array				checkedBranches			Le tableau des branches checkï¿½es
 	 * @return	void
 	 */
 	getCheckedBranches : function (checkedBranches) {
@@ -3196,10 +3196,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode récursive qui détermine si la branche est checkée
+	 * Mï¿½thode rï¿½cursive qui dï¿½termine si la branche est checkï¿½e
 	 *
 	 * @access	private
-	 * @param	array				checkedBranches			Le tableau des branches checkées
+	 * @param	array				checkedBranches			Le tableau des branches checkï¿½es
 	 * @return	void
 	 */
 	getUnCheckedBranches : function (checkedBranches) {
@@ -3207,10 +3207,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode récursive qui détermine si la branche est checkée
+	 * Mï¿½thode rï¿½cursive qui dï¿½termine si la branche est checkï¿½e
 	 *
 	 * @access	private
-	 * @param	array				checkedBranches			Le tableau des branches checkées
+	 * @param	array				checkedBranches			Le tableau des branches checkï¿½es
 	 * @return	void
 	 */
 	getPartCheckedBranches : function (checkedBranches) {
@@ -3218,10 +3218,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Sélectionne la branche
+	 * Sï¿½lectionne la branche
 	 *
 	 * @access	public
-	 * @param	Event			ev							L'événement déclencheur
+	 * @param	Event			ev							L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	select : function (ev) {
@@ -3241,7 +3241,7 @@ TafelTreeBaseBranch.prototype = {
 			this.tree.selectedBranches.push(this);
 		}
 		Element.addClassName(this.txt, this.tree.classSelected);
-		// On set l'icône s'il doit changer
+		// On set l'icï¿½ne s'il doit changer
 		if (this.isOpened() && this.hasChildren() && this.getOpenIconSelected()) {
 			this.img.src = this.tree.imgBase + this.getOpenIconSelected();
 		} else if (!this.isOpened() && this.hasChildren() && this.getCloseIconSelected()) {
@@ -3253,10 +3253,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Désélectionne la branche
+	 * Dï¿½sï¿½lectionne la branche
 	 *
 	 * @access	public
-	 * @return	boolean											True si la branche a pu être déselectionnée, false sinon
+	 * @return	boolean											True si la branche a pu ï¿½tre dï¿½selectionnï¿½e, false sinon
 	 */
 	unselect : function () {
 		var ln = this.tree.selectedBranches.length;
@@ -3265,7 +3265,7 @@ TafelTreeBaseBranch.prototype = {
 				if (this.tree.selectedBranches[i].getId() == this.getId()) {
 					this.tree.selectedBranches.splice(i, 1);
 					Element.removeClassName(this.txt, this.tree.classSelected);
-					// On set l'icône s'il doit changer
+					// On set l'icï¿½ne s'il doit changer
 					if (this.hasChildren()) {
 						this.img.src = (this.isOpened()) ? this.tree.imgBase + this.struct.imgopen : this.tree.imgBase + this.struct.imgclose;
 					} else {
@@ -3279,7 +3279,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/** 
-	 * Calcule la position de la branche à l'intérieur de l'arbre
+	 * Calcule la position de la branche ï¿½ l'intï¿½rieur de l'arbre
 	 *
 	 * @access	public
 	 * @return	array									[0] Left pos, [1] Top pos
@@ -3295,7 +3295,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/** 
-	 * Calcule la position de la branche dans l'écran
+	 * Calcule la position de la branche dans l'ï¿½cran
 	 *
 	 * @access	public
 	 * @return	array									[0] Left pos, [1] Top pos
@@ -3305,9 +3305,9 @@ TafelTreeBaseBranch.prototype = {
 	},	
 	
 	/**
-	 * Permet de sérialiser la branche, pour en faire une string au format JSON
+	 * Permet de sï¿½rialiser la branche, pour en faire une string au format JSON
 	 *
-	 * Les fonctions ne sont pas encodées dans la string (comme onopen, onclick, etc.). Par contre, on indique
+	 * Les fonctions ne sont pas encodï¿½es dans la string (comme onopen, onclick, etc.). Par contre, on indique
 	 * true si la fonction existe bel et bien pour la branche
 	 *
 	 * @access	public
@@ -3326,7 +3326,7 @@ TafelTreeBaseBranch.prototype = {
 		}
 		var strSave = '';
 		var str = rt + tab + '{' + rt;
-		// Définition de toutes les propriétés
+		// Dï¿½finition de toutes les propriï¿½tï¿½s
 		str += tab + '"id":"' + this._encode(this.struct.id) + '"';
 		for (var attr in this.struct) {
 			if (attr != 'items' && attr != 'id') {
@@ -3338,7 +3338,7 @@ TafelTreeBaseBranch.prototype = {
 				}
 			}
 		}
-		// Définition des enfants
+		// Dï¿½finition des enfants
 		if (this.hasChildren()) {
 			str += ',' + rt + tab + '"items":[';
 			for (var i = 0; i < this.children.length; i++) {
@@ -3382,7 +3382,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Fonction récursive qui supprime les liens avec Droppables et Draggable
+	 * Fonction rï¿½cursive qui supprime les liens avec Droppables et Draggable
 	 *
 	 * @access	public
 	 * @param	TafelTreeBranch			obj					La branche courante
@@ -3406,12 +3406,12 @@ TafelTreeBaseBranch.prototype = {
 	 */
 	
 	/**
-	 * Fonction qui met à jour l'élément en terme de multiline
+	 * Fonction qui met ï¿½ jour l'ï¿½lï¿½ment en terme de multiline
 	 *
 	 * @access	private
-	 * @param	HTMLElement		element					L'élément HTML incriminé
+	 * @param	HTMLElement		element					L'ï¿½lï¿½ment HTML incriminï¿½
 	 * @param	integer			type					1 ou 2 (suivant le type de ligne)
-	 * @param	boolean			add						True si on ajoute le multiline, false si on l'enlève
+	 * @param	boolean			add						True si on ajoute le multiline, false si on l'enlï¿½ve
 	 * @return	void
 	 */
 	_manageMultiline : function (element, type, add) {
@@ -3450,7 +3450,7 @@ TafelTreeBaseBranch.prototype = {
 	_manageAfterInsert : function (pos) {
 		this.tree._changeStruct(this);
 		this._manageLine();
-		// Si on a des checkboxes, on corrige les images en fonction des checks par défaut
+		// Si on a des checkboxes, on corrige les images en fonction des checks par dï¿½faut
 		if (this.tree.checkboxes && this.tree.checkboxesThreeState) {
 			this.children[pos]._adjustParentCheck();
 		}
@@ -3472,11 +3472,11 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Méthode récursive qui détermine si la branche est checkée ou non
+	 * Mï¿½thode rï¿½cursive qui dï¿½termine si la branche est checkï¿½e ou non
 	 *
 	 * @access	private
-	 * @param	array				checkedBranches			Le tableau des branches checkées
-	 * @param	boolean				checked					1 pour récupérer les branches checkées
+	 * @param	array				checkedBranches			Le tableau des branches checkï¿½es
+	 * @param	boolean				checked					1 pour rï¿½cupï¿½rer les branches checkï¿½es
 	 * @return	void
 	 */
 	 _getCheckedBranches : function (checkedBranches, checked) {
@@ -3521,10 +3521,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui ajuste le check des parent de la branche, suite à un changement
+	 * Fonction qui ajuste le check des parent de la branche, suite ï¿½ un changement
 	 *
 	 * @access	private
-	 * @param	boolean			fromBranch				True pour commencer l'ajustement depuis la branche même
+	 * @param	boolean			fromBranch				True pour commencer l'ajustement depuis la branche mï¿½me
 	 * @return	void
 	 */
 	_adjustParentCheck : function (fromBranch) {
@@ -3538,7 +3538,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction récursive qui va changer le status des checkboxes enfants
+	 * Fonction rï¿½cursive qui va changer le status des checkboxes enfants
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
@@ -3571,8 +3571,8 @@ TafelTreeBaseBranch.prototype = {
 	 * Permet d'encoder la string avant l'envoi en JSON
 	 *
 	 * @access	private
-	 * @param	string				str						La string correspondant à la propriété (this.struct.*)
-	 * @return	string										La valeur de la propriété encodée
+	 * @param	string				str						La string correspondant ï¿½ la propriï¿½tï¿½ (this.struct.*)
+	 * @return	string										La valeur de la propriï¿½tï¿½ encodï¿½e
 	 */
 	_encode : function (str) {
 		//var obj = eval(str);
@@ -3637,7 +3637,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui gère les lignes verticales après un drag and drop
+	 * Fonction qui gï¿½re les lignes verticales aprï¿½s un drag and drop
 	 *
 	 * @access	private
 	 * @return	void
@@ -3646,13 +3646,13 @@ TafelTreeBaseBranch.prototype = {
 		try {
 			for (var i = 0; i < this.children.length; i++) {
 				this.children[i].pos = i;
-				// Si on est au dernier enfant et que celui-ci n'était pas le dernier avant le remove
+				// Si on est au dernier enfant et que celui-ci n'ï¿½tait pas le dernier avant le remove
 				if (i == this.children.length - 1 && this.children[i].hasSiblingsAfter) {
 					this.children[i].hasSiblingsAfter = false;
 					this._manageMultiline(this.children[i].beforeIcon, 1, false);
 					this._clearLine(this.children[i], this.level);
 				}
-				// Si on n'est pas au dernier enfant et que celui-ci était le dernier avant le remove
+				// Si on n'est pas au dernier enfant et que celui-ci ï¿½tait le dernier avant le remove
 				if (i < this.children.length - 1 && !this.children[i].hasSiblingsAfter) {
 					this.children[i].hasSiblingsAfter = true;
 					this._manageMultiline(this.children[i].beforeIcon, 1, true);
@@ -3682,7 +3682,7 @@ TafelTreeBaseBranch.prototype = {
 	 * Fonction qui supprime des lignes au bon endroit*
 	 *
 	 * @param	TafelTreeBranch		obj						La branche courante
-	 * @param	integer				level					Le niveau où supprimer des lignes
+	 * @param	integer				level					Le niveau oï¿½ supprimer des lignes
 	 * @param	boolean				ok						False pour le 1er niveau de branche
 	 * @return	void
 	 */
@@ -3691,7 +3691,7 @@ TafelTreeBaseBranch.prototype = {
 			for (var i = 0; i < obj.children.length; i++) {
 				this._clearLine(obj.children[i], level, true);
 			}
-			// On récupère la bonne TD et la bonne image
+			// On rï¿½cupï¿½re la bonne TD et la bonne image
 			var img = obj.table.getElementsByTagName('img')[level+1];
 			if (ok) {
 				img.src = this.tree.imgBase + this.tree.imgEmpty;
@@ -3721,7 +3721,7 @@ TafelTreeBaseBranch.prototype = {
 	 * Fonction qui ajoute des lignes au bon endroit*
 	 *
 	 * @param	TafelTreeBranch		obj						La branche courante
-	 * @param	integer				level					Le niveau où ajouter des lignes
+	 * @param	integer				level					Le niveau oï¿½ ajouter des lignes
 	 * @param	boolean				ok						False pour le 1er niveau de branche
 	 * @return	void
 	 */
@@ -3730,7 +3730,7 @@ TafelTreeBaseBranch.prototype = {
 			for (var i = 0; i < obj.children.length; i++) {
 				this._addLine(obj.children[i], level, true);
 			}
-			// On récupère la bonne TD et la bonne image
+			// On rï¿½cupï¿½re la bonne TD et la bonne image
 			var img = obj.table.getElementsByTagName('img')[level+1];
 			if (ok) {
 				img.src = this.tree.imgBase + this.tree.imgLine1;
@@ -3769,7 +3769,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Set les propriétés utilisateur de la branche, ou celles par défaut
+	 * Set les propriï¿½tï¿½s utilisateur de la branche, ou celles par dï¿½faut
 	 *
 	 * @access	private
 	 * @return	void
@@ -3815,7 +3815,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Set les fonctions utilisateur et les fonctions par défaut, s'il y en a
+	 * Set les fonctions utilisateur et les fonctions par dï¿½faut, s'il y en a
 	 *
 	 * @access	private
 	 * @return	void
@@ -3934,18 +3934,18 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction qui set les divers événements en fonction des données utilisateur
+	 * Fonction qui set les divers ï¿½vï¿½nements en fonction des donnï¿½es utilisateur
 	 *
 	 * @access	private
 	 * @param	HTMLTdElement		event					La cellule qui contient le texte
-	 * @param	HTMLTdElement		tdImg					La cellule qui contient l'icône
+	 * @param	HTMLTdElement		tdImg					La cellule qui contient l'icï¿½ne
 	 * @return	void
 	 */
 	_setEvents : function (event, tdImg) {
-		// Le onclick se fait de toutes façon
+		// Le onclick se fait de toutes faï¿½on
 		Event.observe(this.txt, 'mousedown', this.setMouseDown.bindAsEventListener(this), false);
 		Event.observe(this.txt, 'mouseup', this.setMouseUp.bindAsEventListener(this), false);
-		// On set les événements
+		// On set les ï¿½vï¿½nements
 		if (typeof(this.struct.onclick) == 'function') {
 			Event.observe(event, 'click', this.setClick.bindAsEventListener(this), false);
 		}
@@ -3985,7 +3985,7 @@ TafelTreeBaseBranch.prototype = {
 			Event.observe(event, 'mouseover', this.evt_showTooltip.bindAsEventListener(this), false);
 			Event.observe(event, 'mouseout', this.evt_hideTooltip.bindAsEventListener(this), false);
 		}
-		// On s'occupe des checkboxes, le cas échéant
+		// On s'occupe des checkboxes, le cas ï¿½chï¿½ant
 		if (this.tree.checkboxes && this.struct.checkbox) {
 			if (this.struct.check == 1) imgc = this.tree.imgCheck2;
 			else if (this.struct.check == -1) imgc = this.tree.imgCheck3;
@@ -3997,7 +3997,7 @@ TafelTreeBaseBranch.prototype = {
 			Event.observe(this.checkbox, 'mouseover', this.evt_openMouseOver.bindAsEventListener(this), false);
 			Event.observe(this.checkbox, 'mouseout', this.evt_openMouseOut.bindAsEventListener(this), false);
 		} else if (this.tree.checkboxes) {
-			// On met éventuellement une image vide au lieu de la checkbox
+			// On met ï¿½ventuellement une image vide au lieu de la checkbox
 			var vide = document.createElement('img');
 			vide.src = this.tree.imgBase + this.tree.imgEmpty;
 			tdImg.appendChild(vide);
@@ -4009,9 +4009,9 @@ TafelTreeBaseBranch.prototype = {
 			var td = document.createElement('td');
 			var img = document.createElement('img');
 			Element.addClassName(img, this.tree.classOpenable);
-			// On détermine s'il y a des frères
+			// On dï¿½termine s'il y a des frï¿½res
 			if (this.hasSiblingsAfter) {
-				// On détermine s'il y a des enfants
+				// On dï¿½termine s'il y a des enfants
 				if (!this.hasChildren()) {
 					if (this.isRoot) {
 						img.src = this.tree.imgBase + ((this.hasSiblingsBefore) ? this.tree.imgLine3 : this.tree.imgLine4);
@@ -4032,7 +4032,7 @@ TafelTreeBaseBranch.prototype = {
 					this._manageMultiline(td, (this.isRoot ? 2 : 1), true);
 				}
 			} else {
-				// On détermine s'il y a des enfants
+				// On dï¿½termine s'il y a des enfants
 				if (!this.hasChildren()) {
 					if (this.isRoot) {
 						img.src = this.tree.imgBase + ((this.hasSiblingsBefore) ? this.tree.imgLine2 : this.tree.imgEmpty);
@@ -4058,10 +4058,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 
 	/**
-	 * Insère les enfants de la branche
+	 * Insï¿½re les enfants de la branche
 	 *
 	 * @access	private
-	 * @param	TafelTreeRoot	root					L'élément racine parent
+	 * @param	TafelTreeRoot	root					L'ï¿½lï¿½ment racine parent
 	 * @return	void
 	 */
 	_setChildren : function (root) {
@@ -4086,12 +4086,12 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Set l'image de la branche à wait ainsi que ses enfants
+	 * Set l'image de la branche ï¿½ wait ainsi que ses enfants
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		branch					La branche courante
 	 * @param	boolean				wait					True pour afficher l'image d'attente
-	 * @param	boolean				localPropagationStop	True pour ne pas avoir de propagation, false par défaut
+	 * @param	boolean				localPropagationStop	True pour ne pas avoir de propagation, false par dï¿½faut
 	 * @return	void
 	 */
 	_setWaitImg : function (branch, wait, localPropagationStop) {
@@ -4116,7 +4116,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Envoi d'une requête Ajax suite à une ouverture de branche
+	 * Envoi d'une requï¿½te Ajax suite ï¿½ une ouverture de branche
 	 *
 	 * @access	private
 	 * @return	void
@@ -4154,9 +4154,9 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsque le retour ajax est effectué
+	 * Mï¿½thode appelï¿½e lorsque le retour ajax est effectuï¿½
 	 *
-	 * Pour pailler aux éventualités : str.match(/(?:\(\[)((\n|\r|.)*?)(?:\]\))/)[0]
+	 * Pour pailler aux ï¿½ventualitï¿½s : str.match(/(?:\(\[)((\n|\r|.)*?)(?:\]\))/)[0]
 	 *
 	 * @access	private
 	 * @param	XMLhttpResquest		response				L'objet Ajax
@@ -4211,11 +4211,11 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Envoi d'une requête Ajax suite à un drop
+	 * Envoi d'une requï¿½te Ajax suite ï¿½ un drop
 	 *
 	 * @access	private
 	 * @param	TafelTreeBranch		newParentObj			Le nouveau parent
-	 * @param	boolean				asSibling				True pour dropper l'élément comme frère
+	 * @param	boolean				asSibling				True pour dropper l'ï¿½lï¿½ment comme frï¿½re
 	 * @param	boolean				copydrag				True si on fait un copy-drag
 	 * @return	void
 	 */
@@ -4226,7 +4226,7 @@ TafelTreeBaseBranch.prototype = {
 			var cdrag = (copydrag) ? 1 : 0;
 			var params = 'drag=' + this.serialize() + '&drag_id=' + this.getId() + '&drop=' + newParentObj.serialize() + '&drop_id=' + newParentObj.getId();
 			params += '&treedrag_id=' + this.tree.id + '&treedrop_id=' + newParentObj.tree.id + '&sibling=' + sibling + '&copydrag=' + cdrag;
-			// On passe le futur id de l'élément copié s'il s'agit d'une copie
+			// On passe le futur id de l'ï¿½lï¿½ment copiï¿½ s'il s'agit d'une copie
 			if (cdrag) {
 				var cdragId = this.id + this.tree.copyNameBreak + this.tree.idTree;
 				params += '&copydrag_id=' + cdragId;
@@ -4263,7 +4263,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsque le retour ajax est effectué
+	 * Mï¿½thode appelï¿½e lorsque le retour ajax est effectuï¿½
 	 *
 	 * @access	private
 	 * @param	XMLhttpResquest		response				L'objet Ajax
@@ -4299,7 +4299,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Envoi d'une requête Ajax suite à une édition de branche
+	 * Envoi d'une requï¿½te Ajax suite ï¿½ une ï¿½dition de branche
 	 *
 	 * @access	private
 	 * @return	void
@@ -4338,7 +4338,7 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsque le retour ajax est effectué
+	 * Mï¿½thode appelï¿½e lorsque le retour ajax est effectuï¿½
 	 *
 	 * @access	private
 	 * @param	XMLhttpResquest		response				L'objet Ajax
@@ -4396,10 +4396,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsque la souris passe sur le noeud
+	 * Mï¿½thode appelï¿½e lorsque la souris passe sur le noeud
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	setMouseOver : function (ev) {
@@ -4409,10 +4409,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on clic sur le noeud
+	 * Mï¿½thode appelï¿½e lorsqu'on clic sur le noeud
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	setMouseOut : function (ev) {
@@ -4422,14 +4422,14 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on clique sur le noeud (mousedown)
+	 * Mï¿½thode appelï¿½e lorsqu'on clique sur le noeud (mousedown)
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	void
 	 */
 	setMouseDown : function (ev) {
-		// Pour une raison ou une autre, le mousedown du div principal n'est pas appelé...
+		// Pour une raison ou une autre, le mousedown du div principal n'est pas appelï¿½...
 		this.tree.evt_setAsCurrent(ev);
 		if (this.tree.selectedBranchShowed) {
 			if (!this.isSelected()) {
@@ -4449,17 +4449,17 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on "déclique"
+	 * Mï¿½thode appelï¿½e lorsqu'on "dï¿½clique"
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	void
 	 */
 	setMouseUp : function (ev) {
 		if (this.tree.lastEdited) {
 			this.tree.lastEdited.hideEditable(ev);
 		}
-		// Si la branche est déjà sélectionnée, on la déselectionne
+		// Si la branche est dï¿½jï¿½ sï¿½lectionnï¿½e, on la dï¿½selectionne
 		if (this.isSelected() && this.okayForUnselect) {
 			//this.unselect();
 			return true;
@@ -4471,10 +4471,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on clique sur le noeud
+	 * Mï¿½thode appelï¿½e lorsqu'on clique sur le noeud
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	void
 	 */
 	setClick : function (ev) {
@@ -4485,10 +4485,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Fonction appelée lorsqu'on clique sur une checkbox
+	 * Fonction appelï¿½e lorsqu'on clique sur une checkbox
 	 *
 	 * @access	public
-	 * @param	HTMLimgElement		ev						L'élément déclencheur
+	 * @param	HTMLimgElement		ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	checkOnClick : function (ev) {
@@ -4512,10 +4512,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lors de l'ouverture ou fermeture d'un noeud
+	 * Mï¿½thode appelï¿½e lors de l'ouverture ou fermeture d'un noeud
 	 *
 	 * @access	public
-	 * @param	HTMLimgElement		ev						L'élément déclencheur
+	 * @param	HTMLimgElement		ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	setOpen : function (ev) {
@@ -4525,7 +4525,7 @@ TafelTreeBaseBranch.prototype = {
 			ok = this.struct.onbeforeopen(this, this.struct.open, ev);
 		}
 		if (!ok) return false;
-		// On ne peut pas fermer la branche si elle subit un événement d'ouverture
+		// On ne peut pas fermer la branche si elle subit un ï¿½vï¿½nement d'ouverture
 		if (typeof(this.struct.onopenpopulate) == 'function' && !this.eventable) return false;
 		this.openIt((this.isOpened()) ? false : true);
 		if (typeof(this.struct.onopen) == 'function') {
@@ -4542,7 +4542,7 @@ TafelTreeBaseBranch.prototype = {
 	 *
 	 * @access public
 	 * @author coucoudom
-	 * @param HTMLObject drag l'objet draggé
+	 * @param HTMLObject drag l'objet draggï¿½
 	 * @param HTMLObject dragbis
 	 */
 	ondragstarteffect : function (drag, dragbis) {
@@ -4565,7 +4565,7 @@ TafelTreeBaseBranch.prototype = {
 	 *
 	 * @access public
 	 * @author coucoudom
-	 * @param HTMLObject drag l'objet draggé
+	 * @param HTMLObject drag l'objet draggï¿½
 	 * @param HTMLObject dragbis
 	 */
 	ondragendeffect : function (drag, dragbis) {
@@ -4584,17 +4584,17 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on drop sur le noeud
+	 * Mï¿½thode appelï¿½e lorsqu'on drop sur le noeud
 	 *
-	 * Ici, le this correspond à l'objet qui réceptionne le drag
+	 * Ici, le this correspond ï¿½ l'objet qui rï¿½ceptionne le drag
 	 *
 	 * @access	public
-	 * @param	HTMLElement			drag					L'élément draggué
+	 * @param	HTMLElement			drag					L'ï¿½lï¿½ment dragguï¿½
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	setDrop : function (drag, html, html2, ev) {
 		var dragObj = this.tree.getBranchByIdObj(drag.id);
-		// Si l'objet n'est pas dans l'arbre courant, on va chercher dans les autres liés
+		// Si l'objet n'est pas dans l'arbre courant, on va chercher dans les autres liï¿½s
 		if (!dragObj) {
 			for (var i = 0; i < this.tree.otherTrees.length; i++) {
 				dragObj = this.tree.otherTrees[i].getBranchByIdObj(drag.id);
@@ -4635,7 +4635,7 @@ TafelTreeBaseBranch.prototype = {
 						newBranch = this.insertBefore(dragObj.clone());
 					}
 				}
-				// Fonction utilisateur après le drop
+				// Fonction utilisateur aprï¿½s le drop
 				if (typeof(dragObj.struct.ondrop) == 'function') {
 					ok = dragObj.struct.ondrop(dragObj, this, true, newBranch, ev);
 				}				
@@ -4644,10 +4644,10 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Méthode appelée lorsqu'on double-clic sur le noeud
+	 * Mï¿½thode appelï¿½e lorsqu'on double-clic sur le noeud
 	 *
 	 * @access	public
-	 * @param	Element				ev						L'élément déclencheur
+	 * @param	Element				ev						L'ï¿½lï¿½ment dï¿½clencheur
 	 * @return	boolean										True si le changement s'est fait, false sinon
 	 */
 	setDblClick : function (ev) {
@@ -4668,11 +4668,11 @@ TafelTreeBaseBranch.prototype = {
 	},
 	
 	/**
-	 * Enlève l'édition de la branche
+	 * Enlï¿½ve l'ï¿½dition de la branche
 	 *
 	 * @access	public
-	 * @param	Event			ev						L'événement déclencheur
-	 * @return	boolean									True si l'élément a été caché, false sinon
+	 * @param	Event			ev						L'ï¿½vï¿½nement dï¿½clencheur
+	 * @return	boolean									True si l'ï¿½lï¿½ment a ï¿½tï¿½ cachï¿½, false sinon
 	 */
 	hideEditable : function (ev) {
 		if (this.editableInput && this.struct.editable) {
@@ -4760,14 +4760,14 @@ var TafelTreeRoot = Class.create();
 
 TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 	/**
-	 * Constructeur d'un élément racine
+	 * Constructeur d'un ï¿½lï¿½ment racine
 	 *
 	 * @access	public
 	 * @param	TafelTree			tree					L'objet TafelTree courant
 	 * @param	object				struct					Les infos concernant la racine est ses enfants
 	 * @param	integer				level					Le niveau du noeud (0 pour la racine)
 	 * @param	boolean				before					True s'il y a des noeuds avant
-	 * @param	boolean				after					True s'il y a des noeuds après
+	 * @param	boolean				after					True s'il y a des noeuds aprï¿½s
 	 */
 	initialize : function (tree, struct, level, before, after, pos) {
 		this.isRoot = true;
@@ -4795,11 +4795,11 @@ TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 
 	/**
-	 * Méthode qui insère une branche avant celle courante
+	 * Mï¿½thode qui insï¿½re une branche avant celle courante
 	 *
 	 * @access	public
 	 * @param	object				item					Un objet au format TafelTreeBranch
-	 * @return	TafelTreeRoot								La nouvelle racine insérée
+	 * @return	TafelTreeRoot								La nouvelle racine insï¿½rï¿½e
 	 */
 	insertBefore : function (item) {
 		if (this.parent) return false;
@@ -4814,11 +4814,11 @@ TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 
 	/**
-	 * Méthode qui insère une branche après celle courante
+	 * Mï¿½thode qui insï¿½re une branche aprï¿½s celle courante
 	 *
 	 * @access	public
 	 * @param	object				item					Un objet au format TafelTreeBranch
-	 * @return	TafelTreeRoot								La nouvelle racine insérée
+	 * @return	TafelTreeRoot								La nouvelle racine insï¿½rï¿½e
 	 */
 	insertAfter : function (item) {
 		if (this.parent) return false;
@@ -4868,10 +4868,10 @@ TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Méthode pour ajouter l'élément principal
+	 * Mï¿½thode pour ajouter l'ï¿½lï¿½ment principal
 	 *
 	 * @access	private
-	 * @return	HTMLDivElement								L'élément DIV créé
+	 * @return	HTMLDivElement								L'ï¿½lï¿½ment DIV crï¿½ï¿½
 	 */
 	_addRoot : function () {
 		var div = document.createElement('div');
@@ -4880,16 +4880,16 @@ TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Méthode pour ajouter le contenu de l'élément (images + textes)
+	 * Mï¿½thode pour ajouter le contenu de l'ï¿½lï¿½ment (images + textes)
 	 *
-	 * Créé une structure comme suit :
+	 * Crï¿½ï¿½ une structure comme suit :
 	 *	<table><tbody><tr>
 	 *		<td><img /></td>
 	 *		<td><![-- CDATA --]></td>
 	 *	</tr></tbody></table>
 	 *
 	 * @access	private
-	 * @return	HTMLTbodyElement							L'élément TBODY créé
+	 * @return	HTMLTbodyElement							L'ï¿½lï¿½ment TBODY crï¿½ï¿½
 	 */
 	_addContent : function () {
 		var table = document.createElement('table');
@@ -4917,7 +4917,7 @@ TafelTreeRoot.prototype = Object.extend(new TafelTreeBaseBranch, {
 			this.tooltip = this._createTooltip();
 			tdTxt.appendChild(this.tooltip);
 		}
-		// Insertion de l'image avant l'icône
+		// Insertion de l'image avant l'icï¿½ne
 		this.tdImg = tdImg;
 		this.beforeIcon = this._getImgBeforeIcon();
 		tr.appendChild(this.beforeIcon);
@@ -4994,24 +4994,24 @@ Properties description
 
 this.tree     : l'arbre de la branche
 this.root     : la racine de la branche
-this.parent   : le parent de la branche (peut être this.root)
+this.parent   : le parent de la branche (peut ï¿½tre this.root)
 this.level    : le niveau de la branche. Le 1er niveau sous la racine est le 1
 this.pos      : la position de la branche au sein des enfants du parent
-this.idObj    : l'id attribué automatiquement. Ne pas se baser dessus pour les developpements externes
+this.idObj    : l'id attribuï¿½ automatiquement. Ne pas se baser dessus pour les developpements externes
 this.children : les enfants de la branche
 this.objDrag  : L'objet Draggable
 
 this.struct           : la structure de la branche avec toutes les infos utilisateur
 
 this.eventable :
-Détermine si la branche peut être drag n' droppée ou non.
-Utilisé uniquement lors du dragndrop ajax et open ajax.
+Dï¿½termine si la branche peut ï¿½tre drag n' droppï¿½e ou non.
+Utilisï¿½ uniquement lors du dragndrop ajax et open ajax.
 
 this.obj        : HTMLDivElement qui symbolise la branche
 this.content    : HTMLTBodyElement qui symbolise le contenu de la branche
-this.beforeIcon : HTMLTdElement qui symbolise la TD contenant le picto avant l'icône
-this.img        : HTMLImgElement qui représente l'icône avant le texte
-this.txt        : HTMLTextNodeElement qui représente le texte de la branche
+this.beforeIcon : HTMLTdElement qui symbolise la TD contenant le picto avant l'icï¿½ne
+this.img        : HTMLImgElement qui reprï¿½sente l'icï¿½ne avant le texte
+this.txt        : HTMLTextNodeElement qui reprï¿½sente le texte de la branche
 this.table      : HTMLTableElement qui est le parent du Tbody (this.content)
 */
 
@@ -5027,7 +5027,7 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	 * @param	object				struct					Les infos concernant la branche est ses enfants
 	 * @param	integer				level					Le niveau du noeud
 	 * @param	boolean				before					True s'il y a des noeuds avant
-	 * @param	boolean				after					True s'il y a des noeuds après
+	 * @param	boolean				after					True s'il y a des noeuds aprï¿½s
 	 * @param	integer				pos						La position dans le tableau children[] du parent
 	 */
 	initialize : function (root, parent, struct, level, before, after, pos) {
@@ -5106,17 +5106,17 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Méthode pour déplacer une branche dans l'arbre comme fille
+	 * Mï¿½thode pour dï¿½placer une branche dans l'arbre comme fille
 	 *
 	 * @access	public
 	 * @param	string				hereb					L'id de la nouvelle branche parente
-	 * @return	TafelTreeBranch								La branche bougée
+	 * @return	TafelTreeBranch								La branche bougï¿½e
 	 */
 	move : function (hereb) {
 		return this.moveIntoLast(hereb);
 	},
 	moveIntoLast : function (hereb) {
-		// On récupère l'objet "here"
+		// On rï¿½cupï¿½re l'objet "here"
 		var here = this.tree.getBranchById(hereb);
 		if (!here) return false
 
@@ -5133,7 +5133,7 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	moveIntoFirst : function (hereb) {
-		// On récupère l'objet "here"
+		// On rï¿½cupï¿½re l'objet "here"
 		var here = this.tree.getBranchById(hereb);
 		if (!here) return false
 
@@ -5145,14 +5145,14 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Méthode pour déplacer une branche dans l'arbre comme soeur
+	 * Mï¿½thode pour dï¿½placer une branche dans l'arbre comme soeur
 	 *
 	 * @access	public
 	 * @param	string				hereb					L'id de la nouvelle branche soeur
 	 * @return	void
 	 */
 	moveBefore : function (hereb) {
-		// On récupère l'objet "here"
+		// On rï¿½cupï¿½re l'objet "here"
 		var here = this.tree.getBranchById(hereb);
 		if (!here) return false;
 
@@ -5164,7 +5164,7 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 
 	moveAfter : function (hereb) {
-		// On récupère l'objet "here"
+		// On rï¿½cupï¿½re l'objet "here"
 		var here = this.tree.getBranchById(hereb);
 		if (!here) return false;
 
@@ -5183,10 +5183,10 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	 */
 	
 	/**
-	 * Méthode pour ajouter l'élément principal
+	 * Mï¿½thode pour ajouter l'ï¿½lï¿½ment principal
 	 *
 	 * @access	private
-	 * @return	HTMLDivElement								L'élément DIV créé
+	 * @return	HTMLDivElement								L'ï¿½lï¿½ment DIV crï¿½ï¿½
 	 */
 	_addBranch : function () {
 		var div = document.createElement('div');
@@ -5195,35 +5195,35 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Méthode pour ajouter le contenu de l'élément (images + textes)
+	 * Mï¿½thode pour ajouter le contenu de l'ï¿½lï¿½ment (images + textes)
 	 *
-	 * Créé une structure comme suit :
+	 * Crï¿½ï¿½ une structure comme suit :
 	 *	<table><tbody><tr>
 	 *		<td><img /></td>
 	 *		<td><img /></td>
-	 *		<td>etc. (relatif au niveau de l'élément courant)</td>
+	 *		<td>etc. (relatif au niveau de l'ï¿½lï¿½ment courant)</td>
 	 *		<td><![-- CDATA --]></td>
 	 *	</tr></tbody></table>
 	 *
 	 * @access	private
-	 * @return	HTMLTbodyElement							L'élément TBODY créé
+	 * @return	HTMLTbodyElement							L'ï¿½lï¿½ment TBODY crï¿½ï¿½
 	 */
 	_addContent : function () {
 		var table = document.createElement('table');
 		var tbody = document.createElement('tbody');
 		var tr = document.createElement('tr');
 		var img = document.createElement('img');
-		// Toutes les images jusqu'à celle avant l'icône
+		// Toutes les images jusqu'ï¿½ celle avant l'icï¿½ne
 		var imgs = this._addImgs();
 		var nbImgs = imgs.length;
 		for (var i = nbImgs - 1; i >= 0; i--) {
 			tr.appendChild(imgs[i]);	
 		}
-		// On récupère l'image avant l'icône
+		// On rï¿½cupï¿½re l'image avant l'icï¿½ne
 		this.beforeIcon = this._getImgBeforeIcon();
 		tr.appendChild(this.beforeIcon);
 		
-		// On créé l'icone et le texte
+		// On crï¿½ï¿½ l'icone et le texte
 		var tdImg = document.createElement('td');
 		var tdTxt = document.createElement('td');
 		var img = document.createElement('img');
@@ -5246,7 +5246,7 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 		if (this.struct.style) {
 			Element.addClassName(tdTxt, this.struct.style);
 		}
-		// On append l'ensemble à la table HTML
+		// On append l'ensemble ï¿½ la table HTML
 		tdTxt.appendChild(span);
 		// Insertion du tooltip, s'il existe
 		if (this.struct.tooltip) {
@@ -5267,17 +5267,17 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 	},
 	
 	/**
-	 * Fonction qui permet de gérer toutes les lignes verticales qui précèdent l'icone
+	 * Fonction qui permet de gï¿½rer toutes les lignes verticales qui prï¿½cï¿½dent l'icone
 	 *
 	 * @access	private
-	 * @return	array										Les images à mettre avant l'icône
+	 * @return	array										Les images ï¿½ mettre avant l'icï¿½ne
 	 */
 	_addImgs : function () {
 		var obj = this.parent;
 		var cpt = 0;
 		var imgs = [];
 		var img = null;
-		// On détermine s'il y a des lignes verticales avant l'icone et le texte
+		// On dï¿½termine s'il y a des lignes verticales avant l'icone et le texte
 		var td = null;
 		while (obj.parent) {
 			td = document.createElement('td');
@@ -5295,7 +5295,7 @@ TafelTreeBranch.prototype = Object.extend(new TafelTreeBaseBranch, {
 			cpt++;
 			obj = obj.parent;
 		}
-		// On teste si le root à des soeurs. Si oui, on ajoute encore une ligne
+		// On teste si le root ï¿½ des soeurs. Si oui, on ajoute encore une ligne
 		td = document.createElement('td');
 		img = document.createElement('img');
 		if (!this.root.hasSiblingsAfter) {
@@ -5352,7 +5352,7 @@ var TafelTreeManager = {
 	 */
 	
 	/**
-	 * @var		boolean			stopEvent				Stoppe la propagation de l'événement
+	 * @var		boolean			stopEvent				Stoppe la propagation de l'ï¿½vï¿½nement
 	 */
 	stopEvent : true,
 	
@@ -5362,12 +5362,12 @@ var TafelTreeManager = {
 	keyboardEvents : true,
 	
 	/**
-	 * @var		boolean			keyboardStructEvents	True pour activer la gestion clavier relative à la structure
+	 * @var		boolean			keyboardStructEvents	True pour activer la gestion clavier relative ï¿½ la structure
 	 */
 	keyboardStructuralEvents : true,
 	
 	/**
-	 * @var		array			trees					Les arbres actuellement loadés
+	 * @var		array			trees					Les arbres actuellement loadï¿½s
 	 */
 	trees : [],
 	
@@ -5392,7 +5392,7 @@ var TafelTreeManager = {
 	/**
 	 * Permet de setter des fonctions utilisateur pour les touches voulues
 	 *
-	 * L'objet keys est formé comme ceci :
+	 * L'objet keys est formï¿½ comme ceci :
 	 *	- keys[0].key = code de la touche
 	 *	- keys[0].func = fonction utilisateur
 	 *
@@ -5408,7 +5408,7 @@ var TafelTreeManager = {
 	 * Ajoute un arbre dans le manager
 	 *
 	 * @access	public
-	 * @param	TafelTree		tree					L'arbre à ajouter
+	 * @param	TafelTree		tree					L'arbre ï¿½ ajouter
 	 * @return	void
 	 */
 	add : function (tree) {
@@ -5445,10 +5445,10 @@ var TafelTreeManager = {
 	},
 	
 	/**
-	 * Retourne true si la touche POMME est appuyée (sur Mac Safari)
+	 * Retourne true si la touche POMME est appuyï¿½e (sur Mac Safari)
 	 *
 	 * @access	public
-	 * @return	boolean									True si POMME est appuyé
+	 * @return	boolean									True si POMME est appuyï¿½
 	 */
 	metaOn : function (ev) {
 		var ok = false;
@@ -5459,10 +5459,10 @@ var TafelTreeManager = {
 	},
 	
 	/**
-	 * Retourne true si la touche CTRL est appuyée
+	 * Retourne true si la touche CTRL est appuyï¿½e
 	 *
 	 * @access	public
-	 * @return	boolean									True si CTRL est appuyé
+	 * @return	boolean									True si CTRL est appuyï¿½
 	 */
 	ctrlOn : function (ev) {
 		var ok = false;
@@ -5473,10 +5473,10 @@ var TafelTreeManager = {
 	},
 	
 	/**
-	 * Retourne true si la touche ALT est appuyée
+	 * Retourne true si la touche ALT est appuyï¿½e
 	 *
 	 * @access	public
-	 * @return	boolean									True si ALT est appuyé
+	 * @return	boolean									True si ALT est appuyï¿½
 	 */
 	altOn : function (ev) {
 		var ok = false;
@@ -5487,10 +5487,10 @@ var TafelTreeManager = {
 	},
 	
 	/**
-	 * Retourne true si la touche SHIFT est appuyée
+	 * Retourne true si la touche SHIFT est appuyï¿½e
 	 *
 	 * @access	public
-	 * @return	boolean									True si ALT est appuyé
+	 * @return	boolean									True si ALT est appuyï¿½
 	 */
 	shiftOn : function (ev) {
 		var ok = false;
@@ -5504,7 +5504,7 @@ var TafelTreeManager = {
 	 * Retourne le code clavier
 	 *
 	 * @access	public
-	 * @param	Event			ev						L'événement déclencheur
+	 * @param	Event			ev						L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	getCode : function (ev) {
@@ -5512,7 +5512,7 @@ var TafelTreeManager = {
 	},
 	
 	/**
-	 * Assigne tous les événements nécessaires
+	 * Assigne tous les ï¿½vï¿½nements nï¿½cessaires
 	 *
 	 * @access	public
 	 * @return	void
@@ -5535,10 +5535,10 @@ var TafelTreeManager = {
 	 */
 
 	/**
-	 * Déselectionne l'arbre courant
+	 * Dï¿½selectionne l'arbre courant
 	 *
 	 * @access	public
-	 * @param	Event			ev						L'événement déclencheur
+	 * @param	Event			ev						L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	evt_unselect : function (ev) {
@@ -5556,10 +5556,10 @@ var TafelTreeManager = {
 	 * Appel lors de la touche ENTER
 	 *
 	 * @access	public
-	 * @param	TafelTree		tree					L'arbre incriminé
+	 * @param	TafelTree		tree					L'arbre incriminï¿½
 	 * @param	integer			code					Le code de la touche
 	 * @param	Object			keys					Les infos des "metakeys" ctrl, shift, alt et meta
-	 * @param	Event			ev						L'événement déclencheur
+	 * @param	Event			ev						L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	enter : function (tree, code, keys, ev) {
@@ -5640,7 +5640,7 @@ var TafelTreeManager = {
 				var branch = selected[lastPos].getPreviousOpenedBranch();
 				if (branch) branch.select(ev);
 			} else {
-				// On sélectionne automatiquement le 1er élément de l'arbre
+				// On sï¿½lectionne automatiquement le 1er ï¿½lï¿½ment de l'arbre
 				if (typeof(tree.roots[0]) != 'undefined') tree.roots[0].select();
 			}
 			if (this.stopEvent) Event.stop(ev);
@@ -5660,7 +5660,7 @@ var TafelTreeManager = {
 				var branch = selected[lastPos].getNextOpenedBranch();
 				if (branch) branch.select(ev);
 			} else {
-				// On sélectionne automatiquement le 1er élément de l'arbre
+				// On sï¿½lectionne automatiquement le 1er ï¿½lï¿½ment de l'arbre
 				if (typeof(tree.roots[0]) != 'undefined') tree.roots[0].select();
 			}
 			if (this.stopEvent) Event.stop(ev);
@@ -5687,7 +5687,7 @@ var TafelTreeManager = {
 					}
 				}
 			} else {
-				// On sélectionne automatiquement le 1er élément de l'arbre
+				// On sï¿½lectionne automatiquement le 1er ï¿½lï¿½ment de l'arbre
 				if (typeof(tree.roots[0]) != 'undefined') tree.roots[0].select();
 			}
 			if (this.stopEvent) Event.stop(ev);
@@ -5711,7 +5711,7 @@ var TafelTreeManager = {
 					if (!branch.isRoot) branch.parent.select(ev);
 				}
 			} else {
-				// On sélectionne automatiquement le 1er élément de l'arbre
+				// On sï¿½lectionne automatiquement le 1er ï¿½lï¿½ment de l'arbre
 				if (typeof(tree.roots[0]) != 'undefined') tree.roots[0].select();
 			}
 			if (this.stopEvent) Event.stop(ev);
@@ -5799,7 +5799,7 @@ var TafelTreeManager = {
 	 * Gestion du clavier
 	 *
 	 * @access	private
-	 * @param	Event					ev							L'événement déclencheur
+	 * @param	Event					ev							L'ï¿½vï¿½nement dï¿½clencheur
 	 * @return	void
 	 */
 	evt_keyPress : function (ev) {
@@ -5812,9 +5812,9 @@ var TafelTreeManager = {
 				'altKey'   : this.altOn(ev),
 				'shiftKey' : this.shiftOn(ev)
 			};
-			// Check de la touche appuyée
+			// Check de la touche appuyï¿½e
 			var code = this.getCode(ev);
-			// Check si l'utilisateur a fourni une fonction particulière
+			// Check si l'utilisateur a fourni une fonction particuliï¿½re
 			for (var i = 0; i < this.userKeys.length; i++) {
 				if (code == this.userKeys[i].key && typeof(this.userKeys[i].func) == 'function') {
 					if (!this.userKeys[i].func(current, code, keys, ev)) {
@@ -5824,7 +5824,7 @@ var TafelTreeManager = {
 				}
 			}
 			switch (code) {
-				// Retour au début (Home) et fin (End)
+				// Retour au dï¿½but (Home) et fin (End)
 				case Event.KEY_HOME : this.moveStart(current, code, keys, ev); break;
 				case Event.KEY_END : this.moveEnd(current, code, keys, ev); break;
 				// Mouvements haut, bas, gauche et droite
@@ -5835,9 +5835,9 @@ var TafelTreeManager = {
 			}
 			if (this.keyboardStructuralEvents) {
 				switch (code) {
-					// Fin de l'édition d'une branche
+					// Fin de l'ï¿½dition d'une branche
 					case Event.KEY_RETURN : this.enter(current, code, keys, ev); break;
-					// Déselection
+					// Dï¿½selection
 					case Event.KEY_ESC : this.escape(current, code, keys, ev); break;
 					// Effacer (Del)
 					case Event.KEY_DELETE : this.remove(current, code, keys, ev); break;
