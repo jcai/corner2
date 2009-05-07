@@ -254,6 +254,7 @@ public abstract class TafelTree extends BaseComponent {
 				list = this.getTreeService().getDepthTree(this.getPage(),
 						this.getQueryClassName(), null, node.getDepth() + 1,
 						node.getLeft(), node.getRight());
+				jsonNode.put("img", "folder.gif");
 				jsonNode.put("items", this.constructorDefault(list,isDsplyLeaf));
 			}
 
