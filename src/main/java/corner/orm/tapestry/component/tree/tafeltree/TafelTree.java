@@ -55,20 +55,20 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 树的ID名.需要提供一个区域块 呈现树 如:<div id="myTree"></div>
+	 * 
 	 * @return
 	 */
 	@Parameter(defaultValue = "literal:myTree")
 	public abstract String getTreeId();
-	
+
 	/**
-	 * 默认组织树的 Json方法的this.constructorDefault(List list);
-	 * 需不需要 组织叶节点。
+	 * 默认组织树的 Json方法的this.constructorDefault(List list); 需不需要 组织叶节点。
 	 * 
 	 * @return
 	 */
 	@Parameter(defaultValue = "ognl:true")
 	public abstract boolean isDsplyLeaf();
-	
+
 	/**
 	 * 图片存放的基础地址
 	 * 
@@ -76,12 +76,13 @@ public abstract class TafelTree extends BaseComponent {
 	 */
 	@Parameter(defaultValue = "literal:/images/treeImgs/")
 	public abstract String getImgBase();
-	
+
 	@Parameter(defaultValue = "literal:page.gif")
 	public abstract String getDefaultImg();
-	
+
 	/**
 	 * 根节点的呈现文本。
+	 * 
 	 * @return
 	 */
 	@Parameter(defaultValue = "literal:root_1")
@@ -89,6 +90,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 指定根节点ID。
+	 * 
 	 * @return
 	 */
 	@Parameter(defaultValue = "literal:root_1")
@@ -96,6 +98,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 需要拥有展开所有节点功能控件的ID
+	 * 
 	 * @return
 	 */
 	@Parameter
@@ -103,41 +106,63 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 需要拥有关闭所有节点功能控件的ID
+	 * 
 	 * @return
 	 */
 	@Parameter
 	public abstract String getCollapseElementId();
-	
+
 	/**
 	 * 需要拥有展开和关闭所有节点功能控件的ID
+	 * 
 	 * @return
 	 */
 	@Parameter
 	public abstract String getOptTreeCmpId();
-	
+
+	/**
+	 * 获得单击节点事件函数名。该函数可以接受一个 节点实体
+	 * 
+	 * @return
+	 */
+	@Parameter(defaultValue = "literal:myClick")
+	public abstract String getOnClickFun();
+
+	/**
+	 * 获得单击节点事件链接URL。、
+	 * 
+	 * @return
+	 */
+	@Parameter
+	public abstract String getOpenLink();
+
 	/**
 	 * 需要拥有显示和隐藏所有叶节点功能控件的ID
+	 * 
 	 * @return
 	 */
 	@Parameter
 	public abstract String getOptTreeLeafCmpId();
-	
+
 	/**
 	 * 获得构造树型的 json串.为空折采用默认方法
+	 * 
 	 * @return
 	 */
 	@Parameter
 	public abstract String getJSONStruct();
-	
+
 	/**
 	 * 树型 json 配置串
+	 * 
 	 * @return
 	 */
 	@Parameter
 	public abstract String getJSONCfg();
-	
+
 	/**
 	 * 采用默认方法时必须提供的查询类.
+	 * 
 	 * @return
 	 */
 	@Parameter
@@ -161,12 +186,14 @@ public abstract class TafelTree extends BaseComponent {
 		parms.put("collapseElementId", this.getCollapseElementId());
 		parms.put("optTreeCmpId", this.getOptTreeCmpId());
 		parms.put("optTreeLeafCmpId", this.getOptTreeLeafCmpId());
-		
+
 		parms.put("treeStruct", this.getTreeJsonStr(this.isDsplyLeaf()));
 		parms.put("treeStruct1", this.getTreeJsonStr(false));
 		parms.put("treeConfig", this.getTreeCfgJsonStr());
 		parms.put("rootId", this.getRootId());
-
+		parms.put("openLink", this.getWebRequest().getContextPath()
+				+ this.getOpenLink());
+		
 		getScript().execute(this, cycle, pageRenderSupport, parms);
 	}
 
@@ -179,13 +206,19 @@ public abstract class TafelTree extends BaseComponent {
 		if (StringUtils.blank(this.getJSONCfg())) {
 			// width default value : 100%
 			// height default value : auto
-			return "{'generate' : true," + "'imgBase' : '"
-					+ this.getWebRequest().getContextPath() + this.getImgBase()
-					+ "'," + "'defaultImg' : '" + getDefaultImg() + "',"
-					+ "'defaultImgOpen' : 'folderopen.gif',"
-					+ "'defaultImgClose' : 'folder.gif'," + "'width' : '100%',"
-					+ "'height' : 'auto'," + "'openAtLoad' : false,"
-					+ "'cookies' : false" + "}";
+			JSONObject json = new JSONObject();
+			json.put("generate", "true");
+			json.put("imgBase", this.getWebRequest().getContextPath()
+					+ this.getImgBase());
+			json.put("defaultImg", getDefaultImg());
+			json.put("defaultImgOpen", "folderopen.gif");
+			json.put("defaultImgClose", "folder.gif");
+			json.put("width", "100%");
+			json.put("height", "auto");
+			json.put("openAtLoad", "false");
+			json.put("cookies", "false");
+
+			return json.toString();
 		} else {
 			return this.getJSONCfg();
 		}
@@ -214,7 +247,7 @@ public abstract class TafelTree extends BaseComponent {
 			root.put("img", "base.gif");
 			root.put("imgopen", "base.gif");
 			root.put("imgclose", "base.gif");
-			root.put("items", constructorDefault(null,isDsplyLeaf));
+			root.put("items", constructorDefault(null, isDsplyLeaf));
 			rootArray.put(root);
 			// return jsonStr;
 			return rootArray.toString();
@@ -225,7 +258,8 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 递归构造json
-	 * @param isDsplyLeaf 
+	 * 
+	 * @param isDsplyLeaf
 	 * 
 	 * @return
 	 */
@@ -241,12 +275,18 @@ public abstract class TafelTree extends BaseComponent {
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 			ITreeAdaptor node = (ITreeAdaptor) iterator.next();
 			JSONObject jsonNode = new JSONObject();
-			
-			//是否添加叶
-			if(isDsplyLeaf || isBranch(node)){
+
+			// 是否添加叶
+			if (isDsplyLeaf || isBranch(node)) {
 				jsonNode.put("id", node.getId());
 				jsonNode.put("txt", node.getNodeName());
-			}else{
+
+				// 不支持openLink
+				if (StringUtils.notBlank(this.getOpenLink())) {
+					// 换成单击事件
+					jsonNode.put("onclick", getOnClickFun());
+				}
+			} else {
 				continue;
 			}
 
@@ -254,8 +294,9 @@ public abstract class TafelTree extends BaseComponent {
 				list = this.getTreeService().getDepthTree(this.getPage(),
 						this.getQueryClassName(), null, node.getDepth() + 1,
 						node.getLeft(), node.getRight());
-				jsonNode.put("img", "folder.gif");
-				jsonNode.put("items", this.constructorDefault(list,isDsplyLeaf));
+				jsonNode.put("canhavechildren", "true");
+				jsonNode.put("items", this
+						.constructorDefault(list, isDsplyLeaf));
 			}
 
 			nodes.put(jsonNode);
@@ -266,6 +307,7 @@ public abstract class TafelTree extends BaseComponent {
 
 	/**
 	 * 是不是枝
+	 * 
 	 * @param node
 	 * @return
 	 */

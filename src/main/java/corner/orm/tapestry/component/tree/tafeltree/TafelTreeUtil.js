@@ -1,7 +1,7 @@
 var CustTafelTree = Class.create();
 CustTafelTree.prototype = {
-	initialize: function(struct,struct1,treeConfig,treeId,rootId,expendElementId,collapseElementId,optTreeCmpId,optTreeLeafCmpId){
-
+	initialize: function(struct,struct1,treeConfig,treeId,rootId,expendElementId,collapseElementId,optTreeCmpId,optTreeLeafCmpId,openLink){
+		
 		var tree = null;
 		var nodeStatus = true;
 		var leafStatus = true;
@@ -10,16 +10,24 @@ CustTafelTree.prototype = {
 		var treeIds = treeId;
 		var treeConfigs = treeConfig;
 		var rootIds = rootId;
+		
+		myClick = function(branch){
+	    	var popupObject = new PopupWindow();
+	    	popupObject.setUrl(openLink + branch.getId());
+			popupObject.autoHide();
+			popupObject.offsetX = -600;
+			popupObject.showPopup(treeIds); 
+		}
 		// This structure represents one root node with two children
 		// Tree initialisation. This function is called automatically
 		// when the page finish to load
 		tree = new TafelTree(treeId, struct, treeConfig);
-//		tree.generate(); 
+//		tree.generate();
 		
 		expend = function(){
 			tree.expend();
 			nodeStatus = false;
-		}
+		}  
 		collapseTree = function(){
 			tree.collapse();
 			nodeStatus = true;

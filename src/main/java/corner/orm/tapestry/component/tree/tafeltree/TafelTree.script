@@ -4,6 +4,9 @@
   "http://tapestry.apache.org/dtd/Script_3_0.dtd">
 <script>
 <include-script resource-path="/scriptaculous-1.7.1/prototype.js" />
+<include-script resource-path="/com/bjmaxinfo/hr/component/prompt/AnchorPosition.js"/>
+<include-script resource-path="/com/bjmaxinfo/hr/component/prompt/PopupWindow.js"/>
+
 <include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/js/scriptaculous.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/Tree-optimized.js" />
 <include-script resource-path="/corner/orm/tapestry/component/tree/tafeltree/TafelTreeUtil.js" />
@@ -17,9 +20,9 @@
 <input-symbol key="optTreeCmpId" required="no" />
 <input-symbol key="optTreeLeafCmpId" required="no" />
 <input-symbol key="rootId" required="no" />
+<input-symbol key="openLink" required="no" />
 
 <initialization>
-window.custTafelTree = new CustTafelTree(${treeStruct},${treeStruct1},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}','${optTreeCmpId}','${optTreeLeafCmpId}')
-		
+	window.custTafelTree = new CustTafelTree(${treeStruct},${treeStruct1},${treeConfig},'${treeId}','${rootId}','${expendElementId}','${collapseElementId}','${optTreeCmpId}','${optTreeLeafCmpId}','${openLink}')
 </initialization>
 </script>
