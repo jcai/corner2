@@ -15,7 +15,8 @@ CustTafelTree.prototype = {
 	    	var popupObject = new PopupWindow();
 	    	popupObject.setUrl(openLink + branch.getId());
 			popupObject.autoHide();
-			popupObject.offsetX = -600;
+			popupObject.setSize(500,300);
+			popupObject.offsetX = 30;
 			popupObject.showPopup(treeIds); 
 		}
 		// This structure represents one root node with two children
