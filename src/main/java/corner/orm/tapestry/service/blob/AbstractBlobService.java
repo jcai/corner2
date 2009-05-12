@@ -115,8 +115,10 @@ public abstract class AbstractBlobService implements IEngineService {
 			provider.setKeyValue(tableKey);
 			provider.setEntityService(entityService);
 			String type = provider.getContentType();
+			//后缀名
+			String suffix = provider.getBlobName().substring(provider.getBlobName().lastIndexOf("."));
 			
-			ComponentResponseUtils.constructResponse(provider.getBlobName(),null,cycle,_response);
+			ComponentResponseUtils.constructResponse(tableKey+suffix,null,cycle,_response);
 			outputStream(type,provider.getBlobAsBytes());
 
 
