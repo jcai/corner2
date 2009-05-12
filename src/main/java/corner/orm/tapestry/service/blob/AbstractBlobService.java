@@ -116,6 +116,7 @@ public abstract class AbstractBlobService implements IEngineService {
 			provider.setEntityService(entityService);
 			String type = provider.getContentType();
 			
+			ComponentResponseUtils.constructResponse(provider.getBlobName(),null,cycle,_response);
 			outputStream(type,provider.getBlobAsBytes());
 
 

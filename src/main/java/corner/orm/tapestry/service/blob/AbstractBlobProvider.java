@@ -85,6 +85,16 @@ public abstract class AbstractBlobProvider<T extends IBlobModel> implements IBlo
 	public String getContentType() {
 		return this.getBlobObject().getContentType();
 	}
+	
+	
+	/**
+	 * 得到blob文件名.
+	 * @see corner.orm.tapestry.service.blob.IBlobProvider#getBlobName()
+	 */
+	public String getBlobName(){
+		return this.getBlobObject().getBlobName();
+	}
+	
 	/**
 	 * 装载blob对象的数据.
 	 *

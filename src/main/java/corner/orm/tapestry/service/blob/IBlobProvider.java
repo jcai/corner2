@@ -48,4 +48,10 @@ public interface IBlobProvider {
 	 * @param entityService 实体服务.
 	 */
 	public void setEntityService(EntityService entityService);
+	
+	/**
+	 * 
+	 * @return 文件名
+	 */
+	public String getBlobName();
 }
