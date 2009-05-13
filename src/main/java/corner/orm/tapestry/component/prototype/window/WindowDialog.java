@@ -193,9 +193,9 @@ public abstract class WindowDialog extends AbstractWidget implements IDirect{
 	//        json.put("onload", getDialogScriptOnLoadName());
 	         
 	        //未知的功能，放开就报错
-	//      json.put("parent", getParent()); 
-	//      json.put("showEffect", getShowEffect());
-	//      json.put("hideEffect", getHideEffect());
+//			json.put("parent", getParent()); 
+//	        json.put("showEffect", new JSONLiteral(getShowEffect()));
+//	        json.put("hideEffect", new JSONLiteral(getHideEffect()));
 			
 			return json;
 		}
