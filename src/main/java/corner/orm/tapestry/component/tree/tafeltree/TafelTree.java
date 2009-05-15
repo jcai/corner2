@@ -311,7 +311,7 @@ public abstract class TafelTree extends BaseComponent {
 	 * @param node
 	 * @return
 	 */
-	private boolean isBranch(ITreeAdaptor node) {
+	protected boolean isBranch(ITreeAdaptor node) {
 		return (node.getRight() - node.getLeft()) != 1 ? true : false;
 	}
 }
