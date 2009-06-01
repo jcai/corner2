@@ -100,6 +100,7 @@ public abstract class TinyMceEditor extends AbstractComponent {
 	 */
 	@Override
 	protected void renderComponent(IMarkupWriter writer, IRequestCycle cycle) {
+		if(cycle.isRewinding()) return;
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mode", getMode());
 		map.put("elements", getElements());
