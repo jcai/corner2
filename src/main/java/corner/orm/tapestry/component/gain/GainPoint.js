@@ -121,25 +121,32 @@ var initTblCell = function(cell,id){
 	var lastCell = dojo.byId(id).rows[0].cells[cell.cellIndex];
 	cell.innerHTML = lastCell.innerHTML;
 	
-	if(cell.children != null && cell.children.length > 0){
-		for(childIndex = 0;childIndex < cell.children.length; childIndex++){
-			var child = cell.children[childIndex];
-			
-			switch(child.type){
-			case "text":
-				 child.value = "";
-				 break;
-			case "checkbox":
-				 child.value = "";
-				 child.checked = false;
-				 break;
-			}
-		}
-	}
+	clearTdElementValue(cell);
 	
 	cell.className = lastCell.className;
 	cell.align = lastCell.align;
 	cell.height = lastCell.height;
+}
+
+var clearTdElementValue = function(cell){
+//summary:
+//删除Td里面元素的值
+	for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){	//遍历td里面的元素
+		var child = cell.childNodes[childIndex];
+		
+		switch(child.type){
+		case "hidden":
+			 child.value = "";
+			 break;
+		case "text":
+			 child.value = "";
+			 break;
+		case "checkbox":
+			 child.value = "";
+			 child.checked = false;
+			 break;
+		}
+	}
 }
 
 var delRowById = function(pid,id){
@@ -161,23 +168,7 @@ var delRowById = function(pid,id){
 			
 			var cell = obj.rows[0].cells[i]; //获得一个td
 			
-			for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){	//遍历td里面的元素
-				
-				var child = cell.childNodes[childIndex];
-				
-				switch(child.type){
-				case "hidden":
-					 child.value = "";
-					 break;
-				case "text":
-					 child.value = "";
-					 break;
-				case "checkbox":
-					 child.value = "";
-					 child.checked = false;
-					 break;
-				}
-			}
+			clearTdElementValue(cell);
 		}
 	}else{
 		obj.deleteRow(id);		
