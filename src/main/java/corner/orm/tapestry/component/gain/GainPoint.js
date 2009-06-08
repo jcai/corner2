@@ -131,19 +131,26 @@ var initTblCell = function(cell,id){
 var clearTdElementValue = function(cell){
 //summary:
 //删除Td里面元素的值
-	for(childIndex = 0;childIndex < cell.childNodes.length; childIndex++){	//遍历td里面的元素
+	dojo.debug("cell " + cell.innerHTML);
+	for(var childIndex = 0;childIndex < cell.childNodes.length; childIndex++){	//遍历td里面的元素
 		var child = cell.childNodes[childIndex];
-		
 		switch(child.type){
+		case "textarea":
+			 child.value = "";
+			 dojo.debug("textarea!!!!!"+child.value);
+			 break;
 		case "hidden":
 			 child.value = "";
+			 dojo.debug("hidden!!!!!"+child.value);
 			 break;
 		case "text":
 			 child.value = "";
+			 dojo.debug("text!!!!!"+child.value);
 			 break;
 		case "checkbox":
 			 child.value = "";
 			 child.checked = false;
+			 dojo.debug("checkbox!!!!!"+child.value);
 			 break;
 		}
 	}
