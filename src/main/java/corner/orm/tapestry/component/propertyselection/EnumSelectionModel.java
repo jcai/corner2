@@ -24,7 +24,7 @@ public class EnumSelectionModel<T extends Enum> implements
 		IPropertySelectionModel {
 
 	private T[] list;
-
+	
 	public EnumSelectionModel(T[] list) {
 		this.list = list;
 	}
@@ -35,7 +35,7 @@ public class EnumSelectionModel<T extends Enum> implements
 	}
 
 	public Object getOption(int index) {
-		return list[index].toString();
+		return list[index];
 	}
 
 	public int getOptionCount() {
@@ -47,6 +47,9 @@ public class EnumSelectionModel<T extends Enum> implements
 	}
 
 	public Object translateValue(String value) {
+		if(list.length > 0){
+			return Enum.valueOf(list[0].getClass(), value);
+		}
 		return value;
 	}
 
