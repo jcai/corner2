@@ -41,7 +41,6 @@ import org.apache.tapestry.services.LinkFactory;
 import org.apache.tapestry.services.ServiceConstants;
 import org.apache.tapestry.util.ContentType;
 import org.apache.tapestry.web.WebResponse;
-
 import corner.orm.tapestry.utils.ComponentResponseUtils;
 
 /**

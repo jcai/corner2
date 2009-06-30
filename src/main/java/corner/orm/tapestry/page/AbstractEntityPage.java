@@ -34,9 +34,7 @@ import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.link.ILinkRenderer;
 import org.apache.tapestry.services.DataSqueezer;
-
 import corner.model.IBlobModel;
-import corner.orm.hibernate.v3.HibernateObjectRelativeUtils;
 import corner.orm.tapestry.RawURLLinkRenderer;
 import corner.orm.tapestry.page.relative.IPageRooted;
 import corner.orm.tapestry.service.blob.BlobAsset;
