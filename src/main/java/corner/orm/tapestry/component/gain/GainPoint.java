@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.tapestry.BaseComponent;
@@ -54,7 +55,163 @@ import corner.util.StringUtils;
  * @since 2.3.7
  */
 public abstract class GainPoint extends BaseComponent implements IFormComponent,ValidatableField {
+	
+	/**
+	 * 写入js
+	 */
+	@InjectScript("GainPoint.script")
+	public abstract IScript getScript();
+	
+	/**
+	 * 前台entity
+	 */
+	private List<List> foregroundEntitys;
+	
+	private int foregroundLength;
+	
+	private List<Object> entitys;
+	
+	/**
+	 * @return Returns the entitys.
+	 */
+	protected List<Object> getEntitys() {
+		return entitys;
+	}
 
+	/**
+	 * @param entitys The entitys to set.
+	 */
+	protected void setEntitys(List<Object> entitys) {
+		this.entitys = entitys;
+	}
+
+	/**
+	 * 要显示的属性列表
+	 */
+	public abstract List<String> getEntityPropertys();
+	public abstract void setEntityPropertys(List<String> ls);
+	
+	
+	/**
+	 * 需要增加或更新的Entitys
+	 */
+	public abstract <T> List<T> getSaveOrUpdateEntitys();
+
+	public abstract <T> void setSaveOrUpdateEntitys(List<T> l);
+
+	/**
+	 * 需要删除的的Entitys
+	 */
+	public abstract <T> List<T> getDeleteEntitys();
+
+	public abstract <T> void setDeleteEntitys(List<T> l);
+
+	/**
+	 * 数据源，用于回显或者显示
+	 */
+	@Parameter(required = true)
+	public abstract <T> List<T> getSource();
+
+	/**
+	 * 输入的元素
+	 */
+	public abstract List<GainPoint> getGainPoints();
+
+	public abstract void setGainPoints(List<GainPoint> l);
+
+	/**
+	 * 要显示的对象属性,用分号(;)隔开
+	 */
+	@Parameter(required = true)
+	public abstract String getShowPropertys();
+
+	/**
+	 * 输入的元素
+	 */
+	@Parameter(required = true)
+	public abstract String getEntityClass();
+
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(required = true)
+	public abstract String getTableId();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(defaultValue = "literal:poid")
+	public abstract String getPagePersistentId();
+	
+	/**
+	 * 相应的tableId,由gf赋值
+	 */
+	@Parameter(defaultValue = "literal:id")
+	public abstract String getPersistentId();
+	
+	@Parameter(defaultValue = "literal:tr")
+	public abstract String getElement();
+	
+	@Parameter(defaultValue = "literal:")
+	public abstract String getCheckBoxFields();
+	
+	@Parameter(defaultValue = "literal:{}")
+	public abstract String getInitFuns();
+	
+	@Parameter(defaultValue = "literal:error-div")
+	public abstract String getErrorClass();
+	
+	public abstract String getErrorMessage();
+	public abstract void setErrorMessage(String s);
+
+	/**
+	 * 
+	 */
+	public abstract IForm getForm();
+
+	public abstract void setForm(IForm form);
+	
+	/**
+	 * Injected.
+	 */
+	public abstract ValidatableFieldSupport getValidatableFieldSupport();
+
+	protected boolean getRenderBodyOnRewind() {
+		return false;
+	}
+
+	protected void setName(IForm form) {
+		setName(form.getElementId(this));
+	}
+
+	/**
+	 * @return Returns the foregroundEntitys.
+	 */
+	protected List<List> getForegroundEntitys() {
+		return foregroundEntitys;
+	}
+
+	/**
+	 * @param foregroundEntitys The foregroundEntitys to set.
+	 */
+	protected void setForegroundEntitys(List<List> foregroundEntitys) {
+		this.foregroundEntitys = foregroundEntitys;
+	}
+
+	/**
+	 * @return Returns the foregroundLength.
+	 */
+	protected int getForegroundLength() {
+		return foregroundLength;
+	}
+
+	/**
+	 * @param foregroundLength The foregroundLength to set.
+	 */
+	protected void setForegroundLength(int foregroundLength) {
+		this.foregroundLength = foregroundLength;
+	}
+	
 	/**
 	 * Invoked from {@link #renderComponent(IMarkupWriter, IRequestCycle)} to
 	 * rewind the component. If the component is
@@ -428,160 +585,83 @@ public abstract class GainPoint extends BaseComponent implements IFormComponent,
 		
 		return json;
 	}
-
-	/**
-	 * 写入js
-	 */
-	@InjectScript("GainPoint.script")
-	public abstract IScript getScript();
+	
+	/*
+	 *  验证工具
+	 * */
+	private static String REQUIRED_VALIDATORS_MESSAGE = "必须有一行数据.";
+	private static String RATE_VALIDATORS_MESSAGE = "%1$s 只能输入数字，且最大100，最小0.";
+	private static String TWENTY_FOUR_HOURS_VALIDATORS_MESSAGE = "%1$s 只能输入数字，且最大24，最小0.";
 	
 	/**
-	 * 前台entity
+	 * 唯一验证
+	 * @param gp
 	 */
-	private List<List> foregroundEntitys;
-	
-	private int foregroundLength;
-	
-	private List<Object> entitys;
-	
-	/**
-	 * @return Returns the entitys.
-	 */
-	protected List<Object> getEntitys() {
-		return entitys;
+	public static void doRequiredValidators(GainPoint gp) {
+		if(gp == null){
+			throw new IllegalStateException(REQUIRED_VALIDATORS_MESSAGE);
+		}
+		if(gp.getSaveOrUpdateEntitys() == null || gp.getSaveOrUpdateEntitys().size() == 0){
+			throw new IllegalStateException(REQUIRED_VALIDATORS_MESSAGE);
+		}
 	}
-
+	
 	/**
-	 * @param entitys The entitys to set.
+	 * 度验证
+	 * @param detail
 	 */
-	protected void setEntitys(List<Object> entitys) {
-		this.entitys = entitys;
+	public static void doRateValidators(String value, String message) {
+		//如果是空返回
+		if(StringUtils.blank(value)){
+			return;
+		}
+		
+		String regEx="\\d";
+		Pattern p=Pattern.compile(regEx);
+		if(!p.matcher(value).find() && StringUtils.notBlank(value)){
+			throw new IllegalStateException(String.format(RATE_VALIDATORS_MESSAGE, message));
+		}
+		
+		try{
+			double num = Double.valueOf(value);
+			if(num<0){
+				throw new IllegalStateException(String.format(RATE_VALIDATORS_MESSAGE, message));
+			}
+			
+			if(num>100){
+				throw new IllegalStateException(String.format(RATE_VALIDATORS_MESSAGE, message));
+			}
+		}catch(NumberFormatException e){
+			throw new IllegalStateException(String.format(RATE_VALIDATORS_MESSAGE, message));
+		}
 	}
-
-	/**
-	 * 要显示的属性列表
-	 */
-	public abstract List<String> getEntityPropertys();
-	public abstract void setEntityPropertys(List<String> ls);
-	
 	
 	/**
-	 * 需要增加或更新的Entitys
+	 * 24小时效验
+	 * @param detail
 	 */
-	public abstract <T> List<T> getSaveOrUpdateEntitys();
-
-	public abstract <T> void setSaveOrUpdateEntitys(List<T> l);
-
-	/**
-	 * 需要删除的的Entitys
-	 */
-	public abstract <T> List<T> getDeleteEntitys();
-
-	public abstract <T> void setDeleteEntitys(List<T> l);
-
-	/**
-	 * 数据源，用于回显或者显示
-	 */
-	@Parameter(required = true)
-	public abstract <T> List<T> getSource();
-
-	/**
-	 * 输入的元素
-	 */
-	public abstract List<GainPoint> getGainPoints();
-
-	public abstract void setGainPoints(List<GainPoint> l);
-
-	/**
-	 * 要显示的对象属性,用分号(;)隔开
-	 */
-	@Parameter(required = true)
-	public abstract String getShowPropertys();
-
-	/**
-	 * 输入的元素
-	 */
-	@Parameter(required = true)
-	public abstract String getEntityClass();
-
-	/**
-	 * 相应的tableId,由gf赋值
-	 */
-	@Parameter(required = true)
-	public abstract String getTableId();
-	
-	/**
-	 * 相应的tableId,由gf赋值
-	 */
-	@Parameter(defaultValue = "literal:poid")
-	public abstract String getPagePersistentId();
-	
-	/**
-	 * 相应的tableId,由gf赋值
-	 */
-	@Parameter(defaultValue = "literal:id")
-	public abstract String getPersistentId();
-	
-	@Parameter(defaultValue = "literal:tr")
-	public abstract String getElement();
-	
-	@Parameter(defaultValue = "literal:")
-	public abstract String getCheckBoxFields();
-	
-	@Parameter(defaultValue = "literal:{}")
-	public abstract String getInitFuns();
-	
-	@Parameter(defaultValue = "literal:error-div")
-	public abstract String getErrorClass();
-	
-	public abstract String getErrorMessage();
-	public abstract void setErrorMessage(String s);
-
-	/**
-	 * 
-	 */
-	public abstract IForm getForm();
-
-	public abstract void setForm(IForm form);
-	
-	/**
-	 * Injected.
-	 */
-	public abstract ValidatableFieldSupport getValidatableFieldSupport();
-
-	protected boolean getRenderBodyOnRewind() {
-		return false;
-	}
-
-	protected void setName(IForm form) {
-		setName(form.getElementId(this));
-	}
-
-	/**
-	 * @return Returns the foregroundEntitys.
-	 */
-	protected List<List> getForegroundEntitys() {
-		return foregroundEntitys;
-	}
-
-	/**
-	 * @param foregroundEntitys The foregroundEntitys to set.
-	 */
-	protected void setForegroundEntitys(List<List> foregroundEntitys) {
-		this.foregroundEntitys = foregroundEntitys;
-	}
-
-	/**
-	 * @return Returns the foregroundLength.
-	 */
-	protected int getForegroundLength() {
-		return foregroundLength;
-	}
-
-	/**
-	 * @param foregroundLength The foregroundLength to set.
-	 */
-	protected void setForegroundLength(int foregroundLength) {
-		this.foregroundLength = foregroundLength;
+	public static void doTwentyFourHoursValidators(String value, String message) {
+		//如果是空返回
+		if(StringUtils.blank(value)){
+			return;
+		}
+		String regEx="\\d";
+		Pattern p=Pattern.compile(regEx);
+		if(!p.matcher(value).find() && StringUtils.notBlank(value)){
+			throw new IllegalStateException(String.format(TWENTY_FOUR_HOURS_VALIDATORS_MESSAGE, message));
+		}
+		
+		try{
+			double num = Double.valueOf(value);
+			if(num<0){
+				throw new IllegalStateException(String.format(TWENTY_FOUR_HOURS_VALIDATORS_MESSAGE, message));
+			}
+			
+			if(num>24){
+				throw new IllegalStateException(String.format(TWENTY_FOUR_HOURS_VALIDATORS_MESSAGE, message));
+			}
+		}catch(NumberFormatException e){
+			throw new IllegalStateException(String.format(TWENTY_FOUR_HOURS_VALIDATORS_MESSAGE, message));
+		}
 	}
 }
