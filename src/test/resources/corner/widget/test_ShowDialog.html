@@ -6,11 +6,7 @@
 <SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/widget/Widget.js"></script>
 <script type="text/javascript">
 	dojo.require("tapestry.widget.Widget");
-</script>
-<SCRIPT>
-	dojo.event.connect('after', dojo.byId('test'),'onclick', function(){
-		dojo.widget.byId('errorMessage').show();
-	});
+	dojo.require("dojo.widget.*");
 </script>
 <style type="text/css">
 body { font-family : sans-serif; }
@@ -25,20 +21,46 @@ form {
 	margin-bottom : 0;
 }
 
+.alertDialog {
+	width: 30em;
+	border: 2px solid #ff660a;
+	padding: 1em;
+	background: #ffffff;
+	-moz-border-radius: 10px;
+}
+
+.alertContent .alertButton {
+	float: right;
+	position: relative;
+	bottom: 1em;
+	background: #0066FF;
+}
+
+
 </style>
 	
 </head>
 <body>
-<input type="button" id="test" value="test"/>
-<div id="errorMessage"   hidden="ognl:isHidden">
+<input type="button" id="test" value="test" onclick="test()"/>
+<div id="errorMessage">
     <div class="alertDialog">
     <div class="alertContent">
     <div>
-    <span jwcid="@Insert" value="ognl:msg"/>
+    域名不唯一请修改后重新审核
         </div>           
-    <input type="button" class="alertButton" onClick="dojo.widget.byId('errorMessage').hide();return false" value="Close"/>
+    <input type="button" onClick="dojo.widget.byId('errorMessage').hide();return false" value="Close"/>
             </div>
     </div>
 </div>
+<SCRIPT>
+tapestry.widget.synchronizeWidgetState("errorMessage", "Dialog", {"bgColor":"black","bgOpacity":0.4000000059604645,"followScroll":true,"closeOnBackgroundClick":false,"blockDuration":0,"lifeTime":0,"toggle":"fade","toggleDuration":150}, false);
+dojo.widget.byId("errorMessage").hide();
+function test(){
+	dojo.debug('before');
+	dojo.widget.byId('errorMessage').show();
+	dojo.debug('after');
+}
+	
+</script>
 </body>
 </html>
