@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Dialog Widget Dojo Tests</title>
+<script type="text/javascript"> djConfig = { isDebug: true }; </script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/dojo/dojo.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="../../../../main/js/tapestry/widget/Widget.js"></script>
+<script type="text/javascript">
+	dojo.require("tapestry.widget.Widget");
+</script>
+<SCRIPT>
+	dojo.event.connect('after', dojo.byId('test'),'onclick', function(){
+		dojo.widget.byId('errorMessage').show();
+	});
+</script>
+<style type="text/css">
+body { font-family : sans-serif; }
+.dojoDialog {
+	background : #eee;
+	border : 1px solid #999;
+	-moz-border-radius : 5px;
+	padding : 4px;
+}
+
+form {
+	margin-bottom : 0;
+}
+
+</style>
+	
+</head>
+<body>
+<input type="button" id="test" value="test"/>
+<div id="errorMessage"   hidden="ognl:isHidden">
+    <div class="alertDialog">
+    <div class="alertContent">
+    <div>
+    <span jwcid="@Insert" value="ognl:msg"/>
+        </div>           
+    <input type="button" class="alertButton" onClick="dojo.widget.byId('errorMessage').hide();return false" value="Close"/>
+            </div>
+    </div>
+</div>
+</body>
+</html>
