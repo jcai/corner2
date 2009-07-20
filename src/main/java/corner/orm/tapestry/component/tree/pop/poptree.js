@@ -23,11 +23,16 @@ PopTree.prototype = {
 								this.element.setAttribute(key,data.returnDates[key]);
 							}
 							
-							this.clickExpense = function(evt){
+							if(isVerifyLeafNode && (data.right - data.left) != 1){
+								this.clickExpense = function(evt){ this.onClick();}.bind(this);
+									Event.observe(this.span,'click',this.clickExpense);
+							}else{
+							    this.clickExpense = function(evt){
 								queryBox.onSelect(this.element);
-								queryBox.win.close();
-							}.bind(this);
-							Event.observe(this.span,'click',this.clickExpense);
+								queryBox.win.close();}.bind(this);
+				     			Event.observe(this.span,'click',this.clickExpense);
+							}
+						
 						},
 						callback:{
 							call:function(node,id){

@@ -191,7 +191,7 @@ public abstract class BaseLeftTree extends BaseComponent implements IDirect{
 	@Parameter
 	public abstract String getTitle();
 	
-	@Parameter(defaultValue = "ognl:true")
+	@Parameter(defaultValue = "ognl:false")
 	public abstract boolean isVerifyLeafNode();
 	
 	/**
