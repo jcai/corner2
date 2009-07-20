@@ -43,15 +43,16 @@ public class EnumSelectionModel<T extends Enum> implements
 	}
 
 	public String getValue(int index) {
-//		return list[index].toString();
-		return String.valueOf(index);
+		return list[index].toString();
+//		return String.valueOf(index);
 	}
 
 	public Object translateValue(String value) {
-//		if(list.length > 0){
-//			return Enum.valueOf(list[0].getClass(), value);
-//		}
-		return list[Integer.valueOf(value)];
+		if(list.length > 0){
+			return Enum.valueOf(list[0].getClass(), value);
+		}
+		return value;
+//		return list[Integer.valueOf(value)];
 	}
 
 	public boolean isDisabled(int arg0) {
