@@ -223,7 +223,8 @@ TinyMCE_Engine.prototype = {
 
 			if (baseHREF.indexOf('://') == -1)
 				baseHREF = h + baseHREF;
-
+			alert(baseHREF);
+			alert(h);
 			tinyMCE.settings['document_base_url'] = baseHREF;
 			tinyMCE.settings['document_base_prefix'] = h;
 		}
