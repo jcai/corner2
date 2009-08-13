@@ -125,8 +125,8 @@ public class TreeService extends EntityService {
 		int parentRight = parentNode.getRight();
 		// 更新大于节点的值
 		/*
-		 * update table set left=left+2 where left>parentRight update table set
-		 * right=right+2 where right>=parentRight
+		 * update table set left=left+2 where left>parentRight 
+		 * update table set right=right+2 where right>=parentRight
 		 */
 
 		String updateLeftHQL = String.format(UPDATE_LEFT_HSQL,treeClassName,2);
