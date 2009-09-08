@@ -54,7 +54,7 @@ public abstract class AbstractBlobService implements IEngineService {
 
 	public static final String TABLE_KEY_VAR = "table_key";
 
-	private static final String ENTITY = "entity_blob";
+	public static final String ENTITY = "entity_blob";
 
 	
 
@@ -136,7 +136,7 @@ public abstract class AbstractBlobService implements IEngineService {
 	 * @param data
 	 * @throws IOException
 	 */
-	private void outputStream(String contentType,byte[] data) throws IOException{
+	protected void outputStream(String contentType,byte[] data) throws IOException{
 		if (data == null || contentType == null) {
 			return;
 		}
@@ -162,6 +162,9 @@ public abstract class AbstractBlobService implements IEngineService {
 	public void setResponse(WebResponse response) {
 		_response = response;
 	}
+	public WebResponse getResponse() {
+		return _response;
+	}
 
 	public void setEntityService(EntityService entityService) {
 		this.entityService = entityService;
@@ -174,5 +177,11 @@ public abstract class AbstractBlobService implements IEngineService {
     public void setDataSqueezer(DataSqueezer dataSqueezer){
     	this.dataSqueezer=dataSqueezer;
     }
+	/**
+	 * @return Returns the dataSqueezer.
+	 */
+	public DataSqueezer getDataSqueezer() {
+		return dataSqueezer;
+	}
 
 }

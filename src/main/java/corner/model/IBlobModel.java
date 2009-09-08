@@ -28,6 +28,7 @@ public interface IBlobModel {
 	public static final String BLOB_DATA_PRO_NAME="blobData";
 	public static final String BLOB_NAME_PRO_NAME="blobName";
 	public static final String CONTENT_TYPE_PRO_NAME="contentType";
+	public static final String FILE_PATH_PRO_NAME="filePath";
 
 	public abstract byte[] getBlobData();
 
@@ -44,5 +45,7 @@ public interface IBlobModel {
 	public abstract void setBlobName(String blobName);
 	
 	public abstract String getBlobName();
+	public abstract String  getFilePath();
+	public void setFilePath(String filePath);
 
 }
